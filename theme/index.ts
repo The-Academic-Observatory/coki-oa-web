@@ -1,5 +1,8 @@
-import {extendTheme, theme as base, withDefaultColorScheme, withDefaultVariant} from "@chakra-ui/react";
-import {createBreakpoints} from '@chakra-ui/theme-tools';
+import {extendTheme, theme as base, withDefaultColorScheme, withDefaultVariant} from "@chakra-ui/react"
+import {createBreakpoints} from '@chakra-ui/theme-tools'
+import Table from './components/table'
+import Button from './components/button'
+import Tabs from './components/tabs'
 
 const breakpoints = createBreakpoints({
     sm: '600px',
@@ -38,8 +41,14 @@ const theme = extendTheme({
         fonts: {
             heading: `BrandonGrotesque-Bold, ${base.fonts?.heading}`,
             body: `Brandon Grotesque Light, ${base.fonts?.body}`
-        }
+        },
+        components: {
+            Table,
+            Button,
+            Tabs
+        },
     },
+
     withDefaultColorScheme({
         colorScheme: 'brand',
         components: ['Button'],

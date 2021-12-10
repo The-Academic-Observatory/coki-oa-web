@@ -15,7 +15,7 @@ const Icon = ({icon, size, ...rest}: IconProps) => {
     const pixelSize = size / 4;
 
     return (
-        <Box {...rest} width={pixelSize} height={pixelSize}>
+        <Box width={pixelSize} height={pixelSize} {...rest}>
             <IcoMoon iconSet={iconSet} icon={icon} size={size}/>
         </Box>)
 };

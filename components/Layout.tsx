@@ -108,7 +108,7 @@ export default function Layout({
                      bg='grey.200'>
                     <Flex flexDirection='column'>
                         <Box flex={1}>
-                            {/*{children}*/}
+                            {children}
                         </Box>
                     </Flex>
                 </Box>
@@ -375,6 +375,9 @@ const Navbar = ({isOpenSidebar, onOpenSidebar, onCloseSidebar, ...rest}: NavbarP
                    top={0}
                    right={0}
                    zIndex={0}
+                   height={navbarHeightDesktop}
+                   objectPosition='right top'
+                   objectFit={'cover'}
                    src='/coki-background.svg'
                    alt='Curtin Logo'/>
 

@@ -1,4 +1,5 @@
 import {
+    Box,
     GridItem,
     Heading,
     SimpleGrid,
@@ -15,12 +16,17 @@ import {getAutocompleteData, getIndexTableData} from "../lib/api";
 import Layout from "../components/Layout";
 import React from 'react';
 import IndexTable from "../components/IndexTable";
+import Icon from "../components/Icon";
 
 type Props = {
     countryList: Array<Entity>,
     institutionList: Array<Entity>,
     autocomplete: Array<object>
 }
+const countryText = "Open Access by country. Showing output counts, number and proportion of accessible outputs published between 1800 and 2021. You can sort and filter by region, subregion, number of publications, and open access levels. You may also search for a specific country.";
+const institutionText = "Open Access by institution. Showing output counts, number and proportion of accessible outputs published between 1800 to 2021. You can sort and filter by region, subregion, country, institution type, number of publications or open access levels. You may also search for a specific institution.";
+
+const maxTabsWidth = '970px';
 
 
 const IndexPage = ({countryList, institutionList, autocomplete}: Props) => {
@@ -29,34 +35,48 @@ const IndexPage = ({countryList, institutionList, autocomplete}: Props) => {
 
     return (
         <Layout>
-            <Heading>Open Access Dashboard</Heading>
-            <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sem sapien, pellentesque vitae feugiat
-                rhoncus, gravida pretium
-                nulla. Sed non sapien pulvinar, facilisis dolor aliquet, eleifend purus. Morbi ultrices velit eu ante
-                dapibus, eget ullamcorper mauris
-                convallis. Maecenas bibendum neque sit amet urna consequat posuere eu eu risus.</Text>
-            <SimpleGrid columns={6}>
-                <GridItem colSpan={colSpan}>
-                    <Tabs isFitted variant='enclosed'>
-                        <TabList>
-                            <Tab>Country</Tab>
-                            <Tab>Institution</Tab>
-                        </TabList>
+            <Box px='40px' pt='40px' pb='90px'>
+                <SimpleGrid columns={6} >
+                    <GridItem colSpan={colSpan} maxWidth={maxTabsWidth}>
+                        <Box py={'40px'} px={'4px'}>
+                            <Heading>Open Access Dashboard</Heading>
+                            <Text>{countryText}</Text>
+                        </Box>
 
-                        <TabPanels>
-                            <TabPanel>
-                                <IndexTable entities={countryList} categoryName='Country'/>
-                            </TabPanel>
-                            <TabPanel>
-                                <IndexTable entities={institutionList} categoryName='Institution'/>
-                            </TabPanel>
-                        </TabPanels>
-                    </Tabs>
-                </GridItem>
-                {/*<GridItem colSpan={1} display={{base: 'none', xl: 'flex'}}>*/}
-                {/*    <Filters/>*/}
-                {/*</GridItem>*/}
-            </SimpleGrid>
+                        <Tabs isFitted variant='dashboard' bg="white">
+                            <TabList>
+                                <Tab><Icon icon="website" size={24} marginRight="6px"/>Country</Tab>
+                                <Tab><Icon icon="institution" size={24} marginRight="6px"/>Institution</Tab>
+                            </TabList>
+
+                            <TabPanels>
+                                <TabPanel p={0}>
+                                    <IndexTable entities={countryList} categoryName='Country'/>
+                                </TabPanel>
+                                <TabPanel p={0}>
+                                    <IndexTable entities={institutionList} categoryName='Institution'/>
+                                </TabPanel>
+                            </TabPanels>
+                        </Tabs>
+
+                    </GridItem>
+                    {/*<GridItem colSpan={1} display={{base: 'none', xl: 'flex'}}>*/}
+                    {/*    <Filters/>*/}
+                    {/*</GridItem>*/}
+                </SimpleGrid>
+                {/*<Image display={{base: 'none', md: 'block'}}*/}
+                {/*       htmlWidth="56%"*/}
+                {/*       maxWidth="900px"*/}
+                {/*       position="absolute"*/}
+                {/*       top={136}*/}
+                {/*       right={0}*/}
+                {/*       zIndex={0}*/}
+                {/*       // height={100}*/}
+                {/*       objectPosition='right -136px'*/}
+                {/*       objectFit={'cover'}*/}
+                {/*       src='/coki-background.svg'*/}
+                {/*       alt='Curtin Logo'/>*/}
+            </Box>
         </Layout>
     )
 }

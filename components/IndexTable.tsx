@@ -21,6 +21,7 @@ import Link from 'next/link';
 import {ChevronLeftIcon, ChevronRightIcon, TriangleDownIcon, TriangleUpIcon} from '@chakra-ui/icons';
 import DonutSparkline from "./DonutSparkline";
 import BreakdownSparkline from "./BreakdownSparkline";
+import Icon from "./Icon";
 
 
 function makeHref(category: string, id: string) {
@@ -36,7 +37,7 @@ function EntityCell({value, entity}) {
                     <Image
                         rounded="full"
                         objectFit="cover"
-                        boxSize='24px'
+                        boxSize='16px'
                         src={entity.logo}
                         alt={entity.name}
                     />
@@ -49,15 +50,15 @@ function EntityCell({value, entity}) {
 
 function OpenCell({value, entity}) {
     const href = makeHref(entity.category, entity.id);
-    return (<Link href={href}><a><DonutSparkline value={value} color='#f47328'/></a></Link>)
+    return (<Link href={href}><a><DonutSparkline value={value} color='#f47328' size={18}/></a></Link>)
 }
 
 function BreakdownCell({value, entity}) {
     const href = makeHref(entity.category, entity.id);
     const closed = entity.stats.n_outputs - entity.stats.n_outputs_open;
     const values = [entity.stats.n_outputs_publisher_open, entity.stats.n_outputs_other_platform_open_only, closed];
-    const colors = ['#4FA9DC', '#9FD27E', '#EBEBEB'];
-    return <Link href={href}><a><BreakdownSparkline values={values} colors={colors} width={100} height={20}/></a></Link>
+    const colors = ['#ffd700', '#9FD27E', '#EBEBEB'];
+    return <Link href={href}><a><BreakdownSparkline values={values} colors={colors} width={110} height={17}/></a></Link>
 }
 
 function NumberCell({value, entity}) {
@@ -68,8 +69,23 @@ function LearnMoreCell({value, entity}) {
     const href = makeHref(entity.category, entity.id);
     return (
         <Link href={href}>
-            <Button as="a">Learn More</Button>
+            <Button as="a" variant="dashboard" rightIcon={<Icon icon="arrow-right" color="white" size={12} />}>
+                Learn More
+            </Button>
         </Link>
+    )
+}
+
+function BreakdownHeader({value, entity}) {
+    return (
+    <span>
+            <Text>Breakdown</Text>
+            <Text fontFamily="Brandon Grotesque Light"
+                  fontSize={10}
+                  lineHeight={1.2}
+                  fontWeight={900}
+                  color="grey.900">Publisher open <br/>other platform open <br/> closed <br /></Text>
+        </span>
     )
 }
 
@@ -88,8 +104,8 @@ const IndexTable = ({entities, categoryName}: Props) => {
                 Header: categoryName,
                 accessor: 'name',
                 Cell: EntityCell,
-                minWidth: 200,
-                maxWidth: 200
+                minWidth: 220,
+                maxWidth: 220
             },
             {
                 Header: 'Open',
@@ -97,22 +113,28 @@ const IndexTable = ({entities, categoryName}: Props) => {
                 Cell: OpenCell
             },
             {
-                Header: 'Breakdown',
+                Header: BreakdownHeader,
                 id: 'breakdown',
                 accessor: 'stats.p_outputs_open',
-                Cell: BreakdownCell
+                Cell: BreakdownCell,
+                minWidth: 170,
+                maxWidth: 170
             },
             {
                 Header: 'Total Publications',
                 accessor: 'stats.n_outputs',
                 Cell: NumberCell,
                 isNumeric: true,
+                minWidth: 150,
+                maxWidth: 150
             },
             {
                 Header: 'Open Publications',
                 accessor: 'stats.n_outputs_open',
                 Cell: NumberCell,
                 isNumeric: true,
+                minWidth: 150,
+                maxWidth: 150
             },
             {
                 Header: '',
@@ -148,7 +170,7 @@ const IndexTable = ({entities, categoryName}: Props) => {
             data,
             autoResetPage: false,
             autoResetSortBy: false,
-            initialState: {pageIndex: 0, pageSize: 10}
+            initialState: {pageIndex: 0, pageSize: 18}
         },
         useSortBy,
         usePagination,
@@ -162,7 +184,7 @@ const IndexTable = ({entities, categoryName}: Props) => {
     return (
         <Box>
             <Box overflowX="auto">
-                <Table {...getTableProps()} size='sm'>
+                <Table {...getTableProps()} size={"sm"} variant="dashboard">
                     <Thead>
                         {headerGroups.map((headerGroup) => (
                             <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -170,6 +192,8 @@ const IndexTable = ({entities, categoryName}: Props) => {
                                     <Th
                                         {...column.getHeaderProps(column.getSortByToggleProps())}
                                         isNumeric={column.isNumeric}
+                                        minWidth={column.minWidth}
+                                        maxWidth={column.maxWidth}
                                     >
                                         {column.render('Header')}
                                     </Th>
@@ -182,6 +206,7 @@ const IndexTable = ({entities, categoryName}: Props) => {
                             prepareRow(row);
                             return (
                                 <Tr {...row.getRowProps()}>
+                                    {/*<Link href={makeHref(row.original.category, row.original.id)}>*/}
                                     {row.cells.map((cell) => (
                                         <Td {...cell.getCellProps()}
                                             isNumeric={cell.column.isNumeric}
@@ -190,28 +215,29 @@ const IndexTable = ({entities, categoryName}: Props) => {
                                             {cell.render('Cell', { entity: row.original})}
                                         </Td>
                                     ))}
+                                    {/*</Link>*/}
                                 </Tr>
                             )
                         })}
                     </Tbody>
                 </Table>
             </Box>
-            <Flex alignItems="center" justifyContent='space-between' display={{base: 'flex', xl: 'none'}}>
-                <Button rounded={30} size="lg" onClick={() => {
-                    currentPageSize += pageSizeIncrement;
-                    setPageSize(currentPageSize)
-                }}>Load More</Button>
-                <Button rounded={30} size="lg">Filter</Button>
-            </Flex>
-            <Flex alignItems="center" justifyContent='space-between' display={{base: 'none', xl: 'flex'}}>
-                <HStack>
-                    <IconButton aria-label='Previous Page' icon={<ChevronLeftIcon/>} onClick={() => previousPage()}
-                                disabled={!canPreviousPage}/>
-                    <IconButton aria-label='Next Page' icon={<ChevronRightIcon/>} onClick={() => nextPage()}
-                                disabled={!canNextPage}/>
-                </HStack>
-                <Text>Last updated 21 November 2021</Text>
-            </Flex>
+            {/*<Flex alignItems="center" justifyContent='space-between' display={{base: 'flex', xl: 'none'}}>*/}
+            {/*    <Button rounded={30} size="lg" onClick={() => {*/}
+            {/*        currentPageSize += pageSizeIncrement;*/}
+            {/*        setPageSize(currentPageSize)*/}
+            {/*    }}>Load More</Button>*/}
+            {/*    <Button rounded={30} size="lg">Filter</Button>*/}
+            {/*</Flex>*/}
+            {/*<Flex alignItems="center" justifyContent='space-between' display={{base: 'none', xl: 'flex'}}>*/}
+            {/*    <HStack>*/}
+            {/*        <IconButton aria-label='Previous Page' icon={<ChevronLeftIcon/>} onClick={() => previousPage()}*/}
+            {/*                    disabled={!canPreviousPage}/>*/}
+            {/*        <IconButton aria-label='Next Page' icon={<ChevronRightIcon/>} onClick={() => nextPage()}*/}
+            {/*                    disabled={!canNextPage}/>*/}
+            {/*    </HStack>*/}
+            {/*    <Text>Last updated 21 November 2021</Text>*/}
+            {/*</Flex>*/}
         </Box>
     )
 };

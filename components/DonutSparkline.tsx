@@ -26,16 +26,17 @@ function calcDonutSettings(value: number, color: string, strokeWidth = 5, size =
 
 type Props = {
     value: number,
-    color: string
+    color: string,
+    size: number
 }
 
 
-const DonutSparkline = ({value, color}: Props) => {
+const DonutSparkline = ({value, color, size}: Props) => {
     let s = calcDonutSettings(value, color);
     return (
         <HStack spacing={1}>
             <Text>{value.toFixed(0)}%</Text>
-            <svg width={24} height={24} viewBox="0 0 24 24">
+            <svg width={size} height={size} viewBox="0 0 24 24">
                 <circle cx={s.c} cy={s.c} fillOpacity="0" r={s.r} stroke={color}
                         strokeDasharray={s.bgStrokeDasharray.join(" ")} strokeDashoffset={s.bgOffset}
                         strokeWidth={s.strokeWidth}/>
