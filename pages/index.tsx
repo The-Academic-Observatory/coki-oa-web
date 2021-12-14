@@ -34,50 +34,58 @@ const IndexPage = ({countryList, institutionList, autocomplete}: Props) => {
     const colSpan = useBreakpointValue({base: 6, xl: 4});
 
     return (
-        <Layout>
-            <Box px='40px' pt='40px' pb='90px'>
-                <SimpleGrid columns={6} >
-                    <GridItem colSpan={colSpan} maxWidth={maxTabsWidth}>
-                        <Box py={'40px'} px={'4px'}>
-                            <Heading>Open Access Dashboard</Heading>
-                            <Text>{countryText}</Text>
-                        </Box>
+        <Box>
+            <SimpleGrid columns={6} >
+                <GridItem colSpan={colSpan}
+                          maxWidth={maxTabsWidth}>
+                    <Box pb="40px">
+                        <Heading fontSize="25px"
+                                 textTransform="uppercase"
+                                 pb="12px"
+                                 color="brand.500">Open Access Dashboard</Heading>
+                        <Text fontSize="23px"
+                              fontWeight="600"
+                              color="gray.900">{countryText}</Text>
+                    </Box>
 
-                        <Tabs isFitted variant='dashboard' bg="white">
-                            <TabList>
-                                <Tab><Icon icon="website" size={24} marginRight="6px"/>Country</Tab>
-                                <Tab><Icon icon="institution" size={24} marginRight="6px"/>Institution</Tab>
-                            </TabList>
+                    <Tabs isFitted variant='dashboard' bg="white">
+                        <TabList>
+                            <Tab><Icon icon="website"
+                                       size={24}
+                                       marginRight="6px"/>Country</Tab>
+                            <Tab><Icon icon="institution"
+                                       size={24}
+                                       marginRight="6px"/>Institution</Tab>
+                        </TabList>
 
-                            <TabPanels>
-                                <TabPanel p={0}>
-                                    <IndexTable entities={countryList} categoryName='Country'/>
-                                </TabPanel>
-                                <TabPanel p={0}>
-                                    <IndexTable entities={institutionList} categoryName='Institution'/>
-                                </TabPanel>
-                            </TabPanels>
-                        </Tabs>
+                        <TabPanels>
+                            <TabPanel p={0}>
+                                <IndexTable entities={countryList} categoryName='Country'/>
+                            </TabPanel>
+                            <TabPanel p={0}>
+                                <IndexTable entities={institutionList} categoryName='Institution'/>
+                            </TabPanel>
+                        </TabPanels>
+                    </Tabs>
 
-                    </GridItem>
-                    {/*<GridItem colSpan={1} display={{base: 'none', xl: 'flex'}}>*/}
-                    {/*    <Filters/>*/}
-                    {/*</GridItem>*/}
-                </SimpleGrid>
-                {/*<Image display={{base: 'none', md: 'block'}}*/}
-                {/*       htmlWidth="56%"*/}
-                {/*       maxWidth="900px"*/}
-                {/*       position="absolute"*/}
-                {/*       top={136}*/}
-                {/*       right={0}*/}
-                {/*       zIndex={0}*/}
-                {/*       // height={100}*/}
-                {/*       objectPosition='right -136px'*/}
-                {/*       objectFit={'cover'}*/}
-                {/*       src='/coki-background.svg'*/}
-                {/*       alt='Curtin Logo'/>*/}
-            </Box>
-        </Layout>
+                </GridItem>
+                {/*<GridItem colSpan={1} display={{base: 'none', xl: 'flex'}}>*/}
+                {/*    <Filters/>*/}
+                {/*</GridItem>*/}
+            </SimpleGrid>
+            {/*<Image display={{base: 'none', md: 'block'}}*/}
+            {/*       htmlWidth="56%"*/}
+            {/*       maxWidth="900px"*/}
+            {/*       position="absolute"*/}
+            {/*       top={136}*/}
+            {/*       right={0}*/}
+            {/*       zIndex={0}*/}
+            {/*       // height={100}*/}
+            {/*       objectPosition='right -136px'*/}
+            {/*       objectFit={'cover'}*/}
+            {/*       src='/coki-background.svg'*/}
+            {/*       alt='Curtin Logo'/>*/}
+        </Box>
     )
 }
 

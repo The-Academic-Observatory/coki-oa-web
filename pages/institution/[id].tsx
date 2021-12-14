@@ -1,5 +1,6 @@
 import {Entity} from '../../lib/model';
 import {getEntity, getEntityIds, idsToStaticPaths} from '../../lib/api';
+import Link from "../../components/Link";
 
 const category = 'institution';
 
@@ -13,6 +14,8 @@ export default function Institution({ entity }: Props) {
             {entity.id}
             <br />
             {entity.name}
+            <br />
+            <Link href="/">Back</Link>
         </>
     )
 }

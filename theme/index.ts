@@ -3,6 +3,7 @@ import {createBreakpoints} from '@chakra-ui/theme-tools'
 import Table from './components/table'
 import Button from './components/button'
 import Tabs from './components/tabs'
+import Breadcrumb from './components/breadcrumb'
 
 const breakpoints = createBreakpoints({
     sm: '600px',
@@ -45,7 +46,8 @@ const theme = extendTheme({
         components: {
             Table,
             Button,
-            Tabs
+            Tabs,
+            Breadcrumb
         },
     },
 

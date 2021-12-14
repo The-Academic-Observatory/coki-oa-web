@@ -1,7 +1,7 @@
-import React, {ReactNode} from 'react';
+import React, {ReactNode} from 'react'
 import {
     Box,
-    BoxProps,
+    BoxProps, Breadcrumb, BreadcrumbItem, BreadcrumbLink,
     Drawer,
     DrawerContent,
     Flex,
@@ -11,17 +11,17 @@ import {
     Input,
     InputGroup,
     InputLeftElement,
-    Link,
     Stack,
     StackProps,
     Text,
     useBreakpointValue,
     useDisclosure,
     VStack,
-} from '@chakra-ui/react';
+} from '@chakra-ui/react'
 
-import Icon from './Icon';
-import {SearchIcon} from '@chakra-ui/icons';
+import Icon from './Icon'
+import {SearchIcon} from '@chakra-ui/icons'
+import Link from './Link'
 
 interface LinkProps {
     name: string;
@@ -107,7 +107,23 @@ export default function Layout({
                 <Box flex={1}
                      bg='grey.200'>
                     <Flex flexDirection='column'>
-                        <Box flex={1}>
+                        <Box flex={1}
+                             px={{base: 0, md: '40px'}}
+                             pt={{base: '30px', md: '50px'}}
+                             pb={{base: '30px', md: '90px'}}>
+                            <Breadcrumb pb="54px">
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href='/home'>Home</BreadcrumbLink>
+                                </BreadcrumbItem>
+
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href='/about'>About</BreadcrumbLink>
+                                </BreadcrumbItem>
+
+                                <BreadcrumbItem isCurrentPage>
+                                    <BreadcrumbLink href='#'>Current</BreadcrumbLink>
+                                </BreadcrumbItem>
+                            </Breadcrumb>
                             {children}
                         </Box>
                     </Flex>
@@ -267,10 +283,12 @@ const FooterLinks = ({...rest}: StackProps) => {
 const FooterCredits = ({...rest}: StackProps) => {
     return (
         <VStack align="left" {...rest}>
-            <Link color={navFooterColor}
+            <Link href="https://clearbit.com/"
+                  color={navFooterColor}
                   fontSize={footerFontSize}
                   fontFamily={footerFontFamily}>Company Logos by Clearbit</Link>
-            <Link color={navFooterColor}
+            <Link href="https://www.highcharts.com/"
+                  color={navFooterColor}
                   fontSize={footerFontSize}
                   fontFamily={footerFontFamily}>Charts by Highcharts</Link>
         </VStack>

@@ -17,15 +17,15 @@ import {
 import React from 'react';
 import {usePagination, useSortBy, useTable} from "react-table";
 import {Entity} from "../lib/model";
-import Link from 'next/link';
 import {ChevronLeftIcon, ChevronRightIcon, TriangleDownIcon, TriangleUpIcon} from '@chakra-ui/icons';
 import DonutSparkline from "./DonutSparkline";
 import BreakdownSparkline from "./BreakdownSparkline";
 import Icon from "./Icon";
+import Link from './Link';
 
 
 function makeHref(category: string, id: string) {
-    return `/${category}/${id}`;
+    return `${category}/${id}`;
 }
 
 function EntityCell({value, entity}) {
@@ -205,16 +205,16 @@ const IndexTable = ({entities, categoryName}: Props) => {
                         {page.map((row, i) => {
                             prepareRow(row);
                             return (
-                                <Tr {...row.getRowProps()}>
+                                <Tr {...row.getRowProps()} zIndex="1">
                                     {/*<Link href={makeHref(row.original.category, row.original.id)}>*/}
-                                    {row.cells.map((cell) => (
-                                        <Td {...cell.getCellProps()}
-                                            isNumeric={cell.column.isNumeric}
-                                            minWidth={cell.column.minWidth}
-                                            maxWidth={cell.column.maxWidth}>
-                                            {cell.render('Cell', { entity: row.original})}
-                                        </Td>
-                                    ))}
+                                        {row.cells.map((cell) => (
+                                            <Td {...cell.getCellProps()}
+                                                isNumeric={cell.column.isNumeric}
+                                                minWidth={cell.column.minWidth}
+                                                maxWidth={cell.column.maxWidth}>
+                                                {cell.render('Cell', { entity: row.original})}
+                                            </Td>
+                                        ))}
                                     {/*</Link>*/}
                                 </Tr>
                             )
