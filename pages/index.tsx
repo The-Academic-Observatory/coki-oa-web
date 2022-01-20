@@ -1,171 +1,125 @@
+// Copyright 2022 Curtin University
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// Author: James Diprose
+
 import {
-    Box,
-    GridItem,
-    Heading,
-    SimpleGrid,
-    Tab,
-    TabList,
-    TabPanel,
-    TabPanels,
-    Tabs,
-    Text,
-    useBreakpointValue
-} from '@chakra-ui/react';
-import {Entity} from "../lib/model";
-import {getAutocompleteData, getIndexTableData} from "../lib/api";
-import Layout from "../components/Layout";
-import React from 'react';
+  Box,
+  GridItem,
+  SimpleGrid,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import { Entity } from "../lib/model";
+import { getAutocompleteData, getIndexTableData } from "../lib/api";
+import React from "react";
 import IndexTable from "../components/IndexTable";
 import Icon from "../components/Icon";
 
 type Props = {
-    countryList: Array<Entity>,
-    institutionList: Array<Entity>,
-    autocomplete: Array<object>
-}
-const countryText = "Open Access by country. Showing output counts, number and proportion of accessible outputs published between 1800 and 2021. You can sort and filter by region, subregion, number of publications, and open access levels. You may also search for a specific country.";
-const institutionText = "Open Access by institution. Showing output counts, number and proportion of accessible outputs published between 1800 to 2021. You can sort and filter by region, subregion, country, institution type, number of publications or open access levels. You may also search for a specific institution.";
+  countryList: Array<Entity>;
+  institutionList: Array<Entity>;
+  autocomplete: Array<object>;
+};
 
-const maxTabsWidth = '970px';
+const maxTabsWidth = "970px";
 
+const descriptions = [
+  "Open Access by country. Showing output counts, number and proportion of accessible outputs published " +
+    "between 1800 and 2021. You can sort and filter by region, subregion, number of publications, and open " +
+    "access levels. You may also search for a specific country.",
+  "Open Access by institution. Showing output counts, number and proportion of accessible outputs published " +
+    "between 1800 to 2021. You can sort and filter by region, subregion, country, institution type, number of " +
+    "publications or open access levels. You may also search for a specific institution.",
+];
 
-const IndexPage = ({countryList, institutionList, autocomplete}: Props) => {
-    // On mobile grid should take up entire screen
-    const colSpan = useBreakpointValue({base: 6, xl: 4});
+const IndexPage = ({ countryList, institutionList, autocomplete }: Props) => {
+  // On mobile grid should take up entire screen
+  const colSpan = useBreakpointValue({ base: 6, xl: 4 });
 
-    return (
-        <Box>
-            <SimpleGrid columns={6} >
-                <GridItem colSpan={colSpan}
-                          maxWidth={maxTabsWidth}>
-                    <Box pb="40px">
-                        <Heading fontSize="25px"
-                                 textTransform="uppercase"
-                                 pb="12px"
-                                 color="brand.500">Open Access Dashboard</Heading>
-                        <Text fontSize="23px"
-                              fontWeight="600"
-                              color="gray.900">{countryText}</Text>
-                    </Box>
+  // Change text based on tab index
+  const defaultTabIndex = 0;
+  const [tabIndex, setTabIndex] = React.useState(defaultTabIndex);
+  const [dashboardText, setDashboardText] = React.useState(
+    descriptions[defaultTabIndex]
+  );
+  const handleTabsChange = (index) => {
+    setTabIndex(index);
+    setDashboardText(descriptions[index]);
+  };
 
-                    <Tabs isFitted variant='dashboard' bg="white">
-                        <TabList>
-                            <Tab><Icon icon="website"
-                                       size={24}
-                                       marginRight="6px"/>Country</Tab>
-                            <Tab><Icon icon="institution"
-                                       size={24}
-                                       marginRight="6px"/>Institution</Tab>
-                        </TabList>
+  return (
+    <Box>
+      <SimpleGrid columns={6}>
+        <GridItem colSpan={colSpan} maxWidth={maxTabsWidth}>
+          <Box p={{ base: "30px 30px 15px", md: 0 }}>
+            <Text textStyle="homeHeader">Open Access Dashboard</Text>
+            <Text textStyle="p">{dashboardText}</Text>
+          </Box>
 
-                        <TabPanels>
-                            <TabPanel p={0}>
-                                <IndexTable entities={countryList} categoryName='Country'/>
-                            </TabPanel>
-                            <TabPanel p={0}>
-                                <IndexTable entities={institutionList} categoryName='Institution'/>
-                            </TabPanel>
-                        </TabPanels>
-                    </Tabs>
+          <Tabs
+            isFitted
+            variant="dashboard"
+            bg="white"
+            index={tabIndex}
+            onChange={handleTabsChange}
+          >
+            <TabList>
+              <Tab href="/country">
+                <Icon icon="website" size={24} marginRight="6px" />
+                <Text>Country</Text>
+              </Tab>
+              <Tab href="/institution">
+                <Icon icon="institution" size={24} marginRight="6px" />
+                <Text>Institution</Text>
+              </Tab>
+            </TabList>
 
-                </GridItem>
-                {/*<GridItem colSpan={1} display={{base: 'none', xl: 'flex'}}>*/}
-                {/*    <Filters/>*/}
-                {/*</GridItem>*/}
-            </SimpleGrid>
-            {/*<Image display={{base: 'none', md: 'block'}}*/}
-            {/*       htmlWidth="56%"*/}
-            {/*       maxWidth="900px"*/}
-            {/*       position="absolute"*/}
-            {/*       top={136}*/}
-            {/*       right={0}*/}
-            {/*       zIndex={0}*/}
-            {/*       // height={100}*/}
-            {/*       objectPosition='right -136px'*/}
-            {/*       objectFit={'cover'}*/}
-            {/*       src='/coki-background.svg'*/}
-            {/*       alt='Curtin Logo'/>*/}
-        </Box>
-    )
-}
+            <TabPanels>
+              <TabPanel p={0}>
+                <IndexTable entities={countryList} categoryName="Country" />
+              </TabPanel>
+              <TabPanel p={0}>
+                <IndexTable
+                  entities={institutionList}
+                  categoryName="Institution"
+                />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </GridItem>
+      </SimpleGrid>
+    </Box>
+  );
+};
 
 export async function getStaticProps() {
-    const countryList = getIndexTableData('country'); //.slice(0, 30);
-    const institutionList = getIndexTableData('institution'); //.slice(0, 30);
-    const autocomplete = getAutocompleteData();
-    return {
-        props: {
-            countryList: countryList,
-            institutionList: institutionList,
-            autocomplete: autocomplete
-        }
-    }
+  const countryList = getIndexTableData("country");
+  const institutionList = getIndexTableData("institution");
+  const autocomplete = getAutocompleteData();
+  return {
+    props: {
+      countryList: countryList,
+      institutionList: institutionList,
+      autocomplete: autocomplete,
+    },
+  };
 }
 
-export default IndexPage
-
-// <div className={styles.container}>
-//     <Head>
-//         <title>COKI Open Access Dashboard</title>
-//         <meta name="description" content="COKI Open Access Dashboard"/>
-//         <link rel="icon" href="/favicon.ico"/>
-//     </Head>
-
-
-{/*<main className={styles.main}>*/
-}
-{/*    <div>*/
-}
-{/*        <h1>Countries</h1>*/
-}
-{/*        <ul>*/
-}
-{/*            <li>*/
-}
-{/*                {countryList.map((entity) => {*/
-}
-{/*                    return <li key={entity.id}>*/
-}
-{/*                        <Link href={`/${entity.category}/${entity.id}`}>*/
-}
-{/*                            <a>{entity.name}</a>*/
-}
-{/*                        </Link>*/
-}
-{/*                    </li>*/
-}
-{/*                })}*/
-}
-{/*            </li>*/
-}
-{/*        </ul>*/
-}
-
-{/*        <h1>Institutions</h1>*/
-}
-{/*        <ul>*/
-}
-{/*            <li>*/
-}
-{/*                {institutionList.map((entity) => {*/
-}
-{/*                    return <li key={entity.id}>*/
-}
-{/*                        <Link href={`/${entity.category}/${entity.id}`}>*/
-}
-{/*                            <a>{entity.name}</a>*/
-}
-{/*                        </Link>*/
-}
-{/*                    </li>*/
-}
-{/*                })}*/
-}
-{/*            </li>*/
-}
-{/*        </ul>*/
-}
-{/*    </div>*/
-}
-{/*</main>*/
-}
+export default IndexPage;

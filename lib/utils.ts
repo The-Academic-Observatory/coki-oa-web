@@ -14,24 +14,25 @@
 //
 // Author: James Diprose
 
-const Tabs = {
-  variants: {
-    dashboard: {
-      tab: {
-        textStyle: "tabHeader",
-        color: "#b7b7b7",
-        height: "60px",
-        bgColor: "#f0f0f0",
-        _selected: {
-          bgColor: "white",
-          color: "brand.500",
-        },
-        _focus: {
-          boxShadow: "none",
-        },
-      },
-    },
-  },
-};
-
-export default Tabs;
+export function toReadableNumber(value: number) {
+  if (value < 1e4) {
+    // For values below 10,000
+    return value.toLocaleString();
+  } else if (value < 1e6) {
+    // Convert to thousandths
+    // Round up to nearest
+    value = Math.ceil(value / 1000);
+    return `${value}k`;
+  } else if (value < 1e9) {
+    // Convert to millionths
+    value = value / 1e6;
+    if (value < 100 && value % 1 != 0) {
+      // For not whole numbers just keep 1 dp
+      value = value.toFixed(1);
+    } else {
+      // For whole numbers remove all decimals
+      value = value.toFixed(0);
+    }
+    return `${value}m`;
+  }
+}

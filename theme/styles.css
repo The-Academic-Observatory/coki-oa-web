@@ -1,1 +1,44 @@
-@import url('https://use.typekit.net/kqq6qhu.css');
+/*.html {*/
+/*    font-size: 16px;*/
+/*}*/
+
+ul {
+    transform: translate(20px);
+}
+
+li::marker {
+    color: #FF671C;
+}
+
+ul > li {
+    padding-left: 1em;
+    margin-bottom: 1em;
+}
+
+/*Publisher Donut Drop Shadow */
+.publisherOpenDonut g > g {
+    filter: drop-shadow( 0px 0px 10px rgba(0, 0, 0, .3));
+}
+
+.oaProportionStream {
+    /*width: 100%;*/
+    height: 600px;
+}
+
+.oaProportionStream > div {
+    /*width: 100%;*/
+    height: 600px;
+    overflow-x: scroll;
+    /*style={{height: 600, overflowX: 'scroll', overflowY: 'hidden', width: "100%"}}*/
+}
+
+.oaProportionStream > div > div {
+    /*width: 100%;*/
+
+    /*height: 600px;*/
+/*style={{height: 600, overflowX: 'scroll', overflowY: 'hidden', width: "100%"}}*/
+}
+
+.pageBtnActive {
+    background-color: #FF671C !important;
+}

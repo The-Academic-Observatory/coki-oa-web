@@ -14,24 +14,34 @@
 //
 // Author: James Diprose
 
-const Tabs = {
-  variants: {
-    dashboard: {
-      tab: {
-        textStyle: "tabHeader",
-        color: "#b7b7b7",
-        height: "60px",
-        bgColor: "#f0f0f0",
-        _selected: {
-          bgColor: "white",
-          color: "brand.500",
-        },
-        _focus: {
-          boxShadow: "none",
-        },
-      },
-    },
-  },
+import React, { ReactNode } from "react";
+import { Box, BoxProps } from "@chakra-ui/react";
+
+interface CardProps extends BoxProps {
+  children: ReactNode;
+  bgBase: string;
+  pBase: string;
+}
+
+const Card = ({ children, bgBase, pBase, ...rest }: CardProps) => {
+  return (
+    <Box
+      bg={{ base: bgBase, md: "white" }}
+      boxShadow={{ base: "none", md: "md" }}
+      rounded={"md"}
+      overflow={"hidden"}
+      maxWidth="1326px"
+      p={{ base: pBase, md: "48px" }}
+      {...rest}
+    >
+      {children}
+    </Box>
+  );
 };
 
-export default Tabs;
+Card.defaultProps = {
+  bgBase: "white",
+  pBase: "24px",
+};
+
+export default Card;
