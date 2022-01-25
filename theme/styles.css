@@ -42,3 +42,14 @@ ul > li {
 .pageBtnActive {
     background-color: #FF671C !important;
 }
+
+
+.myText {
+    /*content: attr(data-content);*/
+    /*color: black;*/
+}
+
+.myText:after {
+    -webkit-text-stroke: 10px white;
+    /*mix-blend-mode: difference;*/
+}

@@ -75,7 +75,7 @@ const BreakdownSparkline = ({
     element = (
       <Flex w="full" alignItems="center" justifyContent="space-between">
         {labels.map((label, i) => (
-          <Box>
+          <Box key={label}>
             <Text textStyle="breakdownHeading">{label}</Text>
             <Text textStyle="breakdownValue">{values[i]}%</Text>
           </Box>
@@ -93,8 +93,9 @@ const BreakdownSparkline = ({
         preserveAspectRatio="none"
       >
         return (
-        {rects.map((rect) => (
+        {rects.map((rect, i) => (
           <rect
+            key={i}
             x={rect.x}
             width={rect.width}
             height={height}

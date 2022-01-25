@@ -27,7 +27,7 @@ export default function Contact() {
         <Text textStyle="p" mb="48px">
           <b>WE WOULD LOVE TO HEAR FROM YOU.</b>
         </Text>
-        <Text textStyle="li">
+        <Text as="div" textStyle="li">
           <ul>
             <li>
               <b>Reports and Dashboards.</b> Get more detailed information about

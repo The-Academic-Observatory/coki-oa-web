@@ -58,7 +58,6 @@ const EntityCard = ({ children, ...rest }: CardProps) => {
 };
 
 const EntityDetails = ({ entity, ...rest }: EntityProps) => {
-  console.log(entity);
   return (
     <Card maxWidth={"970px"} bgBase={"none"}>
       <VStack spacing={"24px"}>
@@ -150,7 +149,6 @@ const EntityPublisherOpen = ({ entity, ...rest }: EntityProps) => {
       color: "#f8eb8f",
     },
   ];
-  console.log(data);
   return (
     <EntityCard width={"full"} {...rest}>
       <Text textStyle="entityCardHeading">Publisher Open</Text>
@@ -223,8 +221,7 @@ const EntitySummary = ({ entity, ...rest }: EntityProps) => {
 
 const EntityHeading = ({ entity, ...rest }: EntityProps) => {
   entity.description =
-    "The Republic of El Salvador, is a country in Central America bordered on the northeast by " +
-    "Honduras, on the northwest by Guatemala.";
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
   return (
     <VStack alignItems={"left"} pb={{ base: "24px", md: 0 }} {...rest}>
       <HStack pb={{ base: "12px", md: "48px" }}>
@@ -283,7 +280,12 @@ const MetadataLink = ({ icon, name, href, ...rest }: MetadataLinkProps) => {
 const EntityMetadataDesktop = ({ entity, ...rest }: EntityProps) => {
   return (
     <EntityCard display={{ base: "none", md: "block" }} {...rest}>
-      <VStack align={"left"} spacing={2}>
+      <Flex
+        // align={"left"}
+        h="full"
+        flexDirection="column"
+        justifyContent="space-between"
+      >
         <MetadataLink
           icon={"wikipedia"}
           name={"Wikipedia"}
@@ -294,18 +296,30 @@ const EntityMetadataDesktop = ({ entity, ...rest }: EntityProps) => {
         <MetadataLink icon={"code"} name={"Code"} href={""} mb="12px" />
 
         <Text textStyle="entityID">
-          ROR: <Text textStyle="entityBold">02n415q13</Text>
+          ROR:{" "}
+          <Text as="span" textStyle="entityBold">
+            02n415q13
+          </Text>
         </Text>
         <Text textStyle="entityID">
-          ISNI: <Text textStyle="entityBold">0000000403723343</Text>
+          ISNI:{" "}
+          <Text as="span" textStyle="entityBold">
+            0000000403723343
+          </Text>
         </Text>
         <Text textStyle="entityID">
-          Crossref Funder ID: <Text textStyle="entityBold">501100001537</Text>
+          Crossref Funder ID:{" "}
+          <Text as="span" textStyle="entityBold">
+            501100001537
+          </Text>
         </Text>
         <Text textStyle="entityID">
-          WikiData: <Text textStyle="entityBold">Q492467</Text>
+          WikiData:{" "}
+          <Text as="span" textStyle="entityBold">
+            Q492467
+          </Text>
         </Text>
-      </VStack>
+      </Flex>
     </EntityCard>
   );
 };
@@ -336,23 +350,34 @@ const EntityMetadataMobile = ({ entity, ...rest }: EntityProps) => {
         >
           <GridItem colSpan={2}>
             <Text textStyle="entityID">
-              ROR: <Text textStyle="entityBold">02n415q13</Text>
+              ROR:{" "}
+              <Text as="span" textStyle="entityBold">
+                02n415q13
+              </Text>
             </Text>
           </GridItem>
           <GridItem colSpan={2}>
             <Text textStyle="entityID">
-              ISNI: <Text textStyle="entityBold">0000000403723343</Text>
+              ISNI:{" "}
+              <Text as="span" textStyle="entityBold">
+                0000000403723343
+              </Text>
             </Text>
           </GridItem>
           <GridItem colSpan={2}>
             <Text textStyle="entityID">
               Crossref Funder ID:{" "}
-              <Text textStyle="entityBold">501100001537</Text>
+              <Text as="span" textStyle="entityBold">
+                501100001537
+              </Text>
             </Text>
           </GridItem>
           <GridItem>
             <Text textStyle="entityID">
-              WikiData: <Text textStyle="entityBold">Q492467</Text>
+              WikiData:{" "}
+              <Text as="span" textStyle="entityBold">
+                Q492467
+              </Text>
             </Text>
           </GridItem>
         </Grid>

@@ -17,21 +17,30 @@
 import { Flex, FlexProps, IconButton, Image } from "@chakra-ui/react";
 import Icon from "./Icon";
 import Link from "./Link";
-import Search from "./Search";
+import { Search } from "./Search";
 
 import React from "react";
+import Fuse from "fuse.js";
 
 interface NavbarProps extends FlexProps {
+  fuse: Fuse<any>;
   isOpenSidebar: () => void;
   onOpenSidebar: () => void;
   onCloseSidebar: () => void;
+  isOpenSearch: () => void;
+  onOpenSearch: () => void;
+  onCloseSearch: () => void;
   navbarHeightMobile: number;
 }
 
 const Navbar = ({
+  fuse,
   isOpenSidebar,
   onOpenSidebar,
   onCloseSidebar,
+  isOpenSearch,
+  onOpenSearch,
+  onCloseSearch,
   navbarHeightMobile,
   ...rest
 }: NavbarProps) => {
@@ -68,15 +77,6 @@ const Navbar = ({
           )
         }
         display={{ base: "flex", md: "none" }}
-        isRound
-        size="lg"
-        _focus={{
-          boxShadow: "none",
-        }}
-        _active={{
-          bg: "rgba(236, 236, 236, 0.3)",
-          boxShadow: "none",
-        }}
         color="grey.100"
       />
 
@@ -96,38 +96,28 @@ const Navbar = ({
         />
       </Link>
 
-      <Image
-        display={{ base: "none", md: "block" }}
-        htmlWidth="56%"
-        maxWidth="900px"
-        position="absolute"
-        top={0}
-        right={0}
-        zIndex={0}
-        height={navbarHeightDesktop}
-        objectPosition="right top"
-        objectFit="cover"
-        src="/coki-background.svg"
-        alt="Curtin Logo"
-      />
-
-      <Search />
+      <Search fuse={fuse} display={{ base: "none", md: "block" }} />
 
       <IconButton
         variant="clean"
         display={{ base: "flex", md: "none" }}
         aria-label="Search"
         isRound
-        size="lg"
-        _focus={{
-          boxShadow: "none",
-        }}
-        _active={{
-          bg: "rgba(236, 236, 236, 0.3)",
-          boxShadow: "none",
-        }}
         color="white"
-        icon={<Icon icon="search" size={iconSize} />}
+        onClick={() => {
+          if (!isOpenSearch) {
+            onOpenSearch();
+          } else {
+            onCloseSearch();
+          }
+        }}
+        icon={
+          isOpenSearch ? (
+            <Icon icon="cross" size={iconSize} />
+          ) : (
+            <Icon icon="search" size={iconSize} />
+          )
+        }
       />
     </Flex>
   );

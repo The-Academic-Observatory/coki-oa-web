@@ -45,6 +45,7 @@ const SidebarContent = ({
     >
       {links.map((link) => (
         // pointerEvents="auto" enables the NavItem to receive mouse events
+        // onClose closes the Sidebar
         <NavItem
           key={link.name}
           icon={link.icon}
@@ -52,6 +53,7 @@ const SidebarContent = ({
           text={link.name}
           sidebarWidth={sidebarWidth}
           pointerEvents="auto"
+          onClick={() => onClose()}
         />
       ))}
     </Box>

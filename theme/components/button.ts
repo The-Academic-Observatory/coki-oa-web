@@ -16,6 +16,14 @@
 
 const Button = {
   variants: {
+    clean: {
+      size: "lg",
+      _focus: { boxShadow: "none" },
+      _active: {
+        bg: "rgba(236, 236, 236, 0.3)",
+        boxShadow: "none",
+      },
+    },
     table: {
       bgColor: "brand.500",
       color: "white",
@@ -25,6 +33,7 @@ const Button = {
         fontWeight: 500,
         fontSize: "12px",
         lineHeight: "12px",
+        textTransform: "uppercase",
       },
       span: {
         lineHeight: "12px",

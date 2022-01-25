@@ -65,46 +65,41 @@ const IndexPage = ({ countryList, institutionList, autocomplete }: Props) => {
   };
 
   return (
-    <Box>
-      <SimpleGrid columns={6}>
-        <GridItem colSpan={colSpan} maxWidth={maxTabsWidth}>
-          <Box p={{ base: "30px 30px 15px", md: 0 }}>
-            <Text textStyle="homeHeader">Open Access Dashboard</Text>
-            <Text textStyle="p">{dashboardText}</Text>
-          </Box>
+    <Box maxWidth={maxTabsWidth}>
+      <Box p={{ base: "30px 30px 15px", md: 0 }}>
+        <Text textStyle="homeHeader">Open Access Dashboard</Text>
+        <Text className="myText" datacontent={dashboardText} textStyle="p">
+          {dashboardText}
+        </Text>
+      </Box>
 
-          <Tabs
-            isFitted
-            variant="dashboard"
-            bg="white"
-            index={tabIndex}
-            onChange={handleTabsChange}
-          >
-            <TabList>
-              <Tab href="/country">
-                <Icon icon="website" size={24} marginRight="6px" />
-                <Text>Country</Text>
-              </Tab>
-              <Tab href="/institution">
-                <Icon icon="institution" size={24} marginRight="6px" />
-                <Text>Institution</Text>
-              </Tab>
-            </TabList>
+      <Tabs
+        isFitted
+        variant="dashboard"
+        bg="white"
+        index={tabIndex}
+        onChange={handleTabsChange}
+      >
+        <TabList>
+          <Tab href="/country">
+            <Icon icon="website" size={24} marginRight="6px" />
+            <Text>Country</Text>
+          </Tab>
+          <Tab href="/institution">
+            <Icon icon="institution" size={24} marginRight="6px" />
+            <Text>Institution</Text>
+          </Tab>
+        </TabList>
 
-            <TabPanels>
-              <TabPanel p={0}>
-                <IndexTable entities={countryList} categoryName="Country" />
-              </TabPanel>
-              <TabPanel p={0}>
-                <IndexTable
-                  entities={institutionList}
-                  categoryName="Institution"
-                />
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </GridItem>
-      </SimpleGrid>
+        <TabPanels>
+          <TabPanel p={0}>
+            <IndexTable entities={countryList} categoryName="Country" />
+          </TabPanel>
+          <TabPanel p={0}>
+            <IndexTable entities={institutionList} categoryName="Institution" />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Box>
   );
 };

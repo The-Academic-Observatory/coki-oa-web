@@ -24,6 +24,7 @@ import { createBreakpoints } from "@chakra-ui/theme-tools";
 import Table from "./components/table";
 import Button from "./components/button";
 import Tabs from "./components/tabs";
+import Popover from "./components/popover";
 
 const breakpoints = createBreakpoints({
   sm: "600px",
@@ -95,6 +96,15 @@ const theme = extendTheme(
         lineHeight: "36px",
         mb: "16px",
       },
+      // "p-outline": {
+      //   // Light
+      //   fontWeight: 300,
+      //   fontSize: "21px",
+      //   lineHeight: "36px",
+      //   mb: "16px",
+      //   webkitTextStroke: "2px red",
+      //   paintOrder: "stroke fill",
+      // },
       li: {
         // Light
         fontWeight: 300,
@@ -157,9 +167,7 @@ const theme = extendTheme(
       entityID: {
         fontWeight: 500,
         fontSize: { base: "9px", md: "14px" },
-        whiteSpace: "nowrap",
         display: "inline",
-        // lineHeight: {base: '1px', md: '14px'},
       },
       entityBold: {
         fontWeight: 900,
@@ -277,14 +285,24 @@ const theme = extendTheme(
         },
         mx: "2px",
       },
+      searchResult: {
+        _odd: {
+          background: "white",
+          // div: {
+          //   _first: {
+          //     background: { base: "white", md: "none" },
+          //   },
+          // },
+        },
+      },
     },
     components: {
       Table,
       Button,
       Tabs,
+      Popover,
     },
   },
-
   withDefaultColorScheme({
     colorScheme: "brand",
     components: ["Button"],

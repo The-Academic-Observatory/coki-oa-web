@@ -14,20 +14,22 @@
 //
 // Author: James Diprose
 
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import {
   Box,
   Drawer,
   DrawerContent,
   Flex,
-  Text,
+  Image,
   useDisclosure,
 } from "@chakra-ui/react";
 import Breadcrumb from "./Breadcrumb";
-// import elasticlunr from 'elasticlunr'
+
 import Footer from "./Footer";
 import SidebarContent from "./SidebarContent";
 import Navbar from "./Navbar";
+import { SearchDrawer } from "./Search";
+import Fuse from "fuse.js";
 
 export interface LinkProps {
   name: string;
@@ -44,18 +46,6 @@ const links: Array<LinkProps> = [
   { name: "Contact", icon: "contact", href: "/contact" },
 ];
 
-//
-// function fetchAutocomplete(){
-//     const [cats, setCats] = useState()
-//     useEffect(() => {
-//         fetch('http://localhost:3000/')
-//             .then(response => response.json())
-//             .then(_cats => setCats(_cats));
-//     }, [])
-//
-//     return cats
-// }
-
 export default function Layout({ children }: { children: ReactNode }) {
   const {
     isOpen: isOpenSidebar,
@@ -71,41 +61,57 @@ export default function Layout({ children }: { children: ReactNode }) {
   const navbarHeightMobile: number = 68;
   const sidebarWidth: number = 340;
 
-  // Setup autocomplete
-  // const autocomplete = fetchAutocomplete()
-  // const searchIndex = elasticlunr(function () {
-  //     this.addField('name');
-  //     this.setRef('index');
-  //     this.saveDocument(false);
-  // })
-  // autocomplete.forEach((item) => {
-  //     searchIndex.addDoc(item);
-  // })
+  const [fuse, setFuse] = React.useState(null);
 
-  // Fetch data and add index field
-  // const csvString = (await axios.get("/data/autocomplete.txt")).data;
-  // this.data = this.parseCsv(csvString);
-  // // Build search index
-  // let searchIndex = elasticlunr(function () {
-  //     this.addField('name');
-  //     this.setRef('index');
-  //     this.saveDocument(false);
-  // });
-  // this.data.forEach((item) => {
-  //     searchIndex.addDoc(item);
-  // });
-  // this.searchIndex = searchIndex;
+  // Load and index data
+  useEffect(() => {
+    fetch("/autocomplete.json")
+      .then((res) => res.json())
+      .then((data) => {
+        // Setup fuse after data loaded
+        const options = {
+          includeScore: true,
+          threshold: 0.1,
+          keys: ["name"],
+        };
+        const fuse = new Fuse(data, options);
+        setFuse(fuse);
+      });
+  }, []);
 
   return (
     <Flex flexDirection="column" minH="100vh">
+      <Image
+        display={{ base: "none", md: "block" }}
+        htmlWidth="56%"
+        maxWidth="900px"
+        position="absolute"
+        top={0}
+        right={0}
+        objectPosition="right top"
+        objectFit="cover"
+        src="/coki-background.svg"
+        alt="Curtin Logo"
+      />
+      <SearchDrawer
+        fuse={fuse}
+        isOpen={isOpenSearch}
+        onOpen={onOpenSearch}
+        onClose={onCloseSearch}
+        navbarHeightMobile={navbarHeightMobile}
+      />
       <Box p={0}>
         <Navbar
+          fuse={fuse}
           isOpenSidebar={isOpenSidebar}
           onOpenSidebar={onOpenSidebar}
           onCloseSidebar={onCloseSidebar}
+          isOpenSearch={isOpenSearch}
+          onOpenSearch={onOpenSearch}
+          onCloseSearch={onCloseSearch}
           navbarHeightMobile={navbarHeightMobile}
         />
-        {/*onSearchOpen={onOpenSearch}*/}
+
         <Drawer
           autoFocus={false}
           isOpen={isOpenSidebar}
@@ -113,10 +119,11 @@ export default function Layout({ children }: { children: ReactNode }) {
           onClose={onCloseSidebar}
           returnFocusOnClose={false}
           onOverlayClick={onCloseSidebar}
+          preserveScrollBarGap={true}
           size="full"
         >
           {/* pointerEvents="none" stops the drawer from blocking pointer events from the close button */}
-          <DrawerContent bg="none" pointerEvents="none">
+          <DrawerContent bg="none" pointerEvents="none" boxShadow="none">
             <SidebarContent
               links={links}
               navbarHeightMobile={navbarHeightMobile}
@@ -156,7 +163,9 @@ export default function Layout({ children }: { children: ReactNode }) {
                 pb="32px"
                 textStyle="breadcrumb"
               />
-              <Text wrap="nowrap">{children}</Text>
+              {/* position="relative" is required to keep the COKI background image behind the children as
+                  z-index only works on positioned elements*/}
+              <Box position="relative">{children}</Box>
             </Box>
           </Flex>
         </Box>

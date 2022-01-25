@@ -16,11 +16,13 @@
 
 import {
   Box,
+  BoxProps,
   Button,
   Flex,
   HStack,
   IconButton,
   Image,
+  TableContainer,
   Table,
   Tbody,
   Td,
@@ -30,7 +32,7 @@ import {
   Tr,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { ReactNode } from "react";
 import { usePagination, useSortBy, useTable } from "react-table";
 import { Entity } from "../lib/model";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
@@ -40,25 +42,23 @@ import Icon from "./Icon";
 import Link from "./Link";
 
 function makeHref(category: string, id: string) {
-  return `${category}/${id}`;
+  return `/${category}/${id}`;
 }
 
 function EntityCell({ value, entity }) {
   const href = makeHref(entity.category, entity.id);
   return (
     <Link href={href}>
-      <a>
-        <HStack>
-          <Image
-            rounded="full"
-            objectFit="cover"
-            boxSize="16px"
-            src={entity.logo_s}
-            alt={entity.name}
-          />
-          <Text>{entity.name}</Text>
-        </HStack>
-      </a>
+      <HStack>
+        <Image
+          rounded="full"
+          objectFit="cover"
+          boxSize="16px"
+          src={entity.logo_s}
+          alt={entity.name}
+        />
+        <Text>{entity.name}</Text>
+      </HStack>
     </Link>
   );
 }
@@ -67,9 +67,7 @@ function OpenCell({ value, entity }) {
   const href = makeHref(entity.category, entity.id);
   return (
     <Link href={href}>
-      <a>
-        <DonutSparkline value={value} color="#f47328" size={18} />
-      </a>
+      <DonutSparkline value={value} color="#f47328" size={18} />
     </Link>
   );
 }
@@ -86,15 +84,13 @@ function BreakdownCell({ value, entity }) {
   const colors = ["#ffd700", "#4fa9dc", "#9FD27E", "#EBEBEB"];
   return (
     <Link href={href}>
-      <a>
-        <BreakdownSparkline
-          key={href}
-          values={values}
-          colors={colors}
-          width={110}
-          height={17}
-        />
-      </a>
+      <BreakdownSparkline
+        // key={entity.id}
+        values={values}
+        colors={colors}
+        width={110}
+        height={17}
+      />
     </Link>
   );
 }
@@ -106,8 +102,8 @@ function NumberCell({ value, entity }) {
 function LearnMoreCell({ value, entity }) {
   const href = makeHref(entity.category, entity.id);
   return (
-    <Link href={href}>
-      <Button as="a" variant="table" rightIcon={<ChevronRightIcon />}>
+    <Link href={href} textDecorationColor="white !important">
+      <Button variant="table" rightIcon={<ChevronRightIcon />}>
         <Text>Learn More</Text>
       </Button>
     </Link>
@@ -147,12 +143,12 @@ function paginate(page, nPages) {
   return Array.from({ length: length }, (v, k) => k + start);
 }
 
-type Props = {
+interface Props extends BoxProps {
   entities: Array<Entity>;
   categoryName: string;
-};
+}
 
-const IndexTable = ({ entities, categoryName }: Props) => {
+const IndexTable = ({ entities, categoryName, ...rest }: Props) => {
   const data = entities;
   const columns = React.useMemo(
     () => [
@@ -234,7 +230,7 @@ const IndexTable = ({ entities, categoryName }: Props) => {
 
   return (
     <Box>
-      <Box overflowX="auto">
+      <Box overflowX="scroll">
         <Table {...getTableProps()} size="sm" variant="dashboard">
           <Thead>
             {headerGroups.map((headerGroup) => (
@@ -255,8 +251,10 @@ const IndexTable = ({ entities, categoryName }: Props) => {
           <Tbody {...getTableBodyProps()}>
             {page.map((row, i) => {
               prepareRow(row);
+              let props = row.getRowProps();
+              props.key = row.original.id;
               return (
-                <Tr {...row.getRowProps()} zIndex="1">
+                <Tr {...props} zIndex="1">
                   {row.cells.map((cell) => (
                     <Td
                       {...cell.getCellProps()}
@@ -272,6 +270,7 @@ const IndexTable = ({ entities, categoryName }: Props) => {
             })}
           </Tbody>
         </Table>
+        {/*</TableContainer>*/}
       </Box>
       <VStack
         pt="24px"
@@ -321,6 +320,7 @@ const IndexTable = ({ entities, categoryName }: Props) => {
           />
           {paginate(pageIndex, pageCount).map((page) => (
             <Flex
+              key={page}
               layerStyle="pageButton"
               align="center"
               onClick={() => gotoPage(page)}

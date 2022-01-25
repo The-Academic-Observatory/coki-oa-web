@@ -21,6 +21,7 @@ const Table = {
     dashboard: {
       table: {
         width: `calc(100% - ${margin * 2})`,
+        maxWidth: `calc(100% - ${margin * 2})`,
         background: "white",
         margin: { base: "14px 0 0 0", md: margin },
         thead: {
