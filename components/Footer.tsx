@@ -153,15 +153,14 @@ interface FooterLinksProps extends StackProps {
 
 const FooterLinks = ({ links, ...rest }: FooterLinksProps) => {
   return (
-    <Stack {...rest}>
+    <Stack
+      color={{ base: "grey.900", md: "grey.100" }}
+      textStyle="footerLink1"
+      {...rest}
+    >
       return (
       {links.map((l) => (
-        <Link
-          href={l.href}
-          key={l.href}
-          color={{ base: "grey.900", md: "grey.100" }}
-          textStyle="footerLink1"
-        >
+        <Link href={l.href} key={l.href}>
           {l.name}
         </Link>
       ))}
@@ -172,14 +171,13 @@ const FooterLinks = ({ links, ...rest }: FooterLinksProps) => {
 
 const FooterCredits = ({ ...rest }: StackProps) => {
   return (
-    <VStack align="left" {...rest}>
-      <Link
-        href="https://clearbit.com/"
-        color={{ base: "grey.900", md: "grey.100" }}
-        textStyle="footerLink2"
-      >
-        Company Logos by Clearbit
-      </Link>
+    <VStack
+      align="left"
+      textStyle="footerLink2"
+      color={{ base: "grey.900", md: "grey.100" }}
+      {...rest}
+    >
+      <Link href="https://clearbit.com/">Company Logos by Clearbit</Link>
     </VStack>
   );
 };

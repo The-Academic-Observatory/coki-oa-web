@@ -14,18 +14,16 @@
 //
 // Author: James Diprose
 
-import { Link as ChakraLink } from "@chakra-ui/react";
+import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { ReactNode } from "react";
 
-const Link = ({
-  href,
-  children,
-  ...rest
-}: {
+interface LinkLinkProps extends LinkProps {
   href: string;
   children: ReactNode;
-}) => {
+}
+
+const Link = ({ href, children, ...rest }: LinkLinkProps) => {
   return (
     <NextLink href={href} passHref>
       {/*The empty focus stops the ugly blue border from appearing on focus*/}

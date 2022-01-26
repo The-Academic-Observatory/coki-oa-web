@@ -40,3 +40,6 @@ yarn-error.log*
 
 # webstorm
 .idea
+
+# Only commit yarn.lock
+package-lock.json

@@ -41,7 +41,7 @@ import Link from "./Link";
 import { Entity } from "../lib/model";
 
 interface SearchBoxProps {
-  onChange: (e) => void;
+  onChange: (e: any) => void;
 }
 
 const SearchBox = ({ onChange }: SearchBoxProps) => {
@@ -52,10 +52,9 @@ const SearchBox = ({ onChange }: SearchBoxProps) => {
       rounded={50}
       w={{ base: "full", md: 388 }}
     >
-      <InputLeftElement
-        pointerEvents="none"
-        children={<SearchIcon color="gray.900" />}
-      />
+      <InputLeftElement pointerEvents="none">
+        <SearchIcon color="gray.900" />
+      </InputLeftElement>
       <Input
         variant="outline"
         rounded={50}
@@ -164,7 +163,7 @@ export const Search = ({ fuse, ...rest }: SearchProps) => {
 
 interface SearchDrawerProps extends BoxProps {
   fuse: Fuse<any>;
-  isOpen: () => void;
+  isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
   navbarHeightMobile: number;
@@ -209,7 +208,7 @@ export const SearchDrawer = ({
           <SearchBox onChange={(e) => inputOnChange(e.target.value)} />
         </DrawerHeader>
         <DrawerBody bg="white">
-          {searchResults.map((entity) => (
+          {searchResults.map((entity: Entity) => (
             <SearchResult key={entity.id} entity={entity} onClick={onClose} />
           ))}
           {searchResults.length === 0 && <Text>No results</Text>}

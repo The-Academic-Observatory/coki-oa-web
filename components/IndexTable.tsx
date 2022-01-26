@@ -22,7 +22,6 @@ import {
   HStack,
   IconButton,
   Image,
-  TableContainer,
   Table,
   Tbody,
   Td,
@@ -31,11 +30,9 @@ import {
   Thead,
   Tr,
   VStack,
-  TableCaption,
-  Tfoot,
 } from "@chakra-ui/react";
-import React, { ReactNode } from "react";
-import { usePagination, useSortBy, useTable } from "react-table";
+import React from "react";
+import { Cell, Row, usePagination, useSortBy, useTable } from "react-table";
 import { Entity } from "../lib/model";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import DonutSparkline from "./DonutSparkline";
@@ -47,7 +44,12 @@ function makeHref(category: string, id: string) {
   return `/${category}/${id}`;
 }
 
-function EntityCell({ value, entity }) {
+interface EntityProps {
+  value: number;
+  entity: Entity;
+}
+
+function EntityCell({ value, entity }: EntityProps) {
   const href = makeHref(entity.category, entity.id);
   return (
     <Link href={href}>
@@ -65,7 +67,7 @@ function EntityCell({ value, entity }) {
   );
 }
 
-function OpenCell({ value, entity }) {
+function OpenCell({ value, entity }: EntityProps) {
   const href = makeHref(entity.category, entity.id);
   return (
     <Link href={href}>
@@ -74,7 +76,7 @@ function OpenCell({ value, entity }) {
   );
 }
 
-function BreakdownCell({ value, entity }) {
+function BreakdownCell({ value, entity }: EntityProps) {
   const href = makeHref(entity.category, entity.id);
   let stats = entity.stats;
   let values = [
@@ -97,11 +99,11 @@ function BreakdownCell({ value, entity }) {
   );
 }
 
-function NumberCell({ value, entity }) {
+function NumberCell({ value, entity }: EntityProps) {
   return <span>{value.toLocaleString()}</span>;
 }
 
-function LearnMoreCell({ value, entity }) {
+function LearnMoreCell({ value, entity }: EntityProps) {
   const href = makeHref(entity.category, entity.id);
   return (
     <Link href={href} textDecorationColor="white !important">
@@ -112,7 +114,7 @@ function LearnMoreCell({ value, entity }) {
   );
 }
 
-function BreakdownHeader({ value, entity }) {
+function BreakdownHeader({ value, entity }: EntityProps) {
   return (
     <span>
       <Text>Breakdown</Text>
@@ -124,12 +126,12 @@ function BreakdownHeader({ value, entity }) {
   );
 }
 
-function paginate(page, nPages) {
+function paginate(page: number, nPages: number) {
   const window = 5;
   const half = Math.floor(window / 2);
   const endDist = nPages - page - 1;
-  let start,
-    end = 0;
+  let start = 0;
+  let end = 0;
   if (page < window) {
     start = 0;
     end = window - 1;
@@ -252,13 +254,13 @@ const IndexTable = ({ entities, categoryName, ...rest }: Props) => {
             ))}
           </Thead>
           <Tbody {...getTableBodyProps()}>
-            {page.map((row, i) => {
+            {page.map((row: Row<Entity>, i: number) => {
               prepareRow(row);
               let props = row.getRowProps();
               props.key = row.original.id;
               return (
                 <Tr {...props} zIndex="1">
-                  {row.cells.map((cell) => (
+                  {row.cells.map((cell: Cell<Entity, any>) => (
                     <Td
                       {...cell.getCellProps()}
                       isNumeric={cell.column.isNumeric}

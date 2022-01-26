@@ -14,15 +14,18 @@
 //
 // Author: James Diprose
 
-import React, { ReactNode, useState } from "react";
+import React, { ReactElement, ReactNode, useState } from "react";
 import {
   Box,
   BoxProps,
   Flex,
+  FlexProps,
   Grid,
   GridItem,
   HStack,
   Image,
+  LinkProps,
+  StackProps,
   Text,
   useBreakpointValue,
   VStack,
@@ -38,12 +41,14 @@ import { toReadableNumber } from "../lib/utils";
 import { Pie } from "@nivo/pie";
 import { linearGradientDef } from "@nivo/core";
 import { ResponsiveStream } from "@nivo/stream";
+import {
+  StackOffset,
+  AreaCurve,
+  SvgDefsAndFill,
+  ValueFormat,
+} from "@nivo/core";
 
 const minOATimeseriesYear = 2000;
-
-interface EntityProps {
-  entity: Entity;
-}
 
 interface CardProps extends BoxProps {
   children: ReactNode;
@@ -62,7 +67,11 @@ const EntityCard = ({ children, ...rest }: CardProps) => {
   );
 };
 
-const EntityDetails = ({ entity, ...rest }: EntityProps) => {
+interface EntityDetailsProps {
+  entity: Entity;
+}
+
+const EntityDetails = ({ entity, ...rest }: EntityDetailsProps) => {
   return (
     <Card maxWidth="970px" width="calc(100vw - 12px)" bgBase="none">
       <VStack spacing={"24px"}>
@@ -75,7 +84,11 @@ const EntityDetails = ({ entity, ...rest }: EntityProps) => {
   );
 };
 
-const EntityBreakdown = ({ entity, ...rest }: EntityProps) => {
+interface EntityBreakdownProps extends BoxProps {
+  entity: Entity;
+}
+
+const EntityBreakdown = ({ entity, ...rest }: EntityBreakdownProps) => {
   const stats = entity.stats;
   const values = [
     stats.p_outputs_publisher_open_only,
@@ -85,6 +98,7 @@ const EntityBreakdown = ({ entity, ...rest }: EntityProps) => {
   ];
   const colors = ["#ffd700", "#4fa9dc", "#9FD27E", "#EBEBEB"];
   const labels = ["Publisher Open", "Both", "Other Platform Open", "Closed"];
+
   return (
     <EntityCard width={"full"} {...rest}>
       <Text textStyle="entityCardHeading">Breakdown</Text>
@@ -100,10 +114,14 @@ const EntityBreakdown = ({ entity, ...rest }: EntityProps) => {
   );
 };
 
-const EntityOATimeseries = ({ entity, ...rest }: EntityProps) => {
+interface EntityOATimeseriesProps extends BoxProps {
+  entity: Entity;
+}
+
+const EntityOATimeseries = ({ entity, ...rest }: EntityOATimeseriesProps) => {
   let data = entity.timeseries
     .filter((t) => {
-      const year = parseInt(t.year);
+      const year = parseInt(String(t.year));
       return year >= minOATimeseriesYear;
     })
     .map((t) => {
@@ -132,7 +150,11 @@ const EntityOATimeseries = ({ entity, ...rest }: EntityProps) => {
   );
 };
 
-const EntityPublisherOpen = ({ entity, ...rest }: EntityProps) => {
+interface EntityPublisherOpenProps extends BoxProps {
+  entity: Entity;
+}
+
+const EntityPublisherOpen = ({ entity, ...rest }: EntityPublisherOpenProps) => {
   const stats = entity.stats;
   const data = [
     {
@@ -213,7 +235,11 @@ const EntityPublisherOpen = ({ entity, ...rest }: EntityProps) => {
   );
 };
 
-const EntitySummary = ({ entity, ...rest }: EntityProps) => {
+interface EntitySummaryProps extends FlexProps {
+  entity: Entity;
+}
+
+const EntitySummary = ({ entity, ...rest }: EntitySummaryProps) => {
   return (
     <Flex width={"full"} {...rest}>
       <Flex flex={1} flexDirection={"column"} pr={{ base: 0, md: "24px" }}>
@@ -233,7 +259,11 @@ const EntitySummary = ({ entity, ...rest }: EntityProps) => {
   );
 };
 
-const EntityHeading = ({ entity, ...rest }: EntityProps) => {
+interface EntityHeadingProps extends StackProps {
+  entity: Entity;
+}
+
+const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
   entity.description =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
   return (
@@ -264,34 +294,41 @@ const EntityHeading = ({ entity, ...rest }: EntityProps) => {
   );
 };
 
-interface MetadataLinkProps {
+interface MetadataLinkProps extends LinkProps {
   icon: string;
   name: string;
   href: string;
 }
 
 const MetadataLink = ({ icon, name, href, ...rest }: MetadataLinkProps) => {
-  const style = useBreakpointValue({
-    base: {
-      size: 24,
-      color: "#737373",
-    },
-    md: {
-      size: 32,
-      color: "#101820",
-    },
-  });
+  // const style = useBreakpointValue({
+  //   base: {
+  //     size: 24,
+  //     color: "#737373",
+  //   },
+  //   md: {
+  //     size: 32,
+  //     color: "#101820",
+  //   },
+  // });
   return (
     <Link href={href} {...rest}>
       <Flex align="center" role="group" cursor="pointer">
-        <Icon mr="2" icon={icon} {...style} />
+        <Icon mr="2" icon={icon} size={32} color={"#101820"} />
         <Text textStyle="entityIconLink">{name}</Text>
       </Flex>
     </Link>
   );
 };
 
-const EntityMetadataDesktop = ({ entity, ...rest }: EntityProps) => {
+interface EntityMetadataDesktopProps extends BoxProps {
+  entity: Entity;
+}
+
+const EntityMetadataDesktop = ({
+  entity,
+  ...rest
+}: EntityMetadataDesktopProps) => {
   return (
     <EntityCard display={{ base: "none", md: "block" }} {...rest}>
       <Flex h="full" flexDirection="column" justifyContent="space-between">
@@ -333,7 +370,14 @@ const EntityMetadataDesktop = ({ entity, ...rest }: EntityProps) => {
   );
 };
 
-const EntityMetadataMobile = ({ entity, ...rest }: EntityProps) => {
+interface EntityMetadataMobileProps extends BoxProps {
+  entity: Entity;
+}
+
+const EntityMetadataMobile = ({
+  entity,
+  ...rest
+}: EntityMetadataMobileProps) => {
   return (
     <Box {...rest}>
       <hr />
@@ -386,14 +430,13 @@ const EntityMetadataMobile = ({ entity, ...rest }: EntityProps) => {
   );
 };
 
-interface StatsProps {
-  title: Element;
+interface StatsProps extends StackProps {
+  statsTitle: ReactElement;
   value: number;
-  scale: number;
-  isPercent: boolean;
+  isPercent?: boolean;
 }
 
-const Stats = ({ title, value, isPercent, ...rest }: StatsProps) => {
+const Stats = ({ statsTitle, value, isPercent, ...rest }: StatsProps) => {
   let percent = "";
   if (isPercent) {
     percent = "%";
@@ -403,7 +446,7 @@ const Stats = ({ title, value, isPercent, ...rest }: StatsProps) => {
     <VStack alignItems={"left"} spacing="0" {...rest}>
       <hr className={styles.hr} />
       <Text textStyle="entityStatsHeading" pb={"6px"}>
-        {title}
+        {statsTitle}
       </Text>
       <Text textStyle="entityStatsValue">
         {toReadableNumber(value)}
@@ -413,7 +456,11 @@ const Stats = ({ title, value, isPercent, ...rest }: StatsProps) => {
   );
 };
 
-const EntityStats = ({ entity, ...rest }: EntityProps) => {
+interface EntityStatsProps extends BoxProps {
+  entity: Entity;
+}
+
+const EntityStats = ({ entity, ...rest }: EntityStatsProps) => {
   let titleOpenPercentNoBr = <>Open Access % Score</>;
   let titleOpenPercent = (
     <>
@@ -437,7 +484,7 @@ const EntityStats = ({ entity, ...rest }: EntityProps) => {
   );
   const p_open = Math.round(entity.stats.p_outputs_open);
   return (
-    <>
+    <Box {...rest}>
       {/*base*/}
       <VStack display={{ base: "block", md: "none" }}>
         <EntityCard w={"full"}>
@@ -463,18 +510,21 @@ const EntityStats = ({ entity, ...rest }: EntityProps) => {
 
         <Grid gap={2} templateColumns="repeat(3, 1fr)">
           <EntityCard>
-            <Stats title={titleNOutputs} value={entity.stats.n_outputs} />
+            <Stats statsTitle={titleNOutputs} value={entity.stats.n_outputs} />
           </EntityCard>
 
           <EntityCard>
             <Stats
-              title={titleNOutputsOpen}
+              statsTitle={titleNOutputsOpen}
               value={entity.stats.n_outputs_open}
             />
           </EntityCard>
 
           <EntityCard>
-            <Stats title={titleNCitations} value={entity.stats.n_citations} />
+            <Stats
+              statsTitle={titleNCitations}
+              value={entity.stats.n_citations}
+            />
           </EntityCard>
         </Grid>
       </VStack>
@@ -490,31 +540,38 @@ const EntityStats = ({ entity, ...rest }: EntityProps) => {
               showText={false}
               pr={6}
             />
-            <Stats title={titleOpenPercent} value={p_open} isPercent />
+            <Stats statsTitle={titleOpenPercent} value={p_open} isPercent />
           </Flex>
           <Stats
-            title={titleNOutputs}
+            statsTitle={titleNOutputs}
             value={entity.stats.n_outputs}
             pr={"10px"}
           />
           <Stats
-            title={titleNOutputsOpen}
+            statsTitle={titleNOutputsOpen}
             value={entity.stats.n_outputs_open}
             pr={"10px"}
           />
-          <Stats title={titleNCitations} value={entity.stats.n_citations} />
+          <Stats
+            statsTitle={titleNCitations}
+            value={entity.stats.n_citations}
+          />
         </Flex>
       </EntityCard>
-    </>
+    </Box>
   );
 };
 
-const PublisherOpenDonut = ({ data /* see data tab */ }) => {
+interface PublisherOpenDonutProps extends BoxProps {
+  data: Array<any>;
+}
+
+const PublisherOpenDonut = ({ data, ...rest }: PublisherOpenDonutProps) => {
   const fontFamily = "brandon-grotesque";
   const margin = 20;
   const [i, setIndex] = useState(0);
 
-  const CentreText = ({ dataWithArc, centerX, centerY }) => {
+  const CentreText = ({ dataWithArc, centerX, centerY }: any) => {
     const data = dataWithArc[i];
     return (
       <text textAnchor="middle" y={centerY + 6}>
@@ -542,7 +599,7 @@ const PublisherOpenDonut = ({ data /* see data tab */ }) => {
   };
 
   return (
-    <Box className="publisherOpenDonut">
+    <Box className="publisherOpenDonut" {...rest}>
       <Pie
         colors={{ datum: "data.color" }}
         innerRadius={0.6}
@@ -571,21 +628,24 @@ const PublisherOpenDonut = ({ data /* see data tab */ }) => {
   );
 };
 
-const OAProportionStream = ({ data /* see data tab */ }) => {
+interface OAProportionStreamProps extends BoxProps {
+  data: Array<any>;
+}
+
+const OAProportionStream = ({ data, ...rest }: OAProportionStreamProps) => {
   const props = {
     data: data,
     keys: ["Closed", "Other Platform Open", "Both", "Publisher Open"],
     margin: { top: 20, right: 20, bottom: 30, left: 30 },
     enableGridX: true,
     enableGridY: false,
-    offsetType: "none",
     colors: ["#EBEBEB", "#9FD27E", "#4fa9dc", "#ffd700"],
     colorBy: "index",
     fillOpacity: 0.8,
     width: 824,
     height: 600,
     axisBottom: {
-      format: (value) => {
+      format: (value: number) => {
         return minOATimeseriesYear + value;
       },
     },
@@ -594,20 +654,9 @@ const OAProportionStream = ({ data /* see data tab */ }) => {
 
   return (
     <div style={{ display: "flex" }} className="oaProportionStream">
-      <ResponsiveStream {...props} />
+      <ResponsiveStream offsetType="none" {...props} />
     </div>
   );
 };
-
-// {/*<Bar*/}
-// {/*    {...props}*/}
-// {/*    layers={["axes"]}*/}
-// {/*    axisBottom={null}*/}
-// {/*    width={50}*/}
-// {/*    margin={{ ...props.margin, left: 50 }}*/}
-// {/*/>*/}
-// {/*<div style={{ height: 440, overflowX: "scroll", width: "100%" }}>*/}
-// {/*    <Bar {...props} axisLeft={null} margin={{ ...props.margin, left: 0 }} />*/}
-// {/*</div>*/}
 
 export default EntityDetails;

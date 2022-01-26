@@ -157,12 +157,14 @@ export default function Layout({ children }: { children: ReactNode }) {
               pt={{ base: 0, md: "50px" }}
               pb={{ base: 0, md: "90px" }}
             >
-              <Breadcrumb
+              <Box
                 display={{ base: "none", md: "block" }}
-                labelsToUppercase
                 pb="32px"
                 textStyle="breadcrumb"
-              />
+              >
+                <Breadcrumb labelsToUppercase />
+              </Box>
+
               {/* position="relative" is required to keep the COKI background image behind the children as
                   z-index only works on positioned elements*/}
               <Box position="relative">{children}</Box>

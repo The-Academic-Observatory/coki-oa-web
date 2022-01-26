@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
 export type Rect = {
@@ -48,13 +48,13 @@ function calcRects(
   return rects;
 }
 
-type Props = {
+interface Props extends BoxProps {
   values: Array<number>;
   colors: Array<string>;
-  width: number;
+  width: any;
   height: number;
   labels: Array<string>;
-};
+}
 
 const BreakdownSparkline = ({
   values,

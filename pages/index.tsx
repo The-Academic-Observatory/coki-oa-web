@@ -59,7 +59,7 @@ const IndexPage = ({ countryList, institutionList, autocomplete }: Props) => {
   const [dashboardText, setDashboardText] = React.useState(
     descriptions[defaultTabIndex]
   );
-  const handleTabsChange = (index) => {
+  const handleTabsChange = (index: number) => {
     setTabIndex(index);
     setDashboardText(descriptions[index]);
   };

@@ -14,16 +14,16 @@
 //
 // Author: James Diprose
 
-const margin = "24px";
+const margin = 24;
 
 const Table = {
   variants: {
     dashboard: {
       table: {
-        width: `calc(100% - ${margin * 2})`,
-        maxWidth: `calc(100% - ${margin * 2})`,
+        width: `calc(100% - ${margin * 2}px)`,
+        maxWidth: `calc(100% - ${margin * 2}px)`,
         background: "white",
-        margin: { base: "14px 0 0 0", md: margin },
+        margin: { base: "14px 0 0 0", md: `${margin}px` },
         thead: {
           th: {
             textStyle: "tableHeader",

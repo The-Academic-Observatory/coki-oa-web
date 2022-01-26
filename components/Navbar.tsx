@@ -24,10 +24,10 @@ import Fuse from "fuse.js";
 
 interface NavbarProps extends FlexProps {
   fuse: Fuse<any>;
-  isOpenSidebar: () => void;
+  isOpenSidebar: boolean;
   onOpenSidebar: () => void;
   onCloseSidebar: () => void;
-  isOpenSearch: () => void;
+  isOpenSearch: boolean;
   onOpenSearch: () => void;
   onCloseSearch: () => void;
   navbarHeightMobile: number;
