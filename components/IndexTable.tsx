@@ -31,6 +31,8 @@ import {
   Thead,
   Tr,
   VStack,
+  TableCaption,
+  Tfoot,
 } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
 import { usePagination, useSortBy, useTable } from "react-table";
@@ -230,7 +232,8 @@ const IndexTable = ({ entities, categoryName, ...rest }: Props) => {
 
   return (
     <Box>
-      <Box overflowX="scroll">
+      {/*100vw is required so that the container for the table does not increase in width with the table*/}
+      <Box overflowX="auto" maxWidth="100vw">
         <Table {...getTableProps()} size="sm" variant="dashboard">
           <Thead>
             {headerGroups.map((headerGroup) => (
@@ -270,7 +273,6 @@ const IndexTable = ({ entities, categoryName, ...rest }: Props) => {
             })}
           </Tbody>
         </Table>
-        {/*</TableContainer>*/}
       </Box>
       <VStack
         pt="24px"

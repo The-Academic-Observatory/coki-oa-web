@@ -178,27 +178,27 @@ const theme = extendTheme(
       },
       entityOAScoreHeading: {
         fontWeight: 900,
-        fontSize: { base: "14px", md: "14px" },
-        lineHeight: { base: "14px", md: "14px" },
+        fontSize: { base: "12px", sm: "14px", md: "14px" },
+        lineHeight: { base: "12px", sm: "14px", md: "14px" },
         textTransform: "uppercase",
-        whiteSpace: "nowrap",
+        whiteSpace: { base: "normal", sm: "nowrap" },
       },
       entityOAScoreValue: {
         fontWeight: 900,
-        fontSize: { base: "50px", md: "40px" },
-        lineHeight: { base: "50px", md: "40px" },
+        fontSize: { base: "32px", sm: "50px", md: "40px" },
+        lineHeight: { base: "32px", sm: "50px", md: "40px" },
       },
       entityStatsHeading: {
         fontWeight: 900,
-        fontSize: { base: "11px", md: "14px" },
-        lineHeight: { base: "11px", md: "14px" },
+        fontSize: { base: "10px", sm: "11px", md: "14px" },
+        lineHeight: { base: "10px", sm: "11px", md: "14px" },
         textTransform: "uppercase",
         whiteSpace: "nowrap",
       },
       entityStatsValue: {
         fontWeight: 900,
-        fontSize: { base: "26px", md: "32px" },
-        lineHeight: { base: "26px", md: "32px" },
+        fontSize: { base: "16px", sm: "26px", md: "32px" },
+        lineHeight: { base: "16px", sm: "26px", md: "32px" },
       },
       entityCardHeading: {
         fontWeight: 900,
@@ -208,8 +208,8 @@ const theme = extendTheme(
       },
       breakdownHeading: {
         fontWeight: 900,
-        fontSize: { base: "9px", md: "17px" },
-        lineHeight: { base: "9px", md: "17px" },
+        fontSize: { base: "7px", sm: "9px", md: "17px" },
+        lineHeight: { base: "7px", sm: "9px", md: "17px" },
         textTransform: "uppercase",
         whiteSpace: "nowrap",
         pt: { base: "6px", md: "12px" },
@@ -217,8 +217,8 @@ const theme = extendTheme(
       },
       breakdownValue: {
         fontWeight: 900,
-        fontSize: { base: "25px", md: "46px" },
-        lineHeight: { base: "25px", md: "46px" },
+        fontSize: { base: "18px", sm: "25px", md: "46px" },
+        lineHeight: { base: "18px", sm: "25px", md: "46px" },
       },
       chartKeyHeader: {
         fontWeight: 900,

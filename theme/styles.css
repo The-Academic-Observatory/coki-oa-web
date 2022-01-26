@@ -21,35 +21,14 @@ ul > li {
 }
 
 .oaProportionStream {
-    /*width: 100%;*/
-    height: 600px;
+    height: 620px;
 }
 
 .oaProportionStream > div {
-    /*width: 100%;*/
-    height: 600px;
-    overflow-x: scroll;
-    /*style={{height: 600, overflowX: 'scroll', overflowY: 'hidden', width: "100%"}}*/
-}
-
-.oaProportionStream > div > div {
-    /*width: 100%;*/
-
-    /*height: 600px;*/
-/*style={{height: 600, overflowX: 'scroll', overflowY: 'hidden', width: "100%"}}*/
+    overflow-x: auto;
 }
 
 .pageBtnActive {
     background-color: #FF671C !important;
 }
 
-
-.myText {
-    /*content: attr(data-content);*/
-    /*color: black;*/
-}
-
-.myText:after {
-    -webkit-text-stroke: 10px white;
-    /*mix-blend-mode: difference;*/
-}

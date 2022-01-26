@@ -51,7 +51,12 @@ interface CardProps extends BoxProps {
 
 const EntityCard = ({ children, ...rest }: CardProps) => {
   return (
-    <Box bg={"white"} border={"1px solid #EBEBEB"} p={"24px"} {...rest}>
+    <Box
+      bg={"white"}
+      border={"1px solid #EBEBEB"}
+      p={{ base: "14px", sm: "24px" }}
+      {...rest}
+    >
       {children}
     </Box>
   );
@@ -59,7 +64,7 @@ const EntityCard = ({ children, ...rest }: CardProps) => {
 
 const EntityDetails = ({ entity, ...rest }: EntityProps) => {
   return (
-    <Card maxWidth={"970px"} bgBase={"none"}>
+    <Card maxWidth="970px" width="calc(100vw - 12px)" bgBase="none">
       <VStack spacing={"24px"}>
         <EntitySummary entity={entity} />
         <EntityBreakdown entity={entity} />
@@ -167,7 +172,10 @@ const EntityPublisherOpen = ({ entity, ...rest }: EntityProps) => {
                 backgroundImage="linear-gradient(-135deg, #fdd500, #b9a436)"
               />
               <Text textStyle="chartKeyHeader">OA Journal</Text>
-              <Text textStyle="chartKeyDescription">
+              <Text
+                textStyle="chartKeyDescription"
+                display={{ base: "none", sm: "block" }}
+              >
                 &nbsp;- published in open access journal
               </Text>
             </Flex>
@@ -176,7 +184,10 @@ const EntityPublisherOpen = ({ entity, ...rest }: EntityProps) => {
             <Flex layerStyle="chartKeyRow">
               <Box layerStyle="chartKeyBox" backgroundColor="#ffd700" />
               <Text textStyle="chartKeyHeader">Hybrid</Text>
-              <Text textStyle="chartKeyDescription" isTruncated>
+              <Text
+                textStyle="chartKeyDescription"
+                display={{ base: "none", sm: "block" }}
+              >
                 &nbsp;- subscription publisher, open license
               </Text>
             </Flex>
@@ -188,7 +199,10 @@ const EntityPublisherOpen = ({ entity, ...rest }: EntityProps) => {
             <Flex layerStyle="chartKeyRow">
               <Box layerStyle="chartKeyBox" backgroundColor="#f8eb8f" />
               <Text textStyle="chartKeyHeader">No Guarantees</Text>
-              <Text textStyle="chartKeyDescription" isTruncated>
+              <Text
+                textStyle="chartKeyDescription"
+                display={{ base: "none", sm: "block" }}
+              >
                 &nbsp;- subscription publisher, no reuse rights
               </Text>
             </Flex>
@@ -280,12 +294,7 @@ const MetadataLink = ({ icon, name, href, ...rest }: MetadataLinkProps) => {
 const EntityMetadataDesktop = ({ entity, ...rest }: EntityProps) => {
   return (
     <EntityCard display={{ base: "none", md: "block" }} {...rest}>
-      <Flex
-        // align={"left"}
-        h="full"
-        flexDirection="column"
-        justifyContent="space-between"
-      >
+      <Flex h="full" flexDirection="column" justifyContent="space-between">
         <MetadataLink
           icon={"wikipedia"}
           name={"Wikipedia"}
@@ -330,57 +339,48 @@ const EntityMetadataMobile = ({ entity, ...rest }: EntityProps) => {
       <hr />
       <VStack px="12px" py="32px">
         <Flex
-          w={"full"}
-          alignItems="center"
+          w="full"
+          flexDirection="row"
+          flexWrap="wrap"
           justifyContent="space-between"
-          pb={"12px"}
         >
-          {/*entity.wikipedia_url*/}
           <MetadataLink icon={"wikipedia"} name={"Wikipedia"} href={""} />
           <MetadataLink icon={"website"} name={"Website"} href={""} />
           <MetadataLink icon={"download"} name={"Download"} href={""} />
           <MetadataLink icon={"code"} name={"Code"} href={""} />
         </Flex>
-        <Grid
-          w={"full"}
-          templateRows="repeat(2, 1fr)"
-          templateColumns="repeat(4, 1fr)"
-          textAlign={"left"}
-          lineHeight="16px"
+
+        <Flex
+          w="full"
+          flexDirection="row"
+          flexWrap="wrap"
+          justifyContent="space-between"
         >
-          <GridItem colSpan={2}>
-            <Text textStyle="entityID">
-              ROR:{" "}
-              <Text as="span" textStyle="entityBold">
-                02n415q13
-              </Text>
+          <Text textStyle="entityID">
+            ROR:{" "}
+            <Text as="span" textStyle="entityBold">
+              02n415q13
             </Text>
-          </GridItem>
-          <GridItem colSpan={2}>
-            <Text textStyle="entityID">
-              ISNI:{" "}
-              <Text as="span" textStyle="entityBold">
-                0000000403723343
-              </Text>
+          </Text>
+          <Text textStyle="entityID">
+            ISNI:{" "}
+            <Text as="span" textStyle="entityBold">
+              0000000403723343
             </Text>
-          </GridItem>
-          <GridItem colSpan={2}>
-            <Text textStyle="entityID">
-              Crossref Funder ID:{" "}
-              <Text as="span" textStyle="entityBold">
-                501100001537
-              </Text>
+          </Text>
+          <Text textStyle="entityID">
+            Crossref Funder ID:{" "}
+            <Text as="span" textStyle="entityBold">
+              501100001537
             </Text>
-          </GridItem>
-          <GridItem>
-            <Text textStyle="entityID">
-              WikiData:{" "}
-              <Text as="span" textStyle="entityBold">
-                Q492467
-              </Text>
+          </Text>
+          <Text textStyle="entityID">
+            WikiData:{" "}
+            <Text as="span" textStyle="entityBold">
+              Q492467
             </Text>
-          </GridItem>
-        </Grid>
+          </Text>
+        </Flex>
       </VStack>
     </Box>
   );
@@ -446,7 +446,7 @@ const EntityStats = ({ entity, ...rest }: EntityProps) => {
               <DonutSparkline
                 value={p_open}
                 color={"#FF671C"}
-                size={120}
+                size={90}
                 showText={false}
                 pr={6}
               />
@@ -572,34 +572,9 @@ const PublisherOpenDonut = ({ data /* see data tab */ }) => {
 };
 
 const OAProportionStream = ({ data /* see data tab */ }) => {
-  // const random = () => Math.floor(Math.random() * 1000)
-
-  // let data_mock = ["dogs", "cats", "penguins", "owls", "ferrets", "sloths", "otters", "pandas"].map((x) => {
-  //     return {
-  //         x,
-  //         currentYear: random(),
-  //         oneYearAgo: random(),
-  //         twoYearsAgo: random(),
-  //         goal: random()
-  //     }
-  // })
-
-  // const props = {
-  //     data: data,
-  //     keys: ["currentYear", "oneYearAgo", "twoYearsAgo"],
-  //     height: 400,
-  //     margin: ["bottom", "left", "right", "top"].reduce(
-  //         (acc, key) => ({ ...acc, [key]: 40 }),
-  //         {}
-  //     ),
-  //     colors: { scheme: "spectral" },
-  //     width: 800,
-  // }
-
   const props = {
     data: data,
     keys: ["Closed", "Other Platform Open", "Both", "Publisher Open"],
-    // height: 600,
     margin: { top: 20, right: 20, bottom: 30, left: 30 },
     enableGridX: true,
     enableGridY: false,
@@ -607,53 +582,19 @@ const OAProportionStream = ({ data /* see data tab */ }) => {
     colors: ["#EBEBEB", "#9FD27E", "#4fa9dc", "#ffd700"],
     colorBy: "index",
     fillOpacity: 0.8,
+    width: 824,
+    height: 600,
     axisBottom: {
       format: (value) => {
         return minOATimeseriesYear + value;
       },
     },
-    valueFormat: (value) => `${value.toFixed(0)}%`,
-    // legends: [
-    //     {
-    //         anchor: "bottom-left",
-    //         direction: "column",
-    //         translateX: 0,
-    //         translateY: 120,
-    //         itemWidth: 120,
-    //         itemHeight: 20,
-    //         itemTextColor: "#999999",
-    //         symbolSize: 12,
-    //         symbolShape: "circle",
-    //         effects: [
-    //             {
-    //                 on: "hover",
-    //                 style: {
-    //                     itemTextColor: "#000000"
-    //                 }
-    //             }
-    //         ]
-    //     }
-    // ]
+    // valueFormat: (value) => `${value.toFixed(0)}%`,
   };
 
   return (
     <div style={{ display: "flex" }} className="oaProportionStream">
-      {/*<div style={{height: 600, width: "50px"}}>*/}
-      {/*    <ResponsiveStream*/}
-      {/*        {...props}*/}
-      {/*        layers={["axes"]}*/}
-      {/*        axisBottom={null}*/}
-      {/*        width={50}*/}
-      {/*        margin={{...props.margin, left: 50, top: 20, bottom: 20}}*/}
-      {/*    />*/}
-      {/*</div>*/}
-
-      {/**/}
-      {/*<div >*/}
       <ResponsiveStream {...props} />
-
-      {/*axisLeft={null}*/}
-      {/*</div>*/}
     </div>
   );
 };
