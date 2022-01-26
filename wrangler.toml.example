@@ -1,0 +1,14 @@
+name = "coki-oa-web"
+type = "webpack"
+account_id = "your-account-id"
+workers_dev = true
+
+[site]
+bucket = "out"
+entry-point = "workers-site"
+
+[env.staging]
+route = "staging.coki-oa-web.your-domain.workers.dev/*"
+
+[env.production]
+route = "coki-oa-web.your-domain.workers.dev/*"

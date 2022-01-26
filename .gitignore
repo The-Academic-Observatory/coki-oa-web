@@ -43,3 +43,6 @@ yarn-error.log*
 
 # Only commit yarn.lock
 package-lock.json
+
+# Ignore wrangler.toml
+wrangler.toml

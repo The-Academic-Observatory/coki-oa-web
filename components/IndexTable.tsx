@@ -237,37 +237,48 @@ const IndexTable = ({ entities, categoryName, ...rest }: Props) => {
       <Box overflowX="auto" maxWidth="100vw">
         <Table {...getTableProps()} size="sm" variant="dashboard">
           <Thead>
-            {headerGroups.map((headerGroup) => (
-              <Tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column: any) => (
-                  <Th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    minWidth={column.minWidth}
-                    maxWidth={column.maxWidth}
-                  >
-                    {column.render("Header")}
-                  </Th>
-                ))}
-              </Tr>
-            ))}
+            {headerGroups.map((headerGroup) => {
+              let props = headerGroup.getHeaderGroupProps();
+              return (
+                <Tr key={props.key}>
+                  {headerGroup.headers.map((column: any) => {
+                    const props = column.getHeaderProps(
+                      column.getSortByToggleProps()
+                    );
+                    return (
+                      <Th
+                        key={props.key}
+                        {...props}
+                        minWidth={column.minWidth}
+                        maxWidth={column.maxWidth}
+                      >
+                        {column.render("Header")}
+                      </Th>
+                    );
+                  })}
+                </Tr>
+              );
+            })}
           </Thead>
           <Tbody {...getTableBodyProps()}>
             {page.map((row: Row<any>, i: number) => {
               prepareRow(row);
-              let props = row.getRowProps();
-              // props.key = row.original.id;
               return (
-                <Tr {...props} zIndex="1">
-                  {row.cells.map((cell: Cell<any, any>) => (
-                    <Td
-                      {...cell.getCellProps()}
-                      isNumeric={cell.column.isNumeric}
-                      minWidth={cell.column.minWidth}
-                      maxWidth={cell.column.maxWidth}
-                    >
-                      {cell.render("Cell", { entity: row.original })}
-                    </Td>
-                  ))}
+                <Tr key={row.original.id} role="row" zIndex="1">
+                  {row.cells.map((cell: Cell<any, any>) => {
+                    let key = cell.getCellProps().key;
+                    return (
+                      <Td
+                        key={key}
+                        role="cell"
+                        isNumeric={cell.column.isNumeric}
+                        minWidth={cell.column.minWidth}
+                        maxWidth={cell.column.maxWidth}
+                      >
+                        {cell.render("Cell", { entity: row.original })}
+                      </Td>
+                    );
+                  })}
                 </Tr>
               );
             })}
