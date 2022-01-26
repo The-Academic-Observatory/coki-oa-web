@@ -14,7 +14,15 @@
 //
 // Author: James Diprose
 
+import type { SystemStyleObject } from "@chakra-ui/theme-tools";
+
 const margin = 24;
+
+const numericStyles: SystemStyleObject = {
+  "&[data-is-numeric=true]": {
+    textAlign: "end",
+  },
+};
 
 const Table = {
   variants: {
@@ -35,6 +43,7 @@ const Table = {
               position: "sticky",
               left: 0,
             },
+            ...numericStyles,
           },
         },
         tbody: {
@@ -74,6 +83,7 @@ const Table = {
                 position: "sticky",
                 left: 0,
               },
+              ...numericStyles,
             },
           },
         },

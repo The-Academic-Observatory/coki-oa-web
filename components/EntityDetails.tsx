@@ -311,6 +311,11 @@ const MetadataLink = ({ icon, name, href, ...rest }: MetadataLinkProps) => {
   //     color: "#101820",
   //   },
   // });
+
+  if (href === undefined) {
+    href = "";
+  }
+
   return (
     <Link href={href} {...rest}>
       <Flex align="center" role="group" cursor="pointer">

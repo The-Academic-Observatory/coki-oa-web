@@ -61,7 +61,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   const navbarHeightMobile: number = 68;
   const sidebarWidth: number = 340;
 
-  const [fuse, setFuse] = React.useState(null);
+  const [fuse, setFuse] = React.useState<Fuse<any> | null>(null);
 
   // Load and index data
   useEffect(() => {

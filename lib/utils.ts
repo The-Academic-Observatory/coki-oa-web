@@ -24,15 +24,17 @@ export function toReadableNumber(value: number) {
     value = Math.ceil(value / 1000);
     return `${value}k`;
   } else if (value < 1e9) {
+    let result: string = "";
+
     // Convert to millionths
     value = value / 1e6;
     if (value < 100 && value % 1 != 0) {
       // For not whole numbers just keep 1 dp
-      value = value.toFixed(1);
+      result = value.toFixed(1);
     } else {
       // For whole numbers remove all decimals
-      value = value.toFixed(0);
+      result = value.toFixed(0);
     }
-    return `${value}m`;
+    return `${result}m`;
   }
 }

@@ -154,7 +154,7 @@ interface Props extends BoxProps {
 
 const IndexTable = ({ entities, categoryName, ...rest }: Props) => {
   const data = entities;
-  const columns = React.useMemo(
+  const columns = React.useMemo<Array<any>>(
     () => [
       {
         Header: categoryName,
@@ -196,10 +196,10 @@ const IndexTable = ({ entities, categoryName, ...rest }: Props) => {
         Header: "",
         Cell: LearnMoreCell,
         id: "learnMore",
-        accessor: (e) => e,
+        accessor: (e: any) => e,
       },
     ],
-    []
+    [categoryName]
   );
 
   const {
@@ -210,13 +210,12 @@ const IndexTable = ({ entities, categoryName, ...rest }: Props) => {
     page,
     canPreviousPage,
     canNextPage,
-    pageOptions,
     pageCount,
     gotoPage,
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize, sortBy },
+    state: { pageIndex, pageSize },
   } = useTable(
     {
       columns,
@@ -240,10 +239,9 @@ const IndexTable = ({ entities, categoryName, ...rest }: Props) => {
           <Thead>
             {headerGroups.map((headerGroup) => (
               <Tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
+                {headerGroup.headers.map((column: any) => (
                   <Th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                    isNumeric={column.isNumeric}
                     minWidth={column.minWidth}
                     maxWidth={column.maxWidth}
                   >
@@ -254,13 +252,13 @@ const IndexTable = ({ entities, categoryName, ...rest }: Props) => {
             ))}
           </Thead>
           <Tbody {...getTableBodyProps()}>
-            {page.map((row: Row<Entity>, i: number) => {
+            {page.map((row: Row<any>, i: number) => {
               prepareRow(row);
               let props = row.getRowProps();
-              props.key = row.original.id;
+              // props.key = row.original.id;
               return (
                 <Tr {...props} zIndex="1">
-                  {row.cells.map((cell: Cell<Entity, any>) => (
+                  {row.cells.map((cell: Cell<any, any>) => (
                     <Td
                       {...cell.getCellProps()}
                       isNumeric={cell.column.isNumeric}

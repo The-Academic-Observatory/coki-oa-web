@@ -23,7 +23,7 @@ import React from "react";
 import Fuse from "fuse.js";
 
 interface NavbarProps extends FlexProps {
-  fuse: Fuse<any>;
+  fuse: Fuse<any> | null;
   isOpenSidebar: boolean;
   onOpenSidebar: () => void;
   onCloseSidebar: () => void;

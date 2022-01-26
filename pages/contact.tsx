@@ -56,11 +56,15 @@ export default function Contact() {
         </Text>
 
         <Flex alignItems="center" mt="48px">
-          <Icon icon="email" size="3em" />
+          <Icon icon="email" size={32} />
           <Text pl={2} textStyle="p" mb={0}>
             <b>
               Please email us at:{" "}
-              <a href="mailto:coki@curtin.edu.au" target="_blank">
+              <a
+                href="mailto:coki@curtin.edu.au"
+                target="_blank"
+                rel="noreferrer"
+              >
                 coki@curtin.edu.au
               </a>
             </b>

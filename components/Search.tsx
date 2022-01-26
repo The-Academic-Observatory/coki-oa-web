@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import React from "react";
+import React, { RefObject } from "react";
 import {
   Box,
   BoxProps,
@@ -94,19 +94,19 @@ const SearchResult = ({ entity, onClick, ...rest }: SearchResultProps) => {
 };
 
 interface SearchProps extends BoxProps {
-  fuse: Fuse<any>;
+  fuse: Fuse<any> | null;
 }
 
 export const Search = ({ fuse, ...rest }: SearchProps) => {
   const maxResults = 5;
-  const [searchResults, setSearchResults] = React.useState([]);
+  const [searchResults, setSearchResults] = React.useState<Array<any>>([]);
   const [isPopoverOpen, setPopoverOpen] = React.useState(false);
 
   // Search for entities
   const inputOnChange = debounce((value) => {
     if (value === "") {
       setPopoverOpen(false);
-    } else {
+    } else if (fuse != null) {
       const results = fuse
         .search(value)
         .slice(0, maxResults)
@@ -117,7 +117,7 @@ export const Search = ({ fuse, ...rest }: SearchProps) => {
   }, 300);
 
   // When receive a click outside search input or popover, then close
-  const ref = React.useRef();
+  const ref = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   useOutsideClick({
     ref: ref,
     handler: () => setPopoverOpen(false),
@@ -146,7 +146,7 @@ export const Search = ({ fuse, ...rest }: SearchProps) => {
           }}
         >
           <PopoverBody>
-            {searchResults.map((entity) => (
+            {searchResults.map((entity: Entity) => (
               <SearchResult
                 key={entity.id}
                 entity={entity}
@@ -162,7 +162,7 @@ export const Search = ({ fuse, ...rest }: SearchProps) => {
 };
 
 interface SearchDrawerProps extends BoxProps {
-  fuse: Fuse<any>;
+  fuse: Fuse<any> | null;
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
@@ -178,11 +178,11 @@ export const SearchDrawer = ({
   ...rest
 }: SearchDrawerProps) => {
   const maxResults = 5;
-  const [searchResults, setSearchResults] = React.useState([]);
+  const [searchResults, setSearchResults] = React.useState<Array<any>>([]);
 
   // Search for entities
   const inputOnChange = debounce((value) => {
-    if (value != "") {
+    if (value != "" && fuse != null) {
       const results = fuse
         .search(value)
         .slice(0, maxResults)
