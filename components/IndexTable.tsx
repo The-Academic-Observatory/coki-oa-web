@@ -150,9 +150,15 @@ function paginate(page: number, nPages: number) {
 interface Props extends BoxProps {
   entities: Array<Entity>;
   categoryName: string;
+  maxPageSize: number;
 }
 
-const IndexTable = ({ entities, categoryName, ...rest }: Props) => {
+const IndexTable = ({
+  entities,
+  categoryName,
+  maxPageSize,
+  ...rest
+}: Props) => {
   const data = entities;
   const columns = React.useMemo<Array<any>>(
     () => [
@@ -222,7 +228,7 @@ const IndexTable = ({ entities, categoryName, ...rest }: Props) => {
       data,
       autoResetPage: false,
       autoResetSortBy: false,
-      initialState: { pageIndex: 0, pageSize: 18 },
+      initialState: { pageIndex: 0, pageSize: maxPageSize },
     },
     useSortBy,
     usePagination

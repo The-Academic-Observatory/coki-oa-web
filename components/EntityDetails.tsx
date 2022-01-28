@@ -27,7 +27,6 @@ import {
   LinkProps,
   StackProps,
   Text,
-  useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
 import { Entity } from "../lib/model";
@@ -40,13 +39,7 @@ import BreakdownSparkline from "./BreakdownSparkline";
 import { toReadableNumber } from "../lib/utils";
 import { Pie } from "@nivo/pie";
 import { linearGradientDef } from "@nivo/core";
-import { ResponsiveStream } from "@nivo/stream";
-import {
-  StackOffset,
-  AreaCurve,
-  SvgDefsAndFill,
-  ValueFormat,
-} from "@nivo/core";
+import { Stream } from "@nivo/stream";
 
 const minOATimeseriesYear = 2000;
 
@@ -137,12 +130,12 @@ const EntityOATimeseries = ({ entity, ...rest }: EntityOATimeseriesProps) => {
   return (
     <EntityCard width={"full"} {...rest}>
       <Text textStyle="entityCardHeading">
-        Proportion of Open Access Over Time
+        Percentage of Open Access Over Time
       </Text>
       {/*<Box overflowX="scroll">*/}
       <Box>
         {/*style={{height: "600px"}}*/}
-        <OAProportionStream data={data} />
+        <OAPercentageStream data={data} />
       </Box>
 
       {/*</Box>*/}
@@ -301,23 +294,12 @@ interface MetadataLinkProps extends LinkProps {
 }
 
 const MetadataLink = ({ icon, name, href, ...rest }: MetadataLinkProps) => {
-  // const style = useBreakpointValue({
-  //   base: {
-  //     size: 24,
-  //     color: "#737373",
-  //   },
-  //   md: {
-  //     size: 32,
-  //     color: "#101820",
-  //   },
-  // });
-
   if (href === undefined) {
-    href = "";
+    href = "https://coki.ac";
   }
 
   return (
-    <Link href={href} {...rest}>
+    <Link href={href} target="_blank" rel="noreferrer" {...rest}>
       <Flex align="center" role="group" cursor="pointer">
         <Icon mr="2" icon={icon} size={32} color={"#101820"} />
         <Text textStyle="entityIconLink">{name}</Text>
@@ -342,9 +324,22 @@ const EntityMetadataDesktop = ({
           name={"Wikipedia"}
           href={entity.wikipedia_url}
         />
-        <MetadataLink icon={"website"} name={"Website"} href={""} />
-        <MetadataLink icon={"download"} name={"Download"} href={""} />
-        <MetadataLink icon={"code"} name={"Code"} href={""} mb="12px" />
+        <MetadataLink
+          icon={"website"}
+          name={"Website"}
+          href={"https://coki.ac"}
+        />
+        <MetadataLink
+          icon={"download"}
+          name={"Download"}
+          href={"https://coki.ac"}
+        />
+        <MetadataLink
+          icon={"code"}
+          name={"Embed"}
+          href={"https://coki.ac"}
+          mb="12px"
+        />
 
         <Text textStyle="entityID">
           ROR:{" "}
@@ -393,10 +388,22 @@ const EntityMetadataMobile = ({
           flexWrap="wrap"
           justifyContent="space-between"
         >
-          <MetadataLink icon={"wikipedia"} name={"Wikipedia"} href={""} />
-          <MetadataLink icon={"website"} name={"Website"} href={""} />
-          <MetadataLink icon={"download"} name={"Download"} href={""} />
-          <MetadataLink icon={"code"} name={"Code"} href={""} />
+          <MetadataLink
+            icon={"wikipedia"}
+            name={"Wikipedia"}
+            href={"https://coki.ac"}
+          />
+          <MetadataLink
+            icon={"website"}
+            name={"Website"}
+            href={"https://coki.ac"}
+          />
+          <MetadataLink
+            icon={"download"}
+            name={"Download"}
+            href={"https://coki.ac"}
+          />
+          <MetadataLink icon={"code"} name={"Embed"} href={"https://coki.ac"} />
         </Flex>
 
         <Flex
@@ -633,33 +640,38 @@ const PublisherOpenDonut = ({ data, ...rest }: PublisherOpenDonutProps) => {
   );
 };
 
-interface OAProportionStreamProps extends BoxProps {
+interface OAPercentageStreamProps extends BoxProps {
   data: Array<any>;
 }
 
-const OAProportionStream = ({ data, ...rest }: OAProportionStreamProps) => {
+const OAPercentageStream = ({ data, ...rest }: OAPercentageStreamProps) => {
   const props = {
     data: data,
-    keys: ["Closed", "Other Platform Open", "Both", "Publisher Open"],
-    margin: { top: 20, right: 20, bottom: 30, left: 30 },
+    keys: ["Publisher Open", "Both", "Other Platform Open", "Closed"],
+    margin: { top: 20, right: 20, bottom: 30, left: 37 },
     enableGridX: true,
     enableGridY: false,
-    colors: ["#EBEBEB", "#9FD27E", "#4fa9dc", "#ffd700"],
+    colors: ["#ffd700", "#4fa9dc", "#9FD27E", "#EBEBEB"],
     colorBy: "index",
     fillOpacity: 0.8,
     width: 824,
-    height: 600,
+    height: 400,
+    axisLeft: {
+      format: (value: number) => {
+        return `${value}%`;
+      },
+    },
     axisBottom: {
       format: (value: number) => {
         return minOATimeseriesYear + value;
       },
     },
-    // valueFormat: (value) => `${value.toFixed(0)}%`,
+    valueFormat: (value: number) => `${value.toFixed(0)}%`,
   };
 
   return (
     <div style={{ display: "flex" }} className="oaProportionStream">
-      <ResponsiveStream offsetType="none" {...props} />
+      <Stream offsetType="none" {...props} />
     </div>
   );
 };

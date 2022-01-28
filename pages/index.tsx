@@ -16,29 +16,26 @@
 
 import {
   Box,
-  GridItem,
-  SimpleGrid,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
   Text,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 import { Entity } from "../lib/model";
-import { getAutocompleteData, getIndexTableData } from "../lib/api";
-import React from "react";
+import { getIndexTableData } from "../lib/api";
+import React, { useEffect } from "react";
 import IndexTable from "../components/IndexTable";
 import Icon from "../components/Icon";
 
 type Props = {
-  countryList: Array<Entity>;
-  institutionList: Array<Entity>;
-  autocomplete: Array<object>;
+  countriesFirstPage: Array<Entity>;
+  institutionsFirstPage: Array<Entity>;
 };
 
 const maxTabsWidth = "970px";
+const maxPageSize = 18;
 
 const descriptions = [
   "Open Access by country. Showing output counts, number and proportion of accessible outputs published " +
@@ -49,10 +46,7 @@ const descriptions = [
     "publications or open access levels. You may also search for a specific institution.",
 ];
 
-const IndexPage = ({ countryList, institutionList, autocomplete }: Props) => {
-  // On mobile grid should take up entire screen
-  const colSpan = useBreakpointValue({ base: 6, xl: 4 });
-
+const IndexPage = ({ countriesFirstPage, institutionsFirstPage }: Props) => {
   // Change text based on tab index
   const defaultTabIndex = 0;
   const [tabIndex, setTabIndex] = React.useState(defaultTabIndex);
@@ -63,6 +57,27 @@ const IndexPage = ({ countryList, institutionList, autocomplete }: Props) => {
     setTabIndex(index);
     setDashboardText(descriptions[index]);
   };
+
+  // Fetch and update country and institution list on client
+  const [countries, setCountries] =
+    React.useState<Array<Entity>>(countriesFirstPage);
+  const [institutions, setInstitutions] = React.useState<Array<Entity>>(
+    institutionsFirstPage
+  );
+  useEffect(() => {
+    fetch("/country.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setCountries(data);
+      });
+  }, []);
+  useEffect(() => {
+    fetch("/institution.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setInstitutions(data);
+      });
+  }, []);
 
   return (
     <Box maxWidth={maxTabsWidth}>
@@ -93,10 +108,18 @@ const IndexPage = ({ countryList, institutionList, autocomplete }: Props) => {
 
         <TabPanels>
           <TabPanel p={0}>
-            <IndexTable entities={countryList} categoryName="Country" />
+            <IndexTable
+              entities={countries}
+              categoryName="Country"
+              maxPageSize={maxPageSize}
+            />
           </TabPanel>
           <TabPanel p={0}>
-            <IndexTable entities={institutionList} categoryName="Institution" />
+            <IndexTable
+              entities={institutions}
+              categoryName="Institution"
+              maxPageSize={maxPageSize}
+            />
           </TabPanel>
         </TabPanels>
       </Tabs>
@@ -105,14 +128,15 @@ const IndexPage = ({ countryList, institutionList, autocomplete }: Props) => {
 };
 
 export async function getStaticProps() {
-  const countryList = getIndexTableData("country");
-  const institutionList = getIndexTableData("institution");
-  const autocomplete = getAutocompleteData();
+  const countriesFirstPage = getIndexTableData("country").slice(0, maxPageSize);
+  const institutionsFirstPage = getIndexTableData("institution").slice(
+    0,
+    maxPageSize
+  );
   return {
     props: {
-      countryList: countryList,
-      institutionList: institutionList,
-      autocomplete: autocomplete,
+      countriesFirstPage: countriesFirstPage,
+      institutionsFirstPage: institutionsFirstPage,
     },
   };
 }
