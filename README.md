@@ -51,6 +51,7 @@ name = "coki-oa-web"
 type = "webpack"
 account_id = "my-cloudflare-account-id"
 zone_id = "my-cloudflare-zone-id"
+compatibility_date = "2022-02-03"
 
 [site]
 bucket = "out"
@@ -78,5 +79,5 @@ wrangler publish -e staging
 
 Deploy to production:
 ```bash
-wrangler publish -e prod
+wrangler publish -e production
 ```
