@@ -18,6 +18,7 @@ import React, { ReactElement, ReactNode, useState } from "react";
 import {
   Box,
   BoxProps,
+  Button,
   Flex,
   FlexProps,
   Grid,
@@ -41,8 +42,6 @@ import { Pie } from "@nivo/pie";
 import { linearGradientDef } from "@nivo/core";
 import { Stream } from "@nivo/stream";
 
-const minOATimeseriesYear = 2000;
-
 interface CardProps extends BoxProps {
   children: ReactNode;
 }
@@ -62,9 +61,14 @@ const EntityCard = ({ children, ...rest }: CardProps) => {
 
 interface EntityDetailsProps {
   entity: Entity;
+  lastUpdated: string;
 }
 
-const EntityDetails = ({ entity, ...rest }: EntityDetailsProps) => {
+const EntityDetails = ({
+  entity,
+  lastUpdated,
+  ...rest
+}: EntityDetailsProps) => {
   return (
     <Card maxWidth="970px" width="calc(100vw - 12px)" bgBase="none">
       <VStack spacing={"24px"}>
@@ -72,8 +76,34 @@ const EntityDetails = ({ entity, ...rest }: EntityDetailsProps) => {
         <EntityBreakdown entity={entity} />
         <EntityOATimeseries entity={entity} />
         <EntityPublisherOpen entity={entity} />
+        <EntityFooter lastUpdated={lastUpdated} />
       </VStack>
     </Card>
+  );
+};
+
+interface EntityFooterProps extends BoxProps {
+  lastUpdated: string;
+}
+
+const EntityFooter = ({ lastUpdated }: EntityFooterProps) => {
+  return (
+    <Flex
+      w="full"
+      alignItems="center"
+      flexDirection={{ base: "column", sm: "row" }}
+      justifyContent="space-between"
+      pt={{ base: 0, sm: "12px" }}
+    >
+      <Link href="/" textDecorationColor="white !important">
+        <Button variant="dashboard" fontSize="14px" lineHeight="14px">
+          <Text>Return to Dashboard</Text>
+        </Button>
+      </Link>
+      <Text textStyle="lastUpdated" pt={{ base: "16px", sm: 0 }}>
+        Last updated {lastUpdated}
+      </Text>
+    </Flex>
   );
 };
 
@@ -112,33 +142,39 @@ interface EntityOATimeseriesProps extends BoxProps {
 }
 
 const EntityOATimeseries = ({ entity, ...rest }: EntityOATimeseriesProps) => {
-  let data = entity.timeseries
-    .filter((t) => {
-      const year = parseInt(String(t.year));
-      return year >= minOATimeseriesYear;
-    })
-    .map((t) => {
-      const stats = t.stats;
-      return {
-        "Publisher Open": stats.p_outputs_publisher_open_only,
-        Both: stats.p_outputs_both,
-        "Other Platform Open": stats.p_outputs_other_platform_open_only,
-        Closed: stats.p_outputs_closed,
-      };
+  // Fill time series data with zeros
+  let data = [];
+  for (let year = entity.min_year; year <= entity.max_year; year++) {
+    data.push({
+      "Publisher Open": 0,
+      Both: 0,
+      "Other Platform Open": 0,
+      Closed: 0,
     });
+  }
+
+  // Merge real data with zeroed data
+  entity.timeseries.forEach((t) => {
+    const year = t.year;
+    const stats = t.stats;
+    const i = year - entity.min_year;
+
+    data[i] = {
+      "Publisher Open": stats.p_outputs_publisher_open_only,
+      Both: stats.p_outputs_both,
+      "Other Platform Open": stats.p_outputs_other_platform_open_only,
+      Closed: stats.p_outputs_closed,
+    };
+  });
 
   return (
     <EntityCard width={"full"} {...rest}>
       <Text textStyle="entityCardHeading">
-        Percentage of Open Access Over Time
+        Percentage of Open Access over time
       </Text>
-      {/*<Box overflowX="scroll">*/}
       <Box>
-        {/*style={{height: "600px"}}*/}
-        <OAPercentageStream data={data} />
+        <OAPercentageStream data={data} minYear={entity.min_year} />
       </Box>
-
-      {/*</Box>*/}
     </EntityCard>
   );
 };
@@ -237,16 +273,18 @@ const EntitySummary = ({ entity, ...rest }: EntitySummaryProps) => {
     <Flex width={"full"} {...rest}>
       <Flex flex={1} flexDirection={"column"} pr={{ base: 0, md: "24px" }}>
         <EntityHeading flexGrow={1} entity={entity} />
-        <EntityMetadataMobile
+        <EntityMetadata
           entity={entity}
           display={{ base: "block", md: "none" }}
+          isMobile={true}
         />
         <EntityStats entity={entity} />
       </Flex>
-      <EntityMetadataDesktop
+      <EntityMetadata
         entity={entity}
         width={"220px"}
         display={{ base: "none", md: "block" }}
+        isMobile={false}
       />
     </Flex>
   );
@@ -257,8 +295,14 @@ interface EntityHeadingProps extends StackProps {
 }
 
 const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
+  let area = "";
+  if (entity.category === "institution") {
+    area = `${entity.country},`;
+  }
+
   entity.description =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+    `Open Access statistics for ${entity.name}, ${area} covering research outputs published from ` +
+    `${entity.min_year} to ${entity.max_year}.`;
   return (
     <VStack alignItems={"left"} pb={{ base: "24px", md: 0 }} {...rest}>
       <HStack pb={{ base: "12px", md: "48px" }}>
@@ -295,7 +339,7 @@ interface MetadataLinkProps extends LinkProps {
 
 const MetadataLink = ({ icon, name, href, ...rest }: MetadataLinkProps) => {
   if (href === undefined) {
-    href = "https://coki.ac";
+    href = "https://open.coki.ac";
   }
 
   return (
@@ -308,138 +352,123 @@ const MetadataLink = ({ icon, name, href, ...rest }: MetadataLinkProps) => {
   );
 };
 
-interface EntityMetadataDesktopProps extends BoxProps {
+interface EntityMetadataProps extends BoxProps {
   entity: Entity;
+  isMobile: boolean;
 }
 
-const EntityMetadataDesktop = ({
-  entity,
-  ...rest
-}: EntityMetadataDesktopProps) => {
-  return (
-    <EntityCard display={{ base: "none", md: "block" }} {...rest}>
-      <Flex h="full" flexDirection="column" justifyContent="space-between">
-        <MetadataLink
-          icon={"wikipedia"}
-          name={"Wikipedia"}
-          href={entity.wikipedia_url}
-        />
-        <MetadataLink
-          icon={"website"}
-          name={"Website"}
-          href={"https://coki.ac"}
-        />
-        <MetadataLink
-          icon={"download"}
-          name={"Download"}
-          href={"https://coki.ac"}
-        />
-        <MetadataLink
-          icon={"code"}
-          name={"Embed"}
-          href={"https://coki.ac"}
-          mb="12px"
-        />
+const EntityMetadata = ({ entity, isMobile, ...rest }: EntityMetadataProps) => {
+  // Include wikipedia and or website URLs if they exist for the entity
+  let wikipedia = <></>;
+  if (entity.wikipedia_url) {
+    wikipedia = (
+      <MetadataLink
+        icon={"wikipedia"}
+        name={"Wikipedia"}
+        href={entity.wikipedia_url}
+      />
+    );
+  }
 
-        <Text textStyle="entityID">
-          ROR:{" "}
-          <Text as="span" textStyle="entityBold">
-            02n415q13
-          </Text>
-        </Text>
-        <Text textStyle="entityID">
-          ISNI:{" "}
-          <Text as="span" textStyle="entityBold">
-            0000000403723343
-          </Text>
-        </Text>
-        <Text textStyle="entityID">
-          Crossref Funder ID:{" "}
-          <Text as="span" textStyle="entityBold">
-            501100001537
-          </Text>
-        </Text>
-        <Text textStyle="entityID">
-          WikiData:{" "}
-          <Text as="span" textStyle="entityBold">
-            Q492467
-          </Text>
-        </Text>
-      </Flex>
-    </EntityCard>
-  );
-};
+  let website = <></>;
+  if (entity.url) {
+    website = (
+      <MetadataLink icon={"website"} name={"Website"} href={entity.url} />
+    );
+  }
 
-interface EntityMetadataMobileProps extends BoxProps {
-  entity: Entity;
-}
+  let content;
+  if (isMobile) {
+    content = (
+      <Box {...rest}>
+        <hr />
+        <VStack px="12px" py="32px">
+          <Flex
+            w="full"
+            flexDirection="row"
+            flexWrap="wrap"
+            justifyContent="space-between"
+          >
+            {wikipedia}
+            {website}
+            <MetadataLink
+              icon={"download"}
+              name={"Download"}
+              href={"https://open.coki.ac"}
+            />
+            <MetadataLink
+              icon={"code"}
+              name={"Embed"}
+              href={"https://open.coki.ac"}
+            />
+          </Flex>
 
-const EntityMetadataMobile = ({
-  entity,
-  ...rest
-}: EntityMetadataMobileProps) => {
-  return (
-    <Box {...rest}>
-      <hr />
-      <VStack px="12px" py="32px">
-        <Flex
-          w="full"
-          flexDirection="row"
-          flexWrap="wrap"
-          justifyContent="space-between"
-        >
-          <MetadataLink
-            icon={"wikipedia"}
-            name={"Wikipedia"}
-            href={"https://coki.ac"}
-          />
-          <MetadataLink
-            icon={"website"}
-            name={"Website"}
-            href={"https://coki.ac"}
-          />
+          <Flex
+            w="full"
+            flexDirection="row"
+            flexWrap="wrap"
+            justifyContent="space-between"
+          >
+            {entity.identifiers.map((obj: any) => {
+              return (
+                <Text key={obj.id} textStyle="entityID">
+                  {obj.type}:{" "}
+                  <Text as="span" textStyle="entityBold">
+                    {obj.id}
+                  </Text>
+                </Text>
+              );
+            })}
+          </Flex>
+        </VStack>
+      </Box>
+    );
+  } else {
+    content = (
+      <EntityCard display={{ base: "none", md: "block" }} {...rest}>
+        <Flex h="full" flexDirection="column" justifyContent="space-between">
+          {wikipedia}
+          {website}
           <MetadataLink
             icon={"download"}
             name={"Download"}
-            href={"https://coki.ac"}
+            href={"https://open.coki.ac"}
           />
-          <MetadataLink icon={"code"} name={"Embed"} href={"https://coki.ac"} />
-        </Flex>
+          <MetadataLink
+            icon={"code"}
+            name={"Embed"}
+            href={"https://open.coki.ac"}
+            mb="12px"
+          />
 
-        <Flex
-          w="full"
-          flexDirection="row"
-          flexWrap="wrap"
-          justifyContent="space-between"
-        >
-          <Text textStyle="entityID">
-            ROR:{" "}
-            <Text as="span" textStyle="entityBold">
-              02n415q13
-            </Text>
-          </Text>
-          <Text textStyle="entityID">
-            ISNI:{" "}
-            <Text as="span" textStyle="entityBold">
-              0000000403723343
-            </Text>
-          </Text>
-          <Text textStyle="entityID">
-            Crossref Funder ID:{" "}
-            <Text as="span" textStyle="entityBold">
-              501100001537
-            </Text>
-          </Text>
-          <Text textStyle="entityID">
-            WikiData:{" "}
-            <Text as="span" textStyle="entityBold">
-              Q492467
-            </Text>
-          </Text>
+          {entity.identifiers.map((obj: any) => {
+            let text = (
+              <Text as="span" textStyle="entityBold">
+                {obj.id}
+              </Text>
+            );
+            if (obj.url) {
+              text = (
+                <Link href={obj.url} target="_blank" rel="noreferrer">
+                  <Text as="span" textStyle="entityBold">
+                    {obj.id}
+                  </Text>
+                </Link>
+              );
+            }
+
+            return (
+              <Text key={obj.id} textStyle="entityID">
+                {obj.type}: {text}
+              </Text>
+            );
+          })}
         </Flex>
-      </VStack>
-    </Box>
-  );
+      </EntityCard>
+    );
+  }
+
+  return <>{content} </>;
 };
 
 interface StatsProps extends StackProps {
@@ -473,10 +502,10 @@ interface EntityStatsProps extends BoxProps {
 }
 
 const EntityStats = ({ entity, ...rest }: EntityStatsProps) => {
-  let titleOpenPercentNoBr = <>Open Access % Score</>;
+  let titleOpenPercentNoBr = <>Open Access Percentage</>;
   let titleOpenPercent = (
     <>
-      Open Access <br /> % Score
+      Open Access <br /> Percentage
     </>
   );
   let titleNOutputs = (
@@ -642,9 +671,14 @@ const PublisherOpenDonut = ({ data, ...rest }: PublisherOpenDonutProps) => {
 
 interface OAPercentageStreamProps extends BoxProps {
   data: Array<any>;
+  minYear: number;
 }
 
-const OAPercentageStream = ({ data, ...rest }: OAPercentageStreamProps) => {
+const OAPercentageStream = ({
+  data,
+  minYear,
+  ...rest
+}: OAPercentageStreamProps) => {
   const props = {
     data: data,
     keys: ["Publisher Open", "Both", "Other Platform Open", "Closed"],
@@ -663,14 +697,14 @@ const OAPercentageStream = ({ data, ...rest }: OAPercentageStreamProps) => {
     },
     axisBottom: {
       format: (value: number) => {
-        return minOATimeseriesYear + value;
+        return minYear + value;
       },
     },
     valueFormat: (value: number) => `${value.toFixed(0)}%`,
   };
 
   return (
-    <div style={{ display: "flex" }} className="oaProportionStream">
+    <div style={{ display: "flex" }} className="oaPercentageStream">
       <Stream offsetType="none" {...props} />
     </div>
   );

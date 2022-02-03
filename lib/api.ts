@@ -47,7 +47,7 @@ export function getIndexTableData(category: string) {
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }
 
-export function getAutocompleteData() {
-  const filePath = join(dataPath, `autocomplete.json`);
+export function getStatsData() {
+  const filePath = join(dataPath, `stats.json`);
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }

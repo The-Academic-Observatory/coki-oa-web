@@ -15,17 +15,23 @@
 // Author: James Diprose
 
 import { Entity } from "../../lib/model";
-import { getEntity, getEntityIds, idsToStaticPaths } from "../../lib/api";
+import {
+  getEntity,
+  getEntityIds,
+  getStatsData,
+  idsToStaticPaths,
+} from "../../lib/api";
 import EntityDetails from "../../components/EntityDetails";
 
 const category = "institution";
 
 type Props = {
   entity: Entity;
+  lastUpdated: string;
 };
 
-export default function Institution({ entity }: Props) {
-  return <EntityDetails entity={entity} />;
+export default function Institution({ entity, lastUpdated }: Props) {
+  return <EntityDetails entity={entity} lastUpdated={lastUpdated} />;
 }
 
 type Params = {
@@ -36,9 +42,11 @@ type Params = {
 
 export async function getStaticProps({ params }: Params) {
   const entity = getEntity(category, params.id);
+  const stats = getStatsData();
   return {
     props: {
-      entity,
+      entity: entity,
+      lastUpdated: stats.last_updated,
     },
   };
 }

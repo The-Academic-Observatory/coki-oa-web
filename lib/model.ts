@@ -27,6 +27,8 @@ export type Entity = {
   subregion: string;
   country: string;
   institution_types: Array<string>;
+  min_year: number;
+  max_year: number;
   stats: PublicationStats;
   identifiers: Array<Identifier>;
   collaborators: Array<Collaborator>;

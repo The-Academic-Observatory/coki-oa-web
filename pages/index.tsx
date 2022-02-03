@@ -24,7 +24,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Entity } from "../lib/model";
-import { getIndexTableData } from "../lib/api";
+import { getIndexTableData, getStatsData } from "../lib/api";
 import React, { useEffect } from "react";
 import IndexTable from "../components/IndexTable";
 import Icon from "../components/Icon";
@@ -32,21 +32,27 @@ import Icon from "../components/Icon";
 type Props = {
   countriesFirstPage: Array<Entity>;
   institutionsFirstPage: Array<Entity>;
+  stats: any;
 };
 
 const maxTabsWidth = "970px";
 const maxPageSize = 18;
 
-const descriptions = [
-  "Open Access by country. Showing output counts, number and proportion of accessible outputs published " +
-    "between 1800 and 2021. You can sort and filter by region, subregion, number of publications, and open " +
-    "access levels. You may also search for a specific country.",
-  "Open Access by institution. Showing output counts, number and proportion of accessible outputs published " +
-    "between 1800 to 2021. You can sort and filter by region, subregion, country, institution type, number of " +
-    "publications or open access levels. You may also search for a specific institution.",
-];
+const IndexPage = ({
+  countriesFirstPage,
+  institutionsFirstPage,
+  stats,
+}: Props) => {
+  // Descriptions
+  const descriptions = [
+    "Open Access by country. Showing output counts, number and percentage of accessible outputs published " +
+      `between ${stats.min_year} and ${stats.max_year}. You can sort and filter by region, subregion, number of ` +
+      "publications, and open access levels. You may also search for a specific country in the search bar at the top right.",
+    "Open Access by institution. Showing output counts, number and percentage of accessible outputs published " +
+      `between ${stats.min_year} to ${stats.max_year}. You can sort and filter by region, subregion, country, institution type, number of ` +
+      "publications or open access levels. You may also search for a specific institution in the search bar at the top right.",
+  ];
 
-const IndexPage = ({ countriesFirstPage, institutionsFirstPage }: Props) => {
   // Change text based on tab index
   const defaultTabIndex = 0;
   const [tabIndex, setTabIndex] = React.useState(defaultTabIndex);
@@ -65,14 +71,14 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage }: Props) => {
     institutionsFirstPage
   );
   useEffect(() => {
-    fetch("/country.json")
+    fetch("/data/country.json")
       .then((res) => res.json())
       .then((data) => {
         setCountries(data);
       });
   }, []);
   useEffect(() => {
-    fetch("/institution.json")
+    fetch("/data/institution.json")
       .then((res) => res.json())
       .then((data) => {
         setInstitutions(data);
@@ -112,6 +118,7 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage }: Props) => {
               entities={countries}
               categoryName="Country"
               maxPageSize={maxPageSize}
+              lastUpdated={stats.last_updated}
             />
           </TabPanel>
           <TabPanel p={0}>
@@ -119,6 +126,7 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage }: Props) => {
               entities={institutions}
               categoryName="Institution"
               maxPageSize={maxPageSize}
+              lastUpdated={stats.last_updated}
             />
           </TabPanel>
         </TabPanels>
@@ -133,10 +141,12 @@ export async function getStaticProps() {
     0,
     maxPageSize
   );
+  const stats = getStatsData();
   return {
     props: {
       countriesFirstPage: countriesFirstPage,
       institutionsFirstPage: institutionsFirstPage,
+      stats: stats,
     },
   };
 }

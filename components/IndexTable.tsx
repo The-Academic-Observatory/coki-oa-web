@@ -151,12 +151,14 @@ interface Props extends BoxProps {
   entities: Array<Entity>;
   categoryName: string;
   maxPageSize: number;
+  lastUpdated: Date;
 }
 
 const IndexTable = ({
   entities,
   categoryName,
   maxPageSize,
+  lastUpdated,
   ...rest
 }: Props) => {
   const data = entities;
@@ -318,7 +320,7 @@ const IndexTable = ({
         </Flex>
 
         <Text mt="28px !important" textStyle="lastUpdated">
-          Last updated 6 December 2021
+          Last updated {lastUpdated}
         </Text>
       </VStack>
       <Flex
@@ -355,7 +357,7 @@ const IndexTable = ({
             disabled={!canNextPage}
           />
         </Flex>
-        <Text textStyle="lastUpdated">Last updated 6 December 2021</Text>
+        <Text textStyle="lastUpdated">Last updated {lastUpdated}</Text>
       </Flex>
     </Box>
   );

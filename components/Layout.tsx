@@ -65,7 +65,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   // Load and index data
   useEffect(() => {
-    fetch("/autocomplete.json")
+    fetch("/data/autocomplete.json")
       .then((res) => res.json())
       .then((data) => {
         // Setup fuse after data loaded
