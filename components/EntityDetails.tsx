@@ -372,6 +372,11 @@ const EntityMetadata = ({ entity, isMobile, ...rest }: EntityMetadataProps) => {
 
   let website = <></>;
   if (entity.url) {
+    //TODO: clean urls in workflow
+    if (entity.url.endsWith("//")) {
+      entity.url = entity.url.slice(0, -1);
+    }
+
     website = (
       <MetadataLink icon={"website"} name={"Website"} href={entity.url} />
     );
