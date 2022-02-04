@@ -89,6 +89,37 @@ const Table = {
         },
       },
     },
+    content: {
+      table: {
+        border: "3px solid #EAEAEA",
+        thead: {
+          th: {
+            border: "3px solid #EAEAEA",
+            fontWeight: 700,
+            fontSize: "25px",
+            lineHeight: "32px",
+            textAlign: "center",
+          },
+        },
+        tbody: {
+          tr: {
+            td: {
+              border: "3px solid #EAEAEA",
+              fontWeight: 300,
+              fontSize: "25px",
+              lineHeight: "30px",
+            },
+          },
+        },
+        caption: {
+          fontWeight: 300,
+          fontSize: "25px",
+          lineHeight: "30px",
+          mt: "6px",
+        },
+      },
+      //  EAEAEA
+    },
   },
 };
 

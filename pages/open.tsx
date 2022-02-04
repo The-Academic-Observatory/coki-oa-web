@@ -15,7 +15,7 @@
 // Author: James Diprose
 
 import {
-  Image,
+  Box,
   ListItem,
   OrderedList,
   Table,
@@ -23,7 +23,6 @@ import {
   Tbody,
   Td,
   Text,
-  Tfoot,
   Th,
   Thead,
   Tr,
@@ -180,109 +179,116 @@ export default function Open() {
           tables on this website, including Publisher Open, Other Platform Open
           and Closed Access.
         </Text>
-        <Table variant="simple">
-          <TableCaption>Table 1. Open Access categories.</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>Category</Th>
-              <Th>Description</Th>
-              <Th>Significance</Th>
-              <Th>Mapping</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>Publisher Open</Td>
-              <Td>
-                An article published in an Open Access Journal or made
-                accessible in a Subscription Journal.
-              </Td>
-              <Td>
-                The final edited publication can be read directly from the
-                publisher's website, usually immediately on publication (for OA
-                Journal or Hybrid).
-              </Td>
-              <Td>The sum of Gold, Hybrid and Bronze.</Td>
-            </Tr>
-            <Tr>
-              <Td>Other Platform Open</Td>
-              <Td>
-                The publication was shared online; on a preprint server, a
-                university library repository, domain repository or an academic
-                staff page.
-              </Td>
-              <Td>
-                Can be applied to existing articles that are already published
-                as well as new articles. Generally without any cost.
-              </Td>
-              <Td>Green.</Td>
-            </Tr>
-            <Tr>
-              <Td>Closed</Td>
-              <Td>
-                A publication that is not either Publisher Open or Other
-                Platform Open.
-              </Td>
-              <Td>
-                To increase access to academic research, these are the
-                publications that should be focused on to make accessible by
-                uploading an appropriate copy to a public repository.
-              </Td>
-              <Td>Not Open, Closed or Closed Access.</Td>
-            </Tr>
-          </Tbody>
-        </Table>
+
+        <Box overflowX="auto" maxWidth="100vw" my="32px">
+          <Table variant="content">
+            <TableCaption>Table 1. Open Access categories.</TableCaption>
+            <Thead>
+              <Tr>
+                <Th>Category</Th>
+                <Th>Description</Th>
+                <Th>Significance</Th>
+                <Th>Mapping</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>Publisher Open</Td>
+                <Td>
+                  An article published in an Open Access Journal or made
+                  accessible in a Subscription Journal.
+                </Td>
+                <Td>
+                  The final edited publication can be read directly from the
+                  publisher's website, usually immediately on publication (for
+                  OA Journal or Hybrid).
+                </Td>
+                <Td>The sum of Gold, Hybrid and Bronze.</Td>
+              </Tr>
+              <Tr>
+                <Td>Other Platform Open</Td>
+                <Td>
+                  The publication was shared online; on a preprint server, a
+                  university library repository, domain repository or an
+                  academic staff page.
+                </Td>
+                <Td>
+                  Can be applied to existing articles that are already published
+                  as well as new articles. Generally without any cost.
+                </Td>
+                <Td>Green.</Td>
+              </Tr>
+              <Tr>
+                <Td>Closed</Td>
+                <Td>
+                  A publication that is not either Publisher Open or Other
+                  Platform Open.
+                </Td>
+                <Td>
+                  To increase access to academic research, these are the
+                  publications that should be focused on to make accessible by
+                  uploading an appropriate copy to a public repository.
+                </Td>
+                <Td>Not Open, Closed or Closed Access.</Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </Box>
         <Text textStyle="p">
           Table 2 provides a breakdown of the different types of Publisher Open,
           as shown in some of the charts on institution and country details
           pages.
         </Text>
-        <Table variant="simple">
-          <TableCaption>Table 2. Publisher Open subcategories.</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>Category</Th>
-              <Th>Description</Th>
-              <Th>Significance</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>OA Journal</Td>
-              <Td>Published in an Open Access Journal.</Td>
-              <Td>
-                To qualify as an OA journal there must be clear re-use rights
-                and certain quality measures need to be validated by the
-                Directory of Open Access Journals.
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>Hybrid</Td>
-              <Td>
-                Made accessible in a Subscription Journal with an open license.
-              </Td>
-              <Td>
-                A route to making articles available in older journals that were
-                historically subscription based and have not transitioned to
-                fully open access. Almost always involves payment of an APC or
-                some form of institutional payment through a “read and publish”
-                agreement.
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>No Guarantees</Td>
-              <Td>
-                Made accessible in a Subscription Publisher with no reuse
-                rights.
-              </Td>
-              <Td>
-                Publishers sometimes make articles available for limited periods
-                or without guarantees. This makes more articles readable but
-                doesn’t ensure long term accessibility.
-              </Td>
-            </Tr>
-          </Tbody>
-        </Table>
+
+        <Box overflowX="auto" maxWidth="100vw" my="32px">
+          <Table variant="content">
+            <TableCaption>Table 2. Publisher Open subcategories.</TableCaption>
+            <Thead>
+              <Tr>
+                <Th>Category</Th>
+                <Th>Description</Th>
+                <Th>Significance</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>OA Journal</Td>
+                <Td>Published in an Open Access Journal.</Td>
+                <Td>
+                  To qualify as an OA journal there must be clear re-use rights
+                  and certain quality measures need to be validated by the
+                  Directory of Open Access Journals.
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>Hybrid</Td>
+                <Td>
+                  Made accessible in a Subscription Journal with an open
+                  license.
+                </Td>
+                <Td>
+                  A route to making articles available in older journals that
+                  were historically subscription based and have not transitioned
+                  to fully open access. Almost always involves payment of an APC
+                  or some form of institutional payment through a “read and
+                  publish” agreement.
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>No Guarantees</Td>
+                <Td>
+                  Made accessible in a Subscription Publisher with no reuse
+                  rights.
+                </Td>
+                <Td>
+                  Publishers sometimes make articles available for limited
+                  periods or without guarantees. This makes more articles
+                  readable but doesn’t ensure long term accessibility.
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </Box>
       </Card>
     </>
   );

@@ -33,7 +33,6 @@ import Card from "../components/Card";
 import HowOverview from "../public/images/how-overview.svg";
 import HowDatasets from "../public/images/how-datasets.svg";
 import HowPubTable from "../public/images/how-pub-table.svg";
-import OAStats from "../public/images/oa-stats.svg";
 import Figure from "../components/Figure";
 
 export default function How() {
@@ -57,49 +56,51 @@ export default function How() {
           Organization Registry, Open Citations and Geonames. The table below
           illustrates what each dataset is used for.
         </Text>
-        <Table variant="simple">
-          <TableCaption>Table 1. Datasets and their roles.</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>Dataset</Th>
-              <Th>Role</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>Crossref Metadata</Td>
-              <Td>Citations, Paper Title, Journal Name</Td>
-            </Tr>
-            <Tr>
-              <Td>Crossref Funder Registry</Td>
-              <Td>Funder</Td>
-            </Tr>
-            <Tr>
-              <Td>Crossref Events</Td>
-              <Td>Social Media and Internet Events</Td>
-            </Tr>
-            <Tr>
-              <Td>Microsoft Academic Graph</Td>
-              <Td>Affiliation, Subject</Td>
-            </Tr>
-            <Tr>
-              <Td>Unpaywall</Td>
-              <Td>Open Access Status</Td>
-            </Tr>
-            <Tr>
-              <Td>Research Organization Registry</Td>
-              <Td>Institution Identifiers</Td>
-            </Tr>
-            <Tr>
-              <Td>Open Citations</Td>
-              <Td>Additional citation information</Td>
-            </Tr>
-            <Tr>
-              <Td>Geonames</Td>
-              <Td>Geographic information</Td>
-            </Tr>
-          </Tbody>
-        </Table>
+        <Box overflowX="auto" maxWidth="100vw" my="32px">
+          <Table variant="content">
+            <TableCaption>Table 1. Datasets and their roles.</TableCaption>
+            <Thead>
+              <Tr>
+                <Th>Dataset</Th>
+                <Th>Role</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>Crossref Metadata</Td>
+                <Td>Citations, Paper Title, Journal Name</Td>
+              </Tr>
+              <Tr>
+                <Td>Crossref Funder Registry</Td>
+                <Td>Funder</Td>
+              </Tr>
+              <Tr>
+                <Td>Crossref Events</Td>
+                <Td>Social Media and Internet Events</Td>
+              </Tr>
+              <Tr>
+                <Td>Microsoft Academic Graph</Td>
+                <Td>Affiliation, Subject</Td>
+              </Tr>
+              <Tr>
+                <Td>Unpaywall</Td>
+                <Td>Open Access Status</Td>
+              </Tr>
+              <Tr>
+                <Td>Research Organization Registry</Td>
+                <Td>Institution Identifiers</Td>
+              </Tr>
+              <Tr>
+                <Td>Open Citations</Td>
+                <Td>Additional citation information</Td>
+              </Tr>
+              <Tr>
+                <Td>Geonames</Td>
+                <Td>Geographic information</Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </Box>
         <Text textStyle="h2">2. Synthesis</Text>
         <Text textStyle="p">
           After fetching the datasets, they are synthesised to produce aggregate
@@ -169,102 +170,115 @@ export default function How() {
           calculations for Publisher Open, Other Platform Open and Closed Access
           are described in Table 2 below.
         </Text>
-        <Table variant="simple">
-          <TableCaption>Table 2. Open Access status calculations.</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>Category</Th>
-              <Th>Description</Th>
-              <Th>Unpaywall Query Details</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>Publisher Open</Td>
-              <Td>
-                An article published in an Open Access Journal or made
-                accessible in a Subscription Journal.
-              </Td>
-              <Td>
-                Where the Unpaywall journal_is_in_doaj field is True or where
-                the Unpaywall best_oa_location location_type field is
-                “publisher”.
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>Other Platform Open</Td>
-              <Td>
-                The publication was shared online; on a preprint server, a
-                university library repository, domain repository or an academic
-                staff page.
-              </Td>
-              <Td>
-                Any article where any oa_location element in the Unpaywall data
-                has the location_type “repository”.
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>Closed</Td>
-              <Td>
-                A publication that is not either Publisher Open or Other
-                Platform Open.
-              </Td>
-              <Td>
-                Where journal_is_in_doaj is False and best_oa_location is null.
-              </Td>
-            </Tr>
-          </Tbody>
-        </Table>
+
+        <Box overflowX="auto" maxWidth="100vw" my="32px">
+          <Table variant="content">
+            <TableCaption>
+              Table 2. Open Access status calculations.
+            </TableCaption>
+            <Thead>
+              <Tr>
+                <Th>Category</Th>
+                <Th>Description</Th>
+                <Th>Unpaywall Query Details</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>Publisher Open</Td>
+                <Td>
+                  An article published in an Open Access Journal or made
+                  accessible in a Subscription Journal.
+                </Td>
+                <Td>
+                  Where the Unpaywall journal_is_in_doaj field is True or where
+                  the Unpaywall best_oa_location location_type field is
+                  “publisher”.
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>Other Platform Open</Td>
+                <Td>
+                  The publication was shared online; on a preprint server, a
+                  university library repository, domain repository or an
+                  academic staff page.
+                </Td>
+                <Td>
+                  Any article where any oa_location element in the Unpaywall
+                  data has the location_type “repository”.
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>Closed</Td>
+                <Td>
+                  A publication that is not either Publisher Open or Other
+                  Platform Open.
+                </Td>
+                <Td>
+                  Where journal_is_in_doaj is False and best_oa_location is
+                  null.
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </Box>
+
         <Text textStyle="p">
           The calculations for the Publisher Open subcategories are described in
           Table 3 below.
         </Text>
-        <Table variant="simple">
-          <TableCaption>
-            Table 2. Publisher Open subcategory calculations.
-          </TableCaption>
-          <Thead>
-            <Tr>
-              <Th>Category</Th>
-              <Th>Description</Th>
-              <Th>Unpaywall Query Details</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>OA Journal</Td>
-              <Td>Published in an Open Access Journal.</Td>
-              <Td>
-                We use the journal_is_in_doaj tag from Unpaywall to define this
-                category which requires that there be some licensing information
-                provided.
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>Hybrid</Td>
-              <Td>
-                Made accessible in a Subscription Journal with an open license.
-              </Td>
-              <Td>
-                We check that the license field for the best_oa_location is not
-                null and journal_is_in_doaj is False. This includes the value of
-                “implied_oa” which covers cases where publishers have a general
-                assertion of a license but it is not clear from the page.
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>No Guarantees</Td>
-              <Td>
-                Made accessible in a Subscription Publisher with no reuse
-                rights.
-              </Td>
-              <Td>
-                All cases where the best_oa_location is “publisher”, the license
-                field is null, and journal_is_in_doaj is False.
-              </Td>
-            </Tr>
-          </Tbody>
-        </Table>
+
+        <Box overflowX="auto" maxWidth="100vw" my="32px">
+          <Table variant="content">
+            <TableCaption>
+              Table 2. Publisher Open subcategory calculations.
+            </TableCaption>
+            <Thead>
+              <Tr>
+                <Th>Category</Th>
+                <Th>Description</Th>
+                <Th>Unpaywall Query Details</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>OA Journal</Td>
+                <Td>Published in an Open Access Journal.</Td>
+                <Td>
+                  We use the journal_is_in_doaj tag from Unpaywall to define
+                  this category which requires that there be some licensing
+                  information provided.
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>Hybrid</Td>
+                <Td>
+                  Made accessible in a Subscription Journal with an open
+                  license.
+                </Td>
+                <Td>
+                  We check that the license field for the best_oa_location is
+                  not null and journal_is_in_doaj is False. This includes the
+                  value of “implied_oa” which covers cases where publishers have
+                  a general assertion of a license but it is not clear from the
+                  page.
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>No Guarantees</Td>
+                <Td>
+                  Made accessible in a Subscription Publisher with no reuse
+                  rights.
+                </Td>
+                <Td>
+                  All cases where the best_oa_location is “publisher”, the
+                  license field is null, and journal_is_in_doaj is False.
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </Box>
+
         <Text textStyle="p">
           To see the SQL script that calculates Open Access status,{" "}
           <a

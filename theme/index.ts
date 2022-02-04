@@ -86,15 +86,15 @@ const theme = extendTheme({
     p: {
       // Light
       fontWeight: 300,
-      fontSize: "21px",
+      fontSize: "25px",
       lineHeight: "36px",
       mb: "16px",
     },
     caption: {
       // Light
       fontWeight: 300,
-      fontSize: "21px",
-      lineHeight: "21px",
+      fontSize: "25px",
+      lineHeight: "25px",
       mt: "16px",
     },
     li: {
