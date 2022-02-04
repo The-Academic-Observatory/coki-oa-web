@@ -149,19 +149,19 @@ export default function Open() {
         </Text>
         <OrderedList textStyle="p">
           <ListItem>
-            If you're an author of previous work, you can go back and upload
-            copies of your previous Closed publications to your institution's
-            library repository or other public repositories to make them Other
-            Platform Open.
+            If you&apos;re an author of previous work, you can go back and
+            upload copies of your previous Closed publications to your
+            institution&apos;s library repository or other public repositories
+            to make them Other Platform Open.
           </ListItem>
           <ListItem>
             If you are involved in the development of new research, consider
             Open Access Publishers, Journals, or Proceedings when considering a
-            publication venue. If a decent choice isn't available yet, consider
-            the best possibilities for preprint servers in your field of study,
-            or have a strategy in place for placing a copy onto a publicly
-            accessible repository in parallel to publishing through a regular
-            source.
+            publication venue. If a decent choice isn&apos;t available yet,
+            consider the best possibilities for preprint servers in your field
+            of study, or have a strategy in place for placing a copy onto a
+            publicly accessible repository in parallel to publishing through a
+            regular source.
           </ListItem>
           <ListItem>
             If you aren’t publishing research yourself, but have an interest in
@@ -200,8 +200,8 @@ export default function Open() {
                 </Td>
                 <Td>
                   The final edited publication can be read directly from the
-                  publisher's website, usually immediately on publication (for
-                  OA Journal or Hybrid).
+                  publisher&apos;s website, usually immediately on publication
+                  (for OA Journal or Hybrid).
                 </Td>
                 <Td>The sum of Gold, Hybrid and Bronze.</Td>
               </Tr>

@@ -14,9 +14,12 @@
 //
 // Author: James Diprose
 
-import { Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import Card from "../components/Card";
+import CurtinLogo from "../public/logo-curtin.svg";
+import MellonLogo from "../public/logo-mellon.svg";
+import ArcadiaLogo from "../public/logo-arcadia.svg";
 
 export default function About() {
   return (
@@ -60,17 +63,17 @@ export default function About() {
           direction="row"
           justifyContent={{ base: "center", md: "space-between" }}
         >
-          <Image
-            layerStyle="logo"
-            src="/logo-curtin.svg"
-            alt="Curtin University Logo"
-          />
-          <Image
-            layerStyle="logo"
-            src="/logo-mellon.svg"
-            alt="Mellon Foundation Logo"
-          />
-          <Image layerStyle="logo" src="/logo-arcadia.svg" alt="Arcadia Logo" />
+          <Box layerStyle="logo">
+            <CurtinLogo />
+          </Box>
+
+          <Box layerStyle="logo">
+            <MellonLogo />
+          </Box>
+
+          <Box layerStyle="logo">
+            <ArcadiaLogo />
+          </Box>
         </Flex>
       </Card>
     </>

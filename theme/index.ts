@@ -236,7 +236,7 @@ const theme = extendTheme({
       mb: { base: "48px", md: "96px" },
     },
     logo: {
-      minWidth: { base: "100px", sm: "200px" },
+      minWidth: { base: "250px", sm: "300px" },
       p: "20px",
     },
     chartKeys: {

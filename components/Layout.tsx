@@ -20,7 +20,6 @@ import {
   Drawer,
   DrawerContent,
   Flex,
-  Image,
   useDisclosure,
 } from "@chakra-ui/react";
 import Breadcrumb from "./Breadcrumb";
@@ -30,6 +29,7 @@ import SidebarContent from "./SidebarContent";
 import Navbar from "./Navbar";
 import { SearchDrawer } from "./Search";
 import Fuse from "fuse.js";
+import COKIBackground from "../public/coki-background.svg";
 
 export interface LinkProps {
   name: string;
@@ -81,18 +81,18 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <Flex flexDirection="column" minH="100vh">
-      <Image
-        display={{ base: "none", md: "block" }}
-        htmlWidth="56%"
-        maxWidth="900px"
-        position="absolute"
-        top={0}
-        right={0}
-        objectPosition="right top"
-        objectFit="cover"
-        src="/coki-background.svg"
-        alt="Curtin Logo"
-      />
+      <Box display={{ base: "none", md: "block" }}>
+        <COKIBackground
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            maxWidth: "900px",
+            width: "56%",
+          }}
+        />
+      </Box>
+
       <SearchDrawer
         fuse={fuse}
         isOpen={isOpenSearch}

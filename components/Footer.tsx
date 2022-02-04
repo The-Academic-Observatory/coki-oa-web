@@ -18,7 +18,6 @@ import {
   Box,
   Flex,
   FlexProps,
-  Image,
   Stack,
   StackProps,
   Text,
@@ -28,6 +27,8 @@ import Link from "./Link";
 import Icon from "./Icon";
 import React from "react";
 import { LinkProps } from "./Layout";
+
+import CurtinLogo from "../public/logo-curtin.svg";
 
 const curtinLogoWidthDesktop = 245;
 const curtinLogoWidthMobile = 210;
@@ -52,11 +53,12 @@ const Footer = ({ links, sidebarWidth, ...rest }: FooterProps) => {
       >
         <Flex alignItems="center" justifyContent="center" h="full">
           <a href="https://www.curtin.edu.au/" target="_blank" rel="noreferrer">
-            <Image
-              htmlWidth={curtinLogoWidthDesktop}
-              src="/logo-curtin.svg"
-              alt="Curtin Logo"
-            />
+            <Box
+              minWidth={curtinLogoWidthDesktop}
+              width={curtinLogoWidthDesktop}
+            >
+              <CurtinLogo />
+            </Box>
           </a>
         </Flex>
       </Box>
@@ -86,11 +88,9 @@ const Footer = ({ links, sidebarWidth, ...rest }: FooterProps) => {
         >
           <FooterCredits />
           <a href="https://www.curtin.edu.au/" target="_blank" rel="noreferrer">
-            <Image
-              htmlWidth={curtinLogoWidthMobile}
-              src="/logo-curtin.svg"
-              alt="Curtin Logo"
-            />
+            <Box minWidth={curtinLogoWidthMobile} width={curtinLogoWidthMobile}>
+              <CurtinLogo />
+            </Box>
           </a>
         </Flex>
       </Flex>
