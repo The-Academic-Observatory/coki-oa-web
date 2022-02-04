@@ -39,11 +39,11 @@ export interface LinkProps {
 
 const links: Array<LinkProps> = [
   { name: "Open Access Dashboard", icon: "dashboard", href: "/" },
-  { name: "Open Access", icon: "open", href: "/open" },
-  { name: "How it Works", icon: "how", href: "/how" },
-  { name: "Data", icon: "data", href: "/data" },
-  { name: "About", icon: "about", href: "/about" },
-  { name: "Contact", icon: "contact", href: "/contact" },
+  { name: "Open Access", icon: "open", href: "/open/" },
+  { name: "How it Works", icon: "how", href: "/how/" },
+  { name: "Data", icon: "data", href: "/data/" },
+  { name: "About", icon: "about", href: "/about/" },
+  { name: "Contact", icon: "contact", href: "/contact/" },
 ];
 
 export default function Layout({ children }: { children: ReactNode }) {

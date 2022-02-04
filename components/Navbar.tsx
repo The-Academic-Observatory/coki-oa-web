@@ -14,11 +14,12 @@
 //
 // Author: James Diprose
 
-import { Flex, FlexProps, IconButton, Image } from "@chakra-ui/react";
+import { Box, Flex, FlexProps, IconButton } from "@chakra-ui/react";
 import Icon from "./Icon";
 import Link from "./Link";
 import { Search } from "./Search";
-
+import COKILogo from "../public/logo.svg";
+import COKILogoWhite from "../public/logo-white.svg";
 import React from "react";
 import Fuse from "fuse.js";
 
@@ -81,19 +82,21 @@ const Navbar = ({
       />
 
       <Link href="/">
-        <Image
-          htmlWidth={cokiLogoWidthDesktop}
-          src="/logo.svg"
-          alt="COKI Logo"
+        <Box
+          minWidth={cokiLogoWidthDesktop}
+          width={cokiLogoWidthDesktop}
           display={{ base: "none", md: "block" }}
-        />
+        >
+          <COKILogo />
+        </Box>
 
-        <Image
-          htmlWidth={cokiLogoWidthMobile}
-          src="/logo-white.svg"
-          alt="COKI Logo"
+        <Box
+          minWidth={cokiLogoWidthMobile}
+          width={cokiLogoWidthMobile}
           display={{ base: "block", md: "none" }}
-        />
+        >
+          <COKILogoWhite />
+        </Box>
       </Link>
 
       <Search fuse={fuse} display={{ base: "none", md: "block" }} />
