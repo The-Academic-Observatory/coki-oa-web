@@ -23,9 +23,20 @@ export default function Open() {
     <>
       <Card>
         <Text textStyle="h1">Data</Text>
-        <Text textStyle="p" layerStyle="pGap">
-          Coming soon!
+        <Text textStyle="p">
+          The COKI Open Access Dataset is available in JSON Lines format
+          compressed in tar.gz archives.
         </Text>
+        <Text textStyle="h2">Current Release</Text>
+        <Text textStyle="p">Coming soon!</Text>
+        <Text textStyle="h2">Previous Releases</Text>
+        <Text textStyle="p">Coming soon!</Text>
+        <Text textStyle="h2">Schema</Text>
+        <Text textStyle="p">Coming soon!</Text>
+        <Text textStyle="h2">License</Text>
+        <Text textStyle="p">Coming soon!</Text>
+        <Text textStyle="h2">Citing</Text>
+        <Text textStyle="p">Coming soon!</Text>
       </Card>
     </>
   );

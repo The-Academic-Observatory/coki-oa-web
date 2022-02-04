@@ -90,6 +90,13 @@ const theme = extendTheme({
       lineHeight: "36px",
       mb: "16px",
     },
+    caption: {
+      // Light
+      fontWeight: 300,
+      fontSize: "21px",
+      lineHeight: "21px",
+      mt: "16px",
+    },
     li: {
       // Light
       fontWeight: 300,
