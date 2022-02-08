@@ -194,7 +194,11 @@ const FooterSocialMedia = ({ ...rest }: StackProps) => {
           Share
         </Text>
       </Flex>
-      <a href="https://twitter.com/" target="_blank" rel="noreferrer">
+      <a
+        href="https://twitter.com/intent/tweet?url=https://open.coki.ac/&text="
+        target="_blank"
+        rel="noreferrer"
+      >
         <Icon
           icon="twitter"
           size={iconSize}
@@ -202,7 +206,11 @@ const FooterSocialMedia = ({ ...rest }: StackProps) => {
         />
       </a>
 
-      <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+      <a
+        href="https://www.linkedin.com/shareArticle?mini=true&url=https://open.coki.ac/"
+        target="_blank"
+        rel="noreferrer"
+      >
         <Icon
           icon="linkedin"
           size={iconSize}
@@ -210,7 +218,11 @@ const FooterSocialMedia = ({ ...rest }: StackProps) => {
         />
       </a>
 
-      <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
+      <a
+        href="https://www.facebook.com/sharer/sharer.php?u=https://open.coki.ac/"
+        target="_blank"
+        rel="noreferrer"
+      >
         <Icon
           icon="facebook"
           size={iconSize}

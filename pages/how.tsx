@@ -231,7 +231,7 @@ export default function How() {
         <Box overflowX="auto" maxWidth="100vw" my="32px">
           <Table variant="content">
             <TableCaption>
-              Table 2. Publisher Open subcategory calculations.
+              Table 3. Publisher Open subcategory calculations.
             </TableCaption>
             <Thead>
               <Tr>

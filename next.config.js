@@ -11,4 +11,16 @@ module.exports = {
 
     return config;
   },
+  async rewrites() {
+    return [
+      {
+        source: "/country/",
+        destination: "/",
+      },
+      {
+        source: "/institution/",
+        destination: "/",
+      },
+    ];
+  },
 };

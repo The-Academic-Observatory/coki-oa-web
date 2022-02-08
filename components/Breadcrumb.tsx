@@ -178,9 +178,7 @@ const Breadcrumbs = ({
   ...rest
 }: BreadcrumbsProps) => {
   const router = useRouter();
-  const [breadcrumbs, setBreadcrumbs] = useState<Array<Breadcrumb> | null>(
-    null
-  );
+  const [breadcrumbs, setBreadcrumbs] = useState<Array<Breadcrumb>>([]);
 
   useEffect(() => {
     if (router) {
@@ -197,10 +195,6 @@ const Breadcrumbs = ({
       setBreadcrumbs(pathArray);
     }
   }, [router]);
-
-  if (!breadcrumbs) {
-    return null;
-  }
 
   return (
     <ChakraBreadcrumb variant="dashboard" {...rest}>

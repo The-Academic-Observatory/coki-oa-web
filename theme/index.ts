@@ -144,6 +144,7 @@ const theme = extendTheme({
       fontWeight: 500,
       fontSize: "14px",
       textTransform: "uppercase",
+      fontVariantNumeric: "tabular-nums",
     },
     entityHeading: {
       fontWeight: 900,
@@ -221,6 +222,7 @@ const theme = extendTheme({
     chartKeyDescription: {
       fontSize: "14px",
       height: "24px",
+      fontWeight: 300,
       whiteSpace: "nowrap",
       overflow: "hidden",
       textOverflow: "ellipsis",

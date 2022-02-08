@@ -100,13 +100,14 @@ const IndexPage = ({
         bg="white"
         index={tabIndex}
         onChange={handleTabsChange}
+        defaultIndex={0}
       >
         <TabList>
-          <Tab href="/country">
+          <Tab>
             <Icon icon="website" size={24} marginRight="6px" />
             <Text>Country</Text>
           </Tab>
-          <Tab href="/institution">
+          <Tab>
             <Icon icon="institution" size={24} marginRight="6px" />
             <Text>Institution</Text>
           </Tab>

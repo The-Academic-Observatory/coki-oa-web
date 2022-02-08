@@ -54,13 +54,14 @@ function EntityCell({ value, entity }: EntityProps) {
   return (
     <Link href={href}>
       <HStack>
-        <Image
-          rounded="full"
-          objectFit="cover"
-          boxSize="16px"
-          src={entity.logo_s}
-          alt={entity.name}
-        />
+        <Box width="16px" height="16px" minWidth="16px">
+          <Image
+            rounded="full"
+            objectFit="cover"
+            boxSize="16px"
+            src={entity.logo_s}
+          />
+        </Box>
         <Text>{entity.name}</Text>
       </HStack>
     </Link>

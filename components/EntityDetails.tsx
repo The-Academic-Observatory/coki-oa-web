@@ -41,6 +41,8 @@ import { toReadableNumber } from "../lib/utils";
 import { Pie } from "@nivo/pie";
 import { linearGradientDef } from "@nivo/core";
 import { Stream } from "@nivo/stream";
+import { Bar } from "@nivo/bar";
+import { AxisLegendPosition } from "@nivo/axes";
 
 interface CardProps extends BoxProps {
   children: ReactNode;
@@ -75,6 +77,7 @@ const EntityDetails = ({
         <EntitySummary entity={entity} />
         <EntityBreakdown entity={entity} />
         <EntityOATimeseries entity={entity} />
+        <EntityOAVolume entity={entity} />
         <EntityPublisherOpen entity={entity} />
         <EntityFooter lastUpdated={lastUpdated} />
       </VStack>
@@ -167,13 +170,64 @@ const EntityOATimeseries = ({ entity, ...rest }: EntityOATimeseriesProps) => {
     };
   });
 
+  const labels = ["Publisher Open", "Both", "Other Platform Open", "Closed"];
+  const colors = ["#ffd700", "#4fa9dc", "#9FD27E", "#EBEBEB"];
+
   return (
     <EntityCard width={"full"} {...rest}>
       <Text textStyle="entityCardHeading">
         Percentage of Open Access over time
       </Text>
       <Box>
-        <OAPercentageStream data={data} minYear={entity.min_year} />
+        <OAPercentageChart data={data} minYear={entity.min_year} />
+        <Legend labels={labels} colors={colors} />
+      </Box>
+    </EntityCard>
+  );
+};
+
+interface EntityOAVolumeProps extends BoxProps {
+  entity: Entity;
+}
+
+const EntityOAVolume = ({ entity, ...rest }: EntityOAVolumeProps) => {
+  // Fill time series data with zeros
+  let data = [];
+  for (let year = entity.min_year; year <= entity.max_year; year++) {
+    data.push({
+      year: year,
+      Open: 0,
+      Closed: 0,
+    });
+  }
+
+  // Merge real data with zeroed data
+  let maxOutputs = 0;
+  entity.timeseries.forEach((t) => {
+    const year = t.year;
+    const stats = t.stats;
+    const i = year - entity.min_year;
+
+    if (stats.n_outputs > maxOutputs) {
+      maxOutputs = stats.n_outputs;
+    }
+
+    data[i] = {
+      year: year,
+      Open: stats.n_outputs_open,
+      Closed: stats.n_outputs_closed,
+    };
+  });
+
+  let labels = ["Open", "Closed"];
+  let colors = ["#FF671C", "#EBEBEB"];
+
+  return (
+    <EntityCard width={"full"} {...rest}>
+      <Text textStyle="entityCardHeading">Volume of Open Access over time</Text>
+      <Box>
+        <OAVolumeChart data={data} minYear={entity.min_year} />
+        <Legend labels={labels} colors={colors} />
       </Box>
     </EntityCard>
   );
@@ -306,17 +360,24 @@ const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
   return (
     <VStack alignItems={"left"} pb={{ base: "24px", md: 0 }} {...rest}>
       <HStack pb={{ base: "12px", md: "48px" }}>
-        <Image
-          rounded="full"
-          objectFit="cover"
-          boxSize={{ base: "60px", md: "100px" }}
-          src={entity.logo_l}
-          alt={entity.name}
+        <Box
+          minWidth={{ base: "60px", md: "100px" }}
+          width={{ base: "60px", md: "100px" }}
+          height={{ base: "60px", md: "100px" }}
           mr={{ base: "10px", md: "24px" }}
-          style={{
-            filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",
-          }}
-        />
+        >
+          <Image
+            rounded="full"
+            objectFit="cover"
+            boxSize={{ base: "60px", md: "100px" }}
+            src={entity.logo_l}
+            alt={entity.name}
+            style={{
+              filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",
+            }}
+          />
+        </Box>
+
         <VStack alignItems={"left"}>
           <Text textStyle="entityHeading">{entity.name}</Text>
           <Text textStyle="p" display={{ base: "none", md: "block" }}>
@@ -674,16 +735,16 @@ const PublisherOpenDonut = ({ data, ...rest }: PublisherOpenDonutProps) => {
   );
 };
 
-interface OAPercentageStreamProps extends BoxProps {
+interface OAPercentageChartProps extends BoxProps {
   data: Array<any>;
   minYear: number;
 }
 
-const OAPercentageStream = ({
+const OAPercentageChart = ({
   data,
   minYear,
   ...rest
-}: OAPercentageStreamProps) => {
+}: OAPercentageChartProps) => {
   const props = {
     data: data,
     keys: ["Publisher Open", "Both", "Other Platform Open", "Closed"],
@@ -712,6 +773,80 @@ const OAPercentageStream = ({
     <div style={{ display: "flex" }} className="oaPercentageStream">
       <Stream offsetType="none" {...props} />
     </div>
+  );
+};
+
+interface OAVolumeChartProps extends BoxProps {
+  data: Array<any>;
+  minYear: number;
+}
+
+export function formatVolumeChartYAxis(value: number) {
+  if (value < 1e3) {
+    return value;
+  } else if (value < 1e9) {
+    value = value / 1000;
+    return `${value}k`;
+  }
+}
+
+const OAVolumeChart = ({ data, minYear, ...rest }: OAVolumeChartProps) => {
+  let labels = ["Open", "Closed"];
+  let colors = ["#FF671C", "#EBEBEB"];
+  const props = {
+    data: data,
+    keys: labels,
+    indexBy: "year",
+    margin: { top: 20, right: 20, bottom: 30, left: 53 },
+    enableGridX: false,
+    enableGridY: true,
+    colors: colors,
+    width: 824,
+    enableLabel: false,
+    height: 400,
+    isInteractive: true,
+    axisLeft: {
+      format: (value: number) => {
+        return formatVolumeChartYAxis(value);
+      },
+      legend: "Total Publications",
+      legendPosition: "middle" as AxisLegendPosition,
+      legendOffset: -48,
+    },
+  };
+
+  return (
+    <div style={{ display: "flex" }} className="oaPercentageStream">
+      <Bar {...props} />
+    </div>
+  );
+};
+
+interface LegendProps extends BoxProps {
+  labels: Array<string>;
+  colors: Array<string>;
+}
+
+const Legend = ({ labels, colors, ...rest }: LegendProps) => {
+  return (
+    <Flex
+      {...rest}
+      flexWrap="wrap"
+      w="full"
+      justifyContent={{ base: "left", sm: "center" }}
+      mt={{ base: "16px", md: 0 }}
+      ml={{ base: "6px", md: 0 }}
+    >
+      {labels.map((label, i) => {
+        const color = colors[i];
+        return (
+          <Flex key={label} layerStyle="chartKeyRow" mr="24px">
+            <Box layerStyle="chartKeyBox" backgroundColor={color} />
+            <Text textStyle="chartKeyHeader">{label}</Text>
+          </Flex>
+        );
+      })}
+    </Flex>
   );
 };
 
