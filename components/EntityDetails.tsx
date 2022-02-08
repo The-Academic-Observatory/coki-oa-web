@@ -19,6 +19,7 @@ import {
   Box,
   BoxProps,
   Button,
+  Center,
   Flex,
   FlexProps,
   Grid,
@@ -27,6 +28,8 @@ import {
   Image,
   LinkProps,
   StackProps,
+  Tag,
+  TagLabel,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -327,11 +330,11 @@ const EntitySummary = ({ entity, ...rest }: EntitySummaryProps) => {
     <Flex width={"full"} {...rest}>
       <Flex flex={1} flexDirection={"column"} pr={{ base: 0, md: "24px" }}>
         <EntityHeading flexGrow={1} entity={entity} />
-        <EntityMetadata
-          entity={entity}
-          display={{ base: "block", md: "none" }}
-          isMobile={true}
-        />
+        {/*<EntityMetadata*/}
+        {/*    entity={entity}*/}
+        {/*    display={{ base: "block", md: "none" }}*/}
+        {/*    isMobile={true}*/}
+        {/*/>*/}
         <EntityStats entity={entity} />
       </Flex>
       <EntityMetadata
@@ -443,6 +446,16 @@ const EntityMetadata = ({ entity, isMobile, ...rest }: EntityMetadataProps) => {
     );
   }
 
+  // Create tags
+  let tags = [];
+  if (entity.category === "institution") {
+    tags.push(entity.country);
+    tags = tags.concat(entity.institution_types);
+  } else {
+    tags.push(entity.subregion);
+    tags.push(entity.region);
+  }
+
   let content;
   if (isMobile) {
     content = (
@@ -504,31 +517,46 @@ const EntityMetadata = ({ entity, isMobile, ...rest }: EntityMetadataProps) => {
             icon={"code"}
             name={"Embed"}
             href={"https://open.coki.ac"}
-            mb="12px"
           />
 
-          {entity.identifiers.map((obj: any) => {
-            let text = (
-              <Text as="span" textStyle="entityBold">
-                {obj.id}
-              </Text>
-            );
-            if (obj.url) {
-              text = (
-                <Link href={obj.url} target="_blank" rel="noreferrer">
-                  <Text as="span" textStyle="entityBold">
-                    {obj.id}
-                  </Text>
-                </Link>
-              );
-            }
-
+          {tags.map((tag: any) => {
             return (
-              <Text key={obj.id} textStyle="entityID">
-                {obj.type}: {text}
-              </Text>
+              <Tag
+                size={"md"}
+                key={tag}
+                borderRadius="full"
+                variant="solid"
+                backgroundColor="#737373"
+              >
+                <TagLabel margin={"auto"}>{tag}</TagLabel>
+              </Tag>
             );
           })}
+
+          {/*<Box mb="6px" />*/}
+
+          {/*{entity.identifiers.map((obj: any) => {*/}
+          {/*  let text = (*/}
+          {/*    <Text as="span" textStyle="entityBold">*/}
+          {/*      {obj.id}*/}
+          {/*    </Text>*/}
+          {/*  );*/}
+          {/*  if (obj.url) {*/}
+          {/*    text = (*/}
+          {/*      <Link href={obj.url} target="_blank" rel="noreferrer">*/}
+          {/*        <Text as="span" textStyle="entityBold">*/}
+          {/*          {obj.id}*/}
+          {/*        </Text>*/}
+          {/*      </Link>*/}
+          {/*    );*/}
+          {/*  }*/}
+
+          {/*  return (*/}
+          {/*    <Text key={obj.id} textStyle="entityID">*/}
+          {/*      {obj.type}: {text}*/}
+          {/*    </Text>*/}
+          {/*  );*/}
+          {/*})}*/}
         </Flex>
       </EntityCard>
     );
