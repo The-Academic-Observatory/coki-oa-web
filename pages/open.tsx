@@ -33,8 +33,8 @@ import OAOverview from "../public/images/oa-overview.svg";
 import OAFlowchart from "../public/images/oa-flowchart.svg";
 import Figure from "../components/Figure";
 import ScrollTable from "../components/ScrollTable";
-import Breadcrumb from "../components/Breadcrumb";
 import Head from "next/head";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 export default function Open() {
   return (
@@ -47,9 +47,15 @@ export default function Open() {
         />
       </Head>
 
-      <Box display={{ base: "none", md: "block" }} pb="32px">
-        <Breadcrumb labelsToUppercase />
-      </Box>
+      <Breadcrumbs
+        breadcrumbs={[
+          {
+            title: "Open Access",
+            href: "/open/",
+          },
+        ]}
+      />
+
       <Card>
         <Text textStyle="h1">Open Access</Text>
         <Text textStyle="h2">What is Open Access?</Text>

@@ -34,7 +34,7 @@ import HowDatasets from "../public/images/how-datasets.svg";
 import HowPubTable from "../public/images/how-pub-table.svg";
 import Figure from "../components/Figure";
 import ScrollTable from "../components/ScrollTable";
-import Breadcrumb from "../components/Breadcrumb";
+import Breadcrumbs from "../components/Breadcrumbs";
 import Head from "next/head";
 
 export default function How() {
@@ -48,9 +48,14 @@ export default function How() {
         />
       </Head>
 
-      <Box display={{ base: "none", md: "block" }} pb="32px">
-        <Breadcrumb labelsToUppercase />
-      </Box>
+      <Breadcrumbs
+        breadcrumbs={[
+          {
+            title: "How it Works",
+            href: "/how/",
+          },
+        ]}
+      />
 
       <Card>
         <Text textStyle="h1">How it Works</Text>

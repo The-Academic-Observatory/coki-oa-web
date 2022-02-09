@@ -22,7 +22,6 @@ import {
   Flex,
   useDisclosure,
 } from "@chakra-ui/react";
-import Breadcrumb from "./Breadcrumb";
 
 import Footer from "./Footer";
 import SidebarContent from "./SidebarContent";
@@ -155,8 +154,6 @@ export default function Layout({ children }: { children: ReactNode }) {
           {/* position="relative" is required to keep the COKI background image behind the children as
                   z-index only works on positioned elements*/}
           <Box position="relative">{children}</Box>
-          {/*</Box>*/}
-          {/*</Flex>*/}
         </Box>
       </Flex>
 

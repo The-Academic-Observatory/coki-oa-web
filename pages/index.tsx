@@ -29,8 +29,8 @@ import React, { useEffect } from "react";
 import IndexTable from "../components/IndexTable";
 import Icon from "../components/Icon";
 import TextCollapse from "../components/TextCollapse";
-import Breadcrumb from "../components/Breadcrumb";
 import Head from "next/head";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 type Props = {
   countriesFirstPage: Array<Entity>;
@@ -109,16 +109,15 @@ const IndexPage = ({
         />
       </Head>
 
-      <Box
-        display={{ base: "none", md: "block" }}
+      <Breadcrumbs
+        breadcrumbs={[]}
         p={{
           base: 0,
-          md: "24px 24px 0px",
-          std: "24px 0 15px",
+          md: "12.5px 12px 0px",
+          std: "12.5px 0 15px",
         }}
-      >
-        <Breadcrumb labelsToUppercase />
-      </Box>
+      />
+
       <Box
         p={{ base: "24px 24px 15px", md: "24px 24px 15px", std: 0 }}
         bg="grey.200"

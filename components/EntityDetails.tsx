@@ -45,8 +45,8 @@ import { linearGradientDef } from "@nivo/core";
 import { Stream } from "@nivo/stream";
 import { Bar } from "@nivo/bar";
 import { AxisLegendPosition } from "@nivo/axes";
-import Breadcrumb from "./Breadcrumb";
 import Head from "next/head";
+import Breadcrumbs from "./Breadcrumbs";
 
 interface CardProps extends BoxProps {
   children: ReactNode;
@@ -99,9 +99,15 @@ const EntityDetails = ({
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Box display={{ base: "none", md: "block" }} pb="32px">
-        <Breadcrumb labelsToUppercase />
-      </Box>
+      <Breadcrumbs
+        breadcrumbs={[
+          { title: entity.category, href: "/" },
+          {
+            title: entity.name,
+            href: `/${entity.category}/${entity.id}/`,
+          },
+        ]}
+      />
 
       <Card bgBase="none" maxWidth="100vw">
         <VStack spacing={{ base: "8px", md: "24px" }}>

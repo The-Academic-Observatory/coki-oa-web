@@ -17,8 +17,8 @@
 import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import Card from "../components/Card";
-import Breadcrumb from "../components/Breadcrumb";
 import Head from "next/head";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 export default function Open() {
   return (
@@ -31,9 +31,15 @@ export default function Open() {
         />
       </Head>
 
-      <Box display={{ base: "none", md: "block" }} pb="32px">
-        <Breadcrumb labelsToUppercase />
-      </Box>
+      <Breadcrumbs
+        breadcrumbs={[
+          {
+            title: "Data",
+            href: "/data/",
+          },
+        ]}
+      />
+
       <Card>
         <Text textStyle="h1">Data</Text>
         <Text textStyle="p">

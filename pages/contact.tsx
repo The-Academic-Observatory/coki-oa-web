@@ -18,8 +18,8 @@ import { Box, Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import React from "react";
 import Card from "../components/Card";
 import Icon from "../components/Icon";
-import Breadcrumb from "../components/Breadcrumb";
 import Head from "next/head";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 export default function Contact() {
   return (
@@ -32,9 +32,14 @@ export default function Contact() {
         />
       </Head>
 
-      <Box display={{ base: "none", md: "block" }} pb="32px">
-        <Breadcrumb labelsToUppercase />
-      </Box>
+      <Breadcrumbs
+        breadcrumbs={[
+          {
+            title: "Contact",
+            href: "/contact/",
+          },
+        ]}
+      />
 
       <Card>
         <Text textStyle="h1">Contact</Text>

@@ -20,8 +20,8 @@ import Card from "../components/Card";
 import CurtinLogo from "../public/logo-curtin.svg";
 import MellonLogo from "../public/logo-mellon.svg";
 import ArcadiaLogo from "../public/logo-arcadia.svg";
-import Breadcrumb from "../components/Breadcrumb";
 import Head from "next/head";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 export default function About() {
   return (
@@ -34,9 +34,14 @@ export default function About() {
         />
       </Head>
 
-      <Box display={{ base: "none", md: "block" }} pb="32px">
-        <Breadcrumb labelsToUppercase />
-      </Box>
+      <Breadcrumbs
+        breadcrumbs={[
+          {
+            title: "About",
+            href: "/about/",
+          },
+        ]}
+      />
 
       <Card>
         <Text textStyle="h1">About</Text>
