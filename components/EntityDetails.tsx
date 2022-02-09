@@ -19,7 +19,6 @@ import {
   Box,
   BoxProps,
   Button,
-  Center,
   Flex,
   FlexProps,
   Grid,
@@ -46,6 +45,7 @@ import { linearGradientDef } from "@nivo/core";
 import { Stream } from "@nivo/stream";
 import { Bar } from "@nivo/bar";
 import { AxisLegendPosition } from "@nivo/axes";
+import Breadcrumb from "./Breadcrumb";
 
 interface CardProps extends BoxProps {
   children: ReactNode;
@@ -75,16 +75,25 @@ const EntityDetails = ({
   ...rest
 }: EntityDetailsProps) => {
   return (
-    <Card maxWidth="970px" width="calc(100vw - 12px)" bgBase="none">
-      <VStack spacing={"24px"}>
-        <EntitySummary entity={entity} />
-        <EntityBreakdown entity={entity} />
-        <EntityOATimeseries entity={entity} />
-        <EntityOAVolume entity={entity} />
-        <EntityPublisherOpen entity={entity} />
-        <EntityFooter lastUpdated={lastUpdated} />
-      </VStack>
-    </Card>
+    <Box
+      m={{ base: 0, md: "50px auto 90px", std: "50px 40px 90px" }}
+      maxWidth={{ base: "100%", md: "900px", std: "970px" }}
+    >
+      <Box display={{ base: "none", md: "block" }} pb="32px">
+        <Breadcrumb labelsToUppercase />
+      </Box>
+
+      <Card bgBase="none" maxWidth="100vw">
+        <VStack spacing={{ base: "8px", md: "24px" }}>
+          <EntitySummary entity={entity} />
+          <EntityBreakdown entity={entity} />
+          <EntityOATimeseries entity={entity} />
+          <EntityOAVolume entity={entity} />
+          <EntityPublisherOpen entity={entity} />
+          <EntityFooter lastUpdated={lastUpdated} />
+        </VStack>
+      </Card>
+    </Box>
   );
 };
 
@@ -99,7 +108,7 @@ const EntityFooter = ({ lastUpdated }: EntityFooterProps) => {
       alignItems="center"
       flexDirection={{ base: "column", sm: "row" }}
       justifyContent="space-between"
-      pt={{ base: 0, sm: "12px" }}
+      py="12px"
     >
       <Link href="/" textDecorationColor="white !important">
         <Button variant="dashboard" fontSize="14px" lineHeight="14px">
@@ -330,11 +339,6 @@ const EntitySummary = ({ entity, ...rest }: EntitySummaryProps) => {
     <Flex width={"full"} {...rest}>
       <Flex flex={1} flexDirection={"column"} pr={{ base: 0, md: "24px" }}>
         <EntityHeading flexGrow={1} entity={entity} />
-        {/*<EntityMetadata*/}
-        {/*    entity={entity}*/}
-        {/*    display={{ base: "block", md: "none" }}*/}
-        {/*    isMobile={true}*/}
-        {/*/>*/}
         <EntityStats entity={entity} />
       </Flex>
       <EntityMetadata
@@ -388,7 +392,7 @@ const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
           </Text>
         </VStack>
       </HStack>
-      <Text textStyle="p" display={{ base: "block", md: "none" }}>
+      <Text textStyle="p" pb={0} display={{ base: "block", md: "none" }}>
         {entity.description}
       </Text>
     </VStack>
@@ -532,31 +536,6 @@ const EntityMetadata = ({ entity, isMobile, ...rest }: EntityMetadataProps) => {
               </Tag>
             );
           })}
-
-          {/*<Box mb="6px" />*/}
-
-          {/*{entity.identifiers.map((obj: any) => {*/}
-          {/*  let text = (*/}
-          {/*    <Text as="span" textStyle="entityBold">*/}
-          {/*      {obj.id}*/}
-          {/*    </Text>*/}
-          {/*  );*/}
-          {/*  if (obj.url) {*/}
-          {/*    text = (*/}
-          {/*      <Link href={obj.url} target="_blank" rel="noreferrer">*/}
-          {/*        <Text as="span" textStyle="entityBold">*/}
-          {/*          {obj.id}*/}
-          {/*        </Text>*/}
-          {/*      </Link>*/}
-          {/*    );*/}
-          {/*  }*/}
-
-          {/*  return (*/}
-          {/*    <Text key={obj.id} textStyle="entityID">*/}
-          {/*      {obj.type}: {text}*/}
-          {/*    </Text>*/}
-          {/*  );*/}
-          {/*})}*/}
         </Flex>
       </EntityCard>
     );

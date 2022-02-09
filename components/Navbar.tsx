@@ -54,10 +54,10 @@ const Navbar = ({
 
   return (
     <Flex
-      px={{ base: navbarLrPaddingMobile, md: navbarLrPaddingDesktop }}
-      height={{ base: navbarHeightMobile, md: navbarHeightDesktop }}
+      px={{ base: navbarLrPaddingMobile, std: navbarLrPaddingDesktop }}
+      height={{ base: navbarHeightMobile, std: navbarHeightDesktop }}
       alignItems="center"
-      bg={{ base: "grey.900", md: "grey.100" }}
+      bg={{ base: "grey.900", std: "grey.100" }}
       justifyContent="space-between"
     >
       <IconButton
@@ -77,7 +77,7 @@ const Navbar = ({
             <Icon icon="burger" size={iconSize} />
           )
         }
-        display={{ base: "flex", md: "none" }}
+        display={{ base: "flex", std: "none" }}
         color="grey.100"
       />
 
@@ -85,7 +85,7 @@ const Navbar = ({
         <Box
           minWidth={cokiLogoWidthDesktop}
           width={cokiLogoWidthDesktop}
-          display={{ base: "none", md: "block" }}
+          display={{ base: "none", std: "block" }}
         >
           <COKILogo />
         </Box>
@@ -93,17 +93,17 @@ const Navbar = ({
         <Box
           minWidth={cokiLogoWidthMobile}
           width={cokiLogoWidthMobile}
-          display={{ base: "block", md: "none" }}
+          display={{ base: "block", std: "none" }}
         >
           <COKILogoWhite />
         </Box>
       </Link>
 
-      <Search fuse={fuse} display={{ base: "none", md: "block" }} />
+      <Search fuse={fuse} display={{ base: "none", std: "block" }} />
 
       <IconButton
         variant="clean"
-        display={{ base: "flex", md: "none" }}
+        display={{ base: "flex", std: "none" }}
         aria-label="Search"
         isRound
         color="white"

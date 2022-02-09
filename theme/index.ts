@@ -23,7 +23,8 @@ import Popover from "./components/popover";
 
 const breakpoints = createBreakpoints({
   sm: "600px",
-  md: "935px",
+  md: "1000px",
+  std: "1310px",
   lg: "1600px",
   xl: "1920px",
   "2xl": "3840px",
@@ -63,7 +64,7 @@ const theme = extendTheme({
     homeHeader: {
       // Bold
       fontWeight: 700,
-      fontSize: "24px",
+      fontSize: { base: "22px", sm: "24px" },
       color: "brand.500",
       textTransform: "uppercase",
     },
@@ -86,9 +87,9 @@ const theme = extendTheme({
     p: {
       // Light
       fontWeight: 300,
-      fontSize: "25px",
-      lineHeight: "36px",
-      mb: "16px",
+      fontSize: { base: "22px", sm: "25px" },
+      lineHeight: { base: "26px", sm: "36px" },
+      pb: "16px",
     },
     caption: {
       // Light
@@ -107,7 +108,7 @@ const theme = extendTheme({
     menuItem: {
       // Bold, Medium
       fontWeight: { base: 700, md: 500 },
-      fontSize: { base: "24px", md: "16px" },
+      fontSize: "16px",
       textTransform: "uppercase",
     },
     footerLink1: {
@@ -148,7 +149,7 @@ const theme = extendTheme({
     },
     entityHeading: {
       fontWeight: 900,
-      fontSize: { base: "26px", md: "44px" },
+      fontSize: { base: "24px", md: "32px", std: "32px" },
       textTransform: "uppercase",
       color: "brand.500",
     },
@@ -167,7 +168,6 @@ const theme = extendTheme({
       fontSize: { base: "9px", md: "14px" },
       whiteSpace: "nowrap",
       display: "inline",
-      // lineHeight: {base: '1px', md: '14px'},
     },
     entityOAScoreHeading: {
       fontWeight: 900,
@@ -231,6 +231,12 @@ const theme = extendTheme({
       fontWeight: 500,
       textTransform: "uppercase",
       fontSize: "9px",
+    },
+    tableCaption: {
+      fontWeight: 300,
+      fontSize: "20px",
+      lineHeight: "20px",
+      mt: "6px",
     },
   },
   layerStyles: {

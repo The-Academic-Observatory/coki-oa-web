@@ -40,8 +40,6 @@ interface FooterProps extends FlexProps {
 }
 
 const Footer = ({ links, sidebarWidth, ...rest }: FooterProps) => {
-  const padding = 10;
-
   return (
     <Flex {...rest}>
       {/*Left side of the footer that makes the sidebar look like part of the footer*/}
@@ -49,7 +47,7 @@ const Footer = ({ links, sidebarWidth, ...rest }: FooterProps) => {
         w={sidebarWidth}
         minWidth={sidebarWidth}
         bg="grey.400"
-        display={{ base: "none", md: "block" }}
+        display={{ base: "none", std: "block" }}
       >
         <Flex alignItems="center" justifyContent="center" h="full">
           <a href="https://www.curtin.edu.au/" target="_blank" rel="noreferrer">
@@ -66,11 +64,11 @@ const Footer = ({ links, sidebarWidth, ...rest }: FooterProps) => {
       {/*base*/}
       <Flex
         flex={1}
-        display={{ base: "flex", md: "none" }}
+        display={{ base: "flex", std: "none" }}
         bg="grey.300"
         borderTop="1px"
         borderColor="grey.500"
-        p={padding}
+        p={{ base: "24px", sm: "40px" }}
         flexDirection="column"
         alignItems="center"
         justifyContent="space-between"
@@ -82,25 +80,35 @@ const Footer = ({ links, sidebarWidth, ...rest }: FooterProps) => {
 
         <Flex
           w="full"
+          flexDirection={{ base: "column-reverse", sm: "row" }}
           alignItems="center"
           justifyContent="space-between"
-          pt={padding}
+          pt="40px"
         >
           <FooterCredits />
-          <a href="https://www.curtin.edu.au/" target="_blank" rel="noreferrer">
-            <Box minWidth={curtinLogoWidthMobile} width={curtinLogoWidthMobile}>
-              <CurtinLogo />
-            </Box>
-          </a>
+          <Box mb={{ base: "24px", sm: 0 }}>
+            <a
+              href="https://www.curtin.edu.au/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Box
+                minWidth={curtinLogoWidthMobile}
+                width={curtinLogoWidthMobile}
+              >
+                <CurtinLogo />
+              </Box>
+            </a>
+          </Box>
         </Flex>
       </Flex>
 
-      {/*md*/}
+      {/*std*/}
       <Flex
         flex={1}
         display={{
           base: "none",
-          md: "flex",
+          std: "flex",
           lg: "none",
           xl: "none",
           "2xl": "none",
@@ -122,7 +130,7 @@ const Footer = ({ links, sidebarWidth, ...rest }: FooterProps) => {
           w="full"
           alignItems="center"
           justifyContent="space-between"
-          pt={padding}
+          pt="40px"
         >
           <FooterCredits />
           <FooterSocialMedia direction="row" />
@@ -132,7 +140,7 @@ const Footer = ({ links, sidebarWidth, ...rest }: FooterProps) => {
       {/*lg*/}
       <Flex
         flex={1}
-        display={{ base: "none", md: "none", lg: "flex" }}
+        display={{ base: "none", std: "none", lg: "flex" }}
         bg="grey.900"
         p="10"
         flexDirection="row"
@@ -140,7 +148,7 @@ const Footer = ({ links, sidebarWidth, ...rest }: FooterProps) => {
         justifyContent="space-between"
       >
         <FooterCredits />
-        <FooterLinks links={links} spacing={padding} direction="row" />
+        <FooterLinks links={links} spacing="40px" direction="row" />
         <FooterSocialMedia direction="row" />
       </Flex>
     </Flex>
@@ -154,7 +162,7 @@ interface FooterLinksProps extends StackProps {
 const FooterLinks = ({ links, ...rest }: FooterLinksProps) => {
   return (
     <Stack
-      color={{ base: "grey.900", md: "grey.100" }}
+      color={{ base: "grey.900", std: "grey.100" }}
       textStyle="footerLink1"
       {...rest}
     >
@@ -174,7 +182,7 @@ const FooterCredits = ({ ...rest }: StackProps) => {
     <VStack
       align="left"
       textStyle="footerLink2"
-      color={{ base: "grey.900", md: "grey.100" }}
+      color={{ base: "grey.900", std: "grey.100" }}
       {...rest}
     >
       <Link href="https://clearbit.com/">Company Logos by Clearbit</Link>
@@ -187,7 +195,7 @@ const FooterSocialMedia = ({ ...rest }: StackProps) => {
     <Stack {...rest}>
       <Flex alignItems="center" justifyContent="center">
         <Text
-          color={{ base: "grey.900", md: "grey.100" }}
+          color={{ base: "grey.900", std: "grey.100" }}
           display={{ base: "none", xl: "block" }}
           textStyle="footerLink1"
         >
@@ -202,7 +210,7 @@ const FooterSocialMedia = ({ ...rest }: StackProps) => {
         <Icon
           icon="twitter"
           size={iconSize}
-          color={{ base: "grey.900", md: "grey.100" }}
+          color={{ base: "grey.900", std: "grey.100" }}
         />
       </a>
 
@@ -214,7 +222,7 @@ const FooterSocialMedia = ({ ...rest }: StackProps) => {
         <Icon
           icon="linkedin"
           size={iconSize}
-          color={{ base: "grey.900", md: "grey.100" }}
+          color={{ base: "grey.900", std: "grey.100" }}
         />
       </a>
 
@@ -226,7 +234,7 @@ const FooterSocialMedia = ({ ...rest }: StackProps) => {
         <Icon
           icon="facebook"
           size={iconSize}
-          color={{ base: "grey.900", md: "grey.100" }}
+          color={{ base: "grey.900", std: "grey.100" }}
         />
       </a>
     </Stack>

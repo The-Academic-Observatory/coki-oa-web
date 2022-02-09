@@ -28,6 +28,8 @@ import { getIndexTableData, getStatsData } from "../lib/api";
 import React, { useEffect } from "react";
 import IndexTable from "../components/IndexTable";
 import Icon from "../components/Icon";
+import TextCollapse from "../components/TextCollapse";
+import Breadcrumb from "../components/Breadcrumb";
 
 type Props = {
   countriesFirstPage: Array<Entity>;
@@ -45,12 +47,20 @@ const IndexPage = ({
 }: Props) => {
   // Descriptions
   const descriptions = [
-    "Open Access by country. Showing output counts, number and percentage of accessible outputs published " +
-      `between ${stats.min_year} and ${stats.max_year}. You can sort and filter by region, subregion, number of ` +
-      "publications, and open access levels. You may also search for a specific country in the search bar at the top right.",
-    "Open Access by institution. Showing output counts, number and percentage of accessible outputs published " +
-      `between ${stats.min_year} to ${stats.max_year}. You can sort and filter by region, subregion, country, institution type, number of ` +
-      "publications or open access levels. You may also search for a specific institution in the search bar at the top right.",
+    {
+      short: `Open Access by country between ${stats.min_year} and ${stats.max_year}.`,
+      long:
+        "Open Access by country. Showing output counts, number and percentage of accessible outputs published " +
+        `between ${stats.min_year} and ${stats.max_year}. You can sort and filter by region, subregion, number of ` +
+        "publications, and open access levels. You may also search for a specific country in the search bar at the top right.",
+    },
+    {
+      short: `Open Access by institution between ${stats.min_year} and ${stats.max_year}.`,
+      long:
+        "Open Access by institution. Showing output counts, number and percentage of accessible outputs published " +
+        `between ${stats.min_year} to ${stats.max_year}. You can sort and filter by region, subregion, country, institution type, number of ` +
+        "publications or open access levels. You may also search for a specific institution in the search bar at the top right.",
+    },
   ];
 
   // Change text based on tab index
@@ -86,12 +96,33 @@ const IndexPage = ({
   }, []);
 
   return (
-    <Box maxWidth={maxTabsWidth}>
-      <Box p={{ base: "30px 30px 15px", md: 0 }}>
+    <Box
+      width={{ base: "full", std: maxTabsWidth }}
+      m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}
+    >
+      <Box
+        display={{ base: "none", md: "block" }}
+        p={{
+          base: 0,
+          md: "24px 24px 0px",
+          std: "24px 0 15px",
+        }}
+      >
+        <Breadcrumb labelsToUppercase />
+      </Box>
+      <Box
+        p={{ base: "24px 24px 15px", md: "24px 24px 15px", std: 0 }}
+        bg="grey.200"
+      >
         <Text textStyle="homeHeader">Open Access Dashboard</Text>
-        <Text className="myText" datacontent={dashboardText} textStyle="p">
-          {dashboardText}
+        <Text textStyle="p" display={{ base: "none", sm: "none", md: "block" }}>
+          {dashboardText.long}
         </Text>
+        <TextCollapse
+          display={{ base: "block", sm: "block", md: "none" }}
+          previewText={dashboardText.short}
+          text={dashboardText.long}
+        />
       </Box>
 
       <Tabs

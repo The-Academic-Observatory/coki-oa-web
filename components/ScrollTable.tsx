@@ -15,35 +15,28 @@
 // Author: James Diprose
 
 import React, { ReactNode } from "react";
-import { Box, BoxProps } from "@chakra-ui/react";
+import { Box, BoxProps, Text } from "@chakra-ui/react";
 
-interface CardProps extends BoxProps {
+interface ScrollTableProps extends BoxProps {
   children: ReactNode;
-  bgBase: string;
-  pBase: string;
+  caption: string;
 }
 
-const Card = ({ children, bgBase, pBase, ...rest }: CardProps) => {
+const ScrollTable = ({ children, caption, ...rest }: ScrollTableProps) => {
+  let captionElement = <></>;
+  if (caption) {
+    captionElement = <Text textStyle="tableCaption">{caption}</Text>;
+  }
+
   return (
-    <Box
-      bg={{ base: bgBase, md: "white" }}
-      boxShadow={{ base: "none", md: "md" }}
-      rounded={"md"}
-      overflow={"hidden"}
-      // maxWidth={{ base: "100%", md: "900px", std: "970px" }}
-      py={{ base: "32px", sm: "32px", md: "48px" }}
-      px={{ base: "18px", sm: "18px", md: "48px" }}
-      pb={{ base: "96px", sm: "96px", md: "48px" }}
-      {...rest}
-    >
-      {children}
+    <Box {...rest} textAlign="center" my="32px">
+      {/* Note that 36px is subtracted as this is the padding added by the Card element */}
+      <Box overflowX="auto" maxWidth="calc(100vw - 36px)">
+        {children}
+      </Box>
+      {captionElement}
     </Box>
   );
 };
 
-Card.defaultProps = {
-  bgBase: "white",
-  pBase: "24px",
-};
-
-export default Card;
+export default ScrollTable;

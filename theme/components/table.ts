@@ -16,8 +16,6 @@
 
 import type { SystemStyleObject } from "@chakra-ui/theme-tools";
 
-const margin = 24;
-
 const numericStyles: SystemStyleObject = {
   "&[data-is-numeric=true]": {
     textAlign: "end",
@@ -28,10 +26,12 @@ const Table = {
   variants: {
     dashboard: {
       table: {
-        width: `calc(100% - ${margin * 2}px)`,
-        maxWidth: `calc(100% - ${margin * 2}px)`,
+        // The following three properties are required to enable the shadow on the left and right of the table when
+        // hovering
+        width: { base: "100%", md: `calc(100% - 48px)` },
+        maxWidth: { base: "100%", md: `calc(100% - 48px)` },
+        margin: { base: "14px 0 0 0", md: `24px` },
         background: "white",
-        margin: { base: "14px 0 0 0", md: `${margin}px` },
         thead: {
           th: {
             textStyle: "tableHeader",
@@ -96,9 +96,10 @@ const Table = {
           th: {
             border: "3px solid #EAEAEA",
             fontWeight: 700,
-            fontSize: "25px",
-            lineHeight: "32px",
+            fontSize: "18px",
+            lineHeight: "20px",
             textAlign: "center",
+            p: "12px",
           },
         },
         tbody: {
@@ -106,19 +107,13 @@ const Table = {
             td: {
               border: "3px solid #EAEAEA",
               fontWeight: 300,
-              fontSize: "25px",
-              lineHeight: "30px",
+              fontSize: "20px",
+              lineHeight: "24px",
+              p: "12px",
             },
           },
         },
-        caption: {
-          fontWeight: 300,
-          fontSize: "25px",
-          lineHeight: "30px",
-          mt: "6px",
-        },
       },
-      //  EAEAEA
     },
   },
 };

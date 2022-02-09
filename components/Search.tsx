@@ -41,21 +41,23 @@ import Link from "./Link";
 import { Entity } from "../lib/model";
 
 interface SearchBoxProps {
+  value: string;
   onChange: (e: any) => void;
 }
 
-const SearchBox = ({ onChange }: SearchBoxProps) => {
+const SearchBox = ({ value, onChange }: SearchBoxProps) => {
   return (
     <InputGroup
       borderColor="grey.900"
       bg="white"
       rounded={50}
-      w={{ base: "full", md: 388 }}
+      w={{ base: "full", std: 388 }}
     >
       <InputLeftElement pointerEvents="none">
         <SearchIcon color="gray.900" />
       </InputLeftElement>
       <Input
+        value={value}
         variant="outline"
         rounded={50}
         _placeholder={{ textTransform: "uppercase", color: "gray.900" }}
@@ -99,6 +101,7 @@ interface SearchProps extends BoxProps {
 
 export const Search = ({ fuse, ...rest }: SearchProps) => {
   const maxResults = 5;
+  const [searchText, setSearchText] = React.useState<string>("");
   const [searchResults, setSearchResults] = React.useState<Array<any>>([]);
   const [isPopoverOpen, setPopoverOpen] = React.useState(false);
 
@@ -135,7 +138,14 @@ export const Search = ({ fuse, ...rest }: SearchProps) => {
         <PopoverAnchor>
           {/*div is required to prevent Function components cannot be given refs error */}
           <div>
-            <SearchBox onChange={(e) => inputOnChange(e.target.value)} />
+            <SearchBox
+              value={searchText}
+              onChange={(e) => {
+                const text = e.target.value;
+                setSearchText(text);
+                inputOnChange(text);
+              }}
+            />
           </div>
         </PopoverAnchor>
         <PopoverContent
@@ -150,10 +160,20 @@ export const Search = ({ fuse, ...rest }: SearchProps) => {
               <SearchResult
                 key={entity.id}
                 entity={entity}
-                onClick={() => setPopoverOpen(false)}
+                onClick={() => {
+                  // On click:
+                  // - Close search results
+                  // - Reset research results
+                  // - Set search text to empty string
+                  setPopoverOpen(false);
+                  setSearchResults([]);
+                  setSearchText("");
+                }}
               />
             ))}
-            {searchResults.length === 0 && <Text>No results</Text>}
+            {searchText !== "" && searchResults.length === 0 && (
+              <Text>No results</Text>
+            )}
           </PopoverBody>
         </PopoverContent>
       </Popover>
@@ -178,6 +198,7 @@ export const SearchDrawer = ({
   ...rest
 }: SearchDrawerProps) => {
   const maxResults = 5;
+  const [searchText, setSearchText] = React.useState<string>("");
   const [searchResults, setSearchResults] = React.useState<Array<any>>([]);
 
   // Search for entities
@@ -188,6 +209,8 @@ export const SearchDrawer = ({
         .slice(0, maxResults)
         .map((item) => item.item);
       setSearchResults(results);
+    } else {
+      setSearchResults([]);
     }
   }, 300);
 
@@ -205,13 +228,34 @@ export const SearchDrawer = ({
         boxShadow="none"
       >
         <DrawerHeader bg="brand.500">
-          <SearchBox onChange={(e) => inputOnChange(e.target.value)} />
+          <SearchBox
+            value={searchText}
+            onChange={(e) => {
+              const text = e.target.value;
+              setSearchText(text);
+              inputOnChange(text);
+            }}
+          />
         </DrawerHeader>
         <DrawerBody bg="white">
           {searchResults.map((entity: Entity) => (
-            <SearchResult key={entity.id} entity={entity} onClick={onClose} />
+            <SearchResult
+              key={entity.id}
+              entity={entity}
+              onClick={() => {
+                // On click:
+                // - Close search results
+                // - Reset research results
+                // - Set search text to empty string
+                onClose();
+                setSearchResults([]);
+                setSearchText("");
+              }}
+            />
           ))}
-          {searchResults.length === 0 && <Text>No results</Text>}
+          {searchText != "" && searchResults.length === 0 && (
+            <Text>No results</Text>
+          )}
         </DrawerBody>
       </DrawerContent>
     </Drawer>

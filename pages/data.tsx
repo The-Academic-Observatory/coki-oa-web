@@ -14,13 +14,20 @@
 //
 // Author: James Diprose
 
-import { Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import Card from "../components/Card";
+import Breadcrumb from "../components/Breadcrumb";
 
 export default function Open() {
   return (
-    <>
+    <Box
+      m={{ base: 0, md: "50px auto 90px", std: "50px 40px 90px" }}
+      maxWidth={{ base: "100%", md: "900px", std: "970px" }}
+    >
+      <Box display={{ base: "none", md: "block" }} pb="32px">
+        <Breadcrumb labelsToUppercase />
+      </Box>
       <Card>
         <Text textStyle="h1">Data</Text>
         <Text textStyle="p">
@@ -38,6 +45,6 @@ export default function Open() {
         <Text textStyle="h2">Citing</Text>
         <Text textStyle="p">Coming soon!</Text>
       </Card>
-    </>
+    </Box>
   );
 }

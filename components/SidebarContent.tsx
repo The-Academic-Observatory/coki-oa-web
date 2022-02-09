@@ -23,24 +23,20 @@ interface SidebarProps extends BoxProps {
   links: Array<LinkProps>;
   onClose: () => void;
   navbarHeightMobile: number;
-  sidebarWidth: number;
 }
 
 const SidebarContent = ({
   links,
   onClose,
   navbarHeightMobile,
-  sidebarWidth,
   ...rest
 }: SidebarProps) => {
-  const paddingTop = 90;
   return (
     <Box
-      bg={{ base: "grey.100", md: "grey.400" }}
-      position={{ base: "absolute", md: "relative" }}
-      top={{ base: navbarHeightMobile, md: 0 }}
-      w={{ base: "full", md: 80 }}
-      pt={{ base: 0, md: paddingTop }}
+      bg={{ base: "grey.100", std: "grey.400" }}
+      position={{ base: "absolute", std: "relative" }}
+      w="full"
+      pt={{ base: 0, std: 90 }}
       {...rest}
     >
       {links.map((link) => (
@@ -51,7 +47,6 @@ const SidebarContent = ({
           icon={link.icon}
           href={link.href}
           text={link.name}
-          sidebarWidth={sidebarWidth}
           pointerEvents="auto"
           onClick={() => onClose()}
         />

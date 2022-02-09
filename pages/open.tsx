@@ -19,7 +19,6 @@ import {
   ListItem,
   OrderedList,
   Table,
-  TableCaption,
   Tbody,
   Td,
   Text,
@@ -33,10 +32,18 @@ import OAStats from "../public/images/oa-stats.svg";
 import OAOverview from "../public/images/oa-overview.svg";
 import OAFlowchart from "../public/images/oa-flowchart.svg";
 import Figure from "../components/Figure";
+import ScrollTable from "../components/ScrollTable";
+import Breadcrumb from "../components/Breadcrumb";
 
 export default function Open() {
   return (
-    <>
+    <Box
+      m={{ base: 0, md: "50px auto 90px", std: "50px 40px 90px" }}
+      maxWidth={{ base: "100%", md: "900px", std: "970px" }}
+    >
+      <Box display={{ base: "none", md: "block" }} pb="32px">
+        <Breadcrumb labelsToUppercase />
+      </Box>
       <Card>
         <Text textStyle="h1">Open Access</Text>
         <Text textStyle="h2">What is Open Access?</Text>
@@ -180,9 +187,8 @@ export default function Open() {
           and Closed Access.
         </Text>
 
-        <Box overflowX="auto" maxWidth="100vw" my="32px">
+        <ScrollTable caption="Table 1. Open Access categories.">
           <Table variant="content">
-            <TableCaption>Table 1. Open Access categories.</TableCaption>
             <Thead>
               <Tr>
                 <Th>Category</Th>
@@ -233,16 +239,16 @@ export default function Open() {
               </Tr>
             </Tbody>
           </Table>
-        </Box>
+        </ScrollTable>
+
         <Text textStyle="p">
           Table 2 provides a breakdown of the different types of Publisher Open,
           as shown in some of the charts on institution and country details
           pages.
         </Text>
 
-        <Box overflowX="auto" maxWidth="100vw" my="32px">
+        <ScrollTable caption="Table 2. Publisher Open subcategories.">
           <Table variant="content">
-            <TableCaption>Table 2. Publisher Open subcategories.</TableCaption>
             <Thead>
               <Tr>
                 <Th>Category</Th>
@@ -288,8 +294,8 @@ export default function Open() {
               </Tr>
             </Tbody>
           </Table>
-        </Box>
+        </ScrollTable>
       </Card>
-    </>
+    </Box>
   );
 }

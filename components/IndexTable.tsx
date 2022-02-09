@@ -29,6 +29,7 @@ import {
   Th,
   Thead,
   Tr,
+  useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
@@ -90,7 +91,6 @@ function BreakdownCell({ value, entity }: EntityProps) {
   return (
     <Link href={href}>
       <BreakdownSparkline
-        // key={entity.id}
         values={values}
         colors={colors}
         width={110}
@@ -169,13 +169,16 @@ const IndexTable = ({
         Header: categoryName,
         accessor: "name",
         Cell: EntityCell,
-        minWidth: 220,
+        minWidth: 150,
         maxWidth: 220,
+        width: "40%",
       },
       {
         Header: "Open",
         accessor: "stats.p_outputs_open",
         Cell: OpenCell,
+        // maxWidth: 200,
+        width: "15%",
       },
       {
         Header: BreakdownHeader,
@@ -183,29 +186,33 @@ const IndexTable = ({
         accessor: "stats.p_outputs_open",
         Cell: BreakdownCell,
         minWidth: 170,
-        maxWidth: 170,
+        maxWidth: 200,
+        width: "20%",
       },
       {
         Header: "Total Publications",
         accessor: "stats.n_outputs",
         Cell: NumberCell,
         isNumeric: true,
-        minWidth: 150,
+        minWidth: 130,
         maxWidth: 150,
+        width: "10%",
       },
       {
         Header: "Open Publications",
         accessor: "stats.n_outputs_open",
         Cell: NumberCell,
         isNumeric: true,
-        minWidth: 150,
+        minWidth: 130,
         maxWidth: 150,
+        width: "10%",
       },
       {
         Header: "",
         Cell: LearnMoreCell,
         id: "learnMore",
         accessor: (e: any) => e,
+        width: "5%",
       },
     ],
     [categoryName]
@@ -241,7 +248,7 @@ const IndexTable = ({
   let pageSizeIncrement = pageSize;
 
   return (
-    <Box>
+    <Box {...rest}>
       {/*100vw is required so that the container for the table does not increase in width with the table*/}
       <Box overflowX="auto" maxWidth="100vw">
         <Table {...getTableProps()} size="sm" variant="dashboard">
@@ -260,6 +267,7 @@ const IndexTable = ({
                         {...props}
                         minWidth={column.minWidth}
                         maxWidth={column.maxWidth}
+                        width={column.width}
                       >
                         {column.render("Header")}
                       </Th>
@@ -283,6 +291,7 @@ const IndexTable = ({
                         isNumeric={cell.column.isNumeric}
                         minWidth={cell.column.minWidth}
                         maxWidth={cell.column.maxWidth}
+                        width={cell.column.width}
                       >
                         {cell.render("Cell", { entity: row.original })}
                       </Td>
@@ -329,7 +338,7 @@ const IndexTable = ({
         alignItems="center"
         align="center"
         justifyContent="space-between"
-        p="32px 30px 30px"
+        p="16px 30px 50px"
         display={{ base: "none", md: "flex" }}
       >
         <Flex alignItems="center" align="center" justifyContent="space-between">

@@ -19,7 +19,6 @@ import {
   ListItem,
   OrderedList,
   Table,
-  TableCaption,
   Tbody,
   Td,
   Text,
@@ -34,10 +33,19 @@ import HowOverview from "../public/images/how-overview.svg";
 import HowDatasets from "../public/images/how-datasets.svg";
 import HowPubTable from "../public/images/how-pub-table.svg";
 import Figure from "../components/Figure";
+import ScrollTable from "../components/ScrollTable";
+import Breadcrumb from "../components/Breadcrumb";
 
 export default function How() {
   return (
-    <>
+    <Box
+      m={{ base: 0, md: "50px auto 90px", std: "50px 40px 90px" }}
+      maxWidth={{ base: "100%", md: "900px", std: "970px" }}
+    >
+      <Box display={{ base: "none", md: "block" }} pb="32px">
+        <Breadcrumb labelsToUppercase />
+      </Box>
+
       <Card>
         <Text textStyle="h1">How it Works</Text>
         <Text textStyle="p">
@@ -56,9 +64,8 @@ export default function How() {
           Organization Registry, Open Citations and Geonames. The table below
           illustrates what each dataset is used for.
         </Text>
-        <Box overflowX="auto" maxWidth="100vw" my="32px">
+        <ScrollTable caption="Table 1. Datasets and their roles.">
           <Table variant="content">
-            <TableCaption>Table 1. Datasets and their roles.</TableCaption>
             <Thead>
               <Tr>
                 <Th>Dataset</Th>
@@ -100,7 +107,7 @@ export default function How() {
               </Tr>
             </Tbody>
           </Table>
-        </Box>
+        </ScrollTable>
         <Text textStyle="h2">2. Synthesis</Text>
         <Text textStyle="p">
           After fetching the datasets, they are synthesised to produce aggregate
@@ -171,11 +178,8 @@ export default function How() {
           are described in Table 2 below.
         </Text>
 
-        <Box overflowX="auto" maxWidth="100vw" my="32px">
+        <ScrollTable caption="Table 2. Open Access status calculations.">
           <Table variant="content">
-            <TableCaption>
-              Table 2. Open Access status calculations.
-            </TableCaption>
             <Thead>
               <Tr>
                 <Th>Category</Th>
@@ -221,18 +225,15 @@ export default function How() {
               </Tr>
             </Tbody>
           </Table>
-        </Box>
+        </ScrollTable>
 
         <Text textStyle="p">
           The calculations for the Publisher Open subcategories are described in
           Table 3 below.
         </Text>
 
-        <Box overflowX="auto" maxWidth="100vw" my="32px">
+        <ScrollTable caption="Table 3. Publisher Open subcategory calculations.">
           <Table variant="content">
-            <TableCaption>
-              Table 3. Publisher Open subcategory calculations.
-            </TableCaption>
             <Thead>
               <Tr>
                 <Th>Category</Th>
@@ -277,7 +278,7 @@ export default function How() {
               </Tr>
             </Tbody>
           </Table>
-        </Box>
+        </ScrollTable>
 
         <Text textStyle="p">
           To see the SQL script that calculates Open Access status,{" "}
@@ -311,6 +312,6 @@ export default function How() {
           </ListItem>
         </UnorderedList>
       </Card>
-    </>
+    </Box>
   );
 }

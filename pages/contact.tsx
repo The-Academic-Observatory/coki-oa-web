@@ -14,48 +14,53 @@
 //
 // Author: James Diprose
 
-import { Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import React from "react";
 import Card from "../components/Card";
 import Icon from "../components/Icon";
+import Breadcrumb from "../components/Breadcrumb";
 
 export default function Contact() {
   return (
-    <>
+    <Box
+      m={{ base: 0, md: "50px auto 90px", std: "50px 40px 90px" }}
+      maxWidth={{ base: "100%", md: "900px", std: "970px" }}
+    >
+      <Box display={{ base: "none", md: "block" }} pb="32px">
+        <Breadcrumb labelsToUppercase />
+      </Box>
+
       <Card>
         <Text textStyle="h1">Contact</Text>
-        <Text textStyle="p" mb="48px">
+        <Text textStyle="p" mb="24px">
           <b>WE WOULD LOVE TO HEAR FROM YOU.</b>
         </Text>
-        <Text as="div" textStyle="li">
-          <ul>
-            <li>
-              <b>Reports and Dashboards.</b> Get more detailed information about
-              my country or institution’s Open Access performance. We can
-              provide reports and more detail about your institution or country
-              on demand. We also build dashboards and bespoke tools for
-              partners.
-            </li>
-            <li>
-              <b>Understand how we can improve.</b> COKI can provide consultancy
-              and advice on policy implementation, resourcing and monitoring for
-              improving levels and value of open access initiatives.
-            </li>
-            <li>
-              <b>Community.</b> Support the development of community resources.
-              We are actively seeking partners to work with us to sustain and
-              develop our data resources and analytical capabilities.
-            </li>
-            <li>
-              <b>Collaborate.</b> Collaborate on a research program. We have an
-              active research program on open access and are keen to discuss
-              potential collaborations that can exploit or improve our data
-              capabilities
-            </li>
-          </ul>
-        </Text>
+        <UnorderedList textStyle="p">
+          <ListItem>
+            <b>Reports and Dashboards.</b> Get more detailed information about
+            my country or institution’s Open Access performance. We can provide
+            reports and more detail about your institution or country on demand.
+            We also build dashboards and bespoke tools for partners.
+          </ListItem>
+          <ListItem>
+            <b>Understand how we can improve.</b> COKI can provide consultancy
+            and advice on policy implementation, resourcing and monitoring for
+            improving levels and value of open access initiatives.
+          </ListItem>
+          <ListItem>
+            <b>Community.</b> Support the development of community resources. We
+            are actively seeking partners to work with us to sustain and develop
+            our data resources and analytical capabilities.
+          </ListItem>
+          <ListItem>
+            <b>Collaborate.</b> Collaborate on a research program. We have an
+            active research program on open access and are keen to discuss
+            potential collaborations that can exploit or improve our data
+            capabilities
+          </ListItem>
+        </UnorderedList>
 
-        <Flex alignItems="center" mt="48px">
+        <Flex alignItems="center" mt="24px">
           <Icon icon="email" size={32} />
           <Text pl={2} textStyle="p" mb={0}>
             <b>
@@ -71,6 +76,6 @@ export default function Contact() {
           </Text>
         </Flex>
       </Card>
-    </>
+    </Box>
   );
 }

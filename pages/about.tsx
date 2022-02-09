@@ -20,10 +20,18 @@ import Card from "../components/Card";
 import CurtinLogo from "../public/logo-curtin.svg";
 import MellonLogo from "../public/logo-mellon.svg";
 import ArcadiaLogo from "../public/logo-arcadia.svg";
+import Breadcrumb from "../components/Breadcrumb";
 
 export default function About() {
   return (
-    <>
+    <Box
+      m={{ base: 0, md: "50px auto 90px", std: "50px 40px 90px" }}
+      maxWidth={{ base: "100%", md: "900px", std: "970px" }}
+    >
+      <Box display={{ base: "none", md: "block" }} pb="32px">
+        <Breadcrumb labelsToUppercase />
+      </Box>
+
       <Card>
         <Text textStyle="h1">About</Text>
 
@@ -76,6 +84,6 @@ export default function About() {
           </Box>
         </Flex>
       </Card>
-    </>
+    </Box>
   );
 }

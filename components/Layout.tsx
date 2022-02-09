@@ -81,7 +81,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <Flex flexDirection="column" minH="100vh">
-      <Box display={{ base: "none", md: "block" }}>
+      <Box display={{ base: "none", std: "block" }}>
         <COKIBackground
           style={{
             position: "absolute",
@@ -123,11 +123,15 @@ export default function Layout({ children }: { children: ReactNode }) {
           size="full"
         >
           {/* pointerEvents="none" stops the drawer from blocking pointer events from the close button */}
-          <DrawerContent bg="none" pointerEvents="none" boxShadow="none">
+          <DrawerContent
+            bg="white"
+            top={`${navbarHeightMobile}px !important`}
+            pointerEvents="none"
+            boxShadow="none"
+          >
             <SidebarContent
               links={links}
               navbarHeightMobile={navbarHeightMobile}
-              sidebarWidth={sidebarWidth}
               onClose={onCloseSidebar}
             />
           </DrawerContent>
@@ -136,40 +140,23 @@ export default function Layout({ children }: { children: ReactNode }) {
 
       <Flex flex={1}>
         <Box
-          w={sidebarWidth}
+          minWidth={sidebarWidth}
           bg="grey.400"
-          display={{ base: "none", md: "block" }}
+          display={{ base: "none", std: "block" }}
         >
           <SidebarContent
             links={links}
             navbarHeightMobile={navbarHeightMobile}
-            sidebarWidth={sidebarWidth}
-            w={sidebarWidth}
             onClose={() => onCloseSidebar}
-            display={{ base: "none", md: "block" }}
+            display={{ base: "none", std: "block" }}
           />
         </Box>
-        <Box flex={1} bg="grey.200">
-          <Flex flexDirection="column">
-            <Box
-              flex={1}
-              px={{ base: 0, md: "40px" }}
-              pt={{ base: 0, md: "50px" }}
-              pb={{ base: 0, md: "90px" }}
-            >
-              <Box
-                display={{ base: "none", md: "block" }}
-                pb="32px"
-                textStyle="breadcrumb"
-              >
-                <Breadcrumb labelsToUppercase />
-              </Box>
-
-              {/* position="relative" is required to keep the COKI background image behind the children as
+        <Box flex={1} bg={{ base: "white", md: "grey.200" }}>
+          {/* position="relative" is required to keep the COKI background image behind the children as
                   z-index only works on positioned elements*/}
-              <Box position="relative">{children}</Box>
-            </Box>
-          </Flex>
+          <Box position="relative">{children}</Box>
+          {/*</Box>*/}
+          {/*</Flex>*/}
         </Box>
       </Flex>
 

@@ -25,7 +25,6 @@ interface NavItemProps extends BoxProps {
   icon: string;
   href: string;
   text: string;
-  sidebarWidth: number;
 }
 
 function isActive(path: string, href: string) {
@@ -36,10 +35,9 @@ function isActive(path: string, href: string) {
   );
 }
 
-const NavItem = ({ icon, href, text, sidebarWidth, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, href, text, ...rest }: NavItemProps) => {
   const iconSize = 32;
   const borderRight = 5;
-  const sidebarPaddingLeft = 32 / 4;
   const { asPath } = useRouter();
 
   return (
@@ -47,11 +45,9 @@ const NavItem = ({ icon, href, text, sidebarWidth, ...rest }: NavItemProps) => {
       <Link href={href} role="group" style={{ textDecoration: "none" }}>
         <Flex
           align="center"
-          width={{ base: "full", md: sidebarWidth }}
-          height={{ base: "96px", md: "72px" }}
+          height="72px"
           cursor="pointer"
-          pl={sidebarPaddingLeft}
-          // style={style}
+          px={{ base: "24px", md: "32px" }}
           className={isActive(asPath, href) ? styles.active : ""}
           _hover={{
             bg: "brand.500",
@@ -62,7 +58,7 @@ const NavItem = ({ icon, href, text, sidebarWidth, ...rest }: NavItemProps) => {
           }}
           {...rest}
         >
-          <Icon mr={{ base: "24px", md: "12px" }} icon={icon} size={iconSize} />
+          <Icon mr="12px" icon={icon} size={iconSize} />
           <Text textStyle="menuItem">{text}</Text>
         </Flex>
       </Link>

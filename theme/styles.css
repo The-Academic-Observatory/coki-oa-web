@@ -1,5 +1,11 @@
-ul {
-    transform: translate(20px);
+/* Hide scrollbars as this messes with setting the viewport width*/
+body {
+    -ms-overflow-style: none; /* Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
 }
 
 li::marker {
@@ -7,13 +13,16 @@ li::marker {
 }
 
 ul > li {
-    padding-left: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 16px;
+}
+
+ol > li {
+    margin-bottom: 16px;
 }
 
 /*Publisher Donut Drop Shadow */
 .publisherOpenDonut g > g {
-    filter: drop-shadow( 0px 0px 10px rgba(0, 0, 0, .3));
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, .3));
 }
 
 .oaPercentageStream {
@@ -28,3 +37,8 @@ ul > li {
     background-color: #FF671C !important;
 }
 
+.textCollapseLink {
+    cursor: pointer;
+    color: #b7b7b7;
+    text-decoration: underline;
+}
