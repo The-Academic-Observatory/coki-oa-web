@@ -35,13 +35,19 @@ import HowPubTable from "../public/images/how-pub-table.svg";
 import Figure from "../components/Figure";
 import ScrollTable from "../components/ScrollTable";
 import Breadcrumb from "../components/Breadcrumb";
+import Head from "next/head";
 
 export default function How() {
   return (
-    <Box
-      m={{ base: 0, md: "50px auto 90px", std: "50px 40px 90px" }}
-      maxWidth={{ base: "100%", md: "900px", std: "970px" }}
-    >
+    <Box layerStyle="page">
+      <Head>
+        <title>COKI: How it Works</title>
+        <meta
+          name="description"
+          content="The COKI Open Access Dataset is created."
+        />
+      </Head>
+
       <Box display={{ base: "none", md: "block" }} pb="32px">
         <Breadcrumb labelsToUppercase />
       </Box>

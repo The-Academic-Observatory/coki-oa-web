@@ -34,13 +34,19 @@ import OAFlowchart from "../public/images/oa-flowchart.svg";
 import Figure from "../components/Figure";
 import ScrollTable from "../components/ScrollTable";
 import Breadcrumb from "../components/Breadcrumb";
+import Head from "next/head";
 
 export default function Open() {
   return (
-    <Box
-      m={{ base: 0, md: "50px auto 90px", std: "50px 40px 90px" }}
-      maxWidth={{ base: "100%", md: "900px", std: "970px" }}
-    >
+    <Box layerStyle="page">
+      <Head>
+        <title>COKI: Open Access</title>
+        <meta
+          name="description"
+          content="What is Open Access? Why is Open Access important? What can we do to improve Open Access?"
+        />
+      </Head>
+
       <Box display={{ base: "none", md: "block" }} pb="32px">
         <Breadcrumb labelsToUppercase />
       </Box>

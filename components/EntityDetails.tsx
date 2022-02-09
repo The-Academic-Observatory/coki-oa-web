@@ -46,10 +46,24 @@ import { Stream } from "@nivo/stream";
 import { Bar } from "@nivo/bar";
 import { AxisLegendPosition } from "@nivo/axes";
 import Breadcrumb from "./Breadcrumb";
+import Head from "next/head";
 
 interface CardProps extends BoxProps {
   children: ReactNode;
 }
+
+const makeDescription = (entity: Entity) => {
+  let area = "";
+  if (entity.category === "institution") {
+    area = `${entity.country},`;
+  }
+
+  const description =
+    `Open Access statistics for ${entity.name}, ${area} covering research outputs published from ` +
+    `${entity.min_year} to ${entity.max_year}.`;
+
+  return description;
+};
 
 const EntityCard = ({ children, ...rest }: CardProps) => {
   return (
@@ -74,11 +88,17 @@ const EntityDetails = ({
   lastUpdated,
   ...rest
 }: EntityDetailsProps) => {
+  const metaDescription =
+    `How well does ${entity.name} perform at Open Access publishing? ` +
+    makeDescription(entity);
+
   return (
-    <Box
-      m={{ base: 0, md: "50px auto 90px", std: "50px 40px 90px" }}
-      maxWidth={{ base: "100%", md: "900px", std: "970px" }}
-    >
+    <Box layerStyle="page">
+      <Head>
+        <title>COKI: {entity.name}</title>
+        <meta name="description" content={metaDescription} />
+      </Head>
+
       <Box display={{ base: "none", md: "block" }} pb="32px">
         <Breadcrumb labelsToUppercase />
       </Box>
@@ -356,14 +376,7 @@ interface EntityHeadingProps extends StackProps {
 }
 
 const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
-  let area = "";
-  if (entity.category === "institution") {
-    area = `${entity.country},`;
-  }
-
-  entity.description =
-    `Open Access statistics for ${entity.name}, ${area} covering research outputs published from ` +
-    `${entity.min_year} to ${entity.max_year}.`;
+  entity.description = makeDescription(entity);
   return (
     <VStack alignItems={"left"} pb={{ base: "24px", md: 0 }} {...rest}>
       <HStack pb={{ base: "12px", md: "48px" }}>

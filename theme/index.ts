@@ -240,6 +240,10 @@ const theme = extendTheme({
     },
   },
   layerStyles: {
+    page: {
+      m: { base: 0, md: "50px auto 90px", std: "50px 40px 90px" },
+      maxWidth: { base: "100%", md: "900px", std: "970px" },
+    },
     pGap: {
       mb: { base: "48px", md: "96px" },
     },

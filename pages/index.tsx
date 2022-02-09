@@ -30,6 +30,7 @@ import IndexTable from "../components/IndexTable";
 import Icon from "../components/Icon";
 import TextCollapse from "../components/TextCollapse";
 import Breadcrumb from "../components/Breadcrumb";
+import Head from "next/head";
 
 type Props = {
   countriesFirstPage: Array<Entity>;
@@ -100,6 +101,14 @@ const IndexPage = ({
       width={{ base: "full", std: maxTabsWidth }}
       m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}
     >
+      <Head>
+        <title>COKI: Open Access Dashboard</title>
+        <meta
+          name="description"
+          content="How Open is Academia? See how well your university or country performs at open access publishing."
+        />
+      </Head>
+
       <Box
         display={{ base: "none", md: "block" }}
         p={{

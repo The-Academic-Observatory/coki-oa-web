@@ -18,13 +18,19 @@ import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import Card from "../components/Card";
 import Breadcrumb from "../components/Breadcrumb";
+import Head from "next/head";
 
 export default function Open() {
   return (
-    <Box
-      m={{ base: 0, md: "50px auto 90px", std: "50px 40px 90px" }}
-      maxWidth={{ base: "100%", md: "900px", std: "970px" }}
-    >
+    <Box layerStyle="page">
+      <Head>
+        <title>COKI: Data</title>
+        <meta
+          name="description"
+          content="The COKI Open Access Dataset is available in JSON Lines format compressed in tar.gz archives."
+        />
+      </Head>
+
       <Box display={{ base: "none", md: "block" }} pb="32px">
         <Breadcrumb labelsToUppercase />
       </Box>

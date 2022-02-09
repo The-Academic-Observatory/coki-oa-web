@@ -21,13 +21,19 @@ import CurtinLogo from "../public/logo-curtin.svg";
 import MellonLogo from "../public/logo-mellon.svg";
 import ArcadiaLogo from "../public/logo-arcadia.svg";
 import Breadcrumb from "../components/Breadcrumb";
+import Head from "next/head";
 
 export default function About() {
   return (
-    <Box
-      m={{ base: 0, md: "50px auto 90px", std: "50px 40px 90px" }}
-      maxWidth={{ base: "100%", md: "900px", std: "970px" }}
-    >
+    <Box layerStyle="page">
+      <Head>
+        <title>COKI: About</title>
+        <meta
+          name="description"
+          content="About the Curtin Open Knowledge Initiative."
+        />
+      </Head>
+
       <Box display={{ base: "none", md: "block" }} pb="32px">
         <Breadcrumb labelsToUppercase />
       </Box>

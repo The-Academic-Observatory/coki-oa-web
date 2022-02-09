@@ -19,13 +19,19 @@ import React from "react";
 import Card from "../components/Card";
 import Icon from "../components/Icon";
 import Breadcrumb from "../components/Breadcrumb";
+import Head from "next/head";
 
 export default function Contact() {
   return (
-    <Box
-      m={{ base: 0, md: "50px auto 90px", std: "50px 40px 90px" }}
-      maxWidth={{ base: "100%", md: "900px", std: "970px" }}
-    >
+    <Box layerStyle="page">
+      <Head>
+        <title>COKI: Contact</title>
+        <meta
+          name="description"
+          content="Contact the Curtin Open Knowledge Initiative."
+        />
+      </Head>
+
       <Box display={{ base: "none", md: "block" }} pb="32px">
         <Breadcrumb labelsToUppercase />
       </Box>
