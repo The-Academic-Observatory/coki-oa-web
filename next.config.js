@@ -23,4 +23,5 @@ module.exports = {
       },
     ];
   },
+  optimizeFonts: false,
 };
