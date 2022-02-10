@@ -1,6 +1,6 @@
 # COKI Open Access Web
 COKI Open Access Web is the [Next.js](https://nextjs.org/) based front end for the Curtin Open Knowledge Initiative's
-Open Access Dashboard.
+Open Access Dashboard: [open.coki.ac](https://open.coki.ac/)
 
 ## OS pre-requisites
 * Linux, Windows or MacOS.
