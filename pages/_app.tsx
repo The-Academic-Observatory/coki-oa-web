@@ -22,18 +22,21 @@ import theme from "../theme";
 import "../theme/styles.css";
 import Layout from "../components/Layout";
 import Fonts from "../components/Fonts";
-import PlausibleProvider from "next-plausible";
+import Script from "next/script";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <PlausibleProvider domain="open.coki.ac">
-      <ChakraProvider theme={theme}>
-        <Fonts />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ChakraProvider>
-    </PlausibleProvider>
+    <ChakraProvider theme={theme}>
+      <Script
+        data-domain="open.coki.ac"
+        src="/script.js"
+        strategy="lazyOnload"
+      />
+      <Fonts />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ChakraProvider>
   );
 }
 
