@@ -1,0 +1,18 @@
+name = "coki-oa-web"
+type = "webpack"
+account_id = "my-cloudflare-account-id"
+zone_id = "my-cloudflare-zone-id"
+compatibility_date = "2022-02-03"
+
+[site]
+bucket = "out"
+entry-point = "workers-site"
+
+[env.dev]
+workers_dev = true
+
+[env.staging]
+workers_dev = true
+
+[env.production]
+route = "my-production-domain/*"

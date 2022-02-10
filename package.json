@@ -1,0 +1,41 @@
+{
+  "name": "coki-oa-web",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postbuild": "cross-env next-sitemap --config next-sitemap.js"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^1.1.1",
+    "@chakra-ui/react": "^1.7.2",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@nivo/bar": "^0.79.1",
+    "@nivo/core": "^0.78.0",
+    "@nivo/pie": "^0.78.0",
+    "@nivo/stream": "^0.78.0",
+    "@types/react-table": "^7.7.8",
+    "framer-motion": "^4",
+    "fuse.js": "^6.5.3",
+    "next": "^12.0.8",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-icomoon": "^2.4.2",
+    "react-table": "^7.7.0"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^6.2.1",
+    "@types/elasticlunr": "^0.9.4",
+    "@types/node": "16.11.9",
+    "@types/react": "17.0.36",
+    "cross-env": "^7.0.3",
+    "eslint": "7",
+    "eslint-config-next": "12.0.4",
+    "next-sitemap": "^2.1.13",
+    "prettier": "2.5.1",
+    "typescript": "4.5.2"
+  }
+}
