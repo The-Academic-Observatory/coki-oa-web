@@ -55,7 +55,7 @@ jobs:
           echo "${WRANGLER_CONFIG}" > wrangler.toml
 
       - name: Publish to Cloudflare
-          uses: cloudflare/wrangler-action@1.3.0
-          with:
-            apiToken: ${{ secrets.CF_API_TOKEN }}
-            environment: develop
+        uses: cloudflare/wrangler-action@1.3.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          environment: develop
