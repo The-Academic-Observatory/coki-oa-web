@@ -46,7 +46,7 @@ jobs:
           DATA_PATH: ./latest/data
         run: |
           yarn build
-          next export
+          yarn export
 
       - name: Save wrangler.toml
         env:

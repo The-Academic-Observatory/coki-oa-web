@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "cross-env next-sitemap --config next-sitemap.js"
+    "postbuild": "cross-env next-sitemap --config next-sitemap.js",
+    "export": "next export"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
