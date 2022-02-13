@@ -81,3 +81,45 @@ Deploy to production:
 ```bash
 wrangler publish -e production
 ```
+
+## Configuring Github Actions
+The following Github Secrets need to be created:
+
+* GCP_CREDENTIALS: credentials for gsutil.
+* BUCKET_NAME: the name of the Google Cloud Storage bucket that contains the data files.
+* WRANGLER_CONFIG: the Cloudflare Wrangler configuration file.
+* CF_API_TOKEN: the Cloudflare API Token.
+
+See below for instructions on how to set these up.
+
+### wrangler.toml
+See the wrangler.toml.example file for an example of how to create the wrangler.toml file.
+
+Add the file to the WRANGLER_CONFIG Github Secret.
+
+### Cloudflare API Token
+This connection contains Cloudflare API token that enables Wrangler to publish the Open Access Website to Cloudflare.
+See [Cloudflare Creating API tokens](https://developers.cloudflare.com/api/tokens/create) for instructions on how to
+create a Cloudflare API token. The Cloudflare API token is already URL encoded. The required settings for the token are
+listed below.
+
+Permissions:
+* Account, Workers KV Storage:Edit
+* Account, Workers Scripts:Edit
+* Account, Account Settings:Read
+* User, User Details:Read
+* Zone, Workers Routes: Edit
+
+Account Resources:
+* Include, <select your account>
+
+Zone Resources:
+* Include, Specific zone: <select the domain you will deploy to>
+
+```yaml
+cloudflare_api_token: http://:<cloudflare_api_token>@
+```
+
+#### External references
+* [Cloudflare Creating API tokens](https://developers.cloudflare.com/api/tokens/create)
+
