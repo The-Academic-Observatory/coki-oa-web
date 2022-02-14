@@ -1,6 +1,11 @@
 name: Build and Deploy
 
 on:
+  repository_dispatch:
+    types:
+      - data-update-develop
+      - data-update-staging
+      - data-update-production
   push:
     tags:
       - '*'
@@ -13,49 +18,73 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      - name: Install dependencies
+      - name: Set environment develop
+        if: github.ref == 'refs/heads/develop' || github.ref == 'INF-334/github-action'
         run: |
-          yarn install
+          echo "ENVIRONMENT=develop" >> $GITHUB_ENV
 
-      - name: Auth
-        uses: google-github-actions/auth@v0
-        with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0
-
-      - name: Download and Extract Data
-        env:
-          DATASET_VERSION: v1
-          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+      - name: Set environment staging
+        if: github.ref == 'refs/heads/main'
         run: |
-          gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip
-          ./data.sh
+          echo "ENVIRONMENT=staging" >> $GITHUB_ENV
 
-      - name: Build and Export
-        env:
-          DATA_PATH: ./latest/data
+      - name: Set environment production
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          yarn build
-          yarn export
+          echo "ENVIRONMENT=production" >> $GITHUB_ENV
 
-      - name: Save wrangler.toml
-        env:
-          WRANGLER_CONFIG: ${{ secrets.WRANGLER_CONFIG }}
+      - name: Set environment production
         run: |
-          echo "${WRANGLER_CONFIG}" > wrangler.toml
+          echo "${{ github.event.action }}"
 
-      - name: Publish to Cloudflare
-        uses: cloudflare/wrangler-action@1.3.0
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          environment: develop
+#      - name: Checkout on push
+#        if: github.event.action
+#        uses: actions/checkout@v2
+#
+#      - name: Checkout on repository_dispatch
+#        if: startsWith(github.ref, 'refs/tags/v')
+#        uses: actions/checkout@v2
+#
+#      - name: Setup NodeJS
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: 14
+#
+#      - name: Install dependencies
+#        run: |
+#          yarn install
+#
+#      - name: Auth
+#        uses: google-github-actions/auth@v0
+#        with:
+#          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+#
+#      - name: Set up Cloud SDK
+#        uses: google-github-actions/setup-gcloud@v0
+#
+#      - name: Download and Extract Data
+#        env:
+#          DATASET_VERSION: v1
+#          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+#        run: |
+#          gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip
+#          ./data.sh
+#
+#      - name: Build and Export
+#        env:
+#          DATA_PATH: ./latest/data
+#        run: |
+#          yarn build
+#          yarn export
+#
+#      - name: Save wrangler.toml
+#        env:
+#          WRANGLER_CONFIG: ${{ secrets.WRANGLER_CONFIG }}
+#        run: |
+#          echo "${WRANGLER_CONFIG}" > wrangler.toml
+#
+#      - name: Publish to Cloudflare
+#        uses: cloudflare/wrangler-action@1.3.0
+#        with:
+#          apiToken: ${{ secrets.CF_API_TOKEN }}
+#          environment: ${{ env.ENVIRONMENT }}
