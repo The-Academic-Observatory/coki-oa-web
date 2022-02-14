@@ -1,12 +1,11 @@
-name: Build and Deploy
+name: Build and Deploy on Data Update
 
 on:
-  push:
-    tags:
-      - 'v*'
-    branches:
-      - develop
-      - main
+  repository_dispatch:
+    types:
+      - data-update/develop
+      - data-update/staging
+      - data-update/production
 
 jobs:
   build:
@@ -16,19 +15,34 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set environment develop
-        if: github.ref == 'refs/heads/develop'
+        if: github.event.action == 'data-update/develop'
         run: |
           echo "ENVIRONMENT=develop" >> $GITHUB_ENV
+          echo "REPO_DISPATCH_REF=develop" >> $GITHUB_ENV
 
       - name: Set environment staging
-        if: github.ref == 'refs/heads/main'
+        if: github.event.action == 'data-update/staging'
         run: |
           echo "ENVIRONMENT=staging" >> $GITHUB_ENV
+          echo "REPO_DISPATCH_REF=main" >> $GITHUB_ENV
+
+      - name: Get latest tag production
+        if: github.event.action == 'data-update/production'
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: The-Academic-Observatory/coki-oa-web
+          releases-only: true
+        id: get_latest_tag
 
       - name: Set environment production
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: github.event.action == 'data-update/production'
         run: |
           echo "ENVIRONMENT=production" >> $GITHUB_ENV
+          echo "REPO_DISPATCH_REF=${{ steps.get_latest_tag.outputs.tag }}" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ env.REPO_DISPATCH_REF }}
 
       - name: Current Checked Out Ref
         run: |
