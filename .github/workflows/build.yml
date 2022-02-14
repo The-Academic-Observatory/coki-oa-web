@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout on push
-        if: github.event.action
         uses: actions/checkout@v2
 
       - name: Set environment develop
