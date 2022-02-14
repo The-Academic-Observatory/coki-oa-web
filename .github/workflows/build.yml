@@ -18,9 +18,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Print variable
+      - name: Print variables
         run: |
           echo ${{ github.event.action }}
+          echo ${{ github.ref }}
+      
+      - name: Checkout on push
+        uses: actions/checkout@v2
+
+      - name: Print variables
+        run: |
+          echo ${{ github.event.action }}
+          echo ${{ github.ref }}
 
       - name: Set environment develop
         if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/INF-334/github-action' || github.event.action == 'data-update/develop'
@@ -36,10 +45,6 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v') || github.event.action == 'data-update/production'
         run: |
           echo "ENVIRONMENT=production" >> $GITHUB_ENV
-
-      - name: Checkout on push
-        if: github.event.action == 'push'
-        uses: actions/checkout@v2
 
       - name: Set ref develop
         if: github.event.action == 'data-update-develop'
