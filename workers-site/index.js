@@ -43,16 +43,22 @@ async function handleEvent(event) {
 }
 
 async function proxyPlausibleScript(event) {
-  let r = await caches.default.match(event.request);
-  if (!r) {
-    r = await fetch("https://plausible.io/js/plausible.js");
-    event.waitUntil(caches.default.put(event.request, r.clone()));
+  if (ANALYTICS_ENABLED) {
+    let r = await caches.default.match(event.request);
+    if (!r) {
+      r = await fetch("https://plausible.io/js/plausible.js");
+      event.waitUntil(caches.default.put(event.request, r.clone()));
+    }
+    return r;
   }
-  return r;
+  return new Response(null, { status: 404 });
 }
 
 async function proxyPlausibleEvent(event) {
-  const r = new Request(event.request);
-  r.headers.delete("cookie");
-  return await fetch("https://plausible.io/api/event", r);
+  if (ANALYTICS_ENABLED) {
+    const r = new Request(event.request);
+    r.headers.delete("cookie");
+    return await fetch("https://plausible.io/api/event", r);
+  }
+  return new Response(null, { status: 404 });
 }
