@@ -21,6 +21,11 @@ jobs:
       - name: Checkout on push
         uses: actions/checkout@v2
 
+      - name: Run
+      - run: |
+          echo $GITHUB_REF
+          echo ${{ github.ref }}
+
       - name: Set environment develop
         if: github.ref == 'refs/heads/develop' || github.ref == 'INF-334/github-action'
         run: |
