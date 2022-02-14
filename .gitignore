@@ -47,3 +47,7 @@ package-lock.json
 
 # Ignore wrangler.toml
 wrangler.toml
+
+# Ignore data files
+/latest
+latest.zip
