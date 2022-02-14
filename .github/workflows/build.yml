@@ -18,6 +18,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout on push
+        if: github.event.action
+        uses: actions/checkout@v2
+
       - name: Set environment develop
         if: github.ref == 'refs/heads/develop' || github.ref == 'INF-334/github-action'
         run: |
@@ -36,6 +40,7 @@ jobs:
       - name: Set environment production
         run: |
           echo "${{ github.event.action }}"
+          echo "${{ env.ENVIRONMENT }}"
 
 #      - name: Checkout on push
 #        if: github.event.action
