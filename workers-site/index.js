@@ -43,7 +43,7 @@ async function handleEvent(event) {
 }
 
 async function proxyPlausibleScript(event) {
-  if (ANALYTICS_ENABLED) {
+  if (ANALYTICS_ENABLED === "true") {
     let r = await caches.default.match(event.request);
     if (!r) {
       r = await fetch("https://plausible.io/js/plausible.js");
@@ -55,7 +55,7 @@ async function proxyPlausibleScript(event) {
 }
 
 async function proxyPlausibleEvent(event) {
-  if (ANALYTICS_ENABLED) {
+  if (ANALYTICS_ENABLED === "true") {
     const r = new Request(event.request);
     r.headers.delete("cookie");
     return await fetch("https://plausible.io/api/event", r);

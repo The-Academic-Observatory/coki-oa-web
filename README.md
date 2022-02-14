@@ -69,7 +69,7 @@ route = "my-production-domain/*"
 
 Deploy to develop:
 ```bash
-wrangler publish -e dev
+wrangler publish -e develop
 ```
 
 Deploy to staging:
