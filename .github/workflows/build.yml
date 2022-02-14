@@ -3,9 +3,9 @@ name: Build and Deploy
 on:
   repository_dispatch:
     types:
-      - develop
-      - main
-      - tag
+      - data-update/develop
+      - data-update/staging
+      - data-update/production
   push:
     tags:
       - '*'
@@ -23,17 +23,17 @@ jobs:
           echo ${{ github.event.action }}
 
       - name: Set environment develop
-        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/INF-334/github-action'
+        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/INF-334/github-action' || github.event.action == 'data-update/develop'
         run: |
           echo "ENVIRONMENT=develop" >> $GITHUB_ENV
 
       - name: Set environment staging
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' || github.event.action == 'data-update/staging'
         run: |
           echo "ENVIRONMENT=staging" >> $GITHUB_ENV
 
       - name: Set environment production
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v') || github.event.action == 'data-update/production'
         run: |
           echo "ENVIRONMENT=production" >> $GITHUB_ENV
 
@@ -41,20 +41,38 @@ jobs:
         if: github.event.action == 'push'
         uses: actions/checkout@v2
 
-      - name: Checkout on repository_dispatch
-        if: github.event.action == 'repository_dispatch'
-        uses: actions/checkout@v2
-#        with:
-#          ref: ${{ github.event.client_payload.ref }}
+      - name: Set ref develop
+        if: github.event.action == 'data-update-develop'
+        run: |
+          echo "REPO_DISPATCH_REF=develop" >> $GITHUB_ENV
 
-#      - name: Checkout on push
-#        if: github.event.action
-#        uses: actions/checkout@v2
-#
-#      - name: Checkout on repository_dispatch
-#        if: startsWith(github.ref, 'refs/tags/v')
-#        uses: actions/checkout@v2
-#
+      - name: Set ref staging
+        if: github.event.action == 'data-update-staging'
+        run: |
+          echo "REPO_DISPATCH_REF=main" >> $GITHUB_ENV
+
+      - name: Get latest tag
+        if: github.event.action == 'data-update-production'
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: The-Academic-Observatory/coki-oa-web
+          releases-only: true
+        id: get_latest_tag
+
+      - name: Set ref production
+        if: github.event.action == 'data-update-production'
+        run: |
+          echo "REPO_DISPATCH_REF=${{ steps.get_latest_tag.outputs.tag }}" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v2
+        if: startsWith(github.event.action, 'data-update')
+        with:
+          ref: ${{ env.REPO_DISPATCH_REF }}
+
+      - name: Print Current Checked Out Ref
+        run: |
+          git symbolic-ref -q --short HEAD || git describe --tags --exact-match
+
 #      - name: Setup NodeJS
 #        uses: actions/setup-node@v2
 #        with:
