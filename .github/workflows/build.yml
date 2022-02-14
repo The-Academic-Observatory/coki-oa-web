@@ -27,7 +27,7 @@ jobs:
           echo ${{ github.ref }}
 
       - name: Set environment develop
-        if: github.ref == 'refs/heads/develop' || github.ref == 'INF-334/github-action'
+        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/INF-334/github-action'
         run: |
           echo "ENVIRONMENT=develop" >> $GITHUB_ENV
 
@@ -41,9 +41,9 @@ jobs:
         run: |
           echo "ENVIRONMENT=production" >> $GITHUB_ENV
 
-      - name: Set environment production
+      - name: Check variables
         run: |
-          echo "${{ github.event.action }}"
+          echo "${{ github.event_name }}"
           echo "${{ env.ENVIRONMENT }}"
 
 #      - name: Checkout on push
