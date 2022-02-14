@@ -10,9 +10,12 @@ entry-point = "workers-site"
 
 [env.develop]
 workers_dev = true
+vars = { ANALYTICS_ENABLED = false }
 
 [env.staging]
 workers_dev = true
+vars = { ANALYTICS_ENABLED = false }
 
 [env.production]
 route = "my-production-domain/*"
+vars = { ANALYTICS_ENABLED = true }
