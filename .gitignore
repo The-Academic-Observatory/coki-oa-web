@@ -51,3 +51,6 @@ wrangler.toml
 # Ignore data files
 /latest
 latest.zip
+
+public/robots.txt
+public/sitemap*
