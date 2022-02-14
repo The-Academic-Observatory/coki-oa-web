@@ -3,9 +3,9 @@ name: Build and Deploy
 on:
   repository_dispatch:
     types:
-      - data-update-develop
-      - data-update-staging
-      - data-update-production
+      - develop
+      - main
+      - tag
   push:
     tags:
       - '*'
@@ -18,13 +18,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout on push
-        uses: actions/checkout@v2
-
-      - name: Run
+      - name: Print variable
         run: |
-          echo $GITHUB_REF
-          echo ${{ github.ref }}
+          echo ${{ github.event.action }}
 
       - name: Set environment develop
         if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/INF-334/github-action'
@@ -41,10 +37,15 @@ jobs:
         run: |
           echo "ENVIRONMENT=production" >> $GITHUB_ENV
 
-      - name: Check variables
-        run: |
-          echo "${{ github.event_name }}"
-          echo "${{ env.ENVIRONMENT }}"
+      - name: Checkout on push
+        if: github.event.action == 'push'
+        uses: actions/checkout@v2
+
+      - name: Checkout on repository_dispatch
+        if: github.event.action == 'repository_dispatch'
+        uses: actions/checkout@v2
+#        with:
+#          ref: ${{ github.event.client_payload.ref }}
 
 #      - name: Checkout on push
 #        if: github.event.action
