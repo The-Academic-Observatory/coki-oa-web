@@ -8,31 +8,20 @@ on:
       - data-update/production
   push:
     tags:
-      - '*'
+      - 'v*'
     branches:
       - develop
       - main
-      - INF-334/github-action
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Print variables
-        run: |
-          echo ${{ github.event.action }}
-          echo ${{ github.ref }}
-
       - name: Checkout on push
         uses: actions/checkout@v2
 
-      - name: Print variables
-        run: |
-          echo ${{ github.event.action }}
-          echo ${{ github.ref }}
-
       - name: Set environment develop
-        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/INF-334/github-action' || github.event.action == 'data-update/develop'
+        if: github.ref == 'refs/heads/develop' || github.event.action == 'data-update/develop'
         run: |
           echo "ENVIRONMENT=develop" >> $GITHUB_ENV
 
@@ -74,50 +63,50 @@ jobs:
         with:
           ref: ${{ env.REPO_DISPATCH_REF }}
 
-      - name: Print Current Checked Out Ref
+      - name: Current Checked Out Ref
         run: |
           git symbolic-ref -q --short HEAD || git describe --tags --exact-match
 
-#      - name: Setup NodeJS
-#        uses: actions/setup-node@v2
-#        with:
-#          node-version: 14
-#
-#      - name: Install dependencies
-#        run: |
-#          yarn install
-#
-#      - name: Auth
-#        uses: google-github-actions/auth@v0
-#        with:
-#          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
-#
-#      - name: Set up Cloud SDK
-#        uses: google-github-actions/setup-gcloud@v0
-#
-#      - name: Download and Extract Data
-#        env:
-#          DATASET_VERSION: v1
-#          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
-#        run: |
-#          gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip
-#          ./data.sh
-#
-#      - name: Build and Export
-#        env:
-#          DATA_PATH: ./latest/data
-#        run: |
-#          yarn build
-#          yarn export
-#
-#      - name: Save wrangler.toml
-#        env:
-#          WRANGLER_CONFIG: ${{ secrets.WRANGLER_CONFIG }}
-#        run: |
-#          echo "${WRANGLER_CONFIG}" > wrangler.toml
-#
-#      - name: Publish to Cloudflare
-#        uses: cloudflare/wrangler-action@1.3.0
-#        with:
-#          apiToken: ${{ secrets.CF_API_TOKEN }}
-#          environment: ${{ env.ENVIRONMENT }}
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: |
+          yarn install
+
+      - name: Auth
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+
+      - name: Download and Extract Data
+        env:
+          DATASET_VERSION: v1
+          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+        run: |
+          gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip
+          ./data.sh
+
+      - name: Build and Export
+        env:
+          DATA_PATH: ./latest/data
+        run: |
+          yarn build
+          yarn export
+
+      - name: Save wrangler.toml
+        env:
+          WRANGLER_CONFIG: ${{ secrets.WRANGLER_CONFIG }}
+        run: |
+          echo "${WRANGLER_CONFIG}" > wrangler.toml
+
+      - name: Publish to Cloudflare
+        uses: cloudflare/wrangler-action@1.3.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          environment: ${{ env.ENVIRONMENT }}
