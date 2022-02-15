@@ -62,7 +62,8 @@ const Navbar = ({
     >
       <IconButton
         variant="clean"
-        aria-label="Open menu"
+        data-test="menu"
+        aria-label="Menu"
         onClick={() => {
           if (!isOpenSidebar) {
             onOpenSidebar();
@@ -104,6 +105,7 @@ const Navbar = ({
       <IconButton
         variant="clean"
         display={{ base: "flex", std: "none" }}
+        data-test="search"
         aria-label="Search"
         isRound
         color="white"

@@ -129,6 +129,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             boxShadow="none"
           >
             <SidebarContent
+              id="sidebar-mobile"
               links={links}
               navbarHeightMobile={navbarHeightMobile}
               onClose={onCloseSidebar}
@@ -144,6 +145,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           display={{ base: "none", std: "block" }}
         >
           <SidebarContent
+            id="sidebar"
             links={links}
             navbarHeightMobile={navbarHeightMobile}
             onClose={() => onCloseSidebar}

@@ -7,7 +7,8 @@
     "start": "next start",
     "lint": "next lint",
     "postbuild": "cross-env next-sitemap --config next-sitemap.js",
-    "export": "next export"
+    "export": "next export",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
@@ -28,6 +29,7 @@
     "react-table": "^7.7.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.19.0",
     "@svgr/webpack": "^6.2.1",
     "@types/elasticlunr": "^0.9.4",
     "@types/node": "16.11.9",
