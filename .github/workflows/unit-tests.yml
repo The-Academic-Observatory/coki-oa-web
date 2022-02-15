@@ -22,6 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           yarn install
+          npx playwright install-deps
           npx playwright install
 
       - name: Auth
