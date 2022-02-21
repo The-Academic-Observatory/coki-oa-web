@@ -20,16 +20,22 @@ import { Box, BoxProps, Collapse, Text, useDisclosure } from "@chakra-ui/react";
 interface TextCollapseProps extends BoxProps {
   previewText: string;
   text: string;
+  showCollapse: boolean;
 }
 
-const TextCollapse = ({ previewText, text, ...rest }: TextCollapseProps) => {
+const TextCollapse = ({
+  previewText,
+  text,
+  showCollapse,
+  ...rest
+}: TextCollapseProps) => {
   const [actionText, setActionText] = React.useState<string>("Read More");
   const { isOpen, onToggle } = useDisclosure();
 
-  return (
-    <Box {...rest}>
-      <Text textStyle="pNoGap">
-        {previewText}{" "}
+  let link = <></>;
+  if (showCollapse) {
+    link = (
+      <>
         <a
           onClick={() => {
             if (isOpen) {
@@ -42,6 +48,14 @@ const TextCollapse = ({ previewText, text, ...rest }: TextCollapseProps) => {
         >
           {actionText}.
         </a>
+      </>
+    );
+  }
+
+  return (
+    <Box {...rest}>
+      <Text textStyle="pNoGap">
+        {previewText} {link}
       </Text>
       <Collapse in={isOpen} animateOpacity>
         <Text pt="8px" textStyle="pNoGap">
@@ -50,6 +64,10 @@ const TextCollapse = ({ previewText, text, ...rest }: TextCollapseProps) => {
       </Collapse>
     </Box>
   );
+};
+
+TextCollapse.defaultProps = {
+  showCollapse: true,
 };
 
 export default TextCollapse;

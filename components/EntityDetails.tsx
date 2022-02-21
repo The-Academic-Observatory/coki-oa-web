@@ -47,6 +47,7 @@ import { Bar } from "@nivo/bar";
 import { AxisLegendPosition } from "@nivo/axes";
 import Head from "next/head";
 import Breadcrumbs from "./Breadcrumbs";
+import TextCollapse from "./TextCollapse";
 
 interface CardProps extends BoxProps {
   children: ReactNode;
@@ -381,7 +382,8 @@ interface EntityHeadingProps extends StackProps {
 }
 
 const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
-  let description = <>makeDescription(entity)</>;
+  const previewText = makeDescription(entity);
+  let description = <> {makeDescription(entity)} </>;
   if (entity.description.text !== "") {
     description = (
       <>
@@ -425,13 +427,12 @@ const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
           </Text>
         </VStack>
       </HStack>
-      <Text
-        pt="8px"
-        textStyle="pNoGap"
+      <TextCollapse
         display={{ base: "block", sm: "block", md: "none" }}
-      >
-        {description}
-      </Text>
+        previewText={previewText}
+        text={description}
+        showCollapse={entity.description.text !== ""}
+      />
     </VStack>
   );
 };
