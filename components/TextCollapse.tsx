@@ -14,12 +14,12 @@
 //
 // Author: James Diprose
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { Box, BoxProps, Collapse, Text, useDisclosure } from "@chakra-ui/react";
 
 interface TextCollapseProps extends BoxProps {
-  previewText: string;
-  text: string;
+  previewText: string | ReactElement;
+  text: string | ReactElement;
   showCollapse: boolean;
 }
 
