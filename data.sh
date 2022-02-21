@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Extract data
-unzip -o latest.zip
+unzip -o latest.zip -d latest
 
 # Make public/data folder
 mkdir -p ./public/data

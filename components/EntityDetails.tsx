@@ -58,11 +58,10 @@ const makeDescription = (entity: Entity) => {
     area = `${entity.country},`;
   }
 
-  const description =
+  return (
     `Open Access statistics for ${entity.name}, ${area} covering research outputs published from ` +
-    `${entity.min_year} to ${entity.max_year}.`;
-
-  return description;
+    `${entity.min_year} to ${entity.max_year}.`
+  );
 };
 
 const EntityCard = ({ children, ...rest }: CardProps) => {
@@ -142,7 +141,7 @@ const EntityFooter = ({ lastUpdated }: EntityFooterProps) => {
         </Button>
       </Link>
       <Text textStyle="lastUpdated" pt={{ base: "16px", sm: 0 }}>
-        Last updated {lastUpdated}
+        Data updated {lastUpdated}
       </Text>
     </Flex>
   );
@@ -382,10 +381,20 @@ interface EntityHeadingProps extends StackProps {
 }
 
 const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
-  entity.description = makeDescription(entity);
+  let description = <>makeDescription(entity)</>;
+  if (entity.description.text !== "") {
+    description = (
+      <>
+        {entity.description.text}{" "}
+        <a href={entity.description.url} target="_blank" rel="noreferrer">
+          Wikipedia.
+        </a>
+      </>
+    );
+  }
   return (
-    <VStack alignItems={"left"} pb={{ base: "24px", md: 0 }} {...rest}>
-      <HStack pb={{ base: "12px", md: "48px" }}>
+    <VStack alignItems={"left"} pb={{ base: "16px", md: 0 }} {...rest}>
+      <HStack pb={{ base: "12px", md: "12px" }}>
         <Box
           minWidth={{ base: "60px", md: "100px" }}
           width={{ base: "60px", md: "100px" }}
@@ -404,15 +413,24 @@ const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
           />
         </Box>
 
-        <VStack alignItems={"left"}>
+        <VStack alignItems="left">
           <Text textStyle="entityHeading">{entity.name}</Text>
-          <Text textStyle="p" display={{ base: "none", md: "block" }}>
-            {entity.description}
+          <Text
+            textStyle="p"
+            fontSize="24px"
+            lineHeight="28px"
+            display={{ base: "none", md: "block" }}
+          >
+            {description}
           </Text>
         </VStack>
       </HStack>
-      <Text textStyle="p" pb={0} display={{ base: "block", md: "none" }}>
-        {entity.description}
+      <Text
+        pt="8px"
+        textStyle="pNoGap"
+        display={{ base: "block", sm: "block", md: "none" }}
+      >
+        {description}
       </Text>
     </VStack>
   );

@@ -17,7 +17,7 @@
 export type Entity = {
   id: string;
   name: string;
-  description: string;
+  description: Description;
   category: string;
   logo_s: string;
   logo_l: string;
@@ -35,6 +35,12 @@ export type Entity = {
   subjects: Array<Subject>;
   other_platform_locations: Array<string>;
   timeseries: Array<Year>;
+};
+
+export type Description = {
+  text: string;
+  url: string;
+  license: string;
 };
 
 export type PublicationStats = {

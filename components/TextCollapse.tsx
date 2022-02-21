@@ -28,10 +28,9 @@ const TextCollapse = ({ previewText, text, ...rest }: TextCollapseProps) => {
 
   return (
     <Box {...rest}>
-      <Text textStyle="p">
+      <Text textStyle="pNoGap">
         {previewText}{" "}
         <a
-          className="textCollapseLink"
           onClick={() => {
             if (isOpen) {
               setActionText("Read More");
@@ -45,7 +44,9 @@ const TextCollapse = ({ previewText, text, ...rest }: TextCollapseProps) => {
         </a>
       </Text>
       <Collapse in={isOpen} animateOpacity>
-        <Text textStyle="p">{text}</Text>
+        <Text pt="8px" textStyle="pNoGap">
+          {text}
+        </Text>
       </Collapse>
     </Box>
   );

@@ -37,8 +37,11 @@ ol > li {
     background-color: #FF671C !important;
 }
 
-.textCollapseLink {
+p a {
     cursor: pointer;
-    color: #b7b7b7;
     text-decoration: underline;
+}
+
+p a:hover {
+    color: #737373 !important;
 }

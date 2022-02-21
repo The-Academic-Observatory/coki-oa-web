@@ -47,7 +47,7 @@ const Breadcrumbs = ({ breadcrumbs, ...rest }: BreadcrumbsProps) => {
       <ChakraBreadcrumb {...rest}>
         {breadcrumbs.map((breadcrumb, i) => {
           return (
-            <ChakraBreadcrumbItem key={breadcrumb.href}>
+            <ChakraBreadcrumbItem key={i}>
               <ChakraBreadcrumbLink as={Link} href={breadcrumb.href}>
                 {breadcrumb.title.toUpperCase()}
               </ChakraBreadcrumbLink>
