@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import React, {ReactElement, ReactNode, useState} from "react";
+import React, { ReactElement, ReactNode, useState } from "react";
 import {
   Box,
   BoxProps,
@@ -32,19 +32,19 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import {Entity} from "../lib/model";
+import { Entity } from "../lib/model";
 import DonutSparkline from "./DonutSparkline";
 import styles from "./EntityDetails.module.css";
 import Card from "./Card";
 import Icon from "./Icon";
 import Link from "./Link";
 import BreakdownSparkline from "./BreakdownSparkline";
-import {toReadableNumber} from "../lib/utils";
-import {Pie} from "@nivo/pie";
-import {linearGradientDef} from "@nivo/core";
-import {Stream} from "@nivo/stream";
-import {Bar} from "@nivo/bar";
-import {AxisLegendPosition} from "@nivo/axes";
+import { toReadableNumber } from "../lib/utils";
+import { Pie } from "@nivo/pie";
+import { linearGradientDef } from "@nivo/core";
+import { Stream } from "@nivo/stream";
+import { Bar } from "@nivo/bar";
+import { AxisLegendPosition } from "@nivo/axes";
 import Head from "next/head";
 import Breadcrumbs from "./Breadcrumbs";
 
@@ -381,7 +381,7 @@ interface EntityHeadingProps extends StackProps {
 }
 
 const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
-  let description = makeDescription(entity);
+  let description = <>makeDescription(entity)</>;
   if (entity.description.text !== "") {
     description = (
       <>
