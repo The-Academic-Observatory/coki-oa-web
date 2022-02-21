@@ -91,6 +91,12 @@ const theme = extendTheme({
       lineHeight: { base: "26px", sm: "36px" },
       pb: "16px",
     },
+    pNoGap: {
+      // Light
+      fontWeight: 300,
+      fontSize: { base: "22px", sm: "25px" },
+      lineHeight: { base: "26px", sm: "36px" },
+    },
     caption: {
       // Light
       fontWeight: 300,

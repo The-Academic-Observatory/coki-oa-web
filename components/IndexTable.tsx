@@ -330,7 +330,7 @@ const IndexTable = ({
         </Flex>
 
         <Text mt="28px !important" textStyle="lastUpdated">
-          Last updated {lastUpdated}
+          Data updated {lastUpdated}
         </Text>
       </VStack>
       <Flex
@@ -367,7 +367,7 @@ const IndexTable = ({
             disabled={!canNextPage}
           />
         </Flex>
-        <Text textStyle="lastUpdated">Last updated {lastUpdated}</Text>
+        <Text textStyle="lastUpdated">Data updated {lastUpdated}</Text>
       </Flex>
     </Box>
   );

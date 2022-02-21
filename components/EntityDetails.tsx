@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import React, { ReactElement, ReactNode, useState } from "react";
+import React, {ReactElement, ReactNode, useState} from "react";
 import {
   Box,
   BoxProps,
@@ -32,30 +32,34 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { Entity } from "../lib/model";
+import {Entity} from "../lib/model";
 import DonutSparkline from "./DonutSparkline";
 import styles from "./EntityDetails.module.css";
 import Card from "./Card";
 import Icon from "./Icon";
 import Link from "./Link";
 import BreakdownSparkline from "./BreakdownSparkline";
-import { toReadableNumber } from "../lib/utils";
-import { Pie } from "@nivo/pie";
-import { linearGradientDef } from "@nivo/core";
-import { Stream } from "@nivo/stream";
-import { Bar } from "@nivo/bar";
-import { AxisLegendPosition } from "@nivo/axes";
+import {toReadableNumber} from "../lib/utils";
+import {Pie} from "@nivo/pie";
+import {linearGradientDef} from "@nivo/core";
+import {Stream} from "@nivo/stream";
+import {Bar} from "@nivo/bar";
+import {AxisLegendPosition} from "@nivo/axes";
 import Head from "next/head";
 import Breadcrumbs from "./Breadcrumbs";
-import TextCollapse from "./TextCollapse";
 
 interface CardProps extends BoxProps {
   children: ReactNode;
 }
 
 const makeDescription = (entity: Entity) => {
+  let area = "";
+  if (entity.category === "institution") {
+    area = `${entity.country},`;
+  }
+
   return (
-    `Open Access statistics for ${entity.name}, based on research outputs published from ` +
+    `Open Access statistics for ${entity.name}, ${area} covering research outputs published from ` +
     `${entity.min_year} to ${entity.max_year}.`
   );
 };
@@ -137,7 +141,7 @@ const EntityFooter = ({ lastUpdated }: EntityFooterProps) => {
         </Button>
       </Link>
       <Text textStyle="lastUpdated" pt={{ base: "16px", sm: 0 }}>
-        Last updated {lastUpdated}
+        Data updated {lastUpdated}
       </Text>
     </Flex>
   );
@@ -377,11 +381,9 @@ interface EntityHeadingProps extends StackProps {
 }
 
 const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
-  const text = makeDescription(entity);
-  let wikiDescription = <></>;
-
+  let description = makeDescription(entity);
   if (entity.description.text !== "") {
-    wikiDescription = (
+    description = (
       <>
         {entity.description.text}{" "}
         <a href={entity.description.url} target="_blank" rel="noreferrer">
@@ -411,7 +413,7 @@ const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
           />
         </Box>
 
-        <VStack alignItems={"left"}>
+        <VStack alignItems="left">
           <Text textStyle="entityHeading">{entity.name}</Text>
           <Text
             textStyle="p"
@@ -419,15 +421,17 @@ const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
             lineHeight="28px"
             display={{ base: "none", md: "block" }}
           >
-            {text} {wikiDescription}
+            {description}
           </Text>
         </VStack>
       </HStack>
-      <TextCollapse
+      <Text
+        pt="8px"
+        textStyle="pNoGap"
         display={{ base: "block", sm: "block", md: "none" }}
-        previewText={text}
-        text={wikiDescription}
-      />
+      >
+        {description}
+      </Text>
     </VStack>
   );
 };
