@@ -1,11 +1,11 @@
 {
   "private": true,
-  "name": "worker",
-  "version": "1.0.1",
-  "description": "A template for kick starting a Cloudflare Workers project",
+  "name": "coki-oa-web",
+  "version": "0.1.0",
+  "description": "The COKI Open Access Website Cloudflare Worker",
   "main": "index.js",
-  "author": "Ashley Lewis <ashleymichal@gmail.com>",
-  "license": "MIT",
+  "author": "Curtin University <coki@curtin.edu.au>",
+  "license": "Apache 2.0",
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0"
   }

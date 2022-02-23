@@ -15,13 +15,7 @@
 // Author: James Diprose
 
 import React, { ReactNode, useEffect } from "react";
-import {
-  Box,
-  Drawer,
-  DrawerContent,
-  Flex,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Drawer, DrawerContent, Flex, useDisclosure } from "@chakra-ui/react";
 
 import Footer from "./Footer";
 import SidebarContent from "./SidebarContent";
@@ -46,16 +40,8 @@ const links: Array<LinkProps> = [
 ];
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const {
-    isOpen: isOpenSidebar,
-    onOpen: onOpenSidebar,
-    onClose: onCloseSidebar,
-  } = useDisclosure();
-  const {
-    isOpen: isOpenSearch,
-    onOpen: onOpenSearch,
-    onClose: onCloseSearch,
-  } = useDisclosure();
+  const { isOpen: isOpenSidebar, onOpen: onOpenSidebar, onClose: onCloseSidebar } = useDisclosure();
+  const { isOpen: isOpenSearch, onOpen: onOpenSearch, onClose: onCloseSearch } = useDisclosure();
 
   const navbarHeightMobile: number = 68;
   const sidebarWidth: number = 340;
@@ -73,6 +59,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           threshold: 0.1,
           keys: ["name"],
         };
+        // @ts-ignore
         const fuse = new Fuse(data, options);
         setFuse(fuse);
       });
@@ -122,12 +109,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           size="full"
         >
           {/* pointerEvents="none" stops the drawer from blocking pointer events from the close button */}
-          <DrawerContent
-            bg="white"
-            top={`${navbarHeightMobile}px !important`}
-            pointerEvents="none"
-            boxShadow="none"
-          >
+          <DrawerContent bg="white" top={`${navbarHeightMobile}px !important`} pointerEvents="none" boxShadow="none">
             <SidebarContent
               id="sidebar-mobile"
               links={links}
@@ -139,11 +121,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       </Box>
 
       <Flex flex={1}>
-        <Box
-          minWidth={sidebarWidth}
-          bg="grey.400"
-          display={{ base: "none", std: "block" }}
-        >
+        <Box minWidth={sidebarWidth} bg="grey.400" display={{ base: "none", std: "block" }}>
           <SidebarContent
             id="sidebar"
             links={links}

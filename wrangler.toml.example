@@ -9,11 +9,11 @@ bucket = "out"
 entry-point = "workers-site"
 
 [env.develop]
-workers_dev = true
+route = "my-develop-domain/*"
 vars = { ANALYTICS_ENABLED = false }
 
 [env.staging]
-workers_dev = true
+route = "my-staging-domain/*"
 vars = { ANALYTICS_ENABLED = false }
 
 [env.production]

@@ -1,4 +1,4 @@
-name: e2e Tests
+name: Workers API Unit Tests
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  e2e-test:
+  workers-api-unit-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,11 +20,9 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
+        working-directory: ./workers-api
         run: |
           yarn install
-          npx playwright install-deps
-          npx playwright install
-          npx playwright install msedge
 
       - name: Auth
         uses: google-github-actions/auth@v0
@@ -42,8 +40,12 @@ jobs:
           gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip
           ./data.sh
 
-      - name: Run e2e Tests
-        env:
-          DATA_PATH: ./latest/data
+      - name: Check Types
+        working-directory: ./workers-api
         run: |
-          yarn run test:e2e
+          yarn run types:check
+
+      - name: Run Unit Tests
+        working-directory: ./workers-api
+        run: |
+          yarn run test
