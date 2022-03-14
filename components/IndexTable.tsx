@@ -35,7 +35,13 @@ import {
 import React from "react";
 import { Cell, Row, usePagination, useSortBy, useTable } from "react-table";
 import { Entity } from "../lib/model";
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ArrowUpIcon,
+  ArrowDownIcon,
+  ArrowUpDownIcon,
+} from "@chakra-ui/icons";
 import DonutSparkline from "./DonutSparkline";
 import BreakdownSparkline from "./BreakdownSparkline";
 import Icon from "./Icon";
@@ -179,6 +185,7 @@ const IndexTable = ({
         Cell: OpenCell,
         // maxWidth: 200,
         width: "15%",
+        sortDescFirst: true,
       },
       {
         Header: BreakdownHeader,
@@ -188,6 +195,7 @@ const IndexTable = ({
         minWidth: 170,
         maxWidth: 200,
         width: "20%",
+        sortDescFirst: true,
       },
       {
         Header: "Total Publications",
@@ -197,6 +205,7 @@ const IndexTable = ({
         minWidth: 130,
         maxWidth: 150,
         width: "10%",
+        sortDescFirst: true,
       },
       {
         Header: "Open Publications",
@@ -206,6 +215,7 @@ const IndexTable = ({
         minWidth: 130,
         maxWidth: 150,
         width: "10%",
+        sortDescFirst: true,
       },
       {
         Header: "",
@@ -238,6 +248,7 @@ const IndexTable = ({
       data,
       autoResetPage: false,
       autoResetSortBy: false,
+      disableSortRemove: true,
       initialState: { pageIndex: 0, pageSize: maxPageSize },
     },
     useSortBy,
@@ -269,7 +280,23 @@ const IndexTable = ({
                         maxWidth={column.maxWidth}
                         width={column.width}
                       >
-                        {column.render("Header")}
+                        <Flex>
+                          {column.render("Header")}
+                          {/* Add a sort direction indicator */}
+                          <span>
+                            {column.Header == "" ? (
+                              ""
+                            ) : column.isSorted ? (
+                              column.isSortedDesc ? (
+                                <ArrowDownIcon />
+                              ) : (
+                                <ArrowUpIcon />
+                              )
+                            ) : (
+                              <ArrowUpDownIcon />
+                            )}
+                          </span>
+                        </Flex>
                       </Th>
                     );
                   })}
