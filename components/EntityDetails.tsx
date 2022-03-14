@@ -101,7 +101,9 @@ const EntityDetails = ({
 
       <Breadcrumbs
         breadcrumbs={[
-          { title: entity.category, href: "/" },
+          { title: entity.category, 
+            href: `/${entity.category}`
+          },
           {
             title: entity.name,
             href: `/${entity.category}/${entity.id}/`,
