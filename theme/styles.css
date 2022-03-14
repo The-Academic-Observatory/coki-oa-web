@@ -45,3 +45,12 @@ p a {
 p a:hover {
     color: #737373 !important;
 }
+
+li a {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+li a:hover {
+    color: #737373 !important;
+}

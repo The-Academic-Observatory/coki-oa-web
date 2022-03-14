@@ -19,7 +19,7 @@ import { Box, BoxProps, Text } from "@chakra-ui/react";
 
 interface ScrollTableProps extends BoxProps {
   children: ReactNode;
-  caption: string;
+  caption?: string;
 }
 
 const ScrollTable = ({ children, caption, ...rest }: ScrollTableProps) => {
@@ -29,7 +29,7 @@ const ScrollTable = ({ children, caption, ...rest }: ScrollTableProps) => {
   }
 
   return (
-    <Box {...rest} textAlign="center" my="32px">
+    <Box {...rest} textAlign="center">
       {/* Note that 36px is subtracted as this is the padding added by the Card element */}
       <Box overflowX="auto" maxWidth="calc(100vw - 36px)">
         {children}

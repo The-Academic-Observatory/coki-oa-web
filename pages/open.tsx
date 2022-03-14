@@ -209,7 +209,7 @@ export default function Open() {
           and Closed Access.
         </Text>
 
-        <ScrollTable caption="Table 1. Open Access categories.">
+        <ScrollTable caption="Table 1. Open Access categories." my="32px">
           <Table variant="content">
             <Thead>
               <Tr>
@@ -269,7 +269,7 @@ export default function Open() {
           pages.
         </Text>
 
-        <ScrollTable caption="Table 2. Publisher Open subcategories.">
+        <ScrollTable caption="Table 2. Publisher Open subcategories." my="32px">
           <Table variant="content">
             <Thead>
               <Tr>

@@ -36,8 +36,23 @@ import Figure from "../components/Figure";
 import ScrollTable from "../components/ScrollTable";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Head from "next/head";
+import { getStatsData } from "../lib/api";
+import { Stats } from "../lib/model";
 
-export default function How() {
+export async function getStaticProps() {
+  const stats = getStatsData();
+  return {
+    props: {
+      stats: stats,
+    },
+  };
+}
+
+type Props = {
+  stats: Stats;
+};
+
+export default function How({ stats }: Props) {
   return (
     <Box layerStyle="page">
       <Head>
@@ -62,12 +77,13 @@ export default function How() {
           How it Works
         </Text>
         <Text textStyle="p">
-          The COKI Open Access Dataset measures open access performance for 195
-          countries and over 5000 institutions. The COKI Open Access Dataset is
-          created with the COKI Academic Observatory data collection pipeline,
-          which fetches data about research publications from multiple sources,
-          synthesises the datasets and creates the open access calculations for
-          each country and institution.
+          The COKI Open Access Dataset measures open access performance for{" "}
+          {stats.n_countries} countries and {stats.n_institutions} institutions.
+          The COKI Open Access Dataset is created with the COKI Academic
+          Observatory data collection pipeline, which fetches data about
+          research publications from multiple sources, synthesises the datasets
+          and creates the open access calculations for each country and
+          institution.
         </Text>
         <Text as="h2" textStyle="h2">
           1. Fetch Datasets
@@ -75,11 +91,14 @@ export default function How() {
         <Text textStyle="p">
           Each week we collect a number of specialised research publication
           datasets. These include Crossref Metadata, Crossref Funder Registry,
-          Crossref Events, Microsoft Academic Graph, Unpaywall, the Research
-          Organization Registry, Open Citations and Geonames. The table below
-          illustrates what each dataset is used for.
+          Crossref Events, Microsoft Academic Graph (MAG), Unpaywall, the
+          Research Organization Registry (ROR) and Open Citations. A subset of
+          these datasets are used to produce the data for this website and the
+          COKI Open Access Dataset, including Crossref Metadata, MAG, Unpaywall
+          and the ROR. The table below illustrates what each dataset is used
+          for.
         </Text>
-        <ScrollTable caption="Table 1. Datasets and their roles.">
+        <ScrollTable caption="Table 1. Datasets and their roles." my="32px">
           <Table variant="content">
             <Thead>
               <Tr>
@@ -115,10 +134,6 @@ export default function How() {
               <Tr>
                 <Td>Open Citations</Td>
                 <Td>Additional citation information</Td>
-              </Tr>
-              <Tr>
-                <Td>Geonames</Td>
-                <Td>Geographic information</Td>
               </Tr>
             </Tbody>
           </Table>
@@ -160,10 +175,9 @@ export default function How() {
           Metadata, from which the publication’s DOI, Journal, Publisher, Funder
           identifiers and citation counts are derived. The publication’s Open
           Access status is computed using Unpaywall. The authors of the paper
-          and their institutional affiliations are derived with Microsoft
-          Academic Graph. The Research Organisation Registry (ROR) is used to
-          enrich the institutional affiliation records with institution details
-          and GeoNames maps institutions to countries and regions.
+          and their institutional affiliations are derived with MAG. ROR is used
+          to enrich the institutional affiliation records with institution
+          details and map institutions to countries and regions.
         </Text>
 
         <Figure
@@ -197,7 +211,10 @@ export default function How() {
           are described in Table 2 below.
         </Text>
 
-        <ScrollTable caption="Table 2. Open Access status calculations.">
+        <ScrollTable
+          caption="Table 2. Open Access status calculations."
+          my="32px"
+        >
           <Table variant="content">
             <Thead>
               <Tr>
@@ -251,7 +268,10 @@ export default function How() {
           Table 3 below.
         </Text>
 
-        <ScrollTable caption="Table 3. Publisher Open subcategory calculations.">
+        <ScrollTable
+          caption="Table 3. Publisher Open subcategory calculations."
+          my="32px"
+        >
           <Table variant="content">
             <Thead>
               <Tr>
@@ -327,9 +347,9 @@ export default function How() {
             further back in time you go.
           </ListItem>
           <ListItem>
-            Microsoft Academic Graph, the bibliographic data source, has
-            substantial biases and limitations with respect to affiliation
-            sources.
+            Microsoft Academic Graph, used to link institutions to research
+            outputs, has substantial biases and limitations with respect to
+            affiliation sources.
           </ListItem>
         </UnorderedList>
       </Card>

@@ -61,7 +61,7 @@ const makeDescription = (entity: Entity) => {
 
   return (
     `Open Access statistics for ${entity.name}, ${area} covering research outputs published from ` +
-    `${entity.min_year} to ${entity.max_year}.`
+    `${entity.start_year} to ${entity.end_year}.`
   );
 };
 
@@ -185,7 +185,7 @@ interface EntityOATimeseriesProps extends BoxProps {
 const EntityOATimeseries = ({ entity, ...rest }: EntityOATimeseriesProps) => {
   // Fill time series data with zeros
   let data = [];
-  for (let year = entity.min_year; year <= entity.max_year; year++) {
+  for (let year = entity.start_year; year <= entity.end_year; year++) {
     data.push({
       "Publisher Open": 0,
       Both: 0,
@@ -195,10 +195,10 @@ const EntityOATimeseries = ({ entity, ...rest }: EntityOATimeseriesProps) => {
   }
 
   // Merge real data with zeroed data
-  entity.timeseries.forEach((t) => {
+  entity.years.forEach((t) => {
     const year = t.year;
     const stats = t.stats;
-    const i = year - entity.min_year;
+    const i = year - entity.start_year;
 
     data[i] = {
       "Publisher Open": stats.p_outputs_publisher_open_only,
@@ -217,7 +217,7 @@ const EntityOATimeseries = ({ entity, ...rest }: EntityOATimeseriesProps) => {
         Percentage of Open Access over time
       </Text>
       <Box>
-        <OAPercentageChart data={data} minYear={entity.min_year} />
+        <OAPercentageChart data={data} startYear={entity.start_year} />
         <Legend labels={labels} colors={colors} />
       </Box>
     </EntityCard>
@@ -231,7 +231,7 @@ interface EntityOAVolumeProps extends BoxProps {
 const EntityOAVolume = ({ entity, ...rest }: EntityOAVolumeProps) => {
   // Fill time series data with zeros
   let data = [];
-  for (let year = entity.min_year; year <= entity.max_year; year++) {
+  for (let year = entity.start_year; year <= entity.end_year; year++) {
     data.push({
       year: year,
       Open: 0,
@@ -241,10 +241,10 @@ const EntityOAVolume = ({ entity, ...rest }: EntityOAVolumeProps) => {
 
   // Merge real data with zeroed data
   let maxOutputs = 0;
-  entity.timeseries.forEach((t) => {
+  entity.years.forEach((t) => {
     const year = t.year;
     const stats = t.stats;
-    const i = year - entity.min_year;
+    const i = year - entity.start_year;
 
     if (stats.n_outputs > maxOutputs) {
       maxOutputs = stats.n_outputs;
@@ -264,7 +264,7 @@ const EntityOAVolume = ({ entity, ...rest }: EntityOAVolumeProps) => {
     <EntityCard width={"full"} {...rest}>
       <Text textStyle="entityCardHeading">Volume of Open Access over time</Text>
       <Box>
-        <OAVolumeChart data={data} minYear={entity.min_year} />
+        <OAVolumeChart data={data} startYear={entity.start_year} />
         <Legend labels={labels} colors={colors} />
       </Box>
     </EntityCard>
@@ -388,9 +388,17 @@ const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
     description = (
       <>
         {entity.description.text}{" "}
-        <a href={entity.description.url} target="_blank" rel="noreferrer">
-          Wikipedia.
-        </a>
+        <Box as="span" fontSize="14px" lineHeight="14px">
+          Derived from{" "}
+          <a href={entity.description.url} target="_blank" rel="noreferrer">
+            Wikipedia
+          </a>{" "}
+          licensed {"  "}
+          <a href={entity.description.license} target="_blank" rel="noreferrer">
+            CC-BY-SA
+          </a>
+          .
+        </Box>
       </>
     );
   }
@@ -784,12 +792,12 @@ const PublisherOpenDonut = ({ data, ...rest }: PublisherOpenDonutProps) => {
 
 interface OAPercentageChartProps extends BoxProps {
   data: Array<any>;
-  minYear: number;
+  startYear: number;
 }
 
 const OAPercentageChart = ({
   data,
-  minYear,
+  startYear,
   ...rest
 }: OAPercentageChartProps) => {
   const props = {
@@ -810,7 +818,7 @@ const OAPercentageChart = ({
     },
     axisBottom: {
       format: (value: number) => {
-        return minYear + value;
+        return startYear + value;
       },
     },
     valueFormat: (value: number) => `${value.toFixed(0)}%`,
@@ -825,7 +833,7 @@ const OAPercentageChart = ({
 
 interface OAVolumeChartProps extends BoxProps {
   data: Array<any>;
-  minYear: number;
+  startYear: number;
 }
 
 export function formatVolumeChartYAxis(value: number) {
@@ -837,7 +845,7 @@ export function formatVolumeChartYAxis(value: number) {
   }
 }
 
-const OAVolumeChart = ({ data, minYear, ...rest }: OAVolumeChartProps) => {
+const OAVolumeChart = ({ data, startYear, ...rest }: OAVolumeChartProps) => {
   let labels = ["Open", "Closed"];
   let colors = ["#FF671C", "#EBEBEB"];
   const props = {
