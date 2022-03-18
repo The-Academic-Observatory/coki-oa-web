@@ -30,6 +30,7 @@ interface NavItemProps extends BoxProps {
 function isActive(path: string, href: string) {
   return (
     path === href ||
+    (path === "//" && href == "/") ||
     (href === "/" &&
       (path.startsWith("/country") || path.startsWith("/institution")))
   );
