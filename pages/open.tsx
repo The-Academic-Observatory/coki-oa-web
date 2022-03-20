@@ -57,8 +57,12 @@ export default function Open() {
       />
 
       <Card>
-        <Text textStyle="h1">Open Access</Text>
-        <Text textStyle="h2">What is Open Access?</Text>
+        <Text as="h1" textStyle="h1">
+          Open Access
+        </Text>
+        <Text as="h2" textStyle="h2">
+          What is Open Access?
+        </Text>
         <Text textStyle="p">
           Open Access means that a formal research output is available online to
           read and to reuse, free of most copyright restrictions. Efforts to
@@ -130,7 +134,9 @@ export default function Open() {
           <OAFlowchart />
         </Figure>
 
-        <Text textStyle="h2">Why is Open Access important?</Text>
+        <Text as="h2" textStyle="h2">
+          Why is Open Access important?
+        </Text>
         <Text textStyle="p">
           Out of 42 million journal articles and conference papers published
           since 2010, 47% are accessible in some form and{" "}
@@ -160,7 +166,9 @@ export default function Open() {
           globe instant access to current knowledge allows science to advance
           even quicker.
         </Text>
-        <Text textStyle="h2">What can we do about it?</Text>
+        <Text as="h2" textStyle="h2">
+          What can we do about it?
+        </Text>
         <Text textStyle="p">
           The good news is that we can all contribute to improving the
           situation! There are a few options to explore depending on your
@@ -192,7 +200,9 @@ export default function Open() {
             frustrations where you have not been able to.
           </ListItem>
         </OrderedList>
-        <Text textStyle="h2">Open Access categories</Text>
+        <Text as="h2" textStyle="h2">
+          Open Access categories
+        </Text>
         <Text textStyle="p">
           Table 1 below describes the Open Access categories used in the index
           tables on this website, including Publisher Open, Other Platform Open

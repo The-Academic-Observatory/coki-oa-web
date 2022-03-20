@@ -44,7 +44,9 @@ export default function About() {
       />
 
       <Card>
-        <Text textStyle="h1">About</Text>
+        <Text as="h1" textStyle="h1">
+          About
+        </Text>
 
         <Text textStyle="p">
           “Our goal is to change the stories that universities tell about
@@ -74,7 +76,9 @@ export default function About() {
           Baldwin.
         </Text>
 
-        <Text textStyle="h2">Funders</Text>
+        <Text as="h2" textStyle="h2">
+          Funders
+        </Text>
         <Flex
           alignItems="center"
           align="center"

@@ -58,7 +58,9 @@ export default function How() {
       />
 
       <Card>
-        <Text textStyle="h1">How it Works</Text>
+        <Text as="h1" textStyle="h1">
+          How it Works
+        </Text>
         <Text textStyle="p">
           The COKI Open Access Dataset measures open access performance for 195
           countries and over 5000 institutions. The COKI Open Access Dataset is
@@ -67,7 +69,9 @@ export default function How() {
           synthesises the datasets and creates the open access calculations for
           each country and institution.
         </Text>
-        <Text textStyle="h2">1. Fetch Datasets</Text>
+        <Text as="h2" textStyle="h2">
+          1. Fetch Datasets
+        </Text>
         <Text textStyle="p">
           Each week we collect a number of specialised research publication
           datasets. These include Crossref Metadata, Crossref Funder Registry,
@@ -119,7 +123,9 @@ export default function How() {
             </Tbody>
           </Table>
         </ScrollTable>
-        <Text textStyle="h2">2. Synthesis</Text>
+        <Text as="h2" textStyle="h2">
+          2. Synthesis
+        </Text>
         <Text textStyle="p">
           After fetching the datasets, they are synthesised to produce aggregate
           time series statistics for each country and institution (entity type)
@@ -182,7 +188,9 @@ export default function How() {
           <HowPubTable />
         </Figure>
 
-        <Text textStyle="h2">3. Open Access Calculations</Text>
+        <Text as="h2" textStyle="h2">
+          3. Open Access Calculations
+        </Text>
         <Text textStyle="p">
           The Unpaywall dataset is used to calculate Open Access status, the
           calculations for Publisher Open, Other Platform Open and Closed Access
@@ -301,7 +309,9 @@ export default function How() {
             follow this link.
           </a>
         </Text>
-        <Text textStyle="h2">4. Limitations</Text>
+        <Text as="h2" textStyle="h2">
+          4. Limitations
+        </Text>
         <Text textStyle="p">The limitations of our methodology include:</Text>
         <UnorderedList textStyle="p">
           <ListItem>

@@ -42,7 +42,9 @@ export default function Contact() {
       />
 
       <Card>
-        <Text textStyle="h1">Contact</Text>
+        <Text as="h1" textStyle="h1">
+          Contact
+        </Text>
         <Text textStyle="p" mb="24px">
           <b>WE WOULD LOVE TO HEAR FROM YOU.</b>
         </Text>

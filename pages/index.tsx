@@ -131,7 +131,9 @@ const IndexPage = ({
         p={{ base: "24px 24px 15px", md: "24px 24px 15px", std: 0 }}
         bg="grey.200"
       >
-        <Text textStyle="homeHeader">Open Access Dashboard</Text>
+        <Text as="h1" textStyle="homeHeader">
+          Open Access Dashboard
+        </Text>
         <Text textStyle="p" display={{ base: "none", sm: "none", md: "block" }}>
           {dashboardText.long}
         </Text>
