@@ -416,7 +416,9 @@ const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
         </Box>
 
         <VStack alignItems="left">
-          <Text textStyle="entityHeading">{entity.name}</Text>
+          <Text as="h1" textStyle="entityHeading">
+            {entity.name}
+          </Text>
           <Text
             textStyle="p"
             fontSize="24px"
