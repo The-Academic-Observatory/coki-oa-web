@@ -153,11 +153,11 @@ const IndexPage = ({
         defaultIndex={0}
       >
         <TabList>
-          <Tab>
+          <Tab data-test="tab-country">
             <Icon icon="website" size={24} marginRight="6px" />
             <Text>Country</Text>
           </Tab>
-          <Tab>
+          <Tab data-test="tab-institution">
             <Icon icon="institution" size={24} marginRight="6px" />
             <Text>Institution</Text>
           </Tab>
