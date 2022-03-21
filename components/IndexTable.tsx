@@ -281,7 +281,12 @@ const IndexTable = ({
             {page.map((row: Row<any>, i: number) => {
               prepareRow(row);
               return (
-                <Tr key={row.original.id} role="row" zIndex="1">
+                <Tr
+                  key={row.original.id}
+                  role="row"
+                  zIndex="1"
+                  data-test={row.original.id}
+                >
                   {row.cells.map((cell: Cell<any, any>) => {
                     let key = cell.getCellProps().key;
                     return (
@@ -318,12 +323,14 @@ const IndexTable = ({
               currentPageSize += pageSizeIncrement;
               setPageSize(currentPageSize);
             }}
+            data-test="load-more"
           >
             Load More
           </Button>
           <Button
             variant="dashboard"
             leftIcon={<Icon icon="filter" color="white" size={24} />}
+            data-test="filter"
           >
             Filter
           </Button>
@@ -348,6 +355,7 @@ const IndexTable = ({
             icon={<ChevronLeftIcon />}
             onClick={() => previousPage()}
             disabled={!canPreviousPage}
+            data-test="previous-page"
           />
           {paginate(pageIndex, pageCount).map((page) => (
             <Flex
@@ -365,6 +373,7 @@ const IndexTable = ({
             icon={<ChevronRightIcon />}
             onClick={() => nextPage()}
             disabled={!canNextPage}
+            data-test="next-page"
           />
         </Flex>
         <Text textStyle="lastUpdated">Data updated {lastUpdated}</Text>
