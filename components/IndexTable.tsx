@@ -323,14 +323,12 @@ const IndexTable = ({
               currentPageSize += pageSizeIncrement;
               setPageSize(currentPageSize);
             }}
-            data-test="load-more"
           >
             Load More
           </Button>
           <Button
             variant="dashboard"
             leftIcon={<Icon icon="filter" color="white" size={24} />}
-            data-test="filter"
           >
             Filter
           </Button>
@@ -355,7 +353,6 @@ const IndexTable = ({
             icon={<ChevronLeftIcon />}
             onClick={() => previousPage()}
             disabled={!canPreviousPage}
-            data-test="previous-page"
           />
           {paginate(pageIndex, pageCount).map((page) => (
             <Flex
@@ -373,7 +370,6 @@ const IndexTable = ({
             icon={<ChevronRightIcon />}
             onClick={() => nextPage()}
             disabled={!canNextPage}
-            data-test="next-page"
           />
         </Flex>
         <Text textStyle="lastUpdated">Data updated {lastUpdated}</Text>
