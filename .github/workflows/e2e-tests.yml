@@ -1,4 +1,4 @@
-name: Unit Tests
+name: e2e Tests
 
 on:
   push:
