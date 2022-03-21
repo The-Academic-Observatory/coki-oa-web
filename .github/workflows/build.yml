@@ -77,4 +77,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           environment: ${{ env.ENVIRONMENT }}
-          wranglerVersion: '1.19.10'
+          wranglerVersion: '1.19.8'
