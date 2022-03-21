@@ -40,10 +40,16 @@ const NavItem = ({ icon, href, text, ...rest }: NavItemProps) => {
   const iconSize = 32;
   const borderRight = 5;
   const { asPath } = useRouter();
+  const dataTest = text.toLowerCase().replace(/ /g, "-");
 
   return (
     <Box {...rest}>
-      <Link href={href} role="group" style={{ textDecoration: "none" }}>
+      <Link
+        href={href}
+        role="group"
+        data-test={dataTest}
+        style={{ textDecoration: "none" }}
+      >
         <Flex
           align="center"
           height="72px"

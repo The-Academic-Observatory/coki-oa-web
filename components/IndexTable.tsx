@@ -281,7 +281,12 @@ const IndexTable = ({
             {page.map((row: Row<any>, i: number) => {
               prepareRow(row);
               return (
-                <Tr key={row.original.id} role="row" zIndex="1">
+                <Tr
+                  key={row.original.id}
+                  role="row"
+                  zIndex="1"
+                  data-test={row.original.id}
+                >
                   {row.cells.map((cell: Cell<any, any>) => {
                     let key = cell.getCellProps().key;
                     return (
