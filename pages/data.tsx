@@ -39,7 +39,7 @@ export default function Open() {
         <title>COKI: Data</title>
         <meta
           name="description"
-          content="The COKI Open Access Dataset is available in JSON Lines format compressed in a zip file."
+          content="The COKI Open Access Dataset is available in JSON Lines format."
         />
       </Head>
 
@@ -61,8 +61,8 @@ export default function Open() {
           <a href="https://jsonlines.org/" target="_blank" rel="noreferrer">
             JSON Lines
           </a>{" "}
-          format compressed as a zip file. See below for current and previous
-          releases, the dataset license, the dataset schema and attributions.
+          format. See below for current and previous releases, the dataset
+          license, the dataset schema and attributions.
         </Text>
         <Text as="h2" textStyle="h2">
           License
