@@ -49,17 +49,17 @@ const IndexPage = ({
   // Descriptions
   const descriptions = [
     {
-      short: `Open Access by country between ${stats.min_year} and ${stats.max_year}.`,
+      short: `Open Access by country between ${stats.start_year} and ${stats.end_year}.`,
       long:
         "Open Access by country. Showing output counts, number and percentage of accessible outputs published " +
-        `between ${stats.min_year} and ${stats.max_year}. You can sort and filter by region, subregion, number of ` +
+        `between ${stats.start_year} and ${stats.end_year}. You can sort and filter by region, subregion, number of ` +
         "publications, and open access levels. You may also search for a specific country in the search bar at the top right.",
     },
     {
-      short: `Open Access by institution between ${stats.min_year} and ${stats.max_year}.`,
+      short: `Open Access by institution between ${stats.start_year} and ${stats.end_year}.`,
       long:
         "Open Access by institution. Showing output counts, number and percentage of accessible outputs published " +
-        `between ${stats.min_year} to ${stats.max_year}. You can sort and filter by region, subregion, country, institution type, number of ` +
+        `between ${stats.start_year} to ${stats.end_year}. You can sort and filter by region, subregion, country, institution type, number of ` +
         "publications or open access levels. You may also search for a specific institution in the search bar at the top right.",
     },
   ];

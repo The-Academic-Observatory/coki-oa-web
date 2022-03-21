@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { Entity } from "./model";
+import { Entity, Stats } from "./model";
 import fs from "fs";
 import { join } from "path";
 
@@ -47,7 +47,7 @@ export function getIndexTableData(category: string) {
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }
 
-export function getStatsData() {
+export function getStatsData(): Stats {
   const filePath = join(dataPath, `stats.json`);
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }

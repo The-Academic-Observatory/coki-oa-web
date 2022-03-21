@@ -98,7 +98,7 @@ const Table = {
             fontWeight: 700,
             fontSize: "18px",
             lineHeight: "20px",
-            textAlign: "center",
+            textAlign: "left",
             p: "12px",
           },
         },

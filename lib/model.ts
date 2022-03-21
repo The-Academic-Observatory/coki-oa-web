@@ -27,14 +27,11 @@ export type Entity = {
   subregion: string;
   country: string;
   institution_types: Array<string>;
-  min_year: number;
-  max_year: number;
+  start_year: number;
+  end_year: number;
   stats: PublicationStats;
   identifiers: Array<Identifier>;
-  collaborators: Array<Collaborator>;
-  subjects: Array<Subject>;
-  other_platform_locations: Array<string>;
-  timeseries: Array<Year>;
+  years: Array<Year>;
 };
 
 export type Description = {
@@ -68,16 +65,6 @@ export type PublicationStats = {
   p_outputs_no_guarantees: number;
 };
 
-export type Subject = {
-  name: string;
-  n_outputs: number;
-};
-
-export type Collaborator = {
-  name: string;
-  n_outputs: number;
-};
-
 export type Identifier = {
   id: string;
   type: string;
@@ -87,4 +74,12 @@ export type Year = {
   year: number;
   date: string;
   stats: PublicationStats;
+};
+
+export type Stats = {
+  start_year: number;
+  end_year: number;
+  last_updated: number;
+  n_countries: number;
+  n_institutions: number;
 };

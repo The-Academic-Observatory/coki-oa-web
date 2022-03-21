@@ -53,7 +53,7 @@ jobs:
 
       - name: Download and Extract Data
         env:
-          DATASET_VERSION: v1
+          DATASET_VERSION: v2
           BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
           gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip
@@ -77,3 +77,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           environment: ${{ env.ENVIRONMENT }}
+          wranglerVersion: '1.19.10'

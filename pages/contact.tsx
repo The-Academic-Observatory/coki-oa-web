@@ -75,7 +75,7 @@ export default function Contact() {
 
         <Flex alignItems="center" mt="24px">
           <Icon icon="email" size={32} />
-          <Text pl={2} textStyle="p" mb={0}>
+          <Text pl={2} textStyle="p" pb={0}>
             <b>
               Please email us at:{" "}
               <a
