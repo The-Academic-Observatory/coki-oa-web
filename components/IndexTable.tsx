@@ -121,14 +121,41 @@ function LearnMoreCell({ value, entity }: EntityProps) {
   );
 }
 
-function BreakdownHeader({ value, entity }: EntityProps) {
+const ColumnHeaders: { [id: string]: string } = {
+  Institution: "Institution",
+  Country: "Country",
+  open: "Open",
+  breakdown: "Breakdown",
+  totalPublications: "Total Publications",
+  openPublications: "Open Publications",
+  learnMore: "",
+};
+
+//TODO only use column object from props and set correct type
+function CreateHeader(props: any) {
+  let column = props.column;
   return (
     <span>
-      <Text>Breakdown</Text>
-      <Text textStyle="tableSubHeader">
-        Publisher open <br />
-        both <br /> other platform open <br /> closed <br />
-      </Text>
+      <HStack align="start" spacing="0">
+        <Text>{ColumnHeaders[column.id]}</Text>
+        {column.isSorted ? (
+          column.isSortedDesc ? (
+            <ArrowDownIcon viewBox=" 0 -2 24 24" />
+          ) : (
+            <ArrowUpIcon viewBox=" 0 -2 24 24" />
+          )
+        ) : (
+          <ArrowDownIcon viewBox="0 0 0 0" />
+        )}
+      </HStack>
+      {column.id === "breakdown" ? (
+        <Text textStyle="tableSubHeader">
+          Publisher open <br />
+          both <br /> other platform open <br /> closed <br />
+        </Text>
+      ) : (
+        ""
+      )}
     </span>
   );
 }
@@ -172,7 +199,8 @@ const IndexTable = ({
   const columns = React.useMemo<Array<any>>(
     () => [
       {
-        Header: categoryName,
+        Header: CreateHeader,
+        id: categoryName,
         accessor: "name",
         Cell: EntityCell,
         minWidth: 150,
@@ -180,7 +208,8 @@ const IndexTable = ({
         width: "40%",
       },
       {
-        Header: "Open",
+        Header: CreateHeader,
+        id: "open",
         accessor: "stats.p_outputs_open",
         Cell: OpenCell,
         // maxWidth: 200,
@@ -188,7 +217,7 @@ const IndexTable = ({
         sortDescFirst: true,
       },
       {
-        Header: BreakdownHeader,
+        Header: CreateHeader,
         id: "breakdown",
         accessor: "stats.p_outputs_open",
         Cell: BreakdownCell,
@@ -198,7 +227,8 @@ const IndexTable = ({
         sortDescFirst: true,
       },
       {
-        Header: "Total Publications",
+        Header: CreateHeader,
+        id: "totalPublications",
         accessor: "stats.n_outputs",
         Cell: NumberCell,
         isNumeric: true,
@@ -208,7 +238,8 @@ const IndexTable = ({
         sortDescFirst: true,
       },
       {
-        Header: "Open Publications",
+        Header: CreateHeader,
+        id: "openPublications",
         accessor: "stats.n_outputs_open",
         Cell: NumberCell,
         isNumeric: true,
@@ -280,23 +311,7 @@ const IndexTable = ({
                         maxWidth={column.maxWidth}
                         width={column.width}
                       >
-                        <Flex>
-                          {column.render("Header")}
-                          {/* Add a sort direction indicator */}
-                          <span>
-                            {column.Header == "" ? (
-                              ""
-                            ) : column.isSorted ? (
-                              column.isSortedDesc ? (
-                                <ArrowDownIcon />
-                              ) : (
-                                <ArrowUpIcon />
-                              )
-                            ) : (
-                              <ArrowUpDownIcon />
-                            )}
-                          </span>
-                        </Flex>
+                        {column.render("Header")}
                       </Th>
                     );
                   })}
