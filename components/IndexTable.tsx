@@ -128,7 +128,6 @@ const ColumnHeaders: { [id: string]: string } = {
   breakdown: "Breakdown",
   totalPublications: "Total Publications",
   openPublications: "Open Publications",
-  learnMore: "",
 };
 
 //TODO only use column object from props and set correct type
