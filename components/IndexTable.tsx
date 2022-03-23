@@ -33,14 +33,20 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import { Cell, Row, usePagination, useSortBy, useTable } from "react-table";
+import {
+  Cell,
+  ColumnInstance,
+  Row,
+  usePagination,
+  useSortBy,
+  useTable,
+} from "react-table";
 import { Entity } from "../lib/model";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ArrowUpIcon,
   ArrowDownIcon,
-  ArrowUpDownIcon,
 } from "@chakra-ui/icons";
 import DonutSparkline from "./DonutSparkline";
 import BreakdownSparkline from "./BreakdownSparkline";
@@ -130,9 +136,11 @@ const ColumnHeaders: { [id: string]: string } = {
   openPublications: "Open Publications",
 };
 
-//TODO only use column object from props and set correct type
-function CreateHeader(props: any) {
-  let column = props.column;
+interface ColumnProps {
+  column: ColumnInstance;
+}
+
+function CreateHeader({ column }: ColumnProps) {
   return (
     <span>
       <HStack align="start" spacing="0">
