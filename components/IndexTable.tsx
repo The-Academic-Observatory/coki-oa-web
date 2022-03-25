@@ -33,21 +33,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import {
-  Cell,
-  ColumnInstance,
-  Row,
-  usePagination,
-  useSortBy,
-  useTable,
-} from "react-table";
+import { Cell, ColumnInstance, Row, usePagination, useSortBy, useTable } from "react-table";
 import { Entity } from "../lib/model";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ArrowUpIcon,
-  ArrowDownIcon,
-} from "@chakra-ui/icons";
+import { ChevronLeftIcon, ChevronRightIcon, ArrowUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import DonutSparkline from "./DonutSparkline";
 import BreakdownSparkline from "./BreakdownSparkline";
 import Icon from "./Icon";
@@ -68,12 +56,7 @@ function EntityCell({ value, entity }: EntityProps) {
     <Link href={href}>
       <HStack>
         <Box width="16px" height="16px" minWidth="16px">
-          <Image
-            rounded="full"
-            objectFit="cover"
-            boxSize="16px"
-            src={entity.logo_s}
-          />
+          <Image rounded="full" objectFit="cover" boxSize="16px" src={entity.logo_s} />
         </Box>
         <Text>{entity.name}</Text>
       </HStack>
@@ -102,12 +85,7 @@ function BreakdownCell({ value, entity }: EntityProps) {
   const colors = ["#ffd700", "#4fa9dc", "#9FD27E", "#EBEBEB"];
   return (
     <Link href={href}>
-      <BreakdownSparkline
-        values={values}
-        colors={colors}
-        width={110}
-        height={17}
-      />
+      <BreakdownSparkline values={values} colors={colors} width={110} height={17} />
     </Link>
   );
 }
@@ -195,13 +173,7 @@ interface Props extends BoxProps {
   lastUpdated: Date;
 }
 
-const IndexTable = ({
-  entities,
-  categoryName,
-  maxPageSize,
-  lastUpdated,
-  ...rest
-}: Props) => {
+const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest }: Props) => {
   const data = entities;
   const columns = React.useMemo<Array<any>>(
     () => [
@@ -263,7 +235,7 @@ const IndexTable = ({
         width: "5%",
       },
     ],
-    [categoryName]
+    [categoryName],
   );
 
   const {
@@ -287,10 +259,14 @@ const IndexTable = ({
       autoResetPage: false,
       autoResetSortBy: false,
       disableSortRemove: true,
-      initialState: { pageIndex: 0, pageSize: maxPageSize },
+      initialState: {
+        pageIndex: 0,
+        pageSize: maxPageSize,
+        sortBy: [{ id: "open", desc: true }],
+      },
     },
     useSortBy,
-    usePagination
+    usePagination,
   );
 
   let currentPageSize = pageSize;
@@ -307,9 +283,7 @@ const IndexTable = ({
               return (
                 <Tr key={props.key}>
                   {headerGroup.headers.map((column: any) => {
-                    const props = column.getHeaderProps(
-                      column.getSortByToggleProps()
-                    );
+                    const props = column.getHeaderProps(column.getSortByToggleProps());
                     return (
                       <Th
                         key={props.key}
@@ -330,12 +304,7 @@ const IndexTable = ({
             {page.map((row: Row<any>, i: number) => {
               prepareRow(row);
               return (
-                <Tr
-                  key={row.original.id}
-                  role="row"
-                  zIndex="1"
-                  data-test={row.original.id}
-                >
+                <Tr key={row.original.id} role="row" zIndex="1" data-test={row.original.id}>
                   {row.cells.map((cell: Cell<any, any>) => {
                     let key = cell.getCellProps().key;
                     return (
@@ -357,14 +326,7 @@ const IndexTable = ({
           </Tbody>
         </Table>
       </Box>
-      <VStack
-        pt="24px"
-        px="24px"
-        pb="28px"
-        textAlign="right"
-        align="right"
-        display={{ base: "flex", md: "none" }}
-      >
+      <VStack pt="24px" px="24px" pb="28px" textAlign="right" align="right" display={{ base: "flex", md: "none" }}>
         <Flex w="full" alignItems="center" justifyContent="space-between">
           <Button
             variant="dashboard"
@@ -375,10 +337,7 @@ const IndexTable = ({
           >
             Load More
           </Button>
-          <Button
-            variant="dashboard"
-            leftIcon={<Icon icon="filter" color="white" size={24} />}
-          >
+          <Button variant="dashboard" leftIcon={<Icon icon="filter" color="white" size={24} />}>
             Filter
           </Button>
         </Flex>
@@ -404,12 +363,7 @@ const IndexTable = ({
             disabled={!canPreviousPage}
           />
           {paginate(pageIndex, pageCount).map((page) => (
-            <Flex
-              key={page}
-              layerStyle="pageButton"
-              align="center"
-              onClick={() => gotoPage(page)}
-            >
+            <Flex key={page} layerStyle="pageButton" align="center" onClick={() => gotoPage(page)}>
               <Box className={pageIndex == page ? "pageBtnActive" : ""} />
             </Flex>
           ))}
