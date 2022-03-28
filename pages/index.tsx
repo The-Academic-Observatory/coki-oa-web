@@ -14,15 +14,7 @@
 //
 // Author: James Diprose
 
-import {
-  Box,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import { Entity } from "../lib/model";
 import { getIndexTableData, getStatsData } from "../lib/api";
 import React, { useEffect } from "react";
@@ -41,11 +33,7 @@ type Props = {
 const maxTabsWidth = "970px";
 const maxPageSize = 18;
 
-const IndexPage = ({
-  countriesFirstPage,
-  institutionsFirstPage,
-  stats,
-}: Props) => {
+const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) => {
   // Descriptions
   const descriptions = [
     {
@@ -76,24 +64,20 @@ const IndexPage = ({
   }, []);
 
   // Change text based on tab index
-  const [dashboardText, setDashboardText] = React.useState(
-    descriptions[defaultTabIndex]
-  );
+  const [dashboardText, setDashboardText] = React.useState(descriptions[defaultTabIndex]);
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
     setDashboardText(descriptions[index]);
   };
 
   // Fetch and update country and institution list on client
-  const [countries, setCountries] =
-    React.useState<Array<Entity>>(countriesFirstPage);
-  const [institutions, setInstitutions] = React.useState<Array<Entity>>(
-    institutionsFirstPage
-  );
+  const [countries, setCountries] = React.useState<Array<Entity>>(countriesFirstPage);
+  const [institutions, setInstitutions] = React.useState<Array<Entity>>(institutionsFirstPage);
   useEffect(() => {
     fetch("/data/country.json")
       .then((res) => res.json())
       .then((data) => {
+        //@ts-ignore
         setCountries(data);
       });
   }, []);
@@ -101,15 +85,13 @@ const IndexPage = ({
     fetch("/data/institution.json")
       .then((res) => res.json())
       .then((data) => {
+        //@ts-ignore
         setInstitutions(data);
       });
   }, []);
 
   return (
-    <Box
-      width={{ base: "full", std: maxTabsWidth }}
-      m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}
-    >
+    <Box width={{ base: "full", std: maxTabsWidth }} m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}>
       <Head>
         <title>COKI: Open Access Dashboard</title>
         <meta
@@ -127,10 +109,7 @@ const IndexPage = ({
         }}
       />
 
-      <Box
-        p={{ base: "24px 24px 15px", md: "24px 24px 15px", std: 0 }}
-        bg="grey.200"
-      >
+      <Box p={{ base: "24px 24px 15px", md: "24px 24px 15px", std: 0 }} bg="grey.200">
         <Text as="h1" textStyle="homeHeader">
           Open Access Dashboard
         </Text>
@@ -144,14 +123,7 @@ const IndexPage = ({
         />
       </Box>
 
-      <Tabs
-        isFitted
-        variant="dashboard"
-        bg="white"
-        index={tabIndex}
-        onChange={handleTabsChange}
-        defaultIndex={0}
-      >
+      <Tabs isFitted variant="dashboard" bg="white" index={tabIndex} onChange={handleTabsChange} defaultIndex={0}>
         <TabList>
           <Tab data-test="tab-country">
             <Icon icon="website" size={24} marginRight="6px" />
@@ -188,10 +160,7 @@ const IndexPage = ({
 
 export async function getStaticProps() {
   const countriesFirstPage = getIndexTableData("country").slice(0, maxPageSize);
-  const institutionsFirstPage = getIndexTableData("institution").slice(
-    0,
-    maxPageSize
-  );
+  const institutionsFirstPage = getIndexTableData("institution").slice(0, maxPageSize);
   const stats = getStatsData();
   return {
     props: {
