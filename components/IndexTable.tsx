@@ -262,7 +262,7 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
       initialState: {
         pageIndex: 0,
         pageSize: maxPageSize,
-        sortBy: [{ id: "open", desc: true }],
+        sortBy: React.useMemo<Array<any>>(() => [{ id: "open", desc: true }], []),
       },
     },
     useSortBy,
