@@ -337,7 +337,7 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
           >
             Load More
           </Button>
-          <Button variant="dashboard" leftIcon={<Icon icon="filter" color="white" size={24} />}>
+          <Button variant="dashboard" leftIcon={<Icon icon="filter" color="white" size={24} />} isDisabled>
             Filter
           </Button>
         </Flex>

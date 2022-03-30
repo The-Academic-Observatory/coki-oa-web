@@ -65,9 +65,8 @@ const Button = {
       px: "24px",
       _hover: {
         bgColor: "brand.600",
-        // cursor: 'pointer',
         _disabled: {
-          bg: "initial",
+          bg: "brand.500",
         },
       },
       _focus: {

@@ -110,6 +110,9 @@ const Table = {
               fontSize: "20px",
               lineHeight: "24px",
               p: "12px",
+              a: {
+                textDecoration: "underline",
+              },
             },
           },
         },

@@ -67,12 +67,7 @@ const makeDescription = (entity: Entity) => {
 
 const EntityCard = ({ children, ...rest }: CardProps) => {
   return (
-    <Box
-      bg={"white"}
-      border={"1px solid #EBEBEB"}
-      p={{ base: "14px", sm: "24px" }}
-      {...rest}
-    >
+    <Box bg={"white"} border={"1px solid #EBEBEB"} p={{ base: "14px", sm: "24px" }} {...rest}>
       {children}
     </Box>
   );
@@ -83,14 +78,8 @@ interface EntityDetailsProps {
   lastUpdated: string;
 }
 
-const EntityDetails = ({
-  entity,
-  lastUpdated,
-  ...rest
-}: EntityDetailsProps) => {
-  const metaDescription =
-    `How well does ${entity.name} perform at Open Access publishing? ` +
-    makeDescription(entity);
+const EntityDetails = ({ entity, lastUpdated, ...rest }: EntityDetailsProps) => {
+  const metaDescription = `How well does ${entity.name} perform at Open Access publishing? ` + makeDescription(entity);
 
   return (
     <Box layerStyle="page">
@@ -166,14 +155,7 @@ const EntityBreakdown = ({ entity, ...rest }: EntityBreakdownProps) => {
   return (
     <EntityCard width={"full"} {...rest}>
       <Text textStyle="entityCardHeading">Breakdown</Text>
-      <BreakdownSparkline
-        values={values}
-        colors={colors}
-        width={"100%"}
-        height={48}
-        py={3}
-        labels={labels}
-      />
+      <BreakdownSparkline values={values} colors={colors} width={"100%"} height={48} py={3} labels={labels} />
     </EntityCard>
   );
 };
@@ -213,9 +195,7 @@ const EntityOATimeseries = ({ entity, ...rest }: EntityOATimeseriesProps) => {
 
   return (
     <EntityCard width={"full"} {...rest}>
-      <Text textStyle="entityCardHeading">
-        Percentage of Open Access over time
-      </Text>
+      <Text textStyle="entityCardHeading">Percentage of Open Access over time</Text>
       <Box>
         <OAPercentageChart data={data} startYear={entity.start_year} />
         <Legend labels={labels} colors={colors} />
@@ -300,25 +280,14 @@ const EntityPublisherOpen = ({ entity, ...rest }: EntityPublisherOpenProps) => {
   return (
     <EntityCard width={"full"} {...rest}>
       <Text textStyle="entityCardHeading">Publisher Open</Text>
-      <Flex
-        w={"full"}
-        flexDirection={{ base: "column", md: "row" }}
-        alignItems="center"
-        justifyContent="center"
-      >
+      <Flex w={"full"} flexDirection={{ base: "column", md: "row" }} alignItems="center" justifyContent="center">
         <PublisherOpenDonut data={data} />
         <Grid layerStyle="chartKeys">
           <GridItem borderTop="2px solid #EBEBEB">
             <Flex layerStyle="chartKeyRow">
-              <Box
-                layerStyle="chartKeyBox"
-                backgroundImage="linear-gradient(-135deg, #fdd500, #b9a436)"
-              />
+              <Box layerStyle="chartKeyBox" backgroundImage="linear-gradient(-135deg, #fdd500, #b9a436)" />
               <Text textStyle="chartKeyHeader">OA Journal</Text>
-              <Text
-                textStyle="chartKeyDescription"
-                display={{ base: "none", sm: "block" }}
-              >
+              <Text textStyle="chartKeyDescription" display={{ base: "none", sm: "block" }}>
                 &nbsp;- published in open access journal
               </Text>
             </Flex>
@@ -327,25 +296,16 @@ const EntityPublisherOpen = ({ entity, ...rest }: EntityPublisherOpenProps) => {
             <Flex layerStyle="chartKeyRow">
               <Box layerStyle="chartKeyBox" backgroundColor="#ffd700" />
               <Text textStyle="chartKeyHeader">Hybrid</Text>
-              <Text
-                textStyle="chartKeyDescription"
-                display={{ base: "none", sm: "block" }}
-              >
+              <Text textStyle="chartKeyDescription" display={{ base: "none", sm: "block" }}>
                 &nbsp;- subscription publisher, open license
               </Text>
             </Flex>
           </GridItem>
-          <GridItem
-            borderTop="2px solid #EBEBEB"
-            borderBottom="2px solid #EBEBEB"
-          >
+          <GridItem borderTop="2px solid #EBEBEB" borderBottom="2px solid #EBEBEB">
             <Flex layerStyle="chartKeyRow">
               <Box layerStyle="chartKeyBox" backgroundColor="#f8eb8f" />
               <Text textStyle="chartKeyHeader">No Guarantees</Text>
-              <Text
-                textStyle="chartKeyDescription"
-                display={{ base: "none", sm: "block" }}
-              >
+              <Text textStyle="chartKeyDescription" display={{ base: "none", sm: "block" }}>
                 &nbsp;- subscription publisher, no reuse rights
               </Text>
             </Flex>
@@ -367,12 +327,7 @@ const EntitySummary = ({ entity, ...rest }: EntitySummaryProps) => {
         <EntityHeading flexGrow={1} entity={entity} />
         <EntityStats entity={entity} />
       </Flex>
-      <EntityMetadata
-        entity={entity}
-        width={"220px"}
-        display={{ base: "none", md: "block" }}
-        isMobile={false}
-      />
+      <EntityMetadata entity={entity} width={"220px"} display={{ base: "none", md: "block" }} isMobile={false} />
     </Flex>
   );
 };
@@ -427,12 +382,7 @@ const EntityHeading = ({ entity, ...rest }: EntityHeadingProps) => {
           <Text as="h1" textStyle="entityHeading">
             {entity.name}
           </Text>
-          <Text
-            textStyle="p"
-            fontSize="24px"
-            lineHeight="28px"
-            display={{ base: "none", md: "block" }}
-          >
+          <Text textStyle="p" fontSize="24px" lineHeight="28px" display={{ base: "none", md: "block" }}>
             {description}
           </Text>
         </VStack>
@@ -459,7 +409,7 @@ const MetadataLink = ({ icon, name, href, ...rest }: MetadataLinkProps) => {
   }
 
   return (
-    <Link href={href} target="_blank" rel="noreferrer" {...rest}>
+    <Link href={href} {...rest}>
       <Flex align="center" role="group" cursor="pointer">
         <Icon mr="2" icon={icon} size={32} color={"#101820"} />
         <Text textStyle="entityIconLink">{name}</Text>
@@ -481,6 +431,8 @@ const EntityMetadata = ({ entity, isMobile, ...rest }: EntityMetadataProps) => {
       <MetadataLink
         icon={"wikipedia"}
         name={"Wikipedia"}
+        target="_blank"
+        rel="noreferrer"
         href={entity.wikipedia_url}
       />
     );
@@ -493,9 +445,7 @@ const EntityMetadata = ({ entity, isMobile, ...rest }: EntityMetadataProps) => {
       entity.url = entity.url.slice(0, -1);
     }
 
-    website = (
-      <MetadataLink icon={"website"} name={"Website"} href={entity.url} />
-    );
+    website = <MetadataLink icon={"website"} name={"Website"} target="_blank" rel="noreferrer" href={entity.url} />;
   }
 
   // Create tags
@@ -514,32 +464,14 @@ const EntityMetadata = ({ entity, isMobile, ...rest }: EntityMetadataProps) => {
       <Box {...rest}>
         <hr />
         <VStack px="12px" py="32px">
-          <Flex
-            w="full"
-            flexDirection="row"
-            flexWrap="wrap"
-            justifyContent="space-between"
-          >
+          <Flex w="full" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
             {wikipedia}
             {website}
-            <MetadataLink
-              icon={"download"}
-              name={"Download"}
-              href={"https://open.coki.ac"}
-            />
-            <MetadataLink
-              icon={"code"}
-              name={"Embed"}
-              href={"https://open.coki.ac"}
-            />
+            <MetadataLink icon={"download"} name={"Download"} href={"/data/"} />
+            <MetadataLink icon={"code"} name={"Embed"} href={`/${entity.category}/${entity.id}/`} />
           </Flex>
 
-          <Flex
-            w="full"
-            flexDirection="row"
-            flexWrap="wrap"
-            justifyContent="space-between"
-          >
+          <Flex w="full" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
             {entity.identifiers.map((obj: any) => {
               return (
                 <Text key={obj.id} textStyle="entityID">
@@ -560,26 +492,12 @@ const EntityMetadata = ({ entity, isMobile, ...rest }: EntityMetadataProps) => {
         <Flex h="full" flexDirection="column" justifyContent="space-between">
           {wikipedia}
           {website}
-          <MetadataLink
-            icon={"download"}
-            name={"Download"}
-            href={"https://open.coki.ac"}
-          />
-          <MetadataLink
-            icon={"code"}
-            name={"Embed"}
-            href={"https://open.coki.ac"}
-          />
+          <MetadataLink icon={"download"} name={"Download"} href={"/data/"} />
+          <MetadataLink icon={"code"} name={"Embed"} href={`/${entity.category}/${entity.id}/`} />
 
           {tags.map((tag: any) => {
             return (
-              <Tag
-                size={"md"}
-                key={tag}
-                borderRadius="full"
-                variant="solid"
-                backgroundColor="#737373"
-              >
+              <Tag size={"md"} key={tag} borderRadius="full" variant="solid" backgroundColor="#737373">
                 <TagLabel margin={"auto"}>{tag}</TagLabel>
               </Tag>
             );
@@ -652,13 +570,7 @@ const EntityStats = ({ entity, ...rest }: EntityStatsProps) => {
         <EntityCard w={"full"}>
           <Flex justifyContent="center">
             <Flex alignItems="center">
-              <DonutSparkline
-                value={p_open}
-                color={"#FF671C"}
-                size={90}
-                showText={false}
-                pr={6}
-              />
+              <DonutSparkline value={p_open} color={"#FF671C"} size={90} showText={false} pr={6} />
               <VStack alignItems={"left"} spacing="0">
                 <hr className={styles.hr} />
                 <Text textStyle="entityOAScoreHeading" pb={"6px"}>
@@ -676,17 +588,11 @@ const EntityStats = ({ entity, ...rest }: EntityStatsProps) => {
           </EntityCard>
 
           <EntityCard>
-            <Stats
-              statsTitle={titleNOutputsOpen}
-              value={entity.stats.n_outputs_open}
-            />
+            <Stats statsTitle={titleNOutputsOpen} value={entity.stats.n_outputs_open} />
           </EntityCard>
 
           <EntityCard>
-            <Stats
-              statsTitle={titleNCitations}
-              value={entity.stats.n_citations}
-            />
+            <Stats statsTitle={titleNCitations} value={entity.stats.n_citations} />
           </EntityCard>
         </Grid>
       </VStack>
@@ -695,29 +601,12 @@ const EntityStats = ({ entity, ...rest }: EntityStatsProps) => {
       <EntityCard display={{ base: "none", md: "block" }}>
         <Flex alignItems="center" justifyContent="space-between">
           <Flex alignItems="center" pr={"10px"}>
-            <DonutSparkline
-              value={p_open}
-              color={"#FF671C"}
-              size={90}
-              showText={false}
-              pr={6}
-            />
+            <DonutSparkline value={p_open} color={"#FF671C"} size={90} showText={false} pr={6} />
             <Stats statsTitle={titleOpenPercent} value={p_open} isPercent />
           </Flex>
-          <Stats
-            statsTitle={titleNOutputs}
-            value={entity.stats.n_outputs}
-            pr={"10px"}
-          />
-          <Stats
-            statsTitle={titleNOutputsOpen}
-            value={entity.stats.n_outputs_open}
-            pr={"10px"}
-          />
-          <Stats
-            statsTitle={titleNCitations}
-            value={entity.stats.n_citations}
-          />
+          <Stats statsTitle={titleNOutputs} value={entity.stats.n_outputs} pr={"10px"} />
+          <Stats statsTitle={titleNOutputsOpen} value={entity.stats.n_outputs_open} pr={"10px"} />
+          <Stats statsTitle={titleNCitations} value={entity.stats.n_citations} />
         </Flex>
       </EntityCard>
     </Box>
@@ -737,11 +626,7 @@ const PublisherOpenDonut = ({ data, ...rest }: PublisherOpenDonutProps) => {
     const data = dataWithArc[i];
     return (
       <text textAnchor="middle" y={centerY + 6}>
-        <tspan
-          x={centerX}
-          dy="0em"
-          style={{ fontSize: "48px", fontFamily: fontFamily, fontWeight: 900 }}
-        >
+        <tspan x={centerX} dy="0em" style={{ fontSize: "48px", fontFamily: fontFamily, fontWeight: 900 }}>
           {data.value}%
         </tspan>
         <tspan
@@ -795,11 +680,7 @@ interface OAPercentageChartProps extends BoxProps {
   startYear: number;
 }
 
-const OAPercentageChart = ({
-  data,
-  startYear,
-  ...rest
-}: OAPercentageChartProps) => {
+const OAPercentageChart = ({ data, startYear, ...rest }: OAPercentageChartProps) => {
   const props = {
     data: data,
     keys: ["Publisher Open", "Both", "Other Platform Open", "Closed"],
