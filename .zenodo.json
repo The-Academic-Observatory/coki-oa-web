@@ -1,0 +1,64 @@
+{
+  "description": "<p>COKI Open Access Website is the&nbsp;<a href=\"https://nextjs.org/\">Next.js</a>&nbsp;based front end and <a href=\"https://workers.cloudflare.com/\">Cloudflare Workers</a> backend for the Curtin Open Knowledge Initiative&#39;s Open Access Dashboard:&nbsp;<a href=\"https://open.coki.ac/\">open.coki.ac</a>.</p>\n\n<p><strong>Data</strong><br>\nTo download the data, see the&nbsp;<a href=\"https://doi.org/10.5281/zenodo.6399462\">COKI Open Access Dataset</a>.</p>\n\n<p><strong>Contributors</strong><br>\nConceptualization: James P. Diprose, Lucy Montgomery, Cameron Neylon, and Richard Hosking.<br>\nGraphic design: Richard Regoni.<br>\nData curation: James P. Diprose and Richard Hosking.<br>\nFormal analysis: James P. Diprose, Cameron Neylon, and Richard Hosking.<br>\nFunding acquisition: Lucy Montgomery and Cameron Neylon.<br>\nInvestigation: James P. Diprose.<br>\nMethodology: James P. Diprose.<br>\nProject administration: Lucy Montgomery, Cameron Neylon, and Kathryn R. Napier.<br>\nResources: James P. Diprose.<br>\nSoftware: James P. Diprose and Aniek Roelofs.<br>\nSupervision: James P. Diprose, Lucy Montgomery, Cameron Neylon, and Kathryn R. Napier.<br>\nVisualization: James P. Diprose, Cameron Neylon and Richard Regoni.<br>\nWriting - original draft: James P. Diprose, Lucy Montgomery, Cameron Neylon, and Richard Hosking.<br>\nWriting - review &amp; editing: Cameron Neylon, Kathryn R. Napier, Richard Hosking, Katie S. Wilson, and Tuan-Yow Chien.</p>",
+  "title": "COKI Open Access Website",
+  "license": {
+    "id": "Apache-2.0"
+  },
+  "notes": "The Curtin Open Knowledge Initiative (COKI) is a strategic initiative of the Research Office at Curtin, the Faculty of Humanities, School of Media, Creative Arts and Social Inquiry and the Curtin Institute for Computation, with additional support from the Andrew W. Mellon Foundation and the Arcadia Fund, a charitable fund of Lisbet Rausing and Peter Baldwin.",
+  "communities": [
+    {
+      "identifier": "coki"
+    }
+  ],
+  "keywords": [
+    "open access",
+    "open access website",
+    "open access performance",
+    "coki"
+  ],
+  "creators": [
+    {
+      "orcid": "0000-0002-5094-3571",
+      "affiliation": "Centre for Culture and Technology, Curtin University",
+      "name": "James P. Diprose"
+    },
+    {
+      "orcid": "0000-0001-8288-5241",
+      "affiliation": "Centre for Culture and Technology, Curtin University",
+      "name": "Richard Hosking"
+    },
+    {
+      "name": "Richard Regoni"
+    },
+    {
+      "orcid": "0000-0003-0485-3388",
+      "affiliation": "Curtin Institute for Computation, Curtin University",
+      "name": "Aniek Roelofs"
+    },
+    {
+      "orcid": "0000-0003-1202-7238",
+      "affiliation": "Curtin Institute for Computation, Curtin University",
+      "name": "Kathryn R. Napier"
+    },
+    {
+      "orcid": "0000-0002-6237-7423",
+      "affiliation": "Centre for Culture and Technology, Curtin University",
+      "name": "Tuan-Yow Chien"
+    },
+    {
+      "orcid": "0000-0001-8705-1027",
+      "affiliation": "Centre for Culture and Technology, Curtin University",
+      "name": "Katie S. Wilson"
+    },
+    {
+      "orcid": "0000-0001-6551-8140",
+      "affiliation": "Centre for Culture and Technology, Curtin University",
+      "name": "Lucy Montgomery"
+    },
+    {
+      "orcid": "0000-0002-0068-716X",
+      "affiliation": "Centre for Culture and Technology, Curtin University",
+      "name": "Cameron Neylon"
+    }
+  ]
+}

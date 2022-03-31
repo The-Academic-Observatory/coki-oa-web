@@ -2,6 +2,8 @@
 COKI Open Access Web is the [Next.js](https://nextjs.org/) based front end and Cloudflare Workers backend for the Curtin 
 Open Knowledge Initiative's Open Access Dashboard: [open.coki.ac](https://open.coki.ac/)
 
+[![DOI](https://zenodo.org/badge/430557646.svg)](https://zenodo.org/badge/latestdoi/430557646)
+
 ## OS pre-requisites
 * Linux, Windows or MacOS.
 * NodeJS 16: https://nodejs.org/en/
@@ -458,3 +460,19 @@ curl https://open.coki.ac/api/institutions?page=0&regions=Oceania&institutionTyp
   ...
 ]
 ```
+
+# Contributors
+Conceptualization: James P. Diprose, Lucy Montgomery, Cameron Neylon, and Richard Hosking.<br />
+Graphic design: Richard Regoni.<br />
+Data curation: James P. Diprose and Richard Hosking.<br />
+Formal analysis: James P. Diprose, Cameron Neylon, and Richard Hosking.<br />
+Funding acquisition: Lucy Montgomery and Cameron Neylon.<br />
+Investigation: James P. Diprose.<br />
+Methodology: James P. Diprose.<br />
+Project administration: Lucy Montgomery, Cameron Neylon, and Kathryn R. Napier.<br />
+Resources: James P. Diprose.<br />
+Software: James P. Diprose and Aniek Roelofs.<br />
+Supervision: James P. Diprose, Lucy Montgomery, Cameron Neylon, and Kathryn R. Napier.<br />
+Visualization: James P. Diprose, Cameron Neylon and Richard Regoni.<br />
+Writing - original draft: James P. Diprose, Lucy Montgomery, Cameron Neylon, and Richard Hosking.<br />
+Writing - review & editing: Cameron Neylon, Kathryn R. Napier, Richard Hosking, Katie S. Wilson, and Tuan-Yow Chien.<br />
