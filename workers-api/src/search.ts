@@ -7,7 +7,7 @@ const { Index } = flexsearch;
 
 const index = new Index({
   language: "en",
-  tokenize: "full",
+  tokenize: "forward",
 });
 data.forEach((item: Entity, i: number) => {
   // id, text

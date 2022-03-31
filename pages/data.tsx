@@ -14,18 +14,7 @@
 //
 // Author: James Diprose
 
-import {
-  Box,
-  ListItem,
-  Table,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-  UnorderedList,
-} from "@chakra-ui/react";
+import { Box, ListItem, Table, Tbody, Td, Text, Th, Thead, Tr, UnorderedList } from "@chakra-ui/react";
 import React from "react";
 import Card from "../components/Card";
 import Head from "next/head";
@@ -37,10 +26,7 @@ export default function Open() {
     <Box layerStyle="page">
       <Head>
         <title>COKI: Data</title>
-        <meta
-          name="description"
-          content="The COKI Open Access Dataset is available in JSON Lines format."
-        />
+        <meta name="description" content="The COKI Open Access Dataset is available in JSON Lines format." />
       </Head>
 
       <Breadcrumbs
@@ -61,9 +47,23 @@ export default function Open() {
           <a href="https://jsonlines.org/" target="_blank" rel="noreferrer">
             JSON Lines
           </a>{" "}
-          format. See below for current and previous releases, the dataset
-          license, the dataset schema and attributions.
+          format. See below for dataset releases, license, attributions, how to cite the dataset the dataset schema.
         </Text>
+        <Text textStyle="h2">Releases</Text>
+        <ScrollTable mb="32px">
+          <Table variant="content">
+            <Tbody>
+              <Tr>
+                <Td>2022-03-30</Td>
+                <Td>
+                  <a href="https://zenodo.org/record/6399463/files/coki-oa-dataset.zip?download=1">
+                    Download coki-oa-dataset.zip
+                  </a>
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </ScrollTable>
         <Text as="h2" textStyle="h2">
           License
         </Text>
@@ -77,15 +77,87 @@ export default function Open() {
             Curtin University
           </a>{" "}
           is licensed under{" "}
-          <a
-            href="https://creativecommons.org/licenses/by/4.0/"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">
             CC BY 4.0
           </a>
           .
         </Text>
+
+        <Text as="h2" textStyle="h2">
+          Dataset Attributions
+        </Text>
+        <Text textStyle="p">The COKI Open Access Dataset contains information from:</Text>
+        <UnorderedList textStyle="p">
+          <ListItem>
+            <a
+              href="https://www.microsoft.com/en-us/research/project/microsoft-academic-graph/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Microsoft Academic Graph
+            </a>{" "}
+            which is made available under the{" "}
+            <a href="https://opendatacommons.org/licenses/by/1-0/" target="_blank" rel="noreferrer">
+              ODC Attribution License
+            </a>
+            .
+          </ListItem>
+          <ListItem>
+            <a href="https://www.crossref.org/documentation/metadata-plus/" target="_blank" rel="noreferrer">
+              Crossref Metadata
+            </a>{" "}
+            via the Metadata Plus program. Bibliographic metadata is made available without copyright restriction and
+            Crossref generated data under a{" "}
+            <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank" rel="noreferrer">
+              CC0 licence
+            </a>
+            . See{" "}
+            <a
+              href="https://www.crossref.org/documentation/retrieve-metadata/rest-api/rest-api-metadata-license-information/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              metadata licence information
+            </a>{" "}
+            for more details.
+          </ListItem>
+          <ListItem>
+            <a href="https://unpaywall.org/" target="_blank" rel="noreferrer">
+              Unpaywall
+            </a>
+            . The{" "}
+            <a href="https://unpaywall.org/products/data-feed" target="_blank" rel="noreferrer">
+              Unpaywall Data Feed
+            </a>{" "}
+            is used under license. Data is freely available from Unpaywall via the API, data dumps and as a data feed.
+          </ListItem>
+          <ListItem>
+            <a href="https://ror.org/" target="_blank" rel="noreferrer">
+              Research Organization Registry
+            </a>{" "}
+            which is made available under a{" "}
+            <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank" rel="noreferrer">
+              CC0 licence
+            </a>{" "}
+            .
+          </ListItem>
+        </UnorderedList>
+
+        <Text textStyle="h2">Citing</Text>
+        <Text textStyle="p">If you use this dataset, please cite it as below.</Text>
+        <Text textStyle="p" pb="24px" px="32px">
+          Richard Hosking, James P. Diprose, Aniek Roelofs, Tuan-Yow Chien, Lucy Montgomery, & Cameron Neylon. (2022).
+          COKI Open Access Dataset (2022) [Data set]. Zenodo. 10.5281/zenodo.6399462
+        </Text>
+
+        <Text textStyle="p">
+          For other citation formats see{" "}
+          <a href="https://doi.org/10.5281/zenodo.6399462" target="_blank" rel="noreferrer">
+            Zenodo
+          </a>
+          .
+        </Text>
+
         <Text as="h2" textStyle="h2">
           Schema
         </Text>
@@ -122,9 +194,7 @@ export default function Open() {
               <Tr>
                 <Td>start_year</Td>
                 <Td>Integer</Td>
-                <Td>
-                  The start year of data used to calculate the statistics.
-                </Td>
+                <Td>The start year of data used to calculate the statistics.</Td>
               </Tr>
               <Tr>
                 <Td>end_year</Td>
@@ -134,10 +204,7 @@ export default function Open() {
               <Tr>
                 <Td>stats</Td>
                 <Td>PublicationStats</Td>
-                <Td>
-                  The aggregated publication statistics for this country, for
-                  all time.
-                </Td>
+                <Td>The aggregated publication statistics for this country, for all time.</Td>
               </Tr>
               <Tr>
                 <Td>years</Td>
@@ -182,9 +249,7 @@ export default function Open() {
               <Tr>
                 <Td>subregion</Td>
                 <Td>String</Td>
-                <Td>
-                  The name of the subregion the institution is located in.
-                </Td>
+                <Td>The name of the subregion the institution is located in.</Td>
               </Tr>
               <Tr>
                 <Td>region</Td>
@@ -195,17 +260,14 @@ export default function Open() {
                 <Td>institution_types</Td>
                 <Td>List&#60;String&#62;</Td>
                 <Td>
-                  A list of institution types that apply to this institution.
-                  Each instance can be one of: Education, Healthcare, Company,
-                  Archive, Nonprofit, Government, Facility, Other.
+                  A list of institution types that apply to this institution. Each instance can be one of: Education,
+                  Healthcare, Company, Archive, Nonprofit, Government, Facility, Other.
                 </Td>
               </Tr>
               <Tr>
                 <Td>start_year</Td>
                 <Td>Integer</Td>
-                <Td>
-                  The start year of data used to calculate the statistics.
-                </Td>
+                <Td>The start year of data used to calculate the statistics.</Td>
               </Tr>
               <Tr>
                 <Td>end_year</Td>
@@ -215,10 +277,7 @@ export default function Open() {
               <Tr>
                 <Td>stats</Td>
                 <Td>PublicationStats</Td>
-                <Td>
-                  The aggregated publication statistics for this institution,
-                  for all time.
-                </Td>
+                <Td>The aggregated publication statistics for this institution, for all time.</Td>
               </Tr>
               <Tr>
                 <Td>years</Td>
@@ -257,39 +316,30 @@ export default function Open() {
               <Tr>
                 <Td>n_outputs_publisher_open</Td>
                 <Td>Integer</Td>
-                <Td>
-                  The total number of outputs published as Publisher Open.
-                </Td>
+                <Td>The total number of outputs published as Publisher Open.</Td>
               </Tr>
               <Tr>
                 <Td>n_outputs_publisher_open_only</Td>
                 <Td>Integer</Td>
                 <Td>
-                  The total number of outputs published only as Publisher Open
-                  (and not Other Platform Open or Closed).
+                  The total number of outputs published only as Publisher Open (and not Other Platform Open or Closed).
                 </Td>
               </Tr>
               <Tr>
                 <Td>n_outputs_both</Td>
                 <Td>Integer</Td>
-                <Td>
-                  The total number of outputs published that are both Publisher
-                  Open and Other Platform Open.
-                </Td>
+                <Td>The total number of outputs published that are both Publisher Open and Other Platform Open.</Td>
               </Tr>
               <Tr>
                 <Td>n_outputs_other_platform_open</Td>
                 <Td>Integer</Td>
-                <Td>
-                  The total number of outputs published as Other Platform Open.
-                </Td>
+                <Td>The total number of outputs published as Other Platform Open.</Td>
               </Tr>
               <Tr>
                 <Td>n_outputs_other_platform_open_only</Td>
                 <Td>Integer</Td>
                 <Td>
-                  The total number of outputs published only as Other Platform
-                  Open (and not Publisher Open or Closed).
+                  The total number of outputs published only as Other Platform Open (and not Publisher Open or Closed).
                 </Td>
               </Tr>
               <Tr>
@@ -300,25 +350,22 @@ export default function Open() {
               <Tr>
                 <Td>n_outputs_oa_journal</Td>
                 <Td>Integer</Td>
-                <Td>
-                  Publisher Open Breakdown: the total number of outputs
-                  published in an Open Access Journal.
-                </Td>
+                <Td>Publisher Open Breakdown: the total number of outputs published in an Open Access Journal.</Td>
               </Tr>
               <Tr>
                 <Td>n_outputs_hybrid</Td>
                 <Td>Integer</Td>
                 <Td>
-                  Publisher Open Breakdown: the total number of outputs made
-                  accessible in a Subscription Journal with an open license.
+                  Publisher Open Breakdown: the total number of outputs made accessible in a Subscription Journal with
+                  an open license.
                 </Td>
               </Tr>
               <Tr>
                 <Td>n_outputs_no_guarantees</Td>
                 <Td>Integer</Td>
                 <Td>
-                  Publisher Open Breakdown: the total number of outputs made
-                  accessible in a Subscription Publisher with no reuse rights.
+                  Publisher Open Breakdown: the total number of outputs made accessible in a Subscription Publisher with
+                  no reuse rights.
                 </Td>
               </Tr>
               <Tr>
@@ -335,31 +382,24 @@ export default function Open() {
                 <Td>p_outputs_publisher_open_only</Td>
                 <Td>Float</Td>
                 <Td>
-                  The percentage of outputs published only as Publisher Open
-                  (and not Other Platform Open or Closed).
+                  The percentage of outputs published only as Publisher Open (and not Other Platform Open or Closed).
                 </Td>
               </Tr>
               <Tr>
                 <Td>p_outputs_both</Td>
                 <Td>Float</Td>
-                <Td>
-                  The percentage of outputs published that are both Publisher
-                  Open and Other Platform Open.
-                </Td>
+                <Td>The percentage of outputs published that are both Publisher Open and Other Platform Open.</Td>
               </Tr>
               <Tr>
                 <Td>p_outputs_other_platform_open</Td>
                 <Td>Float</Td>
-                <Td>
-                  The percentage of outputs published as Other Platform Open.
-                </Td>
+                <Td>The percentage of outputs published as Other Platform Open.</Td>
               </Tr>
               <Tr>
                 <Td>p_outputs_other_platform_open_only</Td>
                 <Td>Float</Td>
                 <Td>
-                  The percentage of outputs published only as Other Platform
-                  Open (and not Publisher Open or Closed).
+                  The percentage of outputs published only as Other Platform Open (and not Publisher Open or Closed).
                 </Td>
               </Tr>
               <Tr>
@@ -370,25 +410,22 @@ export default function Open() {
               <Tr>
                 <Td>p_outputs_oa_journal</Td>
                 <Td>Float</Td>
-                <Td>
-                  The percentage of Publisher Open outputs published in an Open
-                  Access Journal.
-                </Td>
+                <Td>The percentage of Publisher Open outputs published in an Open Access Journal.</Td>
               </Tr>
               <Tr>
                 <Td>p_outputs_hybrid</Td>
                 <Td>Float</Td>
                 <Td>
-                  The percentage of Publisher Open outputs made accessible in a
-                  Subscription Journal with an open license.
+                  The percentage of Publisher Open outputs made accessible in a Subscription Journal with an open
+                  license.
                 </Td>
               </Tr>
               <Tr>
                 <Td>p_outputs_no_guarantees</Td>
                 <Td>Float</Td>
                 <Td>
-                  The percentage of Publisher Open outputs made accessible in a
-                  Subscription Publisher with no reuse rights.
+                  The percentage of Publisher Open outputs made accessible in a Subscription Publisher with no reuse
+                  rights.
                 </Td>
               </Tr>
             </Tbody>
@@ -414,100 +451,18 @@ export default function Open() {
                 <Td>date</Td>
                 <Td>Date</Td>
                 <Td>
-                  The date that this record applies to, in the format
-                  YYYY-MM-DD. The day and month are always the end of the year
-                  in question, i.e. the 31st of December.
+                  The date that this record applies to, in the format YYYY-MM-DD. The day and month are always the end
+                  of the year in question, i.e. the 31st of December.
                 </Td>
               </Tr>
               <Tr>
                 <Td>stats</Td>
                 <Td>PublicationStats</Td>
-                <Td>
-                  The aggregated publication statistics for the year that this
-                  record applies to.
-                </Td>
+                <Td>The aggregated publication statistics for the year that this record applies to.</Td>
               </Tr>
             </Tbody>
           </Table>
         </ScrollTable>
-        <Text as="h2" textStyle="h2">
-          Dataset Attributions
-        </Text>
-        <Text textStyle="p">
-          The COKI Open Access Dataset contains information from:
-        </Text>
-        <UnorderedList textStyle="p">
-          <ListItem>
-            <a
-              href="https://www.microsoft.com/en-us/research/project/microsoft-academic-graph/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Microsoft Academic Graph
-            </a>{" "}
-            which is made available under the{" "}
-            <a
-              href="https://opendatacommons.org/licenses/by/1-0/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              ODC Attribution License
-            </a>
-            .
-          </ListItem>
-          <ListItem>
-            <a
-              href="https://www.crossref.org/documentation/metadata-plus/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Crossref Metadata
-            </a>{" "}
-            via the Metadata Plus program. Bibliographic metadata is made
-            available without copyright restriction and Crossref generated data
-            under a{" "}
-            <a
-              href="https://creativecommons.org/share-your-work/public-domain/cc0/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              CC0 licence
-            </a>
-            . See{" "}
-            <a
-              href="https://www.crossref.org/documentation/retrieve-metadata/rest-api/rest-api-metadata-license-information/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              metadata licence information
-            </a>{" "}
-            for more details.
-          </ListItem>
-          <ListItem>
-            <a
-              href="https://unpaywall.org/products/data-feed"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Unpaywall Data Feed
-            </a>
-            .
-          </ListItem>
-          <ListItem>
-            <a href="https://ror.org/" target="_blank" rel="noreferrer">
-              Research Organization Registry
-            </a>{" "}
-            which is made available under a{" "}
-            <a
-              href="https://creativecommons.org/share-your-work/public-domain/cc0/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              CC0 licence
-            </a>{" "}
-            .
-          </ListItem>
-        </UnorderedList>
       </Card>
     </Box>
   );
