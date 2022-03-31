@@ -29,6 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ChakraProvider theme={theme}>
       <Script
         data-domain="open.coki.ac"
+        data-api="https://open.coki.ac/site-api/event"
         src="/script.js"
         strategy="lazyOnload"
       />

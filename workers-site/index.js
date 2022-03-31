@@ -1,7 +1,7 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 
 const plausibleScriptName = "script.js";
-const plausibleEndpointName = "/api/event";
+const plausibleEndpointName = "/site-api/event";
 
 addEventListener("fetch", (event) => {
   try {
@@ -28,8 +28,7 @@ async function handleEvent(event) {
     // if an error is thrown try to serve the asset at 404.html
     try {
       let notFoundResponse = await getAssetFromKV(event, {
-        mapRequestToAsset: (req) =>
-          new Request(`${new URL(req.url).origin}/404.html`, req),
+        mapRequestToAsset: (req) => new Request(`${new URL(req.url).origin}/404.html`, req),
       });
 
       return new Response(notFoundResponse.body, {
