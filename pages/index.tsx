@@ -20,6 +20,7 @@ import { getIndexTableData, getStatsData } from "../lib/api";
 import React, { useEffect } from "react";
 import IndexTable from "../components/IndexTable";
 import Icon from "../components/Icon";
+import TableFilter from "../components/TableFilter";
 import TextCollapse from "../components/TextCollapse";
 import Head from "next/head";
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -174,9 +175,7 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
           </TabPanels>
         </Tabs>
 
-        <Box gridArea="filter" bg="tomato">
-          Filtering
-        </Box>
+        <TableFilter tabIndex={tabIndex} />
       </Grid>
     </Box>
   );
