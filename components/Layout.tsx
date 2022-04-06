@@ -14,14 +14,13 @@
 //
 // Author: James Diprose
 
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
 import { Box, Drawer, DrawerContent, Flex, useDisclosure } from "@chakra-ui/react";
 
 import Footer from "./Footer";
 import SidebarContent from "./SidebarContent";
 import Navbar from "./Navbar";
 import { SearchDrawer } from "./Search";
-import Fuse from "fuse.js";
 import COKIBackground from "../public/coki-background.svg";
 
 export interface LinkProps {
@@ -46,25 +45,6 @@ export default function Layout({ children }: { children: ReactNode }) {
   const navbarHeightMobile: number = 68;
   const sidebarWidth: number = 340;
 
-  const [fuse, setFuse] = React.useState<Fuse<any> | null>(null);
-
-  // Load and index data
-  useEffect(() => {
-    fetch("/data/autocomplete.json")
-      .then((res) => res.json())
-      .then((data) => {
-        // Setup fuse after data loaded
-        const options = {
-          includeScore: true,
-          threshold: 0.1,
-          keys: ["name"],
-        };
-        // @ts-ignore
-        const fuse = new Fuse(data, options);
-        setFuse(fuse);
-      });
-  }, []);
-
   return (
     <Flex flexDirection="column" minH="100vh">
       <Box display={{ base: "none", std: "block" }}>
@@ -80,7 +60,6 @@ export default function Layout({ children }: { children: ReactNode }) {
       </Box>
 
       <SearchDrawer
-        fuse={fuse}
         isOpen={isOpenSearch}
         onOpen={onOpenSearch}
         onClose={onCloseSearch}
@@ -88,7 +67,6 @@ export default function Layout({ children }: { children: ReactNode }) {
       />
       <Box p={0}>
         <Navbar
-          fuse={fuse}
           isOpenSidebar={isOpenSidebar}
           onOpenSidebar={onOpenSidebar}
           onCloseSidebar={onCloseSidebar}
