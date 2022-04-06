@@ -36,11 +36,11 @@ test("test handleRequest search", async () => {
   expect(json.length).toBe(1);
   expect(json).toMatchObject([{ id: "KOR" }]);
 
-  // Limit > 5 still returns 5
-  res = await handleRequest(new Request("http://localhost/api/search/south?limit=6"));
+  // Limit > 20 still returns 20
+  res = await handleRequest(new Request("http://localhost/api/search/s?limit=21"));
   json = await res.json();
   expect(res.status).toBe(200);
-  expect(json.length).toBe(5);
+  expect(json.length).toBe(20);
 });
 
 const fetchAll = async (endpoint: string, otherQueryParams: string = "") => {
