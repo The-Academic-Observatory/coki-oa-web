@@ -41,7 +41,7 @@ import Link from "./Link";
 import BreakdownSparkline from "./BreakdownSparkline";
 import { toReadableNumber } from "../lib/utils";
 import { Pie } from "@nivo/pie";
-import { linearGradientDef } from "@nivo/core";
+import { AreaCurve, linearGradientDef } from "@nivo/core";
 import { Stream } from "@nivo/stream";
 import { Bar } from "@nivo/bar";
 import { AxisLegendPosition } from "@nivo/axes";
@@ -681,6 +681,7 @@ interface OAPercentageChartProps extends BoxProps {
 }
 
 const OAPercentageChart = ({ data, startYear, ...rest }: OAPercentageChartProps) => {
+  let curve: AreaCurve = "monotoneX";
   const props = {
     data: data,
     keys: ["Publisher Open", "Both", "Other Platform Open", "Closed"],
@@ -703,6 +704,7 @@ const OAPercentageChart = ({ data, startYear, ...rest }: OAPercentageChartProps)
       },
     },
     valueFormat: (value: number) => `${value.toFixed(0)}%`,
+    curve: curve,
   };
 
   return (
