@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
+import { Box, Grid, SimpleGrid, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import { Entity } from "../lib/model";
 import { getIndexTableData, getStatsData } from "../lib/api";
 import React, { useEffect } from "react";
@@ -97,7 +97,7 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
   }, []);
 
   return (
-    <Box width={{ base: "full", std: maxTabsWidth }} m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}>
+    <Box m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}>
       <Head>
         <title>COKI: Open Access Dashboard</title>
         <meta
@@ -115,51 +115,69 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
         }}
       />
 
-      <Box p={{ base: "24px 24px 15px", md: "24px 24px 15px", std: 0 }} bg="grey.200">
-        <Text as="h1" textStyle="homeHeader">
-          Open Access Dashboard
-        </Text>
-        <Text textStyle="p" display={{ base: "none", sm: "none", md: "block" }}>
-          {dashboardText.long}
-        </Text>
-        <TextCollapse
-          display={{ base: "block", sm: "block", md: "none" }}
-          previewText={dashboardText.short}
-          text={dashboardText.long}
-        />
-      </Box>
+      <Grid
+        templateAreas={{ base: `"header" "table" "filter"`, std: `"header ." "table filter" "table filter"` }}
+        templateColumns={{ std: `${maxTabsWidth} 400px` }}
+        columnGap={"40px"}
+      >
+        <Box gridArea="header" p={{ base: "24px 24px 15px", md: "24px 24px 15px", std: 0 }} bg="grey.200">
+          <Text as="h1" textStyle="homeHeader">
+            Open Access Dashboard
+          </Text>
+          <Text textStyle="p" display={{ base: "none", sm: "none", md: "block" }}>
+            {dashboardText.long}
+          </Text>
+          <TextCollapse
+            display={{ base: "block", sm: "block", md: "none" }}
+            previewText={dashboardText.short}
+            text={dashboardText.long}
+          />
+        </Box>
 
-      <Tabs isFitted variant="dashboard" bg="white" index={tabIndex} onChange={handleTabsChange} defaultIndex={0}>
-        <TabList>
-          <Tab data-test="tab-country">
-            <Icon icon="website" size={24} marginRight="6px" />
-            <Text>Country</Text>
-          </Tab>
-          <Tab data-test="tab-institution">
-            <Icon icon="institution" size={24} marginRight="6px" />
-            <Text>Institution</Text>
-          </Tab>
-        </TabList>
+        <Tabs
+          gridArea="table"
+          isFitted
+          variant="dashboard"
+          bg="white"
+          index={tabIndex}
+          onChange={handleTabsChange}
+          defaultIndex={0}
+        >
+          <TabList>
+            <Tab data-test="tab-country">
+              <Icon icon="website" size={24} marginRight="6px" />
+              <Text>Country</Text>
+            </Tab>
+            <Tab data-test="tab-institution">
+              <Icon icon="institution" size={24} marginRight="6px" />
+              <Text>Institution</Text>
+            </Tab>
+          </TabList>
 
-        <TabPanels>
-          <TabPanel p={0}>
-            <IndexTable
-              entities={countries}
-              categoryName="Country"
-              maxPageSize={maxPageSize}
-              lastUpdated={stats.last_updated}
-            />
-          </TabPanel>
-          <TabPanel p={0}>
-            <IndexTable
-              entities={institutions}
-              categoryName="Institution"
-              maxPageSize={maxPageSize}
-              lastUpdated={stats.last_updated}
-            />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+          <TabPanels>
+            <TabPanel p={0}>
+              <IndexTable
+                entities={countries}
+                categoryName="Country"
+                maxPageSize={maxPageSize}
+                lastUpdated={stats.last_updated}
+              />
+            </TabPanel>
+            <TabPanel p={0}>
+              <IndexTable
+                entities={institutions}
+                categoryName="Institution"
+                maxPageSize={maxPageSize}
+                lastUpdated={stats.last_updated}
+              />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+
+        <Box gridArea="filter" bg="tomato">
+          Filtering
+        </Box>
+      </Grid>
     </Box>
   );
 };
