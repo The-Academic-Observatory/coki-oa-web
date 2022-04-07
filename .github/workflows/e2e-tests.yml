@@ -47,4 +47,5 @@ jobs:
         env:
           DATA_PATH: ./latest/data
         run: |
-          yarn run test:e2e
+          yarn --cwd ./workers-api dev
+# yarn run test:e2e
