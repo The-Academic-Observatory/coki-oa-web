@@ -88,6 +88,7 @@ const SearchResult = ({ entity, onClick, ...rest }: SearchResultProps) => {
 };
 
 export const Search = ({ ...rest }) => {
+  const [isFetching, setIsFetching] = React.useState<boolean>(false);
   const [searchText, setSearchText] = React.useState<string>("");
   const [searchResults, setSearchResults] = React.useState<Array<any>>([]);
   const [isPopoverOpen, setPopoverOpen] = React.useState(false);
@@ -97,11 +98,13 @@ export const Search = ({ ...rest }) => {
     if (value === "") {
       setPopoverOpen(false);
     } else {
+      setIsFetching(true);
       const url = makeSearchUrl(value, searchLimit);
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
           setSearchResults(data);
+          setIsFetching(false);
           setPopoverOpen(true);
         });
     }
@@ -138,6 +141,7 @@ export const Search = ({ ...rest }) => {
           }}
         >
           <PopoverBody>
+            {!isFetching && searchText !== "" && searchResults.length === 0 && <Text>No results</Text>}
             {searchResults.map((entity: Entity) => (
               <SearchResult
                 key={entity.id}
@@ -153,7 +157,6 @@ export const Search = ({ ...rest }) => {
                 }}
               />
             ))}
-            {searchText !== "" && searchResults.length === 0 && <Text>No results</Text>}
           </PopoverBody>
         </PopoverContent>
       </Popover>
@@ -175,21 +178,18 @@ export const SearchDrawer = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...r
 
   // Search for entities
   const inputOnChange = debounce((value) => {
-    setIsFetching(true);
     if (value != "") {
+      setIsFetching(true);
       const url = makeSearchUrl(value, searchLimit);
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
           //@ts-ignore
           setSearchResults(data);
-          // setIsFetching(false);
-          console.log("fetching");
-          console.log(isFetching);
+          setIsFetching(false);
         });
     } else {
       setSearchResults([]);
-      setIsFetching(false);
     }
   }, searchDebounce);
 
@@ -207,6 +207,7 @@ export const SearchDrawer = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...r
           />
         </DrawerHeader>
         <DrawerBody bg="white">
+          {!isFetching && searchText !== "" && searchResults.length === 0 && <Text>No results</Text>}
           {searchResults.map((entity: Entity) => (
             <SearchResult
               key={entity.id}
@@ -222,7 +223,6 @@ export const SearchDrawer = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...r
               }}
             />
           ))}
-          {!isFetching && searchText != "" && searchResults.length === 0 && <Text>No results</Text>}
         </DrawerBody>
       </DrawerContent>
     </Drawer>

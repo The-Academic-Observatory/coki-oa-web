@@ -30,11 +30,6 @@ Apache Airflow workflow. This workflow needs to be run first to produce the data
 website. Normally the following steps are performed automatically by the workflow when the website is built and 
 deployed, however, during development this needs to be done manually.
 
-Create a .env file in the root of the project:
-```bash
-DATA_PATH=./latest/data
-```
-
 From the Google Cloud Storage bucket, download the `v2/latest.zip` file, saving it in the root of the project.
 
 Run the `data.sh` script, which will extract the data files and copy them to the right places 
@@ -63,6 +58,12 @@ yarn test:e2e
 ```
 
 ### Build & Deploy
+Export environment variables:
+```bash
+export DATA_PATH=./latest/data
+export NEXT_PUBLIC_API_HOST=https://develop.open.coki.ac
+```
+
 Build site:
 ```bash
 yarn build

@@ -19,12 +19,14 @@ jobs:
         run: |
           echo "ENVIRONMENT=develop" >> $GITHUB_ENV
           echo "REPO_DISPATCH_REF=develop" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_API_HOST=https://develop.open.coki.ac" >> $GITHUB_ENV
 
       - name: Set environment staging
         if: github.event.action == 'data-update/staging'
         run: |
           echo "ENVIRONMENT=staging" >> $GITHUB_ENV
           echo "REPO_DISPATCH_REF=main" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_API_HOST=https://staging.open.coki.ac" >> $GITHUB_ENV
 
       - name: Get latest tag production
         if: github.event.action == 'data-update/production'
@@ -39,6 +41,7 @@ jobs:
         run: |
           echo "ENVIRONMENT=production" >> $GITHUB_ENV
           echo "REPO_DISPATCH_REF=${{ steps.get_latest_tag.outputs.tag }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_API_HOST=https://open.coki.ac" >> $GITHUB_ENV
 
       - uses: actions/checkout@v2
         with:
