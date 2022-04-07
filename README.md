@@ -74,7 +74,7 @@ Export site:
 next export
 ```
 
-Customise your wrangler.toml file, see wrangler.toml.example:
+Customise your wrangler.toml file, see wrangler.example.toml:
 ```toml
 name = "coki-oa-web"
 type = "webpack"
@@ -140,7 +140,7 @@ yarn test:e2e
 ```
 
 ### Build & Deploy
-Customise your wrangler.toml file, see wrangler.toml.example:
+Customise your wrangler.toml file, see wrangler.example.toml:
 ```toml
 name = "coki-oa-web-api"
 type = "javascript"
@@ -202,10 +202,10 @@ See below for instructions on how to set these up.
 ### wrangler.toml
 Two wrangler.toml files need to be created, one for the Web App Cloudflare Worker and one for the API Cloudflare Worker.
 
-For the web app, see the wrangler.toml.example file for an example of how to create the wrangler.toml file. Add the file 
+For the web app, see the wrangler.example.toml file for an example of how to create the wrangler.toml file. Add the file 
 to the WRANGLER_CONFIG Github Secret.
 
-For the API, see workers-api/wrangler.toml.example file for an example of how to create the wrangler.toml file. Add the
+For the API, see workers-api/wrangler.example.toml file for an example of how to create the wrangler.toml file. Add the
 file to the WRANGLER_CONFIG_API Github Secret.
 
 ### Cloudflare API Token
