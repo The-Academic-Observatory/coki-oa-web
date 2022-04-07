@@ -43,18 +43,20 @@ import { makeSearchUrl } from "../lib/api";
 interface SearchBoxProps {
   value: string;
   onChange: (e: any) => void;
+  inputDataTest: string;
 }
 
 const searchLimit = 10;
 const searchDebounce = 300;
 
-const SearchBox = ({ value, onChange }: SearchBoxProps) => {
+const SearchBox = ({ value, onChange, inputDataTest }: SearchBoxProps) => {
   return (
     <InputGroup borderColor="grey.900" bg="white" rounded={50} w={{ base: "full", std: 388 }}>
       <InputLeftElement pointerEvents="none">
         <SearchIcon color="gray.900" />
       </InputLeftElement>
       <Input
+        data-test={inputDataTest}
         value={value}
         variant="outline"
         rounded={50}
@@ -76,7 +78,7 @@ interface SearchResultProps extends BoxProps {
 
 const SearchResult = ({ entity, onClick, ...rest }: SearchResultProps) => {
   return (
-    <Box key={entity.id}>
+    <Box key={entity.id} data-test={entity.id}>
       <Link href={`/${entity.category}/${entity.id}`} onClick={onClick}>
         <HStack my="16px">
           <Image rounded="full" objectFit="cover" boxSize="16px" src={entity.logo_s} alt={entity.name} />
@@ -124,6 +126,7 @@ export const Search = ({ ...rest }) => {
           {/*div is required to prevent Function components cannot be given refs error */}
           <div>
             <SearchBox
+              inputDataTest="searchInputDesktop"
               value={searchText}
               onChange={(e) => {
                 const text = e.target.value;
@@ -140,7 +143,7 @@ export const Search = ({ ...rest }) => {
             boxShadow: "none",
           }}
         >
-          <PopoverBody>
+          <PopoverBody data-test="searchResultsDesktop">
             {!isFetching && searchText !== "" && searchResults.length === 0 && <Text>No results</Text>}
             {searchResults.map((entity: Entity) => (
               <SearchResult
@@ -198,6 +201,7 @@ export const SearchDrawer = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...r
       <DrawerContent top={`${navbarHeightMobile}px !important`} bg="none" boxShadow="none">
         <DrawerHeader bg="brand.500">
           <SearchBox
+            inputDataTest="searchInputMobile"
             value={searchText}
             onChange={(e) => {
               const text = e.target.value;
@@ -206,7 +210,7 @@ export const SearchDrawer = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...r
             }}
           />
         </DrawerHeader>
-        <DrawerBody bg="white">
+        <DrawerBody bg="white" data-test="searchResultsMobile">
           {!isFetching && searchText !== "" && searchResults.length === 0 && <Text>No results</Text>}
           {searchResults.map((entity: Entity) => (
             <SearchResult
