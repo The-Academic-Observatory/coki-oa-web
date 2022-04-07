@@ -52,29 +52,25 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
     },
   ];
   const defaultTabIndex = 0;
-  const [dashboardText, setDashboardText] = React.useState(descriptions[defaultTabIndex]);
   const [tabIndex, setTabIndex] = React.useState(defaultTabIndex);
+  const [dashboardText, setDashboardText] = React.useState(descriptions[tabIndex]);
 
-  // Set tab index based on pathname
-  const mapPathTabIndex: { [key: string]: number } = {
-    institution: 1,
-    country: 0,
-  };
-  useEffect(() => {
-    let index: number | undefined = defaultTabIndex;
-    index = mapPathTabIndex[window.location.pathname.slice(1, -1)];
-    if (index === undefined) {
-      index = defaultTabIndex;
-    }
-    setTabIndex(index);
-    setDashboardText(descriptions[index]);
-  }, []);
-
-  // Change text based on tab index
+  // Set tab index and change text based on tab index
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
     setDashboardText(descriptions[index]);
+    window.history.replaceState(null, "", "/");
   };
+
+  // Change tab index and text based on pathname
+  useEffect(() => {
+    const mapPathTabIndex: Array<string> = ["country", "institution"];
+    let index = mapPathTabIndex.indexOf(window.location.pathname.slice(1, -1));
+    if (index === -1) {
+      index = defaultTabIndex;
+    }
+    handleTabsChange(index);
+  }, []);
 
   // Fetch and update country and institution list on client
   const [countries, setCountries] = React.useState<Array<Entity>>(countriesFirstPage);
