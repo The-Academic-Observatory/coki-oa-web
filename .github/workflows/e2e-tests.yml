@@ -25,6 +25,7 @@ jobs:
           npx playwright install-deps
           npx playwright install
           npx playwright install msedge
+          cd ./workers-api && yarn install
 
       - name: Auth
         uses: google-github-actions/auth@v0
