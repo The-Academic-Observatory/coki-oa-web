@@ -51,20 +51,26 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
         "publications or open access levels. You may also search for a specific institution in the search bar at the top right.",
     },
   ];
-  // Set tab index based on pathname
   const defaultTabIndex = 0;
+  const [dashboardText, setDashboardText] = React.useState(descriptions[defaultTabIndex]);
+  const [tabIndex, setTabIndex] = React.useState(defaultTabIndex);
+
+  // Set tab index based on pathname
   const mapPathTabIndex: { [key: string]: number } = {
     institution: 1,
     country: 0,
   };
-  const [tabIndex, setTabIndex] = React.useState(defaultTabIndex);
   useEffect(() => {
-    const index = mapPathTabIndex[window.location.pathname.slice(1, -1)];
+    let index: number | undefined = defaultTabIndex;
+    index = mapPathTabIndex[window.location.pathname.slice(1, -1)];
+    if (index === undefined) {
+      index = defaultTabIndex;
+    }
     setTabIndex(index);
+    setDashboardText(descriptions[index]);
   }, []);
 
   // Change text based on tab index
-  const [dashboardText, setDashboardText] = React.useState(descriptions[defaultTabIndex]);
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
     setDashboardText(descriptions[index]);
