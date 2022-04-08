@@ -1,0 +1,19 @@
+name = "coki-oa-web-api"
+type = "javascript"
+compatibility_date = "2022-02-03"
+
+[build]
+command = "yarn run build"
+
+[build.upload]
+format = "modules"
+dir = "dist"
+main = "./index.mjs"
+
+[[build.upload.rules]]
+type = "ESModule"
+globs = ["**/*.mjs"]
+
+[miniflare]
+durable_objects_persist = true
+

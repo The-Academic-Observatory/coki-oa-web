@@ -30,11 +30,6 @@ Apache Airflow workflow. This workflow needs to be run first to produce the data
 website. Normally the following steps are performed automatically by the workflow when the website is built and 
 deployed, however, during development this needs to be done manually.
 
-Create a .env file in the root of the project:
-```bash
-DATA_PATH=./latest/data
-```
-
 From the Google Cloud Storage bucket, download the `v2/latest.zip` file, saving it in the root of the project.
 
 Run the `data.sh` script, which will extract the data files and copy them to the right places 
@@ -63,6 +58,12 @@ yarn test:e2e
 ```
 
 ### Build & Deploy
+Export environment variables:
+```bash
+export DATA_PATH=./latest/data
+export NEXT_PUBLIC_API_HOST=https://develop.open.coki.ac
+```
+
 Build site:
 ```bash
 yarn build
@@ -73,7 +74,7 @@ Export site:
 next export
 ```
 
-Customise your wrangler.toml file, see wrangler.toml.example:
+Customise your wrangler.toml file, see wrangler.example.toml:
 ```toml
 name = "coki-oa-web"
 type = "webpack"
@@ -139,7 +140,7 @@ yarn test:e2e
 ```
 
 ### Build & Deploy
-Customise your wrangler.toml file, see wrangler.toml.example:
+Customise your wrangler.toml file, see wrangler.example.toml:
 ```toml
 name = "coki-oa-web-api"
 type = "javascript"
@@ -201,10 +202,10 @@ See below for instructions on how to set these up.
 ### wrangler.toml
 Two wrangler.toml files need to be created, one for the Web App Cloudflare Worker and one for the API Cloudflare Worker.
 
-For the web app, see the wrangler.toml.example file for an example of how to create the wrangler.toml file. Add the file 
+For the web app, see the wrangler.example.toml file for an example of how to create the wrangler.toml file. Add the file 
 to the WRANGLER_CONFIG Github Secret.
 
-For the API, see workers-api/wrangler.toml.example file for an example of how to create the wrangler.toml file. Add the
+For the API, see workers-api/wrangler.example.toml file for an example of how to create the wrangler.toml file. Add the
 file to the WRANGLER_CONFIG_API Github Secret.
 
 ### Cloudflare API Token

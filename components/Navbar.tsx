@@ -21,10 +21,8 @@ import { Search } from "./Search";
 import COKILogo from "../public/logo.svg";
 import COKILogoWhite from "../public/logo-white.svg";
 import React from "react";
-import Fuse from "fuse.js";
 
 interface NavbarProps extends FlexProps {
-  fuse: Fuse<any> | null;
   isOpenSidebar: boolean;
   onOpenSidebar: () => void;
   onCloseSidebar: () => void;
@@ -35,7 +33,6 @@ interface NavbarProps extends FlexProps {
 }
 
 const Navbar = ({
-  fuse,
   isOpenSidebar,
   onOpenSidebar,
   onCloseSidebar,
@@ -71,36 +68,22 @@ const Navbar = ({
             onCloseSidebar();
           }
         }}
-        icon={
-          isOpenSidebar ? (
-            <Icon icon="cross" size={iconSize} />
-          ) : (
-            <Icon icon="burger" size={iconSize} />
-          )
-        }
+        icon={isOpenSidebar ? <Icon icon="cross" size={iconSize} /> : <Icon icon="burger" size={iconSize} />}
         display={{ base: "flex", std: "none" }}
         color="grey.100"
       />
 
       <Link href="/">
-        <Box
-          minWidth={cokiLogoWidthDesktop}
-          width={cokiLogoWidthDesktop}
-          display={{ base: "none", std: "block" }}
-        >
+        <Box minWidth={cokiLogoWidthDesktop} width={cokiLogoWidthDesktop} display={{ base: "none", std: "block" }}>
           <COKILogo />
         </Box>
 
-        <Box
-          minWidth={cokiLogoWidthMobile}
-          width={cokiLogoWidthMobile}
-          display={{ base: "block", std: "none" }}
-        >
+        <Box minWidth={cokiLogoWidthMobile} width={cokiLogoWidthMobile} display={{ base: "block", std: "none" }}>
           <COKILogoWhite />
         </Box>
       </Link>
 
-      <Search fuse={fuse} display={{ base: "none", std: "block" }} />
+      <Search display={{ base: "none", std: "block" }} />
 
       <IconButton
         variant="clean"
@@ -116,13 +99,7 @@ const Navbar = ({
             onCloseSearch();
           }
         }}
-        icon={
-          isOpenSearch ? (
-            <Icon icon="cross" size={iconSize} />
-          ) : (
-            <Icon icon="search" size={iconSize} />
-          )
-        }
+        icon={isOpenSearch ? <Icon icon="cross" size={iconSize} /> : <Icon icon="search" size={iconSize} />}
       />
     </Flex>
   );

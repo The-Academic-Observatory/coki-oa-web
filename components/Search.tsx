@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import React, { RefObject } from "react";
+import React from "react";
 import {
   Box,
   BoxProps,
@@ -36,27 +36,27 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import debounce from "lodash/debounce";
-import Fuse from "fuse.js";
 import Link from "./Link";
 import { Entity } from "../lib/model";
+import { makeSearchUrl } from "../lib/api";
 
 interface SearchBoxProps {
   value: string;
   onChange: (e: any) => void;
+  inputDataTest: string;
 }
 
-const SearchBox = ({ value, onChange }: SearchBoxProps) => {
+const searchLimit = 10;
+const searchDebounce = 300;
+
+const SearchBox = ({ value, onChange, inputDataTest }: SearchBoxProps) => {
   return (
-    <InputGroup
-      borderColor="grey.900"
-      bg="white"
-      rounded={50}
-      w={{ base: "full", std: 388 }}
-    >
+    <InputGroup borderColor="grey.900" bg="white" rounded={50} w={{ base: "full", std: 388 }}>
       <InputLeftElement pointerEvents="none">
         <SearchIcon color="gray.900" />
       </InputLeftElement>
       <Input
+        data-test={inputDataTest}
         value={value}
         variant="outline"
         rounded={50}
@@ -78,16 +78,10 @@ interface SearchResultProps extends BoxProps {
 
 const SearchResult = ({ entity, onClick, ...rest }: SearchResultProps) => {
   return (
-    <Box key={entity.id}>
+    <Box key={entity.id} data-test={entity.id}>
       <Link href={`/${entity.category}/${entity.id}`} onClick={onClick}>
         <HStack my="16px">
-          <Image
-            rounded="full"
-            objectFit="cover"
-            boxSize="16px"
-            src={entity.logo_s}
-            alt={entity.name}
-          />
+          <Image rounded="full" objectFit="cover" boxSize="16px" src={entity.logo_s} alt={entity.name} />
           <Text textStyle="tableCell">{entity.name}</Text>
         </HStack>
       </Link>
@@ -95,12 +89,8 @@ const SearchResult = ({ entity, onClick, ...rest }: SearchResultProps) => {
   );
 };
 
-interface SearchProps extends BoxProps {
-  fuse: Fuse<any> | null;
-}
-
-export const Search = ({ fuse, ...rest }: SearchProps) => {
-  const maxResults = 5;
+export const Search = ({ ...rest }) => {
+  const [isFetching, setIsFetching] = React.useState<boolean>(false);
   const [searchText, setSearchText] = React.useState<string>("");
   const [searchResults, setSearchResults] = React.useState<Array<any>>([]);
   const [isPopoverOpen, setPopoverOpen] = React.useState(false);
@@ -109,15 +99,18 @@ export const Search = ({ fuse, ...rest }: SearchProps) => {
   const inputOnChange = debounce((value) => {
     if (value === "") {
       setPopoverOpen(false);
-    } else if (fuse != null) {
-      const results = fuse
-        .search(value)
-        .slice(0, maxResults)
-        .map((item) => item.item);
-      setSearchResults(results);
-      setPopoverOpen(true);
+    } else {
+      setIsFetching(true);
+      const url = makeSearchUrl(value, searchLimit);
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          setSearchResults(data);
+          setIsFetching(false);
+          setPopoverOpen(true);
+        });
     }
-  }, 300);
+  }, searchDebounce);
 
   // When receive a click outside search input or popover, then close
   const ref = React.useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -128,17 +121,12 @@ export const Search = ({ fuse, ...rest }: SearchProps) => {
 
   return (
     <Box {...rest} ref={ref}>
-      <Popover
-        placement="bottom-start"
-        offset={[0, 1]}
-        autoFocus={false}
-        isLazy={true}
-        isOpen={isPopoverOpen}
-      >
+      <Popover placement="bottom-start" offset={[0, 1]} autoFocus={false} isLazy={true} isOpen={isPopoverOpen}>
         <PopoverAnchor>
           {/*div is required to prevent Function components cannot be given refs error */}
           <div>
             <SearchBox
+              inputDataTest="searchInputDesktop"
               value={searchText}
               onChange={(e) => {
                 const text = e.target.value;
@@ -155,7 +143,8 @@ export const Search = ({ fuse, ...rest }: SearchProps) => {
             boxShadow: "none",
           }}
         >
-          <PopoverBody>
+          <PopoverBody data-test="searchResultsDesktop">
+            {!isFetching && searchText !== "" && searchResults.length === 0 && <Text>No results</Text>}
             {searchResults.map((entity: Entity) => (
               <SearchResult
                 key={entity.id}
@@ -171,9 +160,6 @@ export const Search = ({ fuse, ...rest }: SearchProps) => {
                 }}
               />
             ))}
-            {searchText !== "" && searchResults.length === 0 && (
-              <Text>No results</Text>
-            )}
           </PopoverBody>
         </PopoverContent>
       </Popover>
@@ -182,53 +168,40 @@ export const Search = ({ fuse, ...rest }: SearchProps) => {
 };
 
 interface SearchDrawerProps extends BoxProps {
-  fuse: Fuse<any> | null;
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
   navbarHeightMobile: number;
 }
 
-export const SearchDrawer = ({
-  fuse,
-  isOpen,
-  onOpen,
-  onClose,
-  navbarHeightMobile,
-  ...rest
-}: SearchDrawerProps) => {
-  const maxResults = 5;
+export const SearchDrawer = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: SearchDrawerProps) => {
+  const [isFetching, setIsFetching] = React.useState<boolean>(false);
   const [searchText, setSearchText] = React.useState<string>("");
   const [searchResults, setSearchResults] = React.useState<Array<any>>([]);
 
   // Search for entities
   const inputOnChange = debounce((value) => {
-    if (value != "" && fuse != null) {
-      const results = fuse
-        .search(value)
-        .slice(0, maxResults)
-        .map((item) => item.item);
-      setSearchResults(results);
+    if (value != "") {
+      setIsFetching(true);
+      const url = makeSearchUrl(value, searchLimit);
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          //@ts-ignore
+          setSearchResults(data);
+          setIsFetching(false);
+        });
     } else {
       setSearchResults([]);
     }
-  }, 300);
+  }, searchDebounce);
 
   return (
-    <Drawer
-      size="full"
-      placement="right"
-      onClose={onClose}
-      isOpen={isOpen}
-      preserveScrollBarGap={true}
-    >
-      <DrawerContent
-        top={`${navbarHeightMobile}px !important`}
-        bg="none"
-        boxShadow="none"
-      >
+    <Drawer size="full" placement="right" onClose={onClose} isOpen={isOpen} preserveScrollBarGap={true}>
+      <DrawerContent top={`${navbarHeightMobile}px !important`} bg="none" boxShadow="none">
         <DrawerHeader bg="brand.500">
           <SearchBox
+            inputDataTest="searchInputMobile"
             value={searchText}
             onChange={(e) => {
               const text = e.target.value;
@@ -237,7 +210,8 @@ export const SearchDrawer = ({
             }}
           />
         </DrawerHeader>
-        <DrawerBody bg="white">
+        <DrawerBody bg="white" data-test="searchResultsMobile">
+          {!isFetching && searchText !== "" && searchResults.length === 0 && <Text>No results</Text>}
           {searchResults.map((entity: Entity) => (
             <SearchResult
               key={entity.id}
@@ -253,9 +227,6 @@ export const SearchDrawer = ({
               }}
             />
           ))}
-          {searchText != "" && searchResults.length === 0 && (
-            <Text>No results</Text>
-          )}
         </DrawerBody>
       </DrawerContent>
     </Drawer>

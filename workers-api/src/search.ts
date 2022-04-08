@@ -16,7 +16,7 @@ data.forEach((item: Entity, i: number) => {
   index.add(i, name);
 });
 const minLimit = 1;
-const maxLimit = 5;
+const maxLimit = 20;
 
 export const search = (text: string, limit: number) => {
   // Search index

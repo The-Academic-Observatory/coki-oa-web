@@ -22,9 +22,7 @@ const dataPath: string = <string>process.env.DATA_PATH;
 
 export function getEntityIds(category: string) {
   const path = join(dataPath, category);
-  return fs
-    .readdirSync(path)
-    .map((fileName) => fileName.replace(/\.json$/, ""));
+  return fs.readdirSync(path).map((fileName) => fileName.replace(/\.json$/, ""));
 }
 
 export function idsToStaticPaths(ids: Array<string>) {
@@ -50,4 +48,12 @@ export function getIndexTableData(category: string) {
 export function getStatsData(): Stats {
   const filePath = join(dataPath, `stats.json`);
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+}
+
+export function makeSearchUrl(text: string, limit: number = 10): string {
+  let url = `${process.env.NEXT_PUBLIC_API_HOST}/api/search/${encodeURIComponent(text)}`;
+  if (limit) {
+    url += `?limit=${limit}`;
+  }
+  return url;
 }
