@@ -47,7 +47,8 @@ export default function Open() {
           <a href="https://jsonlines.org/" target="_blank" rel="noreferrer">
             JSON Lines
           </a>{" "}
-          format. See below for dataset releases, license, attributions, how to cite the dataset the dataset schema.
+          format. See below for dataset releases, license, how to cite the website and dataset, attributions and the
+          dataset schema.
         </Text>
         <Text textStyle="h2">Releases</Text>
         <ScrollTable mb="32px">
@@ -82,6 +83,27 @@ export default function Open() {
           </a>
           .
         </Text>
+
+        <Text textStyle="h2">Citing</Text>
+        <Text textStyle="p">If you use the website or website code, please cite it as below:</Text>
+        <Text textStyle="p" pb="24px" px={{ base: "12px", md: "32px" }}>
+          James P. Diprose, Richard Hosking, Richard Rigoni, Aniek Roelofs, Kathryn R. Napier, Tuan-Yow Chien, Katie S.
+          Wilson, Lucy Montgomery, & Cameron Neylon. (2022). COKI Open Access Website. Zenodo.{" "}
+          <a href="https://doi.org/10.5281/zenodo.6374486" target="_blank" rel="noreferrer">
+            https://doi.org/10.5281/zenodo.6374486
+          </a>
+        </Text>
+
+        <Text textStyle="p">If you use this dataset, please cite it as below:</Text>
+        <Text textStyle="p" pb="24px" px={{ base: "12px", md: "32px" }}>
+          Richard Hosking, James P. Diprose, Aniek Roelofs, Tuan-Yow Chien, Lucy Montgomery, & Cameron Neylon. (2022).
+          COKI Open Access Dataset [Data set]. Zenodo.{" "}
+          <a href="https://doi.org/10.5281/zenodo.6399463" target="_blank" rel="noreferrer">
+            https://doi.org/10.5281/zenodo.6399463
+          </a>
+        </Text>
+
+        <Text textStyle="p">For other citation formats follow the doi.org links in the above citations.</Text>
 
         <Text as="h2" textStyle="h2">
           Dataset Attributions
@@ -142,21 +164,6 @@ export default function Open() {
             .
           </ListItem>
         </UnorderedList>
-
-        <Text textStyle="h2">Citing</Text>
-        <Text textStyle="p">If you use this dataset, please cite it as below.</Text>
-        <Text textStyle="p" pb="24px" px="32px">
-          Richard Hosking, James P. Diprose, Aniek Roelofs, Tuan-Yow Chien, Lucy Montgomery, & Cameron Neylon. (2022).
-          COKI Open Access Dataset (2022) [Data set]. Zenodo. 10.5281/zenodo.6399462
-        </Text>
-
-        <Text textStyle="p">
-          For other citation formats see{" "}
-          <a href="https://doi.org/10.5281/zenodo.6399462" target="_blank" rel="noreferrer">
-            Zenodo
-          </a>
-          .
-        </Text>
 
         <Text as="h2" textStyle="h2">
           Schema

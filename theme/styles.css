@@ -39,7 +39,7 @@ ol > li {
 
 p a {
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: underline !important;
 }
 
 p a:hover {
