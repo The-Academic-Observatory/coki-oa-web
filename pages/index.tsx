@@ -54,17 +54,21 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
   const defaultTabIndex = 0;
   const [tabIndex, setTabIndex] = React.useState(defaultTabIndex);
   const [dashboardText, setDashboardText] = React.useState(descriptions[tabIndex]);
+  const mapPathTabIndex: Array<string> = ["country", "institution"];
 
   // Set tab index and change text based on tab index
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
     setDashboardText(descriptions[index]);
-    window.history.replaceState(null, "", "/");
+    console.log(window.history.state);
+    const historyState = window.history.state;
+    if (historyState.as === "/country/" || historyState.as === "/institution/") {
+      window.history.replaceState(historyState, "", `/${mapPathTabIndex[index]}/`);
+    }
   };
 
   // Change tab index and text based on pathname
   useEffect(() => {
-    const mapPathTabIndex: Array<string> = ["country", "institution"];
     let index = mapPathTabIndex.indexOf(window.location.pathname.slice(1, -1));
     if (index === -1) {
       index = defaultTabIndex;
