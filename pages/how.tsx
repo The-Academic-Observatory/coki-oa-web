@@ -26,6 +26,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import Head from "next/head";
 import { getStatsData } from "../lib/api";
 import { Stats } from "../lib/model";
+import Link from "../components/Link";
 
 export async function getStaticProps() {
   const stats = getStatsData();
@@ -62,11 +63,16 @@ export default function How({ stats }: Props) {
           How it Works
         </Text>
         <Text textStyle="p">
-          The COKI Open Access Dataset measures open access performance for {stats.n_countries} countries and{" "}
-          {stats.n_institutions} institutions. Countries and institutions that have at least 1000 research outputs are
-          included in this dataset. The COKI Open Access Dataset is created with the COKI Academic Observatory data
-          collection pipeline, which fetches data about research publications from multiple sources, synthesises the
-          datasets and creates the open access calculations for each country and institution.
+          The <Link href="/data">COKI Open Access Dataset</Link> measures open access performance for{" "}
+          {stats.n_countries} countries and {stats.n_institutions} institutions. Countries and institutions that have at
+          least 1000 research outputs are included in this dataset. The COKI Open Access Dataset is created with the
+          COKI Academic Observatory data collection pipeline, which fetches data about research publications from
+          multiple sources, synthesises the datasets and creates the open access calculations for each country and
+          institution. The data is then visualised in this website. The code for this website is available at the{" "}
+          <a href="https://github.com/The-Academic-Observatory/coki-oa-web" target="_blank" rel="noreferrer">
+            COKI Open Access Website
+          </a>{" "}
+          Github project.
         </Text>
         <Text as="h2" textStyle="h2">
           1. Fetch Datasets
