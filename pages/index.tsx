@@ -60,7 +60,6 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
     setDashboardText(descriptions[index]);
-    console.log(window.history.state);
     const historyState = window.history.state;
     if (historyState.as === "/country/" || historyState.as === "/institution/") {
       window.history.replaceState(historyState, "", `/${mapPathTabIndex[index]}/`);
