@@ -1,24 +1,23 @@
 import dataRaw from "../../latest/data/index.json";
 import flexsearch from "flexsearch";
 import { Entity, SearchRequest } from "./types";
-const data = dataRaw as Array<Entity>;
+import flexsearchIndex from "../../latest/data/flexsearchIndex.json";
+import { importIndex } from "./searchIndex";
 
 const { Index } = flexsearch;
+const data = dataRaw as Array<Entity>;
 
-const index = new Index({
+export const searchIndex = new Index({
   language: "en",
   tokenize: "forward",
 });
-data.forEach((item: Entity, i: number) => {
-  // id, text
-  // Array index is id and used later on to access the real document
-  const name = item.name;
-  index.add(i, name);
-});
+await importIndex(searchIndex, flexsearchIndex);
+
 const minLimit = 1;
 const maxLimit = 20;
 
-export const search = (text: string, limit: number) => {
+//@ts-ignore
+export const search = (index, text: string, limit: number) => {
   // Search index
   const ids = index.search(text, limit);
 
@@ -36,7 +35,7 @@ export const searchHandler = (req: SearchRequest) => {
   limit = Math.max(Math.min(limit, maxLimit), minLimit);
 
   // Convert returned ids to objects
-  const results = search(text, limit);
+  const results = search(searchIndex, text, limit);
 
   // Convert to JSON, returning results
   const json = JSON.stringify(results);

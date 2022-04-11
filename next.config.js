@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+const { nanoid } = require("nanoid");
+const webpack = require("webpack");
+
 module.exports = {
   reactStrictMode: true,
   trailingSlash: true,
@@ -9,6 +12,11 @@ module.exports = {
       use: ["@svgr/webpack"],
     });
 
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        BUILD_ID: '"' + nanoid() + '"',
+      }),
+    );
     return config;
   },
   async rewrites() {

@@ -385,6 +385,7 @@ const testCountries = [
     subregion: "Southern Europe",
     region: "Europe",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 3252,
       n_outputs_open: 1735,
@@ -404,6 +405,7 @@ const testCountries = [
     subregion: "Western Asia",
     region: "Asia",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 53121,
       n_outputs_open: 18712,
@@ -423,6 +425,7 @@ const testCountries = [
     subregion: "Latin America and the Caribbean",
     region: "Americas",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 167906,
       n_outputs_open: 82878,
@@ -442,6 +445,7 @@ const testCountries = [
     subregion: "Western Asia",
     region: "Asia",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 11081,
       n_outputs_open: 4500,
@@ -461,6 +465,7 @@ const testCountries = [
     subregion: "Latin America and the Caribbean",
     region: "Americas",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 11620,
       n_outputs_open: 6237,
@@ -480,6 +485,7 @@ const testCountries = [
     subregion: "Australia and New Zealand",
     region: "Oceania",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 1397711,
       n_outputs_open: 554280,
@@ -499,6 +505,7 @@ const testCountries = [
     subregion: "Western Europe",
     region: "Europe",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 323803,
       n_outputs_open: 143818,
@@ -518,6 +525,7 @@ const testCountries = [
     subregion: "Western Asia",
     region: "Asia",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 9420,
       n_outputs_open: 3017,
@@ -537,6 +545,7 @@ const testCountries = [
     subregion: "Western Europe",
     region: "Europe",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 432510,
       n_outputs_open: 207849,
@@ -556,6 +565,7 @@ const testCountries = [
     subregion: "Sub-Saharan Africa",
     region: "Africa",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 9227,
       n_outputs_open: 5282,
@@ -575,6 +585,7 @@ const testCountries = [
     subregion: "Sub-Saharan Africa",
     region: "Africa",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 1705,
       n_outputs_open: 881,
@@ -594,6 +605,7 @@ const testCountries = [
     subregion: "Southern Asia",
     region: "Asia",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 71381,
       n_outputs_open: 35836,
@@ -613,6 +625,7 @@ const testCountries = [
     subregion: "Eastern Europe",
     region: "Europe",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 53275,
       n_outputs_open: 19850,
@@ -632,6 +645,7 @@ const testCountries = [
     subregion: "Western Asia",
     region: "Asia",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 5869,
       n_outputs_open: 2047,
@@ -651,6 +665,7 @@ const testCountries = [
     subregion: "Southern Europe",
     region: "Europe",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 10790,
       n_outputs_open: 5762,
@@ -670,6 +685,7 @@ const testCountries = [
     subregion: "Eastern Europe",
     region: "Europe",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 22751,
       n_outputs_open: 6547,
@@ -689,6 +705,7 @@ const testCountries = [
     subregion: "Latin America and the Caribbean",
     region: "Americas",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 2319,
       n_outputs_open: 1335,
@@ -708,6 +725,7 @@ const testCountries = [
     subregion: "Latin America and the Caribbean",
     region: "Americas",
     institution_types: null,
+    acronyms: [],
     stats: {
       n_outputs: 1249450,
       n_outputs_open: 806107,
@@ -731,6 +749,7 @@ const testInstitutions = [
     subregion: "Latin America and the Caribbean",
     region: "Americas",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 5046,
       n_outputs_open: 3205,
@@ -750,6 +769,7 @@ const testInstitutions = [
     subregion: "Southern Europe",
     region: "Europe",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 1513,
       n_outputs_open: 609,
@@ -769,6 +789,7 @@ const testInstitutions = [
     subregion: "Northern Europe",
     region: "Europe",
     institution_types: ["Healthcare"],
+    acronyms: [],
     stats: {
       n_outputs: 14083,
       n_outputs_open: 5853,
@@ -788,6 +809,7 @@ const testInstitutions = [
     subregion: "Latin America and the Caribbean",
     region: "Americas",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 3341,
       n_outputs_open: 1112,
@@ -807,6 +829,7 @@ const testInstitutions = [
     subregion: "Northern Europe",
     region: "Europe",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 3759,
       n_outputs_open: 2555,
@@ -826,6 +849,7 @@ const testInstitutions = [
     subregion: "Northern Europe",
     region: "Europe",
     institution_types: ["Healthcare"],
+    acronyms: [],
     stats: {
       n_outputs: 1029,
       n_outputs_open: 388,
@@ -845,6 +869,7 @@ const testInstitutions = [
     subregion: "South-eastern Asia",
     region: "Asia",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 4715,
       n_outputs_open: 2476,
@@ -864,6 +889,7 @@ const testInstitutions = [
     subregion: "Southern Europe",
     region: "Europe",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 8029,
       n_outputs_open: 3399,
@@ -883,6 +909,7 @@ const testInstitutions = [
     subregion: "Eastern Asia",
     region: "Asia",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 1757,
       n_outputs_open: 818,
@@ -902,6 +929,7 @@ const testInstitutions = [
     subregion: "Northern Europe",
     region: "Europe",
     institution_types: ["Healthcare"],
+    acronyms: [],
     stats: {
       n_outputs: 11100,
       n_outputs_open: 5231,
@@ -921,6 +949,7 @@ const testInstitutions = [
     subregion: "Northern Europe",
     region: "Europe",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 6009,
       n_outputs_open: 3478,
@@ -940,6 +969,7 @@ const testInstitutions = [
     subregion: "Eastern Asia",
     region: "Asia",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 1844,
       n_outputs_open: 578,
@@ -959,6 +989,7 @@ const testInstitutions = [
     subregion: "Northern America",
     region: "Americas",
     institution_types: ["Nonprofit"],
+    acronyms: [],
     stats: {
       n_outputs: 1605,
       n_outputs_open: 1143,
@@ -978,6 +1009,7 @@ const testInstitutions = [
     subregion: "Western Europe",
     region: "Europe",
     institution_types: ["Company"],
+    acronyms: [],
     stats: {
       n_outputs: 1715,
       n_outputs_open: 71,
@@ -997,6 +1029,7 @@ const testInstitutions = [
     subregion: "Northern America",
     region: "Americas",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 134403,
       n_outputs_open: 65381,
@@ -1016,6 +1049,7 @@ const testInstitutions = [
     subregion: "Western Europe",
     region: "Europe",
     institution_types: ["Facility"],
+    acronyms: [],
     stats: {
       n_outputs: 9528,
       n_outputs_open: 4098,
@@ -1035,6 +1069,7 @@ const testInstitutions = [
     subregion: "Northern Europe",
     region: "Europe",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 2209,
       n_outputs_open: 1141,
@@ -1054,6 +1089,7 @@ const testInstitutions = [
     subregion: "Eastern Europe",
     region: "Europe",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 1059,
       n_outputs_open: 514,
@@ -1073,6 +1109,7 @@ const testInstitutions = [
     subregion: "Western Europe",
     region: "Europe",
     institution_types: ["Other"],
+    acronyms: [],
     stats: {
       n_outputs: 3558,
       n_outputs_open: 2448,
@@ -1092,6 +1129,7 @@ const testInstitutions = [
     subregion: "Northern America",
     region: "Americas",
     institution_types: ["Healthcare"],
+    acronyms: [],
     stats: {
       n_outputs: 1090,
       n_outputs_open: 489,
@@ -1111,6 +1149,7 @@ const testInstitutions = [
     subregion: "South-eastern Asia",
     region: "Asia",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 3898,
       n_outputs_open: 3175,
@@ -1130,6 +1169,7 @@ const testInstitutions = [
     subregion: "Eastern Asia",
     region: "Asia",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 1934,
       n_outputs_open: 1102,
@@ -1150,6 +1190,7 @@ const testInstitutions = [
     subregion: "Eastern Asia",
     region: "Asia",
     institution_types: ["Education", "Facility"],
+    acronyms: [],
     stats: {
       n_outputs: 6822,
       n_outputs_open: 2324,
@@ -1169,6 +1210,7 @@ const testInstitutions = [
     subregion: "Southern Europe",
     region: "Europe",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 41115,
       n_outputs_open: 17910,
@@ -1188,6 +1230,7 @@ const testInstitutions = [
     subregion: "Western Europe",
     region: "Europe",
     institution_types: ["Facility"],
+    acronyms: [],
     stats: {
       n_outputs: 1751,
       n_outputs_open: 1064,
@@ -1207,6 +1250,7 @@ const testInstitutions = [
     subregion: "Eastern Asia",
     region: "Asia",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 1368,
       n_outputs_open: 376,
@@ -1226,6 +1270,7 @@ const testInstitutions = [
     subregion: "Southern Asia",
     region: "Asia",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 1240,
       n_outputs_open: 188,
@@ -1245,6 +1290,7 @@ const testInstitutions = [
     subregion: "Northern America",
     region: "Americas",
     institution_types: ["Education"],
+    acronyms: [],
     stats: {
       n_outputs: 20309,
       n_outputs_open: 10563,

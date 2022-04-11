@@ -9,6 +9,7 @@ export interface Entity extends Object {
   subregion: string;
   country: string | null;
   institution_types: Array<string> | null;
+  acronyms: Array<string>;
   stats: PublicationStats;
 }
 
