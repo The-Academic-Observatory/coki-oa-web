@@ -31,8 +31,7 @@ function isActive(path: string, href: string) {
   return (
     path === href ||
     (path === "//" && href == "/") ||
-    (href === "/" &&
-      (path.startsWith("/country") || path.startsWith("/institution")))
+    (href === "/" && (path.startsWith("/country") || path.startsWith("/institution")))
   );
 }
 
@@ -44,17 +43,12 @@ const NavItem = ({ icon, href, text, ...rest }: NavItemProps) => {
 
   return (
     <Box {...rest}>
-      <Link
-        href={href}
-        role="group"
-        data-test={dataTest}
-        style={{ textDecoration: "none" }}
-      >
+      <Link href={href} role="group" data-test={dataTest} style={{ textDecoration: "none" }}>
         <Flex
           align="center"
           height="72px"
           cursor="pointer"
-          px={{ base: "24px", md: "32px" }}
+          px={{ base: "24px" }}
           className={isActive(asPath, href) ? styles.active : ""}
           _hover={{
             bg: "brand.500",

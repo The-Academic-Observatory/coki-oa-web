@@ -137,12 +137,12 @@ const theme = extendTheme({
     },
     tableHeader: {
       fontWeight: 900,
-      fontSize: "14px",
+      fontSize: "12px",
       textTransform: "uppercase",
     },
     tableSubHeader: {
       fontWeight: 400,
-      fontSize: "10px",
+      fontSize: "9px",
       lineHeight: "12px",
       textTransform: "uppercase",
       color: "grey.900",
@@ -248,7 +248,7 @@ const theme = extendTheme({
   layerStyles: {
     page: {
       m: { base: 0, md: "50px auto 90px", std: "50px 40px 90px" },
-      maxWidth: { base: "100%", md: "900px", std: "970px" },
+      maxWidth: { base: "100%", md: "900px", std: "1100px" },
     },
     pGap: {
       mb: { base: "48px", md: "96px" },

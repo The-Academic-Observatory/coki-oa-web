@@ -31,7 +31,7 @@ type Props = {
   stats: any;
 };
 
-const maxTabsWidth = "970px";
+const maxTabsWidth = "1100px";
 const maxPageSize = 18;
 
 const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) => {
@@ -117,9 +117,10 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
       />
 
       <Grid
+        maxWidth={{ base: "full", std: maxTabsWidth }}
         templateAreas={{ base: `"header" "table" "filter"`, std: `"header ." "table filter" "table filter"` }}
-        templateColumns={{ std: `${maxTabsWidth} 400px` }}
-        columnGap={"40px"}
+        templateColumns={{ std: `75% 25%` }}
+        columnGap={"20px"}
       >
         <Box gridArea="header" p={{ base: "24px 24px 15px", md: "24px 24px 15px", std: 0 }} bg="grey.200">
           <Text as="h1" textStyle="homeHeader">
@@ -143,6 +144,9 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
           index={tabIndex}
           onChange={handleTabsChange}
           defaultIndex={0}
+          boxShadow={{ base: "none", md: "md" }}
+          rounded="md"
+          overflow="hidden"
         >
           <TabList>
             <Tab data-test="tab-country">

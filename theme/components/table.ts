@@ -34,6 +34,7 @@ const Table = {
         background: "white",
         thead: {
           th: {
+            padding: "6px",
             textStyle: "tableHeader",
             bgColor: "white",
             height: "50px",
@@ -77,6 +78,7 @@ const Table = {
               },
             },
             td: {
+              padding: "6px 6px",
               textStyle: "tableCell",
               "z-index": 0,
               _first: {

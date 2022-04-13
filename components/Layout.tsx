@@ -43,7 +43,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   const { isOpen: isOpenSearch, onOpen: onOpenSearch, onClose: onCloseSearch } = useDisclosure();
 
   const navbarHeightMobile: number = 68;
-  const sidebarWidth: number = 340;
+  const sidebarWidth: number = 310;
 
   return (
     <Flex flexDirection="column" minH="100vh">
