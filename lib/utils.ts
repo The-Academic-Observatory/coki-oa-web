@@ -17,23 +17,27 @@
 export function toReadableNumber(value: number) {
   if (value < 1e4) {
     // For values below 10,000
-    return value.toLocaleString();
+    return Math.trunc(value).toLocaleString();
   } else if (value < 1e6) {
+    // For values between 10,000 and 999,999 inclusive
     // Convert to thousandths
-    // Round up to nearest
-    value = Math.ceil(value / 1000);
-    return `${value}k`;
+    value = Math.round(value / 1000);
+    if (value < 1000) {
+      return `${value}k`;
+    } else {
+      return `${value / 1000}m`;
+    }
   } else if (value < 1e9) {
-    let result: string = "";
+    // For values from 1,000,000 and above
+    let result: string | number = "";
 
     // Convert to millionths
     value = value / 1e6;
-    if (value < 100 && value % 1 != 0) {
-      // For not whole numbers just keep 1 dp
-      result = value.toFixed(1);
-    } else {
-      // For whole numbers remove all decimals
-      result = value.toFixed(0);
+    result = parseFloat(value.toFixed(1));
+    if (value > 100 || result % 1 == 0) {
+      // When greater than 100 million or when last digit is not 0
+      // remove all decimals without rounding
+      result = Math.trunc(result);
     }
     return `${result}m`;
   }

@@ -1,7 +1,7 @@
 import { handleRequest } from "./router";
 import lodashGet from "lodash.get";
 
-const institutionTestTimeout = 10000;
+const institutionTestTimeout = 30000;
 
 test("test handleRequest 404", async () => {
   let res = await handleRequest(new Request("http://localhost"));
