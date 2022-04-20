@@ -1,4 +1,4 @@
-name: Workers API Unit Tests
+name: Unit Tests
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  workers-api-unit-test:
+  unit-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,7 +20,6 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        working-directory: ./workers-api
         run: |
           yarn install
 
@@ -40,12 +39,8 @@ jobs:
           gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip
           ./data.sh
 
-      - name: Check Types
-        working-directory: ./workers-api
-        run: |
-          yarn run types:check
-
       - name: Run Unit Tests
-        working-directory: ./workers-api
+        env:
+          DATA_PATH: ./latest/data
         run: |
-          yarn run test
+          yarn run test:jest
