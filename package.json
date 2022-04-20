@@ -8,7 +8,8 @@
     "lint": "next lint",
     "postbuild": "cross-env next-sitemap --config next-sitemap.js",
     "export": "next export",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:jest": "jest"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
@@ -21,6 +22,8 @@
     "@nivo/stream": "^0.78.0",
     "@types/react-table": "^7.7.8",
     "framer-motion": "^4",
+    "lodash.get": "^4.4.2",
+    "lodash.set": "^4.3.2",
     "next": "^12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -30,12 +33,17 @@
   "devDependencies": {
     "@playwright/test": "^1.19.0",
     "@svgr/webpack": "^6.2.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.1.1",
     "@types/elasticlunr": "^0.9.4",
+    "@types/lodash.get": "^4.4.7",
+    "@types/lodash.set": "^4.3.7",
     "@types/node": "16.11.9",
     "@types/react": "17.0.36",
     "cross-env": "^7.0.3",
     "eslint": "7",
     "eslint-config-next": "12.0.4",
+    "jest": "^27.5.1",
     "next-sitemap": "^2.1.13",
     "prettier": "2.5.1",
     "typescript": "4.5.2"

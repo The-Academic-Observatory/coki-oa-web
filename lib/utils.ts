@@ -38,3 +38,31 @@ export function toReadableNumber(value: number) {
     return `${result}m`;
   }
 }
+
+export function sum(input: Array<number>): number {
+  return input.reduce((a: number, b: number) => a + b, 0);
+}
+
+export function largestRemainder(samples: Array<number>): Array<number> {
+  // Round a list of numbers that sum to 100 using the largest remainder method: https://en.wikipedia.org/wiki/Largest_remainder_method.
+
+  const sampleSize = 100;
+  const total = sum(samples);
+  const diff = Math.abs(sampleSize - total);
+  if (diff > 1e-9) {
+    throw Error("samples must sum to 100");
+  }
+  let samplesCopy = [...samples];
+  let sizesWhole = samplesCopy.map((sample) => {
+    return Math.floor(sample);
+  });
+  while (sampleSize - sum(sizesWhole) > 0) {
+    const remainders = samplesCopy.map((sample) => {
+      return sample % 1;
+    });
+    const maxIndex = remainders.indexOf(Math.max(...remainders));
+    sizesWhole[maxIndex] = sizesWhole[maxIndex] + 1;
+    samplesCopy[maxIndex] = sizesWhole[maxIndex];
+  }
+  return sizesWhole;
+}
