@@ -16,10 +16,12 @@
 
 import { extendTheme } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
-import Table from "./components/table";
+import Accordion from "./components/accordion";
 import Button from "./components/button";
-import Tabs from "./components/tabs";
+import Checkbox from "./components/checkbox";
 import Popover from "./components/popover";
+import Table from "./components/table";
+import Tabs from "./components/tabs";
 
 const breakpoints = createBreakpoints({
   sm: "600px",
@@ -54,6 +56,9 @@ const theme = extendTheme({
       700: "#BFBFBF",
       800: "#A6A6A6", // deselected tab header text
       900: "#101820", // desktop footer
+    },
+    checkbox: {
+      500: "#101820",
     },
   },
   fonts: {
@@ -300,7 +305,9 @@ const theme = extendTheme({
   },
   components: {
     Table,
+    Accordion,
     Button,
+    Checkbox,
     Tabs,
     Popover,
   },

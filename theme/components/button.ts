@@ -97,6 +97,34 @@ const Button = {
         color: "brand.500",
       },
     },
+    tableFilter: {
+      bgColor: "brand.500",
+      color: "white",
+      transitionProperty: "common",
+      transitionDuration: "normal",
+      p: {
+        fontWeight: 600,
+        fontSize: "12px",
+        lineHeight: "12px",
+        textTransform: "uppercase",
+      },
+      span: {
+        lineHeight: "12px",
+        ml: "0px",
+        width: "12px",
+      },
+      borderRadius: "25px",
+      height: "26px",
+      paddingLeft: "8px",
+      paddingRight: "8px",
+      _hover: {
+        bgColor: "brand.600",
+        cursor: "pointer",
+      },
+      _focus: {
+        boxShadow: "none",
+      },
+    },
   },
 };
 
