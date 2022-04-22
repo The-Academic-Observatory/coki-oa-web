@@ -14,134 +14,169 @@
 //
 // Author: Aniek Roelofs
 
-import React, { ReactNode } from "react";
+import React, { ReactElement } from "react";
 import {
   Accordion,
   AccordionButton,
-  AccordionIcon,
   AccordionItem,
   AccordionPanel,
   Box,
   Checkbox,
   FormControl,
-  FormLabel,
-  Select,
+  SimpleGrid,
   Stack,
   Text,
   HStack,
+  FormControlProps,
+  Button,
 } from "@chakra-ui/react";
 import Icon from "./Icon";
+import { AddIcon, CloseIcon } from "@chakra-ui/icons";
+import { useForm, Controller } from "react-hook-form";
 
-interface TableFilterProps {
-  tabIndex: number;
+const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
+const RegionForm = (control: any) => {
+  return (
+    <SimpleGrid columns={2} spacing={3}>
+      {regions.map((region): ReactElement => {
+        return (
+          <Controller
+            control={control}
+            name={region}
+            key={region}
+            defaultValue={false}
+            render={({ field: { onChange, value, ref } }) => (
+              <Checkbox variant="tableFilter" colorScheme="checkbox" onChange={onChange} ref={ref}>
+                {region}
+              </Checkbox>
+            )}
+          />
+        );
+      })}
+    </SimpleGrid>
+  );
+};
+
+const subRegions = [
+  "Australia and New Zealand",
+  "Central Asia",
+  "Eastern Asia",
+  "Eastern Europe",
+  "Latin America and the Caribbean",
+  "Melanesia",
+  "Micronesia",
+  "Northern Africa",
+  "Northern America",
+  "Northern Europe",
+  "Polynesia",
+  "South-eastern Asia",
+  "Southern Asia",
+  "Southern Europe",
+  "Sub-Saharan Africa",
+  "Western Asia",
+  "Western Europe",
+];
+const SubRegionForm = (control: any) => {
+  return (
+    <FormControl>
+      <Stack maxHeight="300px" overflow={"scroll"}>
+        {subRegions.map((subregion): ReactElement => {
+          return (
+            <Controller
+              control={control}
+              name={subregion}
+              key={subregion}
+              defaultValue={false}
+              render={({ field: { onChange, value, ref } }) => (
+                <Checkbox variant="tableFilter" colorScheme="checkbox" onChange={onChange} ref={ref}>
+                  {subregion}
+                </Checkbox>
+              )}
+            />
+          );
+        })}
+      </Stack>
+    </FormControl>
+  );
+};
+
+interface FilterAccordionItemProps {
+  name: string;
+  form: FormControlProps;
 }
 
-const TableFilter = ({ tabIndex, ...rest }: TableFilterProps) => {
+const FilterAccordionItem = ({ name, form }: FilterAccordionItemProps) => {
   return (
-    <Box gridArea="filter" borderRadius="md" boxShadow={{ base: "none", md: "md" }} overflow="hidden">
-      <HStack bg="brand.500" justifyContent="center" spacing="10px" height="60px">
-        <Box>
-          <Icon icon="filter" color="white" size={24} />
-        </Box>
-        <Text fontWeight="900" fontSize="12px" textTransform="uppercase" color="white">
-          {" "}
-          Filters {tabIndex}{" "}
-        </Text>
-      </HStack>
-
-      <Accordion defaultIndex={[0]} allowMultiple>
-        <AccordionItem>
+    <AccordionItem>
+      {({ isExpanded }) => (
+        <>
           <h2>
-            <AccordionButton bg="white">
-              <Box flex="1" textAlign="left">
-                Region
+            <AccordionButton>
+              <Box flex="1" textAlign="left" textStyle="tableHeader">
+                {name}
               </Box>
-              <AccordionIcon />
+              {isExpanded ? <CloseIcon fontSize="12px" /> : <AddIcon fontSize="12px" />}
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4} bg="grey.300">
-            <FormControl>
-              <Box>
-                {/*<FormLabel htmlFor="region">Region</FormLabel>*/}
-                <Checkbox>Europe</Checkbox>
-                <Checkbox>America</Checkbox>
-                <Checkbox>Asia</Checkbox>
-                <Checkbox>Africa</Checkbox>
-                <Checkbox>Oceania</Checkbox>
-              </Box>
-            </FormControl>
+            {form}
           </AccordionPanel>
-        </AccordionItem>
+        </>
+      )}
+    </AccordionItem>
+  );
+};
 
-        <AccordionItem>
-          <h2>
-            <AccordionButton>
-              <Box flex="1" textAlign="left">
-                Subregion
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
-    </Box>
+interface TableFilterProps {
+  tabIndex: number;
+  onFilter: (e: string) => void;
+}
+
+const TableFilter = ({ tabIndex, onFilter, ...rest }: TableFilterProps) => {
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  const onSubmit = handleSubmit((data) => {
+    //TODO get submit data separate for regions/subregions
+    console.log(data);
+    const searchText = "countries?regions=Asia";
+    onFilter(searchText);
+  });
+
+  return (
+    <form onSubmit={onSubmit}>
+      <Box borderRadius="md" boxShadow={{ base: "none", md: "md" }} overflow={"hidden"}>
+        <HStack bg="brand.500" justifyContent="center" spacing="10px" height="60px">
+          <Box>
+            <Icon icon="filter" color="white" size={24} />
+          </Box>
+          <Text fontWeight="900" fontSize="12px" textTransform="uppercase" color="white">
+            {" "}
+            Filters {tabIndex}{" "}
+          </Text>
+        </HStack>
+
+        <Accordion defaultIndex={[0]} allowMultiple variant="tableFilter">
+          <FilterAccordionItem name={"Region"} form={RegionForm(control)} />
+          <FilterAccordionItem name={"SubRegion"} form={SubRegionForm(control)} />
+        </Accordion>
+
+        <HStack justifyContent="space-around" m={{ base: "none", md: "10px 0px" }}>
+          <Button variant="tableFilter">
+            <Text>Clear Filters</Text>
+          </Button>
+
+          <Button variant="table" type="submit">
+            <Text>Apply Filters</Text>
+          </Button>
+        </HStack>
+      </Box>
+    </form>
   );
 };
 
 export default TableFilter;
-
-// <FormControl>
-//   <Box>
-//     <FormLabel htmlFor="region">Region</FormLabel>
-//     <Checkbox>Europe</Checkbox>
-//     <Checkbox>America</Checkbox>
-//     <Checkbox>Asia</Checkbox>
-//     <Checkbox>Africa</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//   </Box>
-//
-//   <FormLabel htmlFor="subregion">SubRegion</FormLabel>
-//   <Stack maxHeight="200px" overflow={"scroll"}>
-//     <Checkbox>Europe</Checkbox>
-//     <Checkbox>America</Checkbox>
-//     <Checkbox>Asia</Checkbox>
-//     <Checkbox>Africa</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//     <Checkbox>Oceania</Checkbox>
-//   </Stack>
-//   <FormLabel htmlFor="country">Country</FormLabel>
-//   <Select id="country" placeholder="Select country">
-//     <option>United Arab Emirates</option>
-//     <option>Nigeria</option>
-//   </Select>
-// </FormControl>;

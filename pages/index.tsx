@@ -16,7 +16,7 @@
 
 import { Box, Grid, SimpleGrid, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import { Entity } from "../lib/model";
-import { getIndexTableData, getStatsData } from "../lib/api";
+import { getIndexTableData, getStatsData, makeFilterUrl } from "../lib/api";
 import React, { useEffect } from "react";
 import IndexTable from "../components/IndexTable";
 import Icon from "../components/Icon";
@@ -96,6 +96,17 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
         setInstitutions(data);
       });
   }, []);
+
+  const onFilter = (value: string) => {
+    // Search for entities
+    //TODO make api return more than 18 items
+    const url = makeFilterUrl(value, 10000);
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        setCountries(data);
+      });
+  };
 
   return (
     <Box m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}>
@@ -179,7 +190,9 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
           </TabPanels>
         </Tabs>
 
-        <TableFilter tabIndex={tabIndex} />
+        <Box gridArea="filter">
+          <TableFilter tabIndex={tabIndex} onFilter={onFilter} />
+        </Box>
       </Grid>
     </Box>
   );
