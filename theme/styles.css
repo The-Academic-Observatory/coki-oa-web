@@ -40,6 +40,7 @@ ol > li {
 p a {
     cursor: pointer;
     text-decoration: underline !important;
+    word-break: break-all; /* Makes sure that links break */
 }
 
 p a:hover {
