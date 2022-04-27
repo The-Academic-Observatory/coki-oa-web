@@ -51,24 +51,30 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
         "publications or open access levels. You may also search for a specific institution in the search bar at the top right.",
     },
   ];
-  // Set tab index based on pathname
-  const defaultTabIndex = 0;
-  const mapPathTabIndex: { [key: string]: number } = {
-    institution: 1,
-    country: 0,
-  };
-  const [tabIndex, setTabIndex] = React.useState(defaultTabIndex);
-  useEffect(() => {
-    const index = mapPathTabIndex[window.location.pathname.slice(1, -1)];
-    setTabIndex(index);
-  }, []);
 
-  // Change text based on tab index
-  const [dashboardText, setDashboardText] = React.useState(descriptions[defaultTabIndex]);
+  const defaultTabIndex = 0;
+  const [tabIndex, setTabIndex] = React.useState(defaultTabIndex);
+  const [dashboardText, setDashboardText] = React.useState(descriptions[tabIndex]);
+  const mapPathTabIndex: Array<string> = ["country", "institution"];
+
+  // Set tab index and change text based on tab index
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
     setDashboardText(descriptions[index]);
+    const historyState = window.history.state;
+    if (historyState.as === "/country/" || historyState.as === "/institution/") {
+      window.history.replaceState(historyState, "", `/${mapPathTabIndex[index]}/`);
+    }
   };
+
+  // Change tab index and text based on pathname
+  useEffect(() => {
+    let index = mapPathTabIndex.indexOf(window.location.pathname.slice(1, -1));
+    if (index === -1) {
+      index = defaultTabIndex;
+    }
+    handleTabsChange(index);
+  }, []);
 
   // Fetch and update country and institution list on client
   const [countries, setCountries] = React.useState<Array<Entity>>(countriesFirstPage);

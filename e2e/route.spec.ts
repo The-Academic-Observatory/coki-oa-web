@@ -6,33 +6,24 @@ test("Should navigate to the Open Access Dashboard page", async ({ page }) => {
   await page.goto(route);
   await expect(page).toHaveURL(route);
   await expect(page.locator("h1")).toContainText("Open Access Dashboard");
-  await expect(page.locator("button[data-test='tab-country']")).toHaveAttribute(
-    "aria-selected",
-    "true"
-  );
+  await expect(page.locator("button[data-test='tab-country']")).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator("h1 + p")).toContainText("Open Access by country");
 });
 
-test("Should navigate to Open Access Dashboard: Country Tab", async ({
-  page,
-}) => {
+test("Should navigate to Open Access Dashboard: Country Tab", async ({ page }) => {
   const route = "/country/";
   await page.goto(route);
   await expect(page).toHaveURL(route);
-  await expect(page.locator("button[data-test='tab-country']")).toHaveAttribute(
-    "aria-selected",
-    "true"
-  );
+  await expect(page.locator("button[data-test='tab-country']")).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator("h1 + p")).toContainText("Open Access by country");
 });
 
-test("Should navigate to Open Access Dashboard: Institution Tab", async ({
-  page,
-}) => {
+test("Should navigate to Open Access Dashboard: Institution Tab", async ({ page }) => {
   const route = "/institution/";
   await page.goto(route);
   await expect(page).toHaveURL(route);
-  await expect(
-    page.locator("button[data-test='tab-institution']")
-  ).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator("button[data-test='tab-institution']")).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator("h1 + p")).toContainText("Open Access by institution");
 });
 
 // Country

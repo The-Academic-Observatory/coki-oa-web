@@ -105,18 +105,14 @@ const EntityDetails = ({ entity, lastUpdated, ...rest }: EntityDetailsProps) => 
           <EntityOATimeseries entity={entity} />
           <EntityOAVolume entity={entity} />
           <EntityPublisherOpen entity={entity} />
-          <EntityFooter lastUpdated={lastUpdated} />
+          <EntityFooter entity={entity} lastUpdated={lastUpdated} />
         </VStack>
       </Card>
     </Box>
   );
 };
 
-interface EntityFooterProps extends BoxProps {
-  lastUpdated: string;
-}
-
-const EntityFooter = ({ lastUpdated }: EntityFooterProps) => {
+const EntityFooter = ({ entity, lastUpdated }: EntityDetailsProps) => {
   return (
     <Flex
       w="full"
@@ -125,7 +121,7 @@ const EntityFooter = ({ lastUpdated }: EntityFooterProps) => {
       justifyContent="space-between"
       py="12px"
     >
-      <Link href="/" textDecorationColor="white !important">
+      <Link href={`/${entity.category}/`} textDecorationColor="white !important">
         <Button variant="dashboard" fontSize="14px" lineHeight="14px">
           <Text>Return to Dashboard</Text>
         </Button>
