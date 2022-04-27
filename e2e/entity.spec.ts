@@ -1,0 +1,23 @@
+import { expect, test } from "@playwright/test";
+
+test("Should navigate to the country tab when clicking on return to dashboard", async ({ page }) => {
+  await page.goto("/country/AUS/");
+  await page.locator("a[href='/country/'] button").click();
+  // Check the url
+  await expect(page).toHaveURL("/country/");
+  // Check the selected tab
+  await expect(page.locator("button[data-test='tab-country']")).toHaveAttribute("aria-selected", "true");
+  // Check the dashboard text
+  await expect(page.locator("h1 + p")).toContainText("Open Access by country");
+});
+
+test("Should navigate to the institution tab when clicking on return to dashboard", async ({ page }) => {
+  await page.goto("/institution/02n415q13/");
+  await page.locator("a[href='/institution/'] button").click();
+  // Check the url
+  await expect(page).toHaveURL("/institution/");
+  // Check the selected tab
+  await expect(page.locator("button[data-test='tab-institution']")).toHaveAttribute("aria-selected", "true");
+  // Check the dashboard text
+  await expect(page.locator("h1 + p")).toContainText("Open Access by institution");
+});
