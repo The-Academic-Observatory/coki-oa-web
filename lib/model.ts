@@ -76,10 +76,16 @@ export type Year = {
   stats: PublicationStats;
 };
 
+export type ZenodoVersion = {
+  release_date: string;
+  download_url: string;
+};
+
 export type Stats = {
   start_year: number;
   end_year: number;
   last_updated: number;
   n_countries: number;
   n_institutions: number;
+  zenodo_versions: Array<ZenodoVersion>;
 };

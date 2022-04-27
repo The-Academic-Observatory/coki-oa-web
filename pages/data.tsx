@@ -20,8 +20,24 @@ import Card from "../components/Card";
 import Head from "next/head";
 import Breadcrumbs from "../components/Breadcrumbs";
 import ScrollTable from "../components/ScrollTable";
+import { getStatsData } from "../lib/api";
+import { Stats } from "../lib/model";
 
-export default function Open() {
+export async function getStaticProps() {
+  const stats = getStatsData();
+  return {
+    props: {
+      stats: stats,
+    },
+  };
+}
+
+type Props = {
+  stats: Stats;
+};
+
+export default function Open({ stats }: Props) {
+  const maxVersions = 5;
   return (
     <Box layerStyle="page">
       <Head>
@@ -54,14 +70,14 @@ export default function Open() {
         <ScrollTable mb="32px">
           <Table variant="content">
             <Tbody>
-              <Tr>
-                <Td>2022-03-30</Td>
-                <Td>
-                  <a href="https://zenodo.org/record/6399463/files/coki-oa-dataset.zip?download=1">
-                    Download coki-oa-dataset.zip
-                  </a>
-                </Td>
-              </Tr>
+              {stats.zenodo_versions.slice(0, maxVersions).map((version, i) => (
+                <Tr key={i}>
+                  <Td>{version.release_date}</Td>
+                  <Td>
+                    <a href={version.download_url}>Download coki-oa-dataset.zip</a>
+                  </Td>
+                </Tr>
+              ))}
             </Tbody>
           </Table>
         </ScrollTable>
