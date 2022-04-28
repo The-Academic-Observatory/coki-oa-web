@@ -56,3 +56,5 @@ public/robots.txt
 public/sitemap*
 
 test-results
+
+dist

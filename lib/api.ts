@@ -104,10 +104,23 @@ export function getStatsData(): Stats {
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }
 
+export function addBuildId(url: string): string {
+  let parts = [url];
+  if (url.indexOf("?") !== -1) {
+    parts.push("&");
+  } else {
+    parts.push("?");
+  }
+  //@ts-ignore
+  parts.push(`build=${BUILD_ID}`);
+
+  return parts.join("");
+}
+
 export function makeSearchUrl(text: string, limit: number = 10): string {
   let url = `${process.env.NEXT_PUBLIC_API_HOST}/api/search/${encodeURIComponent(text)}`;
   if (limit) {
     url += `?limit=${limit}`;
   }
-  return url;
+  return addBuildId(url);
 }

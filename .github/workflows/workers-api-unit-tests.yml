@@ -43,6 +43,11 @@ jobs:
       - name: Check Types
         working-directory: ./workers-api
         run: |
+          yarn build
+
+      - name: Check Types
+        working-directory: ./workers-api
+        run: |
           yarn run types:check
 
       - name: Run Unit Tests
