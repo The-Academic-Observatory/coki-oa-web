@@ -32,21 +32,54 @@ import {
 } from "@chakra-ui/react";
 import Icon from "./Icon";
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, ChangeHandler } from "react-hook-form";
 
-const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
-const RegionForm = (control: any) => {
+const regions = {
+  Africa: ["Northern Africa", "Sub-Saharan Africa"],
+  Americas: ["Latin America and the Caribbean", "Northern America"],
+  Asia: ["Central Asia", "Eastern Asia", "South-eastern Asia", "Southern Asia", "Western Asia"],
+  Europe: ["Eastern Europe", "Northern Europe", "Southern Europe", "Western Europe"],
+  Oceania: ["Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"],
+};
+const RegionForm = (
+  control: any,
+  checkedSubRegions: { [x: string]: boolean },
+  setCheckedSubRegions: any,
+  setValue: any,
+) => {
+  const isChecked = (region: string) => {
+    for (let subregion of regions[region]) {
+      if (!checkedSubRegions[subregion]) {
+        return false;
+      }
+    }
+    return true;
+  };
   return (
     <SimpleGrid columns={2} spacing={3}>
-      {regions.map((region): ReactElement => {
+      {Object.keys(regions).map((region): ReactElement => {
         return (
           <Controller
             control={control}
-            name={region}
+            name={`region.${region}`}
             key={region}
             defaultValue={false}
             render={({ field: { onChange, value, ref } }) => (
-              <Checkbox variant="tableFilter" colorScheme="checkbox" onChange={onChange} ref={ref}>
+              <Checkbox
+                key={region}
+                variant="tableFilter"
+                colorScheme="checkbox"
+                isChecked={isChecked(region)}
+                onChange={(e) => {
+                  const checkedSubRegionsCopy = JSON.parse(JSON.stringify(checkedSubRegions));
+                  for (let subregion of regions[region]) {
+                    checkedSubRegionsCopy[subregion] = e.target.checked;
+                  }
+                  setCheckedSubRegions(checkedSubRegionsCopy);
+                  setValue("subregion", checkedSubRegionsCopy);
+                }}
+                ref={ref}
+              >
                 {region}
               </Checkbox>
             )}
@@ -57,38 +90,55 @@ const RegionForm = (control: any) => {
   );
 };
 
-const subRegions = [
-  "Australia and New Zealand",
-  "Central Asia",
-  "Eastern Asia",
-  "Eastern Europe",
-  "Latin America and the Caribbean",
-  "Melanesia",
-  "Micronesia",
-  "Northern Africa",
-  "Northern America",
-  "Northern Europe",
-  "Polynesia",
-  "South-eastern Asia",
-  "Southern Asia",
-  "Southern Europe",
-  "Sub-Saharan Africa",
-  "Western Asia",
-  "Western Europe",
-];
-const SubRegionForm = (control: any) => {
+const subRegions = {
+  "Australia and New Zealand": false,
+  "Central Asia": false,
+  "Eastern Asia": false,
+  "Eastern Europe": false,
+  "Latin America and the Caribbean": false,
+  Melanesia: false,
+  Micronesia: false,
+  "Northern Africa": false,
+  "Northern America": false,
+  "Northern Europe": false,
+  Polynesia: false,
+  "South-eastern Asia": false,
+  "Southern Asia": false,
+  "Southern Europe": false,
+  "Sub-Saharan Africa": false,
+  "Western Asia": false,
+  "Western Europe": false,
+};
+const SubRegionForm = (
+  control: any,
+  checkedSubRegions: { [x: string]: boolean },
+  setCheckedSubRegions: any,
+  setValue: any,
+) => {
   return (
     <FormControl>
       <Stack maxHeight="300px" overflow={"scroll"}>
-        {subRegions.map((subregion): ReactElement => {
+        {Object.keys(subRegions).map((subregion): ReactElement => {
           return (
             <Controller
               control={control}
-              name={subregion}
+              name={`subregion.${subregion}`}
               key={subregion}
               defaultValue={false}
               render={({ field: { onChange, value, ref } }) => (
-                <Checkbox variant="tableFilter" colorScheme="checkbox" onChange={onChange} ref={ref}>
+                <Checkbox
+                  key={subregion}
+                  variant="tableFilter"
+                  colorScheme="checkbox"
+                  isChecked={checkedSubRegions[subregion]}
+                  onChange={(e) => {
+                    const checkedSubRegionsCopy = JSON.parse(JSON.stringify(checkedSubRegions));
+                    checkedSubRegionsCopy[subregion] = e.target.checked;
+                    setCheckedSubRegions(checkedSubRegionsCopy);
+                    setValue("subregion", checkedSubRegionsCopy);
+                  }}
+                  ref={ref}
+                >
                   {subregion}
                 </Checkbox>
               )}
@@ -104,7 +154,6 @@ interface FilterAccordionItemProps {
   name: string;
   form: FormControlProps;
 }
-
 const FilterAccordionItem = ({ name, form }: FilterAccordionItemProps) => {
   return (
     <AccordionItem>
@@ -127,28 +176,59 @@ const FilterAccordionItem = ({ name, form }: FilterAccordionItemProps) => {
   );
 };
 
+interface IFormInputs {
+  region: any;
+  subregion: any;
+}
+
 interface TableFilterProps {
   tabIndex: number;
   setFilterParams: (e: string) => void;
 }
-
 const TableFilter = ({ tabIndex, setFilterParams, ...rest }: TableFilterProps) => {
   const {
     handleSubmit,
     register,
     control,
+    watch,
+    setValue,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm<IFormInputs>();
+  // const watchRegions = watch("region");
 
-  const onSubmit = handleSubmit((data) => {
-    //TODO get submit data separate for regions/subregions
-    console.log(data);
-    const searchText = "regions=Asia";
-    setFilterParams(searchText);
+  const transformFormResults = (formResults: { [x: string]: any }) => {
+    return Object.keys(formResults)
+      .reduce((result: string[], item) => {
+        if (formResults[item]) {
+          result.push(encodeURIComponent(item));
+        }
+        return result;
+      }, [])
+      .toString();
+  };
+  const onSubmit = handleSubmit((data: IFormInputs) => {
+    // TODO remember filter values from the two different tabs
+    const regionValues = transformFormResults(data.region);
+    const subregionValues = transformFormResults(data.subregion);
+    console.log(data, regionValues, subregionValues);
+    const searchParams = [];
+    if (regionValues) {
+      searchParams.push(`regions=${regionValues}`);
+    }
+    if (subregionValues) {
+      searchParams.push(`subregions=${subregionValues}`);
+    }
+    console.log(searchParams.join("&"));
+    setFilterParams(searchParams.join("&"));
   });
 
+  const onReset = () => {
+    setFilterParams("");
+  };
+
+  const [checkedSubRegions, setCheckedSubRegions] = React.useState(subRegions);
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} onReset={onReset}>
       <Box borderRadius="md" boxShadow={{ base: "none", md: "md" }} overflow={"hidden"}>
         <HStack bg="brand.500" justifyContent="center" spacing="10px" height="60px">
           <Box>
@@ -161,12 +241,18 @@ const TableFilter = ({ tabIndex, setFilterParams, ...rest }: TableFilterProps) =
         </HStack>
 
         <Accordion defaultIndex={[0]} allowMultiple variant="tableFilter">
-          <FilterAccordionItem name={"Region"} form={RegionForm(control)} />
-          <FilterAccordionItem name={"SubRegion"} form={SubRegionForm(control)} />
+          <FilterAccordionItem
+            name={"Region"}
+            form={RegionForm(control, checkedSubRegions, setCheckedSubRegions, setValue)}
+          />
+          <FilterAccordionItem
+            name={"SubRegion"}
+            form={SubRegionForm(control, checkedSubRegions, setCheckedSubRegions, setValue)}
+          />
         </Accordion>
 
         <HStack justifyContent="space-around" m={{ base: "none", md: "10px 0px" }}>
-          <Button variant="tableFilter">
+          <Button variant="tableFilter" type="reset">
             <Text>Clear Filters</Text>
           </Button>
 
