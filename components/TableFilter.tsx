@@ -129,10 +129,10 @@ const FilterAccordionItem = ({ name, form }: FilterAccordionItemProps) => {
 
 interface TableFilterProps {
   tabIndex: number;
-  onFilter: (e: string) => void;
+  setFilterParams: (e: string) => void;
 }
 
-const TableFilter = ({ tabIndex, onFilter, ...rest }: TableFilterProps) => {
+const TableFilter = ({ tabIndex, setFilterParams, ...rest }: TableFilterProps) => {
   const {
     handleSubmit,
     register,
@@ -143,8 +143,8 @@ const TableFilter = ({ tabIndex, onFilter, ...rest }: TableFilterProps) => {
   const onSubmit = handleSubmit((data) => {
     //TODO get submit data separate for regions/subregions
     console.log(data);
-    const searchText = "countries?regions=Asia";
-    onFilter(searchText);
+    const searchText = "regions=Asia";
+    setFilterParams(searchText);
   });
 
   return (

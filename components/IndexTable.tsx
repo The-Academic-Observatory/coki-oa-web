@@ -40,6 +40,8 @@ import DonutSparkline from "./DonutSparkline";
 import BreakdownSparkline from "./BreakdownSparkline";
 import Icon from "./Icon";
 import Link from "./Link";
+import Pagination from "./Pagination";
+import { makeFilterUrl } from "../lib/api";
 
 function makeHref(category: string, id: string) {
   return `/${category}/${id}`;
@@ -166,15 +168,44 @@ function paginate(page: number, nPages: number) {
   return Array.from({ length: length }, (v, k) => k + start);
 }
 
+const searchColumns: { [id: string]: string } = {
+  Institution: "name",
+  Country: "name",
+  open: "stats.p_outputs_open",
+  breakdown: "stats.p_outputs_open",
+  totalPublications: "stats.n_outputs",
+  openPublications: "stats.n_outputs_open",
+};
+
 interface Props extends BoxProps {
-  entities: Array<Entity>;
+  firstPage: any;
   categoryName: string;
   maxPageSize: number;
   lastUpdated: Date;
+  searchParams: string;
+  setSortParams: (e: string) => void;
+  setPageParams: (e: string) => void;
 }
 
-const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest }: Props) => {
-  const data = entities;
+const IndexTable = ({
+  firstPage,
+  categoryName,
+  maxPageSize,
+  lastUpdated,
+  searchParams,
+  setSortParams,
+  setPageParams,
+  ...rest
+}: Props) => {
+  // Fetch and update country and institution list
+  const [pageData, setPageData] = React.useState({
+    rowData: firstPage,
+    isLoading: false,
+    totalEntities: 0,
+  });
+
+  const [currentPage, setCurrentPage] = React.useState(0);
+
   const columns = React.useMemo<Array<any>>(
     () => [
       {
@@ -245,18 +276,13 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
     headerGroups,
     prepareRow,
     page,
-    canPreviousPage,
-    canNextPage,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize, sortBy },
   } = useTable(
     {
       columns,
-      data,
+      data: pageData.rowData,
+      manualSortBy: true,
       autoResetPage: false,
       autoResetSortBy: false,
       disableSortRemove: true,
@@ -272,6 +298,35 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
 
   let currentPageSize = pageSize;
   let pageSizeIncrement = pageSize;
+
+  React.useEffect(() => {
+    const sortByColumn = searchColumns[sortBy[0]["id"]];
+    const sortDesc = sortBy[0]["desc"];
+    const orderDir = sortDesc ? "dsc" : "asc";
+    const sortParams = `orderBy=${sortByColumn}&orderDir=${orderDir}`;
+    setSortParams(sortParams);
+  }, [sortBy, setSortParams]);
+
+  React.useEffect(() => {
+    const pageParams = `page=${currentPage}`;
+    setPageParams(pageParams);
+  }, [currentPage, setPageParams]);
+
+  React.useEffect(() => {
+    const endpoint = categoryName === "Country" ? "countries" : "institutions";
+    const url = makeFilterUrl(endpoint + searchParams);
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        //TODO get total entities from api
+        const totalEntities = 200;
+        setPageData({
+          isLoading: false,
+          rowData: data,
+          totalEntities,
+        });
+      });
+  }, [searchParams, categoryName]);
 
   return (
     <Box {...rest}>
@@ -355,27 +410,7 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
         p="16px 30px 50px"
         display={{ base: "none", md: "flex" }}
       >
-        <Flex alignItems="center" align="center" justifyContent="space-between">
-          <IconButton
-            aria-label="Previous Page"
-            variant="pureIconButton"
-            icon={<ChevronLeftIcon />}
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-          />
-          {paginate(pageIndex, pageCount).map((page) => (
-            <Flex key={page} layerStyle="pageButton" align="center" onClick={() => gotoPage(page)}>
-              <Box className={pageIndex == page ? "pageBtnActive" : ""} />
-            </Flex>
-          ))}
-          <IconButton
-            aria-label="Next Page"
-            variant="pureIconButton"
-            icon={<ChevronRightIcon />}
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-          />
-        </Flex>
+        <Pagination totalRows={pageData.totalEntities} pageChangeHandler={setCurrentPage} rowsPerPage={maxPageSize} />
         <Text textStyle="lastUpdated">Data updated {lastUpdated}</Text>
       </Flex>
     </Box>

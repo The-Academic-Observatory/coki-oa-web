@@ -16,7 +16,7 @@
 
 import { Box, Grid, SimpleGrid, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import { Entity } from "../lib/model";
-import { getIndexTableData, getStatsData, makeFilterUrl } from "../lib/api";
+import { getIndexTableData, getStatsData } from "../lib/api";
 import React, { useEffect } from "react";
 import IndexTable from "../components/IndexTable";
 import Icon from "../components/Icon";
@@ -77,36 +77,18 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
     handleTabsChange(index);
   }, []);
 
-  // Fetch and update country and institution list on client
-  const [countries, setCountries] = React.useState<Array<Entity>>(countriesFirstPage);
-  const [institutions, setInstitutions] = React.useState<Array<Entity>>(institutionsFirstPage);
-  useEffect(() => {
-    fetch("/data/country.json")
-      .then((res) => res.json())
-      .then((data) => {
-        //@ts-ignore
-        setCountries(data);
-      });
-  }, []);
-  useEffect(() => {
-    fetch("/data/institution.json")
-      .then((res) => res.json())
-      .then((data) => {
-        //@ts-ignore
-        setInstitutions(data);
-      });
-  }, []);
+  const [sortParams, setSortParams] = React.useState("orderBy=stats.p_outputs_open&orderDir=dsc");
+  const [pageParams, setPageParams] = React.useState("page=0");
+  const [filterParams, setFilterParams] = React.useState("");
 
-  const onFilter = (value: string) => {
-    // Search for entities
-    //TODO make api return more than 18 items
-    const url = makeFilterUrl(value, 10000);
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setCountries(data);
-      });
-  };
+  const [searchParams, setSearchParams] = React.useState("?page=1&orderBy=stats.p_outputs_open&orderDir=dsc");
+  useEffect(() => {
+    let value = `?${pageParams}&${sortParams}`;
+    if (filterParams) {
+      value = value + `&${filterParams}`;
+    }
+    setSearchParams(value);
+  }, [sortParams, filterParams, pageParams]);
 
   return (
     <Box m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}>
@@ -173,25 +155,31 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
           <TabPanels>
             <TabPanel p={0}>
               <IndexTable
-                entities={countries}
+                firstPage={countriesFirstPage}
                 categoryName="Country"
                 maxPageSize={maxPageSize}
                 lastUpdated={stats.last_updated}
+                searchParams={searchParams}
+                setSortParams={setSortParams}
+                setPageParams={setPageParams}
               />
             </TabPanel>
             <TabPanel p={0}>
               <IndexTable
-                entities={institutions}
+                firstPage={institutionsFirstPage}
                 categoryName="Institution"
                 maxPageSize={maxPageSize}
                 lastUpdated={stats.last_updated}
+                searchParams={searchParams}
+                setSortParams={setSortParams}
+                setPageParams={setPageParams}
               />
             </TabPanel>
           </TabPanels>
         </Tabs>
 
         <Box gridArea="filter">
-          <TableFilter tabIndex={tabIndex} onFilter={onFilter} />
+          <TableFilter tabIndex={tabIndex} setFilterParams={setFilterParams} />
         </Box>
       </Grid>
     </Box>
