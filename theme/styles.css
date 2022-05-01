@@ -55,3 +55,11 @@ li a {
 li a:hover {
     color: #737373 !important;
 }
+
+.twitterCard {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+
+}

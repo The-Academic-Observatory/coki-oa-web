@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 /public/logos
 /public/data
+/public/twitter
 
 # dependencies
 /node_modules

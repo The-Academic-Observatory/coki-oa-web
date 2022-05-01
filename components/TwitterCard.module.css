@@ -1,0 +1,13 @@
+.hrMain {
+    border: 2px solid #FF671C;
+    width: 100px;
+    margin-bottom: 24px;
+    border-radius: 5px;
+}
+
+.hrSub {
+    border: 1px solid #FF671C;
+    width: 60px;
+    margin-bottom: 12px;
+    border-radius: 5px;
+}

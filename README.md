@@ -71,7 +71,7 @@ yarn build
 
 Export site:
 ```bash
-next export
+yarn export
 ```
 
 Customise your wrangler.toml file, see wrangler.example.toml:
