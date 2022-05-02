@@ -32,7 +32,7 @@ import {
   useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Cell, ColumnInstance, Row, usePagination, useSortBy, useTable } from "react-table";
 import { Entity } from "../lib/model";
 import { ChevronLeftIcon, ChevronRightIcon, ArrowUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
@@ -147,27 +147,6 @@ function CreateHeader({ column }: ColumnProps) {
   );
 }
 
-function paginate(page: number, nPages: number) {
-  const window = 5;
-  const half = Math.floor(window / 2);
-  const endDist = nPages - page - 1;
-  let start = 0;
-  let end = 0;
-  if (page < window) {
-    start = 0;
-    end = window - 1;
-  } else if (endDist < window) {
-    start = nPages - window;
-    end = nPages - 1;
-  } else {
-    start = page - half;
-    end = page + half;
-  }
-
-  const length = end - start + 1;
-  return Array.from({ length: length }, (v, k) => k + start);
-}
-
 const searchColumns: { [id: string]: string } = {
   Institution: "name",
   Country: "name",
@@ -183,6 +162,7 @@ interface Props extends BoxProps {
   maxPageSize: number;
   lastUpdated: Date;
   searchParams: string;
+  filterParams: string;
   setSortParams: (e: string) => void;
   setPageParams: (e: string) => void;
 }
@@ -193,6 +173,7 @@ const IndexTable = ({
   maxPageSize,
   lastUpdated,
   searchParams,
+  filterParams,
   setSortParams,
   setPageParams,
   ...rest
@@ -205,6 +186,9 @@ const IndexTable = ({
   });
 
   const [currentPage, setCurrentPage] = React.useState(0);
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [filterParams]);
 
   const columns = React.useMemo<Array<any>>(
     () => [
@@ -310,7 +294,7 @@ const IndexTable = ({
   React.useEffect(() => {
     const pageParams = `page=${currentPage}`;
     setPageParams(pageParams);
-  }, [currentPage, setPageParams]);
+  }, [currentPage]);
 
   React.useEffect(() => {
     const endpoint = categoryName === "Country" ? "countries" : "institutions";
@@ -319,11 +303,10 @@ const IndexTable = ({
       .then((response) => response.json())
       .then((data) => {
         //TODO get total entities from api
-        const totalEntities = 200;
         setPageData({
           isLoading: false,
-          rowData: data,
-          totalEntities,
+          rowData: data.items,
+          totalEntities: data.nItems,
         });
       });
   }, [searchParams, categoryName]);
@@ -410,7 +393,12 @@ const IndexTable = ({
         p="16px 30px 50px"
         display={{ base: "none", md: "flex" }}
       >
-        <Pagination totalRows={pageData.totalEntities} pageChangeHandler={setCurrentPage} rowsPerPage={maxPageSize} />
+        <Pagination
+          totalRows={pageData.totalEntities}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          rowsPerPage={maxPageSize}
+        />
         <Text textStyle="lastUpdated">Data updated {lastUpdated}</Text>
       </Flex>
     </Box>

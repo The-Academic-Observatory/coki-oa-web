@@ -18,36 +18,66 @@ import React, { useState, useEffect } from "react";
 import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
+function paginate(page: number, nPages: number) {
+  const window = 5;
+  const half = Math.floor(window / 2);
+  const endDistance = nPages - page - 1;
+  let start = 0;
+  let end: number;
+  if (nPages < window) {
+    // Total number of pages smaller than window
+    start = 0;
+    end = nPages - 1;
+  } else if (page < window) {
+    // Current page smaller than window
+    start = 0;
+    end = window - 1;
+  } else if (endDistance < window) {
+    // Number of remaining pages fits within windows
+    start = nPages - window;
+    end = nPages - 1;
+  } else {
+    start = page - half;
+    end = page + half;
+  }
+
+  const length = end - start + 1;
+  const array = Array.from({ length: length }, (v, k) => k + start);
+  return array;
+}
+
 interface PaginationProps {
-  pageChangeHandler: any;
+  currentPage: number;
+  setCurrentPage: any;
   totalRows: number;
   rowsPerPage: number;
 }
 
-const Pagination = ({ pageChangeHandler, totalRows, rowsPerPage }: PaginationProps) => {
+const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage }: PaginationProps) => {
   // Calculating max number of pages
   const noOfPages = Math.ceil(totalRows / rowsPerPage);
 
-  // Creating an array with length equal to no.of pages
-  const pagesArr = [...new Array(noOfPages)];
+  const [pagesArr, setPagesArr] = useState([...new Array(noOfPages)]);
 
   // State variable to hold the current page. This value is
   // passed to the callback provided by the parent
-  const [currentPage, setCurrentPage] = useState(0);
+  // const [currentPage, setCurrentPage] = useState(0);
 
   // Navigation arrows enable/disable state
   const [canGoBack, setCanGoBack] = useState(false);
   const [canGoNext, setCanGoNext] = useState(true);
 
-  // Onclick handlers for the butons
+  // Onclick handlers for the buttons
   const onNextPage = () => setCurrentPage(currentPage + 1);
   const onPrevPage = () => setCurrentPage(currentPage - 1);
-  const onPageSelect = (pageNo: React.SetStateAction<number>) => setCurrentPage(pageNo);
+  const goToPage = (pageNo: React.SetStateAction<number>) => {
+    setCurrentPage(pageNo);
+  };
 
   // Disable previous and next buttons in the first and last page
   // respectively
   useEffect(() => {
-    if (noOfPages === currentPage) {
+    if (noOfPages - 1 === currentPage) {
       setCanGoNext(false);
     } else {
       setCanGoNext(true);
@@ -64,8 +94,10 @@ const Pagination = ({ pageChangeHandler, totalRows, rowsPerPage }: PaginationPro
     // const skipFactor = (currentPage - 1) * rowsPerPage;
     // Some APIs require skip for pagination. If needed use that instead
     // pageChangeHandler(skipFactor);
-    pageChangeHandler(currentPage);
-  }, [currentPage]);
+    console.log("test", currentPage);
+    setCurrentPage(currentPage);
+    setPagesArr(paginate(currentPage, noOfPages));
+  }, [noOfPages, currentPage]);
 
   return (
     <>
@@ -78,9 +110,9 @@ const Pagination = ({ pageChangeHandler, totalRows, rowsPerPage }: PaginationPro
             onClick={onPrevPage}
             disabled={!canGoBack}
           />
-          {pagesArr.map((_num, index) => (
-            <Flex key={index} layerStyle="pageButton" align="center" onClick={() => onPageSelect(index)}>
-              <Box className={index === currentPage ? "pageBtnActive" : ""} />
+          {pagesArr.map((page) => (
+            <Flex key={page} layerStyle="pageButton" align="center" onClick={() => goToPage(page)}>
+              <Box className={page === currentPage ? "pageBtnActive" : ""} />
             </Flex>
           ))}
           <IconButton

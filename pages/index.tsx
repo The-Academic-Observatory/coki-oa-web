@@ -179,6 +179,7 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
                 maxPageSize={maxPageSize}
                 lastUpdated={stats.last_updated}
                 searchParams={searchParamsCountry}
+                filterParams={filterParamsCountry}
                 setSortParams={setSortParamsCountry}
                 setPageParams={setPageParamsCountry}
               />
@@ -190,6 +191,7 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
                 maxPageSize={maxPageSize}
                 lastUpdated={stats.last_updated}
                 searchParams={searchParamsInstitution}
+                filterParams={filterParamsInstitution}
                 setSortParams={setSortParamsInstitution}
                 setPageParams={setPageParamsInstitution}
               />
@@ -202,6 +204,8 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
             tabIndex={tabIndex}
             setFilterParamsCountry={setFilterParamsCountry}
             setFilterParamsInstitution={setFilterParamsInstitution}
+            setPageParamsCountry={setPageParamsCountry}
+            setPageParamsInstitution={setPageParamsInstitution}
           />
         </Box>
       </Grid>
