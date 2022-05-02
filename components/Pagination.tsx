@@ -93,8 +93,6 @@ const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage }: Pag
   useEffect(() => {
     // const skipFactor = (currentPage - 1) * rowsPerPage;
     // Some APIs require skip for pagination. If needed use that instead
-    // pageChangeHandler(skipFactor);
-    console.log("test", currentPage);
     setCurrentPage(currentPage);
     setPagesArr(paginate(currentPage, noOfPages));
   }, [noOfPages, currentPage]);
