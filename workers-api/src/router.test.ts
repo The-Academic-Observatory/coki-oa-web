@@ -51,6 +51,14 @@ const fetchAll = async (endpoint: string, otherQueryParams: string = "") => {
     let res = await handleRequest(new Request(`http://localhost/api/${endpoint}?page=${i}${otherQueryParams}`));
     expect(res.status).toBe(200);
     let json = await res.json();
+    expect(json).toHaveProperty("items");
+    expect(json).toHaveProperty("nItems");
+    expect(json).toHaveProperty("page");
+    expect(json).toHaveProperty("limit");
+    expect(json).toHaveProperty("orderBy");
+    expect(json).toHaveProperty("orderDir");
+    expect(json.items).toBeInstanceOf(Array);
+
     //@ts-ignore
     results = results.concat(json.items);
     if (json.items.length == 0) {
