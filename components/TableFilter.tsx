@@ -115,6 +115,7 @@ const SubRegionForm = (
   setCheckedSubRegions: any,
   setValue: any,
 ) => {
+  // TODO group per region?
   return (
     <FormControl>
       <Stack maxHeight="300px" overflow={"scroll"}>
@@ -183,9 +184,10 @@ interface IFormInputs {
 
 interface TableFilterProps {
   tabIndex: number;
-  setFilterParams: (e: string) => void;
+  setFilterParamsCountry: (e: string) => void;
+  setFilterParamsInstitution: (e: string) => void;
 }
-const TableFilter = ({ tabIndex, setFilterParams, ...rest }: TableFilterProps) => {
+const TableFilter = ({ tabIndex, setFilterParamsCountry, setFilterParamsInstitution, ...rest }: TableFilterProps) => {
   const {
     handleSubmit,
     register,
@@ -195,6 +197,13 @@ const TableFilter = ({ tabIndex, setFilterParams, ...rest }: TableFilterProps) =
     formState: { errors, isSubmitting },
   } = useForm<IFormInputs>();
   // const watchRegions = watch("region");
+
+  const [checkedSubRegionsCountry, setCheckedSubRegionsCountry] = React.useState(subRegions);
+  const [checkedSubRegionsInstitution, setCheckedSubRegionsInstitution] = React.useState(subRegions);
+
+  const checkedSubRegions = tabIndex === 0 ? checkedSubRegionsCountry : checkedSubRegionsInstitution;
+  const setCheckedSubRegions = tabIndex === 0 ? setCheckedSubRegionsCountry : setCheckedSubRegionsInstitution;
+  console.log(tabIndex === 0 ? "country" : "institution");
 
   const transformFormResults = (formResults: { [x: string]: any }) => {
     return Object.keys(formResults)
@@ -219,14 +228,22 @@ const TableFilter = ({ tabIndex, setFilterParams, ...rest }: TableFilterProps) =
       searchParams.push(`subregions=${subregionValues}`);
     }
     console.log(searchParams.join("&"));
-    setFilterParams(searchParams.join("&"));
+    if (tabIndex === 0) {
+      setFilterParamsCountry(searchParams.join("&"));
+    } else {
+      setFilterParamsInstitution(searchParams.join("&"));
+    }
   });
 
   const onReset = () => {
-    setFilterParams("");
+    if (tabIndex === 0) {
+      setFilterParamsCountry("");
+    } else {
+      setFilterParamsInstitution("");
+    }
+    setCheckedSubRegions(subRegions);
   };
 
-  const [checkedSubRegions, setCheckedSubRegions] = React.useState(subRegions);
   return (
     <form onSubmit={onSubmit} onReset={onReset}>
       <Box borderRadius="md" boxShadow={{ base: "none", md: "md" }} overflow={"hidden"}>

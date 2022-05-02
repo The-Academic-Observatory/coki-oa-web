@@ -77,18 +77,37 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
     handleTabsChange(index);
   }, []);
 
-  const [sortParams, setSortParams] = React.useState("orderBy=stats.p_outputs_open&orderDir=dsc");
-  const [pageParams, setPageParams] = React.useState("page=0");
-  const [filterParams, setFilterParams] = React.useState("");
+  // Country search values
+  const [sortParamsCountry, setSortParamsCountry] = React.useState("orderBy=stats.p_outputs_open&orderDir=dsc");
+  const [pageParamsCountry, setPageParamsCountry] = React.useState("page=0");
+  const [filterParamsCountry, setFilterParamsCountry] = React.useState("");
+  const [searchParamsCountry, setSearchParamsCountry] = React.useState(
+    "?page=0&orderBy=stats.p_outputs_open&orderDir=dsc",
+  );
 
-  const [searchParams, setSearchParams] = React.useState("?page=1&orderBy=stats.p_outputs_open&orderDir=dsc");
-  useEffect(() => {
+  // Institution search values
+  const [sortParamsInstitution, setSortParamsInstitution] = React.useState("orderBy=stats.p_outputs_open&orderDir=dsc");
+  const [pageParamsInstitution, setPageParamsInstitution] = React.useState("page=0");
+  const [filterParamsInstitution, setFilterParamsInstitution] = React.useState("");
+  const [searchParamsInstitution, setSearchParamsInstitution] = React.useState(
+    "?page=0&orderBy=stats.p_outputs_open&orderDir=dsc",
+  );
+
+  const setSearchParams = (pageParams: string, sortParams: string, filterParams: string, setParams: any) => {
     let value = `?${pageParams}&${sortParams}`;
     if (filterParams) {
       value = value + `&${filterParams}`;
     }
-    setSearchParams(value);
-  }, [sortParams, filterParams, pageParams]);
+    setParams(value);
+  };
+
+  useEffect(() => {
+    setSearchParams(pageParamsCountry, sortParamsCountry, filterParamsCountry, setSearchParamsCountry);
+  }, [sortParamsCountry, filterParamsCountry, pageParamsCountry]);
+
+  useEffect(() => {
+    setSearchParams(pageParamsInstitution, sortParamsInstitution, filterParamsInstitution, setSearchParamsInstitution);
+  }, [sortParamsInstitution, filterParamsInstitution, pageParamsInstitution]);
 
   return (
     <Box m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}>
@@ -159,9 +178,9 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
                 categoryName="Country"
                 maxPageSize={maxPageSize}
                 lastUpdated={stats.last_updated}
-                searchParams={searchParams}
-                setSortParams={setSortParams}
-                setPageParams={setPageParams}
+                searchParams={searchParamsCountry}
+                setSortParams={setSortParamsCountry}
+                setPageParams={setPageParamsCountry}
               />
             </TabPanel>
             <TabPanel p={0}>
@@ -170,16 +189,20 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
                 categoryName="Institution"
                 maxPageSize={maxPageSize}
                 lastUpdated={stats.last_updated}
-                searchParams={searchParams}
-                setSortParams={setSortParams}
-                setPageParams={setPageParams}
+                searchParams={searchParamsInstitution}
+                setSortParams={setSortParamsInstitution}
+                setPageParams={setPageParamsInstitution}
               />
             </TabPanel>
           </TabPanels>
         </Tabs>
 
         <Box gridArea="filter">
-          <TableFilter tabIndex={tabIndex} setFilterParams={setFilterParams} />
+          <TableFilter
+            tabIndex={tabIndex}
+            setFilterParamsCountry={setFilterParamsCountry}
+            setFilterParamsInstitution={setFilterParamsInstitution}
+          />
         </Box>
       </Grid>
     </Box>
