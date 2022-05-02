@@ -27,8 +27,17 @@ import {
   Stack,
   Text,
   HStack,
+  VStack,
   FormControlProps,
   Button,
+  RangeSlider,
+  RangeSliderMark,
+  RangeSliderTrack,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
+  Tooltip,
+  Heading,
+  StackDivider,
 } from "@chakra-ui/react";
 import Icon from "./Icon";
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
@@ -41,15 +50,15 @@ const regions = {
   Europe: ["Eastern Europe", "Northern Europe", "Southern Europe", "Western Europe"],
   Oceania: ["Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"],
 };
-const RegionForm = (
+const regionForm = (
   control: any,
-  checkedSubRegions: { [x: string]: boolean },
-  setCheckedSubRegions: any,
+  checkedSubregions: { [x: string]: boolean },
+  setCheckedSubregions: any,
   setValue: any,
 ) => {
   const isChecked = (region: string) => {
     for (let subregion of regions[region]) {
-      if (!checkedSubRegions[subregion]) {
+      if (!checkedSubregions[subregion]) {
         return false;
       }
     }
@@ -71,12 +80,12 @@ const RegionForm = (
                 colorScheme="checkbox"
                 isChecked={isChecked(region)}
                 onChange={(e) => {
-                  const checkedSubRegionsCopy = JSON.parse(JSON.stringify(checkedSubRegions));
+                  const checkedSubregionsCopy = JSON.parse(JSON.stringify(checkedSubregions));
                   for (let subregion of regions[region]) {
-                    checkedSubRegionsCopy[subregion] = e.target.checked;
+                    checkedSubregionsCopy[subregion] = e.target.checked;
                   }
-                  setCheckedSubRegions(checkedSubRegionsCopy);
-                  setValue("subregion", checkedSubRegionsCopy);
+                  setCheckedSubregions(checkedSubregionsCopy);
+                  setValue("subregion", checkedSubregionsCopy);
                 }}
                 ref={ref}
               >
@@ -90,7 +99,7 @@ const RegionForm = (
   );
 };
 
-const subRegions = {
+const subregions = {
   "Australia and New Zealand": false,
   "Central Asia": false,
   "Eastern Asia": false,
@@ -109,17 +118,17 @@ const subRegions = {
   "Western Asia": false,
   "Western Europe": false,
 };
-const SubRegionForm = (
+const subregionForm = (
   control: any,
-  checkedSubRegions: { [x: string]: boolean },
-  setCheckedSubRegions: any,
+  checkedSubregions: { [x: string]: boolean },
+  setCheckedSubregions: any,
   setValue: any,
 ) => {
   // TODO group per region?
   return (
     <FormControl>
       <Stack maxHeight="300px" overflow={"scroll"}>
-        {Object.keys(subRegions).map((subregion): ReactElement => {
+        {Object.keys(subregions).map((subregion): ReactElement => {
           return (
             <Controller
               control={control}
@@ -131,12 +140,12 @@ const SubRegionForm = (
                   key={subregion}
                   variant="tableFilter"
                   colorScheme="checkbox"
-                  isChecked={checkedSubRegions[subregion]}
+                  isChecked={checkedSubregions[subregion]}
                   onChange={(e) => {
-                    const checkedSubRegionsCopy = JSON.parse(JSON.stringify(checkedSubRegions));
-                    checkedSubRegionsCopy[subregion] = e.target.checked;
-                    setCheckedSubRegions(checkedSubRegionsCopy);
-                    setValue("subregion", checkedSubRegionsCopy);
+                    const checkedSubregionsCopy = JSON.parse(JSON.stringify(checkedSubregions));
+                    checkedSubregionsCopy[subregion] = e.target.checked;
+                    setCheckedSubregions(checkedSubregionsCopy);
+                    setValue("subregion", checkedSubregionsCopy);
                   }}
                   ref={ref}
                 >
@@ -148,6 +157,114 @@ const SubRegionForm = (
         })}
       </Stack>
     </FormControl>
+  );
+};
+
+const institutionTypes = [
+  "Archive",
+  "Company",
+  "Education",
+  "Facility",
+  "Government",
+  "Healthcare",
+  "Nonprofit",
+  "Other",
+];
+const institutionTypeForm = (control: any) => {
+  return (
+    <SimpleGrid columns={2} spacing={3}>
+      {institutionTypes.map((institutionType): ReactElement => {
+        return (
+          <Controller
+            control={control}
+            name={`institutionType.${institutionType}`}
+            key={institutionType}
+            defaultValue={false}
+            render={({ field: { onChange, value, ref } }) => (
+              <Checkbox variant="tableFilter" colorScheme="checkbox" isChecked={!!value} onChange={onChange} ref={ref}>
+                {institutionType}
+              </Checkbox>
+            )}
+          />
+        );
+      })}
+    </SimpleGrid>
+  );
+};
+
+const stats = ["Total Publications", "Open Publications", "% Open Publications"];
+const statsForm = (control: any) => {
+  return (
+    <VStack align={"stretch"} divider={<StackDivider borderColor="grey.500" />}>
+      {stats.map((statsType): ReactElement => {
+        const [sliderValue, setSliderValue] = React.useState([0, 10]);
+
+        return (
+          <Controller
+            key={statsType}
+            control={control}
+            name={statsType}
+            defaultValue={false}
+            render={({ field: { onChange, value, ref } }) => (
+              <Box>
+                <Box>
+                  <Text textStyle="tableHeader">{statsType}</Text>
+                </Box>
+                <RangeSlider
+                  aria-label={["min", "max"]}
+                  defaultValue={[10, 30]}
+                  onChange={setSliderValue}
+                  //TODO make dynamic
+                  h={"85px"}
+                  variant={"tableFilter"}
+                >
+                  <RangeSliderMark // TODO define min and max values
+                    value={0}
+                    mt="5"
+                    ml="-2.5"
+                    fontSize="sm"
+                  >
+                    0
+                  </RangeSliderMark>
+                  <RangeSliderMark value={100} mt="5" ml="-2.5" fontSize="sm">
+                    100
+                  </RangeSliderMark>
+                  <RangeSliderTrack>
+                    <RangeSliderFilledTrack />
+                  </RangeSliderTrack>
+                  <Tooltip
+                    hasArrow
+                    label={sliderValue[0]}
+                    bg="brand.500"
+                    rounded={"md"}
+                    color="white"
+                    placement="top"
+                    pl={2}
+                    pr={2}
+                    //TODO keep open while accordionitem is expanded
+                  >
+                    <RangeSliderThumb index={0} boxSize={5} />
+                  </Tooltip>
+                  <Tooltip
+                    hasArrow
+                    label={sliderValue[1]}
+                    bg="brand.500"
+                    rounded={"md"}
+                    color="white"
+                    placement="top"
+                    pl={2}
+                    pr={2}
+                    //TODO keep open while accordionitem is expanded
+                  >
+                    <RangeSliderThumb index={1} boxSize={5} />
+                  </Tooltip>
+                </RangeSlider>
+              </Box>
+            )}
+          />
+        );
+      })}
+    </VStack>
   );
 };
 
@@ -168,7 +285,7 @@ const FilterAccordionItem = ({ name, form }: FilterAccordionItemProps) => {
               {isExpanded ? <CloseIcon fontSize="12px" /> : <AddIcon fontSize="12px" />}
             </AccordionButton>
           </h2>
-          <AccordionPanel pb={4} bg="grey.300">
+          <AccordionPanel pb={4} bg="#F9FAFA">
             {form}
           </AccordionPanel>
         </>
@@ -180,32 +297,35 @@ const FilterAccordionItem = ({ name, form }: FilterAccordionItemProps) => {
 interface IFormInputs {
   region: any;
   subregion: any;
+  institutionType: any;
 }
 
 interface TableFilterProps {
   tabIndex: number;
   setFilterParamsCountry: (e: string) => void;
   setFilterParamsInstitution: (e: string) => void;
+  setPageParamsCountry: (e: string) => void;
+  setPageParamsInstitution: (e: string) => void;
 }
-const TableFilter = ({ tabIndex, setFilterParamsCountry, setFilterParamsInstitution, ...rest }: TableFilterProps) => {
-  const {
-    handleSubmit,
-    register,
-    control,
-    watch,
-    setValue,
-    formState: { errors, isSubmitting },
-  } = useForm<IFormInputs>();
-  // const watchRegions = watch("region");
+const TableFilter = ({
+  tabIndex,
+  setFilterParamsCountry,
+  setFilterParamsInstitution,
+  setPageParamsCountry,
+  setPageParamsInstitution,
+  ...rest
+}: TableFilterProps) => {
+  const { handleSubmit, control, setValue, reset } = useForm<IFormInputs>();
+  const [checkedSubregionsCountry, setCheckedSubregionsCountry] = React.useState(subregions);
+  const [checkedSubregionsInstitution, setCheckedSubregionsInstitution] = React.useState(subregions);
 
-  const [checkedSubRegionsCountry, setCheckedSubRegionsCountry] = React.useState(subRegions);
-  const [checkedSubRegionsInstitution, setCheckedSubRegionsInstitution] = React.useState(subRegions);
-
-  const checkedSubRegions = tabIndex === 0 ? checkedSubRegionsCountry : checkedSubRegionsInstitution;
-  const setCheckedSubRegions = tabIndex === 0 ? setCheckedSubRegionsCountry : setCheckedSubRegionsInstitution;
-  console.log(tabIndex === 0 ? "country" : "institution");
+  const checkedSubregions = tabIndex === 0 ? checkedSubregionsCountry : checkedSubregionsInstitution;
+  const setCheckedSubregions = tabIndex === 0 ? setCheckedSubregionsCountry : setCheckedSubregionsInstitution;
 
   const transformFormResults = (formResults: { [x: string]: any }) => {
+    if (formResults === undefined) {
+      return "";
+    }
     return Object.keys(formResults)
       .reduce((result: string[], item) => {
         if (formResults[item]) {
@@ -216,10 +336,10 @@ const TableFilter = ({ tabIndex, setFilterParamsCountry, setFilterParamsInstitut
       .toString();
   };
   const onSubmit = handleSubmit((data: IFormInputs) => {
-    // TODO remember filter values from the two different tabs
     const regionValues = transformFormResults(data.region);
     const subregionValues = transformFormResults(data.subregion);
-    console.log(data, regionValues, subregionValues);
+    const institutionTypeValues = transformFormResults(data.institutionType);
+    console.log(data, regionValues, subregionValues, institutionTypeValues);
     const searchParams = [];
     if (regionValues) {
       searchParams.push(`regions=${regionValues}`);
@@ -227,11 +347,16 @@ const TableFilter = ({ tabIndex, setFilterParamsCountry, setFilterParamsInstitut
     if (subregionValues) {
       searchParams.push(`subregions=${subregionValues}`);
     }
+    if (institutionTypeValues) {
+      searchParams.push(`institutionTypes=${institutionTypeValues}`);
+    }
     console.log(searchParams.join("&"));
     if (tabIndex === 0) {
       setFilterParamsCountry(searchParams.join("&"));
+      setPageParamsCountry("page=0");
     } else {
       setFilterParamsInstitution(searchParams.join("&"));
+      setPageParamsInstitution("page=0");
     }
   });
 
@@ -241,7 +366,8 @@ const TableFilter = ({ tabIndex, setFilterParamsCountry, setFilterParamsInstitut
     } else {
       setFilterParamsInstitution("");
     }
-    setCheckedSubRegions(subRegions);
+    setCheckedSubregions(subregions);
+    reset();
   };
 
   return (
@@ -252,20 +378,21 @@ const TableFilter = ({ tabIndex, setFilterParamsCountry, setFilterParamsInstitut
             <Icon icon="filter" color="white" size={24} />
           </Box>
           <Text fontWeight="900" fontSize="12px" textTransform="uppercase" color="white">
-            {" "}
-            Filters {tabIndex}{" "}
+            Filters
           </Text>
         </HStack>
 
         <Accordion defaultIndex={[0]} allowMultiple variant="tableFilter">
+          {tabIndex === 1 ? <FilterAccordionItem name={"Institution Type"} form={institutionTypeForm(control)} /> : ""}
           <FilterAccordionItem
             name={"Region"}
-            form={RegionForm(control, checkedSubRegions, setCheckedSubRegions, setValue)}
+            form={regionForm(control, checkedSubregions, setCheckedSubregions, setValue)}
           />
           <FilterAccordionItem
-            name={"SubRegion"}
-            form={SubRegionForm(control, checkedSubRegions, setCheckedSubRegions, setValue)}
+            name={"Subregion"}
+            form={subregionForm(control, checkedSubregions, setCheckedSubregions, setValue)}
           />
+          <FilterAccordionItem name={"Publication Count / Open Access"} form={statsForm(control)} />
         </Accordion>
 
         <HStack justifyContent="space-around" m={{ base: "none", md: "10px 0px" }}>

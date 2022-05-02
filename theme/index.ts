@@ -20,6 +20,7 @@ import Accordion from "./components/accordion";
 import Button from "./components/button";
 import Checkbox from "./components/checkbox";
 import Popover from "./components/popover";
+import Slider from "./components/slider";
 import Table from "./components/table";
 import Tabs from "./components/tabs";
 
@@ -304,10 +305,11 @@ const theme = extendTheme({
     },
   },
   components: {
-    Table,
     Accordion,
     Button,
     Checkbox,
+    Slider,
+    Table,
     Tabs,
     Popover,
   },
