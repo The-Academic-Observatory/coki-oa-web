@@ -51,20 +51,26 @@ const fetchAll = async (endpoint: string, otherQueryParams: string = "") => {
     let res = await handleRequest(new Request(`http://localhost/api/${endpoint}?page=${i}${otherQueryParams}`));
     expect(res.status).toBe(200);
     let json = await res.json();
-    //@ts-ignore
-    results = results.concat(json);
+    expect(json).toHaveProperty("items");
+    expect(json).toHaveProperty("nItems");
+    expect(json).toHaveProperty("page");
+    expect(json).toHaveProperty("limit");
+    expect(json).toHaveProperty("orderBy");
+    expect(json).toHaveProperty("orderDir");
+    expect(json.items).toBeInstanceOf(Array);
 
-    if (json.length == 0) {
+    //@ts-ignore
+    results = results.concat(json.items);
+    if (json.items.length == 0) {
       break;
     }
-
     i += 1;
   }
 
   return results;
 };
 
-test("test handleRequest countries: order", async () => {
+test("test handleRequest countries: order key stats.p_outputs_open", async () => {
   const endpoint = "countries";
   let orderByKey = "stats.p_outputs_open";
 
@@ -83,6 +89,29 @@ test("test handleRequest countries: order", async () => {
   // Check sorted in ascending order after fetching all pages
   expect(results.length).toBeGreaterThan(0);
   results = await fetchAll(endpoint, "&orderDir=asc");
+  //@ts-ignore
+  expect(results.map((x) => lodashGet(x, orderByKey))).toBeSorted({ descending: false });
+});
+
+test("test handleRequest countries: order key name", async () => {
+  const endpoint = "countries";
+  let orderByKey = "name";
+
+  // Check sorted in descending order, with default params, after fetching all pages
+  let results = await fetchAll(endpoint, `&orderBy=${orderByKey}`);
+  expect(results.length).toBeGreaterThan(0);
+  //@ts-ignore
+  expect(results.map((x) => lodashGet(x, orderByKey))).toBeSorted({ descending: true });
+
+  // Check sorted in descending order after fetching all pages
+  results = await fetchAll(endpoint, `&orderBy=${orderByKey}&orderDir=dsc`);
+  expect(results.length).toBeGreaterThan(0);
+  //@ts-ignore
+  expect(results.map((x) => lodashGet(x, orderByKey))).toBeSorted({ descending: true });
+
+  // Check sorted in ascending order after fetching all pages
+  expect(results.length).toBeGreaterThan(0);
+  results = await fetchAll(endpoint, `&orderBy=${orderByKey}&orderDir=asc`);
   //@ts-ignore
   expect(results.map((x) => lodashGet(x, orderByKey))).toBeSorted({ descending: false });
 });

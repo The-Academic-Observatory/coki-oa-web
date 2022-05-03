@@ -308,65 +308,72 @@ Query Parameter enumerations:
 
 #### Sample Request
 ```bash
-curl https://open.coki.ac/api/countries?page=0&regions=Oceania
+curl "https://open.coki.ac/api/countries?page=0&regions=Oceania"
 ```
 
 #### Sample Response
 ```json
-[
-  {
-    "id": "PNG",
-    "name": "Papua New Guinea",
-    "logo_s": "/logos/country/s/PNG.svg",
-    "category": "country",
-    "subregion": "Melanesia",
-    "region": "Oceania",
-    "stats": {
-      "n_outputs": 1964,
-      "n_outputs_open": 1022,
-      "p_outputs_open": 52.0366598778004,
-      "p_outputs_publisher_open_only": 12,
-      "p_outputs_both": 29,
-      "p_outputs_other_platform_open_only": 11,
-      "p_outputs_closed": 48
-    }
-  },
-  {
-    "id": "AUS",
-    "name": "Australia",
-    "logo_s": "/logos/country/s/AUS.svg",
-    "category": "country",
-    "subregion": "Australia and New Zealand",
-    "region": "Oceania",
-    "stats": {
-      "n_outputs": 1397124,
-      "n_outputs_open": 556603,
-      "p_outputs_open": 39.839198238667436,
-      "p_outputs_publisher_open_only": 10,
-      "p_outputs_both": 17,
-      "p_outputs_other_platform_open_only": 13,
-      "p_outputs_closed": 60
-    }
-  },
-  {
-    "id": "NZL",
-    "name": "New Zealand",
-    "logo_s": "/logos/country/s/NZL.svg",
-    "category": "country",
-    "subregion": "Australia and New Zealand",
-    "region": "Oceania",
-    "stats": {
-      "n_outputs": 214072,
-      "n_outputs_open": 75871,
-      "p_outputs_open": 35.44181396913188,
-      "p_outputs_publisher_open_only": 11,
-      "p_outputs_both": 15,
-      "p_outputs_other_platform_open_only": 10,
-      "p_outputs_closed": 64
-    }
-  },
-  ...
-]
+{
+  "items": [
+    {
+      "id": "PNG",
+      "name": "Papua New Guinea",
+      "logo_s": "/logos/country/s/PNG.svg",
+      "category": "country",
+      "subregion": "Melanesia",
+      "region": "Oceania",
+      "stats": {
+        "n_outputs": 1964,
+        "n_outputs_open": 1022,
+        "p_outputs_open": 52.0366598778004,
+        "p_outputs_publisher_open_only": 12,
+        "p_outputs_both": 29,
+        "p_outputs_other_platform_open_only": 11,
+        "p_outputs_closed": 48
+      }
+    },
+    {
+      "id": "AUS",
+      "name": "Australia",
+      "logo_s": "/logos/country/s/AUS.svg",
+      "category": "country",
+      "subregion": "Australia and New Zealand",
+      "region": "Oceania",
+      "stats": {
+        "n_outputs": 1397124,
+        "n_outputs_open": 556603,
+        "p_outputs_open": 39.839198238667436,
+        "p_outputs_publisher_open_only": 10,
+        "p_outputs_both": 17,
+        "p_outputs_other_platform_open_only": 13,
+        "p_outputs_closed": 60
+      }
+    },
+    {
+      "id": "NZL",
+      "name": "New Zealand",
+      "logo_s": "/logos/country/s/NZL.svg",
+      "category": "country",
+      "subregion": "Australia and New Zealand",
+      "region": "Oceania",
+      "stats": {
+        "n_outputs": 214072,
+        "n_outputs_open": 75871,
+        "p_outputs_open": 35.44181396913188,
+        "p_outputs_publisher_open_only": 11,
+        "p_outputs_both": 15,
+        "p_outputs_other_platform_open_only": 10,
+        "p_outputs_closed": 64
+      }
+    },
+    ...
+  ],
+  "nItems": 4,
+  "page": 0,
+  "limit": 18,
+  "orderBy": "stats.p_outputs_open",
+  "orderDir": "dsc"
+}
 ```
 
 ### Institutions
@@ -403,77 +410,84 @@ Query Parameter enumerations:
 
 #### Sample Request
 ```bash
-curl https://open.coki.ac/api/institutions?page=0&regions=Oceania&institutionTypes=Facility
+curl "https://open.coki.ac/api/institutions?page=0&regions=Oceania&institutionTypes=Facility"
 ```
 
 #### Sample Response
 ```json
-[
-  {
-    "id": "030cszc07",
-    "name": "Australian Astronomical Observatory",
-    "logo_s": "/logos/institution/s/030cszc07.jpg",
-    "category": "institution",
-    "country": "Australia",
-    "subregion": "Australia and New Zealand",
-    "region": "Oceania",
-    "institution_types": [
-      "Facility"
-    ],
-    "stats": {
-      "n_outputs": 1243,
-      "n_outputs_open": 1113,
-      "p_outputs_open": 89.54143201930812,
-      "p_outputs_publisher_open_only": 3,
-      "p_outputs_both": 48,
-      "p_outputs_other_platform_open_only": 39,
-      "p_outputs_closed": 10
-    }
-  },
-  {
-    "id": "05qajvd42",
-    "name": "Australia Telescope National Facility",
-    "logo_s": "/logos/institution/s/05qajvd42.jpg",
-    "category": "institution",
-    "country": "Australia",
-    "subregion": "Australia and New Zealand",
-    "region": "Oceania",
-    "institution_types": [
-      "Facility"
-    ],
-    "stats": {
-      "n_outputs": 1742,
-      "n_outputs_open": 1493,
-      "p_outputs_open": 85.7060849598163,
-      "p_outputs_publisher_open_only": 9,
-      "p_outputs_both": 42,
-      "p_outputs_other_platform_open_only": 35,
-      "p_outputs_closed": 14
-    }
-  },
-  {
-    "id": "03dsbfb14",
-    "name": "Australian Institute of Tropical Health and Medicine",
-    "logo_s": "/logos/institution/s/03dsbfb14.jpg",
-    "category": "institution",
-    "country": "Australia",
-    "subregion": "Australia and New Zealand",
-    "region": "Oceania",
-    "institution_types": [
-      "Facility"
-    ],
-    "stats": {
-      "n_outputs": 1011,
-      "n_outputs_open": 741,
-      "p_outputs_open": 73.29376854599407,
-      "p_outputs_publisher_open_only": 7,
-      "p_outputs_both": 55,
-      "p_outputs_other_platform_open_only": 11,
-      "p_outputs_closed": 27
-    }
-  },
-  ...
-]
+{
+  "items": [
+    {
+      "id": "030cszc07",
+      "name": "Australian Astronomical Observatory",
+      "logo_s": "/logos/institution/s/030cszc07.jpg",
+      "category": "institution",
+      "country": "Australia",
+      "subregion": "Australia and New Zealand",
+      "region": "Oceania",
+      "institution_types": [
+        "Facility"
+      ],
+      "stats": {
+        "n_outputs": 1243,
+        "n_outputs_open": 1113,
+        "p_outputs_open": 89.54143201930812,
+        "p_outputs_publisher_open_only": 3,
+        "p_outputs_both": 48,
+        "p_outputs_other_platform_open_only": 39,
+        "p_outputs_closed": 10
+      }
+    },
+    {
+      "id": "05qajvd42",
+      "name": "Australia Telescope National Facility",
+      "logo_s": "/logos/institution/s/05qajvd42.jpg",
+      "category": "institution",
+      "country": "Australia",
+      "subregion": "Australia and New Zealand",
+      "region": "Oceania",
+      "institution_types": [
+        "Facility"
+      ],
+      "stats": {
+        "n_outputs": 1742,
+        "n_outputs_open": 1493,
+        "p_outputs_open": 85.7060849598163,
+        "p_outputs_publisher_open_only": 9,
+        "p_outputs_both": 42,
+        "p_outputs_other_platform_open_only": 35,
+        "p_outputs_closed": 14
+      }
+    },
+    {
+      "id": "03dsbfb14",
+      "name": "Australian Institute of Tropical Health and Medicine",
+      "logo_s": "/logos/institution/s/03dsbfb14.jpg",
+      "category": "institution",
+      "country": "Australia",
+      "subregion": "Australia and New Zealand",
+      "region": "Oceania",
+      "institution_types": [
+        "Facility"
+      ],
+      "stats": {
+        "n_outputs": 1011,
+        "n_outputs_open": 741,
+        "p_outputs_open": 73.29376854599407,
+        "p_outputs_publisher_open_only": 7,
+        "p_outputs_both": 55,
+        "p_outputs_other_platform_open_only": 11,
+        "p_outputs_closed": 27
+      }
+    },
+    ...
+  ],
+  "nItems": 21,
+  "page": 0,
+  "limit": 18,
+  "orderBy": "stats.p_outputs_open",
+  "orderDir": "dsc"
+}
 ```
 
 ## 6. Contributors

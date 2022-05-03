@@ -137,12 +137,30 @@ export function filterResults(array: ArrayView<Entity>, query: Query): Entity[] 
 }
 
 export function paginateResults<Type>(array: Array<Type>, pageSettings: PageSettings): Array<Type> {
+  // Check we are sorting numbers or strings
+  const isNumber = pageSettings.orderBy !== "name";
+
   // Sort
   let results = array.sort((a, b) => {
     // lodash.get enables us to retrieve nested properties via a string
     const aSortProp = lodashGet(a, pageSettings.orderBy);
     const bSortProp = lodashGet(b, pageSettings.orderBy);
-    return aSortProp - bSortProp;
+
+    // If number
+    if (isNumber) {
+      return aSortProp - bSortProp;
+    }
+
+    // If string
+    if (aSortProp < bSortProp) {
+      return -1;
+    }
+    if (aSortProp > bSortProp) {
+      return 1;
+    }
+
+    // Strings equal
+    return 0;
   });
 
   // Change to descending order
@@ -163,12 +181,23 @@ export const countriesHandler = (req: FilterRequest) => {
 
   // Filter
   let results = filterResults(countries, query);
+  const nItems = results.length;
 
   // Paginate
   results = paginateResults(results, pageSettings);
 
+  // Make final search object
+  let obj = {
+    items: results,
+    nItems: nItems,
+    page: pageSettings.page,
+    limit: pageSettings.limit,
+    orderBy: pageSettings.orderBy,
+    orderDir: pageSettings.orderDir,
+  };
+
   // Convert to JSON, returning results
-  const json = JSON.stringify(results);
+  const json = JSON.stringify(obj);
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Content-type": "application/json",
@@ -185,12 +214,23 @@ export const institutionsHandler = (req: FilterRequest) => {
 
   // Filter
   let results = filterResults(institutions, query);
+  const nItems = results.length;
 
   // Paginate
   results = paginateResults(results, pageSettings);
 
+  // Make final search object
+  let obj = {
+    items: results,
+    nItems: nItems,
+    page: pageSettings.page,
+    limit: pageSettings.limit,
+    orderBy: pageSettings.orderBy,
+    orderDir: pageSettings.orderDir,
+  };
+
   // Convert to JSON, returning results
-  const json = JSON.stringify(results);
+  const json = JSON.stringify(obj);
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Content-type": "application/json",

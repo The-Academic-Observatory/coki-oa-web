@@ -199,7 +199,7 @@ test("test paginateResults dsc", () => {
     orderDir: "dsc",
   };
 
-  // Page 0 ascending
+  // Page 0 descending
   let results = paginateResults(entities, pageSettings);
   let expected = [
     {
@@ -213,7 +213,7 @@ test("test paginateResults dsc", () => {
   ];
   expect(results).toMatchObject(expected);
 
-  // Page 1 ascending
+  // Page 1 descending
   pageSettings.page = 1;
   results = paginateResults(entities, pageSettings);
   expected = [
@@ -228,7 +228,7 @@ test("test paginateResults dsc", () => {
   ];
   expect(results).toMatchObject(expected);
 
-  // Page 2 ascending
+  // Page 2 descending
   pageSettings.page = 2;
   results = paginateResults(entities, pageSettings);
   expected = [
@@ -243,31 +243,31 @@ test("test paginateResults dsc", () => {
   ];
   expect(results).toMatchObject(expected);
 
-  // Page 2 ascending
+  // Page 2 descending
   pageSettings.page = 3;
   results = paginateResults(entities, pageSettings);
   expected = [];
   expect(results).toMatchObject(expected);
 });
 
-test("test paginateResults asc", () => {
+test("test paginateResults dsc name", () => {
   let pageSettings = {
     page: 0,
     limit: 2,
-    orderBy: "open",
-    orderDir: "asc",
+    orderBy: "name",
+    orderDir: "dsc",
   };
 
   // Page 0 dsc
   let results = paginateResults(entities, pageSettings);
   let expected = [
     {
-      name: "A",
-      open: 1,
+      name: "F",
+      open: 4,
     },
     {
-      name: "D",
-      open: 3,
+      name: "E",
+      open: 100,
     },
   ];
   expect(results).toMatchObject(expected);
@@ -277,8 +277,8 @@ test("test paginateResults asc", () => {
   results = paginateResults(entities, pageSettings);
   expected = [
     {
-      name: "F",
-      open: 4,
+      name: "D",
+      open: 3,
     },
     {
       name: "C",
@@ -296,13 +296,72 @@ test("test paginateResults asc", () => {
       open: 10,
     },
     {
+      name: "A",
+      open: 1,
+    },
+  ];
+  expect(results).toMatchObject(expected);
+
+  // Page 3 dsc
+  pageSettings.page = 3;
+  results = paginateResults(entities, pageSettings);
+  expected = [];
+  expect(results).toMatchObject(expected);
+});
+
+test("test paginateResults asc", () => {
+  let pageSettings = {
+    page: 0,
+    limit: 2,
+    orderBy: "open",
+    orderDir: "asc",
+  };
+
+  // Page 0 asc
+  let results = paginateResults(entities, pageSettings);
+  let expected = [
+    {
+      name: "A",
+      open: 1,
+    },
+    {
+      name: "D",
+      open: 3,
+    },
+  ];
+  expect(results).toMatchObject(expected);
+
+  // Page 1 asc
+  pageSettings.page = 1;
+  results = paginateResults(entities, pageSettings);
+  expected = [
+    {
+      name: "F",
+      open: 4,
+    },
+    {
+      name: "C",
+      open: 7,
+    },
+  ];
+  expect(results).toMatchObject(expected);
+
+  // Page 2 asc
+  pageSettings.page = 2;
+  results = paginateResults(entities, pageSettings);
+  expected = [
+    {
+      name: "B",
+      open: 10,
+    },
+    {
       name: "E",
       open: 100,
     },
   ];
   expect(results).toMatchObject(expected);
 
-  // Page 2 ascending
+  // Page 3 asc
   pageSettings.page = 3;
   results = paginateResults(entities, pageSettings);
   expected = [];
@@ -356,7 +415,7 @@ test("test paginateResults nested orderBy", () => {
     },
   ];
 
-  // Page 0 ascending
+  // Page 0 dsc
   let results = paginateResults(entities, pageSettings);
   let expected = [
     {
