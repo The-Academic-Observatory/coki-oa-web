@@ -21,15 +21,16 @@
     "@nivo/pie": "^0.79.1",
     "@nivo/stream": "^0.79.1",
     "@types/react-table": "^7.7.8",
+    "chakra-ui-autocomplete": "^1.4.5",
     "framer-motion": "^4",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
     "next": "^12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-hook-form": "^7.30.0",
     "react-icomoon": "^2.4.2",
-    "react-table": "^7.7.0",
-    "react-hook-form": "^7.30.0"
+    "react-table": "^7.7.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.19.0",
