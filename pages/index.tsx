@@ -130,7 +130,7 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
 
       <Grid
         maxWidth={{ base: "full", std: maxTabsWidth }}
-        templateAreas={{ base: `"header" "table" "filter"`, std: `"header ." "table filter" "table filter"` }}
+        templateAreas={{ base: `"header" "table" "filter"`, std: `"header ." "table filter" ". filter"` }}
         templateColumns={{ std: `75% 25%` }}
         columnGap={"20px"}
       >
