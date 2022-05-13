@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: James Diprose
+// Author: James Diprose, Aniek Roelofs
 
 import {
   Box,
@@ -20,7 +20,6 @@ import {
   Button,
   Flex,
   HStack,
-  IconButton,
   Image,
   Table,
   Tbody,
@@ -29,13 +28,12 @@ import {
   Th,
   Thead,
   Tr,
-  useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { Cell, ColumnInstance, Row, usePagination, useSortBy, useTable } from "react-table";
 import { Entity } from "../lib/model";
-import { ChevronLeftIcon, ChevronRightIcon, ArrowUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
+import { ChevronRightIcon, ArrowUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import DonutSparkline from "./DonutSparkline";
 import BreakdownSparkline from "./BreakdownSparkline";
 import Icon from "./Icon";
@@ -52,7 +50,7 @@ interface EntityProps {
   entity: Entity;
 }
 
-function EntityCell({ value, entity }: EntityProps) {
+function EntityCell({ entity }: EntityProps) {
   const href = makeHref(entity.category, entity.id);
   return (
     <Link href={href}>
@@ -75,7 +73,7 @@ function OpenCell({ value, entity }: EntityProps) {
   );
 }
 
-function BreakdownCell({ value, entity }: EntityProps) {
+function BreakdownCell({ entity }: EntityProps) {
   const href = makeHref(entity.category, entity.id);
   let stats = entity.stats;
   let values = [
@@ -92,11 +90,11 @@ function BreakdownCell({ value, entity }: EntityProps) {
   );
 }
 
-function NumberCell({ value, entity }: EntityProps) {
+function NumberCell({ value }: EntityProps) {
   return <span>{value.toLocaleString()}</span>;
 }
 
-function LearnMoreCell({ value, entity }: EntityProps) {
+function LearnMoreCell({ entity }: EntityProps) {
   const href = makeHref(entity.category, entity.id);
   return (
     <Link href={href} textDecorationColor="white !important">
@@ -160,7 +158,7 @@ interface Props extends BoxProps {
   firstPage: any;
   categoryName: string;
   maxPageSize: number;
-  lastUpdated: Date;
+  lastUpdated: number;
   searchParams: string;
   filterParams: string;
   setSortParams: (e: string) => void;
@@ -261,7 +259,7 @@ const IndexTable = ({
     prepareRow,
     page,
     setPageSize,
-    state: { pageIndex, pageSize, sortBy },
+    state: { pageSize, sortBy },
   } = useTable(
     {
       columns,
@@ -302,7 +300,6 @@ const IndexTable = ({
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        //TODO get total entities from api
         setPageData({
           isLoading: false,
           rowData: data.items,
@@ -340,7 +337,7 @@ const IndexTable = ({
             })}
           </Thead>
           <Tbody {...getTableBodyProps()}>
-            {page.map((row: Row<any>, i: number) => {
+            {page.map((row: Row<any>) => {
               prepareRow(row);
               return (
                 <Tr key={row.original.id} role="row" zIndex="1" data-test={row.original.id}>

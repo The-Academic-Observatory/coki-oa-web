@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { Box, Grid, SimpleGrid, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
+import { Box, Grid, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import { Entity } from "../lib/model";
 import { getIndexTableData, getStatsData } from "../lib/api";
 import React, { useEffect } from "react";
@@ -93,7 +93,12 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
     "?page=0&orderBy=stats.p_outputs_open&orderDir=dsc",
   );
 
-  const setSearchParams = (pageParams: string, sortParams: string, filterParams: string, setParams: any) => {
+  const setSearchParams = (
+    pageParams: string,
+    sortParams: string,
+    filterParams: string,
+    setParams: (value: string) => void,
+  ) => {
     let value = `?${pageParams}&${sortParams}`;
     if (filterParams) {
       value = value + `&${filterParams}`;

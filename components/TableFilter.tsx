@@ -20,112 +20,22 @@ import {
   AccordionButton,
   AccordionItem,
   AccordionPanel,
-  Avatar,
   Box,
   Button,
-  Flex,
-  FormControl,
   FormControlProps,
   HStack,
-  Stack,
-  Image,
   Text,
-  Checkbox,
 } from "@chakra-ui/react";
+import { AddIcon, CloseIcon } from "@chakra-ui/icons";
+import { useForm } from "react-hook-form";
 import Icon from "./Icon";
-import { AddIcon, CloseIcon, CheckCircleIcon } from "@chakra-ui/icons";
-import { useForm, Controller } from "react-hook-form";
+import CountryForm, { CustomItem } from "./CountryForm";
 import InstitutionTypeForm from "./InstitutionTypeForm";
 import RegionForm from "./RegionForm";
-import { SubregionForm, subregions } from "./SubregionForm";
-import StatsForm from "./StatsForm";
-import { CUIAutoComplete, Item } from "chakra-ui-autocomplete";
+import SubregionForm, { subregions } from "./SubregionForm";
+import StatsForm, { sliderValues } from "./StatsForm";
 
-interface CustomItem extends Item {
-  logo: string;
-}
-
-const customRender = (item: CustomItem) => {
-  return (
-    <HStack my="1px">
-      <Image rounded="full" objectFit="cover" boxSize="16px" src={item.logo} alt={item.label} />
-      <Text textStyle="tableCell">{item.label}</Text>
-    </HStack>
-  );
-};
-
-const CountryForm = (control: any, selectedCountries: CustomItem[], setSelectedCountries: any) => {
-  React.useEffect(() => {
-    fetch("/data/country.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const countries = data.map((country: { name: string; logo_s: string }) => {
-          return { value: country.name, label: country.name, logo: country.logo_s };
-        });
-        countries.sort((a: Item, b: Item) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
-        setPickerItems(countries);
-      });
-  }, []);
-
-  const [pickerItems, setPickerItems] = React.useState<CustomItem[]>([]);
-  // const [selectedItems, setSelectedItems] = React.useState<CustomItem[]>([]);
-
-  const handleCreateItem = (item: CustomItem) => {
-    setPickerItems((curr) => [...curr, item]);
-    setSelectedCountries((curr: CustomItem[]) => [...curr, item]);
-  };
-
-  const handleSelectedItemsChange = (selectedItems?: CustomItem[]) => {
-    if (selectedItems) {
-      setSelectedCountries(selectedItems);
-    }
-  };
-
-  return (
-    <FormControl>
-      <Box id={"country-dropdown"}>
-        <Controller
-          control={control}
-          name={`country`}
-          defaultValue={false}
-          render={({ field: { onChange, value, ref } }) => (
-            <CUIAutoComplete
-              label=""
-              placeholder="Type a Country"
-              onCreateItem={handleCreateItem}
-              items={pickerItems}
-              itemRenderer={customRender}
-              hideToggleButton
-              tagStyleProps={{
-                mb: "50",
-                textStyle: "tableCell",
-                fontSize: "13px",
-              }}
-              listStyleProps={{
-                maxHeight: "200px",
-                overflowY: "scroll",
-              }}
-              selectedIconProps={{ icon: "CheckCircleIcon", height: 3 }}
-              selectedItems={selectedCountries}
-              onSelectedItemsChange={(changes) => {
-                handleSelectedItemsChange(changes.selectedItems);
-                let countries: string[] = [];
-                if (changes.selectedItems !== undefined) {
-                  countries = changes.selectedItems.map((country) => {
-                    return encodeURIComponent(country.value);
-                  });
-                }
-                onChange(countries);
-              }}
-            />
-          )}
-        />
-      </Box>
-    </FormControl>
-  );
-};
-
-export const transformFormResults = (formResults: { [x: string]: any }) => {
+export const transformFormResults = (formResults: { [x: string]: boolean }) => {
   if (formResults === undefined) {
     return "";
   }
@@ -156,7 +66,7 @@ const FilterAccordionItem = ({ name, form }: FilterAccordionItemProps) => {
               {isExpanded ? <CloseIcon fontSize="12px" /> : <AddIcon fontSize="12px" />}
             </AccordionButton>
           </h2>
-          <AccordionPanel pb={4} bg="#F9FAFA">
+          <AccordionPanel pb={4} bg="#F9FAFA" borderTopWidth={"1px"}>
             {isExpanded ? form : ""}
           </AccordionPanel>
         </>
@@ -165,11 +75,13 @@ const FilterAccordionItem = ({ name, form }: FilterAccordionItemProps) => {
   );
 };
 
-interface IFormInputs {
-  region: any;
-  subregion: any;
-  country: any;
-  institutionType: any;
+export interface IFormInputs {
+  subregion: string;
+  country: string[];
+  institutionType: { string: boolean };
+  n_outputs: number[];
+  n_outputs_open: number[];
+  p_outputs_open: number[];
 }
 
 interface TableFilterProps {
@@ -185,23 +97,40 @@ const TableFilter = ({
   setFilterParamsInstitution,
   setPageParamsCountry,
   setPageParamsInstitution,
-  ...rest
 }: TableFilterProps) => {
   const { handleSubmit, control, setValue, reset } = useForm<IFormInputs>();
   const [checkedSubregionsCountry, setCheckedSubregionsCountry] = React.useState(subregions);
   const [checkedSubregionsInstitution, setCheckedSubregionsInstitution] = React.useState(subregions);
   const [selectedCountriesCountry, setSelectedCountriesCountry] = React.useState<CustomItem[]>([]);
   const [selectedCountriesInstitution, setSelectedCountriesInstitution] = React.useState<CustomItem[]>([]);
+  const defaultSliderValuesCountry: sliderValues = {
+    n_outputs: [0, 100],
+    n_outputs_open: [0, 100],
+    p_outputs_open: [0, 100],
+  };
+  const [sliderValuesCountry, setSliderValuesCountry] = React.useState<sliderValues>(defaultSliderValuesCountry);
+  const defaultSliderValuesInstitution: sliderValues = {
+    n_outputs: [0, 100],
+    n_outputs_open: [0, 100],
+    p_outputs_open: [0, 100],
+  };
+  const [sliderValuesInstitution, setSliderValuesInstitution] =
+    React.useState<sliderValues>(defaultSliderValuesInstitution);
 
   const checkedSubregions = tabIndex === 0 ? checkedSubregionsCountry : checkedSubregionsInstitution;
   const setCheckedSubregions = tabIndex === 0 ? setCheckedSubregionsCountry : setCheckedSubregionsInstitution;
   const selectedCountries = tabIndex === 0 ? selectedCountriesCountry : selectedCountriesInstitution;
   const setSelectedCountries = tabIndex === 0 ? setSelectedCountriesCountry : setSelectedCountriesInstitution;
+  const sliderValues = tabIndex === 0 ? sliderValuesCountry : sliderValuesInstitution;
+  const setSliderValues = tabIndex === 0 ? setSliderValuesCountry : setSliderValuesInstitution;
 
   const onSubmit = handleSubmit((data: IFormInputs) => {
     const countryValues = data.country === undefined ? "" : data.country.toString();
     const institutionTypeValues = transformFormResults(data.institutionType);
-    // console.log(data, data.region, subregionValues, countryValues, institutionTypeValues);
+    const totalOutputs = data.n_outputs;
+    // const totalOutputsOpen = data.n_outputs_open;
+    const percentOutputsOpen = data.p_outputs_open;
+    console.log(data);
     const searchParams = [];
     if (data.subregion) {
       searchParams.push(`subregions=${data.subregion}`);
@@ -211,6 +140,16 @@ const TableFilter = ({
     }
     if (institutionTypeValues) {
       searchParams.push(`institutionTypes=${institutionTypeValues}`);
+    }
+    if (totalOutputs) {
+      searchParams.push(`minNOutputs=${totalOutputs[0]}&maxNOutputs=${totalOutputs[1]}`);
+    }
+    //TODO add when available with API
+    // if (totalOutputsOpen) {
+    //   searchParams.push(``)
+    // }
+    if (percentOutputsOpen) {
+      searchParams.push(`minPOutputsOpen=${percentOutputsOpen[0]}&maxPOutputsOpen=${percentOutputsOpen[1]}`);
     }
     console.log(searchParams.join("&"));
     if (tabIndex === 0) {
@@ -225,8 +164,10 @@ const TableFilter = ({
   const onReset = () => {
     if (tabIndex === 0) {
       setFilterParamsCountry("");
+      setSliderValues(defaultSliderValuesCountry);
     } else {
       setFilterParamsInstitution("");
+      setSliderValues(defaultSliderValuesInstitution);
     }
     setCheckedSubregions(subregions);
     setSelectedCountries([]);
@@ -255,7 +196,10 @@ const TableFilter = ({
             form={SubregionForm(control, checkedSubregions, setCheckedSubregions, setValue, onSubmit)}
           />
           <FilterAccordionItem name={"Country"} form={CountryForm(control, selectedCountries, setSelectedCountries)} />
-          <FilterAccordionItem name={"Publication Count / Open Access"} form={StatsForm(control)} />
+          <FilterAccordionItem
+            name={"Publication Count / Open Access"}
+            form={StatsForm(control, sliderValues, setSliderValues, onSubmit)}
+          />
           {tabIndex === 1 ? <FilterAccordionItem name={"Institution Type"} form={InstitutionTypeForm(control)} /> : ""}
         </Accordion>
 

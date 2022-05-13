@@ -39,7 +39,7 @@ export const subregions = {
   "Western Europe": false,
 };
 
-export const SubregionForm = (
+const SubregionForm = (
   control: any,
   checkedSubregions: { [x: string]: boolean },
   setCheckedSubregions: any,
@@ -81,3 +81,5 @@ export const SubregionForm = (
     </FormControl>
   );
 };
+
+export default SubregionForm;

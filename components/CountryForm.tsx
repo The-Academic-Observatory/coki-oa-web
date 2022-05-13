@@ -14,297 +14,96 @@
 //
 // Author: Aniek Roelofs
 
-import { Box } from "@chakra-ui/react";
+import { Box, FormControl, HStack, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { CUIAutoComplete, Item } from "chakra-ui-autocomplete";
+import { Control, Controller } from "react-hook-form";
+import { IFormInputs } from "./TableFilter";
 
-const countryNames = [
-  "Afghanistan",
-  "Albania",
-  "Algeria",
-  "American Samoa",
-  "Andorra",
-  "Angola",
-  "Anguilla",
-  "Antarctica",
-  "Antigua and Barbuda",
-  "Argentina",
-  "Armenia",
-  "Aruba",
-  "Australia",
-  "Austria",
-  "Azerbaijan",
-  "Bahrain",
-  "Bangladesh",
-  "Barbados",
-  "Belarus",
-  "Belgium",
-  "Belize",
-  "Benin",
-  "Bermuda",
-  "Bhutan",
-  "Bolivia",
-  "Bonaire",
-  "Bosnia and Herzegovina",
-  "Botswana",
-  "Bouvet Island",
-  "Brazil",
-  "British Indian Ocean Territory",
-  "Brunei",
-  "Bulgaria",
-  "Burkina Faso",
-  "Burundi",
-  "Cabo Verde",
-  "Cambodia",
-  "Cameroon",
-  "Canada",
-  "Cayman Islands",
-  "Central African Republic",
-  "Chad",
-  "Chile",
-  "China",
-  "Christmas Island",
-  "Cocos (Keeling) Islands",
-  "Colombia",
-  "Comoros",
-  "Cook Islands",
-  "Costa Rica",
-  "Croatia",
-  "Cuba",
-  "Curaçao",
-  "Cyprus",
-  "Czech Republic",
-  "Democratic Republic of the Congo",
-  "Denmark",
-  "Djibouti",
-  "Dominica",
-  "Dominican Republic",
-  "East Timor",
-  "Ecuador",
-  "Egypt",
-  "El Salvador",
-  "Equatorial Guinea",
-  "Eritrea",
-  "Estonia",
-  "Eswatini",
-  "Ethiopia",
-  "Falkland Islands",
-  "Faroe Islands",
-  "Fiji",
-  "Finland",
-  "France",
-  "French Guiana",
-  "French Polynesia",
-  "French Southern and Antarctic Lands",
-  "Gabon",
-  "Georgia",
-  "Germany",
-  "Ghana",
-  "Gibraltar",
-  "Greece",
-  "Greenland",
-  "Grenada",
-  "Guadeloupe",
-  "Guam",
-  "Guatemala",
-  "Guernsey",
-  "Guinea",
-  "Guinea-Bissau",
-  "Guyana",
-  "Haiti",
-  "Heard Island and McDonald Islands",
-  "Holy See",
-  "Honduras",
-  "Hong Kong",
-  "Hungary",
-  "Iceland",
-  "India",
-  "Indonesia",
-  "Iran",
-  "Iraq",
-  "Ireland",
-  "Isle of Man",
-  "Israel",
-  "Italy",
-  "Ivory Coast",
-  "Jamaica",
-  "Japan",
-  "Jersey",
-  "Jordan",
-  "Kazakhstan",
-  "Kenya",
-  "Kiribati",
-  "Kuwait",
-  "Kyrgyzstan",
-  "Laos",
-  "Latvia",
-  "Lebanon",
-  "Lesotho",
-  "Liberia",
-  "Libya",
-  "Liechtenstein",
-  "Lithuania",
-  "Luxembourg",
-  "Macau",
-  "Madagascar",
-  "Malawi",
-  "Malaysia",
-  "Maldives",
-  "Mali",
-  "Malta",
-  "Marshall Islands",
-  "Martinique",
-  "Mauritania",
-  "Mauritius",
-  "Mayotte",
-  "Mexico",
-  "Micronesia",
-  "Moldova",
-  "Monaco",
-  "Mongolia",
-  "Montenegro",
-  "Montserrat",
-  "Morocco",
-  "Mozambique",
-  "Myanmar",
-  "Namibia",
-  "Nauru",
-  "Nepal",
-  "Netherlands",
-  "New Caledonia",
-  "New Zealand",
-  "Nicaragua",
-  "Niger",
-  "Nigeria",
-  "Niue",
-  "Norfolk Island",
-  "North Korea",
-  "North Macedonia",
-  "Northern Mariana Islands",
-  "Norway",
-  "Oman",
-  "Pakistan",
-  "Palau",
-  "Palestine",
-  "Panama",
-  "Papua New Guinea",
-  "Paraguay",
-  "Peru",
-  "Philippines",
-  "Pitcairn Islands",
-  "Poland",
-  "Portugal",
-  "Puerto Rico",
-  "Qatar",
-  "Republic of the Congo",
-  "Romania",
-  "Russia",
-  "Rwanda",
-  "Réunion",
-  "Saint Barthélemy",
-  "Saint Helena",
-  "Saint Kitts and Nevis",
-  "Saint Lucia",
-  "Saint Martin (island)",
-  "Saint Pierre and Miquelon",
-  "Saint Vincent and the Grenadines",
-  "Samoa",
-  "San Marino",
-  "Saudi Arabia",
-  "Senegal",
-  "Serbia",
-  "Seychelles",
-  "Sierra Leone",
-  "Singapore",
-  "Sint Maarten",
-  "Slovakia",
-  "Slovenia",
-  "Solomon Islands",
-  "Somalia",
-  "South Africa",
-  "South Georgia and the South Sandwich Islands",
-  "South Korea",
-  "South Sudan",
-  "Spain",
-  "Sri Lanka",
-  "Sudan",
-  "Suriname",
-  "Svalbard and Jan Mayen",
-  "Sweden",
-  "Switzerland",
-  "Syria",
-  "São Tomé and Príncipe",
-  "Taiwan",
-  "Tajikistan",
-  "Tanzania",
-  "Thailand",
-  "The Bahamas",
-  "The Gambia",
-  "Togo",
-  "Tokelau",
-  "Tonga",
-  "Trinidad and Tobago",
-  "Tunisia",
-  "Turkey",
-  "Turkmenistan",
-  "Turks and Caicos Islands",
-  "Tuvalu",
-  "Uganda",
-  "Ukraine",
-  "United Arab Emirates",
-  "United Kingdom",
-  "United States",
-  "United States Minor Outlying Islands",
-  "United States Virgin Islands",
-  "Uruguay",
-  "Uzbekistan",
-  "Vanuatu",
-  "Venezuela",
-  "Vietnam",
-  "Virgin Islands",
-  "Wallis and Futuna",
-  "Western Sahara",
-  "Yemen",
-  "Zambia",
-  "Zimbabwe",
-  "Åland",
-];
-const countries = countryNames.map((country) => {
-  return { value: country, label: country };
-});
-const CountryForm = (control: any) => {
-  const [pickerItems, setPickerItems] = React.useState<Item[]>(countries);
-  const [selectedItems, setSelectedItems] = React.useState<Item[]>([]);
+export interface CustomItem extends Item {
+  logo: string;
+}
 
-  const handleCreateItem = (item: Item) => {
+const customRender = (item: CustomItem) => {
+  return (
+    <HStack my="1px">
+      <Image rounded="full" objectFit="cover" boxSize="16px" src={item.logo} alt={item.label} />
+      <Text textStyle="tableCell">{item.label}</Text>
+    </HStack>
+  );
+};
+
+const CountryForm = (
+  control: Control<IFormInputs>,
+  selectedCountries: CustomItem[],
+  setSelectedCountries: { (value: React.SetStateAction<CustomItem[]>): void },
+) => {
+  React.useEffect(() => {
+    fetch("/data/country.json")
+      .then((res) => res.json())
+      .then((data) => {
+        const countries = data.map((country: { name: string; logo_s: string }) => {
+          return { value: country.name, label: country.name, logo: country.logo_s };
+        });
+        countries.sort((a: Item, b: Item) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
+        setPickerItems(countries);
+      });
+  }, []);
+
+  const [pickerItems, setPickerItems] = React.useState<CustomItem[]>([]);
+
+  const handleCreateItem = (item: CustomItem) => {
     setPickerItems((curr) => [...curr, item]);
-    setSelectedItems((curr) => [...curr, item]);
+    setSelectedCountries((curr: CustomItem[]) => [...curr, item]);
   };
 
-  const handleSelectedItemsChange = (selectedItems: Item[] | undefined) => {
+  const handleSelectedItemsChange = (selectedItems?: CustomItem[]) => {
     if (selectedItems) {
-      setSelectedItems(selectedItems);
+      setSelectedCountries(selectedItems);
     }
   };
 
   return (
-    <Box>
-      <CUIAutoComplete
-        label="Choose preferred work locations"
-        placeholder="Type a Country"
-        onCreateItem={handleCreateItem}
-        items={pickerItems}
-        tagStyleProps={{
-          rounded: "full",
-          pt: 1,
-          pb: 2,
-          px: 2,
-          fontSize: "1rem",
-        }}
-        selectedItems={selectedItems}
-        onSelectedItemsChange={(changes) => handleSelectedItemsChange(changes.selectedItems)}
-      />
-    </Box>
+    <FormControl>
+      <Box id={"country-dropdown"}>
+        <Controller
+          control={control}
+          name={`country`}
+          // defaultValue={false}
+          render={({ field: { onChange } }) => (
+            <CUIAutoComplete
+              label=""
+              placeholder="Type a Country"
+              onCreateItem={handleCreateItem}
+              items={pickerItems}
+              itemRenderer={customRender}
+              hideToggleButton
+              tagStyleProps={{
+                marginBottom: "5px !important",
+                textStyle: "tableCell",
+                fontSize: "13px",
+              }}
+              listStyleProps={{
+                maxHeight: "200px",
+                overflowY: "scroll",
+              }}
+              selectedIconProps={{ icon: "CheckCircleIcon", height: 3 }}
+              selectedItems={selectedCountries}
+              onSelectedItemsChange={(changes) => {
+                handleSelectedItemsChange(changes.selectedItems);
+                let countries: string[] = [];
+                if (changes.selectedItems !== undefined) {
+                  countries = changes.selectedItems.map((country) => {
+                    return encodeURIComponent(country.value);
+                  });
+                }
+                onChange(countries);
+              }}
+            />
+          )}
+        />
+      </Box>
+    </FormControl>
   );
 };
 
