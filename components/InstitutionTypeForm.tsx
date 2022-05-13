@@ -30,7 +30,7 @@ const institutionTypes = [
 ];
 const InstitutionTypeForm = (control: any) => {
   return (
-    <SimpleGrid columns={2} spacing={3}>
+    <SimpleGrid spacing={3} minChildWidth={"110px"}>
       {institutionTypes.map((institutionType): ReactElement => {
         return (
           <Controller
