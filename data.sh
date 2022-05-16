@@ -10,3 +10,4 @@ mkdir -p ./public/data
 cp ./latest/data/country.json ./public/data/country.json
 cp ./latest/data/institution.json ./public/data/institution.json
 cp -R ./latest/logos ./public/logos
+cp -R ./latest/twitter ./public/twitter
