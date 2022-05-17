@@ -24,7 +24,7 @@ import Layout from "../components/Layout";
 import Fonts from "../components/Fonts";
 import Script from "next/script";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function OpenAccessWebApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <Script
@@ -41,4 +41,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default OpenAccessWebApp;

@@ -58,9 +58,10 @@ yarn test:e2e
 ```
 
 ### Build & Deploy
-Export environment variables:
+Export environment variables, customising the host name:
 ```bash
 export DATA_PATH=./latest/data
+export NEXT_PUBLIC_HOST=https://develop.open.coki.ac
 export NEXT_PUBLIC_API_HOST=https://develop.open.coki.ac
 ```
 
@@ -71,7 +72,7 @@ yarn build
 
 Export site:
 ```bash
-next export
+yarn export
 ```
 
 Customise your wrangler.toml file, see wrangler.example.toml:
@@ -187,6 +188,25 @@ Build & deploy to production:
 ```bash
 wrangler publish -e production
 ```
+
+### Rendering Twitter Cards
+This will be removed when card generation is performed by the workflow.
+
+To render the cards:
+```bash
+cd ./twitter-cards
+PUPPETEER_PRODUCT=firefox yarn install
+yarn render
+```
+
+The Twitter cards are saved in `public/twitter`.
+* Make a zip file of the twitter folder.
+* Upload it to the `coki-oa-web-data` Google Cloud Storage Bucket. The cards will then be
+built into the latest.zip file by the Airflow workflow.
+
+To manually view the Twitter cards, start the local webserver and navigate to the following routes:
+* /twitter-country/[COUNTRY ID]
+* /twitter-institution/[ROR ID]
 
 ## 4. Configuring Github Actions
 The following Github Secrets need to be created:

@@ -7,7 +7,7 @@
     "start": "next start",
     "lint": "next lint",
     "postbuild": "cross-env next-sitemap --config next-sitemap.js",
-    "export": "next export",
+    "export": "./export.sh",
     "test:e2e": "playwright test",
     "test:jest": "jest"
   },

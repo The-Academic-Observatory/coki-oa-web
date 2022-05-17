@@ -32,7 +32,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { Entity } from "../lib/model";
+import { Entity, Stats } from "../lib/model";
 import DonutSparkline from "./DonutSparkline";
 import styles from "./EntityDetails.module.css";
 import Card from "./Card";
@@ -48,21 +48,19 @@ import { AxisLegendPosition } from "@nivo/axes";
 import Head from "next/head";
 import Breadcrumbs from "./Breadcrumbs";
 import TextCollapse from "./TextCollapse";
+import lodashGet from "lodash.get";
 
 interface CardProps extends BoxProps {
   children: ReactNode;
 }
 
 const makeDescription = (entity: Entity) => {
-  let area = "";
+  let text = `Open Access statistics for ${entity.name},`;
   if (entity.category === "institution") {
-    area = `${entity.country},`;
+    text += ` ${entity.country},`;
   }
-
-  return (
-    `Open Access statistics for ${entity.name}, ${area} covering research outputs published from ` +
-    `${entity.start_year} to ${entity.end_year}.`
-  );
+  text += ` covering academic research published from ${entity.start_year} to ${entity.end_year}.`;
+  return text;
 };
 
 const EntityCard = ({ children, ...rest }: CardProps) => {
@@ -75,17 +73,36 @@ const EntityCard = ({ children, ...rest }: CardProps) => {
 
 interface EntityDetailsProps {
   entity: Entity;
-  lastUpdated: string;
+  stats: Stats;
 }
 
-const EntityDetails = ({ entity, lastUpdated, ...rest }: EntityDetailsProps) => {
-  const metaDescription = `How well does ${entity.name} perform at Open Access publishing? ` + makeDescription(entity);
+const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) => {
+  const pOpen = Math.round(entity.stats.p_outputs_open);
+
+  // When the entity's OA% is over median say Over when under say Only
+  let metaDescription = "Over ";
+  if (entity.stats.p_outputs_open < lodashGet(stats, `${entity.category}_medians`).p_outputs_open) {
+    metaDescription = "Only ";
+  }
+  metaDescription +=
+    `${pOpen}% of ${entity.name}'s published academic research is freely available on the internet. ` +
+    makeDescription(entity);
+  const twitterTitle = `${entity.name}'s Open Access Research Performance`;
+  const twitterImage = `${process.env.NEXT_PUBLIC_HOST}/twitter/${entity.id}.webp`;
 
   return (
     <Box layerStyle="page">
       <Head>
         <title>COKI: {entity.name}</title>
         <meta name="description" content={metaDescription} />
+
+        {/* Twitter card metadata */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@COKIproject" />
+        <meta name="twitter:title" content={twitterTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content={twitterImage} />
+        <meta name="twitter:image:alt" content={metaDescription} />
       </Head>
 
       <Breadcrumbs
@@ -105,14 +122,14 @@ const EntityDetails = ({ entity, lastUpdated, ...rest }: EntityDetailsProps) => 
           <EntityOATimeseries entity={entity} />
           <EntityOAVolume entity={entity} />
           <EntityPublisherOpen entity={entity} />
-          <EntityFooter entity={entity} lastUpdated={lastUpdated} />
+          <EntityFooter entity={entity} stats={stats} />
         </VStack>
       </Card>
     </Box>
   );
 };
 
-const EntityFooter = ({ entity, lastUpdated }: EntityDetailsProps) => {
+const EntityFooter = ({ entity, stats }: EntityDetailsProps) => {
   return (
     <Flex
       w="full"
@@ -127,7 +144,7 @@ const EntityFooter = ({ entity, lastUpdated }: EntityDetailsProps) => {
         </Button>
       </Link>
       <Text textStyle="lastUpdated" pt={{ base: "16px", sm: 0 }}>
-        Data updated {lastUpdated}
+        Data updated {stats.last_updated}
       </Text>
     </Flex>
   );

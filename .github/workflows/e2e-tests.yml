@@ -37,7 +37,7 @@ jobs:
 
       - name: Download and Extract Data
         env:
-          DATASET_VERSION: v3
+          DATASET_VERSION: v4
           BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
           gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip

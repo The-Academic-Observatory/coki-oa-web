@@ -21,6 +21,7 @@ export type Entity = {
   category: string;
   logo_s: string;
   logo_l: string;
+  logo_xl: string;
   url: string;
   wikipedia_url: string;
   region: string;
@@ -88,4 +89,6 @@ export type Stats = {
   n_countries: number;
   n_institutions: number;
   zenodo_versions: Array<ZenodoVersion>;
+  country_medians: PublicationStats;
+  institution_medians: PublicationStats;
 };

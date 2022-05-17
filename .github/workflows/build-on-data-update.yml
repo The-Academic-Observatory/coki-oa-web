@@ -19,6 +19,7 @@ jobs:
         run: |
           echo "ENVIRONMENT=develop" >> $GITHUB_ENV
           echo "REPO_DISPATCH_REF=develop" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_HOST=https://develop.open.coki.ac" >> $GITHUB_ENV
           echo "NEXT_PUBLIC_API_HOST=https://develop.open.coki.ac" >> $GITHUB_ENV
 
       - name: Set environment staging
@@ -26,6 +27,7 @@ jobs:
         run: |
           echo "ENVIRONMENT=staging" >> $GITHUB_ENV
           echo "REPO_DISPATCH_REF=main" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_HOST=https://staging.open.coki.ac" >> $GITHUB_ENV
           echo "NEXT_PUBLIC_API_HOST=https://staging.open.coki.ac" >> $GITHUB_ENV
 
       - name: Get latest tag production
@@ -41,6 +43,7 @@ jobs:
         run: |
           echo "ENVIRONMENT=production" >> $GITHUB_ENV
           echo "REPO_DISPATCH_REF=${{ steps.get_latest_tag.outputs.tag }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_HOST=https://open.open.coki.ac" >> $GITHUB_ENV
           echo "NEXT_PUBLIC_API_HOST=https://open.coki.ac" >> $GITHUB_ENV
 
       - uses: actions/checkout@v2
@@ -75,7 +78,7 @@ jobs:
 
       - name: Download and Extract Data
         env:
-          DATASET_VERSION: v3
+          DATASET_VERSION: v4
           BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
           gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip

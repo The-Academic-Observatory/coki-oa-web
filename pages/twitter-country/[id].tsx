@@ -14,19 +14,18 @@
 //
 // Author: James Diprose
 
-import { Entity, Stats } from "../../lib/model";
-import { getEntity, getEntityIds, getStatsData, idsToStaticPaths } from "../../lib/api";
-import EntityDetails from "../../components/EntityDetails";
+import { Entity } from "../../lib/model";
+import { getEntity, getEntityIds, idsToStaticPaths } from "../../lib/api";
+import TwitterCard from "../../components/TwitterCard";
 
-const category = "institution";
+const category = "country";
 
 type Props = {
   entity: Entity;
-  stats: Stats;
 };
 
-export default function Institution({ entity, stats }: Props) {
-  return <EntityDetails entity={entity} stats={stats} />;
+export default function TwitterCountry({ entity }: Props) {
+  return <TwitterCard entity={entity} />;
 }
 
 type Params = {
@@ -36,20 +35,29 @@ type Params = {
 };
 
 export async function getStaticProps({ params }: Params) {
-  const entity = getEntity(category, params.id);
-  const stats = getStatsData();
-  return {
-    props: {
-      entity: entity,
-      stats: stats,
-    },
-  };
+  if (process.env.NODE_ENV === "development") {
+    const entity = getEntity(category, params.id);
+    return {
+      props: {
+        entity: entity,
+      },
+    };
+  } else {
+    return {};
+  }
 }
 
 export async function getStaticPaths() {
-  const ids = getEntityIds(category);
-  return {
-    paths: idsToStaticPaths(ids),
-    fallback: false,
-  };
+  if (process.env.NODE_ENV === "development") {
+    const ids = getEntityIds(category);
+    return {
+      paths: idsToStaticPaths(ids),
+      fallback: false,
+    };
+  } else {
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
 }

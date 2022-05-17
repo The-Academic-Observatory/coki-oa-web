@@ -14,24 +14,19 @@
 //
 // Author: James Diprose
 
-import { Entity } from "../../lib/model";
-import {
-  getEntity,
-  getEntityIds,
-  getStatsData,
-  idsToStaticPaths,
-} from "../../lib/api";
+import { Entity, Stats } from "../../lib/model";
+import { getEntity, getEntityIds, getStatsData, idsToStaticPaths } from "../../lib/api";
 import EntityDetails from "../../components/EntityDetails";
 
 const category = "country";
 
 type Props = {
   entity: Entity;
-  lastUpdated: string;
+  stats: Stats;
 };
 
-export default function Country({ entity, lastUpdated }: Props) {
-  return <EntityDetails entity={entity} lastUpdated={lastUpdated} />;
+export default function Country({ entity, stats }: Props) {
+  return <EntityDetails entity={entity} stats={stats} />;
 }
 
 type Params = {
@@ -46,7 +41,7 @@ export async function getStaticProps({ params }: Params) {
   return {
     props: {
       entity: entity,
-      lastUpdated: stats.last_updated,
+      stats: stats,
     },
   };
 }

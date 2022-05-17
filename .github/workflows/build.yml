@@ -19,18 +19,21 @@ jobs:
         if: github.ref == 'refs/heads/develop'
         run: |
           echo "ENVIRONMENT=develop" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_HOST=https://develop.open.coki.ac" >> $GITHUB_ENV
           echo "NEXT_PUBLIC_API_HOST=https://develop.open.coki.ac" >> $GITHUB_ENV
 
       - name: Set environment staging
         if: github.ref == 'refs/heads/main'
         run: |
           echo "ENVIRONMENT=staging" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_HOST=https://staging.open.coki.ac" >> $GITHUB_ENV
           echo "NEXT_PUBLIC_API_HOST=https://staging.open.coki.ac" >> $GITHUB_ENV
 
       - name: Set environment production
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           echo "ENVIRONMENT=production" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_HOST=https://open.open.coki.ac" >> $GITHUB_ENV
           echo "NEXT_PUBLIC_API_HOST=https://open.coki.ac" >> $GITHUB_ENV
 
       - name: Current Checked Out Ref
@@ -61,7 +64,7 @@ jobs:
 
       - name: Download and Extract Data
         env:
-          DATASET_VERSION: v3
+          DATASET_VERSION: v4
           BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
           gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip
