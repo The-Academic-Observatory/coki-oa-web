@@ -33,7 +33,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           echo "ENVIRONMENT=production" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_HOST=https://open.open.coki.ac" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_HOST=https://open.coki.ac" >> $GITHUB_ENV
           echo "NEXT_PUBLIC_API_HOST=https://open.coki.ac" >> $GITHUB_ENV
 
       - name: Current Checked Out Ref
