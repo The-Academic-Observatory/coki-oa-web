@@ -19,7 +19,8 @@
     "@glenstack/cf-workers-function-memoizer": "^1.0.1",
     "@types/flexsearch": "^0.7.2",
     "@types/jest": "^27.4.1",
-    "@types/lodash.get": "^4.4.6",
+    "@types/lodash.get": "^4.4.7",
+    "@types/lodash.set": "^4.3.7",
     "@types/node": "^17.0.23",
     "deepcopy": "^2.1.0",
     "esbuild": "^0.14.23",
@@ -36,6 +37,7 @@
   "dependencies": {
     "flexsearch": "^0.7.21",
     "itty-router": "^2.5.1",
-    "lodash.get": "^4.4.2"
+    "lodash.get": "^4.4.2",
+    "lodash.set": "^4.3.2"
   }
 }
