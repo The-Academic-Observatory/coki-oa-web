@@ -159,10 +159,10 @@ export function filterResults(
         let minVal = lodashGet(min, key);
         let maxVal = lodashGet(max, key);
         if (entityVal < minVal) {
-          lodashSet(entity, key, minVal);
+          lodashSet(min, key, entityVal);
         }
         if (entityVal > maxVal) {
-          lodashSet(entity, key, maxVal);
+          lodashSet(max, key, entityVal);
         }
       }
     }
