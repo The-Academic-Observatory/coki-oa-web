@@ -1,7 +1,7 @@
 import { handleRequest } from "./router";
 import lodashGet from "lodash.get";
 
-const institutionTestTimeout = 30000;
+const institutionTestTimeout = 60000;
 
 test("test handleRequest 404", async () => {
   let res = await handleRequest(new Request("http://localhost"));
@@ -57,6 +57,8 @@ const fetchAll = async (endpoint: string, otherQueryParams: string = "") => {
     expect(json).toHaveProperty("limit");
     expect(json).toHaveProperty("orderBy");
     expect(json).toHaveProperty("orderDir");
+    expect(json).toHaveProperty("min");
+    expect(json).toHaveProperty("max");
     expect(json.items).toBeInstanceOf(Array);
 
     //@ts-ignore

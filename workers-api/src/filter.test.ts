@@ -1377,22 +1377,22 @@ test("test filterResults", async () => {
     maxPOutputsOpen: 100,
   };
   let results = filterResults(countries, defaultQuery);
-  expect(results.length).toBe(countries.length);
+  expect(results.items.length).toBe(countries.length);
 
   // Subregion filter
   let query = deepcopy(defaultQuery);
   query.subregions.add("Western Asia");
   results = filterResults(countriesArrayView, query);
   let expectedLength = 4;
-  expect(results.length).toBe(expectedLength);
-  expect(results).toMatchObject(Array(expectedLength).fill({ subregion: "Western Asia" }));
+  expect(results.items.length).toBe(expectedLength);
+  expect(results.items).toMatchObject(Array(expectedLength).fill({ subregion: "Western Asia" }));
   // Array(n).fill(x): creates an array with n elements, then fills it with the value (x) passed to fill.
 
   query.subregions.add("Eastern Europe");
   results = filterResults(countriesArrayView, query);
   expectedLength = 6;
-  expect(results.length).toBe(expectedLength);
-  expect(results).toMatchObject([
+  expect(results.items.length).toBe(expectedLength);
+  expect(results.items).toMatchObject([
     { subregion: "Western Asia" },
     { subregion: "Western Asia" },
     { subregion: "Western Asia" },
@@ -1406,14 +1406,14 @@ test("test filterResults", async () => {
   query.regions.add("Americas");
   results = filterResults(countriesArrayView, query);
   expectedLength = 4;
-  expect(results.length).toBe(expectedLength);
-  expect(results).toMatchObject(Array(expectedLength).fill({ region: "Americas" }));
+  expect(results.items.length).toBe(expectedLength);
+  expect(results.items).toMatchObject(Array(expectedLength).fill({ region: "Americas" }));
 
   query.regions.add("Europe");
   results = filterResults(countriesArrayView, query);
   expectedLength = 10;
-  expect(results.length).toBe(expectedLength);
-  expect(results).toMatchObject([
+  expect(results.items.length).toBe(expectedLength);
+  expect(results.items).toMatchObject([
     { region: "Europe" },
     { region: "Americas" },
     { region: "Americas" },
@@ -1432,20 +1432,20 @@ test("test filterResults", async () => {
   query.maxNOutputs = 3252;
   results = filterResults(countriesArrayView, query);
   expectedLength = 3;
-  expect(results.length).toBe(expectedLength);
-  expect(results).toMatchObject([{ id: "ALB" }, { id: "BFA" }, { id: "BOL" }]);
+  expect(results.items.length).toBe(expectedLength);
+  expect(results.items).toMatchObject([{ id: "ALB" }, { id: "BFA" }, { id: "BOL" }]);
 
   query.maxNOutputs = 3251;
   results = filterResults(countriesArrayView, query);
   expectedLength = 2;
-  expect(results.length).toBe(expectedLength);
-  expect(results).toMatchObject([{ id: "BFA" }, { id: "BOL" }]);
+  expect(results.items.length).toBe(expectedLength);
+  expect(results.items).toMatchObject([{ id: "BFA" }, { id: "BOL" }]);
 
   query.minNOutputs = 1706;
   results = filterResults(countriesArrayView, query);
   expectedLength = 1;
-  expect(results.length).toBe(expectedLength);
-  expect(results).toMatchObject([{ id: "BOL" }]);
+  expect(results.items.length).toBe(expectedLength);
+  expect(results.items).toMatchObject([{ id: "BOL" }]);
 
   // Percentage of outputs
   query = deepcopy(defaultQuery);
@@ -1453,8 +1453,8 @@ test("test filterResults", async () => {
   query.maxPOutputsOpen = 40;
   results = filterResults(countriesArrayView, query);
   expectedLength = 6;
-  expect(results.length).toBe(expectedLength);
-  expect(results).toMatchObject([
+  expect(results.items.length).toBe(expectedLength);
+  expect(results.items).toMatchObject([
     { id: "ARE" },
     { id: "AUS" },
     { id: "AZE" },
@@ -1467,25 +1467,25 @@ test("test filterResults", async () => {
   query.maxPOutputsOpen = 35;
   results = filterResults(countriesArrayView, query);
   expectedLength = 2;
-  expect(results.length).toBe(expectedLength);
-  expect(results).toMatchObject([{ id: "AZE" }, { id: "BHR" }]);
+  expect(results.items.length).toBe(expectedLength);
+  expect(results.items).toMatchObject([{ id: "AZE" }, { id: "BHR" }]);
 
   // Test that all institutions are returned  with the widest filters
   results = filterResults(institutions, defaultQuery);
-  expect(results.length).toBe(institutions.length);
+  expect(results.items.length).toBe(institutions.length);
 
   // Countries
   query = deepcopy(defaultQuery);
   query.countries.add("United Kingdom");
   results = filterResults(institutionsArrayView, query);
   expectedLength = 5;
-  expect(results.length).toBe(expectedLength);
-  expect(results).toMatchObject(Array(expectedLength).fill({ country: "United Kingdom" }));
+  expect(results.items.length).toBe(expectedLength);
+  expect(results.items).toMatchObject(Array(expectedLength).fill({ country: "United Kingdom" }));
 
   query.countries.add("United States");
   results = filterResults(institutionsArrayView, query);
-  expect(results.length).toBe(9);
-  expect(results).toMatchObject([
+  expect(results.items.length).toBe(9);
+  expect(results.items).toMatchObject([
     { country: "United Kingdom" },
     { country: "United Kingdom" },
     { country: "United Kingdom" },
@@ -1502,8 +1502,8 @@ test("test filterResults", async () => {
   query.institutionTypes.add("Education");
   results = filterResults(institutionsArrayView, query);
   expectedLength = 19;
-  expect(results.length).toBe(expectedLength);
-  expect(results).toMatchObject([
+  expect(results.items.length).toBe(expectedLength);
+  expect(results.items).toMatchObject([
     { institution_types: ["Education"] },
     { institution_types: ["Education"] },
     { institution_types: ["Education"] },
@@ -1528,8 +1528,8 @@ test("test filterResults", async () => {
   query.institutionTypes.add("Facility");
   results = filterResults(institutionsArrayView, query);
   expectedLength = 21;
-  expect(results.length).toBe(expectedLength);
-  expect(results).toMatchObject([
+  expect(results.items.length).toBe(expectedLength);
+  expect(results.items).toMatchObject([
     { institution_types: ["Education"] },
     { institution_types: ["Education"] },
     { institution_types: ["Education"] },
@@ -1558,5 +1558,5 @@ test("test filterResults", async () => {
   query.countries.add("United Kingdom");
   query.institutionTypes.add("Facility");
   results = filterResults(countries, query);
-  expect(results.length).toBe(countries.length);
+  expect(results.items.length).toBe(countries.length);
 });

@@ -1,6 +1,8 @@
 import dataRaw from "../../latest/data/index.json";
 import lodashGet from "lodash.get";
+import lodashSet from "lodash.set";
 import { Entity, FilterQuery, FilterRequest, PageSettings, Query } from "./types";
+
 const data = dataRaw as Array<Entity>;
 
 export class ArrayView<Type> {
@@ -15,9 +17,11 @@ export class ArrayView<Type> {
     this.length = endIdx - startIdx;
     this.array = array;
   }
+
   set(index: number, value: Type) {
     this.array[index + this.startIdx] = value;
   }
+
   get(index: number) {
     return this.array[index + this.startIdx];
   }
@@ -81,8 +85,24 @@ export const parseQuery = (q: FilterQuery): Query => {
 };
 
 // Filtering functions
-export function filterResults(array: ArrayView<Entity>, query: Query): Entity[] {
+export function filterResults(
+  array: ArrayView<Entity>,
+  query: Query,
+): { items: Entity[]; min: { [key: string]: number }; max: { [key: string]: number } } {
   let results = [];
+
+  // Min and max variables
+  let min = {
+    n_outputs: Number.MAX_VALUE,
+    n_outputs_open: Number.MAX_VALUE,
+    p_outputs_open: Number.MAX_VALUE,
+  };
+  let max = {
+    n_outputs: 0,
+    n_outputs_open: 0,
+    p_outputs_open: 0,
+  };
+  let minMaxKeys = ["n_outputs", "n_outputs_open", "p_outputs_open"];
 
   // Filter items
   for (let i = 0; i < array.length; i++) {
@@ -129,11 +149,26 @@ export function filterResults(array: ArrayView<Entity>, query: Query): Entity[] 
       entity.stats.p_outputs_open <= query.maxPOutputsOpen;
 
     if (include) {
+      // Add to result list
       results.push(entity);
+
+      // Set min and max values which are used in the filtering interface
+      for (let j = 0; j < minMaxKeys.length; j++) {
+        let key = minMaxKeys[j];
+        let entityVal = lodashGet(entity, `stats.${key}`);
+        let minVal = lodashGet(min, key);
+        let maxVal = lodashGet(max, key);
+        if (entityVal < minVal) {
+          lodashSet(entity, key, minVal);
+        }
+        if (entityVal > maxVal) {
+          lodashSet(entity, key, maxVal);
+        }
+      }
     }
   }
 
-  return results;
+  return { items: results, min: min, max: max };
 }
 
 export function paginateResults<Type>(array: Array<Type>, pageSettings: PageSettings): Array<Type> {
@@ -180,20 +215,22 @@ export const countriesHandler = (req: FilterRequest) => {
   const pageSettings = parsePageSettings(q);
 
   // Filter
-  let results = filterResults(countries, query);
-  const nItems = results.length;
+  const results = filterResults(countries, query);
+  const nItems = results.items.length;
 
   // Paginate
-  results = paginateResults(results, pageSettings);
+  const subset = paginateResults(results.items, pageSettings);
 
   // Make final search object
   let obj = {
-    items: results,
+    items: subset,
     nItems: nItems,
     page: pageSettings.page,
     limit: pageSettings.limit,
     orderBy: pageSettings.orderBy,
     orderDir: pageSettings.orderDir,
+    min: results.min,
+    max: results.max,
   };
 
   // Convert to JSON, returning results
@@ -213,20 +250,22 @@ export const institutionsHandler = (req: FilterRequest) => {
   const pageSettings = parsePageSettings(q);
 
   // Filter
-  let results = filterResults(institutions, query);
-  const nItems = results.length;
+  const results = filterResults(institutions, query);
+  const nItems = results.items.length;
 
   // Paginate
-  results = paginateResults(results, pageSettings);
+  const subset = paginateResults(results.items, pageSettings);
 
   // Make final search object
   let obj = {
-    items: results,
+    items: subset,
     nItems: nItems,
     page: pageSettings.page,
     limit: pageSettings.limit,
     orderBy: pageSettings.orderBy,
     orderDir: pageSettings.orderDir,
+    min: results.min,
+    max: results.max,
   };
 
   // Convert to JSON, returning results
