@@ -1376,8 +1376,18 @@ test("test filterResults", async () => {
     minPOutputsOpen: 0,
     maxPOutputsOpen: 100,
   };
-  let results = filterResults(countries, defaultQuery);
-  expect(results.items.length).toBe(countries.length);
+  let results = filterResults(countriesArrayView, defaultQuery);
+  expect(results.items.length).toBe(countriesArrayView.length);
+  expect(results.min).toMatchObject({
+    n_outputs: 1705,
+    n_outputs_open: 881,
+    p_outputs_open: 28.77675706562349,
+  });
+  expect(results.max).toMatchObject({
+    n_outputs: 1397711,
+    n_outputs_open: 806107,
+    p_outputs_open: 64.51694745688103,
+  });
 
   // Subregion filter
   let query = deepcopy(defaultQuery);
@@ -1400,6 +1410,16 @@ test("test filterResults", async () => {
     { subregion: "Western Asia" },
     { subregion: "Eastern Europe" },
   ]);
+  expect(results.min).toMatchObject({
+    n_outputs: 5869,
+    n_outputs_open: 2047,
+    p_outputs_open: 28.77675706562349,
+  });
+  expect(results.max).toMatchObject({
+    n_outputs: 53275,
+    n_outputs_open: 19850,
+    p_outputs_open: 40.61005324429203,
+  });
 
   // Region
   query = deepcopy(defaultQuery);
