@@ -23,12 +23,31 @@ import {
   RangeSliderTrack,
   StackDivider,
   Text,
-  Tooltip,
   VStack,
 } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { Control, Controller } from "react-hook-form";
 import { IFormInputs } from "./TableFilter";
+
+function nFormatter(num: number, digits: number) {
+  const lookup = [
+    { value: 1, symbol: "" },
+    { value: 1e3, symbol: "k" },
+    { value: 1e6, symbol: "M" },
+    { value: 1e9, symbol: "G" },
+    { value: 1e12, symbol: "T" },
+    { value: 1e15, symbol: "P" },
+    { value: 1e18, symbol: "E" },
+  ];
+  const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+  let item = lookup
+    .slice()
+    .reverse()
+    .find(function (item) {
+      return num >= item.value;
+    });
+  return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
+}
 
 const stats: ["n_outputs" | "n_outputs_open" | "p_outputs_open", string][] = [
   ["n_outputs", "Total Publications"],
@@ -44,6 +63,10 @@ const StatsForm = (
   control: Control<IFormInputs>,
   sliderValues: sliderValues,
   setSliderValues: { (value: React.SetStateAction<sliderValues>): void },
+  minMax: {
+    min: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
+    max: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
+  },
   onSubmit: { (): void },
 ) => {
   return (
@@ -59,6 +82,9 @@ const StatsForm = (
             };
           });
         };
+        const sliderMin: number = minMax.min[statsType[0]];
+        const sliderMax: number = minMax.max[statsType[0]];
+
         return (
           <Controller
             key={statsType[0]}
@@ -72,6 +98,8 @@ const StatsForm = (
                 </Box>
                 <RangeSlider
                   aria-label={["min", "max"]}
+                  min={sliderMin}
+                  max={sliderMax}
                   // defaultValue={sliderValue}
                   onChange={(changes) => {
                     handleChange(changes);
@@ -81,67 +109,49 @@ const StatsForm = (
                     onSubmit();
                   }}
                   value={sliderValue}
-                  //TODO make dynamic
                   h={"85px"}
-                  w={"95%"}
+                  w={"90%"}
                   variant={"tableFilter"}
                 >
-                  <RangeSliderMark // TODO define min and max values
-                    value={0}
-                    mt="50"
-                    ml="1"
-                    fontSize="sm"
-                  >
-                    0
+                  <RangeSliderMark value={sliderMin} mt="50" ml="1" fontSize="sm">
+                    {nFormatter(sliderMin, 1)}
                   </RangeSliderMark>
-                  <RangeSliderMark value={100} mt="50" ml="0" fontSize="sm" textAlign={"start"}>
-                    100
+                  <RangeSliderMark value={sliderMax} mt="50" ml="0" fontSize="sm" textAlign={"start"}>
+                    {nFormatter(sliderMax, 1)}
                   </RangeSliderMark>
                   <RangeSliderMark
                     value={sliderValue[0]}
+                    width="50px"
                     mt="5px"
-                    ml="-4px"
+                    ml="-14px"
                     p="1px"
-                    w="7"
                     fontSize="sm"
                     textAlign="center"
                     bg="brand.500"
                     color={"white"}
                     rounded={"md"}
                   >
-                    {sliderValue[0]}
+                    {nFormatter(sliderValue[0], 1)}
                   </RangeSliderMark>
                   <RangeSliderMark
                     value={sliderValue[1]}
+                    width={"50px"}
                     mt="5px"
-                    ml="-4px"
+                    ml="-14px"
                     p="1px"
-                    w="7"
                     fontSize="sm"
                     textAlign="center"
                     bg="brand.500"
                     color={"white"}
                     rounded={"md"}
                   >
-                    {sliderValue[1]}
+                    {nFormatter(sliderValue[1], 1)}
                   </RangeSliderMark>
                   <RangeSliderTrack>
                     <RangeSliderFilledTrack />
                   </RangeSliderTrack>
                   <RangeSliderThumb index={0} boxSize={5} />
-                  {/*<Tooltip*/}
-                  {/*  hasArrow*/}
-                  {/*  label={sliderValue[1]}*/}
-                  {/*  bg="brand.500"*/}
-                  {/*  rounded={"md"}*/}
-                  {/*  color="white"*/}
-                  {/*  placement="top"*/}
-                  {/*  pl={2}*/}
-                  {/*  pr={2}*/}
-                  {/*  isOpen*/}
-                  {/*>*/}
                   <RangeSliderThumb index={1} boxSize={5} />
-                  {/*</Tooltip>*/}
                 </RangeSlider>
               </Box>
             )}

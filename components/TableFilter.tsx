@@ -34,6 +34,7 @@ import InstitutionTypeForm from "./InstitutionTypeForm";
 import RegionForm from "./RegionForm";
 import SubregionForm, { subregions } from "./SubregionForm";
 import StatsForm, { sliderValues } from "./StatsForm";
+import { makeFilterUrl } from "../lib/api";
 
 export const transformFormResults = (formResults: { [x: string]: boolean }) => {
   if (formResults === undefined) {
@@ -77,7 +78,6 @@ const FilterAccordionItem = ({ name, form }: FilterAccordionItemProps) => {
 
 export interface IFormInputs {
   subregion: string;
-  country: string[];
   institutionType: { string: boolean };
   n_outputs: number[];
   n_outputs_open: number[];
@@ -86,91 +86,156 @@ export interface IFormInputs {
 
 interface TableFilterProps {
   tabIndex: number;
-  setFilterParamsCountry: (e: string) => void;
-  setFilterParamsInstitution: (e: string) => void;
-  setPageParamsCountry: (e: string) => void;
-  setPageParamsInstitution: (e: string) => void;
+  setFilterParams: (e: string) => void;
+  setPageParams: (e: string) => void;
 }
-const TableFilter = ({
-  tabIndex,
-  setFilterParamsCountry,
-  setFilterParamsInstitution,
-  setPageParamsCountry,
-  setPageParamsInstitution,
-}: TableFilterProps) => {
-  const { handleSubmit, control, setValue, reset } = useForm<IFormInputs>();
-  const [checkedSubregionsCountry, setCheckedSubregionsCountry] = React.useState(subregions);
-  const [checkedSubregionsInstitution, setCheckedSubregionsInstitution] = React.useState(subregions);
-  const [selectedCountriesCountry, setSelectedCountriesCountry] = React.useState<CustomItem[]>([]);
-  const [selectedCountriesInstitution, setSelectedCountriesInstitution] = React.useState<CustomItem[]>([]);
-  const defaultSliderValuesCountry: sliderValues = {
-    n_outputs: [0, 100],
-    n_outputs_open: [0, 100],
-    p_outputs_open: [0, 100],
-  };
-  const [sliderValuesCountry, setSliderValuesCountry] = React.useState<sliderValues>(defaultSliderValuesCountry);
-  const defaultSliderValuesInstitution: sliderValues = {
-    n_outputs: [0, 100],
-    n_outputs_open: [0, 100],
-    p_outputs_open: [0, 100],
-  };
-  const [sliderValuesInstitution, setSliderValuesInstitution] =
-    React.useState<sliderValues>(defaultSliderValuesInstitution);
+const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterProps) => {
+  // Store the search parameters to find the min and max values using the API
+  const [minMaxParamsCountry, setMinMaxParamsCountry] = React.useState("");
+  const [minMaxParamsInstitution, setMinMaxParamsInstitution] = React.useState("");
 
-  const checkedSubregions = tabIndex === 0 ? checkedSubregionsCountry : checkedSubregionsInstitution;
-  const setCheckedSubregions = tabIndex === 0 ? setCheckedSubregionsCountry : setCheckedSubregionsInstitution;
-  const selectedCountries = tabIndex === 0 ? selectedCountriesCountry : selectedCountriesInstitution;
-  const setSelectedCountries = tabIndex === 0 ? setSelectedCountriesCountry : setSelectedCountriesInstitution;
+  // Fetch + set the min and max values using the API
+  const fetchMinMax = (endpoint: string, setMinMax: any) => {
+    const url = makeFilterUrl(endpoint);
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        const minMax = { min: data.min, max: data.max };
+        minMax["min"]["p_outputs_open"] = Math.floor(minMax["min"]["p_outputs_open"]);
+        minMax["max"]["p_outputs_open"] = Math.ceil(minMax["max"]["p_outputs_open"]);
+        setMinMax(minMax);
+      });
+  };
+
+  // Min and Max for the slider filters, country tab
+  const [minMaxCountry, setMinMaxCountry] = React.useState({
+    min: {
+      n_outputs: 0,
+      n_outputs_open: 0,
+      p_outputs_open: 0,
+    },
+    max: {
+      n_outputs: 12000000,
+      n_outputs_open: 5000000,
+      p_outputs_open: 100,
+    },
+  });
+  // Min and Max for the slider filters, institution tab
+  const [minMaxInstitution, setMinMaxInstitution] = React.useState({
+    min: {
+      n_outputs: 0,
+      n_outputs_open: 0,
+      p_outputs_open: 0,
+    },
+    max: {
+      n_outputs: 1000000,
+      n_outputs_open: 500000,
+      p_outputs_open: 100,
+    },
+  });
+  const minMax = tabIndex === 0 ? minMaxCountry : minMaxInstitution;
+
+  // Set initial min and max values for the sliders after fetching data from API
+  React.useEffect(() => {
+    fetchMinMax("countries?" + minMaxParamsCountry, setMinMaxCountry);
+    fetchMinMax("institutions?" + minMaxParamsInstitution, setMinMaxInstitution);
+  }, []);
+  // Update min and max values for sliders when other search parameters have changed
+  React.useEffect(() => {
+    fetchMinMax("countries?" + minMaxParamsCountry, setMinMaxCountry);
+  }, [minMaxParamsCountry]);
+  React.useEffect(() => {
+    fetchMinMax("institutions?" + minMaxParamsInstitution, setMinMaxInstitution);
+  }, [minMaxParamsInstitution]);
+  // Update the current slider values when min and max have changed
+  React.useEffect(() => {
+    setSliderValuesCountry({
+      n_outputs: [minMaxCountry.min.n_outputs, minMaxCountry.max.n_outputs],
+      n_outputs_open: [minMaxCountry.min.n_outputs_open, minMaxCountry.max.n_outputs_open],
+      p_outputs_open: [minMaxCountry.min.p_outputs_open, minMaxCountry.max.p_outputs_open],
+    });
+    setValue("n_outputs", [minMaxCountry.min.n_outputs, minMaxCountry.max.n_outputs]);
+    onSubmit();
+  }, [minMaxCountry]);
+  React.useEffect(() => {
+    setSliderValuesInstitution({
+      n_outputs: [minMaxInstitution.min.n_outputs, minMaxInstitution.max.n_outputs],
+      n_outputs_open: [minMaxInstitution.min.n_outputs_open, minMaxInstitution.max.n_outputs_open],
+      p_outputs_open: [minMaxInstitution.min.p_outputs_open, minMaxInstitution.max.p_outputs_open],
+    });
+    setValue("n_outputs", [minMaxInstitution.min.n_outputs, minMaxInstitution.max.n_outputs]);
+    onSubmit();
+  }, [minMaxInstitution]);
+
+  // Set the default slider values
+  const [sliderValuesCountry, setSliderValuesCountry] = React.useState<sliderValues>({
+    n_outputs: [0, 12000000],
+    n_outputs_open: [0, 5000000],
+    p_outputs_open: [0, 100],
+  });
+  const [sliderValuesInstitution, setSliderValuesInstitution] = React.useState<sliderValues>({
+    n_outputs: [0, 1000000],
+    n_outputs_open: [0, 500000],
+    p_outputs_open: [0, 100],
+  });
   const sliderValues = tabIndex === 0 ? sliderValuesCountry : sliderValuesInstitution;
   const setSliderValues = tabIndex === 0 ? setSliderValuesCountry : setSliderValuesInstitution;
 
+  const { handleSubmit, control, setValue, reset } = useForm<IFormInputs>();
+  const [checkedSubregionsCountry, setCheckedSubregionsCountry] = React.useState(subregions);
+  const [checkedSubregionsInstitution, setCheckedSubregionsInstitution] = React.useState(subregions);
+
+  const checkedSubregions = tabIndex === 0 ? checkedSubregionsCountry : checkedSubregionsInstitution;
+  const setCheckedSubregions = tabIndex === 0 ? setCheckedSubregionsCountry : setCheckedSubregionsInstitution;
+
   const onSubmit = handleSubmit((data: IFormInputs) => {
-    const countryValues = data.country === undefined ? "" : data.country.toString();
     const institutionTypeValues = transformFormResults(data.institutionType);
     const totalOutputs = data.n_outputs;
-    // const totalOutputsOpen = data.n_outputs_open;
+    const totalOutputsOpen = data.n_outputs_open;
     const percentOutputsOpen = data.p_outputs_open;
-    console.log(data);
     const searchParams = [];
+    const statsSearchParams = [];
+    console.log("data", data);
     if (data.subregion) {
       searchParams.push(`subregions=${data.subregion}`);
-    }
-    if (countryValues) {
-      searchParams.push(`countries=${countryValues}`);
+      statsSearchParams.push(`subregions=${data.subregion}`);
     }
     if (institutionTypeValues) {
       searchParams.push(`institutionTypes=${institutionTypeValues}`);
+      statsSearchParams.push(`institutionTypes=${institutionTypeValues}`);
     }
     if (totalOutputs) {
-      searchParams.push(`minNOutputs=${totalOutputs[0]}&maxNOutputs=${totalOutputs[1]}`);
+      searchParams.push(`minNOutputs=${totalOutputs[0]}&maxNOutputs=${totalOutputs[1] + 1}`);
     }
-    //TODO add when available with API
-    // if (totalOutputsOpen) {
-    //   searchParams.push(``)
-    // }
+    if (totalOutputsOpen) {
+      searchParams.push(`minNOutputsOpen=${totalOutputsOpen[0]}&maxNOutputsOpen=${totalOutputsOpen[1] + 1}`);
+    }
     if (percentOutputsOpen) {
       searchParams.push(`minPOutputsOpen=${percentOutputsOpen[0]}&maxPOutputsOpen=${percentOutputsOpen[1]}`);
     }
     console.log(searchParams.join("&"));
+    setFilterParams(searchParams.join("&"));
+    setPageParams("page=0");
     if (tabIndex === 0) {
-      setFilterParamsCountry(searchParams.join("&"));
-      setPageParamsCountry("page=0");
+      setMinMaxParamsCountry(statsSearchParams.join("&"));
     } else {
-      setFilterParamsInstitution(searchParams.join("&"));
-      setPageParamsInstitution("page=0");
+      setMinMaxParamsInstitution(statsSearchParams.join("&"));
     }
   });
 
   const onReset = () => {
+    setFilterParams("");
     if (tabIndex === 0) {
-      setFilterParamsCountry("");
-      setSliderValues(defaultSliderValuesCountry);
+      setMinMaxParamsCountry("");
     } else {
-      setFilterParamsInstitution("");
-      setSliderValues(defaultSliderValuesInstitution);
+      setMinMaxParamsInstitution("");
     }
-    setCheckedSubregions(subregions);
-    setSelectedCountries([]);
+    setSliderValues({
+      n_outputs: [minMax.min.n_outputs, minMax.max.n_outputs],
+      n_outputs_open: [minMax.min.n_outputs_open, minMax.max.n_outputs_open],
+      p_outputs_open: [minMax.min.p_outputs_open, minMax.max.p_outputs_open],
+    });
+    setValue("subregion", transformFormResults(subregions));
     reset();
   };
 
@@ -195,12 +260,16 @@ const TableFilter = ({
             name={"Subregion"}
             form={SubregionForm(control, checkedSubregions, setCheckedSubregions, setValue, onSubmit)}
           />
-          <FilterAccordionItem name={"Country"} form={CountryForm(control, selectedCountries, setSelectedCountries)} />
+          {/*<FilterAccordionItem name={"Country"} form={CountryForm(control, selectedCountries, setSelectedCountries)} />*/}
           <FilterAccordionItem
             name={"Publication Count / Open Access"}
-            form={StatsForm(control, sliderValues, setSliderValues, onSubmit)}
+            form={StatsForm(control, sliderValues, setSliderValues, minMax, onSubmit)}
           />
-          {tabIndex === 1 ? <FilterAccordionItem name={"Institution Type"} form={InstitutionTypeForm(control)} /> : ""}
+          {tabIndex === 1 ? (
+            <FilterAccordionItem name={"Institution Type"} form={InstitutionTypeForm(control, onSubmit)} />
+          ) : (
+            ""
+          )}
         </Accordion>
 
         <HStack justifyContent="space-around" m={{ base: "none", md: "10px 0px" }}>
