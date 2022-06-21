@@ -205,13 +205,19 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
         </Tabs>
 
         <Box gridArea="filter">
-          <TableFilter
-            tabIndex={tabIndex}
-            setFilterParamsCountry={setFilterParamsCountry}
-            setFilterParamsInstitution={setFilterParamsInstitution}
-            setPageParamsCountry={setPageParamsCountry}
-            setPageParamsInstitution={setPageParamsInstitution}
-          />
+          {tabIndex === 0 ? (
+            <TableFilter
+              tabIndex={tabIndex}
+              setFilterParams={setFilterParamsCountry}
+              setPageParams={setPageParamsCountry}
+            />
+          ) : (
+            <TableFilter
+              tabIndex={tabIndex}
+              setFilterParams={setFilterParamsInstitution}
+              setPageParams={setPageParamsInstitution}
+            />
+          )}
         </Box>
       </Grid>
     </Box>
