@@ -15,28 +15,29 @@
 // Author: Aniek Roelofs
 
 import React, { ReactElement } from "react";
-import { Checkbox, FormControl, Stack } from "@chakra-ui/react";
-import { useForm, Controller, ChangeHandler } from "react-hook-form";
+import { Checkbox, FormControl, Stack, StackDivider } from "@chakra-ui/react";
+import { Controller } from "react-hook-form";
 import { transformFormResults } from "./TableFilter";
+import { regions } from "./RegionForm";
 
 export const subregions = {
-  "Australia and New Zealand": false,
-  "Central Asia": false,
-  "Eastern Asia": false,
-  "Eastern Europe": false,
-  "Latin America and the Caribbean": false,
-  Melanesia: false,
-  Micronesia: false,
-  "Northern Africa": false,
-  "Northern America": false,
-  "Northern Europe": false,
-  Polynesia: false,
-  "South-eastern Asia": false,
-  "Southern Asia": false,
-  "Southern Europe": false,
-  "Sub-Saharan Africa": false,
-  "Western Asia": false,
-  "Western Europe": false,
+  "Australia and New Zealand": true,
+  "Central Asia": true,
+  "Eastern Asia": true,
+  "Eastern Europe": true,
+  "Latin America and the Caribbean": true,
+  Melanesia: true,
+  Micronesia: true,
+  "Northern Africa": true,
+  "Northern America": true,
+  "Northern Europe": true,
+  Polynesia: true,
+  "South-eastern Asia": true,
+  "Southern Asia": true,
+  "Southern Europe": true,
+  "Sub-Saharan Africa": true,
+  "Western Asia": true,
+  "Western Europe": true,
 };
 
 const SubregionForm = (
@@ -48,34 +49,40 @@ const SubregionForm = (
 ) => {
   return (
     <FormControl>
-      <Stack maxHeight="300px" overflowY={"scroll"}>
-        {Object.keys(subregions).map((subregion): ReactElement => {
-          return (
-            <Controller
-              control={control}
-              name={`subregion.${subregion}`}
-              key={subregion}
-              defaultValue={false}
-              render={({ field: { onChange, value, ref } }) => (
-                <Checkbox
-                  key={subregion}
-                  variant="tableFilter"
-                  colorScheme="checkbox"
-                  isChecked={checkedSubregions[subregion]}
-                  onChange={(e) => {
-                    const checkedSubregionsCopy = JSON.parse(JSON.stringify(checkedSubregions));
-                    checkedSubregionsCopy[subregion] = e.target.checked;
-                    setCheckedSubregions(checkedSubregionsCopy); // update subregions, changing checkboxes
-                    setValue("subregion", transformFormResults(checkedSubregionsCopy)); // update underlying data
-                    onSubmit(); // submit changes
-                  }}
-                  ref={ref}
-                >
-                  {subregion}
-                </Checkbox>
-              )}
-            />
-          );
+      <Stack maxHeight="300px" overflowY={"scroll"} divider={<StackDivider borderColor="gray.200" />}>
+        {Object.keys(regions).map((region): JSX.Element[] => {
+          return [
+            <Stack key={"subregions"}>
+              {regions[region].map((subregion): ReactElement => {
+                return (
+                  <Controller
+                    control={control}
+                    name={`subregion.${subregion}`}
+                    key={subregion}
+                    defaultValue={true}
+                    render={({ field: { onChange, value, ref } }) => (
+                      <Checkbox
+                        key={subregion}
+                        variant="tableFilter"
+                        colorScheme="checkbox"
+                        isChecked={checkedSubregions[subregion]}
+                        onChange={(e) => {
+                          const checkedSubregionsCopy = JSON.parse(JSON.stringify(checkedSubregions));
+                          checkedSubregionsCopy[subregion] = e.target.checked;
+                          setCheckedSubregions(checkedSubregionsCopy); // update subregions, changing checkboxes
+                          setValue("subregion", transformFormResults(checkedSubregionsCopy)); // update underlying data
+                          onSubmit(); // submit changes
+                        }}
+                        ref={ref}
+                      >
+                        {subregion}
+                      </Checkbox>
+                    )}
+                  />
+                );
+              })}
+            </Stack>,
+          ];
         })}
       </Stack>
     </FormControl>

@@ -19,7 +19,7 @@ import React, { ReactElement } from "react";
 import { Controller } from "react-hook-form";
 import { transformFormResults } from "./TableFilter";
 
-const regions: { [x: string]: string[] } = {
+export const regions: { [x: string]: string[] } = {
   Africa: ["Northern Africa", "Sub-Saharan Africa"],
   Americas: ["Latin America and the Caribbean", "Northern America"],
   Asia: ["Central Asia", "Eastern Asia", "South-eastern Asia", "Southern Asia", "Western Asia"],
@@ -49,7 +49,7 @@ const RegionForm = (
             control={control}
             name={`region.${region}`}
             key={region}
-            defaultValue={false}
+            defaultValue={true}
             render={({ field: { ref } }) => (
               <Checkbox
                 key={region}
