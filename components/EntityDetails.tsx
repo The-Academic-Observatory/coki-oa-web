@@ -49,6 +49,7 @@ import Head from "next/head";
 import Breadcrumbs from "./Breadcrumbs";
 import TextCollapse from "./TextCollapse";
 import lodashGet from "lodash.get";
+import { addBuildId } from "../lib/api";
 
 interface CardProps extends BoxProps {
   children: ReactNode;
@@ -76,9 +77,13 @@ interface EntityDetailsProps {
   stats: Stats;
 }
 
-const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) => {
-  const pOpen = Math.round(entity.stats.p_outputs_open);
+export function makeTwitterImageUrl(entityId: string): string {
+  let url = `${process.env.NEXT_PUBLIC_HOST}/twitter/${entityId}.webp`;
+  return addBuildId(url);
+}
 
+export function makePageDescription(entity: Entity, stats: Stats): string {
+  const pOpen = Math.round(entity.stats.p_outputs_open);
   // When the entity's OA% is over median say Over when under say Only
   let metaDescription = "Over ";
   if (entity.stats.p_outputs_open < lodashGet(stats, `${entity.category}_medians`).p_outputs_open) {
@@ -87,22 +92,29 @@ const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) => {
   metaDescription +=
     `${pOpen}% of ${entity.name}'s published academic research is freely available on the internet. ` +
     makeDescription(entity);
+
+  return metaDescription;
+}
+
+export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) => {
+  const pageTitle = `COKI: ${entity.name}`;
+  const pageDescription = makePageDescription(entity, stats);
   const twitterTitle = `${entity.name}'s Open Access Research Performance`;
-  const twitterImage = `${process.env.NEXT_PUBLIC_HOST}/twitter/${entity.id}.webp`;
+  const twitterImage = makeTwitterImageUrl(entity.id);
 
   return (
     <Box layerStyle="page">
       <Head>
-        <title>COKI: {entity.name}</title>
-        <meta name="description" content={metaDescription} />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
 
         {/* Twitter card metadata */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@COKIproject" />
         <meta name="twitter:title" content={twitterTitle} />
-        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:description" content={pageDescription} />
         <meta name="twitter:image" content={twitterImage} />
-        <meta name="twitter:image:alt" content={metaDescription} />
+        <meta name="twitter:image:alt" content={pageDescription} />
       </Head>
 
       <Breadcrumbs
