@@ -85,7 +85,7 @@ export type ZenodoVersion = {
 export type Stats = {
   start_year: number;
   end_year: number;
-  last_updated: number;
+  last_updated: string;
   n_countries: number;
   n_institutions: number;
   zenodo_versions: Array<ZenodoVersion>;
