@@ -28,7 +28,7 @@ const institutionTypes = [
   "Nonprofit",
   "Other",
 ];
-const InstitutionTypeForm = (control: any) => {
+const InstitutionTypeForm = (control: any, onSubmit: { (): void }) => {
   return (
     <SimpleGrid spacing={3} minChildWidth={"110px"}>
       {institutionTypes.map((institutionType): ReactElement => {
@@ -37,9 +37,18 @@ const InstitutionTypeForm = (control: any) => {
             control={control}
             name={`institutionType.${institutionType}`}
             key={institutionType}
-            defaultValue={false}
+            defaultValue={true}
             render={({ field: { onChange, value, ref } }) => (
-              <Checkbox variant="tableFilter" colorScheme="checkbox" isChecked={!!value} onChange={onChange} ref={ref}>
+              <Checkbox
+                variant="tableFilter"
+                colorScheme="checkbox"
+                isChecked={!!value}
+                onChange={(changes) => {
+                  onChange(changes);
+                  onSubmit();
+                }}
+                ref={ref}
+              >
                 {institutionType}
               </Checkbox>
             )}
