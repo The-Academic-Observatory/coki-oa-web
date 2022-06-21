@@ -31,6 +31,7 @@ export class ArrayView<Type> {
 const minLimit = 1;
 const maxLimit = 18;
 const minOutputs = 1000;
+const minOutputsOpen = 0;
 
 const firstInstitutionIndex = data.findIndex((entity: Entity) => {
   return entity.category === "institution";
@@ -67,6 +68,10 @@ export const parseQuery = (q: FilterQuery): Query => {
   minNOutputs = Math.max(minNOutputs, minOutputs);
   let maxNOutputs = q.maxNOutputs === undefined ? Number.MAX_VALUE : parseInt(q.maxNOutputs);
   maxNOutputs = Math.max(maxNOutputs, minOutputs);
+  let minNOutputsOpen = q.minNOutputsOpen === undefined ? minOutputsOpen : parseInt(q.minNOutputsOpen);
+  minNOutputsOpen = Math.max(minNOutputsOpen, minOutputsOpen);
+  let maxNOutputsOpen = q.maxNOutputsOpen === undefined ? Number.MAX_VALUE : parseInt(q.maxNOutputsOpen);
+  maxNOutputsOpen = Math.max(maxNOutputsOpen, minOutputsOpen);
   let minPOutputsOpen = q.minPOutputsOpen === undefined ? 0 : parseInt(q.minPOutputsOpen);
   minPOutputsOpen = Math.min(Math.max(minPOutputsOpen, 0), 100);
   let maxPOutputsOpen = q.maxPOutputsOpen === undefined ? 100 : parseInt(q.maxPOutputsOpen);
@@ -79,6 +84,8 @@ export const parseQuery = (q: FilterQuery): Query => {
     institutionTypes: institutionTypes,
     minNOutputs: minNOutputs,
     maxNOutputs: maxNOutputs,
+    minNOutputsOpen: minNOutputsOpen,
+    maxNOutputsOpen: maxNOutputsOpen,
     minPOutputsOpen: minPOutputsOpen,
     maxPOutputsOpen: maxPOutputsOpen,
   };
@@ -141,6 +148,12 @@ export function filterResults(
 
     // Include if n_outputs is between filter values
     include = include && query.minNOutputs <= entity.stats.n_outputs && entity.stats.n_outputs <= query.maxNOutputs;
+
+    // Include if n_outputs_open is between filter values
+    include =
+      include &&
+      query.minNOutputsOpen <= entity.stats.n_outputs_open &&
+      entity.stats.n_outputs_open <= query.maxNOutputsOpen;
 
     // Include if p_outputs_open is between filter values
     include =
