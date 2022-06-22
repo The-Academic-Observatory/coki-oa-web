@@ -29,7 +29,6 @@ import {
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
 import { useForm } from "react-hook-form";
 import Icon from "./Icon";
-import CountryForm, { CustomItem } from "./CountryForm";
 import InstitutionTypeForm from "./InstitutionTypeForm";
 import RegionForm from "./RegionForm";
 import SubregionForm, { subregions } from "./SubregionForm";
@@ -77,7 +76,7 @@ const FilterAccordionItem = ({ name, form }: FilterAccordionItemProps) => {
 };
 
 export interface IFormInputs {
-  subregion: string;
+  subregion: { string: boolean };
   institutionType: { string: boolean };
   n_outputs: number[];
   n_outputs_open: number[];
@@ -101,7 +100,7 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
       .then((response) => response.json())
       .then((data) => {
         const minMax = { min: data.min, max: data.max };
-        minMax["min"]["p_outputs_open"] = Math.floor(minMax["min"]["p_outputs_open"]);
+        minMax["min"]["p_outputs_open"] = Math.ceil(minMax["min"]["p_outputs_open"]);
         minMax["max"]["p_outputs_open"] = Math.ceil(minMax["max"]["p_outputs_open"]);
         setMinMax(minMax);
       });
@@ -190,17 +189,17 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
 
   const onSubmit = handleSubmit((data: IFormInputs) => {
     const institutionTypeValues = transformFormResults(data.institutionType);
+    const subregionValues = transformFormResults(data.subregion);
     const totalOutputs = data.n_outputs;
     const totalOutputsOpen = data.n_outputs_open;
     const percentOutputsOpen = data.p_outputs_open;
     const searchParams = [];
     const statsSearchParams = [];
-    console.log("data", data);
-    if (data.subregion) {
-      searchParams.push(`subregions=${data.subregion}`);
-      statsSearchParams.push(`subregions=${data.subregion}`);
+    if (data.subregion != undefined) {
+      searchParams.push(`subregions=${subregionValues}`);
+      statsSearchParams.push(`subregions=${subregionValues}`);
     }
-    if (institutionTypeValues) {
+    if (data.institutionType != undefined) {
       searchParams.push(`institutionTypes=${institutionTypeValues}`);
       statsSearchParams.push(`institutionTypes=${institutionTypeValues}`);
     }
@@ -213,7 +212,6 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
     if (percentOutputsOpen) {
       searchParams.push(`minPOutputsOpen=${percentOutputsOpen[0]}&maxPOutputsOpen=${percentOutputsOpen[1]}`);
     }
-    console.log(searchParams.join("&"));
     setFilterParams(searchParams.join("&"));
     setPageParams("page=0");
     if (tabIndex === 0) {
@@ -235,7 +233,7 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
       n_outputs_open: [minMax.min.n_outputs_open, minMax.max.n_outputs_open],
       p_outputs_open: [minMax.min.p_outputs_open, minMax.max.p_outputs_open],
     });
-    setValue("subregion", transformFormResults(subregions));
+    setCheckedSubregions(subregions);
     reset();
   };
 

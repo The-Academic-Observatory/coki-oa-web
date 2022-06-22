@@ -17,7 +17,6 @@
 import React, { ReactElement } from "react";
 import { Checkbox, FormControl, Stack, StackDivider } from "@chakra-ui/react";
 import { Controller } from "react-hook-form";
-import { transformFormResults } from "./TableFilter";
 import { regions } from "./RegionForm";
 
 export const subregions = {
@@ -70,7 +69,7 @@ const SubregionForm = (
                           const checkedSubregionsCopy = JSON.parse(JSON.stringify(checkedSubregions));
                           checkedSubregionsCopy[subregion] = e.target.checked;
                           setCheckedSubregions(checkedSubregionsCopy); // update subregions, changing checkboxes
-                          setValue("subregion", transformFormResults(checkedSubregionsCopy)); // update underlying data
+                          setValue("subregion", checkedSubregionsCopy); // update underlying data
                           onSubmit(); // submit changes
                         }}
                         ref={ref}

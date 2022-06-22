@@ -17,7 +17,6 @@
 import { Checkbox, SimpleGrid } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { Controller } from "react-hook-form";
-import { transformFormResults } from "./TableFilter";
 
 export const regions: { [x: string]: string[] } = {
   Africa: ["Northern Africa", "Sub-Saharan Africa"],
@@ -62,7 +61,7 @@ const RegionForm = (
                     checkedSubregionsCopy[subregion] = e.target.checked;
                   }
                   setCheckedSubregions(checkedSubregionsCopy);
-                  setValue("subregion", transformFormResults(checkedSubregionsCopy));
+                  setValue("subregion", checkedSubregionsCopy);
                   onSubmit();
                 }}
                 ref={ref}
