@@ -2395,24 +2395,14 @@
     "@react-spring/web" "9.3.1"
     lodash "^4.17.21"
 
-"@nivo/arcs@0.78.0":
-  version "0.78.0"
-  resolved "https://registry.npmjs.org/@nivo/arcs/-/arcs-0.78.0.tgz"
-  integrity sha512-wC8lEHv0q9nDQoK3M0ikzVKRakcWCNAtQpwy6Kony0Zzymv13nL3Ow5m05aZocHp31AYsgBClx0g+DqPR+0eNg==
+"@nivo/arcs@0.79.1":
+  version "0.79.1"
+  resolved "https://registry.yarnpkg.com/@nivo/arcs/-/arcs-0.79.1.tgz#768d5e91356e94199377fbd0ca762bc364353414"
+  integrity sha512-owScoElMv5EwDbZKJhns282MnXVM4rq9jYwBnFBx872Igi2r6HwKk1m4jDWGfDktJ7MyECvuVzxRaUImWQdufA==
   dependencies:
-    "@nivo/colors" "0.78.0"
+    "@nivo/colors" "0.79.1"
     "@react-spring/web" "9.3.1"
     d3-shape "^1.3.5"
-
-"@nivo/axes@0.78.0":
-  version "0.78.0"
-  resolved "https://registry.npmjs.org/@nivo/axes/-/axes-0.78.0.tgz"
-  integrity sha512-lyQUVcN9GoIDS/xK6w1/X3NYrHE3bNWGuemZy/nwHn+thuDT0AtrXGDiI9Ae0BptjCS+F8AHnEHeDGtebgltww==
-  dependencies:
-    "@nivo/scales" "0.78.0"
-    "@react-spring/web" "9.3.1"
-    d3-format "^1.4.4"
-    d3-time-format "^3.0.0"
 
 "@nivo/axes@0.79.0":
   version "0.79.0"
@@ -2440,17 +2430,6 @@
     d3-shape "^1.2.2"
     lodash "^4.17.21"
 
-"@nivo/colors@0.78.0":
-  version "0.78.0"
-  resolved "https://registry.npmjs.org/@nivo/colors/-/colors-0.78.0.tgz"
-  integrity sha512-hQgzzl7mttC7JEa6E/VZPI2WEQQcgsPjHcGJGuAmkRe7aLcdfmAgrMgyoS8qx/El20iClTFFpwrhMDA/nhOSZA==
-  dependencies:
-    d3-color "^2.0.0"
-    d3-scale "^3.2.3"
-    d3-scale-chromatic "^2.0.0"
-    lodash "^4.17.21"
-    react-motion "^0.5.2"
-
 "@nivo/colors@0.79.1":
   version "0.79.1"
   resolved "https://registry.npmjs.org/@nivo/colors/-/colors-0.79.1.tgz"
@@ -2461,12 +2440,12 @@
     d3-scale-chromatic "^2.0.0"
     lodash "^4.17.21"
 
-"@nivo/core@^0.78.0":
-  version "0.78.0"
-  resolved "https://registry.npmjs.org/@nivo/core/-/core-0.78.0.tgz"
-  integrity sha512-W7likA+5mB4Xw8eIwzLoocel1yaesRqkljmCNmp7jg0yxuRn3k05HnPF5XFWFh6gskRcOnsGMMjkAEirqzP/9Q==
+"@nivo/core@^0.79.0":
+  version "0.79.0"
+  resolved "https://registry.yarnpkg.com/@nivo/core/-/core-0.79.0.tgz#5755212c2058c20899990e7c8ec0e918ac00e5f5"
+  integrity sha512-e1iGodmGuXkF+QWAjhHVFc+lUnfBoUwaWqVcBXBfebzNc50tTJrTTMHyQczjgOIfTc8gEu23lAY4mVZCDKscig==
   dependencies:
-    "@nivo/recompose" "0.78.0"
+    "@nivo/recompose" "0.79.0"
     "@react-spring/web" "9.3.1"
     d3-color "^2.0.0"
     d3-format "^1.4.4"
@@ -2476,45 +2455,29 @@
     d3-shape "^1.3.5"
     d3-time-format "^3.0.0"
     lodash "^4.17.21"
-    resize-observer-polyfill "^1.5.1"
-
-"@nivo/legends@0.78.0":
-  version "0.78.0"
-  resolved "https://registry.npmjs.org/@nivo/legends/-/legends-0.78.0.tgz"
-  integrity sha512-Kv1qkarNXvKa/njeJqU0fC3s1cHBZ0r1/OcGPPvuhc+g9a1D4nVRuu+/FE7ci5myp5Q+PYQeNlyqlY/zksIPyQ==
 
 "@nivo/legends@0.79.1":
   version "0.79.1"
   resolved "https://registry.npmjs.org/@nivo/legends/-/legends-0.79.1.tgz"
   integrity sha512-AoabiLherOAk3/HR/N791fONxNdwNk/gCTJC/6BKUo2nX+JngEYm3nVFmTC1R6RdjwJTeCb9Vtuc4MHA+mcgig==
 
-"@nivo/pie@^0.78.0":
-  version "0.78.0"
-  resolved "https://registry.npmjs.org/@nivo/pie/-/pie-0.78.0.tgz"
-  integrity sha512-ptI8KXaYcU5gCWF7fZcTNa79BjxmlmC80ew4hEQfLTmwhBW/bOE3RpF/kreHkRnSzs6b8koeQ6eTE422Ib+Hbg==
+"@nivo/pie@^0.79.1":
+  version "0.79.1"
+  resolved "https://registry.yarnpkg.com/@nivo/pie/-/pie-0.79.1.tgz#4461e5273adabd0ef52bfcb54fbf6604f676d5a5"
+  integrity sha512-Cm8I6/nrmcpJLwziUhZ3TtwRV6K/7qWJ6alN6bUh8z7w2nScSnD/PhmAPS89p3jzSUEBPOvCViKwdvyThJ8KCg==
   dependencies:
-    "@nivo/arcs" "0.78.0"
-    "@nivo/colors" "0.78.0"
-    "@nivo/legends" "0.78.0"
-    "@nivo/tooltip" "0.78.0"
+    "@nivo/arcs" "0.79.1"
+    "@nivo/colors" "0.79.1"
+    "@nivo/legends" "0.79.1"
+    "@nivo/tooltip" "0.79.0"
     d3-shape "^1.3.5"
 
-"@nivo/recompose@0.78.0":
-  version "0.78.0"
-  resolved "https://registry.npmjs.org/@nivo/recompose/-/recompose-0.78.0.tgz"
-  integrity sha512-iYrScMqmw2RUy6erhS/9w3wan5oWkdEYCLbB7NF9RwHXuS9TxqdWGw5BTCgibGnjZGHHvtZGr+J1TTX5M6WmEA==
+"@nivo/recompose@0.79.0":
+  version "0.79.0"
+  resolved "https://registry.yarnpkg.com/@nivo/recompose/-/recompose-0.79.0.tgz#c0c54ecabb2300ce672f3c3199f74629df33cc08"
+  integrity sha512-2GFnOHfA2jzTOA5mdKMwJ6myCRGoXQQbQvFFQ7B/+hnHfU/yrOVpiGt6TPAn3qReC4dyDYrzy1hr9UeQh677ig==
   dependencies:
     react-lifecycles-compat "^3.0.4"
-
-"@nivo/scales@0.78.0":
-  version "0.78.0"
-  resolved "https://registry.npmjs.org/@nivo/scales/-/scales-0.78.0.tgz"
-  integrity sha512-hxNbX4Acb12opV1RUMaGDYyACWiHTfKoz0S2fNjisp5+vN8IT7gHOa7la7rR03rfypuJ+ol7M/Mj5LTSVKe+6A==
-  dependencies:
-    d3-scale "^3.2.3"
-    d3-time "^1.0.11"
-    d3-time-format "^3.0.0"
-    lodash "^4.17.21"
 
 "@nivo/scales@0.79.0":
   version "0.79.0"
@@ -2526,26 +2489,19 @@
     d3-time-format "^3.0.0"
     lodash "^4.17.21"
 
-"@nivo/stream@^0.78.0":
-  version "0.78.0"
-  resolved "https://registry.npmjs.org/@nivo/stream/-/stream-0.78.0.tgz"
-  integrity sha512-6iQDRv9Ii5fovDYCxLxE5Cf7K69l1bC0+yeaS8vmketgAZDIVaF9LiPVx9WXiwnG42jRcQiTx0eynBYItWlyPg==
+"@nivo/stream@^0.79.1":
+  version "0.79.1"
+  resolved "https://registry.yarnpkg.com/@nivo/stream/-/stream-0.79.1.tgz#4ec4802ec02b1079a5ee19d3f79d225d5194e9da"
+  integrity sha512-peEDiNgLr2IHpt1pATE27HIX4FhJBw9Vr3YAWUzFC/F7DsO6wegcKr+hLjbIyhwKHryIrnRMYEk9avuoLKHrwg==
   dependencies:
-    "@nivo/axes" "0.78.0"
-    "@nivo/colors" "0.78.0"
-    "@nivo/legends" "0.78.0"
-    "@nivo/scales" "0.78.0"
-    "@nivo/tooltip" "0.78.0"
+    "@nivo/axes" "0.79.0"
+    "@nivo/colors" "0.79.1"
+    "@nivo/legends" "0.79.1"
+    "@nivo/scales" "0.79.0"
+    "@nivo/tooltip" "0.79.0"
     "@react-spring/web" "9.3.1"
     d3-scale "^3.2.3"
     d3-shape "^1.3.5"
-
-"@nivo/tooltip@0.78.0":
-  version "0.78.0"
-  resolved "https://registry.npmjs.org/@nivo/tooltip/-/tooltip-0.78.0.tgz"
-  integrity sha512-NDYVty+UBECysDGLMvEyxSaAVrgWWb2raIlwEqBqsOnGDQ2bggWuQ6ydVa75pHhhuxPe8PawH0LknzB4kXxnYA==
-  dependencies:
-    "@react-spring/web" "9.3.1"
 
 "@nivo/tooltip@0.79.0":
   version "0.79.0"
@@ -6148,16 +6104,6 @@ pend@~1.2.0:
   resolved "https://registry.yarnpkg.com/pend/-/pend-1.2.0.tgz#7a57eb550a6783f9115331fcf4663d5c8e007a50"
   integrity sha1-elfrVQpng/kRUzH89GY9XI4AelA=
 
-performance-now@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/performance-now/-/performance-now-0.2.0.tgz"
-  integrity sha1-M+8wxcd9TqIcWlOGnZG1bY8lVeU=
-
-performance-now@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/performance-now/-/performance-now-2.1.0.tgz"
-  integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
-
 picocolors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.0.0.tgz#cb5bdc74ff3f51892236eaf79d68bc44564ab81c"
@@ -6309,7 +6255,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.8, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -6354,13 +6300,6 @@ queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
-
-raf@^3.1.0:
-  version "3.4.1"
-  resolved "https://registry.npmjs.org/raf/-/raf-3.4.1.tgz"
-  integrity sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==
-  dependencies:
-    performance-now "^2.1.0"
 
 react-clientside-effect@^1.2.5:
   version "1.2.5"
@@ -6419,15 +6358,6 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
-
-react-motion@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.npmjs.org/react-motion/-/react-motion-0.5.2.tgz"
-  integrity sha512-9q3YAvHoUiWlP3cK0v+w1N5Z23HXMj4IF4YuvjvWegWqNPfLXsOBE/V7UvQGpXxHFKRQQcNcVQE31g9SB/6qgQ==
-  dependencies:
-    performance-now "^0.2.0"
-    prop-types "^15.5.8"
-    raf "^3.1.0"
 
 react-remove-scroll-bar@^2.1.0:
   version "2.2.0"
@@ -6570,11 +6500,6 @@ reselect@^4.0.0:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.5.tgz#852c361247198da6756d07d9296c2b51eddb79f6"
   integrity sha512-uVdlz8J7OO+ASpBYoz1Zypgx0KasCY20H+N8JD13oUMtPvSHQuscrHop4KbXrbsBcdB9Ds7lVK7eRkBIfO43vQ==
-
-resize-observer-polyfill@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.npmjs.org/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz"
-  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-cwd@^3.0.0:
   version "3.0.0"

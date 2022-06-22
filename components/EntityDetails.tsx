@@ -716,7 +716,7 @@ const OAPercentageChart = ({ data, startYear, ...rest }: OAPercentageChartProps)
     colors: ["#ffd700", "#4fa9dc", "#9FD27E", "#EBEBEB"],
     colorBy: "index",
     fillOpacity: 0.8,
-    width: 824,
+    width: 740,
     height: 400,
     axisLeft: {
       format: (value: number) => {
@@ -733,8 +733,18 @@ const OAPercentageChart = ({ data, startYear, ...rest }: OAPercentageChartProps)
   };
 
   return (
-    <div style={{ display: "flex" }} className="oaPercentageStream">
-      <Stream offsetType="none" {...props} />
+    <div style={{ display: "flex" }}>
+      <Stream
+        {...props}
+        layers={["axes"]}
+        axisBottom={null}
+        width={40}
+        margin={{ ...props.margin, left: 40 }}
+        offsetType="none"
+      />
+      <div style={{ overflowX: "auto", direction: "rtl", width: 740 }}>
+        <Stream {...props} axisLeft={null} margin={{ ...props.margin, left: 0 }} offsetType="none" />
+      </div>
     </div>
   );
 };
@@ -764,7 +774,7 @@ const OAVolumeChart = ({ data, startYear, ...rest }: OAVolumeChartProps) => {
     enableGridX: false,
     enableGridY: true,
     colors: colors,
-    width: 824,
+    width: 740,
     enableLabel: false,
     height: 400,
     isInteractive: true,
@@ -779,8 +789,11 @@ const OAVolumeChart = ({ data, startYear, ...rest }: OAVolumeChartProps) => {
   };
 
   return (
-    <div style={{ display: "flex" }} className="oaPercentageStream">
-      <Bar {...props} />
+    <div style={{ display: "flex" }}>
+      <Bar {...props} layers={["axes"]} axisBottom={null} width={60} margin={{ ...props.margin, left: 60 }} />
+      <div style={{ overflowX: "auto", direction: "rtl", width: 740 }}>
+        <Bar {...props} axisLeft={null} margin={{ ...props.margin, left: 0 }} />
+      </div>
     </div>
   );
 };
