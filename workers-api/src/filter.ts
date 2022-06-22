@@ -180,7 +180,10 @@ export function filterResults(
       }
     }
   }
-
+  // Set min value to 0 if it has not been updated above
+  for (let [key, val] of Object.entries(min)) {
+    if (val === Number.MAX_VALUE) lodashSet(min, key, 0);
+  }
   return { items: results, min: min, max: max };
 }
 
