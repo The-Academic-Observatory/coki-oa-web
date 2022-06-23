@@ -59,10 +59,6 @@ const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage }: Pag
 
   const [pagesArr, setPagesArr] = useState([...new Array(noOfPages)]);
 
-  // State variable to hold the current page. This value is
-  // passed to the callback provided by the parent
-  // const [currentPage, setCurrentPage] = useState(0);
-
   // Navigation arrows enable/disable state
   const [canGoBack, setCanGoBack] = useState(false);
   const [canGoNext, setCanGoNext] = useState(true);
@@ -74,8 +70,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage }: Pag
     setCurrentPage(pageNo);
   };
 
-  // Disable previous and next buttons in the first and last page
-  // respectively
+  // Disable previous and next buttons in the first and last page respectively
   useEffect(() => {
     if (noOfPages - 1 === currentPage) {
       setCanGoNext(false);
@@ -91,8 +86,6 @@ const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage }: Pag
 
   // To set the starting index of the page
   useEffect(() => {
-    // const skipFactor = (currentPage - 1) * rowsPerPage;
-    // Some APIs require skip for pagination. If needed use that instead
     setCurrentPage(currentPage);
     setPagesArr(paginate(currentPage, noOfPages));
   }, [noOfPages, currentPage]);

@@ -100,7 +100,6 @@ const StatsForm = (
                   aria-label={["min", "max"]}
                   min={sliderMin}
                   max={sliderMax}
-                  // defaultValue={sliderValue}
                   onChange={(changes) => {
                     handleChange(changes);
                     onChange(changes);

@@ -94,7 +94,13 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
   const [minMaxParamsInstitution, setMinMaxParamsInstitution] = React.useState("");
 
   // Fetch + set the min and max values using the API
-  const fetchMinMax = (endpoint: string, setMinMax: any) => {
+  const fetchMinMax = (
+    endpoint: string,
+    setMinMax: (e: {
+      min: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
+      max: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
+    }) => void,
+  ) => {
     const url = makeFilterUrl(endpoint);
     fetch(url)
       .then((response) => response.json())
@@ -258,7 +264,6 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
             name={"Subregion"}
             form={SubregionForm(control, checkedSubregions, setCheckedSubregions, setValue, onSubmit)}
           />
-          {/*<FilterAccordionItem name={"Country"} form={CountryForm(control, selectedCountries, setSelectedCountries)} />*/}
           <FilterAccordionItem
             name={"Publication Count / Open Access"}
             form={StatsForm(control, sliderValues, setSliderValues, minMax, onSubmit)}
