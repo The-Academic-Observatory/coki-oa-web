@@ -249,7 +249,7 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
           </Text>
         </HStack>
 
-        <Accordion defaultIndex={[0]} allowMultiple variant="tableFilter">
+        <Accordion allowMultiple variant="tableFilter">
           <FilterAccordionItem
             name={"Region"}
             form={RegionForm(control, checkedSubregions, setCheckedSubregions, setValue, onSubmit)}
@@ -272,11 +272,7 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
 
         <HStack justifyContent="space-around" m={{ base: "none", md: "10px 0px" }}>
           <Button variant="tableFilter" type="reset">
-            <Text>Clear Filters</Text>
-          </Button>
-
-          <Button variant="tableFilter" type="submit">
-            <Text>Apply Filters</Text>
+            <Text>Reset Filters</Text>
           </Button>
         </HStack>
       </Box>
