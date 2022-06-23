@@ -160,6 +160,8 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
       p_outputs_open: [minMaxCountry.min.p_outputs_open, minMaxCountry.max.p_outputs_open],
     });
     setValue("n_outputs", [minMaxCountry.min.n_outputs, minMaxCountry.max.n_outputs]);
+    setValue("n_outputs_open", [minMaxCountry.min.n_outputs_open, minMaxCountry.max.n_outputs_open]);
+    setValue("p_outputs_open", [minMaxCountry.min.p_outputs_open, minMaxCountry.max.p_outputs_open]);
     onSubmit();
   }, [minMaxCountry]);
   React.useEffect(() => {
@@ -169,6 +171,8 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
       p_outputs_open: [minMaxInstitution.min.p_outputs_open, minMaxInstitution.max.p_outputs_open],
     });
     setValue("n_outputs", [minMaxInstitution.min.n_outputs, minMaxInstitution.max.n_outputs]);
+    setValue("n_outputs_open", [minMaxInstitution.min.n_outputs_open, minMaxInstitution.max.n_outputs_open]);
+    setValue("p_outputs_open", [minMaxInstitution.min.p_outputs_open, minMaxInstitution.max.p_outputs_open]);
     onSubmit();
   }, [minMaxInstitution]);
 
