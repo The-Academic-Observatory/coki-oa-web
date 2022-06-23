@@ -60,7 +60,7 @@ test.skip("benchmark paginateResults with institution list", async () => {
   let results = filterResults(institutions, defaultQuery);
   const start = now();
   for (let i = 0; i < iterations; i++) {
-    paginateResults(results, pageSettings);
+    paginateResults(results.items, pageSettings);
   }
   const end = now();
   let avg = (end - start) / iterations;
