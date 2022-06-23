@@ -40,6 +40,7 @@ import Icon from "./Icon";
 import Link from "./Link";
 import Pagination from "./Pagination";
 import { makeFilterUrl } from "../lib/api";
+import debounce from "lodash/debounce";
 
 function makeHref(category: string, id: string) {
   return `/${category}/${id}`;
@@ -294,7 +295,8 @@ const IndexTable = ({
     setPageParams(pageParams);
   }, [currentPage]);
 
-  React.useEffect(() => {
+  const filterDebounce = 300;
+  const filterOnChange = debounce(() => {
     const endpoint = categoryName === "Country" ? "countries" : "institutions";
     const url = makeFilterUrl(endpoint + searchParams);
     fetch(url)
@@ -306,6 +308,10 @@ const IndexTable = ({
           totalEntities: data.nItems,
         });
       });
+  }, filterDebounce);
+
+  React.useEffect(() => {
+    filterOnChange();
   }, [searchParams, categoryName]);
 
   return (
