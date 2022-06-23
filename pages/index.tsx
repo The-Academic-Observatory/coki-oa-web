@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: James Diprose
+// Author: James Diprose, Aniek Roelofs
 
 import { Box, Grid, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
-import { Entity } from "../lib/model";
+import { Entity, Stats } from "../lib/model";
 import { getIndexTableData, getStatsData } from "../lib/api";
 import React, { useEffect } from "react";
 import IndexTable from "../components/IndexTable";
@@ -28,7 +28,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 type Props = {
   countriesFirstPage: Array<Entity>;
   institutionsFirstPage: Array<Entity>;
-  stats: any;
+  stats: Stats;
 };
 
 const maxTabsWidth = "1100px";

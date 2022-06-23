@@ -16,9 +16,12 @@
 
 import { Checkbox, SimpleGrid } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
-import { Controller } from "react-hook-form";
+import { subregions } from "./SubregionForm";
+import { UseFormSetValue } from "react-hook-form";
+import { IFormInputs } from "./TableFilter";
 
-export const regions: { [x: string]: string[] } = {
+export const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"] as const;
+export const regionToSubregion: Record<typeof regions[number], typeof subregions[number][]> = {
   Africa: ["Northern Africa", "Sub-Saharan Africa"],
   Americas: ["Latin America and the Caribbean", "Northern America"],
   Asia: ["Central Asia", "Eastern Asia", "South-eastern Asia", "Southern Asia", "Western Asia"],
@@ -26,14 +29,14 @@ export const regions: { [x: string]: string[] } = {
   Oceania: ["Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"],
 };
 const RegionForm = (
-  control: any,
-  checkedSubregions: { [x: string]: boolean },
-  setCheckedSubregions: any,
-  setValue: any,
-  onSubmit: any,
+  checkedSubregions: Record<typeof subregions[number], boolean>,
+  setCheckedSubregions: React.Dispatch<React.SetStateAction<typeof checkedSubregions>>,
+  setValue: UseFormSetValue<IFormInputs>,
+  onSubmit: { (e?: React.BaseSyntheticEvent): void },
 ) => {
-  const isChecked = (region: string) => {
-    for (let subregion of regions[region]) {
+  const isChecked = (region: typeof regions[number]) => {
+    let subregion: typeof subregions[number];
+    for (subregion of regionToSubregion[region]) {
       if (!checkedSubregions[subregion]) {
         return false;
       }
@@ -42,34 +45,26 @@ const RegionForm = (
   };
   return (
     <SimpleGrid columns={2} spacing={3}>
-      {Object.keys(regions).map((region): ReactElement => {
+      {regions.map((region): ReactElement => {
         return (
-          <Controller
-            control={control}
-            name={`region.${region}`}
+          <Checkbox
             key={region}
-            defaultValue={true}
-            render={({ field: { ref } }) => (
-              <Checkbox
-                key={region}
-                variant="tableFilter"
-                colorScheme="checkbox"
-                isChecked={isChecked(region)}
-                onChange={(e) => {
-                  const checkedSubregionsCopy = JSON.parse(JSON.stringify(checkedSubregions));
-                  for (let subregion of regions[region]) {
-                    checkedSubregionsCopy[subregion] = e.target.checked;
-                  }
-                  setCheckedSubregions(checkedSubregionsCopy);
-                  setValue("subregion", checkedSubregionsCopy);
-                  onSubmit();
-                }}
-                ref={ref}
-              >
-                {region}
-              </Checkbox>
-            )}
-          />
+            variant="tableFilter"
+            colorScheme="checkbox"
+            isChecked={isChecked(region)}
+            onChange={(e) => {
+              const checkedSubregionsCopy = JSON.parse(JSON.stringify(checkedSubregions));
+              let subregion: typeof subregions[number];
+              for (subregion of regionToSubregion[region]) {
+                checkedSubregionsCopy[subregion] = e.target.checked;
+              }
+              setCheckedSubregions(checkedSubregionsCopy);
+              setValue("subregion", checkedSubregionsCopy);
+              onSubmit();
+            }}
+          >
+            {region}
+          </Checkbox>
         );
       })}
     </SimpleGrid>

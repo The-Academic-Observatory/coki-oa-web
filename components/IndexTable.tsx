@@ -155,10 +155,10 @@ const searchColumns: { [id: string]: string } = {
 };
 
 interface Props extends BoxProps {
-  firstPage: any;
+  firstPage: Array<Entity>;
   categoryName: string;
   maxPageSize: number;
-  lastUpdated: number;
+  lastUpdated: string;
   searchParams: string;
   filterParams: string;
   setSortParams: (e: string) => void;

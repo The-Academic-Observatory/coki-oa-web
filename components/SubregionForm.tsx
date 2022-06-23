@@ -16,50 +16,51 @@
 
 import React, { ReactElement } from "react";
 import { Checkbox, FormControl, Stack, StackDivider } from "@chakra-ui/react";
-import { Controller } from "react-hook-form";
-import { regions } from "./RegionForm";
+import { Controller, UseFormSetValue } from "react-hook-form";
+import { regions, regionToSubregion } from "./RegionForm";
+import { Control } from "react-hook-form/dist/types/form";
+import { IFormInputs } from "./TableFilter";
 
-export const subregions = {
-  "Australia and New Zealand": true,
-  "Central Asia": true,
-  "Eastern Asia": true,
-  "Eastern Europe": true,
-  "Latin America and the Caribbean": true,
-  Melanesia: true,
-  Micronesia: true,
-  "Northern Africa": true,
-  "Northern America": true,
-  "Northern Europe": true,
-  Polynesia: true,
-  "South-eastern Asia": true,
-  "Southern Asia": true,
-  "Southern Europe": true,
-  "Sub-Saharan Africa": true,
-  "Western Asia": true,
-  "Western Europe": true,
-};
-
+export const subregions = [
+  "Australia and New Zealand",
+  "Central Asia",
+  "Eastern Asia",
+  "Eastern Europe",
+  "Latin America and the Caribbean",
+  "Melanesia",
+  "Micronesia",
+  "Northern Africa",
+  "Northern America",
+  "Northern Europe",
+  "Polynesia",
+  "South-eastern Asia",
+  "Southern Asia",
+  "Southern Europe",
+  "Sub-Saharan Africa",
+  "Western Asia",
+  "Western Europe",
+] as const;
 const SubregionForm = (
-  control: any,
-  checkedSubregions: { [x: string]: boolean },
-  setCheckedSubregions: any,
-  setValue: any,
-  onSubmit: any,
+  control: Control<IFormInputs>,
+  checkedSubregions: Record<typeof subregions[number], boolean>,
+  setCheckedSubregions: React.Dispatch<React.SetStateAction<typeof checkedSubregions>>,
+  setValue: UseFormSetValue<IFormInputs>,
+  onSubmit: { (e?: React.BaseSyntheticEvent): void },
 ) => {
   return (
     <FormControl>
       <Stack maxHeight="300px" overflowY={"scroll"} divider={<StackDivider borderColor="gray.200" />}>
-        {Object.keys(regions).map((region): JSX.Element[] => {
+        {regions.map((region): JSX.Element[] => {
           return [
             <Stack key={"subregions"}>
-              {regions[region].map((subregion): ReactElement => {
+              {regionToSubregion[region].map((subregion): ReactElement => {
                 return (
                   <Controller
                     control={control}
                     name={`subregion.${subregion}`}
                     key={subregion}
                     defaultValue={true}
-                    render={({ field: { onChange, value, ref } }) => (
+                    render={({ field: { ref } }) => (
                       <Checkbox
                         key={subregion}
                         variant="tableFilter"

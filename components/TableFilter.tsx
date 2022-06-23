@@ -29,7 +29,7 @@ import {
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
 import { useForm } from "react-hook-form";
 import Icon from "./Icon";
-import InstitutionTypeForm from "./InstitutionTypeForm";
+import InstitutionTypeForm, { institutionTypes } from "./InstitutionTypeForm";
 import RegionForm from "./RegionForm";
 import SubregionForm, { subregions } from "./SubregionForm";
 import StatsForm, { sliderValues } from "./StatsForm";
@@ -76,8 +76,8 @@ const FilterAccordionItem = ({ name, form }: FilterAccordionItemProps) => {
 };
 
 export interface IFormInputs {
-  subregion: { string: boolean };
-  institutionType: { string: boolean };
+  subregion: Record<typeof subregions[number], boolean>;
+  institutionType: Record<typeof institutionTypes[number], boolean>;
   n_outputs: number[];
   n_outputs_open: number[];
   p_outputs_open: number[];
@@ -186,13 +186,17 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
   const sliderValues = tabIndex === 0 ? sliderValuesCountry : sliderValuesInstitution;
   const setSliderValues = tabIndex === 0 ? setSliderValuesCountry : setSliderValuesInstitution;
 
-  const { handleSubmit, control, setValue, reset } = useForm<IFormInputs>();
-  const [checkedSubregionsCountry, setCheckedSubregionsCountry] = React.useState(subregions);
-  const [checkedSubregionsInstitution, setCheckedSubregionsInstitution] = React.useState(subregions);
-
+  // Set default selected subregions
+  const defaultSubregions = {} as Record<typeof subregions[number], boolean>;
+  subregions.forEach((subregion) => {
+    defaultSubregions[subregion] = true;
+  });
+  const [checkedSubregionsCountry, setCheckedSubregionsCountry] = React.useState(defaultSubregions);
+  const [checkedSubregionsInstitution, setCheckedSubregionsInstitution] = React.useState(defaultSubregions);
   const checkedSubregions = tabIndex === 0 ? checkedSubregionsCountry : checkedSubregionsInstitution;
   const setCheckedSubregions = tabIndex === 0 ? setCheckedSubregionsCountry : setCheckedSubregionsInstitution;
 
+  const { handleSubmit, control, setValue, reset } = useForm<IFormInputs>();
   const onSubmit = handleSubmit((data: IFormInputs) => {
     const institutionTypeValues = transformFormResults(data.institutionType);
     const subregionValues = transformFormResults(data.subregion);
@@ -239,7 +243,7 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
       n_outputs_open: [minMax.min.n_outputs_open, minMax.max.n_outputs_open],
       p_outputs_open: [minMax.min.p_outputs_open, minMax.max.p_outputs_open],
     });
-    setCheckedSubregions(subregions);
+    setCheckedSubregions(defaultSubregions);
     reset();
   };
 
@@ -258,7 +262,7 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
         <Accordion allowMultiple variant="tableFilter">
           <FilterAccordionItem
             name={"Region"}
-            form={RegionForm(control, checkedSubregions, setCheckedSubregions, setValue, onSubmit)}
+            form={RegionForm(checkedSubregions, setCheckedSubregions, setValue, onSubmit)}
           />
           <FilterAccordionItem
             name={"Subregion"}

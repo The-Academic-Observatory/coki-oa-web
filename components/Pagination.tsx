@@ -14,7 +14,7 @@
 //
 // Author: Aniek Roelofs
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
@@ -42,13 +42,12 @@ function paginate(page: number, nPages: number) {
   }
 
   const length = end - start + 1;
-  const array = Array.from({ length: length }, (v, k) => k + start);
-  return array;
+  return Array.from({ length: length }, (v, k) => k + start);
 }
 
 interface PaginationProps {
   currentPage: number;
-  setCurrentPage: any;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   totalRows: number;
   rowsPerPage: number;
 }

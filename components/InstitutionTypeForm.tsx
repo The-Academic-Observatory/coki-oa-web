@@ -17,8 +17,10 @@
 import { Checkbox, SimpleGrid } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { Controller } from "react-hook-form";
+import { Control } from "react-hook-form/dist/types/form";
+import { IFormInputs } from "./TableFilter";
 
-const institutionTypes = [
+export const institutionTypes = [
   "Archive",
   "Company",
   "Education",
@@ -27,8 +29,9 @@ const institutionTypes = [
   "Healthcare",
   "Nonprofit",
   "Other",
-];
-const InstitutionTypeForm = (control: any, onSubmit: { (): void }) => {
+] as const;
+
+const InstitutionTypeForm = (control: Control<IFormInputs>, onSubmit: { (e?: React.BaseSyntheticEvent): void }) => {
   return (
     <SimpleGrid spacing={3} minChildWidth={"110px"}>
       {institutionTypes.map((institutionType): ReactElement => {

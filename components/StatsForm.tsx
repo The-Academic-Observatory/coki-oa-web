@@ -62,12 +62,12 @@ export interface sliderValues {
 const StatsForm = (
   control: Control<IFormInputs>,
   sliderValues: sliderValues,
-  setSliderValues: { (value: React.SetStateAction<sliderValues>): void },
+  setSliderValues: React.Dispatch<React.SetStateAction<sliderValues>>,
   minMax: {
     min: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
     max: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
   },
-  onSubmit: { (): void },
+  onSubmit: { (e?: React.BaseSyntheticEvent): void },
 ) => {
   return (
     <VStack align={"stretch"} divider={<StackDivider borderColor="grey.500" />}>
