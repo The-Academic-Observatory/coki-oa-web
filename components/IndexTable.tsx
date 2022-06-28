@@ -40,7 +40,6 @@ import Icon from "./Icon";
 import Link from "./Link";
 import Pagination from "./Pagination";
 import { makeFilterUrl } from "../lib/api";
-import debounce from "lodash/debounce";
 
 function makeHref(category: string, id: string) {
   return `/${category}/${id}`;
@@ -162,8 +161,13 @@ interface Props extends BoxProps {
   lastUpdated: string;
   searchParams: string;
   filterParams: string;
+  //TODO types
   setSortParams: (e: string) => void;
   setPageParams: (e: string) => void;
+  setMinMax: (e: {
+    min: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
+    max: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
+  }) => void;
 }
 
 const IndexTable = ({
@@ -175,20 +179,9 @@ const IndexTable = ({
   filterParams,
   setSortParams,
   setPageParams,
+  setMinMax,
   ...rest
 }: Props) => {
-  // Fetch and update country and institution list
-  const [pageData, setPageData] = React.useState({
-    rowData: firstPage,
-    isLoading: false,
-    totalEntities: 0,
-  });
-
-  const [currentPage, setCurrentPage] = React.useState(0);
-  useEffect(() => {
-    setCurrentPage(0);
-  }, [filterParams]);
-
   const columns = React.useMemo<Array<any>>(
     () => [
       {
@@ -253,6 +246,18 @@ const IndexTable = ({
     [categoryName],
   );
 
+  // Fetch and update country and institution list
+  const [pageData, setPageData] = React.useState({
+    rowData: firstPage,
+    isLoading: false,
+    totalEntities: 0,
+  });
+
+  const [currentPage, setCurrentPage] = React.useState(0);
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [filterParams]);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -260,7 +265,7 @@ const IndexTable = ({
     prepareRow,
     page,
     setPageSize,
-    state: { pageSize, sortBy },
+    state: { sortBy },
   } = useTable(
     {
       columns,
@@ -279,14 +284,15 @@ const IndexTable = ({
     usePagination,
   );
 
-  let currentPageSize = pageSize;
-  let pageSizeIncrement = pageSize;
-
   React.useEffect(() => {
     const sortByColumn = searchColumns[sortBy[0]["id"]];
     const sortDesc = sortBy[0]["desc"];
     const orderDir = sortDesc ? "dsc" : "asc";
     const sortParams = `orderBy=${sortByColumn}&orderDir=${orderDir}`;
+    // Set page to 0 on mobile when changing the order
+    if (loadMore) {
+      setCurrentPage(0);
+    }
     setSortParams(sortParams);
   }, [sortBy, setSortParams]);
 
@@ -295,28 +301,31 @@ const IndexTable = ({
     setPageParams(pageParams);
   }, [currentPage]);
 
-  const filterDebounce = 300;
-  const filterOnChange = debounce(() => {
+  const [loadMore, setLoadMore] = React.useState(false);
+
+  React.useEffect(() => {
     const endpoint = categoryName === "Country" ? "countries" : "institutions";
     const url = makeFilterUrl(endpoint + searchParams);
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        //TODO loadmore not True
+        if (loadMore && currentPage > 0) {
+          // console.log("load more");
+          data["items"] = pageData.rowData.concat(data.items);
+          setPageSize(data.items.length);
+        }
         setPageData({
           isLoading: false,
           rowData: data.items,
           totalEntities: data.nItems,
         });
       });
-  }, filterDebounce);
-
-  React.useEffect(() => {
-    filterOnChange();
-  }, [searchParams, categoryName]);
+  }, [searchParams]);
 
   return (
     <Box {...rest}>
-      {/*100vw is required so that the container for the table does not increase in width with the table*/}
+      {/*100vw is required so that the contaƒiner for the table does not increase in width with the table*/}
       <Box overflowX="auto" maxWidth="100vw">
         <Table {...getTableProps()} size="sm" variant="dashboard">
           <Thead>
@@ -373,8 +382,8 @@ const IndexTable = ({
           <Button
             variant="dashboard"
             onClick={() => {
-              currentPageSize += pageSizeIncrement;
-              setPageSize(currentPageSize);
+              setCurrentPage(currentPage + 1);
+              setLoadMore(true);
             }}
           >
             Load More

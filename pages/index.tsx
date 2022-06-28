@@ -16,14 +16,15 @@
 
 import { Box, Grid, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import { Entity, Stats } from "../lib/model";
-import { getIndexTableData, getStatsData } from "../lib/api";
+import { getIndexTableData, getStatsData, makeFilterUrl } from "../lib/api";
 import React, { useEffect } from "react";
 import IndexTable from "../components/IndexTable";
 import Icon from "../components/Icon";
-import TableFilter from "../components/TableFilter";
+import TableFilter, { IFormInputs } from "../components/TableFilter";
 import TextCollapse from "../components/TextCollapse";
 import Head from "next/head";
 import Breadcrumbs from "../components/Breadcrumbs";
+import { useDebounce } from "../lib/utils";
 
 type Props = {
   countriesFirstPage: Array<Entity>;
@@ -84,6 +85,7 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
   const [searchParamsCountry, setSearchParamsCountry] = React.useState(
     "?page=0&orderBy=stats.p_outputs_open&orderDir=dsc",
   );
+  const debouncedSearchParamsCountry = useDebounce(searchParamsCountry, 300);
 
   // Institution search values
   const [sortParamsInstitution, setSortParamsInstitution] = React.useState("orderBy=stats.p_outputs_open&orderDir=dsc");
@@ -92,6 +94,8 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
   const [searchParamsInstitution, setSearchParamsInstitution] = React.useState(
     "?page=0&orderBy=stats.p_outputs_open&orderDir=dsc",
   );
+  const debouncedSearchParamsInstitution = useDebounce(searchParamsInstitution, 300);
+  useEffect(() => {}, [debouncedSearchParamsCountry]);
 
   const setSearchParams = (
     pageParams: string,
@@ -113,6 +117,34 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
   useEffect(() => {
     setSearchParams(pageParamsInstitution, sortParamsInstitution, filterParamsInstitution, setSearchParamsInstitution);
   }, [sortParamsInstitution, filterParamsInstitution, pageParamsInstitution]);
+
+  // Filtering slider min and max values
+  const defaultMinMaxCountry = {
+    min: {
+      n_outputs: 0,
+      n_outputs_open: 0,
+      p_outputs_open: 0,
+    },
+    max: {
+      n_outputs: 12000000,
+      n_outputs_open: 5000000,
+      p_outputs_open: 100,
+    },
+  };
+  const [minMaxCountry, setMinMaxCountry] = React.useState(defaultMinMaxCountry);
+  const defaultMinMaxInstitution = {
+    min: {
+      n_outputs: 0,
+      n_outputs_open: 0,
+      p_outputs_open: 0,
+    },
+    max: {
+      n_outputs: 1000000,
+      n_outputs_open: 500000,
+      p_outputs_open: 100,
+    },
+  };
+  const [minMaxInstitution, setMinMaxInstitution] = React.useState(defaultMinMaxInstitution);
 
   return (
     <Box m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}>
@@ -183,10 +215,11 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
                 categoryName="Country"
                 maxPageSize={maxPageSize}
                 lastUpdated={stats.last_updated}
-                searchParams={searchParamsCountry}
+                searchParams={debouncedSearchParamsCountry}
                 filterParams={filterParamsCountry}
                 setSortParams={setSortParamsCountry}
                 setPageParams={setPageParamsCountry}
+                setMinMax={setMinMaxCountry}
               />
             </TabPanel>
             <TabPanel p={0}>
@@ -195,29 +228,35 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
                 categoryName="Institution"
                 maxPageSize={maxPageSize}
                 lastUpdated={stats.last_updated}
-                searchParams={searchParamsInstitution}
+                searchParams={debouncedSearchParamsInstitution}
                 filterParams={filterParamsInstitution}
                 setSortParams={setSortParamsInstitution}
                 setPageParams={setPageParamsInstitution}
+                setMinMax={setMinMaxInstitution}
               />
             </TabPanel>
           </TabPanels>
         </Tabs>
 
-        <Box gridArea="filter">
-          {tabIndex === 0 ? (
-            <TableFilter
-              tabIndex={tabIndex}
-              setFilterParams={setFilterParamsCountry}
-              setPageParams={setPageParamsCountry}
-            />
-          ) : (
-            <TableFilter
-              tabIndex={tabIndex}
-              setFilterParams={setFilterParamsInstitution}
-              setPageParams={setPageParamsInstitution}
-            />
-          )}
+        <Box gridArea="filter" display={tabIndex === 0 ? "block" : "none"}>
+          <TableFilter
+            endpoint="countries"
+            setFilterParams={setFilterParamsCountry}
+            setPageParams={setPageParamsCountry}
+            defaultMinMax={defaultMinMaxCountry}
+            minMax={minMaxCountry}
+            setMinMax={setMinMaxCountry}
+          />
+        </Box>
+        <Box gridArea="filter" display={tabIndex === 1 ? "block" : "none"}>
+          <TableFilter
+            endpoint="institutions"
+            setFilterParams={setFilterParamsInstitution}
+            setPageParams={setPageParamsInstitution}
+            defaultMinMax={defaultMinMaxInstitution}
+            minMax={minMaxInstitution}
+            setMinMax={setMinMaxInstitution}
+          />
         </Box>
       </Grid>
     </Box>

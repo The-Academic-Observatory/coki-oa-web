@@ -34,6 +34,7 @@ import RegionForm from "./RegionForm";
 import SubregionForm, { subregions } from "./SubregionForm";
 import StatsForm, { sliderValues } from "./StatsForm";
 import { makeFilterUrl } from "../lib/api";
+import { useDebounce } from "../lib/utils";
 
 export const transformFormResults = (formResults: { [x: string]: boolean }) => {
   if (formResults === undefined) {
@@ -84,24 +85,37 @@ export interface IFormInputs {
 }
 
 interface TableFilterProps {
-  tabIndex: number;
+  endpoint: string;
   setFilterParams: (e: string) => void;
   setPageParams: (e: string) => void;
+  //TODO types
+  defaultMinMax: any;
+  minMax: any;
+  setMinMax: any;
 }
-const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterProps) => {
-  // Store the search parameters to find the min and max values using the API
-  const [minMaxParamsCountry, setMinMaxParamsCountry] = React.useState("");
-  const [minMaxParamsInstitution, setMinMaxParamsInstitution] = React.useState("");
+const TableFilter = ({
+  endpoint,
+  setFilterParams,
+  setPageParams,
+  defaultMinMax,
+  minMax,
+  setMinMax,
+}: TableFilterProps) => {
+  // Set default selected subregions
+  const defaultSubregions = {} as Record<typeof subregions[number], boolean>;
+  subregions.forEach((subregion) => {
+    defaultSubregions[subregion] = true;
+  });
+  const [checkedSubregions, setCheckedSubregions] = React.useState(defaultSubregions);
 
-  // Fetch + set the min and max values using the API
-  const fetchMinMax = (
-    endpoint: string,
-    setMinMax: (e: {
-      min: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
-      max: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
-    }) => void,
-  ) => {
-    const url = makeFilterUrl(endpoint);
+  // Set parameters used to get slider min and max values
+  const [minMaxParams, setMinMaxParams] = React.useState("");
+  const debouncedMinMaxParams = useDebounce(minMaxParams, 300);
+
+  // Update min and max values for sliders when other search parameters have changed
+  React.useEffect(() => {
+    const url = makeFilterUrl(endpoint + "?" + debouncedMinMaxParams);
+    console.log("fetch min max", url);
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -110,95 +124,30 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
         minMax["max"]["p_outputs_open"] = Math.ceil(minMax["max"]["p_outputs_open"]);
         setMinMax(minMax);
       });
-  };
+  }, [debouncedMinMaxParams]);
 
-  // Min and Max for the slider filters, country tab
-  const [minMaxCountry, setMinMaxCountry] = React.useState({
-    min: {
-      n_outputs: 0,
-      n_outputs_open: 0,
-      p_outputs_open: 0,
-    },
-    max: {
-      n_outputs: 12000000,
-      n_outputs_open: 5000000,
-      p_outputs_open: 100,
-    },
+  // Set slider values
+  const [sliderValues, setSliderValues] = React.useState<sliderValues>({
+    n_outputs: [defaultMinMax.min.n_outputs, defaultMinMax.max.n_outputs],
+    n_outputs_open: [defaultMinMax.min.n_outputs_open, defaultMinMax.max.n_outputs_open],
+    p_outputs_open: [defaultMinMax.min.p_outputs_open, defaultMinMax.max.p_outputs_open],
   });
-  // Min and Max for the slider filters, institution tab
-  const [minMaxInstitution, setMinMaxInstitution] = React.useState({
-    min: {
-      n_outputs: 0,
-      n_outputs_open: 0,
-      p_outputs_open: 0,
-    },
-    max: {
-      n_outputs: 1000000,
-      n_outputs_open: 500000,
-      p_outputs_open: 100,
-    },
-  });
-  const minMax = tabIndex === 0 ? minMaxCountry : minMaxInstitution;
 
-  // Set initial min and max values for the sliders after fetching data from API
-  React.useEffect(() => {
-    fetchMinMax("countries?" + minMaxParamsCountry, setMinMaxCountry);
-    fetchMinMax("institutions?" + minMaxParamsInstitution, setMinMaxInstitution);
-  }, []);
-  // Update min and max values for sliders when other search parameters have changed
-  React.useEffect(() => {
-    fetchMinMax("countries?" + minMaxParamsCountry, setMinMaxCountry);
-  }, [minMaxParamsCountry]);
-  React.useEffect(() => {
-    fetchMinMax("institutions?" + minMaxParamsInstitution, setMinMaxInstitution);
-  }, [minMaxParamsInstitution]);
   // Update the current slider values when min and max have changed
   React.useEffect(() => {
-    setSliderValuesCountry({
-      n_outputs: [minMaxCountry.min.n_outputs, minMaxCountry.max.n_outputs],
-      n_outputs_open: [minMaxCountry.min.n_outputs_open, minMaxCountry.max.n_outputs_open],
-      p_outputs_open: [minMaxCountry.min.p_outputs_open, minMaxCountry.max.p_outputs_open],
-    });
-    setValue("n_outputs", [minMaxCountry.min.n_outputs, minMaxCountry.max.n_outputs]);
-    setValue("n_outputs_open", [minMaxCountry.min.n_outputs_open, minMaxCountry.max.n_outputs_open]);
-    setValue("p_outputs_open", [minMaxCountry.min.p_outputs_open, minMaxCountry.max.p_outputs_open]);
-    onSubmit();
-  }, [minMaxCountry]);
-  React.useEffect(() => {
-    setSliderValuesInstitution({
-      n_outputs: [minMaxInstitution.min.n_outputs, minMaxInstitution.max.n_outputs],
-      n_outputs_open: [minMaxInstitution.min.n_outputs_open, minMaxInstitution.max.n_outputs_open],
-      p_outputs_open: [minMaxInstitution.min.p_outputs_open, minMaxInstitution.max.p_outputs_open],
-    });
-    setValue("n_outputs", [minMaxInstitution.min.n_outputs, minMaxInstitution.max.n_outputs]);
-    setValue("n_outputs_open", [minMaxInstitution.min.n_outputs_open, minMaxInstitution.max.n_outputs_open]);
-    setValue("p_outputs_open", [minMaxInstitution.min.p_outputs_open, minMaxInstitution.max.p_outputs_open]);
-    onSubmit();
-  }, [minMaxInstitution]);
-
-  // Set the default slider values
-  const [sliderValuesCountry, setSliderValuesCountry] = React.useState<sliderValues>({
-    n_outputs: [0, 12000000],
-    n_outputs_open: [0, 5000000],
-    p_outputs_open: [0, 100],
-  });
-  const [sliderValuesInstitution, setSliderValuesInstitution] = React.useState<sliderValues>({
-    n_outputs: [0, 1000000],
-    n_outputs_open: [0, 500000],
-    p_outputs_open: [0, 100],
-  });
-  const sliderValues = tabIndex === 0 ? sliderValuesCountry : sliderValuesInstitution;
-  const setSliderValues = tabIndex === 0 ? setSliderValuesCountry : setSliderValuesInstitution;
-
-  // Set default selected subregions
-  const defaultSubregions = {} as Record<typeof subregions[number], boolean>;
-  subregions.forEach((subregion) => {
-    defaultSubregions[subregion] = true;
-  });
-  const [checkedSubregionsCountry, setCheckedSubregionsCountry] = React.useState(defaultSubregions);
-  const [checkedSubregionsInstitution, setCheckedSubregionsInstitution] = React.useState(defaultSubregions);
-  const checkedSubregions = tabIndex === 0 ? checkedSubregionsCountry : checkedSubregionsInstitution;
-  const setCheckedSubregions = tabIndex === 0 ? setCheckedSubregionsCountry : setCheckedSubregionsInstitution;
+    console.log("minMax updated", minMax);
+    if (minMax !== defaultMinMax) {
+      setSliderValues({
+        n_outputs: [minMax.min.n_outputs, minMax.max.n_outputs],
+        n_outputs_open: [minMax.min.n_outputs_open, minMax.max.n_outputs_open],
+        p_outputs_open: [minMax.min.p_outputs_open, minMax.max.p_outputs_open],
+      });
+      setValue("n_outputs", [minMax.min.n_outputs, minMax.max.n_outputs]);
+      setValue("n_outputs_open", [minMax.min.n_outputs_open, minMax.max.n_outputs_open]);
+      setValue("p_outputs_open", [minMax.min.p_outputs_open, minMax.max.p_outputs_open]);
+      onSubmit();
+    }
+  }, [minMax]);
 
   const { handleSubmit, control, setValue, reset } = useForm<IFormInputs>();
   const onSubmit = handleSubmit((data: IFormInputs) => {
@@ -207,41 +156,33 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
     const totalOutputs = data.n_outputs;
     const totalOutputsOpen = data.n_outputs_open;
     const percentOutputsOpen = data.p_outputs_open;
-    const searchParams = [];
-    const statsSearchParams = [];
+    const filterParams = [];
+    const minMaxParams = [];
     if (data.subregion != undefined) {
-      searchParams.push(`subregions=${subregionValues}`);
-      statsSearchParams.push(`subregions=${subregionValues}`);
+      filterParams.push(`subregions=${subregionValues}`);
+      minMaxParams.push(`subregions=${subregionValues}`);
     }
     if (data.institutionType != undefined) {
-      searchParams.push(`institutionTypes=${institutionTypeValues}`);
-      statsSearchParams.push(`institutionTypes=${institutionTypeValues}`);
+      filterParams.push(`institutionTypes=${institutionTypeValues}`);
+      minMaxParams.push(`institutionTypes=${institutionTypeValues}`);
     }
     if (totalOutputs) {
-      searchParams.push(`minNOutputs=${totalOutputs[0]}&maxNOutputs=${totalOutputs[1] + 1}`);
+      filterParams.push(`minNOutputs=${totalOutputs[0]}&maxNOutputs=${totalOutputs[1] + 1}`);
     }
     if (totalOutputsOpen) {
-      searchParams.push(`minNOutputsOpen=${totalOutputsOpen[0]}&maxNOutputsOpen=${totalOutputsOpen[1] + 1}`);
+      filterParams.push(`minNOutputsOpen=${totalOutputsOpen[0]}&maxNOutputsOpen=${totalOutputsOpen[1] + 1}`);
     }
     if (percentOutputsOpen) {
-      searchParams.push(`minPOutputsOpen=${percentOutputsOpen[0]}&maxPOutputsOpen=${percentOutputsOpen[1]}`);
+      filterParams.push(`minPOutputsOpen=${percentOutputsOpen[0]}&maxPOutputsOpen=${percentOutputsOpen[1]}`);
     }
-    setFilterParams(searchParams.join("&"));
+    setFilterParams(filterParams.join("&"));
     setPageParams("page=0");
-    if (tabIndex === 0) {
-      setMinMaxParamsCountry(statsSearchParams.join("&"));
-    } else {
-      setMinMaxParamsInstitution(statsSearchParams.join("&"));
-    }
+    setMinMaxParams(minMaxParams.join("&"));
   });
 
   const onReset = () => {
     setFilterParams("");
-    if (tabIndex === 0) {
-      setMinMaxParamsCountry("");
-    } else {
-      setMinMaxParamsInstitution("");
-    }
+    setMinMaxParams("");
     setSliderValues({
       n_outputs: [minMax.min.n_outputs, minMax.max.n_outputs],
       n_outputs_open: [minMax.min.n_outputs_open, minMax.max.n_outputs_open],
@@ -276,7 +217,7 @@ const TableFilter = ({ tabIndex, setFilterParams, setPageParams }: TableFilterPr
             name={"Publication Count / Open Access"}
             form={StatsForm(control, sliderValues, setSliderValues, minMax, onSubmit)}
           />
-          {tabIndex === 1 ? (
+          {endpoint === "institutions" ? (
             <FilterAccordionItem name={"Institution Type"} form={InstitutionTypeForm(control, onSubmit)} />
           ) : (
             ""
