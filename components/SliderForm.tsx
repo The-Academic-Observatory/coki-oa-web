@@ -29,25 +29,26 @@ import React, { ReactElement } from "react";
 import { Control, Controller } from "react-hook-form";
 import { IFormInputs } from "./TableFilter";
 
-function nFormatter(num: number, digits: number) {
-  const lookup = [
-    { value: 1, symbol: "" },
-    { value: 1e3, symbol: "k" },
-    { value: 1e6, symbol: "M" },
-    { value: 1e9, symbol: "G" },
-    { value: 1e12, symbol: "T" },
-    { value: 1e15, symbol: "P" },
-    { value: 1e18, symbol: "E" },
-  ];
-  const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-  let item = lookup
-    .slice()
-    .reverse()
-    .find(function (item) {
-      return num >= item.value;
-    });
-  return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
-}
+const numberFormat = Intl.NumberFormat("en", { notation: "compact" });
+// function nFormatter(num: number, digits: number) {
+//   const lookup = [
+//     { value: 1, symbol: "" },
+//     { value: 1e3, symbol: "k" },
+//     { value: 1e6, symbol: "M" },
+//     { value: 1e9, symbol: "G" },
+//     { value: 1e12, symbol: "T" },
+//     { value: 1e15, symbol: "P" },
+//     { value: 1e18, symbol: "E" },
+//   ];
+//   const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+//   let item = lookup
+//     .slice()
+//     .reverse()
+//     .find(function (item) {
+//       return num >= item.value;
+//     });
+//   return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
+// }
 
 const stats: ["n_outputs" | "n_outputs_open" | "p_outputs_open", string][] = [
   ["n_outputs", "Total Publications"],
@@ -122,10 +123,10 @@ const SliderForm = (
                   variant={"tableFilter"}
                 >
                   <RangeSliderMark value={sliderMin} mt="50" ml="1" fontSize="sm">
-                    {nFormatter(sliderMin, 1)}
+                    {numberFormat.format(sliderMin)}
                   </RangeSliderMark>
                   <RangeSliderMark value={sliderMax} mt="50" ml="0" fontSize="sm" textAlign={"start"}>
-                    {nFormatter(sliderMax, 1)}
+                    {numberFormat.format(sliderMax)}
                   </RangeSliderMark>
                   <RangeSliderMark
                     value={sliderValue[0]}
@@ -139,7 +140,7 @@ const SliderForm = (
                     color={"white"}
                     rounded={"md"}
                   >
-                    {nFormatter(sliderValue[0], 1)}
+                    {numberFormat.format(sliderValue[0])}
                   </RangeSliderMark>
                   <RangeSliderMark
                     value={sliderValue[1]}
@@ -153,7 +154,7 @@ const SliderForm = (
                     color={"white"}
                     rounded={"md"}
                   >
-                    {nFormatter(sliderValue[1], 1)}
+                    {numberFormat.format(sliderValue[1])}
                   </RangeSliderMark>
                   <RangeSliderTrack>
                     <RangeSliderFilledTrack />
