@@ -35,6 +35,8 @@ import SubregionForm, { subregions } from "./SubregionForm";
 import SliderForm, { sliderValues, sliderMinMax } from "./SliderForm";
 import { makeFilterUrl } from "../lib/api";
 import { useDebounce } from "../lib/utils";
+//TODO
+//import CountryForm, { CustomItem } from "./CountryForm";
 
 export const transformFormResults = (formResults: { [x: string]: boolean }) => {
   if (formResults === undefined) {
@@ -82,6 +84,8 @@ export interface IFormInputs {
   n_outputs: number[];
   n_outputs_open: number[];
   p_outputs_open: number[];
+  //TODO
+  // country: string[];
 }
 
 interface TableFilterProps {
@@ -146,8 +150,13 @@ const TableFilter = ({
     }
   }, [minMax]);
 
+  // TODO Selected countries
+  // const [selectedCountries, setSelectedCountries] = React.useState<CustomItem[]>([]);
+
   const { handleSubmit, control, setValue, reset } = useForm<IFormInputs>();
   const onSubmit = handleSubmit((data: IFormInputs) => {
+    //TODO country values
+    // const countryValues = data.country === undefined ? "" : data.country.toString();
     const institutionTypeValues = transformFormResults(data.institutionType);
     const subregionValues = transformFormResults(data.subregion);
     const totalOutputs = data.n_outputs;
@@ -155,6 +164,10 @@ const TableFilter = ({
     const percentOutputsOpen = data.p_outputs_open;
     const filterParams = [];
     const minMaxParams = [];
+    // TODO add country values to search params
+    // if (countryValues) {
+    //   searchParams.push(`countries=${countryValues}`);
+    // }
     if (data.subregion != undefined) {
       filterParams.push(`subregions=${subregionValues}`);
       minMaxParams.push(`subregions=${subregionValues}`);
@@ -186,6 +199,8 @@ const TableFilter = ({
       p_outputs_open: [minMax.min.p_outputs_open, minMax.max.p_outputs_open],
     });
     setCheckedSubregions(defaultSubregions);
+    //TODO reset countries
+    // setSelectedCountries([]);
     reset();
   };
 
@@ -215,7 +230,14 @@ const TableFilter = ({
             form={SliderForm(control, sliderValues, setSliderValues, minMax, onSubmit)}
           />
           {endpoint === "institutions" ? (
-            <FilterAccordionItem name={"Institution Type"} form={InstitutionTypeForm(control, onSubmit)} />
+            <>
+              <FilterAccordionItem name={"Institution Type"} form={InstitutionTypeForm(control, onSubmit)} />
+              {/*TODO include country accordion item*/}
+              {/*<FilterAccordionItem*/}
+              {/*  name={"Country"}*/}
+              {/*  form={CountryForm(control, selectedCountries, setSelectedCountries)}*/}
+              {/*/>*/}
+            </>
           ) : (
             ""
           )}
