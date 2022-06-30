@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: James Diprose
+// Author: James Diprose, Aniek Roelofs
 
 import {
   Box,
@@ -20,7 +20,6 @@ import {
   Button,
   Flex,
   HStack,
-  IconButton,
   Image,
   Table,
   Tbody,
@@ -29,17 +28,18 @@ import {
   Th,
   Thead,
   Tr,
-  useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Cell, ColumnInstance, Row, usePagination, useSortBy, useTable } from "react-table";
 import { Entity } from "../lib/model";
-import { ChevronLeftIcon, ChevronRightIcon, ArrowUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
+import { ChevronRightIcon, ArrowUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import DonutSparkline from "./DonutSparkline";
 import BreakdownSparkline from "./BreakdownSparkline";
 import Icon from "./Icon";
 import Link from "./Link";
+import Pagination from "./Pagination";
+import { makeFilterUrl } from "../lib/api";
 
 function makeHref(category: string, id: string) {
   return `/${category}/${id}`;
@@ -50,7 +50,7 @@ interface EntityProps {
   entity: Entity;
 }
 
-function EntityCell({ value, entity }: EntityProps) {
+function EntityCell({ entity }: EntityProps) {
   const href = makeHref(entity.category, entity.id);
   return (
     <Link href={href}>
@@ -73,7 +73,7 @@ function OpenCell({ value, entity }: EntityProps) {
   );
 }
 
-function BreakdownCell({ value, entity }: EntityProps) {
+function BreakdownCell({ entity }: EntityProps) {
   const href = makeHref(entity.category, entity.id);
   let stats = entity.stats;
   let values = [
@@ -90,11 +90,11 @@ function BreakdownCell({ value, entity }: EntityProps) {
   );
 }
 
-function NumberCell({ value, entity }: EntityProps) {
+function NumberCell({ value }: EntityProps) {
   return <span>{value.toLocaleString()}</span>;
 }
 
-function LearnMoreCell({ value, entity }: EntityProps) {
+function LearnMoreCell({ entity }: EntityProps) {
   const href = makeHref(entity.category, entity.id);
   return (
     <Link href={href} textDecorationColor="white !important">
@@ -145,36 +145,44 @@ function CreateHeader({ column }: ColumnProps) {
   );
 }
 
-function paginate(page: number, nPages: number) {
-  const window = 5;
-  const half = Math.floor(window / 2);
-  const endDist = nPages - page - 1;
-  let start = 0;
-  let end = 0;
-  if (page < window) {
-    start = 0;
-    end = window - 1;
-  } else if (endDist < window) {
-    start = nPages - window;
-    end = nPages - 1;
-  } else {
-    start = page - half;
-    end = page + half;
-  }
-
-  const length = end - start + 1;
-  return Array.from({ length: length }, (v, k) => k + start);
-}
+const searchColumns: { [id: string]: string } = {
+  Institution: "name",
+  Country: "name",
+  open: "stats.p_outputs_open",
+  breakdown: "stats.p_outputs_open",
+  totalPublications: "stats.n_outputs",
+  openPublications: "stats.n_outputs_open",
+};
 
 interface Props extends BoxProps {
-  entities: Array<Entity>;
+  firstPage: Array<Entity>;
   categoryName: string;
   maxPageSize: number;
-  lastUpdated: Date;
+  lastUpdated: string;
+  searchParams: string;
+  filterParams: string;
+  setSortParams: (e: string) => void;
+  setPageParams: (e: string) => void;
+  setMinMax: (e: {
+    min: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
+    max: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
+  }) => void;
+  onOpenFilter: () => void;
 }
 
-const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest }: Props) => {
-  const data = entities;
+const IndexTable = ({
+  firstPage,
+  categoryName,
+  maxPageSize,
+  lastUpdated,
+  searchParams,
+  filterParams,
+  setSortParams,
+  setPageParams,
+  setMinMax,
+  onOpenFilter,
+  ...rest
+}: Props) => {
   const columns = React.useMemo<Array<any>>(
     () => [
       {
@@ -182,17 +190,18 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
         id: categoryName,
         accessor: "name",
         Cell: EntityCell,
-        minWidth: 150,
+        minWidth: 100,
         maxWidth: 220,
-        width: "40%",
+        width: "45%",
       },
       {
         Header: CreateHeader,
         id: "open",
         accessor: "stats.p_outputs_open",
         Cell: OpenCell,
-        // maxWidth: 200,
-        width: "15%",
+        minWidth: 70,
+        maxWidth: 200,
+        width: "12.5%",
         sortDescFirst: true,
       },
       {
@@ -200,9 +209,9 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
         id: "breakdown",
         accessor: "stats.p_outputs_open",
         Cell: BreakdownCell,
-        minWidth: 170,
+        minWidth: 130,
         maxWidth: 200,
-        width: "20%",
+        width: "12.5%",
         sortDescFirst: true,
       },
       {
@@ -211,9 +220,9 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
         accessor: "stats.n_outputs",
         Cell: NumberCell,
         isNumeric: true,
-        minWidth: 130,
+        minWidth: 100,
         maxWidth: 150,
-        width: "10%",
+        width: "12.5%",
         sortDescFirst: true,
       },
       {
@@ -222,9 +231,9 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
         accessor: "stats.n_outputs_open",
         Cell: NumberCell,
         isNumeric: true,
-        minWidth: 130,
+        minWidth: 100,
         maxWidth: 150,
-        width: "10%",
+        width: "12.5%",
         sortDescFirst: true,
       },
       {
@@ -238,24 +247,31 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
     [categoryName],
   );
 
+  // Fetch and update country and institution list
+  const [pageData, setPageData] = React.useState({
+    rowData: firstPage,
+    isLoading: false,
+    totalEntities: 0,
+  });
+
+  const [currentPage, setCurrentPage] = React.useState(0);
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [filterParams]);
+
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     prepareRow,
     page,
-    canPreviousPage,
-    canNextPage,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    state: { sortBy },
   } = useTable(
     {
       columns,
-      data,
+      data: pageData.rowData,
+      manualSortBy: true,
       autoResetPage: false,
       autoResetSortBy: false,
       disableSortRemove: true,
@@ -269,12 +285,46 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
     usePagination,
   );
 
-  let currentPageSize = pageSize;
-  let pageSizeIncrement = pageSize;
+  React.useEffect(() => {
+    const sortByColumn = searchColumns[sortBy[0]["id"]];
+    const sortDesc = sortBy[0]["desc"];
+    const orderDir = sortDesc ? "dsc" : "asc";
+    const sortParams = `orderBy=${sortByColumn}&orderDir=${orderDir}`;
+    // Set page to 0 on mobile when changing the order
+    if (loadMore) {
+      setCurrentPage(0);
+    }
+    setSortParams(sortParams);
+  }, [sortBy, setSortParams]);
+
+  React.useEffect(() => {
+    const pageParams = `page=${currentPage}`;
+    setPageParams(pageParams);
+  }, [currentPage]);
+
+  const [loadMore, setLoadMore] = React.useState(false);
+
+  React.useEffect(() => {
+    const endpoint = categoryName === "Country" ? "countries" : "institutions";
+    const url = makeFilterUrl(endpoint + searchParams);
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        if (loadMore && currentPage > 0) {
+          data["items"] = pageData.rowData.concat(data.items);
+          setPageSize(data.items.length);
+        }
+        setPageData({
+          isLoading: false,
+          rowData: data.items,
+          totalEntities: data.nItems,
+        });
+      });
+  }, [searchParams]);
 
   return (
     <Box {...rest}>
-      {/*100vw is required so that the container for the table does not increase in width with the table*/}
+      {/*100vw is required so that the contaƒiner for the table does not increase in width with the table*/}
       <Box overflowX="auto" maxWidth="100vw">
         <Table {...getTableProps()} size="sm" variant="dashboard">
           <Thead>
@@ -301,7 +351,7 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
             })}
           </Thead>
           <Tbody {...getTableBodyProps()}>
-            {page.map((row: Row<any>, i: number) => {
+            {page.map((row: Row<any>) => {
               prepareRow(row);
               return (
                 <Tr key={row.original.id} role="row" zIndex="1" data-test={row.original.id}>
@@ -331,13 +381,13 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
           <Button
             variant="dashboard"
             onClick={() => {
-              currentPageSize += pageSizeIncrement;
-              setPageSize(currentPageSize);
+              setCurrentPage(currentPage + 1);
+              setLoadMore(true);
             }}
           >
             Load More
           </Button>
-          <Button variant="dashboard" leftIcon={<Icon icon="filter" color="white" size={24} />} isDisabled>
+          <Button variant="dashboard" leftIcon={<Icon icon="filter" color="white" size={24} />} onClick={onOpenFilter}>
             Filter
           </Button>
         </Flex>
@@ -354,27 +404,12 @@ const IndexTable = ({ entities, categoryName, maxPageSize, lastUpdated, ...rest 
         p="16px 30px 50px"
         display={{ base: "none", md: "flex" }}
       >
-        <Flex alignItems="center" align="center" justifyContent="space-between">
-          <IconButton
-            aria-label="Previous Page"
-            variant="pureIconButton"
-            icon={<ChevronLeftIcon />}
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-          />
-          {paginate(pageIndex, pageCount).map((page) => (
-            <Flex key={page} layerStyle="pageButton" align="center" onClick={() => gotoPage(page)}>
-              <Box className={pageIndex == page ? "pageBtnActive" : ""} />
-            </Flex>
-          ))}
-          <IconButton
-            aria-label="Next Page"
-            variant="pureIconButton"
-            icon={<ChevronRightIcon />}
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-          />
-        </Flex>
+        <Pagination
+          totalRows={pageData.totalEntities}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          rowsPerPage={maxPageSize}
+        />
         <Text textStyle="lastUpdated">Data updated {lastUpdated}</Text>
       </Flex>
     </Box>

@@ -12,6 +12,10 @@ li::marker {
     color: #FF671C;
 }
 
+
+#country-dropdown ul li {
+    margin-bottom: 1px;
+}
 ul > li {
     margin-bottom: 16px;
 }

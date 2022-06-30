@@ -16,10 +16,13 @@
 
 import { extendTheme } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
-import Table from "./components/table";
+import Accordion from "./components/accordion";
 import Button from "./components/button";
-import Tabs from "./components/tabs";
+import Checkbox from "./components/checkbox";
 import Popover from "./components/popover";
+import Slider from "./components/slider";
+import Table from "./components/table";
+import Tabs from "./components/tabs";
 
 const breakpoints = createBreakpoints({
   sm: "600px",
@@ -54,6 +57,9 @@ const theme = extendTheme({
       700: "#BFBFBF",
       800: "#A6A6A6", // deselected tab header text
       900: "#101820", // desktop footer
+    },
+    checkbox: {
+      500: "#101820",
     },
   },
   fonts: {
@@ -137,12 +143,12 @@ const theme = extendTheme({
     },
     tableHeader: {
       fontWeight: 900,
-      fontSize: "14px",
+      fontSize: "12px",
       textTransform: "uppercase",
     },
     tableSubHeader: {
       fontWeight: 400,
-      fontSize: "10px",
+      fontSize: "9px",
       lineHeight: "12px",
       textTransform: "uppercase",
       color: "grey.900",
@@ -248,7 +254,7 @@ const theme = extendTheme({
   layerStyles: {
     page: {
       m: { base: 0, md: "50px auto 90px", std: "50px 40px 90px" },
-      maxWidth: { base: "100%", md: "900px", std: "970px" },
+      maxWidth: { base: "100%", md: "900px", std: "1100px" },
     },
     pGap: {
       mb: { base: "48px", md: "96px" },
@@ -299,8 +305,11 @@ const theme = extendTheme({
     },
   },
   components: {
-    Table,
+    Accordion,
     Button,
+    Checkbox,
+    Slider,
+    Table,
     Tabs,
     Popover,
   },

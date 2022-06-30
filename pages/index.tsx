@@ -12,25 +12,42 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: James Diprose
+// Author: James Diprose, Aniek Roelofs
 
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
-import { Entity } from "../lib/model";
+import {
+  Box,
+  Grid,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  ModalBody,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { Entity, Stats } from "../lib/model";
 import { getIndexTableData, getStatsData } from "../lib/api";
 import React, { useEffect } from "react";
 import IndexTable from "../components/IndexTable";
 import Icon from "../components/Icon";
+import TableFilter from "../components/TableFilter";
 import TextCollapse from "../components/TextCollapse";
 import Head from "next/head";
 import Breadcrumbs from "../components/Breadcrumbs";
+import { useDebounce } from "../lib/utils";
 
 type Props = {
   countriesFirstPage: Array<Entity>;
   institutionsFirstPage: Array<Entity>;
-  stats: any;
+  stats: Stats;
 };
 
-const maxTabsWidth = "970px";
+const maxTabsWidth = "1100px";
 const maxPageSize = 18;
 
 const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) => {
@@ -76,28 +93,76 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
     handleTabsChange(index);
   }, []);
 
-  // Fetch and update country and institution list on client
-  const [countries, setCountries] = React.useState<Array<Entity>>(countriesFirstPage);
-  const [institutions, setInstitutions] = React.useState<Array<Entity>>(institutionsFirstPage);
+  // Country search values
+  const [sortParamsCountry, setSortParamsCountry] = React.useState("orderBy=stats.p_outputs_open&orderDir=dsc");
+  const [pageParamsCountry, setPageParamsCountry] = React.useState("page=0");
+  const [filterParamsCountry, setFilterParamsCountry] = React.useState("");
+  const [searchParamsCountry, setSearchParamsCountry] = React.useState(
+    "?page=0&orderBy=stats.p_outputs_open&orderDir=dsc",
+  );
+  const debouncedSearchParamsCountry = useDebounce(searchParamsCountry, 300);
+
+  // Institution search values
+  const [sortParamsInstitution, setSortParamsInstitution] = React.useState("orderBy=stats.p_outputs_open&orderDir=dsc");
+  const [pageParamsInstitution, setPageParamsInstitution] = React.useState("page=0");
+  const [filterParamsInstitution, setFilterParamsInstitution] = React.useState("");
+  const [searchParamsInstitution, setSearchParamsInstitution] = React.useState(
+    "?page=0&orderBy=stats.p_outputs_open&orderDir=dsc",
+  );
+  const debouncedSearchParamsInstitution = useDebounce(searchParamsInstitution, 300);
+
+  const setSearchParams = (
+    pageParams: string,
+    sortParams: string,
+    filterParams: string,
+    setParams: (value: string) => void,
+  ) => {
+    let value = `?${pageParams}&${sortParams}`;
+    if (filterParams) {
+      value = value + `&${filterParams}`;
+    }
+    setParams(value);
+  };
+
   useEffect(() => {
-    fetch("/data/country.json")
-      .then((res) => res.json())
-      .then((data) => {
-        //@ts-ignore
-        setCountries(data);
-      });
-  }, []);
+    setSearchParams(pageParamsCountry, sortParamsCountry, filterParamsCountry, setSearchParamsCountry);
+  }, [sortParamsCountry, filterParamsCountry, pageParamsCountry]);
+
   useEffect(() => {
-    fetch("/data/institution.json")
-      .then((res) => res.json())
-      .then((data) => {
-        //@ts-ignore
-        setInstitutions(data);
-      });
-  }, []);
+    setSearchParams(pageParamsInstitution, sortParamsInstitution, filterParamsInstitution, setSearchParamsInstitution);
+  }, [sortParamsInstitution, filterParamsInstitution, pageParamsInstitution]);
+
+  // Filtering slider min and max values
+  const defaultMinMaxCountry = {
+    min: {
+      n_outputs: 0,
+      n_outputs_open: 0,
+      p_outputs_open: 0,
+    },
+    max: {
+      n_outputs: 12000000,
+      n_outputs_open: 5000000,
+      p_outputs_open: 100,
+    },
+  };
+  const [minMaxCountry, setMinMaxCountry] = React.useState(defaultMinMaxCountry);
+  const defaultMinMaxInstitution = {
+    min: {
+      n_outputs: 0,
+      n_outputs_open: 0,
+      p_outputs_open: 0,
+    },
+    max: {
+      n_outputs: 1000000,
+      n_outputs_open: 500000,
+      p_outputs_open: 100,
+    },
+  };
+  const [minMaxInstitution, setMinMaxInstitution] = React.useState(defaultMinMaxInstitution);
+  const { isOpen: isOpenFilter, onOpen: onOpenFilter, onClose: onCloseFilter } = useDisclosure();
 
   return (
-    <Box width={{ base: "full", std: maxTabsWidth }} m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}>
+    <Box m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}>
       <Head>
         <title>COKI: Open Access Dashboard</title>
         <meta
@@ -115,51 +180,119 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
         }}
       />
 
-      <Box p={{ base: "24px 24px 15px", md: "24px 24px 15px", std: 0 }} bg="grey.200">
-        <Text as="h1" textStyle="homeHeader">
-          Open Access Dashboard
-        </Text>
-        <Text textStyle="p" display={{ base: "none", sm: "none", md: "block" }}>
-          {dashboardText.long}
-        </Text>
-        <TextCollapse
-          display={{ base: "block", sm: "block", md: "none" }}
-          previewText={dashboardText.short}
-          text={dashboardText.long}
-        />
-      </Box>
+      <Grid
+        maxWidth={{ base: "full", std: maxTabsWidth }}
+        templateAreas={{ base: `"header ." "table filter" ". filter"` }}
+        templateColumns={{ std: `75% 25%` }}
+        columnGap={"20px"}
+      >
+        <Box gridArea="header" p={{ base: "24px 24px 15px", md: "24px 24px 15px", std: 0 }} bg="grey.200">
+          <Text as="h1" textStyle="homeHeader">
+            Open Access Dashboard
+          </Text>
+          <Text textStyle="p" display={{ base: "none", sm: "none", md: "block" }}>
+            {dashboardText.long}
+          </Text>
+          <TextCollapse
+            display={{ base: "block", sm: "block", md: "none" }}
+            previewText={dashboardText.short}
+            text={dashboardText.long}
+          />
+        </Box>
 
-      <Tabs isFitted variant="dashboard" bg="white" index={tabIndex} onChange={handleTabsChange} defaultIndex={0}>
-        <TabList>
-          <Tab data-test="tab-country">
-            <Icon icon="website" size={24} marginRight="6px" />
-            <Text>Country</Text>
-          </Tab>
-          <Tab data-test="tab-institution">
-            <Icon icon="institution" size={24} marginRight="6px" />
-            <Text>Institution</Text>
-          </Tab>
-        </TabList>
+        <Tabs
+          gridArea="table"
+          isFitted
+          variant="dashboard"
+          bg="white"
+          index={tabIndex}
+          onChange={handleTabsChange}
+          defaultIndex={0}
+          boxShadow={{ base: "none", md: "md" }}
+          rounded="md"
+          overflow="hidden"
+        >
+          <TabList>
+            <Tab data-test="tab-country">
+              <Icon icon="website" size={24} marginRight="6px" />
+              <Text>Country</Text>
+            </Tab>
+            <Tab data-test="tab-institution">
+              <Icon icon="institution" size={24} marginRight="6px" />
+              <Text>Institution</Text>
+            </Tab>
+          </TabList>
 
-        <TabPanels>
-          <TabPanel p={0}>
-            <IndexTable
-              entities={countries}
-              categoryName="Country"
-              maxPageSize={maxPageSize}
-              lastUpdated={stats.last_updated}
-            />
-          </TabPanel>
-          <TabPanel p={0}>
-            <IndexTable
-              entities={institutions}
-              categoryName="Institution"
-              maxPageSize={maxPageSize}
-              lastUpdated={stats.last_updated}
-            />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+          <TabPanels>
+            <TabPanel p={0}>
+              <IndexTable
+                firstPage={countriesFirstPage}
+                categoryName="Country"
+                maxPageSize={maxPageSize}
+                lastUpdated={stats.last_updated}
+                searchParams={debouncedSearchParamsCountry}
+                filterParams={filterParamsCountry}
+                setSortParams={setSortParamsCountry}
+                setPageParams={setPageParamsCountry}
+                setMinMax={setMinMaxCountry}
+                onOpenFilter={onOpenFilter}
+              />
+            </TabPanel>
+            <TabPanel p={0}>
+              <IndexTable
+                firstPage={institutionsFirstPage}
+                categoryName="Institution"
+                maxPageSize={maxPageSize}
+                lastUpdated={stats.last_updated}
+                searchParams={debouncedSearchParamsInstitution}
+                filterParams={filterParamsInstitution}
+                setSortParams={setSortParamsInstitution}
+                setPageParams={setPageParamsInstitution}
+                setMinMax={setMinMaxInstitution}
+                onOpenFilter={onOpenFilter}
+              />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+
+        <Box gridArea="filter" display={{ base: "none", md: tabIndex === 0 ? "block" : "none" }}>
+          <TableFilter
+            endpoint="countries"
+            setFilterParams={setFilterParamsCountry}
+            setPageParams={setPageParamsCountry}
+            defaultMinMax={defaultMinMaxCountry}
+            minMax={minMaxCountry}
+            setMinMax={setMinMaxCountry}
+          />
+        </Box>
+        <Box gridArea="filter" display={{ base: "none", md: tabIndex === 1 ? "block" : "none" }}>
+          <TableFilter
+            endpoint="institutions"
+            setFilterParams={setFilterParamsInstitution}
+            setPageParams={setPageParamsInstitution}
+            defaultMinMax={defaultMinMaxInstitution}
+            minMax={minMaxInstitution}
+            setMinMax={setMinMaxInstitution}
+          />
+        </Box>
+
+        <Modal onClose={onCloseFilter} size="full" isOpen={isOpenFilter}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalCloseButton />
+            <ModalBody>
+              <TableFilter
+                endpoint="countries"
+                setFilterParams={setFilterParamsCountry}
+                setPageParams={setPageParamsCountry}
+                defaultMinMax={defaultMinMaxCountry}
+                minMax={minMaxCountry}
+                setMinMax={setMinMaxCountry}
+              />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </Grid>
     </Box>
   );
 };

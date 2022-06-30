@@ -124,3 +124,11 @@ export function makeSearchUrl(text: string, limit: number = 10): string {
   }
   return addBuildId(url);
 }
+
+export function makeFilterUrl(text: string, limit: number = 18): string {
+  let url = `${process.env.NEXT_PUBLIC_API_HOST}/api/${text}`;
+  if (limit) {
+    url += `&limit=${limit}`;
+  }
+  return url;
+}

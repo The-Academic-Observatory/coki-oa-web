@@ -16,6 +16,8 @@ const defaultQuery = {
   institutionTypes: new Set<string>(),
   minNOutputs: 0,
   maxNOutputs: Number.MAX_VALUE,
+  minNOutputsOpen: 0,
+  maxNOutputsOpen: Number.MAX_VALUE,
   minPOutputsOpen: 0,
   maxPOutputsOpen: 100,
 };

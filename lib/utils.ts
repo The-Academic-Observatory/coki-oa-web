@@ -14,6 +14,8 @@
 //
 // Author: James Diprose
 
+import React from "react";
+
 export function toReadableNumber(value: number) {
   if (value < 1e4) {
     // For values below 10,000
@@ -69,4 +71,25 @@ export function largestRemainder(samples: Array<number>): Array<number> {
     samplesCopy[maxIndex] = sizesWhole[maxIndex];
   }
   return sizesWhole;
+}
+
+export function useDebounce<T>(value: T, delay: number): T {
+  // State and setters for debounced value
+  const [debouncedValue, setDebouncedValue] = React.useState<T>(value);
+  const firstDebounce = React.useRef(true);
+  React.useEffect(() => {
+    if (value && firstDebounce.current) {
+      setDebouncedValue(value);
+      firstDebounce.current = false;
+      return;
+    }
+
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => clearTimeout(handler);
+  }, [value, delay]);
+
+  return debouncedValue;
 }

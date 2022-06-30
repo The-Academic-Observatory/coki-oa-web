@@ -37,6 +37,8 @@ export type Query = {
   institutionTypes: Set<string>;
   minNOutputs: number;
   maxNOutputs: number;
+  minNOutputsOpen: number;
+  maxNOutputsOpen: number;
   minPOutputsOpen: number;
   maxPOutputsOpen: number;
 };
@@ -72,6 +74,8 @@ export interface FilterQuery {
   institutionTypes?: string;
   minNOutputs?: string;
   maxNOutputs?: string;
+  minNOutputsOpen?: string;
+  maxNOutputsOpen?: string;
   minPOutputsOpen?: string;
   maxPOutputsOpen?: string;
 }
