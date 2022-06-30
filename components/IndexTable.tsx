@@ -161,13 +161,13 @@ interface Props extends BoxProps {
   lastUpdated: string;
   searchParams: string;
   filterParams: string;
-  //TODO types
   setSortParams: (e: string) => void;
   setPageParams: (e: string) => void;
   setMinMax: (e: {
     min: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
     max: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
   }) => void;
+  onOpenFilter: () => void;
 }
 
 const IndexTable = ({
@@ -180,6 +180,7 @@ const IndexTable = ({
   setSortParams,
   setPageParams,
   setMinMax,
+  onOpenFilter,
   ...rest
 }: Props) => {
   const columns = React.useMemo<Array<any>>(
@@ -309,9 +310,7 @@ const IndexTable = ({
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        //TODO loadmore not True
         if (loadMore && currentPage > 0) {
-          // console.log("load more");
           data["items"] = pageData.rowData.concat(data.items);
           setPageSize(data.items.length);
         }
@@ -388,7 +387,7 @@ const IndexTable = ({
           >
             Load More
           </Button>
-          <Button variant="dashboard" leftIcon={<Icon icon="filter" color="white" size={24} />} isDisabled>
+          <Button variant="dashboard" leftIcon={<Icon icon="filter" color="white" size={24} />} onClick={onOpenFilter}>
             Filter
           </Button>
         </Flex>

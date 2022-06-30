@@ -14,13 +14,28 @@
 //
 // Author: James Diprose, Aniek Roelofs
 
-import { Box, Grid, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Grid,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  ModalBody,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { Entity, Stats } from "../lib/model";
-import { getIndexTableData, getStatsData, makeFilterUrl } from "../lib/api";
+import { getIndexTableData, getStatsData } from "../lib/api";
 import React, { useEffect } from "react";
 import IndexTable from "../components/IndexTable";
 import Icon from "../components/Icon";
-import TableFilter, { IFormInputs } from "../components/TableFilter";
+import TableFilter from "../components/TableFilter";
 import TextCollapse from "../components/TextCollapse";
 import Head from "next/head";
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -95,7 +110,6 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
     "?page=0&orderBy=stats.p_outputs_open&orderDir=dsc",
   );
   const debouncedSearchParamsInstitution = useDebounce(searchParamsInstitution, 300);
-  useEffect(() => {}, [debouncedSearchParamsCountry]);
 
   const setSearchParams = (
     pageParams: string,
@@ -145,6 +159,7 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
     },
   };
   const [minMaxInstitution, setMinMaxInstitution] = React.useState(defaultMinMaxInstitution);
+  const { isOpen: isOpenFilter, onOpen: onOpenFilter, onClose: onCloseFilter } = useDisclosure();
 
   return (
     <Box m={{ base: 0, md: "25px auto 0", std: "25px 40px 90px" }}>
@@ -167,7 +182,7 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
 
       <Grid
         maxWidth={{ base: "full", std: maxTabsWidth }}
-        templateAreas={{ base: `"header" "table" "filter"`, std: `"header ." "table filter" ". filter"` }}
+        templateAreas={{ base: `"header ." "table filter" ". filter"` }}
         templateColumns={{ std: `75% 25%` }}
         columnGap={"20px"}
       >
@@ -220,6 +235,7 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
                 setSortParams={setSortParamsCountry}
                 setPageParams={setPageParamsCountry}
                 setMinMax={setMinMaxCountry}
+                onOpenFilter={onOpenFilter}
               />
             </TabPanel>
             <TabPanel p={0}>
@@ -233,12 +249,13 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
                 setSortParams={setSortParamsInstitution}
                 setPageParams={setPageParamsInstitution}
                 setMinMax={setMinMaxInstitution}
+                onOpenFilter={onOpenFilter}
               />
             </TabPanel>
           </TabPanels>
         </Tabs>
 
-        <Box gridArea="filter" display={tabIndex === 0 ? "block" : "none"}>
+        <Box gridArea="filter" display={{ base: "none", md: tabIndex === 0 ? "block" : "none" }}>
           <TableFilter
             endpoint="countries"
             setFilterParams={setFilterParamsCountry}
@@ -248,7 +265,7 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
             setMinMax={setMinMaxCountry}
           />
         </Box>
-        <Box gridArea="filter" display={tabIndex === 1 ? "block" : "none"}>
+        <Box gridArea="filter" display={{ base: "none", md: tabIndex === 1 ? "block" : "none" }}>
           <TableFilter
             endpoint="institutions"
             setFilterParams={setFilterParamsInstitution}
@@ -258,6 +275,23 @@ const IndexPage = ({ countriesFirstPage, institutionsFirstPage, stats }: Props) 
             setMinMax={setMinMaxInstitution}
           />
         </Box>
+
+        <Modal onClose={onCloseFilter} size="full" isOpen={isOpenFilter}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalCloseButton />
+            <ModalBody>
+              <TableFilter
+                endpoint="countries"
+                setFilterParams={setFilterParamsCountry}
+                setPageParams={setPageParamsCountry}
+                defaultMinMax={defaultMinMaxCountry}
+                minMax={minMaxCountry}
+                setMinMax={setMinMaxCountry}
+              />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       </Grid>
     </Box>
   );
