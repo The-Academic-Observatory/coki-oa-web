@@ -32,7 +32,7 @@ import Icon from "./Icon";
 import InstitutionTypeForm, { institutionTypes } from "./InstitutionTypeForm";
 import RegionForm from "./RegionForm";
 import SubregionForm, { subregions } from "./SubregionForm";
-import StatsForm, { sliderValues } from "./StatsForm";
+import SliderForm, { sliderValues, sliderMinMax } from "./SliderForm";
 import { makeFilterUrl } from "../lib/api";
 import { useDebounce } from "../lib/utils";
 
@@ -86,12 +86,11 @@ export interface IFormInputs {
 
 interface TableFilterProps {
   endpoint: string;
-  setFilterParams: (e: string) => void;
-  setPageParams: (e: string) => void;
-  //TODO types
-  defaultMinMax: any;
-  minMax: any;
-  setMinMax: any;
+  setFilterParams: React.Dispatch<React.SetStateAction<string>>;
+  setPageParams: React.Dispatch<React.SetStateAction<string>>;
+  defaultMinMax: sliderMinMax;
+  minMax: sliderMinMax;
+  setMinMax: React.Dispatch<React.SetStateAction<sliderMinMax>>;
 }
 const TableFilter = ({
   endpoint,
@@ -115,7 +114,6 @@ const TableFilter = ({
   // Update min and max values for sliders when other search parameters have changed
   React.useEffect(() => {
     const url = makeFilterUrl(endpoint + "?" + debouncedMinMaxParams);
-    console.log("fetch min max", url);
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -135,7 +133,6 @@ const TableFilter = ({
 
   // Update the current slider values when min and max have changed
   React.useEffect(() => {
-    console.log("minMax updated", minMax);
     if (minMax !== defaultMinMax) {
       setSliderValues({
         n_outputs: [minMax.min.n_outputs, minMax.max.n_outputs],
@@ -215,7 +212,7 @@ const TableFilter = ({
           />
           <FilterAccordionItem
             name={"Publication Count / Open Access"}
-            form={StatsForm(control, sliderValues, setSliderValues, minMax, onSubmit)}
+            form={SliderForm(control, sliderValues, setSliderValues, minMax, onSubmit)}
           />
           {endpoint === "institutions" ? (
             <FilterAccordionItem name={"Institution Type"} form={InstitutionTypeForm(control, onSubmit)} />

@@ -59,14 +59,23 @@ export interface sliderValues {
   n_outputs_open: [number, number];
   p_outputs_open: [number, number];
 }
-const StatsForm = (
+export interface sliderMinMax {
+  min: {
+    n_outputs: number;
+    n_outputs_open: number;
+    p_outputs_open: number;
+  };
+  max: {
+    n_outputs: number;
+    n_outputs_open: number;
+    p_outputs_open: number;
+  };
+}
+const SliderForm = (
   control: Control<IFormInputs>,
   sliderValues: sliderValues,
   setSliderValues: React.Dispatch<React.SetStateAction<sliderValues>>,
-  minMax: {
-    min: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
-    max: { n_outputs: number; n_outputs_open: number; p_outputs_open: number };
-  },
+  minMax: sliderMinMax,
   onSubmit: { (e?: React.BaseSyntheticEvent): void },
 ) => {
   return (
@@ -161,4 +170,4 @@ const StatsForm = (
   );
 };
 
-export default StatsForm;
+export default SliderForm;
