@@ -1,7 +1,7 @@
 import { handleRequest } from "./router";
 import lodashGet from "lodash.get";
 
-const institutionTestTimeout = 60000;
+const institutionTestTimeout = 100000;
 
 test("test handleRequest 404", async () => {
   let res = await handleRequest(new Request("http://localhost"));
@@ -19,8 +19,8 @@ test("test handleRequest search", async () => {
   let res = await handleRequest(new Request("http://localhost/api/search/curtin"));
   let json = await res.json();
   expect(res.status).toBe(200);
-  expect(json.length).toBe(1);
-  expect(json).toMatchObject([{ id: "02n415q13" }]);
+  expect(json.length).toBe(2);
+  expect(json).toMatchObject([{ id: "02n415q13" }, { id: "024fm2y42" }]);
 
   // Search: text with spaces
   res = await handleRequest(new Request("http://localhost/api/search/auckland%20university"));
@@ -57,8 +57,6 @@ const fetchAll = async (endpoint: string, otherQueryParams: string = "") => {
     expect(json).toHaveProperty("limit");
     expect(json).toHaveProperty("orderBy");
     expect(json).toHaveProperty("orderDir");
-    expect(json).toHaveProperty("min");
-    expect(json).toHaveProperty("max");
     expect(json.items).toBeInstanceOf(Array);
 
     //@ts-ignore

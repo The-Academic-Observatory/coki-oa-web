@@ -16,10 +16,10 @@
 
 import { Box, ListItem, Table, Tbody, Td, Text, Th, Thead, Tr, UnorderedList } from "@chakra-ui/react";
 import React from "react";
-import Card from "../components/Card";
+import Card from "../components/common/Card";
 import Head from "next/head";
-import Breadcrumbs from "../components/Breadcrumbs";
-import ScrollTable from "../components/ScrollTable";
+import Breadcrumbs from "../components/common/Breadcrumbs";
+import ScrollTable from "../components/common/ScrollTable";
 import { getStatsData } from "../lib/api";
 import { Stats } from "../lib/model";
 

@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,7 +16,12 @@
 
 const Slider = {
   variants: {
-    tableFilter: {
+    filterForm: {
+      track: {
+        bg: "#E1E1E1",
+        height: "5px",
+        borderRadius: "5px",
+      },
       filledTrack: {
         bg: "grey.800",
       },

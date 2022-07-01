@@ -16,7 +16,7 @@
 
 import { Entity, Stats } from "../../lib/model";
 import { getEntity, getEntityIds, getStatsData, idsToStaticPaths } from "../../lib/api";
-import EntityDetails from "../../components/EntityDetails";
+import EntityDetails from "../../components/details/EntityDetails";
 
 const category = "institution";
 

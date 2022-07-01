@@ -16,20 +16,17 @@
 
 import { Box, Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import React from "react";
-import Card from "../components/Card";
-import Icon from "../components/Icon";
+import Card from "../components/common/Card";
+import Icon from "../components/common/Icon";
 import Head from "next/head";
-import Breadcrumbs from "../components/Breadcrumbs";
+import Breadcrumbs from "../components/common/Breadcrumbs";
 
 export default function Contact() {
   return (
     <Box layerStyle="page">
       <Head>
         <title>COKI: Contact</title>
-        <meta
-          name="description"
-          content="Contact the Curtin Open Knowledge Initiative."
-        />
+        <meta name="description" content="Contact the Curtin Open Knowledge Initiative." />
       </Head>
 
       <Breadcrumbs
@@ -50,26 +47,21 @@ export default function Contact() {
         </Text>
         <UnorderedList textStyle="p">
           <ListItem>
-            <b>Reports and Dashboards.</b> Get more detailed information about
-            my country or institution’s Open Access performance. We can provide
-            reports and more detail about your institution or country on demand.
-            We also build dashboards and bespoke tools for partners.
+            <b>Reports and Dashboards.</b> Get more detailed information about my country or institution’s Open Access
+            performance. We can provide reports and more detail about your institution or country on demand. We also
+            build dashboards and bespoke tools for partners.
           </ListItem>
           <ListItem>
-            <b>Understand how we can improve.</b> COKI can provide consultancy
-            and advice on policy implementation, resourcing and monitoring for
-            improving levels and value of open access initiatives.
+            <b>Understand how we can improve.</b> COKI can provide consultancy and advice on policy implementation,
+            resourcing and monitoring for improving levels and value of open access initiatives.
           </ListItem>
           <ListItem>
-            <b>Community.</b> Support the development of community resources. We
-            are actively seeking partners to work with us to sustain and develop
-            our data resources and analytical capabilities.
+            <b>Community.</b> Support the development of community resources. We are actively seeking partners to work
+            with us to sustain and develop our data resources and analytical capabilities.
           </ListItem>
           <ListItem>
-            <b>Collaborate.</b> Collaborate on a research program. We have an
-            active research program on open access and are keen to discuss
-            potential collaborations that can exploit or improve our data
-            capabilities
+            <b>Collaborate.</b> Collaborate on a research program. We have an active research program on open access and
+            are keen to discuss potential collaborations that can exploit or improve our data capabilities
           </ListItem>
         </UnorderedList>
 
@@ -78,11 +70,7 @@ export default function Contact() {
           <Text pl={2} textStyle="p" pb={0}>
             <b>
               Please email us at:{" "}
-              <a
-                href="mailto:coki@curtin.edu.au"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href="mailto:coki@curtin.edu.au" target="_blank" rel="noreferrer">
                 coki@curtin.edu.au
               </a>
             </b>

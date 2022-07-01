@@ -82,13 +82,60 @@ export type ZenodoVersion = {
   download_url: string;
 };
 
+export type EntityStats = {
+  n_items: number;
+  min: PublicationStats;
+  max: PublicationStats;
+  median: PublicationStats;
+  histograms: EntityHistograms;
+};
+
+export type EntityHistograms = {
+  p_outputs_open: Histogram;
+  n_outputs: Histogram;
+  n_outputs_open: Histogram;
+};
+
+export type Histogram = {
+  data: Array<number>;
+  bins: Array<number>;
+};
+
 export type Stats = {
   start_year: number;
   end_year: number;
   last_updated: string;
-  n_countries: number;
-  n_institutions: number;
   zenodo_versions: Array<ZenodoVersion>;
-  country_medians: PublicationStats;
-  institution_medians: PublicationStats;
+  country: EntityStats;
+  institution: EntityStats;
 };
+
+export interface QueryResult {
+  items: Array<Entity>;
+  nItems: number;
+  page: number;
+  limit: number;
+  orderBy: string;
+  orderDir: string;
+  minNOutputs: number;
+  maxNOutputs: number;
+  minNOutputsOpen: number;
+  maxNOutputsOpen: number;
+  minPOutputsOpen: number;
+  maxPOutputsOpen: number;
+}
+
+export interface QueryParams {
+  page?: number;
+  limit?: number;
+  orderBy?: string;
+  orderDir?: string;
+  subregions?: Array<string>;
+  institutionTypes?: Array<string>;
+  minNOutputs?: number;
+  maxNOutputs?: number;
+  minNOutputsOpen?: number;
+  maxNOutputsOpen?: number;
+  minPOutputsOpen?: number;
+  maxPOutputsOpen?: number;
+}

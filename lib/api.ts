@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { Entity, Stats } from "./model";
+import { Entity, QueryParams, Stats } from "./model";
 import fs from "fs";
 import { join } from "path";
 import lodashGet from "lodash.get";
@@ -125,10 +125,46 @@ export function makeSearchUrl(text: string, limit: number = 10): string {
   return addBuildId(url);
 }
 
-export function makeFilterUrl(text: string, limit: number = 18): string {
-  let url = `${process.env.NEXT_PUBLIC_API_HOST}/api/${text}`;
-  if (limit) {
-    url += `&limit=${limit}`;
+export function makeFilterUrl(endpoint: string, filterQuery: QueryParams): string {
+  // Make base URL
+  let url = `${process.env.NEXT_PUBLIC_API_HOST}/api/${endpoint}`;
+
+  // Convert filterQuery into URL query parameters
+  const query = Object.keys(filterQuery)
+    .map((key) => {
+      // Return null when property does not belong on this endpoint
+      if (endpoint !== "institutions" && ["institutionTypes"].includes(key)) {
+        return null;
+      }
+
+      // Get the value of the key
+      const property = filterQuery[key as keyof typeof filterQuery];
+
+      if (property === undefined || property === null) {
+        return null;
+      }
+      if (Array.isArray(property) && property.length == 0) {
+        // If empty array then return empty string
+        return null;
+      } else if (Array.isArray(property)) {
+        // If the property is a non-empty array, URI encode each value in the array and then join them with commas
+        let value = property
+          .map((v) => {
+            return encodeURIComponent(v);
+          })
+          .join(",");
+        return `${key}=${value}`;
+      } else {
+        // If any other type then convert to string and URI encode
+        let value = encodeURIComponent(property.toLocaleString("fullwide", { useGrouping: false }));
+        return `${key}=${value}`;
+      }
+    })
+    .filter((v) => v !== null)
+    .join("&");
+
+  if (query) {
+    url += `?${query}`;
   }
-  return url;
+  return addBuildId(url);
 }

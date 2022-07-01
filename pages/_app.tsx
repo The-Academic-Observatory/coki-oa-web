@@ -20,8 +20,8 @@ import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../theme";
 import "../theme/styles.css";
-import Layout from "../components/Layout";
-import Fonts from "../components/Fonts";
+import Layout from "../components/layout/Layout";
+import Fonts from "../components/common/Fonts";
 import Script from "next/script";
 
 function OpenAccessWebApp({ Component, pageProps }: AppProps) {

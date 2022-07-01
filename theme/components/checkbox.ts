@@ -16,10 +16,10 @@
 
 const Checkbox = {
   variants: {
-    tableFilter: {
+    filterForm: {
       label: {
         fontWeight: 500,
-        fontSize: "14px",
+        fontSize: { base: "18px", md: "14px" },
         textTransform: "uppercase",
         fontVariantNumeric: "tabular-nums",
       },

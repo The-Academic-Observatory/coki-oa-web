@@ -16,7 +16,7 @@
 
 import { Entity } from "../../lib/model";
 import { getEntity, getEntityIds, idsToStaticPaths } from "../../lib/api";
-import TwitterCard from "../../components/TwitterCard";
+import TwitterCard from "../../components/common/TwitterCard";
 
 const category = "institution";
 

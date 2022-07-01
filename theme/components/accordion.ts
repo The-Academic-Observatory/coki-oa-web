@@ -12,21 +12,42 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: Aniek Roelofs
+// Author: Aniek Roelofs, James Diprose
+
+const paddingLeft = "24px";
 
 const Accordion = {
   variants: {
-    tableFilter: {
+    filterForm: {
       button: {
+        height: { base: "60px", md: "48px" },
         bgColor: "white",
         _hover: {
-          bgColor: "brand.500",
-          cursor: "pointer",
+          boxShadow: "none",
+          bg: "brand.500",
           color: "white",
         },
         _focus: {
           boxShadow: "none",
         },
+        borderTopWidth: 0,
+        borderBottomWidth: 1,
+        borderColor: "grey.500",
+        pl: paddingLeft,
+        textAlign: "left",
+        fontWeight: 700,
+        fontSize: { base: "18px", md: "12px" },
+        textTransform: "uppercase",
+      },
+      container: {
+        borderTopWidth: 0,
+        borderBottomWidth: "0 !important",
+      },
+      panel: {
+        bgColor: "#F8F8F8",
+        borderBottomWidth: "1px",
+        borderColor: "grey.500",
+        p: 0,
       },
     },
   },

@@ -23,6 +23,8 @@ import Popover from "./components/popover";
 import Slider from "./components/slider";
 import Table from "./components/table";
 import Tabs from "./components/tabs";
+import Modal from "./components/modal";
+import Progress from "./components/progress";
 
 const breakpoints = createBreakpoints({
   sm: "600px",
@@ -77,10 +79,10 @@ const theme = extendTheme({
     h1: {
       // Black
       fontWeight: 900,
-      fontSize: { base: "26px", md: "44px" },
+      fontSize: { base: "26px", md: "40px" },
       color: "brand.500",
       textTransform: "uppercase",
-      mb: { base: "18px", md: "32px" },
+      mb: { base: "18px", md: "28px" },
     },
     h2: {
       // Black
@@ -88,20 +90,20 @@ const theme = extendTheme({
       fontSize: { base: "21px", md: "26px" },
       color: "brand.500",
       textTransform: "uppercase",
-      mb: "12px",
+      mb: "5px",
     },
     p: {
       // Light
       fontWeight: 300,
-      fontSize: { base: "22px", sm: "25px" },
-      lineHeight: { base: "26px", sm: "36px" },
+      fontSize: { base: "20px", sm: "22px" },
+      lineHeight: { base: "26px", sm: "33px" },
       pb: "16px",
     },
     pNoGap: {
       // Light
       fontWeight: 300,
-      fontSize: { base: "22px", sm: "25px" },
-      lineHeight: { base: "26px", sm: "36px" },
+      fontSize: { base: "20px", sm: "20px" },
+      lineHeight: { base: "25px", sm: "25px" },
     },
     caption: {
       // Light
@@ -138,7 +140,6 @@ const theme = extendTheme({
     },
     tabHeader: {
       fontWeight: 900,
-      fontSize: "16px",
       textTransform: "uppercase",
     },
     tableHeader: {
@@ -250,11 +251,17 @@ const theme = extendTheme({
       lineHeight: "20px",
       mt: "6px",
     },
+    filterSubheader: {
+      fontWeight: 700,
+      fontSize: { base: "17px", md: "12px" },
+      textTransform: "uppercase",
+      pb: "12px",
+    },
   },
   layerStyles: {
     page: {
       m: { base: 0, md: "50px auto 90px", std: "50px 40px 90px" },
-      maxWidth: { base: "100%", md: "900px", std: "1100px" },
+      maxWidth: { base: "100%", md: "900px", std: "970px" },
     },
     pGap: {
       mb: { base: "48px", md: "96px" },
@@ -312,6 +319,8 @@ const theme = extendTheme({
     Table,
     Tabs,
     Popover,
+    Progress,
+    Modal,
   },
 });
 

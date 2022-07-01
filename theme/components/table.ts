@@ -34,7 +34,7 @@ const Table = {
         background: "white",
         thead: {
           th: {
-            padding: "6px",
+            padding: "6px 6px",
             textStyle: "tableHeader",
             bgColor: "white",
             height: "50px",
@@ -43,6 +43,10 @@ const Table = {
             _first: {
               position: "sticky",
               left: 0,
+              paddingLeft: "16px",
+            },
+            _last: {
+              paddingRight: "16px",
             },
             ...numericStyles,
           },
@@ -84,6 +88,10 @@ const Table = {
               _first: {
                 position: "sticky",
                 left: 0,
+                paddingLeft: "16px",
+              },
+              _last: {
+                paddingRight: "16px",
               },
               ...numericStyles,
             },

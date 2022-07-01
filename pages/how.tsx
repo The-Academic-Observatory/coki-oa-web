@@ -16,17 +16,17 @@
 
 import { Box, ListItem, OrderedList, Table, Tbody, Td, Text, Th, Thead, Tr, UnorderedList } from "@chakra-ui/react";
 import React from "react";
-import Card from "../components/Card";
+import Card from "../components/common/Card";
 import HowOverview from "../public/images/how-overview.svg";
 import HowDatasets from "../public/images/how-datasets.svg";
 import HowPubTable from "../public/images/how-pub-table.svg";
-import Figure from "../components/Figure";
-import ScrollTable from "../components/ScrollTable";
-import Breadcrumbs from "../components/Breadcrumbs";
+import Figure from "../components/common/Figure";
+import ScrollTable from "../components/common/ScrollTable";
+import Breadcrumbs from "../components/common/Breadcrumbs";
 import Head from "next/head";
 import { getStatsData } from "../lib/api";
 import { Stats } from "../lib/model";
-import Link from "../components/Link";
+import Link from "../components/common/Link";
 
 export async function getStaticProps() {
   const stats = getStatsData();
@@ -64,11 +64,12 @@ export default function How({ stats }: Props) {
         </Text>
         <Text textStyle="p">
           The <Link href="/data">COKI Open Access Dataset</Link> measures open access performance for{" "}
-          {stats.n_countries} countries and {stats.n_institutions} institutions. Countries and institutions that have at
-          least 1000 research outputs are included in this dataset. The COKI Open Access Dataset is created with the
-          COKI Academic Observatory data collection pipeline, which fetches data about research publications from
-          multiple sources, synthesises the datasets and creates the open access calculations for each country and
-          institution. The data is then visualised in this website. The code for this website is available at the{" "}
+          {stats.country.n_items} countries and {stats.institution.n_items} institutions. This dataset includes
+          countries having at least {stats.country.min.n_outputs} research outputs and institutions with at least{" "}
+          {stats.institution.min.n_outputs} research outputs. The COKI Open Access Dataset is created with the COKI
+          Academic Observatory data collection pipeline, which fetches data about research publications from multiple
+          sources, synthesises the datasets and creates the open access calculations for each country and institution.
+          The data is then visualised in this website. The code for this website is available at the{" "}
           <a href="https://github.com/The-Academic-Observatory/coki-oa-web" target="_blank" rel="noreferrer">
             COKI Open Access Website
           </a>{" "}
