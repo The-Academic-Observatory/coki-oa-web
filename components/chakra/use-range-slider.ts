@@ -29,7 +29,7 @@ import {
   usePanGesture,
   useUpdateEffect,
 } from "@chakra-ui/hooks";
-import { EventKeyMap, mergeRefs, PropGetter } from "@chakra-ui/react-utils";
+import { EventKeyMap, mergeRefs, PropGetter, ReactRef } from "@chakra-ui/react-utils";
 import {
   AnyPointerEvent,
   ariaAttr,
@@ -70,7 +70,7 @@ export interface UseRangeSliderProps {
    */
   defaultValue?: number[];
   /**
-   * orientation of the slider
+   * Orientation of the slider
    * @default "horizontal"
    */
   orientation?: "horizontal" | "vertical";
@@ -78,18 +78,22 @@ export interface UseRangeSliderProps {
    * If `true`, the value will be incremented or decremented in reverse.
    */
   isReversed?: boolean;
+
   /**
    * Function called when the user starts selecting a new value (by dragging or clicking)
    */
   onChangeStart?(value: number[]): void;
+
   /**
    * Function called when the user is done selecting a new value (by dragging or clicking)
    */
   onChangeEnd?(value: number[]): void;
+
   /**
    * Function called whenever the slider value changes  (by dragging or clicking)
    */
   onChange?(value: number[]): void;
+
   /**
    * The base `id` to use for the slider and its components
    */
@@ -107,12 +111,14 @@ export interface UseRangeSliderProps {
    * If `true`, the slider will be in `read-only` state
    */
   isReadOnly?: boolean;
+
   /**
    * Function that returns the `aria-valuetext` for screen readers.
    * It is mostly used to generate a more human-readable
    * representation of the value for assistive technologies
    */
   getAriaValueText?(value: number): string;
+
   /**
    * If `false`, the slider handle will not capture focus when value changes.
    * @default true
@@ -134,6 +140,7 @@ export interface UseRangeSliderProps {
   "aria-labelledby"?: string[];
   /**
    * The writing mode
+   * @default "ltr"
    */
   direction?: "ltr" | "rtl";
   /**
@@ -253,7 +260,7 @@ export function useRangeSlider(props: UseRangeSliderProps) {
   const ids = getIds(uuid);
 
   const getValueFromPointer = useCallback(
-    (event) => {
+    (event: any) => {
       if (!trackRef.current) return;
       eventSourceRef.current = "pointer";
       const rect = trackRef.current.getBoundingClientRect();
@@ -453,7 +460,7 @@ export function useRangeSlider(props: UseRangeSliderProps) {
   );
 
   const getThumbProps = useCallback(
-    (props, ref = null) => {
+    (props: any, ref: ReactRef<any> = null) => {
       const { index, ...rest } = props;
 
       const _value = value[index];
@@ -562,7 +569,7 @@ export function useRangeSlider(props: UseRangeSliderProps) {
   );
 
   const getInputProps = useCallback(
-    (props, ref = null) => {
+    (props: any, ref: ReactRef<any> = null) => {
       const { index, ...rest } = props;
       return {
         ...rest,

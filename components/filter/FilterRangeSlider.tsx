@@ -54,10 +54,10 @@ const FilterRangeSlider = ({
   const step = (maxTrans - minTrans) / nSteps;
 
   // Callbacks
-  const onChange = useCallback((values) => {
+  const onChange = useCallback((values: Array<number>) => {
     setValue(values);
   }, []);
-  const onChangeEnd = useCallback((values) => {
+  const onChangeEnd = useCallback((values: Array<number>) => {
     // Update the form values when the changes end
     const [l, r] = values;
     setFieldValue(leftKey, inverseTransform(l));
