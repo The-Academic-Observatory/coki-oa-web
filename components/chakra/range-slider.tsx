@@ -26,13 +26,12 @@ import {
   forwardRef,
   HTMLChakraProps,
   omitThemingProps,
-  StylesProvider,
+  SystemStyleObject,
   ThemingProps,
   useMultiStyleConfig,
-  useStyles,
   useTheme,
 } from "@chakra-ui/system";
-import { cx } from "@chakra-ui/utils";
+import { cx, Dict } from "@chakra-ui/utils";
 import * as React from "react";
 import { useRangeSlider, UseRangeSliderProps, UseRangeSliderReturn } from "./use-range-slider";
 
@@ -45,6 +44,13 @@ const [RangeSliderProvider, useRangeSliderContext] = createContext<RangeSliderCo
   errorMessage:
     "useSliderContext: `context` is undefined. Seems you forgot to wrap all slider components within <RangeSlider />",
 });
+
+const [RangeSliderStylesProvider, useRangeSliderStyles] = createContext<Dict<SystemStyleObject>>({
+  name: `RangeSliderStylesContext`,
+  errorMessage: `useRangeSliderStyles returned is 'undefined'. Seems you forgot to wrap the components in "<RangeSlider />" `,
+});
+
+export { useRangeSliderStyles };
 
 export { RangeSliderProvider, useRangeSliderContext };
 
@@ -71,11 +77,11 @@ export const RangeSlider = forwardRef<RangeSliderProps, "div">((props, ref) => {
 
   return (
     <RangeSliderProvider value={ctx}>
-      <StylesProvider value={styles}>
+      <RangeSliderStylesProvider value={styles}>
         <chakra.div {...getRootProps({}, ref)} className="chakra-slider" __css={styles.container}>
           {props.children}
         </chakra.div>
-      </StylesProvider>
+      </RangeSliderStylesProvider>
     </RangeSliderProvider>
   );
 });
@@ -94,7 +100,7 @@ export interface RangeSliderThumbProps extends HTMLChakraProps<"div"> {
  */
 export const RangeSliderThumb = forwardRef<RangeSliderThumbProps, "div">((props, ref) => {
   const { getThumbProps, getInputProps, name } = useRangeSliderContext();
-  const styles = useStyles();
+  const styles = useRangeSliderStyles();
   const thumbProps = getThumbProps(props, ref);
 
   return (
@@ -109,7 +115,7 @@ export interface RangeSliderTrackProps extends HTMLChakraProps<"div"> {}
 
 export const RangeSliderTrack = forwardRef<RangeSliderTrackProps, "div">((props, ref) => {
   const { getTrackProps } = useRangeSliderContext();
-  const styles = useStyles();
+  const styles = useRangeSliderStyles();
   const trackProps = getTrackProps(props, ref);
 
   return (
@@ -126,7 +132,7 @@ export interface RangeSliderInnerTrackProps extends HTMLChakraProps<"div"> {}
 
 export const RangeSliderFilledTrack = forwardRef<RangeSliderInnerTrackProps, "div">((props, ref) => {
   const { getInnerTrackProps } = useRangeSliderContext();
-  const styles = useStyles();
+  const styles = useRangeSliderStyles();
   const trackProps = getInnerTrackProps(props, ref);
 
   return <chakra.div {...trackProps} className="chakra-slider__filled-track" __css={styles.filledTrack} />;
