@@ -233,7 +233,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
   } = useDisclosure();
 
   return (
-    <Box m={{ base: 0, md: "25px 25px 0", std: "25px 40px 90px" }}>
+    <Box m={{ base: 0, md: "25px 25px 90px", std: "25px 40px 90px" }}>
       <PageLoader isLoading={isLoadingCountry || isLoadingInstitution} />
 
       <Head>
@@ -256,8 +256,11 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
       {/*Use free space units for grid so that column gap doesn't cause an overflow */}
       <Grid
         maxWidth={{ base: "full", std: maxTabsWidth }}
-        templateAreas={{ base: `"header ." "table filter" ". filter"` }}
+        templateAreas={`"header ." 
+                        "table filter"
+                        ". filter"`} // The last template area means that the filters can expand past the table
         templateColumns={{ base: "100%", md: `3fr 1fr` }}
+        gridAutoRows="minmax(min-content, max-content)" // Makes rows height of content
         columnGap={`20px`}
       >
         <Box gridArea="header" p={{ base: "24px 24px 15px", md: "24px 0 15px", std: 0 }} bg="grey.200">
@@ -348,6 +351,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
             resetFormState={resetFormStateCountry}
           />
         </Box>
+
         <Box gridArea="filter" display={{ base: "none", md: tabIndex === 1 ? "block" : "none" }}>
           <FilterForm
             category="institution"
