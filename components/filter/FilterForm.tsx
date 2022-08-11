@@ -28,7 +28,7 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { useEffectAfterRender } from "../../lib/hooks";
 import lodashIsEqual from "lodash.isequal";
 
-const filterWidth = 250;
+const filterMaxWidth = 300;
 
 export interface PageForm {
   page: number;
@@ -125,7 +125,10 @@ const FilterForm = ({
   return (
     <FormikProvider value={formik}>
       <Form onSubmit={formik.handleSubmit}>
-        <Box boxShadow={{ base: "none", md: "0px 2px 5px 2px rgba(0,0,0,0.05)" }} maxWidth={{ md: `${filterWidth}px` }}>
+        <Box
+          boxShadow={{ base: "none", md: "0px 2px 5px 2px rgba(0,0,0,0.05)" }}
+          maxWidth={{ md: `${filterMaxWidth}px` }}
+        >
           <HStack bg="brand.500" justifyContent="center" spacing="14px" height="60px" position="relative">
             <Box>
               <Icon icon="filter" color="white" size={24} />
