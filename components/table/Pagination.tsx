@@ -15,48 +15,23 @@
 // Author: Aniek Roelofs, James Diprose
 
 import React, { memo, useEffect, useState } from "react";
-import { Box, Flex, IconButton } from "@chakra-ui/react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { Box, Flex, FlexProps, IconButton } from "@chakra-ui/react";
+import {
+  HiOutlineChevronDoubleLeft,
+  HiOutlineChevronDoubleRight,
+  HiOutlineChevronLeft,
+  HiOutlineChevronRight,
+} from "react-icons/hi";
+import NoResults from "./NoResults";
 
-function paginate(page: number, nPages: number) {
-  const window = 5;
-  const half = Math.floor(window / 2);
-  const endDistance = nPages - page - 1;
-  let start = 0;
-  let end: number;
-  if (nPages < window) {
-    // Total number of pages smaller than window
-    start = 0;
-    end = nPages - 1;
-  } else if (page < window) {
-    // Current page smaller than window
-    start = 0;
-    end = window - 1;
-  } else if (endDistance < window) {
-    // Number of remaining pages fits within windows
-    start = nPages - window;
-    end = nPages - 1;
-  } else {
-    start = page - half;
-    end = page + half;
-  }
-
-  let length = end - start + 1;
-  // When there is one page, don't show any pages
-  if (length === 1) {
-    length = 0;
-  }
-  return Array.from({ length: length }, (v, k) => k + start);
-}
-
-interface PaginationProps {
+interface PaginationProps extends FlexProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   totalRows: number;
   rowsPerPage: number;
 }
 
-const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage }: PaginationProps) => {
+const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage, ...rest }: PaginationProps) => {
   // Calculating max number of pages
   const noOfPages = Math.ceil(totalRows / rowsPerPage);
 
@@ -86,26 +61,40 @@ const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage }: Pag
   }, [noOfPages, currentPage]);
 
   return (
-    <Flex alignItems="center" align="center" justifyContent="space-between" w={{ base: "full", sm: "auto" }}>
+    <Flex alignItems="center" align="center" justifyContent="space-between" {...rest}>
+      <IconButton
+        aria-label="First Page"
+        variant="pageIconButton"
+        icon={<HiOutlineChevronDoubleLeft />}
+        onClick={() => goToPage(0)}
+        disabled={!canGoBack}
+      />
       <IconButton
         aria-label="Previous Page"
-        variant="pureIconButton"
-        icon={<ChevronLeftIcon />}
+        variant="pageIconButton"
+        icon={<HiOutlineChevronLeft />}
         onClick={onPrevPage}
         disabled={!canGoBack}
       />
-      {paginate(currentPage, noOfPages).map((page) => {
-        return (
-          <Flex key={page} layerStyle="pageButton" align="center" onClick={() => goToPage(page)}>
-            <Box className={page === currentPage ? "pageBtnActive" : ""} />
-          </Flex>
-        );
-      })}
+      {noOfPages > 0 && (
+        <Box layerStyle="pageNumber">
+          {" "}
+          {currentPage + 1} / {noOfPages}{" "}
+        </Box>
+      )}
+
       <IconButton
         aria-label="Next Page"
-        variant="pureIconButton"
-        icon={<ChevronRightIcon />}
+        variant="pageIconButton"
+        icon={<HiOutlineChevronRight />}
         onClick={onNextPage}
+        disabled={!canGoNext}
+      />
+      <IconButton
+        aria-label="Last Page"
+        variant="pageIconButton"
+        icon={<HiOutlineChevronDoubleRight />}
+        onClick={() => goToPage(noOfPages - 1)}
         disabled={!canGoNext}
       />
     </Flex>

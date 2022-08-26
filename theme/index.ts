@@ -25,6 +25,7 @@ import Table from "./components/table";
 import Tabs from "./components/tabs";
 import Modal from "./components/modal";
 import Progress from "./components/progress";
+import Menu from "./components/menu";
 
 const breakpoints = createBreakpoints({
   sm: "600px",
@@ -147,6 +148,12 @@ const theme = extendTheme({
       fontSize: "12px",
       textTransform: "uppercase",
     },
+    detailTableHeader: {
+      fontWeight: 500,
+      fontSize: "16px",
+      textTransform: "none",
+      color: "rgb(28, 32, 44)",
+    },
     tableSubHeader: {
       fontWeight: 400,
       fontSize: "9px",
@@ -158,6 +165,12 @@ const theme = extendTheme({
       fontWeight: 500,
       fontSize: "14px",
       textTransform: "uppercase",
+      fontVariantNumeric: "tabular-nums",
+    },
+    detailTableCell: {
+      fontWeight: 300,
+      fontSize: "16px",
+      lineHeight: "18px",
       fontVariantNumeric: "tabular-nums",
     },
     entityHeading: {
@@ -208,7 +221,7 @@ const theme = extendTheme({
     },
     entityCardHeading: {
       fontWeight: 900,
-      fontSize: { base: "18px", md: "28px" },
+      fontSize: { base: "18px", md: "22px" },
       color: "brand.500",
       textTransform: "uppercase",
     },
@@ -230,12 +243,13 @@ const theme = extendTheme({
       fontWeight: 900,
       textTransform: "uppercase",
       fontSize: "18px",
+      lineHeight: "18px",
       whiteSpace: "nowrap",
     },
     chartKeyDescription: {
-      fontSize: "14px",
+      fontSize: "15px",
       height: "24px",
-      fontWeight: 300,
+      fontWeight: 400,
       whiteSpace: "nowrap",
       overflow: "hidden",
       textOverflow: "ellipsis",
@@ -257,6 +271,14 @@ const theme = extendTheme({
       textTransform: "uppercase",
       pb: "12px",
     },
+    detailTableText: {
+      // Light
+      fontWeight: 300,
+      fontSize: "16px",
+      lineHeight: "18px",
+      pb: "12px",
+      li: { mb: "6px" },
+    },
   },
   layerStyles: {
     page: {
@@ -271,10 +293,10 @@ const theme = extendTheme({
       p: "20px",
     },
     chartKeys: {
-      ml: { base: 0, md: "16px" },
-      mt: { base: "12px", md: 0 },
+      w: "full",
     },
     chartKeyRow: {
+      justifyContent: "space-between",
       alignItems: "center",
       paddingTop: "6px",
       paddingBottom: "6px",
@@ -284,6 +306,12 @@ const theme = extendTheme({
       width: "12px",
       height: "12px",
       mr: "6px",
+    },
+    pageNumber: {
+      mx: "6px",
+      color: "gray.600",
+      fontVariantNumeric: "tabular-nums",
+      fontWeight: 400,
     },
     pageButton: {
       width: "32px",
@@ -321,6 +349,7 @@ const theme = extendTheme({
     Popover,
     Progress,
     Modal,
+    Menu,
   },
 });
 

@@ -16,7 +16,7 @@
 
 import { Box, VStack } from "@chakra-ui/react";
 import React, { memo } from "react";
-import HistogramChart from "./HistogramChart";
+import HistogramChart from "../charts/HistogramChart";
 import FilterRangeSlider from "./FilterRangeSlider";
 import { Histogram } from "../../lib/model";
 

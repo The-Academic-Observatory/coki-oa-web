@@ -2473,6 +2473,30 @@
     "@nivo/tooltip" "0.79.0"
     d3-shape "^1.3.5"
 
+"@nivo/polar-axes@0.79.1":
+  version "0.79.1"
+  resolved "https://registry.yarnpkg.com/@nivo/polar-axes/-/polar-axes-0.79.1.tgz#a6bab51f757dfca230fa1e7e5d97d5893a12004d"
+  integrity sha512-3+XZVTgqZqy265sb0REtT/8IEsshB2nUYL9bPeTacMO2pamKp4ysukaLQOqKf25ujOxTNZL7/Nxtz9hn2oQMDw==
+  dependencies:
+    "@nivo/arcs" "0.79.1"
+    "@nivo/scales" "0.79.0"
+    "@react-spring/web" "9.3.1"
+
+"@nivo/radial-bar@^0.79.1":
+  version "0.79.1"
+  resolved "https://registry.yarnpkg.com/@nivo/radial-bar/-/radial-bar-0.79.1.tgz#966406c4b93693464e9610a53a479437d1bf2e70"
+  integrity sha512-6JbPR9TzycPZ0EWwdf3NSp8K643hK+3qXkp37dIHaHiutX7mnqyqcxfwEm3Tnl65sJj81Did7CQ1UKQPqQmxuA==
+  dependencies:
+    "@nivo/arcs" "0.79.1"
+    "@nivo/colors" "0.79.1"
+    "@nivo/legends" "0.79.1"
+    "@nivo/polar-axes" "0.79.1"
+    "@nivo/scales" "0.79.0"
+    "@nivo/tooltip" "0.79.0"
+    "@react-spring/web" "9.3.1"
+    d3-scale "^3.2.3"
+    d3-shape "^1.3.5"
+
 "@nivo/recompose@0.79.0":
   version "0.79.0"
   resolved "https://registry.yarnpkg.com/@nivo/recompose/-/recompose-0.79.0.tgz#c0c54ecabb2300ce672f3c3199f74629df33cc08"
@@ -6985,6 +7009,11 @@ react-icomoon@^2.4.2:
   version "2.4.2"
   resolved "https://registry.npmjs.org/react-icomoon/-/react-icomoon-2.4.2.tgz"
   integrity sha512-Hw7itIOQV5zRoYFpubr5C52h0qt7Bw00jE6TIFdgR6lH4RZOI0bNao576trW0Y6xxx30JGUOk3KqSagAERKDdg==
+
+react-icons@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.4.0.tgz#a13a8a20c254854e1ec9aecef28a95cdf24ef703"
+  integrity sha512-fSbvHeVYo/B5/L4VhB7sBA1i2tS8MkT0Hb9t2H1AVPkwGfVHLJCqyr2Py9dKMxsyM63Eng1GkdZfbWj+Fmv8Rg==
 
 "react-is@^16.12.0 || ^17.0.0 || ^18.0.0", react-is@^18.0.0, react-is@^18.2.0:
   version "18.2.0"

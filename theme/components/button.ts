@@ -101,7 +101,7 @@ const Button = {
         boxShadow: "none",
       },
     },
-    pureIconButton: {
+    pageIconButton: {
       width: "32px",
       height: "32px",
       minWidth: "32px",
@@ -109,9 +109,8 @@ const Button = {
       maxHeight: "32px",
       color: "grey.700",
       svg: {
-        width: "12px",
-        height: "12px",
-        transform: "scale(3)",
+        width: "22px",
+        height: "22px",
       },
       _focus: {
         boxShadow: "none",
@@ -152,6 +151,39 @@ const Button = {
         opacity: 0.4,
         cursor: "not-allowed",
         boxShadow: "none",
+      },
+    },
+    buttonLink: {
+      px: 0,
+      mx: 0,
+      minWidth: "20px",
+      fontWeight: 500,
+      _focus: { boxShadow: "none" },
+      _active: {
+        bg: "none",
+        boxShadow: "none",
+      },
+      span: {
+        ml: "2px",
+      },
+    },
+    buttonLinkSelected: {
+      px: 0,
+      mx: 0,
+      minWidth: "20px",
+      fontWeight: 500,
+      color: "brand.500",
+      textDecoration: "underline",
+      _focus: { boxShadow: "none" },
+      _active: {
+        bg: "none",
+        boxShadow: "none",
+      },
+      span: {
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        ml: "2px",
       },
     },
   },

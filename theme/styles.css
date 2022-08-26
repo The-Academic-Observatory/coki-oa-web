@@ -16,6 +16,7 @@ li::marker {
 #country-dropdown ul li {
     margin-bottom: 1px;
 }
+
 ul > li {
     margin-bottom: 16px;
 }
@@ -57,5 +58,4 @@ li a:hover {
     top: 0;
     left: 0;
     background: white;
-
 }
