@@ -40,7 +40,7 @@ jobs:
           gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip
           ./data.sh
 
-      - name: Check Types
+      - name: Build
         working-directory: ./workers-api
         run: |
           yarn build

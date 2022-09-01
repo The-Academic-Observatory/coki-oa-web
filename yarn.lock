@@ -2473,30 +2473,6 @@
     "@nivo/tooltip" "0.79.0"
     d3-shape "^1.3.5"
 
-"@nivo/polar-axes@0.79.1":
-  version "0.79.1"
-  resolved "https://registry.yarnpkg.com/@nivo/polar-axes/-/polar-axes-0.79.1.tgz#a6bab51f757dfca230fa1e7e5d97d5893a12004d"
-  integrity sha512-3+XZVTgqZqy265sb0REtT/8IEsshB2nUYL9bPeTacMO2pamKp4ysukaLQOqKf25ujOxTNZL7/Nxtz9hn2oQMDw==
-  dependencies:
-    "@nivo/arcs" "0.79.1"
-    "@nivo/scales" "0.79.0"
-    "@react-spring/web" "9.3.1"
-
-"@nivo/radial-bar@^0.79.1":
-  version "0.79.1"
-  resolved "https://registry.yarnpkg.com/@nivo/radial-bar/-/radial-bar-0.79.1.tgz#966406c4b93693464e9610a53a479437d1bf2e70"
-  integrity sha512-6JbPR9TzycPZ0EWwdf3NSp8K643hK+3qXkp37dIHaHiutX7mnqyqcxfwEm3Tnl65sJj81Did7CQ1UKQPqQmxuA==
-  dependencies:
-    "@nivo/arcs" "0.79.1"
-    "@nivo/colors" "0.79.1"
-    "@nivo/legends" "0.79.1"
-    "@nivo/polar-axes" "0.79.1"
-    "@nivo/scales" "0.79.0"
-    "@nivo/tooltip" "0.79.0"
-    "@react-spring/web" "9.3.1"
-    d3-scale "^3.2.3"
-    d3-shape "^1.3.5"
-
 "@nivo/recompose@0.79.0":
   version "0.79.0"
   resolved "https://registry.yarnpkg.com/@nivo/recompose/-/recompose-0.79.0.tgz#c0c54ecabb2300ce672f3c3199f74629df33cc08"
@@ -3778,15 +3754,10 @@ camelcase@^6.2.0:
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-6.3.0.tgz"
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
-caniuse-lite@^1.0.30001283, caniuse-lite@^1.0.30001286:
-  version "1.0.30001306"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001306.tgz"
-  integrity sha512-Wd1OuggRzg1rbnM5hv1wXs2VkxJH/AA+LuudlIqvZiCvivF+wJJe2mgBZC8gPMgI7D76PP5CTx8Luvaqc1V6OQ==
-
-caniuse-lite@^1.0.30001349:
-  version "1.0.30001357"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001357.tgz#dec7fc4158ef6ad24690d0eec7b91f32b8cb1b5d"
-  integrity sha512-b+KbWHdHePp+ZpNj+RDHFChZmuN+J5EvuQUlee9jOQIUAdhv9uvAZeEtUeLAknXbkiu1uxjQ9NLp1ie894CuWg==
+caniuse-lite@^1.0.30001283, caniuse-lite@^1.0.30001286, caniuse-lite@^1.0.30001349:
+  version "1.0.30001387"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001387.tgz"
+  integrity sha512-fKDH0F1KOJvR+mWSOvhj8lVRr/Q/mc5u5nabU2vi1/sgvlSqEsE8dOq0Hy/BqVbDkCYQPRRHB1WRjW6PGB/7PA==
 
 chakra-ui-autocomplete@^1.4.5:
   version "1.4.5"
