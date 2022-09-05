@@ -26,6 +26,7 @@ import Tabs from "./components/tabs";
 import Modal from "./components/modal";
 import Progress from "./components/progress";
 import Menu from "./components/menu";
+import Tooltip from "./components/tooltip";
 
 const breakpoints = createBreakpoints({
   sm: "600px",
@@ -350,6 +351,7 @@ const theme = extendTheme({
     Progress,
     Modal,
     Menu,
+    Tooltip,
   },
 });
 

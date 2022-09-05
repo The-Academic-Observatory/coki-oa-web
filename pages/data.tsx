@@ -238,7 +238,7 @@ export default function Open({ stats }: Props) {
           </Table>
         </ScrollTable>
 
-        <ScrollTable caption="Table 2. Institution Schema." my="32px">
+        <ScrollTable caption="Table 2. Institution Schema." mb="32px">
           <Table variant="content">
             <Thead>
               <Tr>
@@ -311,7 +311,7 @@ export default function Open({ stats }: Props) {
           </Table>
         </ScrollTable>
 
-        <ScrollTable caption="Table 3. PublicationStats Schema." my="32px">
+        <ScrollTable caption="Table 3. PublicationStats Schema." mb="32px">
           <Table variant="content">
             <Thead textAlign="left">
               <Tr>
@@ -455,7 +455,7 @@ export default function Open({ stats }: Props) {
           </Table>
         </ScrollTable>
 
-        <ScrollTable caption="Table 4. Year Schema." my="32px">
+        <ScrollTable caption="Table 4. Year Schema." mb="32px">
           <Table variant="content">
             <Thead>
               <Tr>

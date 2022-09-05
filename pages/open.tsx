@@ -157,11 +157,11 @@ export default function Open() {
           Open Access categories
         </Text>
         <Text textStyle="p">
-          Table 1 below describes the Open Access categories used in the index tables on this website, including
-          Publisher Open, Other Platform Open and Closed Access.
+          Table 1 describes the Open Access categories used in the index tables, including Publisher Open, Other
+          Platform Open and Closed Access.
         </Text>
 
-        <ScrollTable caption="Table 1. Open Access categories." my="32px">
+        <ScrollTable caption="Table 1. Open Access categories." mb="32px">
           <Table variant="content">
             <Thead>
               <Tr>
@@ -191,7 +191,7 @@ export default function Open() {
                   Can be applied to existing articles that are already published as well as new articles. Generally
                   without any cost.
                 </Td>
-                <Td>Green.</Td>
+                <Td>Green and Grey.</Td>
               </Tr>
               <Tr>
                 <Td>Closed</Td>
@@ -207,11 +207,11 @@ export default function Open() {
         </ScrollTable>
 
         <Text textStyle="p">
-          Table 2 provides a breakdown of the different types of Publisher Open, as shown in some of the charts on
-          institution and country details pages.
+          Table 2 provides a breakdown of the Publisher Open categories, as shown in the charts on institution and
+          country details pages.
         </Text>
 
-        <ScrollTable caption="Table 2. Publisher Open subcategories." my="32px">
+        <ScrollTable caption="Table 2. Publisher Open categories." mb="32px">
           <Table variant="content">
             <Thead>
               <Tr>
@@ -245,6 +245,67 @@ export default function Open() {
                   Publishers sometimes make articles available for limited periods or without guarantees. This makes
                   more articles readable but doesn’t ensure long term accessibility.
                 </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </ScrollTable>
+
+        <Text textStyle="p">
+          Table 3 provides a breakdown of the Other Platform Open categories, as shown in the charts on institution and
+          country details pages.
+        </Text>
+
+        <ScrollTable caption="Table 3. Other Platform Open categories." mb="32px">
+          <Table variant="content">
+            <Thead>
+              <Tr>
+                <Th>Category</Th>
+                <Th>Description</Th>
+                <Th>Significance</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>Institution</Td>
+                <Td>
+                  Publications placed in institutional repositories, which are archives for storing and distributing an
+                  institution&apos;s research outputs.
+                </Td>
+                <Td>Significance</Td>
+              </Tr>
+              <Tr>
+                <Td>Preprint</Td>
+                <Td>
+                  Publications deposited on preprint servers, which host “preprints”, or unpeer-reviewed versions of
+                  manuscripts. arXiv, bioRxiv or medRxiv are a few examples.
+                </Td>
+                <Td>Significance</Td>
+              </Tr>
+              <Tr>
+                <Td>Domain</Td>
+                <Td>
+                  Publications from domain repositories, also known as disciplinary or subject repositories. A domain
+                  repository contains publications from a specific subject area. Examples include PubMed Central, Europe
+                  PMC and Econstor.
+                </Td>
+                <Td>Significance</Td>
+              </Tr>
+              <Tr>
+                <Td>Public</Td>
+                <Td>
+                  Publications from repositories that can be used by researchers from any domain and to deposit any form
+                  of output, including pre-prints, published manuscripts and datasets. Semantic Scholar, Figshare and
+                  Zenodo are a few examples.
+                </Td>
+                <Td>Significance.</Td>
+              </Tr>
+              <Tr>
+                <Td>Other Internet</Td>
+                <Td>
+                  Publications available on the wider internet, such as academic staff pages, blogs and academic social
+                  networks like academia.edu and researchgate.net.
+                </Td>
+                <Td>Significance</Td>
               </Tr>
             </Tbody>
           </Table>

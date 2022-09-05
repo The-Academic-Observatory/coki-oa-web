@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { Box, BoxProps, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Flex, Grid, GridItem, Text, Tooltip } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
 import React, { memo } from "react";
 import PublisherOpenDonut from "../charts/PublisherOpenDonut";
@@ -34,7 +34,7 @@ const PublisherOpenCard = ({ entity, ...rest }: PublisherOpenCardProps) => {
       label: "OA Journal",
       value: stats.p_outputs_oa_journal,
       color: "#d5bd40",
-      description: "published in open access journal",
+      description: "The percentage of publisher open articles that are published in open access journals.",
       backgroundImage: "linear-gradient(-135deg, #fdd500, #b9a436)",
       total_outputs: stats.n_outputs_oa_journal,
     },
@@ -43,7 +43,7 @@ const PublisherOpenCard = ({ entity, ...rest }: PublisherOpenCardProps) => {
       label: "Hybrid",
       value: stats.p_outputs_hybrid,
       color: "#ffd700",
-      description: "subscription publisher, open license",
+      description: "The percentage of publisher open articles from subscription publishers, with an open license.",
       total_outputs: stats.n_outputs_hybrid,
     },
     {
@@ -51,7 +51,7 @@ const PublisherOpenCard = ({ entity, ...rest }: PublisherOpenCardProps) => {
       label: "No Guarantees",
       value: stats.p_outputs_no_guarantees,
       color: "#f8eb8f",
-      description: "subscription publisher, no reuse rights",
+      description: "The percentage of publisher open articles from subscription publishers, with no reuse rights.",
       total_outputs: stats.n_outputs_no_guarantees,
     },
   ];
@@ -64,12 +64,21 @@ const PublisherOpenCard = ({ entity, ...rest }: PublisherOpenCardProps) => {
           {data.map((item) => (
             <GridItem key={item.id} borderTop="1px solid #EBEBEB" _last={{ borderBottom: "1px solid #EBEBEB" }}>
               <Flex layerStyle="chartKeyRow">
-                <Flex justifyContent="space-between" alignItems="center">
-                  <Box layerStyle="chartKeyBox" backgroundColor={item.color} />
-                  <Text textStyle="chartKeyHeader">
-                    {item.label}&nbsp;{item.value.toFixed(0)}%
-                  </Text>
-                </Flex>
+                <Tooltip
+                  variant="dashboard"
+                  hasArrow
+                  label={item.description}
+                  aria-label={item.description}
+                  placement="top-start"
+                  bg="#b9a436"
+                >
+                  <Flex justifyContent="space-between" alignItems="center">
+                    <Box layerStyle="chartKeyBox" backgroundColor={item.color} />
+                    <Text textStyle="chartKeyHeader">
+                      {item.label}&nbsp;{item.value.toFixed(0)}%
+                    </Text>
+                  </Flex>
+                </Tooltip>
                 <Text textStyle="chartKeyDescription">{numberFormat.format(item.total_outputs)}</Text>
               </Flex>
             </GridItem>

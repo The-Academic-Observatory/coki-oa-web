@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { Box, BoxProps, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Flex, Grid, GridItem, Text, Tooltip } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
 import React, { memo } from "react";
 import EntityCard from "./EntityCard";
@@ -36,6 +36,7 @@ const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) 
       value: stats.p_outputs_institution,
       total_outputs: stats.n_outputs_institution,
       icon: FaUniversity,
+      description: "The percentage of other platform open articles that are available on institutional repositories.",
     },
     {
       id: "Preprint",
@@ -43,6 +44,8 @@ const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) 
       value: stats.p_outputs_preprint,
       total_outputs: stats.n_outputs_preprint,
       icon: FaFirstdraft,
+      description:
+        "The percentage of other platform open articles that are available on preprint repositories, such as arXiv, bioRxiv or medRxiv.",
     },
     {
       id: "Domain",
@@ -50,6 +53,8 @@ const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) 
       value: stats.p_outputs_domain,
       total_outputs: stats.n_outputs_domain,
       icon: FaBriefcaseMedical,
+      description:
+        "The percentage of other platform open articles that are available on domain repositories such as PubMed Central, Europe PMC or Econstor.",
     },
     {
       id: "Public",
@@ -57,6 +62,8 @@ const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) 
       value: stats.p_outputs_public,
       total_outputs: stats.n_outputs_public,
       icon: FaUsers,
+      description:
+        "The percentage of other platform open articles that are available on public repositories, such as Semantic Scholar, Figshare or Zenodo.",
     },
     {
       id: "Other Internet",
@@ -64,6 +71,8 @@ const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) 
       value: stats.p_outputs_other_internet,
       total_outputs: stats.n_outputs_other_internet,
       icon: TbWorld,
+      description:
+        "The percentage of other platform open articles that are available on the wider internet, including academic staff pages, blogs and unknown sources.",
     },
   ];
   data.sort((a, b) => b.value - a.value);
@@ -80,15 +89,25 @@ const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) 
         {data.map((item) => (
           <GridItem key={item.id}>
             <Flex layerStyle="chartKeyRow">
-              <Flex justifyContent="space-between" alignItems="center">
-                <Box pr="6px" pb="1px">
-                  <item.icon color="#79a161" />
-                </Box>
+              <Tooltip
+                variant="dashboard"
+                hasArrow
+                label={item.description}
+                aria-label={item.description}
+                placement="top-start"
+                bg="#8ACB67"
+              >
+                <Flex justifyContent="space-between" alignItems="center">
+                  <Box pr="6px" pb="1px">
+                    <item.icon color="#79a161" />
+                  </Box>
 
-                <Text textStyle="chartKeyHeader">
-                  {item.label} {item.value.toFixed(0)}%
-                </Text>
-              </Flex>
+                  <Text textStyle="chartKeyHeader">
+                    {item.label} {item.value.toFixed(0)}%
+                  </Text>
+                </Flex>
+              </Tooltip>
+
               <Text textStyle="chartKeyDescription">{numberFormat.format(item.total_outputs)}</Text>
             </Flex>
 
