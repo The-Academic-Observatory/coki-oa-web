@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { render } from "@testing-library/react";
+import { render } from "../../lib/test-utils";
 import { EntityDetails, makePageDescription, makeTwitterImageUrl } from "./EntityDetails";
 
 import entity from "../../latest/data/country/NZL.json";
