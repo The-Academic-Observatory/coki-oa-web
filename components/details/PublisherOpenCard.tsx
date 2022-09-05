@@ -70,7 +70,7 @@ const PublisherOpenCard = ({ entity, ...rest }: PublisherOpenCardProps) => {
                   label={item.description}
                   aria-label={item.description}
                   placement="top-start"
-                  bg="#b9a436"
+                  bg="tooltip.publisher"
                 >
                   <Flex justifyContent="space-between" alignItems="center">
                     <Box layerStyle="chartKeyBox" backgroundColor={item.color} />

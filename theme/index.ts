@@ -65,6 +65,10 @@ const theme = extendTheme({
     checkbox: {
       500: "#101820",
     },
+    tooltip: {
+      publisher: "#b9a436",
+      other_platform: "#8ACB67",
+    },
   },
   fonts: {
     heading: "brandon-grotesque",

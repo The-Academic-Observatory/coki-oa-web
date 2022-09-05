@@ -95,7 +95,7 @@ const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) 
                 label={item.description}
                 aria-label={item.description}
                 placement="top-start"
-                bg="#8ACB67"
+                bg="tooltip.other_platform"
               >
                 <Flex justifyContent="space-between" alignItems="center">
                   <Box pr="6px" pb="1px">
