@@ -276,7 +276,7 @@ export default function How({ stats }: Props) {
                 <Td>Institution</Td>
                 <Td>
                   Publications placed in institutional repositories, which are archives for storing and distributing an
-                  institution&apos;s research outputs.
+                  institution&apos;s research outputs. Includes repositories shared amongst multiple institutions.
                 </Td>
                 <Td>
                   Where we have manually matched a repository to an institution, or where
@@ -287,8 +287,8 @@ export default function How({ stats }: Props) {
               <Tr>
                 <Td>Preprint</Td>
                 <Td>
-                  Publications deposited on preprint servers, which host “preprints”, or unpeer-reviewed versions of
-                  manuscripts. arXiv, bioRxiv or medRxiv are a few examples.
+                  Publications deposited on servers that do not make claims about formal peer review. Generally non-peer
+                  reviewed manuscripts, including working papers on platforms such as arXiv, bioRxiv, SSRN, RePec etc.
                 </Td>
                 <Td>Where we have manually classified a repository as a preprint server.</Td>
               </Tr>
@@ -313,8 +313,9 @@ export default function How({ stats }: Props) {
               <Tr>
                 <Td>Other Internet</Td>
                 <Td>
-                  Publications available on the wider internet, such as academic staff pages, blogs and academic social
-                  networks like academia.edu and researchgate.net.
+                  Outputs on sites we have not classified. In practice these are copies identified by CiteSeer X which
+                  is in turn indexed by Unpaywall. It may include publications on academic staff pages, blogs and social
+                  networks. We do not directly track outputs on platforms such as academia.edu and researchgate.net.
                 </Td>
                 <Td>
                   Outputs found on CiteSeer X, which often point to academic staff pages and blogs. We do not currently
