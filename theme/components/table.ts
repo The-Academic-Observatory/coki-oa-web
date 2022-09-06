@@ -128,6 +128,48 @@ const Table = {
         },
       },
     },
+    details: {
+      table: {
+        background: "white",
+        thead: {
+          th: {
+            padding: "6px 12px",
+            textStyle: "detailTableHeader",
+            bgColor: "white",
+            verticalAlign: "top",
+            textAlign: "left",
+            _first: {
+              position: "sticky",
+              left: 0,
+              paddingLeft: 0,
+            },
+            _last: {
+              paddingRight: 0,
+            },
+            ...numericStyles,
+          },
+        },
+        tbody: {
+          tr: {
+            td: {
+              padding: "4px 12px",
+              textStyle: "detailTableCell",
+              "z-index": 0,
+              _first: {
+                background: "white",
+                position: "sticky",
+                left: 0,
+                paddingLeft: 0,
+              },
+              _last: {
+                paddingRight: 0,
+              },
+              ...numericStyles,
+            },
+          },
+        },
+      },
+    },
   },
 };
 

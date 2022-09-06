@@ -14,19 +14,21 @@
 //
 // Author: James Diprose
 
-import { Box, BoxProps } from "@chakra-ui/react";
-import React, { ReactNode } from "react";
-
-interface EntityCardProps extends BoxProps {
-  children: ReactNode;
-}
-
-const EntityCard = ({ children, ...rest }: EntityCardProps) => {
-  return (
-    <Box bg="white" border="1px solid #EBEBEB" p={{ base: "14px", sm: "24px" }} {...rest}>
-      {children}
-    </Box>
-  );
+const Menu = {
+  variants: {
+    selectMenu: {
+      list: {
+        button: {
+          _hover: {
+            backgroundColor: "#F9FAFA",
+          },
+          _focus: {
+            backgroundColor: "#F9FAFA",
+          },
+        },
+      },
+    },
+  },
 };
 
-export default EntityCard;
+export default Menu;

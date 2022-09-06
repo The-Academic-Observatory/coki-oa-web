@@ -14,19 +14,16 @@
 //
 // Author: James Diprose
 
-import { Box, BoxProps } from "@chakra-ui/react";
-import React, { ReactNode } from "react";
-
-interface EntityCardProps extends BoxProps {
-  children: ReactNode;
-}
-
-const EntityCard = ({ children, ...rest }: EntityCardProps) => {
-  return (
-    <Box bg="white" border="1px solid #EBEBEB" p={{ base: "14px", sm: "24px" }} {...rest}>
-      {children}
-    </Box>
-  );
+const Tooltip = {
+  variants: {
+    dashboard: {
+      borderRadius: "xl",
+      fontSize: "16px",
+      fontWeight: 600,
+      px: 3.5,
+      py: 2,
+    },
+  },
 };
 
-export default EntityCard;
+export default Tooltip;

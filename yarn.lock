@@ -3754,15 +3754,10 @@ camelcase@^6.2.0:
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-6.3.0.tgz"
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
-caniuse-lite@^1.0.30001283, caniuse-lite@^1.0.30001286:
-  version "1.0.30001306"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001306.tgz"
-  integrity sha512-Wd1OuggRzg1rbnM5hv1wXs2VkxJH/AA+LuudlIqvZiCvivF+wJJe2mgBZC8gPMgI7D76PP5CTx8Luvaqc1V6OQ==
-
-caniuse-lite@^1.0.30001349:
-  version "1.0.30001357"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001357.tgz#dec7fc4158ef6ad24690d0eec7b91f32b8cb1b5d"
-  integrity sha512-b+KbWHdHePp+ZpNj+RDHFChZmuN+J5EvuQUlee9jOQIUAdhv9uvAZeEtUeLAknXbkiu1uxjQ9NLp1ie894CuWg==
+caniuse-lite@^1.0.30001283, caniuse-lite@^1.0.30001286, caniuse-lite@^1.0.30001349:
+  version "1.0.30001387"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001387.tgz"
+  integrity sha512-fKDH0F1KOJvR+mWSOvhj8lVRr/Q/mc5u5nabU2vi1/sgvlSqEsE8dOq0Hy/BqVbDkCYQPRRHB1WRjW6PGB/7PA==
 
 chakra-ui-autocomplete@^1.4.5:
   version "1.4.5"
@@ -6985,6 +6980,11 @@ react-icomoon@^2.4.2:
   version "2.4.2"
   resolved "https://registry.npmjs.org/react-icomoon/-/react-icomoon-2.4.2.tgz"
   integrity sha512-Hw7itIOQV5zRoYFpubr5C52h0qt7Bw00jE6TIFdgR6lH4RZOI0bNao576trW0Y6xxx30JGUOk3KqSagAERKDdg==
+
+react-icons@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.4.0.tgz#a13a8a20c254854e1ec9aecef28a95cdf24ef703"
+  integrity sha512-fSbvHeVYo/B5/L4VhB7sBA1i2tS8MkT0Hb9t2H1AVPkwGfVHLJCqyr2Py9dKMxsyM63Eng1GkdZfbWj+Fmv8Rg==
 
 "react-is@^16.12.0 || ^17.0.0 || ^18.0.0", react-is@^18.0.0, react-is@^18.2.0:
   version "18.2.0"

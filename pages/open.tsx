@@ -157,11 +157,11 @@ export default function Open() {
           Open Access categories
         </Text>
         <Text textStyle="p">
-          Table 1 below describes the Open Access categories used in the index tables on this website, including
-          Publisher Open, Other Platform Open and Closed Access.
+          Table 1 describes the Open Access categories used in the index tables, including Publisher Open, Other
+          Platform Open and Closed Access.
         </Text>
 
-        <ScrollTable caption="Table 1. Open Access categories." my="32px">
+        <ScrollTable caption="Table 1. Open Access categories." mb="32px">
           <Table variant="content">
             <Thead>
               <Tr>
@@ -191,7 +191,7 @@ export default function Open() {
                   Can be applied to existing articles that are already published as well as new articles. Generally
                   without any cost.
                 </Td>
-                <Td>Green.</Td>
+                <Td>Green and Grey.</Td>
               </Tr>
               <Tr>
                 <Td>Closed</Td>
@@ -207,11 +207,11 @@ export default function Open() {
         </ScrollTable>
 
         <Text textStyle="p">
-          Table 2 provides a breakdown of the different types of Publisher Open, as shown in some of the charts on
-          institution and country details pages.
+          Table 2 provides a breakdown of the Publisher Open categories, as shown in the charts on institution and
+          country details pages.
         </Text>
 
-        <ScrollTable caption="Table 2. Publisher Open subcategories." my="32px">
+        <ScrollTable caption="Table 2. Publisher Open categories." mb="32px">
           <Table variant="content">
             <Thead>
               <Tr>
@@ -244,6 +244,87 @@ export default function Open() {
                 <Td>
                   Publishers sometimes make articles available for limited periods or without guarantees. This makes
                   more articles readable but doesn’t ensure long term accessibility.
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </ScrollTable>
+
+        <Text textStyle="p">
+          Table 3 provides a breakdown of the Other Platform Open categories, as shown in the charts on institution and
+          country details pages.
+        </Text>
+
+        <ScrollTable caption="Table 3. Other Platform Open categories." mb="32px">
+          <Table variant="content">
+            <Thead>
+              <Tr>
+                <Th>Category</Th>
+                <Th>Description</Th>
+                <Th>Significance</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>Institution</Td>
+                <Td>
+                  Publications placed in institutional repositories, which are archives for storing and distributing an
+                  institution&apos;s research outputs. Includes repositories shared amongst multiple institutions.
+                </Td>
+                <Td>
+                  Institutions can take responsibility for archiving their own materials, ensure their own awareness of
+                  research outputs, and leverage institutional policies including rights retention approaches.
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>Preprint</Td>
+                <Td>
+                  Publications deposited on servers that do not make claims about formal peer review. Generally non-peer
+                  reviewed manuscripts, including working papers on platforms such as arXiv, bioRxiv, SSRN, RePec etc.
+                </Td>
+                <Td>
+                  In many disciplines preprints or working papers are a major mode of dissemination. Using preprint
+                  servers also enables post-release peer review and often offers an alternate route to increasing access
+                  which is easier than for formally published versions.
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>Domain</Td>
+                <Td>
+                  Publications from domain repositories, also known as disciplinary or subject repositories. A domain
+                  repository contains publications from a specific subject area. Examples include PubMed Central, Europe
+                  PMC and Econstor.
+                </Td>
+                <Td>
+                  The large domain repositories with the roots in biomedical sciences, Pubmed Central and Europe PMC are
+                  major drivers of access, often linked to their use within the policy requirements for funders that
+                  were early movers on open access.
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>Public</Td>
+                <Td>
+                  Publications from repositories that can be used by researchers from any domain and to deposit any form
+                  of output, including pre-prints, published manuscripts and datasets. Semantic Scholar, Figshare and
+                  Zenodo are a few examples.
+                </Td>
+                <Td>
+                  Free and public repositories are an increasing medium for the release of research materials including
+                  those beyond the traditional research paper. Where they are used specifically for providing access to
+                  formally published (or intended to be published) materials they can be used to host both pre-peer
+                  review manuscripts (“preprints”) or post review manuscripts.
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>Other Internet</Td>
+                <Td>
+                  Outputs on sites we have not classified. In practice these are copies identified by CiteSeer X which
+                  is in turn indexed by Unpaywall. It may include publications on academic staff pages, blogs and social
+                  networks. We do not directly track outputs on platforms such as academia.edu and researchgate.net.
+                </Td>
+                <Td>
+                  It is still common for outputs to be placed in many places. These sources are generally not archived
+                  or reliable for the long term so we do not count them in the more reliable categories of platform.
                 </Td>
               </Tr>
             </Tbody>

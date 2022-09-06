@@ -15,7 +15,7 @@
 // Author: James Diprose
 
 import React, { memo } from "react";
-import { Box, VStack } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem, VStack } from "@chakra-ui/react";
 import { Entity, Stats } from "../../lib/model";
 import Card from "../common/Card";
 import Head from "next/head";
@@ -28,6 +28,8 @@ import OAVolumeCard from "./OAVolumeCard";
 import BreakdownCard from "./BreakdownCard";
 import Footer from "./Footer";
 import SummaryCard from "./SummaryCard";
+import OtherPlatformOpenCard from "./OtherPlatformOpenCard";
+import OtherPlatformLocationsCard from "./OtherPlatformLocationsCard";
 
 export const makeDescription = (entity: Entity) => {
   let text = `Open Access statistics for ${entity.name},`;
@@ -94,12 +96,16 @@ export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) =>
       />
 
       <Card bgBase="none" maxWidth="100vw">
-        <VStack spacing={{ base: "8px", md: "24px" }}>
+        <VStack spacing={{ base: "8px", sm: "18px", md: "24px" }}>
           <SummaryCard entity={entity} />
           <BreakdownCard entity={entity} />
           <OATimeseriesCard entity={entity} />
           <OAVolumeCard entity={entity} />
-          <PublisherOpenCard entity={entity} />
+          <Flex w="full" flexDirection="row" flexWrap="wrap" gap={{ base: "8px", sm: "18px", md: "24px" }}>
+            <PublisherOpenCard entity={entity} display="flex" flexDirection="column" flexBasis="100%" flex={1} />
+            <OtherPlatformOpenCard entity={entity} display="flex" flexDirection="column" flexBasis="100%" flex={1} />
+          </Flex>
+          <OtherPlatformLocationsCard entity={entity} />
           <Footer entity={entity} stats={stats} />
         </VStack>
       </Card>

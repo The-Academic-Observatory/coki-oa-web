@@ -66,6 +66,8 @@ const PublisherOpenDonut = ({ data, ...rest }: PublisherOpenDonutProps) => {
           // Set index, which is used by CentreText to decide which datapoint to render in the middle
           setIndex(node.arc.index);
         }}
+        animate={true}
+        activeOuterRadiusOffset={3}
         defs={[
           linearGradientDef("gold", [
             { offset: 0, color: "#fdd500" },

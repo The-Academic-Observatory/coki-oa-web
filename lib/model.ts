@@ -33,12 +33,20 @@ export type Entity = {
   stats: PublicationStats;
   identifiers: Array<Identifier>;
   years: Array<Year>;
+  repositories: Array<Repository>;
 };
 
 export type Description = {
   text: string;
   url: string;
   license: string;
+};
+
+export type Repository = {
+  id: string;
+  total_outputs: number;
+  category: string;
+  home_repo: boolean;
 };
 
 export type PublicationStats = {
@@ -54,6 +62,11 @@ export type PublicationStats = {
   n_outputs_oa_journal: number;
   n_outputs_hybrid: number;
   n_outputs_no_guarantees: number;
+  n_outputs_preprint: number;
+  n_outputs_domain: number;
+  n_outputs_institution: number;
+  n_outputs_public: number;
+  n_outputs_other_internet: number;
   p_outputs_open: number;
   p_outputs_publisher_open: number;
   p_outputs_publisher_open_only: number;
@@ -64,6 +77,11 @@ export type PublicationStats = {
   p_outputs_oa_journal: number;
   p_outputs_hybrid: number;
   p_outputs_no_guarantees: number;
+  p_outputs_preprint: number;
+  p_outputs_domain: number;
+  p_outputs_institution: number;
+  p_outputs_public: number;
+  p_outputs_other_internet: number;
 };
 
 export type Identifier = {

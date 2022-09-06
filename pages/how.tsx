@@ -85,7 +85,7 @@ export default function How({ stats }: Props) {
           this website and the COKI Open Access Dataset, including Crossref Metadata, MAG, Unpaywall and the ROR. The
           table below illustrates what each dataset is used for.
         </Text>
-        <ScrollTable caption="Table 1. Datasets and their roles." my="32px">
+        <ScrollTable caption="Table 1. Datasets and their roles." mb="32px">
           <Table variant="content">
             <Thead>
               <Tr>
@@ -180,7 +180,7 @@ export default function How({ stats }: Props) {
           Platform Open and Closed Access are described in Table 2 below.
         </Text>
 
-        <ScrollTable caption="Table 2. Open Access status calculations." my="32px">
+        <ScrollTable caption="Table 2. Open Access status calculations." mb="32px">
           <Table variant="content">
             <Thead>
               <Tr>
@@ -217,9 +217,9 @@ export default function How({ stats }: Props) {
           </Table>
         </ScrollTable>
 
-        <Text textStyle="p">The calculations for the Publisher Open subcategories are described in Table 3 below.</Text>
+        <Text textStyle="p">The calculations for the Publisher Open categories are described in Table 3 below.</Text>
 
-        <ScrollTable caption="Table 3. Publisher Open subcategory calculations." my="32px">
+        <ScrollTable caption="Table 3. Publisher Open category calculations." mb="32px">
           <Table variant="content">
             <Thead>
               <Tr>
@@ -252,6 +252,75 @@ export default function How({ stats }: Props) {
                 <Td>
                   All cases where the best_oa_location is “publisher”, the license field is null, and journal_is_in_doaj
                   is False.
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </ScrollTable>
+
+        <Text textStyle="p">
+          The calculations for the Other Platform Open categories are described in Table 4 below. We maintain
+        </Text>
+
+        <ScrollTable caption="Table 4. Other Platform Open category calculations." mb="32px">
+          <Table variant="content">
+            <Thead>
+              <Tr>
+                <Th>Category</Th>
+                <Th>Description</Th>
+                <Th>Query Details</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>Institution</Td>
+                <Td>
+                  Publications placed in institutional repositories, which are archives for storing and distributing an
+                  institution&apos;s research outputs. Includes repositories shared amongst multiple institutions.
+                </Td>
+                <Td>
+                  Where we have manually matched a repository to an institution, or where
+                  oa_locations.repository_institution matches a ROR id with the ROR affiliation matcher, or where the
+                  domain from the pmh_id field matches a link from a ROR record.
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>Preprint</Td>
+                <Td>
+                  Publications deposited on servers that do not make claims about formal peer review. Generally non-peer
+                  reviewed manuscripts, including working papers on platforms such as arXiv, bioRxiv, SSRN, RePec etc.
+                </Td>
+                <Td>Where we have manually classified a repository as a preprint server.</Td>
+              </Tr>
+              <Tr>
+                <Td>Domain</Td>
+                <Td>
+                  Publications from domain repositories, also known as disciplinary or subject repositories. A domain
+                  repository contains publications from a specific subject area. Examples include PubMed Central, Europe
+                  PMC and Econstor.
+                </Td>
+                <Td>Where we have manually classified a repository as a domain repository.</Td>
+              </Tr>
+              <Tr>
+                <Td>Public</Td>
+                <Td>
+                  Publications from repositories that can be used by researchers from any domain and to deposit any form
+                  of output, including pre-prints, published manuscripts and datasets. Semantic Scholar, Figshare and
+                  Zenodo are a few examples.
+                </Td>
+                <Td>Where we have manually classified a repository as a public repository.</Td>
+              </Tr>
+              <Tr>
+                <Td>Other Internet</Td>
+                <Td>
+                  Outputs on sites we have not classified. In practice these are copies identified by CiteSeer X which
+                  is in turn indexed by Unpaywall. It may include publications on academic staff pages, blogs and social
+                  networks. We do not directly track outputs on platforms such as academia.edu and researchgate.net.
+                </Td>
+                <Td>
+                  Outputs found on CiteSeer X, which often point to academic staff pages and blogs. We do not currently
+                  track outputs from academic social networks. Also includes outputs from repositories that we have not
+                  yet classified.
                 </Td>
               </Tr>
             </Tbody>
