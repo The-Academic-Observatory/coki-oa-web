@@ -19,19 +19,7 @@ import Link from "../common/Link";
 import Icon from "../common/Icon";
 import React, { memo } from "react";
 import { useClipboard } from "@chakra-ui/react";
-import MetadataLink from "./MetadataLink";
-
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
-} from "@chakra-ui/react";
+import { Popover, PopoverTrigger, PopoverContent, PopoverBody, PopoverArrow } from "@chakra-ui/react";
 
 interface SharebuttonLinksProps extends LinkProps {
   name: string;
@@ -56,9 +44,9 @@ const SharebuttonLinks = ({
   iconLi,
   ...rest
 }: SharebuttonLinksProps) => {
-  // if institution
-  // or if country
   var shareText = encodeURIComponent(`COKI Open Access Dashboard:\n`);
+
+  // TODO Somehow remove the domain name being hardcoded
 
   if (hrefCoki === undefined) {
     hrefCoki = "https://open.coki.ac";
@@ -66,11 +54,12 @@ const SharebuttonLinks = ({
     hrefCoki = "https://open.coki.ac" + hrefCoki.slice(0, -1);
   }
 
+  // Share page urls for each social site
   const hrefTw = "https://twitter.com/intent/tweet?text=" + shareText + "&url=" + hrefCoki;
-  const hrefFb = "https://www.facebook.com/sharer/sharer.php?u=" + hrefCoki + "&quote=" + shareText;
-  const hrefLi = "https://www.linkedin.com/shareArticle?mini=true&url=" + hrefCoki + "&text=" + shareText;
+  const hrefFb = "https://www.facebook.com/sharer/sharer.php?u=" + hrefCoki;
+  const hrefLi = "https://www.linkedin.com/shareArticle?mini=true&url=" + hrefCoki;
 
-  // Copy link
+  // Copy link button
   const [value, setValue] = React.useState(hrefCoki);
   const { hasCopied, onCopy } = useClipboard(value);
 
@@ -108,7 +97,6 @@ const SharebuttonLinks = ({
               </HStack>
             </Flex>
           </PopoverBody>
-          {/* <PopoverFooter>This is the footer</PopoverFooter> */}
         </PopoverContent>
       </Portal>
     </Popover>
@@ -116,12 +104,3 @@ const SharebuttonLinks = ({
 };
 
 export default memo(SharebuttonLinks);
-
-{
-  /* <Button colorScheme='blue'>Button</Button>
-                    <Link href={hrefTwitter} {...rest}>
-                        <Flex align="center" role="group" cursor="pointer">
-                            <Icon mr="2" icon={twicon} size={32} color={"#101820"} />
-                        </Flex>
-                    </Link> */
-}
