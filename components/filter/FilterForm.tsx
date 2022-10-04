@@ -18,8 +18,7 @@ import React, { memo, useCallback } from "react";
 import { Accordion, Box, Button, HStack, IconButton, Text, useBreakpointValue } from "@chakra-ui/react";
 import { Form, FormikProvider, useFormik } from "formik";
 import Icon from "../common/Icon";
-import RegionForm from "./RegionForm";
-import SubregionForm from "./SubregionForm";
+import RegionRecursiveTreeFiltering from "./RegionRecursiveTreeFiltering";
 import FilterAccordionItem from "./FilterAccordionItem";
 import { EntityStats } from "../../lib/model";
 import InstitutionTypeForm from "./InstitutionTypeForm";
@@ -100,6 +99,8 @@ const FilterForm = ({
     enableReinitialize: true, // enabled so that when queryForm is reset externally, or the values change externally, the form updates
     initialValues: queryForm,
     onSubmit: onSubmit,
+    validateOnChange: false, // this and validationOnBlur are to improve performance for the forms. Works the same as before.
+    validateOnBlur: false,
   });
 
   const onReset = useCallback(() => {
@@ -152,26 +153,20 @@ const FilterForm = ({
           </HStack>
 
           <Accordion allowMultiple variant="filterForm">
-            <FilterAccordionItem name="Region">
-              <RegionForm />
+            <FilterAccordionItem id="region-accordion-button" name="Region">
+              <RegionRecursiveTreeFiltering />
             </FilterAccordionItem>
           </Accordion>
 
           <Accordion allowMultiple variant="filterForm">
-            <FilterAccordionItem name="Subregion">
-              <SubregionForm />
-            </FilterAccordionItem>
-          </Accordion>
-
-          <Accordion allowMultiple variant="filterForm">
-            <FilterAccordionItem name="Open Access">
+            <FilterAccordionItem id="open-access-accordion-button" name="Open Access">
               <OpenAccessForm defaultOpenAccess={defaultQueryForm.openAccess} histograms={entityStats.histograms} />
             </FilterAccordionItem>
           </Accordion>
 
           {category === "institution" ? (
             <Accordion allowMultiple variant="filterForm">
-              <FilterAccordionItem name="Institution Type">
+              <FilterAccordionItem id="institution-accordion-button" name="Institution Type">
                 <InstitutionTypeForm />
               </FilterAccordionItem>
             </Accordion>

@@ -39,7 +39,7 @@ import TextCollapse from "../components/common/TextCollapse";
 import Head from "next/head";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import { institutionTypes } from "../components/filter/InstitutionTypeForm";
-import { regions } from "../components/filter/RegionForm";
+import { regions } from "../components/filter/RegionRecursiveTreeFiltering";
 import { useEffectAfterRender } from "../lib/hooks";
 import PageLoader from "../components/common/PageLoader";
 
