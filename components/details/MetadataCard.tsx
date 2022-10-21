@@ -72,8 +72,6 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
             {website}
             <MetadataLink icon={"download"} name={"Download"} href={"/data/"} />
             <SharebuttonLinks
-              name="Share"
-              buttonHeader="Share this card to"
               category={entity.category}
               id={entity.id}
               hrefCoki={`/${entity.category}/${entity.id}/`}
@@ -106,8 +104,6 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
           {website}
           <MetadataLink icon={"download"} name={"Download"} href={"/data/"} />
           <SharebuttonLinks
-            name="Share"
-            buttonHeader="Share this card to"
             category={entity.category}
             id={entity.id}
             hrefCoki={`/${entity.category}/${entity.id}/`}
@@ -115,7 +111,6 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
             iconFb={"facebook"}
             iconLi={"linkedin"}
           />
-
           {tags.map((tag: any) => {
             return (
               <Tag size={"md"} key={tag} borderRadius="full" variant="solid" backgroundColor="#737373">

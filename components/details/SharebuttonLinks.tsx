@@ -14,16 +14,15 @@
 //
 // Author: Alex Massen-Hane
 
-import { Flex, LinkProps, HStack, Button, Portal } from "@chakra-ui/react";
-import Link from "../common/Link";
-import Icon from "../common/Icon";
+import { useToast, LinkProps, HStack, Box, Button, Portal, Text, VStack } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
+import MetadataLink from "./MetadataLink";
 import React, { memo } from "react";
 import { useClipboard } from "@chakra-ui/react";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody, PopoverArrow } from "@chakra-ui/react";
+import { FiShare2, FiLink2 } from "react-icons/fi";
 
 interface SharebuttonLinksProps extends LinkProps {
-  name: string;
-  buttonHeader: string;
   category: string;
   id: string;
   hrefCoki: string;
@@ -33,17 +32,7 @@ interface SharebuttonLinksProps extends LinkProps {
 }
 
 // Needs to have the info on if it's region or institution for the tweet.
-const SharebuttonLinks = ({
-  name,
-  buttonHeader,
-  category,
-  id,
-  hrefCoki,
-  iconTw,
-  iconFb,
-  iconLi,
-  ...rest
-}: SharebuttonLinksProps) => {
+const SharebuttonLinks = ({ category, id, hrefCoki, iconTw, iconFb, iconLi, ...rest }: SharebuttonLinksProps) => {
   var shareText = encodeURIComponent(`COKI Open Access Dashboard:\n`);
 
   // TODO Somehow remove the domain name being hardcoded
@@ -60,47 +49,82 @@ const SharebuttonLinks = ({
   const hrefLi = "https://www.linkedin.com/shareArticle?mini=true&url=" + hrefCoki;
 
   // Copy link button
-  const [value, setValue] = React.useState(hrefCoki);
+  const [value] = React.useState(hrefCoki);
   const { hasCopied, onCopy } = useClipboard(value);
 
   return (
     <Popover>
       <PopoverTrigger>
-        <Button>Share</Button>
+        <Button variant="shareButton">
+          <HStack paddingRight="15px">
+            <FiShare2 size={24} />
+          </HStack>
+          <Text casing="uppercase">Share</Text>
+        </Button>
       </PopoverTrigger>
       <Portal>
-        <PopoverContent width="min" height="min">
+        <PopoverContent width="min-content" height="min-content" _focus={{ border: "grey.500" }}>
           <PopoverArrow />
-          {/* <PopoverHeader>Share this card to</PopoverHeader> */}
-          {/* <PopoverCloseButton />  Should we include this*/}
           <PopoverBody>
-            <Flex alignItems="center" justifyContent="center">
-              <HStack>
-                <Link href={hrefTw} target="_blank" rel="noreferrer">
-                  <Icon icon={iconTw} size={32} color={"#101820"} />
-                </Link>
-                <Link href={hrefFb} target="_blank" rel="noreferrer">
-                  <Icon icon={iconFb} size={32} color={"#101820"} />
-                </Link>
-                <Link href={hrefLi} target="_blank" rel="noreferrer">
-                  <Icon icon={iconLi} size={32} color={"#101820"} />
-                </Link>
-
-                <Button onClick={onCopy} ml={2}>
-                  {hasCopied ? "Copied!" : "Copy Link"}
-                </Button>
-
-                {/* Other formatting for the share button
-                            <MetadataLink icon={iconTw} href={hrefTw} name={""} />
-                            <MetadataLink icon={iconFb} href={hrefFb} name={""} />
-                            <MetadataLink icon={iconLi} href={hrefLi} name={""} />  */}
-              </HStack>
-            </Flex>
+            <Grid templateRows="repeat(3)" templateColumns="repeat(2, 1fr)">
+              <GridItem padding="6px">
+                <VStack>
+                  <Button
+                    id="copy-link-button"
+                    onClick={onCopy}
+                    size="min"
+                    _focus={{ border: "none" }}
+                    bgColor="white"
+                    _hover={{ bgColor: "none" }}
+                  >
+                    {hasCopied ? <CopyLink /> : <FiLink2 size={32} />}
+                  </Button>
+                  <Text size="10px">Link</Text>
+                </VStack>
+              </GridItem>
+              <GridItem padding="6px">
+                <VStack>
+                  <MetadataLink icon={iconTw} href={hrefTw} />
+                  <Text size="10px">Twitter</Text>
+                </VStack>
+              </GridItem>
+              <GridItem padding="6px">
+                <VStack>
+                  <MetadataLink icon={iconFb} href={hrefFb} />
+                  <Text size="10px">Facebook</Text>
+                </VStack>
+              </GridItem>
+              <GridItem padding="6px">
+                <VStack>
+                  <MetadataLink icon={iconLi} href={hrefLi} />
+                  <Text size="10px">LinkedIn</Text>
+                </VStack>
+              </GridItem>
+              <GridItem padding="6px" colSpan={2}>
+                <VStack>
+                  <MetadataLink icon="code" />
+                  <Text size="10px">Embed</Text>
+                </VStack>
+              </GridItem>
+            </Grid>
           </PopoverBody>
         </PopoverContent>
       </Portal>
     </Popover>
   );
+};
+
+// The useEffect stops the toast popup from appearing multiple times.
+const CopyLink = () => {
+  const toast = useToast();
+  React.useEffect(() => {
+    toast({
+      title: "Clicked!",
+      duration: 1000,
+      isClosable: false,
+    });
+  });
+  return <FiLink2 size={32} />;
 };
 
 export default memo(SharebuttonLinks);

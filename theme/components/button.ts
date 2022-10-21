@@ -14,8 +14,17 @@
 //
 // Author: James Diprose
 
+import { FaBlackTie } from "react-icons/fa";
+
 const Button = {
   variants: {
+    shareButton: {
+      _focus: { boxShadow: "none" },
+      bgColor: "brand.500",
+      color: "white",
+      borderRadius: "30px",
+      h: "40px"
+    },
     clean: {
       size: "lg",
       _focus: { boxShadow: "none" },

@@ -21,8 +21,8 @@ import React, { memo } from "react";
 
 interface MetadataLinkProps extends LinkProps {
   icon: string;
-  name: string;
-  href: string;
+  name?: string;
+  href?: string;
 }
 
 const MetadataLink = ({ icon, name, href, ...rest }: MetadataLinkProps) => {
