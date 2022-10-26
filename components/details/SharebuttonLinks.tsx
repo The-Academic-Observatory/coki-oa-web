@@ -14,17 +14,20 @@
 //
 // Author: Alex Massen-Hane
 
-import { useToast, LinkProps, HStack, Box, Button, Portal, Text, VStack } from "@chakra-ui/react";
+import { useToast, Button, Portal, Text, VStack, Flex, FlexProps } from "@chakra-ui/react";
 import { Grid, GridItem } from "@chakra-ui/react";
-import MetadataLink from "./MetadataLink";
+import MetadataLinkShare from "./MetadataLinkShare";
 import React, { memo } from "react";
 import { useClipboard } from "@chakra-ui/react";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody, PopoverArrow } from "@chakra-ui/react";
 import { FiShare2, FiLink2 } from "react-icons/fi";
+import { Entity } from "../../lib/model";
 
-interface SharebuttonLinksProps extends LinkProps {
+interface SharebuttonLinksProps extends FlexProps {
+  entity: Entity;
   category: string;
   id: string;
+  isMobile: boolean;
   hrefCoki: string;
   iconTw: string;
   iconFb: string;
@@ -32,8 +35,18 @@ interface SharebuttonLinksProps extends LinkProps {
 }
 
 // Needs to have the info on if it's region or institution for the tweet.
-const SharebuttonLinks = ({ category, id, hrefCoki, iconTw, iconFb, iconLi, ...rest }: SharebuttonLinksProps) => {
-  var shareText = encodeURIComponent(`COKI Open Access Dashboard:\n`);
+const SharebuttonLinks = ({
+  entity,
+  category,
+  id,
+  isMobile,
+  hrefCoki,
+  iconTw,
+  iconFb,
+  iconLi,
+  ...rest
+}: SharebuttonLinksProps) => {
+  var shareText = encodeURIComponent("Open Access Research Performance for " + `${entity.name}` + "\n");
 
   // TODO Somehow remove the domain name being hardcoded
 
@@ -48,7 +61,7 @@ const SharebuttonLinks = ({ category, id, hrefCoki, iconTw, iconFb, iconLi, ...r
   const hrefFb = "https://www.facebook.com/sharer/sharer.php?u=" + hrefCoki;
   const hrefLi = "https://www.linkedin.com/shareArticle?mini=true&url=" + hrefCoki;
 
-  // Copy link button
+  // Copy link button hook
   const [value] = React.useState(hrefCoki);
   const { hasCopied, onCopy } = useClipboard(value);
 
@@ -56,19 +69,34 @@ const SharebuttonLinks = ({ category, id, hrefCoki, iconTw, iconFb, iconLi, ...r
     <Popover>
       <PopoverTrigger>
         <Button variant="shareButton">
-          <HStack paddingRight="15px">
+          {isMobile ? (
             <FiShare2 size={24} />
-          </HStack>
-          <Text casing="uppercase">Share</Text>
+          ) : (
+            <>
+              <Flex paddingRight="10px" align="center">
+                <FiShare2 size={24} />
+              </Flex>
+              <Text casing="uppercase">Share</Text>
+            </>
+          )}
         </Button>
       </PopoverTrigger>
       <Portal>
-        <PopoverContent width="min-content" height="min-content" _focus={{ border: "grey.500" }}>
-          <PopoverArrow />
-          <PopoverBody>
-            <Grid templateRows="repeat(3)" templateColumns="repeat(2, 1fr)">
-              <GridItem padding="6px">
-                <VStack>
+        <PopoverContent
+          width="min-content"
+          height="min-content"
+          _focus={{ border: "none" }}
+          _hover={{ border: "none" }}
+          style={{
+            filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",
+          }}
+        >
+          <PopoverArrow border="none" background="white.500" />
+          <PopoverBody background="white.500">
+            {/* There is probably a much neater way of doing the below grid */}
+            <Grid templateRows="repeat(3)" templateColumns="repeat(2, 1fr)" alignItems="center">
+              <GridItem padding="4px">
+                <VStack spacing="auto" align="center">
                   <Button
                     id="copy-link-button"
                     onClick={onCopy}
@@ -79,31 +107,31 @@ const SharebuttonLinks = ({ category, id, hrefCoki, iconTw, iconFb, iconLi, ...r
                   >
                     {hasCopied ? <CopyLink /> : <FiLink2 size={32} />}
                   </Button>
-                  <Text size="10px">Link</Text>
+                  <Text fontSize="14px">Link</Text>
                 </VStack>
               </GridItem>
-              <GridItem padding="6px">
-                <VStack>
-                  <MetadataLink icon={iconTw} href={hrefTw} />
-                  <Text size="10px">Twitter</Text>
+              <GridItem padding="4px">
+                <VStack spacing="auto">
+                  <MetadataLinkShare icon={iconTw} href={hrefTw} />
+                  <Text fontSize="14px">Twitter </Text>
                 </VStack>
               </GridItem>
-              <GridItem padding="6px">
-                <VStack>
-                  <MetadataLink icon={iconFb} href={hrefFb} />
-                  <Text size="10px">Facebook</Text>
+              <GridItem padding="4px">
+                <VStack spacing="auto">
+                  <MetadataLinkShare icon={iconFb} href={hrefFb} />
+                  <Text fontSize="14px">Facebook</Text>
                 </VStack>
               </GridItem>
-              <GridItem padding="6px">
-                <VStack>
-                  <MetadataLink icon={iconLi} href={hrefLi} />
-                  <Text size="10px">LinkedIn</Text>
+              <GridItem padding="4px">
+                <VStack spacing="auto">
+                  <MetadataLinkShare icon={iconLi} href={hrefLi} />
+                  <Text fontSize="14px">LinkedIn</Text>
                 </VStack>
               </GridItem>
-              <GridItem padding="6px" colSpan={2}>
-                <VStack>
-                  <MetadataLink icon="code" />
-                  <Text size="10px">Embed</Text>
+              <GridItem colSpan={2} padding="4px">
+                <VStack spacing="auto">
+                  <MetadataLinkShare icon="code" />
+                  <Text fontSize="14px">Embed</Text>
                 </VStack>
               </GridItem>
             </Grid>
@@ -119,7 +147,7 @@ const CopyLink = () => {
   const toast = useToast();
   React.useEffect(() => {
     toast({
-      title: "Clicked!",
+      title: "Copied!",
       duration: 1000,
       isClosable: false,
     });

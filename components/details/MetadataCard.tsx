@@ -71,14 +71,6 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
             {wikipedia}
             {website}
             <MetadataLink icon={"download"} name={"Download"} href={"/data/"} />
-            <SharebuttonLinks
-              category={entity.category}
-              id={entity.id}
-              hrefCoki={`/${entity.category}/${entity.id}/`}
-              iconTw={"twitter"}
-              iconFb={"facebook"}
-              iconLi={"linkedin"}
-            />
           </Flex>
 
           <Flex w="full" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
@@ -104,8 +96,10 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
           {website}
           <MetadataLink icon={"download"} name={"Download"} href={"/data/"} />
           <SharebuttonLinks
+            entity={entity}
             category={entity.category}
             id={entity.id}
+            isMobile={false}
             hrefCoki={`/${entity.category}/${entity.id}/`}
             iconTw={"twitter"}
             iconFb={"facebook"}

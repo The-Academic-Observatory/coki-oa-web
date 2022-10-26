@@ -14,11 +14,12 @@
 //
 // Author: James Diprose
 
-import { Box, HStack, Image, StackProps, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, HStack, Image, Spacer, StackProps, Text, VStack } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
 import TextCollapse from "../common/TextCollapse";
 import React, { memo } from "react";
 import { makeDescription } from "./EntityDetails";
+import SharebuttonLinks from "./SharebuttonLinks";
 
 interface EntityHeaderProps extends StackProps {
   entity: Entity;
@@ -47,34 +48,52 @@ const Header = ({ entity, ...rest }: EntityHeaderProps) => {
   }
   return (
     <VStack alignItems={"left"} pb={{ base: "16px", md: 0 }} {...rest}>
-      <HStack pb={{ base: "12px", md: "12px" }}>
-        <Box
-          minWidth={{ base: "60px", md: "100px" }}
-          width={{ base: "60px", md: "100px" }}
-          height={{ base: "60px", md: "100px" }}
-          mr={{ base: "10px", md: "24px" }}
-        >
-          <Image
-            rounded="full"
-            objectFit="cover"
-            boxSize={{ base: "60px", md: "100px" }}
-            src={entity.logo_l}
-            alt={entity.name}
-            style={{
-              filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",
-            }}
-          />
-        </Box>
+      <Flex justifyContent="space-between">
+        <HStack pb={{ base: "12px", md: "12px" }}>
+          <Box
+            minWidth={{ base: "60px", md: "100px" }}
+            width={{ base: "60px", md: "100px" }}
+            height={{ base: "60px", md: "100px" }}
+            mr={{ base: "10px", md: "24px" }}
+          >
+            <Image
+              rounded="full"
+              objectFit="cover"
+              boxSize={{ base: "60px", md: "100px" }}
+              src={entity.logo_l}
+              alt={entity.name}
+              style={{
+                filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",
+              }}
+            />
+          </Box>
 
-        <VStack alignItems="left">
-          <Text as="h1" textStyle="entityHeading">
-            {entity.name}
-          </Text>
-          <Text textStyle="p" fontSize="24px" lineHeight="28px" display={{ base: "none", md: "block" }}>
-            {description}
-          </Text>
-        </VStack>
-      </HStack>
+          <VStack alignItems="left">
+            {/* TODO: Fix width of the flex to make the share button appear on the right */}
+            {/* <Flex alignItems="center"> */}
+            <Text as="h1" textStyle="entityHeading">
+              {entity.name}
+            </Text>
+            <Box display={{ base: "block", sm: "block", md: "none" }}>
+              <SharebuttonLinks
+                entity={entity}
+                category={entity.category}
+                id={entity.id}
+                isMobile={true}
+                hrefCoki={`/${entity.category}/${entity.id}/`}
+                iconTw={"twitter"}
+                iconFb={"facebook"}
+                iconLi={"linkedin"}
+              />
+            </Box>
+            {/* </Flex> */}
+
+            <Text textStyle="p" fontSize="24px" lineHeight="28px" display={{ base: "none", md: "block" }}>
+              {description}
+            </Text>
+          </VStack>
+        </HStack>
+      </Flex>
       <TextCollapse
         display={{ base: "block", sm: "block", md: "none" }}
         previewText={previewText}
