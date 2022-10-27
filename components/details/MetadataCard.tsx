@@ -91,15 +91,15 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
   } else {
     content = (
       <EntityCard display={{ base: "none", md: "block" }} {...rest}>
-        <Flex h="full" flexDirection="column" justifyContent="space-between">
+        <Flex data-test="Desktop Share Button" h="full" flexDirection="column" justifyContent="space-between">
           {wikipedia}
           {website}
           <MetadataLink icon={"download"} name={"Download"} href={"/data/"} />
           <SharebuttonLinks
             entity={entity}
             category={entity.category}
+            platform={"Desktop"}
             id={entity.id}
-            isMobile={false}
             hrefCoki={`/${entity.category}/${entity.id}/`}
             iconTw={"twitter"}
             iconFb={"facebook"}

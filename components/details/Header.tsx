@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { Box, Flex, HStack, Image, Spacer, StackProps, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, HStack, Image, StackProps, Text, VStack } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
 import TextCollapse from "../common/TextCollapse";
 import React, { memo } from "react";
@@ -48,7 +48,7 @@ const Header = ({ entity, ...rest }: EntityHeaderProps) => {
   }
   return (
     <VStack alignItems={"left"} pb={{ base: "16px", md: 0 }} {...rest}>
-      <Flex justifyContent="space-between">
+      <Flex alignItems="center" justifyContent="space-between">
         <HStack pb={{ base: "12px", md: "12px" }}>
           <Box
             minWidth={{ base: "60px", md: "100px" }}
@@ -68,32 +68,31 @@ const Header = ({ entity, ...rest }: EntityHeaderProps) => {
             />
           </Box>
 
-          <VStack alignItems="left">
-            {/* TODO: Fix width of the flex to make the share button appear on the right */}
-            {/* <Flex alignItems="center"> */}
+          <VStack align="right">
             <Text as="h1" textStyle="entityHeading">
               {entity.name}
             </Text>
-            <Box display={{ base: "block", sm: "block", md: "none" }}>
-              <SharebuttonLinks
-                entity={entity}
-                category={entity.category}
-                id={entity.id}
-                isMobile={true}
-                hrefCoki={`/${entity.category}/${entity.id}/`}
-                iconTw={"twitter"}
-                iconFb={"facebook"}
-                iconLi={"linkedin"}
-              />
-            </Box>
-            {/* </Flex> */}
 
             <Text textStyle="p" fontSize="24px" lineHeight="28px" display={{ base: "none", md: "block" }}>
               {description}
             </Text>
           </VStack>
         </HStack>
+
+        <Flex data-test="Mobile Share Button" display={{ base: "flex", sm: "flex", md: "none" }}>
+          <SharebuttonLinks
+            entity={entity}
+            category={entity.category}
+            platform={"Mobile"}
+            id={entity.id}
+            hrefCoki={`/${entity.category}/${entity.id}/`}
+            iconTw={"twitter"}
+            iconFb={"facebook"}
+            iconLi={"linkedin"}
+          />
+        </Flex>
       </Flex>
+
       <TextCollapse
         display={{ base: "block", sm: "block", md: "none" }}
         previewText={previewText}

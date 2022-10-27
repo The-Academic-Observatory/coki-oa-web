@@ -14,11 +14,10 @@
 //
 // Author: James Diprose
 
-import { FaBlackTie } from "react-icons/fa";
-
 const Button = {
   variants: {
     shareButton: {
+      width: { base: "150px", ms: "100px", md: "150px" },
       _focus: { boxShadow: "none" },
       bgColor: "brand.500",
       color: "white",

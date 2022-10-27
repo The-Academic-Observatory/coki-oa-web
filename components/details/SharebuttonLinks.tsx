@@ -14,7 +14,7 @@
 //
 // Author: Alex Massen-Hane
 
-import { useToast, Button, Portal, Text, VStack, Flex, FlexProps } from "@chakra-ui/react";
+import { useToast, Button, Portal, Text, Center, VStack, Flex, FlexProps, Box } from "@chakra-ui/react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import MetadataLinkShare from "./MetadataLinkShare";
 import React, { memo } from "react";
@@ -26,8 +26,8 @@ import { Entity } from "../../lib/model";
 interface SharebuttonLinksProps extends FlexProps {
   entity: Entity;
   category: string;
+  platform: string;
   id: string;
-  isMobile: boolean;
   hrefCoki: string;
   iconTw: string;
   iconFb: string;
@@ -38,8 +38,8 @@ interface SharebuttonLinksProps extends FlexProps {
 const SharebuttonLinks = ({
   entity,
   category,
+  platform,
   id,
-  isMobile,
   hrefCoki,
   iconTw,
   iconFb,
@@ -68,32 +68,25 @@ const SharebuttonLinks = ({
   return (
     <Popover>
       <PopoverTrigger>
-        <Button variant="shareButton">
-          {isMobile ? (
+        <Button variant="shareButton" data-test="Popover Share button">
+          <Flex paddingRight="10px" align="center">
             <FiShare2 size={24} />
-          ) : (
-            <>
-              <Flex paddingRight="10px" align="center">
-                <FiShare2 size={24} />
-              </Flex>
-              <Text casing="uppercase">Share</Text>
-            </>
-          )}
+          </Flex>
+          <Text casing="uppercase">Share</Text>
         </Button>
       </PopoverTrigger>
       <Portal>
         <PopoverContent
+          data-test={`${platform} share popover panel`}
           width="min-content"
           height="min-content"
           _focus={{ border: "none" }}
-          _hover={{ border: "none" }}
           style={{
             filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",
           }}
         >
-          <PopoverArrow border="none" background="white.500" />
+          <PopoverArrow border="none" background="white.500" _focus={{ border: "none" }} />
           <PopoverBody background="white.500">
-            {/* There is probably a much neater way of doing the below grid */}
             <Grid templateRows="repeat(3)" templateColumns="repeat(2, 1fr)" alignItems="center">
               <GridItem padding="4px">
                 <VStack spacing="auto" align="center">
@@ -128,12 +121,14 @@ const SharebuttonLinks = ({
                   <Text fontSize="14px">LinkedIn</Text>
                 </VStack>
               </GridItem>
+              {/* 
+              Commenting this embed icon out as it doesn't have a function yet.
               <GridItem colSpan={2} padding="4px">
                 <VStack spacing="auto">
                   <MetadataLinkShare icon="code" />
                   <Text fontSize="14px">Embed</Text>
                 </VStack>
-              </GridItem>
+              </GridItem> */}
             </Grid>
           </PopoverBody>
         </PopoverContent>
@@ -148,8 +143,32 @@ const CopyLink = () => {
   React.useEffect(() => {
     toast({
       title: "Copied!",
-      duration: 1000,
+      duration: 2000,
       isClosable: false,
+      position: "top",
+      // To change the colour of the toast to the brand colour.
+      render: () => (
+        <Center>
+          <Box
+            color="white"
+            borderRadius="5px"
+            m={3}
+            p={3}
+            bgColor="brand.500"
+            width="180px"
+            height="48px"
+            style={{
+              filter: "drop-shadow( 0px 0px 20px rgba(0, 0, 0, 0.2))",
+            }}
+          >
+            <VStack alignItems="center">
+              <Text fontSize="18px" fontWeight="700">
+                Copied!
+              </Text>
+            </VStack>
+          </Box>
+        </Center>
+      ),
     });
   });
   return <FiLink2 size={32} />;
