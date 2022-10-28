@@ -21,7 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt install xsel
+          sudo apt install xsel xvfb
           yarn install
           npx playwright install-deps
           npx playwright install
@@ -48,4 +48,4 @@ jobs:
         env:
           DATA_PATH: ./latest/data
         run: |
-          yarn run test:e2e
+          xvfb-run yarn run test:e2e
