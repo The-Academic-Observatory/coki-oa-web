@@ -1,7 +1,7 @@
-// import clipboard from 'clipboardy';
 import { expect, test } from "@playwright/test";
+
+// Packages for checking clipboard strings
 import assert from 'assert';
-// import ReadFrom from 'readfrom';
 var ReadFrom = new (require('readfrom'))();
 
 
@@ -36,7 +36,7 @@ test("Should check that the share popover window opens", async ({
 
 });
 
-test("Should check that copy link button copys link to clipboard", async ({
+test("Should check that copy link button actually copys link to clipboard", async ({
   page,
   isMobile,
 }) => {
@@ -73,13 +73,13 @@ test("Should check that copy link button copys link to clipboard", async ({
   }
 
   // Read from clipboard and ensure it's the correct url that's copied.
-  ReadFrom.clipboard().then((data: string) => {
-    assert(data === "https://open.coki.ac/country/MLI");
+  await ReadFrom.clipboard().then((data: string) => {
+    assert.equal(data, "https://open.coki.ac/country/MLI");
   })
 
 });
 
-test("Should check social share links are present", async ({
+test("Should check social share links are present on popover panel", async ({
   page,
   isMobile,
 }) => {
@@ -99,6 +99,10 @@ test("Should check social share links are present", async ({
     const facebookLink = sharePopoverPanel.locator("a[data-test='facebook']");
     const twitterLink = sharePopoverPanel.locator("a[data-test='twitter']");
     const linkedinLink = sharePopoverPanel.locator("a[data-test='linkedin']");
+
+    // Click on the text of the Share button - needs it to appear on the page?
+    const shareButton = page.locator("div[data-test='Mobile Share Button']")
+    await shareButton.locator("p", {hasText: "Share" }).click()
     
     await expect(facebookLink).toHaveAttribute("href", 'https://www.facebook.com/sharer/sharer.php?u=https://open.coki.ac/country/MLI');
     await expect(twitterLink).toHaveAttribute("href", 'https://twitter.com/intent/tweet?text=Open%20Access%20Research%20Performance%20for%20Mali%0A&url=https://open.coki.ac/country/MLI');
@@ -112,6 +116,10 @@ test("Should check social share links are present", async ({
     const facebookLink = sharePopoverPanel.locator("a[data-test='facebook']");
     const twitterLink = sharePopoverPanel.locator("a[data-test='twitter']");
     const linkedinLink = sharePopoverPanel.locator("a[data-test='linkedin']");
+
+    // Click on the text of the Share button - needs it to appear on the page?
+    const shareButton = page.locator("div[data-test='Desktop Share Button']")
+    await shareButton.locator("p", {hasText: "Share" }).click()
     
     await expect(facebookLink).toHaveAttribute("href", 'https://www.facebook.com/sharer/sharer.php?u=https://open.coki.ac/country/MLI');
     await expect(twitterLink).toHaveAttribute("href", 'https://twitter.com/intent/tweet?text=Open%20Access%20Research%20Performance%20for%20Mali%0A&url=https://open.coki.ac/country/MLI');
