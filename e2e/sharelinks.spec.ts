@@ -2,8 +2,7 @@ import { expect, test } from "@playwright/test";
 
 // Packages for checking clipboard strings
 import assert from 'assert';
-var ReadFrom = new (require('readfrom'))();
-
+var ncp = require('node-clipboardy');
 
 test("Should check that the share popover window opens", async ({
   page,
@@ -71,11 +70,10 @@ test("Should check that copy link button actually copys link to clipboard", asyn
     await sharePopoverPanel.locator("button[id='copy-link-button']").click();
 
   }
-
+  
   // Read from clipboard and ensure it's the correct url that's copied.
-  await ReadFrom.clipboard().then((data: string) => {
-    assert.equal(data, "https://open.coki.ac/country/MLI");
-  })
+  const data = await ncp.readSync();
+  assert.equal(data, "https://open.coki.ac/country/MLI");
 
 });
 
