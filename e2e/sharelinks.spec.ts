@@ -71,7 +71,7 @@ test("Should check that copy link button actually copys link to clipboard", asyn
 
   }
   
-  // Read from clipboard and ensure it's the correct url that's copied.
+  // Read from clipboard and ensure the correct URL has been copied.
   const data = await ncp.readSync();
   assert.equal(data, "https://open.coki.ac/country/MLI");
 
