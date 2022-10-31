@@ -21,7 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt-get xvfb firefox
+          apt-get install xvfb firefox
           yarn install
           npx playwright install-deps
           npx playwright install
