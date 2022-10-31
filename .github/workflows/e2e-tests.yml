@@ -48,6 +48,6 @@ jobs:
         env:
           DATA_PATH: ./latest/data
         run: |
-          Xvfb :99
+          Xvfb :99 &
           export DISPLAY=:99
           yarn run test:e2e
