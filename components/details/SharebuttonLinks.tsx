@@ -62,13 +62,12 @@ const SharebuttonLinks = ({
   const hrefLi = "https://www.linkedin.com/shareArticle?mini=true&url=" + hrefCoki;
 
   // Copy link button hook
-  const [value] = React.useState(hrefCoki);
-  const { hasCopied, onCopy } = useClipboard(value);
+  const { onCopy, hasCopied } = useClipboard(hrefCoki);
 
   return (
     <Popover>
       <PopoverTrigger>
-        <Button variant="shareButton" data-test="Popover Share button">
+        <Button variant="shareButton" data-test="popover-share-button">
           <Flex paddingRight="10px" align="center">
             <FiShare2 size={24} />
           </Flex>
@@ -77,7 +76,7 @@ const SharebuttonLinks = ({
       </PopoverTrigger>
       <Portal>
         <PopoverContent
-          data-test={`${platform} share popover panel`}
+          data-test={`${platform}-share-popover-panel`}
           width="min-content"
           height="min-content"
           _focus={{ border: "none" }}

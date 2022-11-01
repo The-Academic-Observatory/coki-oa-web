@@ -79,11 +79,11 @@ const Header = ({ entity, ...rest }: EntityHeaderProps) => {
           </VStack>
         </HStack>
 
-        <Flex data-test="Mobile Share Button" display={{ base: "flex", sm: "flex", md: "none" }}>
+        <Flex data-test="mobile-share-button" display={{ base: "flex", sm: "flex", md: "none" }}>
           <SharebuttonLinks
             entity={entity}
             category={entity.category}
-            platform={"Mobile"}
+            platform={"mobile"}
             id={entity.id}
             hrefCoki={`/${entity.category}/${entity.id}/`}
             iconTw={"twitter"}

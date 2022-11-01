@@ -2,8 +2,7 @@ import { expect, test } from "@playwright/test";
 
 // Packages for checking clipboard strings
 import assert from 'assert';
-// var ncp = require('node-clipboardy');
-var ncp = require("copy-paste");
+var ncp = require('node-clipboardy');
 
 test("Should check that the share popover window opens", async ({
   page,
@@ -18,20 +17,20 @@ test("Should check that the share popover window opens", async ({
   if (isMobile) {
         
     // Click on the text of the Share button
-    const shareButton = page.locator("div[data-test='Mobile Share Button']")
+    const shareButton = page.locator("div[data-test='mobile-share-button']")
     await shareButton.locator("p", {hasText: "Share" }).click()
     
     // Make sure that the popover has expanded
-    await expect(shareButton.locator("button[data-test='Popover Share button']") ).toHaveAttribute("aria-expanded", "true");
+    await expect(shareButton.locator("button[data-test='popover-share-button']") ).toHaveAttribute("aria-expanded", "true");
 
   } else {
   
     // Click on the text of the Share button
-    const shareButton = page.locator("div[data-test='Desktop Share Button']")
+    const shareButton = page.locator("div[data-test='desktop-share-button']")
     await shareButton.locator("p", {hasText: "Share" }).click()
     
     // Make sure that the popover has expanded
-    await expect(shareButton.locator("button[data-test='Popover Share button']") ).toHaveAttribute("aria-expanded", "true");
+    await expect(shareButton.locator("button[data-test='popover-share-button']") ).toHaveAttribute("aria-expanded", "true");
   }
 
 });
@@ -47,15 +46,15 @@ test("Should check that copy link button actually copys link to clipboard", asyn
   await page.locator("tr[data-test='MLI'] > td:first-of-type > a").click();
   
   // String in clipboard that will be replaced with link from the copy link button.
-  await ncp.copy('NA');
+  await ncp.write('NA');
 
   if (isMobile) {
     
     // Locate popover panel
-    const sharePopoverPanel = page.locator("section[data-test='Mobile share popover panel']");
+    const sharePopoverPanel = page.locator("section[data-test='mobile-share-popover-panel']");
 
     // Click on the text of the Share button - needs it to appear on the page
-    const shareButton = page.locator("div[data-test='Mobile Share Button']")
+    const shareButton = page.locator("div[data-test='mobile-share-button']")
     await shareButton.locator("p", {hasText: "Share" }).click()
 
     // Click on the copy link button
@@ -64,10 +63,10 @@ test("Should check that copy link button actually copys link to clipboard", asyn
   } else {
 
     // Locate popover panel
-    const sharePopoverPanel = page.locator("section[data-test='Desktop share popover panel']");
+    const sharePopoverPanel = page.locator("section[data-test='desktop-share-popover-panel']");
 
     // Click on the text of the Share button - needs it to appear on the page
-    const shareButton = page.locator("div[data-test='Desktop Share Button']")
+    const shareButton = page.locator("div[data-test='desktop-share-button']")
     await shareButton.locator("p", {hasText: "Share" }).click()
 
     // Click on the copy link button
@@ -76,8 +75,7 @@ test("Should check that copy link button actually copys link to clipboard", asyn
   }
   
   // Read from clipboard and ensure the correct URL has been copied.
-  // const data = await ncp.readSync();
-  const data = ncp.paste();
+  const data = await ncp.read();
   assert.equal(data, "https://open.coki.ac/country/MLI");
 
 });
@@ -97,14 +95,14 @@ test("Should check social share links are present on popover panel", async ({
   if (isMobile) {
         
     // Check that share links are present
-    const sharePopoverPanel = page.locator("section[data-test='Mobile share popover panel']");
+    const sharePopoverPanel = page.locator("section[data-test='mobile-share-popover-panel']");
 
     const facebookLink = sharePopoverPanel.locator("a[data-test='facebook']");
     const twitterLink = sharePopoverPanel.locator("a[data-test='twitter']");
     const linkedinLink = sharePopoverPanel.locator("a[data-test='linkedin']");
 
     // Click on the text of the Share button - needs it to appear on the page?
-    const shareButton = page.locator("div[data-test='Mobile Share Button']")
+    const shareButton = page.locator("div[data-test='mobile-share-button']")
     await shareButton.locator("p", {hasText: "Share" }).click()
     
     await expect(facebookLink).toHaveAttribute("href", 'https://www.facebook.com/sharer/sharer.php?u=https://open.coki.ac/country/MLI');
@@ -114,14 +112,14 @@ test("Should check social share links are present on popover panel", async ({
   } else {
   
     // Check that share links are present
-    const sharePopoverPanel = page.locator("section[data-test='Desktop share popover panel']");
+    const sharePopoverPanel = page.locator("section[data-test='desktop-share-popover-panel']");
 
     const facebookLink = sharePopoverPanel.locator("a[data-test='facebook']");
     const twitterLink = sharePopoverPanel.locator("a[data-test='twitter']");
     const linkedinLink = sharePopoverPanel.locator("a[data-test='linkedin']");
 
     // Click on the text of the Share button - needs it to appear on the page?
-    const shareButton = page.locator("div[data-test='Desktop Share Button']")
+    const shareButton = page.locator("div[data-test='desktop-share-button']")
     await shareButton.locator("p", {hasText: "Share" }).click()
     
     await expect(facebookLink).toHaveAttribute("href", 'https://www.facebook.com/sharer/sharer.php?u=https://open.coki.ac/country/MLI');
