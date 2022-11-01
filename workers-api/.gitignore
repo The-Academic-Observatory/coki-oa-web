@@ -4,3 +4,5 @@ transpiled
 /.idea/
 wrangler.toml
 worker
+.env.dev
+/public

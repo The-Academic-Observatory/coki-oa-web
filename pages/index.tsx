@@ -57,7 +57,7 @@ export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
     // Set page values
     page: queryForm.page.page,
     limit: queryForm.page.limit,
-    orderBy: queryForm.page.orderBy,
+    orderBy: queryForm.page.orderBy.replace("stats.", ""), // Remove stats. as nested fields are not used by the API
     orderDir: queryForm.page.orderDir,
 
     // Default arrays

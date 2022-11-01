@@ -4,13 +4,26 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { build } from "esbuild";
 import { saveIndexToFile } from "./src/searchIndex.js";
+import { generateSQL } from "./src/database.js";
 
 //@ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-//@ts-ignore
-await saveIndexToFile("../latest/data/index.json", "../latest/data/flexsearchIndex.json");
+try {
+  const countryPath = "../latest/data/country.json";
+  const institutionPath = "../latest/data/institution.json";
+
+  // Save FlexSearch index to a file
+  // @ts-ignore
+  await saveIndexToFile(countryPath, institutionPath, "public/flexsearchIndex.json.gz");
+
+  // Generate the SQL for the Cloudflare D1 database
+  generateSQL(countryPath, institutionPath, "../latest/data/db.sql");
+} catch {
+  //@ts-ignore
+  process.exitCode = 1;
+}
 
 try {
   //@ts-ignore
@@ -19,10 +32,12 @@ try {
     sourcemap: true,
     format: "esm",
     target: "esnext",
-    minify: true,
+    external: ["__STATIC_CONTENT_MANIFEST"],
+    conditions: ["worker", "browser"],
     entryPoints: [path.join(__dirname, "src", "index.ts")],
     outdir: path.join(__dirname, "dist"),
     outExtension: { ".js": ".mjs" },
+    // minify: true,
   });
 } catch {
   //@ts-ignore

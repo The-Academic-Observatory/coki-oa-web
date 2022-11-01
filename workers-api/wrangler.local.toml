@@ -1,19 +1,24 @@
 name = "coki-oa-web-api"
-type = "javascript"
-compatibility_date = "2022-02-03"
+main = "dist/index.mjs"
+compatibility_date = "2022-11-03"
+
+[site]
+bucket = "./public"
+
+#[[rules]]
+#type = "ESModule"
+#globs = ["**/*.mjs"]
 
 [build]
 command = "yarn run build"
 
-[build.upload]
-format = "modules"
-dir = "dist"
-main = "./index.mjs"
-
-[[build.upload.rules]]
-type = "ESModule"
-globs = ["**/*.mjs"]
-
 [miniflare]
+kv_persist = true
+cache_persist = true
 durable_objects_persist = true
+env_path = ".env.dev"
 
+[[ d1_databases ]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "db"
+database_id = "db"

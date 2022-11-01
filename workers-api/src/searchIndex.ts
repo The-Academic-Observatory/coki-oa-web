@@ -1,7 +1,25 @@
+// Copyright 2022 Curtin University
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// Author: James Diprose
+
 //@ts-ignore
 import fs from "fs";
 import { Entity } from "./types";
 import flexsearch from "flexsearch";
+import pako from "pako";
+
 const { Index } = flexsearch;
 
 //@ts-ignore
@@ -13,11 +31,13 @@ export function indexEntities(index, data: Array<Entity>) {
     }
     let keywords = [entity.name];
     keywords = keywords.concat(acronyms.join(" "));
-    if (entity.country !== null) {
-      keywords.push(entity.country);
+    if (entity.country_name !== undefined) {
+      keywords.push(entity.country_name);
     }
     keywords.push(entity.region);
     const text = keywords.join(" ");
+    // Integer ids are used rather than strings because this reduces the size of the index by half and increases
+    // search and indexing speed.
     index.add(i, text);
   });
 }
@@ -37,14 +57,15 @@ export function exportIndex(index): Promise<Array<Array<Object>>> {
   });
 }
 
-export async function saveIndexToFile(inputPath: string, outputPath: string) {
+export async function saveIndexToFile(countryPath: string, institutionPath: string, outputPath: string) {
   // Create index from scratch
   const index = new Index({
     language: "en",
     tokenize: "forward",
   });
   // @ts-ignore
-  const entities = JSON.parse(fs.readFileSync(inputPath));
+  let entities = JSON.parse(fs.readFileSync(countryPath));
+  entities = entities.concat(JSON.parse(fs.readFileSync(institutionPath)));
   indexEntities(index, entities);
 
   // Export index
@@ -52,8 +73,10 @@ export async function saveIndexToFile(inputPath: string, outputPath: string) {
     return data;
   });
 
-  // Save to file
-  fs.writeFileSync(outputPath, JSON.stringify(exported));
+  // Save gzip compressed file
+  const data = JSON.stringify(exported);
+  const buffer = pako.gzip(data);
+  fs.writeFileSync(outputPath, buffer);
 }
 
 //@ts-ignore
