@@ -2,7 +2,8 @@ import { expect, test } from "@playwright/test";
 
 // Packages for checking clipboard strings
 import assert from 'assert';
-var ncp = require('node-clipboardy');
+// var ncp = require('node-clipboardy');
+var ncp = require("copy-paste");
 
 test("Should check that the share popover window opens", async ({
   page,
@@ -45,6 +46,9 @@ test("Should check that copy link button actually copys link to clipboard", asyn
   // Nagivate to a page with the share button
   await page.locator("tr[data-test='MLI'] > td:first-of-type > a").click();
   
+  // String in clipboard that will be replaced with link from the copy link button.
+  await ncp.copy('NA');
+
   if (isMobile) {
     
     // Locate popover panel
@@ -72,7 +76,8 @@ test("Should check that copy link button actually copys link to clipboard", asyn
   }
   
   // Read from clipboard and ensure the correct URL has been copied.
-  const data = await ncp.readSync();
+  // const data = await ncp.readSync();
+  const data = ncp.paste();
   assert.equal(data, "https://open.coki.ac/country/MLI");
 
 });
