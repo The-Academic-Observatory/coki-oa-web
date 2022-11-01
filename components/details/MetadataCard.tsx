@@ -92,9 +92,6 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
     content = (
       <EntityCard display={{ base: "none", md: "block" }} {...rest}>
         <Flex data-test="desktop-share-button" h="full" flexDirection="column" justifyContent="space-between">
-          {wikipedia}
-          {website}
-          <MetadataLink icon={"download"} name={"Download"} href={"/data/"} />
           <SharebuttonLinks
             entity={entity}
             category={entity.category}
@@ -105,6 +102,11 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
             iconFb={"facebook"}
             iconLi={"linkedin"}
           />
+
+          {wikipedia}
+          {website}
+          <MetadataLink icon={"download"} name={"Download"} href={"/data/"} />
+
           {tags.map((tag: any) => {
             return (
               <Tag size={"md"} key={tag} borderRadius="full" variant="solid" backgroundColor="#737373">

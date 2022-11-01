@@ -16,6 +16,14 @@
 
 const Button = {
   variants: {
+    shareButtonDesktop: {
+      width: "95px",
+      _focus: { boxShadow: "none" },
+      bgColor: "white",
+      color: "white",
+      borderRadius: "30px",
+      h: "40px"
+    },
     shareButton: {
       width: { base: "150px", ms: "100px", md: "150px" },
       _focus: { boxShadow: "none" },

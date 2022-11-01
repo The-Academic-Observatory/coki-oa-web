@@ -49,12 +49,12 @@ const Header = ({ entity, ...rest }: EntityHeaderProps) => {
   return (
     <VStack alignItems={"left"} pb={{ base: "16px", md: 0 }} {...rest}>
       <Flex alignItems="center" justifyContent="space-between">
-        <HStack pb={{ base: "12px", md: "12px" }}>
+        <HStack pb={{ md: "12px" }}>
           <Box
             minWidth={{ base: "60px", md: "100px" }}
             width={{ base: "60px", md: "100px" }}
             height={{ base: "60px", md: "100px" }}
-            mr={{ base: "10px", md: "24px" }}
+            mr={{ base: "14px", md: "24px" }}
           >
             <Image
               rounded="full"
@@ -65,6 +65,7 @@ const Header = ({ entity, ...rest }: EntityHeaderProps) => {
               style={{
                 filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",
               }}
+              ml={{ base: "4px", md: "4px" }}
             />
           </Box>
 

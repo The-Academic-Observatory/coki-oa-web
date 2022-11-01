@@ -65,29 +65,43 @@ const SharebuttonLinks = ({
   const { onCopy, hasCopied } = useClipboard(hrefCoki);
 
   return (
-    <Popover>
+    <Popover variant="shareButton">
       <PopoverTrigger>
-        <Button variant="shareButton" data-test="popover-share-button">
-          <Flex paddingRight="10px" align="center">
-            <FiShare2 size={24} />
+        <Flex>
+          {/* If on desktop, display as a link like the Downlad and Wikipedia links */}
+          <Flex display={{ base: "none", sm: "none", md: "flex" }} cursor="pointer">
+            <Button variant="shareButtonDesktop" data-test="popover-share-button">
+              <Flex mr="2">
+                <FiShare2 size={28} color={"#101820"} />
+              </Flex>
+              <Text textStyle="entityIconLink" _hover={{ textDecoration: "underline" }} color="black">
+                Share
+              </Text>
+            </Button>
           </Flex>
-          <Text casing="uppercase">Share</Text>
-        </Button>
+
+          {/* If on mobile, display as button*/}
+          <Flex
+            display={{ base: "flex", sm: "flex", md: "none" }}
+            paddingRight={{ base: "10px", sm: "10px", md: "0px", std: "0px", lg: "0px", xl: "0px", "2xl": "0px" }}
+          >
+            <Button variant="shareButton" data-test="popover-share-button">
+              <Flex paddingRight={{ base: "0px", sm: "10px", md: "10px" }} align="center">
+                <FiShare2 size={24} />
+              </Flex>
+              <Text display={{ base: "none", sm: "flex", md: "none" }} casing="uppercase">
+                Share
+              </Text>
+            </Button>
+          </Flex>
+        </Flex>
       </PopoverTrigger>
       <Portal>
-        <PopoverContent
-          data-test={`${platform}-share-popover-panel`}
-          width="min-content"
-          height="min-content"
-          _focus={{ border: "none" }}
-          style={{
-            filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",
-          }}
-        >
-          <PopoverArrow border="none" background="white.500" _focus={{ border: "none" }} />
-          <PopoverBody background="white.500">
-            <Grid templateRows="repeat(3)" templateColumns="repeat(2, 1fr)" alignItems="center">
-              <GridItem padding="4px">
+        <PopoverContent data-test={`${platform}-share-popover-panel`}>
+          <PopoverArrow />
+          <PopoverBody>
+            <Grid templateRows="repeat(3)" templateColumns="repeat(2, 1fr)" alignItems="center" gap={{ base: "8px" }}>
+              <GridItem>
                 <VStack spacing="auto" align="center">
                   <Button
                     id="copy-link-button"
@@ -97,24 +111,24 @@ const SharebuttonLinks = ({
                     bgColor="white"
                     _hover={{ bgColor: "none" }}
                   >
-                    {hasCopied ? <CopyLink /> : <FiLink2 size={32} />}
+                    {hasCopied ? <CopyLink hrefLink={hrefCoki} /> : <FiLink2 size={32} />}
                   </Button>
                   <Text fontSize="14px">Link</Text>
                 </VStack>
               </GridItem>
-              <GridItem padding="4px">
+              <GridItem>
                 <VStack spacing="auto">
                   <MetadataLinkShare icon={iconTw} href={hrefTw} />
                   <Text fontSize="14px">Twitter </Text>
                 </VStack>
               </GridItem>
-              <GridItem padding="4px">
+              <GridItem>
                 <VStack spacing="auto">
                   <MetadataLinkShare icon={iconFb} href={hrefFb} />
                   <Text fontSize="14px">Facebook</Text>
                 </VStack>
               </GridItem>
-              <GridItem padding="4px">
+              <GridItem>
                 <VStack spacing="auto">
                   <MetadataLinkShare icon={iconLi} href={hrefLi} />
                   <Text fontSize="14px">LinkedIn</Text>
@@ -136,8 +150,11 @@ const SharebuttonLinks = ({
   );
 };
 
+// Copy link button toast
+
 // The useEffect stops the toast popup from appearing multiple times.
-const CopyLink = () => {
+// TODO: figure out why hrefLink is being brought in as an Object, not just a string.
+const CopyLink = (hrefLink: Object) => {
   const toast = useToast();
   React.useEffect(() => {
     toast({
@@ -147,24 +164,30 @@ const CopyLink = () => {
       position: "top",
       // To change the colour of the toast to the brand colour.
       render: () => (
-        <Center>
+        <Center marginTop={{ base: "76px", sm: "76px", md: "81px", std: "0px" }}>
           <Box
             color="white"
             borderRadius="5px"
             m={3}
             p={3}
             bgColor="brand.500"
-            width="180px"
-            height="48px"
             style={{
               filter: "drop-shadow( 0px 0px 20px rgba(0, 0, 0, 0.2))",
             }}
           >
-            <VStack alignItems="center">
-              <Text fontSize="18px" fontWeight="700">
+            <Flex flexDirection="column" alignItems="center">
+              <Text
+                alignItems="center"
+                fontSize="18px"
+                fontWeight="700"
+                display={{ base: "none", sm: "none", md: "flex" }}
+              >
+                Copied link: {hrefLink.hrefLink}
+              </Text>
+              <Text fontSize="18px" fontWeight="700" display={{ base: "flex", sm: "flex", md: "none" }}>
                 Copied!
               </Text>
-            </VStack>
+            </Flex>
           </Box>
         </Center>
       ),

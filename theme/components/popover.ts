@@ -15,14 +15,28 @@
 // Author: James Diprose
 
 const Popover = {
-  baseStyle: {
-    popper: {
-      width: "fit-content",
-      maxWidth: "fit-content",
-    },
-  },
+
   variants: {
-    search: {
+    shareButton: {
+      content: {
+        _focus: {  
+          boxShadow: "white.500"
+        },
+        width: "min-content",
+        height: "min-content",
+        mr: { base: "10px",  sm: "10px", md: "49px", std: "49px"},
+        style: {
+          filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",
+        },
+        _hover: "none"
+      },
+      arrow: {
+        border: "none",
+      },
+      body: {
+        background: "white.500",
+        p: "6px"
+      }
       // bgColor: "brand.500",
       // color: "white",
       // transitionProperty: "common",
@@ -40,9 +54,7 @@ const Popover = {
       //     bg: "initial",
       //   },
       // },
-      _focus: {
-        boxShadow: "none",
-      },
+
       // _disabled: {
       //   opacity: 0.4,
       //   cursor: "not-allowed",
