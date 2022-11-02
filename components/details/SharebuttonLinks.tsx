@@ -67,10 +67,10 @@ const SharebuttonLinks = ({
   return (
     <Popover variant="shareButton">
       <PopoverTrigger>
-        <Flex>
+        <Flex data-test="popover-trigger-div">
           {/* If on desktop, display as a link like the Downlad and Wikipedia links */}
           <Flex display={{ base: "none", sm: "none", md: "flex" }} cursor="pointer">
-            <Button variant="shareButtonDesktop" data-test="popover-share-button">
+            <Button variant="shareButtonDesktop" data-test="desktop-popover-share-button">
               <Flex mr="2">
                 <FiShare2 size={28} color={"#101820"} />
               </Flex>
@@ -83,9 +83,9 @@ const SharebuttonLinks = ({
           {/* If on mobile, display as button*/}
           <Flex
             display={{ base: "flex", sm: "flex", md: "none" }}
-            paddingRight={{ base: "10px", sm: "10px", md: "0px", std: "0px", lg: "0px", xl: "0px", "2xl": "0px" }}
+            paddingRight={{ base: "10px", sm: "10px", md: "0px" }}
           >
-            <Button variant="shareButton" data-test="popover-share-button">
+            <Button variant="shareButton" data-test="mobile-popover-share-button">
               <Flex paddingRight={{ base: "0px", sm: "10px", md: "10px" }} align="center">
                 <FiShare2 size={24} />
               </Flex>
