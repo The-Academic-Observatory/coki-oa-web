@@ -12,54 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: James Diprose
+// Author: Alex Massen-Hane
 
 const Popover = {
-
   variants: {
-    shareButton: {
+    sharePopover: {
       content: {
-        _focus: {  
-          boxShadow: "white.500"
-        },
+        border: "none",
         width: "min-content",
         height: "min-content",
-        mr: { base: "10px",  sm: "10px", md: "49px", std: "49px"},
-        style: {
-          filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",
+        mr: { base: "18px", md: 0 }, // Stops popover from overlapping right edge of screen on mobile
+        boxShadow: "0px 5px 12px 1px rgba(0,0,0,0.2)",
+        _focus: {
+          boxShadow: "0px 5px 12px 1px rgba(0,0,0,0.2)",
         },
-        _hover: "none"
-      },
-      arrow: {
-        border: "none",
       },
       body: {
-        background: "white.500",
-        p: "6px"
-      }
-      // bgColor: "brand.500",
-      // color: "white",
-      // transitionProperty: "common",
-      // transitionDuration: "normal",
-      // textTransform: "uppercase",
-      // fontSize: "16px",
-      // fontWeight: 500,
-      // borderRadius: "30px",
-      // height: "40px",
-      // px: "24px",
-      // _hover: {
-      //   bgColor: "brand.600",
-      //   // cursor: 'pointer',
-      //   _disabled: {
-      //     bg: "initial",
-      //   },
-      // },
-
-      // _disabled: {
-      //   opacity: 0.4,
-      //   cursor: "not-allowed",
-      //   boxShadow: "none",
-      // },
+        p: "12px",
+      },
     },
   },
 };

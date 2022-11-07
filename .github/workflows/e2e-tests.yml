@@ -24,7 +24,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt-get install xclip xvfb firefox
           yarn install
           npx playwright install-deps
           npx playwright install

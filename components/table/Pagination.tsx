@@ -64,14 +64,14 @@ const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage, ...re
     <Flex alignItems="center" align="center" justifyContent="space-between" {...rest}>
       <IconButton
         aria-label="First Page"
-        variant="pageIconButton"
+        variant="pagination"
         icon={<HiOutlineChevronDoubleLeft />}
         onClick={() => goToPage(0)}
         disabled={!canGoBack}
       />
       <IconButton
         aria-label="Previous Page"
-        variant="pageIconButton"
+        variant="pagination"
         icon={<HiOutlineChevronLeft />}
         onClick={onPrevPage}
         disabled={!canGoBack}
@@ -85,14 +85,14 @@ const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage, ...re
 
       <IconButton
         aria-label="Next Page"
-        variant="pageIconButton"
+        variant="pagination"
         icon={<HiOutlineChevronRight />}
         onClick={onNextPage}
         disabled={!canGoNext}
       />
       <IconButton
         aria-label="Last Page"
-        variant="pageIconButton"
+        variant="pagination"
         icon={<HiOutlineChevronDoubleRight />}
         onClick={() => goToPage(noOfPages - 1)}
         disabled={!canGoNext}

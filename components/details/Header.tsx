@@ -19,7 +19,7 @@ import { Entity } from "../../lib/model";
 import TextCollapse from "../common/TextCollapse";
 import React, { memo } from "react";
 import { makeDescription } from "./EntityDetails";
-import SharebuttonLinks from "./SharebuttonLinks";
+import SharePopover from "./SharePopover";
 
 interface EntityHeaderProps extends StackProps {
   entity: Entity;
@@ -47,7 +47,7 @@ const Header = ({ entity, ...rest }: EntityHeaderProps) => {
     );
   }
   return (
-    <VStack alignItems={"left"} pb={{ base: "16px", md: 0 }} {...rest}>
+    <VStack alignItems="left" pb={{ base: "16px", md: 0 }} {...rest}>
       <Flex alignItems="center" justifyContent="space-between">
         <HStack pb={{ md: "12px" }}>
           <Box
@@ -80,18 +80,7 @@ const Header = ({ entity, ...rest }: EntityHeaderProps) => {
           </VStack>
         </HStack>
 
-        <Flex data-test="mobile-share-button" display={{ base: "flex", sm: "flex", md: "none" }}>
-          <SharebuttonLinks
-            entity={entity}
-            category={entity.category}
-            platform={"mobile"}
-            id={entity.id}
-            hrefCoki={`/${entity.category}/${entity.id}/`}
-            iconTw={"twitter"}
-            iconFb={"facebook"}
-            iconLi={"linkedin"}
-          />
-        </Flex>
+        <SharePopover display={{ base: "flex", sm: "flex", md: "none" }} entity={entity} platform="mobile" />
       </Flex>
 
       <TextCollapse

@@ -33,7 +33,7 @@ const MetadataLink = ({ icon, name, href, ...rest }: MetadataLinkProps) => {
   return (
     <Link href={href} {...rest}>
       <Flex align="center" role="group" cursor="pointer">
-        <Icon mr="2" icon={icon} size={32} color={"#101820"} />
+        <Icon mr="2" icon={icon} size={24} color="#101820" />
         <Text textStyle="entityIconLink">{name}</Text>
       </Flex>
     </Link>
