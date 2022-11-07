@@ -7,9 +7,6 @@ on:
       - develop
       - main
 
-env:
-  DISPLAY: :99
-
 jobs:
   e2e-test:
     runs-on: ubuntu-latest
@@ -50,6 +47,4 @@ jobs:
         env:
           DATA_PATH: ./latest/data
         run: |
-          echo "$DISPLAY"
-          Xvfb :99 &
           yarn run test:e2e
