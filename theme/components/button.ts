@@ -14,94 +14,182 @@
 //
 // Author: James Diprose
 
-const Button = {
-  variants: {
-    clean: {
-      size: "lg",
-      _focus: { boxShadow: "none" },
-      _active: {
-        bg: "rgba(236, 236, 236, 0.3)",
-        boxShadow: "none",
-      },
+const solidStyle = {
+  bgColor: "brand.500",
+  color: "white",
+  textTransform: "uppercase",
+  _hover: {
+    bgColor: "brand.600",
+    _disabled: {
+      bg: "brand.500",
     },
-    table: {
-      bgColor: "brand.500",
-      color: "white",
-      transitionProperty: "common",
-      transitionDuration: "normal",
-      p: {
-        fontWeight: 500,
-        fontSize: "9px",
-        textTransform: "uppercase",
-      },
-      span: {
-        ml: 0,
-        width: "12px",
-      },
-      borderRadius: "20px",
+    textDecoration: "underline",
+  },
+  _active: {
+    bgColor: "brand.700",
+  },
+  _focus: {
+    boxShadow: "none",
+  },
+  _disabled: {
+    opacity: 0.4,
+    cursor: "not-allowed",
+    boxShadow: "none",
+  },
+};
+
+const iconStyle = {
+  _focus: { boxShadow: "none" },
+  _active: {
+    bg: "rgba(236, 236, 236, 0.3)",
+    boxShadow: "none",
+  },
+};
+
+const Button = {
+  baseStyle: {
+    fontWeight: 500,
+    borderRadius: "full",
+
+    // Not sure if the transition properties are doing anything
+    transitionProperty: "common",
+    transitionDuration: "normal",
+  },
+  sizes: {
+    // Index table learn more buttons
+    xs: {
       height: "20px",
       paddingX: "8px",
+      fontSize: "9px",
+      span: {
+        mx: 0,
+        height: "16px",
+        width: "12px",
+        svg: {
+          height: "16px",
+          width: "16px",
+        },
+      },
+    },
+
+    // Filter apply and clear buttons
+    sm: {
+      height: "26px",
+      px: "16px",
+      fontSize: "12px",
+      lineHeight: "12px",
+    },
+
+    // Filter apply and clear on mobile
+    md: {
+      height: "36px",
+      px: "24px",
+      fontSize: "16px",
+    },
+
+    // Return to dashboard
+    lg: {
+      fontSize: "14px",
+      lineHeight: "14px",
+      height: "40px",
+    },
+
+    // Share, subregion, region, country and institution type tags
+    tag: {
+      height: "28px",
+    },
+  },
+  defaultProps: {},
+
+  variants: {
+    // Default button
+    solid: {
+      ...solidStyle,
+    },
+
+    // Button with orange border and white fill
+    outline: {
+      bgColor: "white",
+      color: "brand.500",
+      border: "1px",
+      borderColor: "brand.500",
+      px: "8px", // Keeps text from overlapping edges
       _hover: {
+        color: "white",
+        bgColor: "brand.500",
+        _disabled: {
+          bg: "brand.500",
+        },
+      },
+      _active: {
+        color: "white",
         bgColor: "brand.600",
-        cursor: "pointer",
+        borderColor: "brand.700",
       },
       _focus: {
         boxShadow: "none",
       },
+      _disabled: {
+        opacity: 0.4,
+        cursor: "not-allowed",
+        boxShadow: "none",
+      },
     },
-    tabButton: {
-      bgColor: "brand.500",
-      color: "white",
-      transitionProperty: "common",
-      transitionDuration: "normal",
+
+    // Clean icon button used in nav bar
+    icon: {
+      ...iconStyle,
+      width: "40px",
+      height: "40px",
+    },
+
+    // Icon button with text
+    iconText: {
+      ...iconStyle,
+      _hover: {
+        textDecoration: "underline",
+        cursor: "pointer",
+      },
+      width: "70px",
+      height: "60px",
+      borderRadius: "2px",
+    },
+
+    // Tab filter button
+    filterTab: {
+      ...solidStyle,
       fontWeight: 900,
       fontSize: "16px",
-      textTransform: "uppercase",
       borderRadius: 0,
       height: "60px",
       p: { base: "12px 12px", sm: "8px 32px" },
-      _hover: {
-        bgColor: "brand.600",
-        _disabled: {
-          bg: "brand.500",
+    },
+
+    // Share button
+    share: {
+      ...solidStyle,
+      textTransform: "none",
+      pl: "12px",
+      pr: "14px",
+      width: "full",
+      height: {
+        base: "36px",
+        md: "28px",
+      },
+      span: {
+        m: 0,
+        mr: { base: 0, sm: "6px" },
+        height: "20px",
+        width: "20px",
+        svg: {
+          height: "20px",
+          width: "20px",
         },
       },
-      _focus: {
-        boxShadow: "none",
-      },
-      _disabled: {
-        opacity: 0.4,
-        cursor: "not-allowed",
-        boxShadow: "none",
-      },
     },
-    dashboard: {
-      bgColor: "brand.500",
-      color: "white",
-      transitionProperty: "common",
-      transitionDuration: "normal",
-      textTransform: "uppercase",
-      fontSize: "16px",
-      fontWeight: 500,
-      borderRadius: "30px",
-      height: "40px",
-      px: "24px",
-      _hover: {
-        bgColor: "brand.600",
-        _disabled: {
-          bg: "brand.500",
-        },
-      },
-      _focus: {
-        boxShadow: "none",
-      },
-      _disabled: {
-        opacity: 0.4,
-        cursor: "not-allowed",
-        boxShadow: "none",
-      },
-    },
-    pageIconButton: {
+
+    //  Page buttons
+    pagination: {
       width: "32px",
       height: "32px",
       minWidth: "32px",
@@ -119,40 +207,7 @@ const Button = {
         color: "brand.500",
       },
     },
-    filterForm: {
-      bgColor: "brand.500",
-      color: "white",
-      transitionProperty: "common",
-      transitionDuration: "normal",
-      p: {
-        fontWeight: 500,
-        fontSize: { base: "16px", md: "12px" },
-        lineHeight: "12px",
-        textTransform: "uppercase",
-      },
-      span: {
-        lineHeight: "12px",
-        ml: "0px",
-        width: "12px",
-      },
-      borderRadius: "25px",
-      height: { base: "36px", md: "26px" },
-      px: { base: "24px", md: "16px" },
-      _hover: {
-        bgColor: "brand.600",
-        _disabled: {
-          bg: "brand.500",
-        },
-      },
-      _focus: {
-        boxShadow: "none",
-      },
-      _disabled: {
-        opacity: 0.4,
-        cursor: "not-allowed",
-        boxShadow: "none",
-      },
-    },
+
     buttonLink: {
       px: 0,
       mx: 0,

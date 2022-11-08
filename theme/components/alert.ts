@@ -14,21 +14,15 @@
 //
 // Author: James Diprose
 
-import Link from "../common/Link";
-import { Button, Text } from "@chakra-ui/react";
-import { ChevronRightIcon } from "@chakra-ui/icons";
-import React, { memo } from "react";
-import { EntityProps, makeHref } from "./IndexTable";
+const Alert = {
+  variants: {
+    // Changes the alert style used for toasts
+    solid: {
+      container: {
+        bg: `brand.500`,
+      },
+    },
+  },
+};
 
-function LearnMoreCell({ entity }: EntityProps) {
-  const href = makeHref(entity.category, entity.id);
-  return (
-    <Link href={href} textDecorationColor="white !important">
-      <Button variant="solid" size="xs" rightIcon={<ChevronRightIcon />}>
-        <Text>Learn More</Text>
-      </Button>
-    </Link>
-  );
-}
-
-export default memo(LearnMoreCell);
+export default Alert;

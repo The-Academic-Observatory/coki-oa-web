@@ -297,7 +297,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
               <Text fontSize={{ base: "14px", sm: "16px" }}>Institution</Text>
             </Tab>
             <Button
-              variant="tabButton"
+              variant="filterTab"
               display={{ base: "flex", md: "none" }}
               onClick={() => {
                 // Open filter modal

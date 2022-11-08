@@ -15,7 +15,7 @@
 // Author: Aniek Roelofs, James Diprose
 
 import React, { memo, useCallback } from "react";
-import { Accordion, Box, Button, HStack, IconButton, Text } from "@chakra-ui/react";
+import { Accordion, Box, Button, HStack, IconButton, Text, useBreakpointValue } from "@chakra-ui/react";
 import { Form, FormikProvider, useFormik } from "formik";
 import Icon from "../common/Icon";
 import RegionForm from "./RegionForm";
@@ -139,7 +139,7 @@ const FilterForm = ({
             </Text>
 
             <IconButton
-              variant="clean"
+              variant="icon"
               aria-label="Close Filters"
               position="absolute"
               right="3px"
@@ -180,12 +180,17 @@ const FilterForm = ({
           )}
 
           <HStack justifyContent="space-around" p={{ base: "24px 0px", md: "14px 0px" }} bgColor="white">
-            <Button variant="filterForm" type="submit">
-              <Text>Apply</Text>
+            <Button variant="solid" size={useBreakpointValue({ base: "md", md: "sm" })} type="submit">
+              Apply
             </Button>
 
-            <Button variant="filterForm" onClick={onReset} disabled={!isDirty()}>
-              <Text>Clear</Text>
+            <Button
+              variant="solid"
+              size={useBreakpointValue({ base: "md", md: "sm" })}
+              onClick={onReset}
+              disabled={!isDirty()}
+            >
+              Clear
             </Button>
           </HStack>
         </Box>

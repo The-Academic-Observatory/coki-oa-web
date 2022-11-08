@@ -20,6 +20,11 @@ import { EntityDetails, makePageDescription, makeTwitterImageUrl } from "./Entit
 import entity from "../../latest/data/country/NZL.json";
 import stats from "../../latest/data/stats.json";
 
+import { useRouter } from "next/router";
+jest.mock("next/router", () => ({
+  useRouter: jest.fn(),
+}));
+
 // Mock Next head
 jest.mock(
   "next/head",
@@ -89,6 +94,11 @@ test("test makePageDescription institution", () => {
 });
 
 it("EntityDetails component renders Head metadata", () => {
+  // Mock useRouter.asPath
+  useRouter.mockImplementation(() => ({
+    asPath: "/",
+  }));
+
   render(<EntityDetails entity={entity} stats={stats} />);
   const description = makePageDescription(entity, stats);
   expect(document.title).toBe("COKI: New Zealand");

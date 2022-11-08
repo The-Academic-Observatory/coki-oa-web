@@ -12,42 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: James Diprose
+// Author: Alex Massen-Hane
 
 const Popover = {
-  baseStyle: {
-    popper: {
-      width: "fit-content",
-      maxWidth: "fit-content",
-    },
-  },
   variants: {
-    search: {
-      // bgColor: "brand.500",
-      // color: "white",
-      // transitionProperty: "common",
-      // transitionDuration: "normal",
-      // textTransform: "uppercase",
-      // fontSize: "16px",
-      // fontWeight: 500,
-      // borderRadius: "30px",
-      // height: "40px",
-      // px: "24px",
-      // _hover: {
-      //   bgColor: "brand.600",
-      //   // cursor: 'pointer',
-      //   _disabled: {
-      //     bg: "initial",
-      //   },
-      // },
-      _focus: {
-        boxShadow: "none",
+    sharePopover: {
+      content: {
+        border: "none",
+        width: "min-content",
+        height: "min-content",
+        mr: { base: "18px", md: 0 }, // Stops popover from overlapping right edge of screen on mobile
+        boxShadow: "0px 5px 12px 1px rgba(0,0,0,0.2)",
+        _focus: {
+          boxShadow: "0px 5px 12px 1px rgba(0,0,0,0.2)",
+        },
       },
-      // _disabled: {
-      //   opacity: 0.4,
-      //   cursor: "not-allowed",
-      //   boxShadow: "none",
-      // },
+      body: {
+        p: "12px",
+      },
     },
   },
 };

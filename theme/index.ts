@@ -27,6 +27,7 @@ import Modal from "./components/modal";
 import Progress from "./components/progress";
 import Menu from "./components/menu";
 import Tooltip from "./components/tooltip";
+import Alert from "./components/alert";
 
 const breakpoints = createBreakpoints({
   sm: "600px",
@@ -180,7 +181,7 @@ const theme = extendTheme({
     },
     entityHeading: {
       fontWeight: 900,
-      fontSize: { base: "24px", md: "32px", std: "32px" },
+      fontSize: { base: "24px", md: "32px", std: "32px", sm: "28px" },
       textTransform: "uppercase",
       color: "brand.500",
     },
@@ -284,6 +285,13 @@ const theme = extendTheme({
       pb: "12px",
       li: { mb: "6px" },
     },
+    tagButtonText: {
+      fontSize: "16px",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap",
+      textTransform: "none",
+    },
   },
   layerStyles: {
     page: {
@@ -356,6 +364,7 @@ const theme = extendTheme({
     Modal,
     Menu,
     Tooltip,
+    Alert,
   },
 });
 

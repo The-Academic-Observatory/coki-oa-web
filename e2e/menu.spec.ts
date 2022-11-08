@@ -1,17 +1,12 @@
 import { expect, test } from "@playwright/test";
 
-test("Should navigate to the Open Access Dashboard page", async ({
-  page,
-  isMobile,
-}) => {
+test("Should navigate to the Open Access Dashboard page", async ({ page, isMobile }) => {
   await page.goto("/open/");
 
   if (isMobile) {
     // On mobile: need to click the menu button and then the nav item
     await page.locator("button[data-test='menu']").click();
-    await page
-      .locator("#sidebar-mobile a[data-test='open-access-dashboard']")
-      .click();
+    await page.locator("#sidebar-mobile a[data-test='open-access-dashboard']").click();
   } else {
     // On desktop: can click the sidebar
     await page.locator("#sidebar a[data-test='open-access-dashboard']").click();

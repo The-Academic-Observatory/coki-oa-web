@@ -58,7 +58,7 @@ const Navbar = ({
       justifyContent="space-between"
     >
       <IconButton
-        variant="clean"
+        variant="icon"
         data-test="menu"
         aria-label="Menu"
         onClick={() => {
@@ -86,7 +86,7 @@ const Navbar = ({
       <SearchDesktop display={{ base: "none", std: "block" }} />
 
       <IconButton
-        variant="clean"
+        variant="icon"
         display={{ base: "flex", std: "none" }}
         data-test="search"
         aria-label="Search"

@@ -14,11 +14,12 @@
 //
 // Author: James Diprose
 
-import { Box, HStack, Image, StackProps, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, HStack, Image, StackProps, Text, VStack } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
 import TextCollapse from "../common/TextCollapse";
 import React, { memo } from "react";
 import { makeDescription } from "./EntityDetails";
+import SharePopover from "./SharePopover";
 
 interface EntityHeaderProps extends StackProps {
   entity: Entity;
@@ -46,35 +47,42 @@ const Header = ({ entity, ...rest }: EntityHeaderProps) => {
     );
   }
   return (
-    <VStack alignItems={"left"} pb={{ base: "16px", md: 0 }} {...rest}>
-      <HStack pb={{ base: "12px", md: "12px" }}>
-        <Box
-          minWidth={{ base: "60px", md: "100px" }}
-          width={{ base: "60px", md: "100px" }}
-          height={{ base: "60px", md: "100px" }}
-          mr={{ base: "10px", md: "24px" }}
-        >
-          <Image
-            rounded="full"
-            objectFit="cover"
-            boxSize={{ base: "60px", md: "100px" }}
-            src={entity.logo_l}
-            alt={entity.name}
-            style={{
-              filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",
-            }}
-          />
-        </Box>
+    <VStack alignItems="left" pb={{ base: "16px", md: 0 }} {...rest}>
+      <Flex alignItems="center" justifyContent="space-between">
+        <HStack pb={{ md: "12px" }}>
+          <Box
+            minWidth={{ base: "60px", md: "100px" }}
+            width={{ base: "60px", md: "100px" }}
+            height={{ base: "60px", md: "100px" }}
+            mr={{ base: "14px", md: "24px" }}
+          >
+            <Image
+              rounded="full"
+              objectFit="cover"
+              boxSize={{ base: "60px", md: "100px" }}
+              src={entity.logo_l}
+              alt={entity.name}
+              style={{
+                filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",
+              }}
+              ml={{ base: "4px", md: "4px" }}
+            />
+          </Box>
 
-        <VStack alignItems="left">
-          <Text as="h1" textStyle="entityHeading">
-            {entity.name}
-          </Text>
-          <Text textStyle="p" fontSize="24px" lineHeight="28px" display={{ base: "none", md: "block" }}>
-            {description}
-          </Text>
-        </VStack>
-      </HStack>
+          <VStack align="right">
+            <Text as="h1" textStyle="entityHeading">
+              {entity.name}
+            </Text>
+
+            <Text textStyle="p" fontSize="24px" lineHeight="28px" display={{ base: "none", md: "block" }}>
+              {description}
+            </Text>
+          </VStack>
+        </HStack>
+
+        <SharePopover display={{ base: "flex", sm: "flex", md: "none" }} entity={entity} platform="mobile" />
+      </Flex>
+
       <TextCollapse
         display={{ base: "block", sm: "block", md: "none" }}
         previewText={previewText}

@@ -30,6 +30,7 @@ const config: PlaywrightTestConfig = {
       use: {
         ...devices["Desktop Chrome"],
         viewport: { width: 1310, height: 1080 },
+        permissions: ["clipboard-read", "clipboard-write"],
       },
     },
     {
@@ -51,6 +52,7 @@ const config: PlaywrightTestConfig = {
       use: {
         channel: "msedge",
         viewport: { width: 1310, height: 1080 },
+        permissions: ["clipboard-read", "clipboard-write"],
       },
     },
     // Mobile viewports.
@@ -58,11 +60,14 @@ const config: PlaywrightTestConfig = {
       name: "Mobile Chrome",
       use: {
         ...devices["Pixel 5"],
+        permissions: ["clipboard-read", "clipboard-write"],
       },
     },
     {
       name: "Mobile Safari",
-      use: devices["iPhone 12"],
+      use: {
+        ...devices["iPhone 13"],
+      },
     },
   ],
 };

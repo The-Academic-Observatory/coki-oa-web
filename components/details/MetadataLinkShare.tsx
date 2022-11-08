@@ -12,32 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: James Diprose
+// Author: James Diprose & Alex Massen-Hane
 
-import { Flex, LinkProps, Text } from "@chakra-ui/react";
-import Link from "../common/Link";
+// This opens the share button links in a new tab.
+
+import { Link, Flex, LinkProps, Text } from "@chakra-ui/react";
 import Icon from "../common/Icon";
 import React, { memo } from "react";
 
-interface MetadataLinkProps extends LinkProps {
+interface MetadataLinkShareProps extends LinkProps {
   icon: string;
   name?: string;
   href?: string;
 }
 
-const MetadataLink = ({ icon, name, href, ...rest }: MetadataLinkProps) => {
+const MetadataLinkShare = ({ icon, name, href, ...rest }: MetadataLinkShareProps) => {
   if (href === undefined) {
     href = "https://open.coki.ac";
   }
 
   return (
-    <Link href={href} {...rest}>
+    <Link data-test={icon} href={href} isExternal _focus={{}}>
       <Flex align="center" role="group" cursor="pointer">
-        <Icon mr="2" icon={icon} size={24} color="#101820" />
+        <Icon icon={icon} size={32} color={"#101820"} />
         <Text textStyle="entityIconLink">{name}</Text>
       </Flex>
     </Link>
   );
 };
 
-export default memo(MetadataLink);
+export default memo(MetadataLinkShare);

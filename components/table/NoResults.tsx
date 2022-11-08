@@ -41,7 +41,7 @@ const NoResults = ({ onResetQueryForm }: NoResultsProps) => {
         <Text mt="0 !important" pb="32px" fontSize="24px">
           Try to change your filters
         </Text>
-        <Button variant="dashboard" onClick={onResetQueryForm}>
+        <Button variant="solid" size="md" onClick={onResetQueryForm}>
           Reset Filters
         </Button>
       </VStack>

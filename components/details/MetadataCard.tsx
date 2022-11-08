@@ -14,11 +14,12 @@
 //
 // Author: James Diprose
 
-import { Box, BoxProps, Flex, Tag, TagLabel, Text, VStack } from "@chakra-ui/react";
+import { Box, BoxProps, Button, Flex, Text, useToast, VStack } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
 import EntityCard from "./EntityCard";
 import React, { memo } from "react";
 import MetadataLink from "./MetadataLink";
+import SharePopover from "./SharePopover";
 
 interface MetadataCardProps extends BoxProps {
   entity: Entity;
@@ -30,13 +31,7 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
   let wikipedia = <></>;
   if (entity.wikipedia_url) {
     wikipedia = (
-      <MetadataLink
-        icon={"wikipedia"}
-        name={"Wikipedia"}
-        target="_blank"
-        rel="noreferrer"
-        href={entity.wikipedia_url}
-      />
+      <MetadataLink icon="wikipedia" name="Wikipedia" target="_blank" rel="noreferrer" href={entity.wikipedia_url} />
     );
   }
 
@@ -47,7 +42,7 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
       entity.url = entity.url.slice(0, -1);
     }
 
-    website = <MetadataLink icon={"website"} name={"Website"} target="_blank" rel="noreferrer" href={entity.url} />;
+    website = <MetadataLink icon="website" name="Website" target="_blank" rel="noreferrer" href={entity.url} />;
   }
 
   // Create tags
@@ -60,6 +55,9 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
     tags.push(entity.region);
   }
 
+  //
+  const toast = useToast();
+
   let content;
   if (isMobile) {
     content = (
@@ -69,8 +67,7 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
           <Flex w="full" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
             {wikipedia}
             {website}
-            <MetadataLink icon={"download"} name={"Download"} href={"/data/"} />
-            <MetadataLink icon={"code"} name={"Embed"} href={`/${entity.category}/${entity.id}/`} />
+            <MetadataLink icon="download" name="Download" href="/data/" />
           </Flex>
 
           <Flex w="full" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
@@ -91,17 +88,30 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
   } else {
     content = (
       <EntityCard display={{ base: "none", md: "block" }} {...rest}>
-        <Flex h="full" flexDirection="column" justifyContent="space-between">
+        <Flex h="full" w="full" flexDirection="column" justifyContent="space-between">
           {wikipedia}
           {website}
-          <MetadataLink icon={"download"} name={"Download"} href={"/data/"} />
-          <MetadataLink icon={"code"} name={"Embed"} href={`/${entity.category}/${entity.id}/`} />
+          <MetadataLink icon="download" name="Download" href="/data/" />
+
+          <SharePopover entity={entity} platform="desktop" />
 
           {tags.map((tag: any) => {
             return (
-              <Tag size={"md"} key={tag} borderRadius="full" variant="solid" backgroundColor="#737373">
-                <TagLabel margin={"auto"}>{tag}</TagLabel>
-              </Tag>
+              <Button
+                key={tag}
+                variant="outline"
+                size="tag"
+                onClick={() => {
+                  toast({
+                    title: "Feature coming soon",
+                    status: "info",
+                    duration: 2000,
+                    isClosable: false,
+                  });
+                }}
+              >
+                <Text textStyle="tagButtonText">{tag}</Text>
+              </Button>
             );
           })}
         </Flex>

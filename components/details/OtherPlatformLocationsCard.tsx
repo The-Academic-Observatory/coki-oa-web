@@ -209,7 +209,7 @@ const NoResults = ({ nRows, onlyHomeRepos, entity, onReset }: NoResultsProps) =>
               </Box>
             </>
           )}
-          <Button variant="dashboard" onClick={onReset} height="26px" fontSize="12px" px="12px">
+          <Button variant="solid" onClick={onReset} height="26px" fontSize="12px" px="12px">
             Reset Filters
           </Button>
         </VStack>
