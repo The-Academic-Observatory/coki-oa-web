@@ -66,8 +66,7 @@ const config: PlaywrightTestConfig = {
     {
       name: "Mobile Safari",
       use: {
-        ...devices["iPhone 14"],
-        permissions: ["clipboard-read", "clipboard-write"],
+        ...devices["iPhone 13"],
       },
     },
   ],

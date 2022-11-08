@@ -80,7 +80,7 @@ test("Should check that copy link button actually copies link to clipboard", asy
   isMobile,
   browserName,
 }) => {
-  test.skip(!isMobile && browserName === "webkit", "This test does not run for Desktop Safari");
+  test.skip(browserName === "webkit", "This test does not run on Safari");
   test.skip(browserName === "firefox", "This test does not run for Firefox");
 
   // Get platform
