@@ -17,6 +17,9 @@
 const Popover = {
   variants: {
     sharePopover: {
+      arrow: {
+        ml: { base: "9px", md: 0 }, // Makes sure that the arrow is centred on the button on mobile
+      },
       content: {
         border: "none",
         width: "min-content",

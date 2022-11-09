@@ -30,6 +30,7 @@ import {
   Text,
   useClipboard,
   useDisclosure,
+  useMediaQuery,
   useToast,
   VStack,
 } from "@chakra-ui/react";
@@ -60,14 +61,23 @@ const SharePopover = ({ entity, platform, ...rest }: SharePopoverProps) => {
 
   // Copy link to clipboard and show toast
   const toast = useToast();
+  const [isGreaterThan] = useMediaQuery("(min-width: 400px)");
+
   const openLinkCopyToast = () => {
     // Copy link to clipboard
     onCopy();
 
+    // Set description
+    // Don't show description for very small screens as takes up too much space
+    let description = null;
+    if (isGreaterThan) {
+      description = `${url}`;
+    }
+
     // Show toast
     toast({
       title: "Link copied to clipboard",
-      description: `${url}`,
+      description: description,
       status: "success",
       duration: 2000,
       isClosable: false,
