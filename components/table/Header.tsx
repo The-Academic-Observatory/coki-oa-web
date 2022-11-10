@@ -33,6 +33,7 @@ const ColumnHeaders: { [id: string]: string } = {
 };
 
 function Header({ column }: ColumnProps) {
+  const subHeadings = ["Publisher open", "both", "other platform open", "closed"];
   return (
     <span>
       <HStack align="start" spacing="0">
@@ -49,8 +50,11 @@ function Header({ column }: ColumnProps) {
       </HStack>
       {column.id === "breakdown" ? (
         <Text textStyle="tableSubHeader">
-          Publisher open <br />
-          both <br /> other platform open <br /> closed <br />
+          <table>
+            {subHeadings.map((subHead: string) => {
+              return <tr>{subHead}</tr>;
+            })}
+          </table>
         </Text>
       ) : (
         ""
