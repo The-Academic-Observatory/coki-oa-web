@@ -15,7 +15,7 @@
 // Author: James Diprose
 
 import React, { memo } from "react";
-import { Box, Flex, Grid, GridItem, VStack } from "@chakra-ui/react";
+import { Box, Flex, VStack } from "@chakra-ui/react";
 import { Entity, Stats } from "../../lib/model";
 import Card from "../common/Card";
 import Head from "next/head";
@@ -31,6 +31,8 @@ import SummaryCard from "./SummaryCard";
 import OtherPlatformOpenCard from "./OtherPlatformOpenCard";
 import OtherPlatformLocationsCard from "./OtherPlatformLocationsCard";
 
+import { useRouter } from "next/router";
+
 export const makeDescription = (entity: Entity) => {
   let text = `Open Access statistics for ${entity.name},`;
   if (entity.category === "institution") {
@@ -45,8 +47,9 @@ export interface EntityDetailsProps {
   stats: Stats;
 }
 
-export function makeTwitterImageUrl(entityId: string): string {
+export function makeShareImageUrl(entityId: string): string {
   let url = `${process.env.NEXT_PUBLIC_HOST}/twitter/${entityId}.webp`;
+  // TODO: Change folder structure to reflect /share/$${entityId}.webp instead
   return addBuildId(url);
 }
 
@@ -67,8 +70,9 @@ export function makePageDescription(entity: Entity, stats: Stats): string {
 export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) => {
   const pageTitle = `COKI: ${entity.name}`;
   const pageDescription = makePageDescription(entity, stats);
-  const twitterTitle = `${entity.name}'s Open Access Research Performance`;
-  const twitterImage = makeTwitterImageUrl(entity.id);
+  const shareTitle = `${entity.name}'s Open Access Research Performance`;
+  const shareImage = makeShareImageUrl(entity.id);
+  const pageUrl = `${process.env.NEXT_PUBLIC_HOST}${useRouter().asPath}`; // Get URL of current route
 
   return (
     <Box layerStyle="page">
@@ -79,10 +83,16 @@ export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) =>
         {/* Twitter card metadata */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@COKIproject" />
-        <meta name="twitter:title" content={twitterTitle} />
+        <meta name="twitter:title" content={shareTitle} />
         <meta name="twitter:description" content={pageDescription} />
-        <meta name="twitter:image" content={twitterImage} />
+        <meta name="twitter:image" content={shareImage} />
         <meta name="twitter:image:alt" content={pageDescription} />
+
+        {/* Facebook and LinkedIn card metadata, uses the same twitter card */}
+        <meta property="og:title" content={shareTitle} />
+        <meta property="og:image" content={shareImage} />
+        <meta name="og:description" content={pageDescription} />
+        <meta property="og:url" content={pageUrl} />
       </Head>
 
       <Breadcrumbs

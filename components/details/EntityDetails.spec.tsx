@@ -15,7 +15,7 @@
 // Author: James Diprose
 
 import { render } from "../../lib/test-utils";
-import { EntityDetails, makePageDescription, makeTwitterImageUrl } from "./EntityDetails";
+import { EntityDetails, makePageDescription, makeShareImageUrl } from "./EntityDetails";
 
 import entity from "../../latest/data/country/NZL.json";
 import stats from "../../latest/data/stats.json";
@@ -37,8 +37,8 @@ jest.mock(
 const buildId = "9wunlCAp5nAMZGCCOIDUx";
 const publicHost = "http://127.0.0.1:3000";
 
-test("test makeTwitterImageUrl", () => {
-  let url = makeTwitterImageUrl("NZL");
+test("test makeShareImageUrl", () => {
+  let url = makeShareImageUrl("NZL");
   expect(url).toEqual(`${publicHost}/twitter/NZL.webp?build=${buildId}`);
 });
 
@@ -101,14 +101,22 @@ it("EntityDetails component renders Head metadata", () => {
 
   render(<EntityDetails entity={entity} stats={stats} />);
   const description = makePageDescription(entity, stats);
+  const expectedTitle = "New Zealand's Open Access Research Performance";
+
   expect(document.title).toBe("COKI: New Zealand");
   expect(document.body.querySelector("meta[name='description']").content).toBe(description);
+
+  // For sharing cards to Twitter
   expect(document.body.querySelector("meta[name='twitter:card']").content).toBe("summary_large_image");
   expect(document.body.querySelector("meta[name='twitter:site']").content).toBe("@COKIproject");
-  expect(document.body.querySelector("meta[name='twitter:image']").content).toBe(makeTwitterImageUrl(entity.id));
-  expect(document.body.querySelector("meta[name='twitter:title']").content).toBe(
-    "New Zealand's Open Access Research Performance",
-  );
+  expect(document.body.querySelector("meta[name='twitter:image']").content).toBe(makeShareImageUrl(entity.id));
+  expect(document.body.querySelector("meta[name='twitter:title']").content).toBe(expectedTitle);
   expect(document.body.querySelector("meta[name='twitter:description']").content).toBe(description);
   expect(document.body.querySelector("meta[name='twitter:image:alt']").content).toBe(description);
+
+  // For sharing cards to Facebook and LinkedIn
+  expect(document.body.querySelector("meta[name='og:title']").content).toBe(expectedTitle);
+  expect(document.body.querySelector("meta[name='og:image']").content).toBe(makeShareImageUrl(entity.id));
+  expect(document.body.querySelector("meta[name='og:description']").content).toBe(makeShareImageUrl(entity.id));
+  expect(document.body.querySelector("meta[name='og:url']").content).toBe(description);
 });
