@@ -99,6 +99,8 @@ it("EntityDetails component renders Head metadata", () => {
     asPath: "/",
   }));
 
+  const pageUrl = `${process.env.NEXT_PUBLIC_HOST}${useRouter().asPath}`;
+
   render(<EntityDetails entity={entity} stats={stats} />);
   const description = makePageDescription(entity, stats);
   const expectedTitle = "New Zealand's Open Access Research Performance";
@@ -115,8 +117,8 @@ it("EntityDetails component renders Head metadata", () => {
   expect(document.body.querySelector("meta[name='twitter:image:alt']").content).toBe(description);
 
   // For sharing cards to Facebook and LinkedIn
-  expect(document.body.querySelector("meta[name='og:title']").content).toBe(expectedTitle);
-  expect(document.body.querySelector("meta[name='og:image']").content).toBe(makeShareImageUrl(entity.id));
-  expect(document.body.querySelector("meta[name='og:description']").content).toBe(makeShareImageUrl(entity.id));
-  expect(document.body.querySelector("meta[name='og:url']").content).toBe(description);
+  expect(document.body.querySelector("meta[property='og:title']").content).toBe(expectedTitle);
+  expect(document.body.querySelector("meta[property='og:image']").content).toBe(makeShareImageUrl(entity.id));
+  expect(document.body.querySelector("meta[property='og:description']").content).toBe(description);
+  expect(document.body.querySelector("meta[property='og:url']").content).toBe(pageUrl);
 });

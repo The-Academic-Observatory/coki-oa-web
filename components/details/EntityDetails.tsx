@@ -91,7 +91,7 @@ export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) =>
         {/* Facebook and LinkedIn card metadata, uses the same twitter card */}
         <meta property="og:title" content={shareTitle} />
         <meta property="og:image" content={shareImage} />
-        <meta name="og:description" content={pageDescription} />
+        <meta property="og:description" content={pageDescription} />
         <meta property="og:url" content={pageUrl} />
       </Head>
 
