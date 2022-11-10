@@ -73,14 +73,19 @@ const BreakdownSparkline = ({ values, colors, width, height, labels, ...rest }: 
     );
   }
 
+  // The text included below is for the Google results of the website.
+  // The rect is only rendered in the svg, only the text should appear
+  // in the Google search results.
+
   return (
     <Box {...rest}>
       <svg width={width} height={height} viewBox={viewBox.join(" ")} preserveAspectRatio="none">
-        return (
         {rects.map((rect, i) => (
-          <rect key={i} x={rect.x} width={rect.width} height={height} fill={rect.color} />
+          <>
+            <Text>{Math.round(rect.width)}%, </Text>
+            <rect key={i} x={rect.x} width={rect.width} height={height} fill={rect.color} />
+          </>
         ))}
-        )
       </svg>
       {element}
     </Box>
