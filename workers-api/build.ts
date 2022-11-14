@@ -1,10 +1,9 @@
 //@ts-ignore
 import path from "path";
-//@ts-ignore
 import { fileURLToPath } from "url";
 import { build } from "esbuild";
 import { saveIndexToFile } from "./src/searchIndex.js";
-import { generateSQL } from "./src/database.js";
+import { saveSQLToFile } from "./src/database.js";
 
 //@ts-ignore
 const __filename = fileURLToPath(import.meta.url);
@@ -19,9 +18,8 @@ try {
   await saveIndexToFile(countryPath, institutionPath, "public/flexsearchIndex.json.gz");
 
   // Generate the SQL for the Cloudflare D1 database
-  generateSQL(countryPath, institutionPath, "../latest/data/db.sql");
+  saveSQLToFile(countryPath, institutionPath, "../latest/data/db.sql");
 } catch {
-  //@ts-ignore
   process.exitCode = 1;
 }
 
@@ -37,9 +35,8 @@ try {
     entryPoints: [path.join(__dirname, "src", "index.ts")],
     outdir: path.join(__dirname, "dist"),
     outExtension: { ".js": ".mjs" },
-    // minify: true,
+    minify: true,
   });
 } catch {
-  //@ts-ignore
   process.exitCode = 1;
 }

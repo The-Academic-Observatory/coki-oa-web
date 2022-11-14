@@ -14,8 +14,8 @@
 //
 // Author: James Diprose
 
-import { Dict, Entity, Query } from "@/types";
-//@ts-ignore
+import { Dict, Entity, Query, QueryResult } from "@/types";
+
 import fs from "fs";
 
 const SCHEMA = `
@@ -71,10 +71,10 @@ CREATE TABLE institution_institution_type (
 );
 `;
 
-export function generateSQL(countryPath: string, institutionPath: string, outputPath: string) {
+export function saveSQLToFile(countryPath: string, institutionPath: string, outputPath: string) {
   // Generate the SQL for the database
-  const countries: Array<Entity> = JSON.parse(fs.readFileSync(countryPath));
-  const institutions: Array<Entity> = JSON.parse(fs.readFileSync(institutionPath));
+  const countries: Array<Entity> = JSON.parse(fs.readFileSync(countryPath, "utf8"));
+  const institutions: Array<Entity> = JSON.parse(fs.readFileSync(institutionPath, "utf8"));
 
   // Add schema
   const rows = [SCHEMA];
@@ -179,10 +179,11 @@ function makeTemplateParams(n: number) {
   return Array(n).fill("?").join(",");
 }
 
-export async function selectEntities(db: D1Database, ids: Array<number>) {
+export async function selectEntities(db: D1Database, ids: Array<number>): Promise<Array<Entity>> {
   // Create query
   const paramsTemplate = makeTemplateParams(ids.length);
   const idsAll = ids.concat(ids);
+  // Have to explicitly set column names to ensure the same number of columns because of the UNION: SqliteError SELECTs to the left and right of UNION do not have the same number of result columns
   const countryColumns = `id, entity_id, name, 'country' AS category, logo_s, subregion, region, n_outputs, n_outputs_open, p_outputs_open, p_outputs_publisher_open_only, p_outputs_both, p_outputs_other_platform_open_only, p_outputs_closed`;
   const institutionColumns = `id, entity_id, name, 'institution' AS category, logo_s, subregion, region, n_outputs, n_outputs_open, p_outputs_open, p_outputs_publisher_open_only, p_outputs_both, p_outputs_other_platform_open_only, p_outputs_closed`;
   const query = `SELECT ${countryColumns} FROM country WHERE country.id in (${paramsTemplate}) UNION SELECT ${institutionColumns} FROM institution WHERE institution.id in (${paramsTemplate}) `;
@@ -209,7 +210,7 @@ export async function selectEntities(db: D1Database, ids: Array<number>) {
 const VALID_CATEGORIES = new Set(["country", "institution"]);
 const VALID_ORDER_BY = new Set(["name", "n_outputs", "n_outputs_open", "p_outputs_open"]);
 
-export async function filterEntities(db: D1Database, query: Query) {
+export async function filterEntities(db: D1Database, query: Query): Promise<QueryResult> {
   // Validate parameters that are string substituted without using .bind
   if (!VALID_CATEGORIES.has(query.category)) {
     const msg = `filterResults: invalid category ${query.category}`;
@@ -224,7 +225,7 @@ export async function filterEntities(db: D1Database, query: Query) {
 
   // Build query
   const sql = [
-    `SELECT * FROM ${query.category} INNER JOIN (SELECT ${query.category}.id, COUNT(*) OVER() AS total_rows FROM ${query.category}`,
+    `SELECT *, '${query.category}' AS category FROM ${query.category} INNER JOIN (SELECT ${query.category}.id, COUNT(*) OVER() AS total_rows FROM ${query.category}`,
   ];
   let params: Array<any> = [];
 
@@ -310,7 +311,6 @@ export async function filterEntities(db: D1Database, query: Query) {
 
   // Run query
   const queryString = sql.join(" ");
-  console.log(queryString);
   const stmt = db.prepare(queryString).bind(...params);
   const { results } = await stmt.all();
 
@@ -334,90 +334,3 @@ export async function filterEntities(db: D1Database, query: Query) {
     orderDir: query.orderDir,
   };
 }
-
-//`;
-//
-// // Filtering functions
-// export async function filterResults(query: Query) {
-//   // TODO: separate query into an interface, where D1 or PlanetScale could be used
-//   // TODO: get total results
-//
-//   // Build query
-//   const sql = [
-//     `SELECT * FROM ${query.category} INNER JOIN (SELECT id, COUNT(*) OVER() AS total_rows FROM ${query.category} WHERE TRUE`,
-//   ];
-//   let params: Array<any> = [];
-//
-//   if (query.ids.size) {
-//     // Fetch specific entities
-//     sql.push(`AND entity_id IN (${makeTemplateParams(query.ids.size)})`);
-//     params = params.concat(Array.from(query.ids));
-//   } else {
-//     // Include if regions parameter specified and matches
-//     if (query.regions.size) {
-//       sql.push(`AND region IN (${makeTemplateParams(query.regions.size)})`);
-//       params = params.concat(Array.from(query.regions));
-//     }
-//
-//     // Include if subregions parameter specified and matches
-//     if (query.subregions.size) {
-//       sql.push(`AND subregion IN (${makeTemplateParams(query.subregions.size)})`);
-//       params = params.concat(Array.from(query.subregions));
-//     }
-//
-//     // Include if countries parameter specified and matches: institution by country filter
-//     // TODO: filter institutions by country (think this is done)
-//     // if (query.countries.size) {
-//     //   sql.push(SqlString.format("AND country IN (?)", [Array.from(query.countries)]));
-//     // }
-//
-//     // TODO: Check if any institutionTypes match types in entity.institution_types
-//
-//     // Include if n_outputs is between filter values
-//     sql.push("AND n_outputs BETWEEN ? AND ?");
-//     params = params.concat([query.minNOutputs, query.maxNOutputs]);
-//
-//     // Include if n_outputs_open is between filter values
-//     sql.push("AND n_outputs_open BETWEEN ? AND ?");
-//     params = params.concat([query.minNOutputsOpen, query.maxNOutputsOpen]);
-//
-//     // Include if p_outputs_open is between filter values
-//     sql.push("AND p_outputs_open BETWEEN ? AND ?");
-//     params = params.concat([query.minPOutputsOpen, query.maxPOutputsOpen]);
-//   }
-//
-//   // Order by
-//   let orderBy = SqlString.format("ORDER BY ?? ASC", [query.orderBy]); // Escape id
-//   if (query.orderDir === "dsc") {
-//     orderBy = SqlString.format("ORDER BY ?? DESC", [query.orderBy]); // Escape id
-//   }
-//   sql.push(orderBy);
-//
-//   // Limit and offset
-//   const limit = query.limit;
-//   const offset = query.page * query.limit;
-//   sql.push(SqlString.format("LIMIT ? OFFSET ?", [limit, offset]));
-//
-//   // Outer query
-//   sql.push(") AS subset ON entity.id = subset.id");
-//   sql.push(orderBy);
-//
-//   // Run query
-//   const sql_str = sql.join(" ");
-//   console.log(sql_str);
-//   const conn = client.connection();
-//   const response = await conn.execute(sql_str);
-//
-//   // Parse results
-//   const entities: Array<Entity> = tableRowsToEntities(response.rows);
-//
-//   // Make final search object
-//   return {
-//     items: entities,
-//     nItems: 100,
-//     page: query.page,
-//     limit: query.limit,
-//     orderBy: query.orderBy,
-//     orderDir: query.orderDir,
-//   };
-// }

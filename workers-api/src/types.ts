@@ -14,7 +14,8 @@
 //
 // Author: James Diprose
 
-import { Request, Obj } from "itty-router";
+import { Obj, Request } from "itty-router";
+import { Limit, SearchOptions } from "flexsearch";
 
 export interface Entity extends Object {
   id: string;
@@ -104,6 +105,22 @@ export interface FilterQuery {
   maxPOutputsOpen?: string;
 }
 
+export interface QueryResult {
+  items: Array<Entity>;
+  nItems: number;
+  page: number;
+  limit: number;
+  orderBy: string;
+  orderDir: string;
+}
+
 export interface Dict<T> {
   [key: string]: T;
+}
+
+export interface FlexSearchIndex {
+  add(id: number, item: string): this;
+  search(query: string, options?: Limit | SearchOptions): Array<number>;
+  export(handler: (key: string, value: string) => void): Promise<void>;
+  import(key: string, item: Object): Promise<void>;
 }

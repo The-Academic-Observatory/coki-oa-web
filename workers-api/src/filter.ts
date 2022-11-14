@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { Entity, FilterRequest, Query, Dict } from "./types";
+import { FilterRequest, Query } from "./types";
 import { filterEntities } from "@/database";
 
 const minLimit = 1;
@@ -86,7 +86,6 @@ export const parseFilterRequest = (filterRequest: FilterRequest): Query => {
 export const filterEntitiesHandler = async (req: FilterRequest, env: Bindings, ctx: ExecutionContext) => {
   // Parse query
   const query = parseFilterRequest(req);
-  console.log(query);
 
   // Run query
   const results = await filterEntities(env.DB, query);

@@ -14,16 +14,14 @@
 //
 // Author: James Diprose
 
-//@ts-ignore
 import fs from "fs";
-import { Entity } from "./types";
+import { Entity, FlexSearchIndex } from "./types";
 import flexsearch from "flexsearch";
 import pako from "pako";
 
 const { Index } = flexsearch;
 
-//@ts-ignore
-export function indexEntities(index, data: Array<Entity>) {
+export function indexEntities(index: FlexSearchIndex, data: Array<Entity>) {
   data.forEach((entity: Entity, i: number) => {
     let acronyms = new Array<string>();
     if (entity.acronyms !== undefined) {
@@ -42,14 +40,13 @@ export function indexEntities(index, data: Array<Entity>) {
   });
 }
 
-//@ts-ignore
-export function exportIndex(index): Promise<Array<Array<Object>>> {
+export function exportIndex(index: FlexSearchIndex): Promise<Array<Array<Object>>> {
   const expectedNumIndexes = 4; // Assumes that there are four types of index to export
   return new Promise((resolve, _) => {
     let ex: Array<Array<Object>> = [];
-    index.export((key: string, data: string) => {
+    index.export((key: string, value: string) => {
       const parts = `${key}`.split(".");
-      ex.push([parts[parts.length - 1], JSON.parse(data)]);
+      ex.push([parts[parts.length - 1], JSON.parse(value)]);
       if (ex.length >= expectedNumIndexes) {
         resolve(ex);
       }
@@ -62,10 +59,9 @@ export async function saveIndexToFile(countryPath: string, institutionPath: stri
   const index = new Index({
     language: "en",
     tokenize: "forward",
-  });
-  // @ts-ignore
-  let entities = JSON.parse(fs.readFileSync(countryPath));
-  entities = entities.concat(JSON.parse(fs.readFileSync(institutionPath)));
+  }) as FlexSearchIndex;
+  let entities = JSON.parse(fs.readFileSync(countryPath, "utf8"));
+  entities = entities.concat(JSON.parse(fs.readFileSync(institutionPath, "utf8")));
   indexEntities(index, entities);
 
   // Export index
@@ -79,12 +75,10 @@ export async function saveIndexToFile(countryPath: string, institutionPath: stri
   fs.writeFileSync(outputPath, buffer);
 }
 
-//@ts-ignore
-export async function importIndex(index, data: Array<Array<Object>>) {
+export async function importIndex(index: FlexSearchIndex, data: Array<Array<Object>>) {
   for (let i = 0; i < data.length; i++) {
     let key = data[i][0] as string;
     let value = data[i][1] as Object;
-    //@ts-ignore
     await index.import(key, value);
   }
 }

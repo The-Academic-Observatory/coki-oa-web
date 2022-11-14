@@ -48,7 +48,7 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
   // Create tags
   let tags = [];
   if (entity.category === "institution") {
-    tags.push(entity.country);
+    tags.push(entity.country_name);
     tags = tags.concat(entity.institution_types);
   } else {
     tags.push(entity.subregion);

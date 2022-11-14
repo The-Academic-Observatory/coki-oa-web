@@ -15,7 +15,7 @@
 // Author: James Diprose
 
 import pako from "pako";
-import { SearchRequest } from "./types";
+import { SearchRequest, FlexSearchIndex } from "./types";
 import { importIndex } from "./searchIndex";
 import flexsearch from "flexsearch";
 import { selectEntities } from "@/database";
@@ -27,13 +27,12 @@ const flexSearchIndexKVKey = "flexsearchIndex.json.gz";
 export const searchIndex = new Index({
   language: "en",
   tokenize: "forward",
-});
+}) as FlexSearchIndex;
 
 const minLimit = 1;
 const maxLimit = 20;
 
-//@ts-ignore
-export const search = async (db: D1Database, index, text: string, limit: number) => {
+export const search = async (db: D1Database, index: FlexSearchIndex, text: string, limit: number) => {
   // Search index
   const ids = index.search(text, limit);
 

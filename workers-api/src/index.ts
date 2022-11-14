@@ -35,10 +35,7 @@ export async function fetchData(request: Request, env: Bindings, ctx: ExecutionC
 
     if (response?.status === 200) {
       // If 200 code then cache response, else return error
-      //@ts-ignore
       response.headers.append("Cache-Control", `s-maxage=${maxAge}`);
-
-      // @ts-ignore
       ctx.waitUntil(cache.put(cacheKey, response.clone()));
     }
   }
