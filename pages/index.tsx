@@ -231,16 +231,35 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
     onClose: onCloseFilterInstitution,
   } = useDisclosure();
 
+  const cokiDescription =
+    "How Open is Academia? See how well your university or country performs at open access publishing.";
+  const cokiTile = "COKI: Open Access Dashboard";
+  const cokiPage = `${process.env.NEXT_PUBLIC_HOST}`; // Get URL of current route
+  //TODO: Generate the homepage card with padding to make it look nicer.
+  const cokiLogoShareCard = `${process.env.NEXT_PUBLIC_HOST}/logo-sharecard.webp`;
+
   return (
     <Box m={{ base: 0, md: "25px 25px 90px", std: "25px 40px 90px" }}>
       <PageLoader isLoading={isLoadingCountry || isLoadingInstitution} />
 
       <Head>
         <title>COKI: Open Access Dashboard</title>
-        <meta
-          name="description"
-          content="How Open is Academia? See how well your university or country performs at open access publishing."
-        />
+        <meta name="description" content={cokiDescription} />
+
+        {/* Twitter card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@COKIproject" />
+        <meta name="twitter:title" content={cokiTile} />
+        <meta name="twitter:description" content={cokiDescription} />
+        <meta name="twitter:image" content={cokiLogoShareCard} />
+        <meta name="twitter:image:alt" content={cokiDescription} />
+
+        {/* Facebook and LinkedIn share cards */}
+        <meta property="og:title" content={cokiTile} />
+        <meta property="og:image" content={cokiLogoShareCard} />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content={cokiDescription} />
+        <meta property="og:url" content={cokiPage} />
       </Head>
 
       <Breadcrumbs
