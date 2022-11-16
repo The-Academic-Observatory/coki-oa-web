@@ -49,7 +49,7 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
   let tags = [];
   if (entity.category === "institution") {
     tags.push(entity.country_name);
-    tags = tags.concat(entity.institution_types);
+    tags.push(entity.institution_type);
   } else {
     tags.push(entity.subregion);
     tags.push(entity.region);
@@ -70,18 +70,18 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
             <MetadataLink icon="download" name="Download" href="/data/" />
           </Flex>
 
-          <Flex w="full" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
-            {entity.identifiers.map((obj: any) => {
-              return (
-                <Text key={obj.id} textStyle="entityID">
-                  {obj.type}:{" "}
-                  <Text as="span" textStyle="entityBold">
-                    {obj.id}
-                  </Text>
-                </Text>
-              );
-            })}
-          </Flex>
+          {/*<Flex w="full" flexDirection="row" flexWrap="wrap" justifyContent="space-between">*/}
+          {/*  {entity.identifiers.map((obj: any) => {*/}
+          {/*    return (*/}
+          {/*      <Text key={obj.id} textStyle="entityID">*/}
+          {/*        {obj.type}:{" "}*/}
+          {/*        <Text as="span" textStyle="entityBold">*/}
+          {/*          {obj.id}*/}
+          {/*        </Text>*/}
+          {/*      </Text>*/}
+          {/*    );*/}
+          {/*  })}*/}
+          {/*</Flex>*/}
         </VStack>
       </Box>
     );

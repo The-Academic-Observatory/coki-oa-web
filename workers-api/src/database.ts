@@ -14,9 +14,9 @@
 //
 // Author: James Diprose
 
-import { Dict, Entity, Query, QueryResult } from "@/types";
-
 import fs from "fs";
+import path from "path";
+import { Dict, Entity, Query, QueryResult } from "@/types";
 
 const SCHEMA = `
 DROP TABLE IF EXISTS institution_institution_type;
@@ -46,9 +46,10 @@ CREATE TABLE institution (
     entity_id varchar(255) NOT NULL,
     name varchar(255) NOT NULL,
     logo_s varchar(255) NOT NULL,
-    country_id INTEGER NOT NULL,
     subregion varchar(255) NOT NULL,
     region varchar(255) NOT NULL,
+    country_id INTEGER NOT NULL,
+    institution_type varchar(255),
     n_outputs INT NOT NULL,
     n_outputs_open INT NOT NULL,
     p_outputs_open FLOAT NOT NULL,
@@ -60,21 +61,16 @@ CREATE TABLE institution (
     PRIMARY KEY (id),
     FOREIGN KEY (country_id) REFERENCES country(id)
 );
-
-CREATE TABLE institution_institution_type (
-    id INTEGER NOT NULL,
-    institution_type varchar(255) NOT NULL,
-    
-    PRIMARY KEY (id, institution_type),
-    UNIQUE (id, institution_type),
-    FOREIGN KEY (id) REFERENCES institution(id)
-);
 `;
 
-export function saveSQLToFile(countryPath: string, institutionPath: string, outputPath: string) {
+function loadEntityIndex(filePath: string): Array<Entity> {
+  return JSON.parse(fs.readFileSync(filePath, "utf8"));
+}
+
+export function saveSQLToFile(dataPath: string, outputPath: string) {
   // Generate the SQL for the database
-  const countries: Array<Entity> = JSON.parse(fs.readFileSync(countryPath, "utf8"));
-  const institutions: Array<Entity> = JSON.parse(fs.readFileSync(institutionPath, "utf8"));
+  const countries: Array<Entity> = loadEntityIndex(path.join(dataPath, "country.json"));
+  const institutions: Array<Entity> = loadEntityIndex(path.join(dataPath, "institution.json"));
 
   // Add schema
   const rows = [SCHEMA];
@@ -97,7 +93,7 @@ export function saveSQLToFile(countryPath: string, institutionPath: string, outp
   // Generate institution SQL
   rows.push("");
   rows.push(
-    "INSERT INTO institution (id, entity_id, name, logo_s, country_id, subregion, region, n_outputs, n_outputs_open, p_outputs_open, p_outputs_publisher_open_only, p_outputs_both, p_outputs_other_platform_open_only, p_outputs_closed)",
+    "INSERT INTO institution (id, entity_id, name, logo_s, subregion, region, country_id, institution_type, n_outputs, n_outputs_open, p_outputs_open, p_outputs_publisher_open_only, p_outputs_both, p_outputs_other_platform_open_only, p_outputs_closed)",
   );
   rows.push("VALUES");
   institutions.forEach((entity, i) => {
@@ -108,20 +104,8 @@ export function saveSQLToFile(countryPath: string, institutionPath: string, outp
     }
     const countryId = countryMap.get(entity.country_code);
     rows.push(
-      `(${id}, '${entity.id}', '${name}', '${entity.logo_s}', ${countryId}, '${entity.subregion}', '${entity.region}', ${entity.stats.n_outputs}, ${entity.stats.n_outputs_open}, ${entity.stats.p_outputs_open}, ${entity.stats.p_outputs_publisher_open_only}, ${entity.stats.p_outputs_both}, ${entity.stats.p_outputs_other_platform_open_only}, ${entity.stats.p_outputs_closed}),`,
+      `(${id}, '${entity.id}', '${name}', '${entity.logo_s}', '${entity.subregion}', '${entity.region}', ${countryId}, '${entity.institution_type}', ${entity.stats.n_outputs}, ${entity.stats.n_outputs_open}, ${entity.stats.p_outputs_open}, ${entity.stats.p_outputs_publisher_open_only}, ${entity.stats.p_outputs_both}, ${entity.stats.p_outputs_other_platform_open_only}, ${entity.stats.p_outputs_closed}),`,
     );
-  });
-  rows[rows.length - 1] = `${rows[rows.length - 1].slice(0, -1)};`;
-
-  // Generate institution_institution_type SQL
-  rows.push("");
-  rows.push("INSERT INTO institution_institution_type (id, institution_type)");
-  rows.push("VALUES");
-  institutions.forEach((entity, i) => {
-    const id = countries.length + i;
-    entity.institution_types?.forEach((institution_type) => {
-      rows.push(`(${id}, '${institution_type}'),`);
-    });
   });
   rows[rows.length - 1] = `${rows[rows.length - 1].slice(0, -1)};`;
 
@@ -130,6 +114,18 @@ export function saveSQLToFile(countryPath: string, institutionPath: string, outp
   fs.writeFileSync(outputPath, sql);
 }
 
+const PROPERTIES_TO_DELETE = [
+  "entity_id",
+  "n_outputs",
+  "n_outputs_open",
+  "p_outputs_open",
+  "p_outputs_publisher_open_only",
+  "p_outputs_both",
+  "p_outputs_other_platform_open_only",
+  "p_outputs_closed",
+  "total_rows",
+];
+
 export function rowsToEntities(rows: Array<Dict<any>>): Array<Entity> {
   const entities: Array<Entity> = [];
   for (let i = 0; i < rows.length; i++) {
@@ -137,7 +133,6 @@ export function rowsToEntities(rows: Array<Dict<any>>): Array<Entity> {
 
     // Set id
     row["id"] = row["entity_id"];
-    delete row.entity_id;
 
     // Nest the stats object
     row["stats"] = {
@@ -150,23 +145,16 @@ export function rowsToEntities(rows: Array<Dict<any>>): Array<Entity> {
       p_outputs_closed: row["p_outputs_closed"],
     };
 
-    // Delete the unnested properties
-    delete row.n_outputs;
-    delete row.n_outputs_open;
-    delete row.p_outputs_open;
-    delete row.p_outputs_publisher_open_only;
-    delete row.p_outputs_both;
-    delete row.p_outputs_other_platform_open_only;
-    delete row.p_outputs_closed;
-
-    // Delete total rows
-    if (row.total_rows !== undefined) {
-      delete row.total_rows;
+    // Delete unused properties
+    const properties = PROPERTIES_TO_DELETE;
+    if (row.category === "country") {
+      properties.push(...["country_code", "country_name", "institution_type"]);
     }
-
-    // Delete country id
-    if (row.country_id !== undefined) {
-      delete row.country_id;
+    for (let j = 0; j < properties.length; j++) {
+      const property = properties[j];
+      if (row[property] !== undefined) {
+        delete row[property];
+      }
     }
 
     entities.push(row as Entity);
@@ -179,16 +167,29 @@ function makeTemplateParams(n: number) {
   return Array(n).fill("?").join(",");
 }
 
+const COUNTRY_COLUMNS =
+  "country.id, country.entity_id, country.name, 'country' AS category, country.logo_s, country.subregion, country.region, country.n_outputs, country.n_outputs_open, country.p_outputs_open, country.p_outputs_publisher_open_only, country.p_outputs_both, country.p_outputs_other_platform_open_only, country.p_outputs_closed";
+const INSTITUTION_COLUMNS =
+  "institution.id, institution.entity_id, institution.name, 'institution' AS category, institution.logo_s, institution.subregion, institution.region, country.entity_id AS country_code, country.name as country_name, institution.institution_type, institution.n_outputs, institution.n_outputs_open, institution.p_outputs_open, institution.p_outputs_publisher_open_only, institution.p_outputs_both, institution.p_outputs_other_platform_open_only, institution.p_outputs_closed";
+
 export async function selectEntities(db: D1Database, ids: Array<number>): Promise<Array<Entity>> {
   // Create query
   const paramsTemplate = makeTemplateParams(ids.length);
   const idsAll = ids.concat(ids);
+
   // Have to explicitly set column names to ensure the same number of columns because of the UNION: SqliteError SELECTs to the left and right of UNION do not have the same number of result columns
-  const countryColumns = `id, entity_id, name, 'country' AS category, logo_s, subregion, region, n_outputs, n_outputs_open, p_outputs_open, p_outputs_publisher_open_only, p_outputs_both, p_outputs_other_platform_open_only, p_outputs_closed`;
-  const institutionColumns = `id, entity_id, name, 'institution' AS category, logo_s, subregion, region, n_outputs, n_outputs_open, p_outputs_open, p_outputs_publisher_open_only, p_outputs_both, p_outputs_other_platform_open_only, p_outputs_closed`;
-  const query = `SELECT ${countryColumns} FROM country WHERE country.id in (${paramsTemplate}) UNION SELECT ${institutionColumns} FROM institution WHERE institution.id in (${paramsTemplate}) `;
+  const sql = [];
+  sql.push(`SELECT ${COUNTRY_COLUMNS}, NULL AS country_code, NULL AS country_name, NULL AS institution_type`);
+  sql.push("FROM country");
+  sql.push(`WHERE country.id in (${paramsTemplate})`);
+  sql.push("UNION");
+  sql.push(`SELECT ${INSTITUTION_COLUMNS}`);
+  sql.push("FROM institution");
+  sql.push("LEFT JOIN country ON country.id = institution.country_id");
+  sql.push(`WHERE institution.id in (${paramsTemplate})`);
 
   // Run query
+  const query = sql.join("\n");
   const stmt = db.prepare(query).bind(...idsAll);
   const { results } = await stmt.all();
 
@@ -224,21 +225,28 @@ export async function filterEntities(db: D1Database, query: Query): Promise<Quer
   }
 
   // Build query
-  const sql = [
-    `SELECT *, '${query.category}' AS category FROM ${query.category} INNER JOIN (SELECT ${query.category}.id, COUNT(*) OVER() AS total_rows FROM ${query.category}`,
-  ];
-  let params: Array<any> = [];
+  const sql = [];
+  const params: Array<any> = [];
+
+  // Select specific columns
+  if (query.category === "country") {
+    sql.push(`SELECT ${COUNTRY_COLUMNS}, total_rows`);
+  } else {
+    sql.push(`SELECT ${INSTITUTION_COLUMNS}, total_rows`);
+  }
+  sql.push(`FROM ${query.category}`);
+  sql.push(`INNER JOIN (SELECT ${query.category}.id, COUNT(*) OVER() AS total_rows`);
+  sql.push(`FROM ${query.category}`);
 
   if (query.ids.size) {
     // Fetch specific entities
     sql.push("WHERE");
     sql.push(`${query.category}.entity_id IN (${makeTemplateParams(query.ids.size)})`);
-    params = params.concat(Array.from(query.ids));
+    params.push(...Array.from(query.ids));
   } else {
     // Join other tables for institution filtering
     if (query.category === "institution") {
       sql.push("LEFT JOIN country ON institution.country_id = country.id");
-      sql.push("LEFT JOIN institution_institution_type ON institution.id = institution_institution_type.id");
     }
 
     // Setup where statement
@@ -247,13 +255,13 @@ export async function filterEntities(db: D1Database, query: Query): Promise<Quer
     // Include if regions parameter specified and matches
     if (query.regions.size) {
       sql.push(`AND ${query.category}.region IN (${makeTemplateParams(query.regions.size)})`);
-      params = params.concat(Array.from(query.regions));
+      params.push(...Array.from(query.regions));
     }
 
     // Include if subregions parameter specified and matches
     if (query.subregions.size) {
       sql.push(`AND ${query.category}.subregion IN (${makeTemplateParams(query.subregions.size)})`);
-      params = params.concat(Array.from(query.subregions));
+      params.push(...Array.from(query.subregions));
     }
 
     // Institution specific filtering
@@ -261,15 +269,13 @@ export async function filterEntities(db: D1Database, query: Query): Promise<Quer
       // Search for institutions in particular countries
       if (query.countries.size) {
         sql.push(`AND country.country_code IN (${makeTemplateParams(query.countries.size)})`);
-        params = params.concat(Array.from(query.countries));
+        params.push(...Array.from(query.countries));
       }
 
       // Search for institutions with a specific institution type
       if (query.institutionTypes.size) {
-        sql.push(
-          `AND institution_institution_type.institution_type IN (${makeTemplateParams(query.institutionTypes.size)})`,
-        );
-        params = params.concat(Array.from(query.institutionTypes));
+        sql.push(`AND ${query.category}.institution_type IN (${makeTemplateParams(query.institutionTypes.size)})`);
+        params.push(...Array.from(query.institutionTypes));
       }
     }
 
@@ -307,10 +313,15 @@ export async function filterEntities(db: D1Database, query: Query): Promise<Quer
 
   // Outer query
   sql.push(`) AS subset ON subset.id = ${query.category}.id`);
+  if (query.category == "institution") {
+    // If institution join with country table to get country entity id and name
+    sql.push("LEFT JOIN country ON country.id = institution.country_id");
+  }
   sql.push(orderBy);
 
   // Run query
-  const queryString = sql.join(" ");
+  const queryString = sql.join("\n");
+  console.log(queryString);
   const stmt = db.prepare(queryString).bind(...params);
   const { results } = await stmt.all();
 

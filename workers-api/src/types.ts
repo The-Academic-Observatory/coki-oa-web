@@ -26,7 +26,7 @@ export interface Entity extends Object {
   subregion: string;
   country_code?: string;
   country_name?: string;
-  institution_types?: Array<string>;
+  institution_type?: string;
   acronyms?: Array<string>;
   stats: {
     n_outputs: number;

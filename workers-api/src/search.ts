@@ -14,23 +14,23 @@
 //
 // Author: James Diprose
 
-import pako from "pako";
-import { SearchRequest, FlexSearchIndex } from "./types";
-import { importIndex } from "./searchIndex";
 import flexsearch from "flexsearch";
+import pako from "pako";
+import { SearchRequest, FlexSearchIndex } from "@/types";
+import { importIndex } from "@/searchIndex";
 import { selectEntities } from "@/database";
 
 const { Index } = flexsearch;
 
-let searchIndexLoaded = false;
-const flexSearchIndexKVKey = "flexsearchIndex.json.gz";
-export const searchIndex = new Index({
+let SEARCH_INDEX_LOADED = false;
+const FLEX_SEARCH_INDEX_KV_KEY = "flexsearchIndex.json.gz";
+const SEARCH_INDEX = new Index({
   language: "en",
   tokenize: "forward",
 }) as FlexSearchIndex;
 
-const minLimit = 1;
-const maxLimit = 20;
+const MIN_LIMIT = 1;
+const MAX_LIMIT = 20;
 
 export const search = async (db: D1Database, index: FlexSearchIndex, text: string, limit: number) => {
   // Search index
@@ -41,29 +41,29 @@ export const search = async (db: D1Database, index: FlexSearchIndex, text: strin
 };
 
 export const searchHandler = async (req: SearchRequest, env: Bindings, ctx: ExecutionContext) => {
-  if (searchIndexLoaded) {
+  if (SEARCH_INDEX_LOADED) {
     console.log("Using globally cached search index.");
   } else {
     console.log("Loading search index from KV storage into global memory.");
 
     // Fetch from KV
-    const data = await env.__STATIC_CONTENT.get(flexSearchIndexKVKey, { type: "arrayBuffer" });
+    const data = await env.__STATIC_CONTENT.get(FLEX_SEARCH_INDEX_KV_KEY, { type: "arrayBuffer" });
 
     if (data != null) {
       // Decompress file, convert to JSON and load into search index
       const flexSearchIndex = JSON.parse(pako.ungzip(data, { to: "string" }));
-      await importIndex(searchIndex, flexSearchIndex);
-      searchIndexLoaded = true;
+      await importIndex(SEARCH_INDEX, flexSearchIndex);
+      SEARCH_INDEX_LOADED = true;
     } else {
-      console.error(`searchHandler error: KV key ${flexSearchIndexKVKey} not found.`);
+      console.error(`searchHandler error: KV key ${FLEX_SEARCH_INDEX_KV_KEY} not found.`);
     }
   }
 
   // Parse parameters and search
   const text = decodeURIComponent(req.params.text);
-  let limit = parseInt(req.query.limit) || maxLimit;
-  limit = Math.max(Math.min(limit, maxLimit), minLimit);
-  const results = await search(env.DB, searchIndex, text, limit);
+  let limit = parseInt(req.query.limit) || MAX_LIMIT;
+  limit = Math.max(Math.min(limit, MAX_LIMIT), MIN_LIMIT);
+  const results = await search(env.DB, SEARCH_INDEX, text, limit);
 
   // Convert to JSON, returning results
   const json = JSON.stringify(results);

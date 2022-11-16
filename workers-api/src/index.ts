@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { handleRequest } from "./router";
+import { handleRequest } from "@/router";
 
 const maxAge = 604800; // cache data for 7 days
 
@@ -42,8 +42,6 @@ export async function fetchData(request: Request, env: Bindings, ctx: ExecutionC
 
   return response;
 }
-
-// https://github.com/cloudflare/miniflare/issues/239
 
 const worker: ExportedHandler<Bindings> = { fetch: fetchData };
 export default worker;

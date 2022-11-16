@@ -280,11 +280,11 @@ export default function Open({ stats }: Props) {
                 <Td>The name of the region the institution is located in.</Td>
               </Tr>
               <Tr>
-                <Td>institution_types</Td>
+                <Td>institution_type</Td>
                 <Td>List&#60;String&#62;</Td>
                 <Td>
-                  A list of institution types that apply to this institution. Each instance can be one of: Education,
-                  Healthcare, Company, Archive, Nonprofit, Government, Facility, Other.
+                  The type of institution. Can be one of: Education, Healthcare, Company, Archive, Nonprofit,
+                  Government, Facility, Other.
                 </Td>
               </Tr>
               <Tr>

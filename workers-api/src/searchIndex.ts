@@ -14,8 +14,9 @@
 //
 // Author: James Diprose
 
+import path from "path";
 import fs from "fs";
-import { Entity, FlexSearchIndex } from "./types";
+import { Entity, FlexSearchIndex } from "@/types";
 import flexsearch from "flexsearch";
 import pako from "pako";
 
@@ -23,12 +24,12 @@ const { Index } = flexsearch;
 
 export function indexEntities(index: FlexSearchIndex, data: Array<Entity>) {
   data.forEach((entity: Entity, i: number) => {
-    let acronyms = new Array<string>();
+    const acronyms = new Array<string>();
     if (entity.acronyms !== undefined) {
-      acronyms = entity.acronyms;
+      acronyms.push(...entity.acronyms);
     }
-    let keywords = [entity.name];
-    keywords = keywords.concat(acronyms.join(" "));
+    const keywords = [entity.name];
+    keywords.push(...acronyms.join(" "));
     if (entity.country_name !== undefined) {
       keywords.push(entity.country_name);
     }
@@ -43,7 +44,7 @@ export function indexEntities(index: FlexSearchIndex, data: Array<Entity>) {
 export function exportIndex(index: FlexSearchIndex): Promise<Array<Array<Object>>> {
   const expectedNumIndexes = 4; // Assumes that there are four types of index to export
   return new Promise((resolve, _) => {
-    let ex: Array<Array<Object>> = [];
+    const ex: Array<Array<Object>> = [];
     index.export((key: string, value: string) => {
       const parts = `${key}`.split(".");
       ex.push([parts[parts.length - 1], JSON.parse(value)]);
@@ -54,18 +55,27 @@ export function exportIndex(index: FlexSearchIndex): Promise<Array<Array<Object>
   });
 }
 
-export async function saveIndexToFile(countryPath: string, institutionPath: string, outputPath: string) {
+export function loadEntityIndexes(dataPath: string): Array<Entity> {
+  let entities: Array<Entity> = [];
+  ["country", "institution"].forEach((category: string) => {
+    const filePath = path.join(dataPath, `${category}.json`);
+    const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    entities.push(...data);
+  });
+  return entities;
+}
+
+export async function saveIndexToFile(dataPath: string, outputPath: string) {
   // Create index from scratch
   const index = new Index({
     language: "en",
     tokenize: "forward",
   }) as FlexSearchIndex;
-  let entities = JSON.parse(fs.readFileSync(countryPath, "utf8"));
-  entities = entities.concat(JSON.parse(fs.readFileSync(institutionPath, "utf8")));
+  const entities = loadEntityIndexes(dataPath);
   indexEntities(index, entities);
 
   // Export index
-  let exported = await exportIndex(index).then((data) => {
+  const exported = await exportIndex(index).then((data) => {
     return data;
   });
 
@@ -77,8 +87,8 @@ export async function saveIndexToFile(countryPath: string, institutionPath: stri
 
 export async function importIndex(index: FlexSearchIndex, data: Array<Array<Object>>) {
   for (let i = 0; i < data.length; i++) {
-    let key = data[i][0] as string;
-    let value = data[i][1] as Object;
+    const key = data[i][0] as string;
+    const value = data[i][1] as Object;
     await index.import(key, value);
   }
 }

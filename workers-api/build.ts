@@ -8,17 +8,15 @@ import { saveSQLToFile } from "./src/database.js";
 //@ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const DATA_PATH = "../latest/data";
 
 try {
-  const countryPath = "../latest/data/country.json";
-  const institutionPath = "../latest/data/institution.json";
-
   // Save FlexSearch index to a file
   // @ts-ignore
-  await saveIndexToFile(countryPath, institutionPath, "public/flexsearchIndex.json.gz");
+  await saveIndexToFile(DATA_PATH, "public/flexsearchIndex.json.gz");
 
   // Generate the SQL for the Cloudflare D1 database
-  saveSQLToFile(countryPath, institutionPath, "../latest/data/db.sql");
+  saveSQLToFile(DATA_PATH, "../latest/data/db.sql");
 } catch {
   process.exitCode = 1;
 }

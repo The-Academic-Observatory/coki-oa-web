@@ -26,13 +26,12 @@ export type Entity = {
   wikipedia_url: string;
   region: string;
   subregion: string;
-  country_code: string;
-  country_name: string;
-  institution_types: Array<string>;
+  country_code?: string;
+  country_name?: string;
+  institution_type?: string;
   start_year: number;
   end_year: number;
   stats: PublicationStats;
-  identifiers: Array<Identifier>;
   years: Array<Year>;
   repositories: Array<Repository>;
 };
@@ -83,11 +82,6 @@ export type PublicationStats = {
   p_outputs_institution: number;
   p_outputs_public: number;
   p_outputs_other_internet: number;
-};
-
-export type Identifier = {
-  id: string;
-  type: string;
 };
 
 export type Year = {

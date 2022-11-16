@@ -15,7 +15,7 @@
   "author": "Curtin University <coki@curtin.edu.au>",
   "license": "Apache 2.0",
   "resolutions": {
-    "miniflare": "^2.11.0"
+    "miniflare": "2.11.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.11.0",
@@ -30,14 +30,14 @@
     "better-sqlite3": "7.6.2",
     "deepcopy": "^2.1.0",
     "esbuild": "^0.14.41",
-    "jest": "^28.1.0",
-    "jest-environment-miniflare": "^2.11.0",
+    "jest": "^29.0.3",
+    "jest-environment-miniflare": "2.11.0",
     "jest-sorted": "^1.0.14",
+    "performance-now": "^2.1.0",
     "prettier": "^2.7.1",
-    "ts-jest": "^28.0.3",
+    "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
-    "typescript": "^4.7.2",
-    "wrangler": "^2.1.15"
+    "typescript": "^4.7.2"
   },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
@@ -48,5 +48,9 @@
     "lodash.set": "^4.3.2",
     "pako": "^2.0.4",
     "sqlstring": "^2.3.3"
+  },
+  "browser": {
+    "fs": false,
+    "path": false
   }
 }

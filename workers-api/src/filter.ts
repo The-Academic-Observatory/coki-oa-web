@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { FilterRequest, Query } from "./types";
+import { FilterRequest, Query } from "@/types";
 import { filterEntities } from "@/database";
 
 const minLimit = 1;
