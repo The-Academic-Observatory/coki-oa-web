@@ -23,6 +23,7 @@ import Popover from "./components/popover";
 import Slider from "./components/slider";
 import Table from "./components/table";
 import Tabs from "./components/tabs";
+import Text from "./components/text";
 import Modal from "./components/modal";
 import Progress from "./components/progress";
 import Menu from "./components/menu";
@@ -359,6 +360,7 @@ const theme = extendTheme({
     Slider,
     Table,
     Tabs,
+    Text,
     Popover,
     Progress,
     Modal,

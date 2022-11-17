@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: Aniek Roelofs, James Diprose
+// Author: Alex Massen-Hane, Aniek Roelofs, James Diprose
 
 const paddingLeft = "24px";
 
@@ -48,6 +48,37 @@ const Accordion = {
         borderBottomWidth: "1px",
         borderColor: "grey.500",
         p: 0,
+      },
+    },
+    hierarchicalCheckbox: {
+      button: {
+        p: "6px 0px",
+        pl: "25px",
+        bgColor: "grey.300",
+        _hover: {
+          boxShadow: "none",
+          bg: "grey.300",
+          color: "black",
+        },
+        _focus: {
+          boxShadow: "none",
+        },
+      },
+      container: {
+        border: "none",
+        borderTopWidth: "none",
+        borderBottomWidth: "none",
+        borderColor: "none",
+        p: 0,
+      },
+      panel: {
+        border: "none",
+        borderBottomWidth: "none",
+        borderColor: "none",
+        pl: "36px",
+        pb: "8px",
+        pr: 0,
+        pt: 0,
       },
     },
   },

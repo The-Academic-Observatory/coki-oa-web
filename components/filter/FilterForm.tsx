@@ -18,7 +18,7 @@ import React, { memo, useCallback } from "react";
 import { Accordion, Box, Button, HStack, IconButton, Text, useBreakpointValue } from "@chakra-ui/react";
 import { Form, FormikProvider, useFormik } from "formik";
 import Icon from "../common/Icon";
-import RegionRecursiveTreeFiltering from "./RegionRecursiveTreeFiltering";
+import HierarchicalCheckbox from "../common/HierarchicalCheckbox";
 import FilterAccordionItem from "./FilterAccordionItem";
 import { EntityStats } from "../../lib/model";
 import InstitutionTypeForm from "./InstitutionTypeForm";
@@ -28,6 +28,118 @@ import { useEffectAfterRender } from "../../lib/hooks";
 import lodashIsEqual from "lodash.isequal";
 
 const filterMaxWidth = 300;
+
+// Old Regions array still needs to be used for Formik and creating the QueryForm.
+export const regions: { [key: string]: Array<string> } = {
+  Africa: ["Northern Africa", "Sub-Saharan Africa"],
+  Americas: ["Latin America and the Caribbean", "Northern America"],
+  Asia: ["Central Asia", "Eastern Asia", "South-eastern Asia", "Southern Asia", "Western Asia"],
+  Europe: ["Eastern Europe", "Northern Europe", "Southern Europe", "Western Europe"],
+  Oceania: ["Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"],
+};
+
+// New regionsTree object that holds all the regions and subregions in a tree-like structure.
+export let regionsTree = [
+  {
+    type: "region",
+    text: "Africa",
+    children: [
+      {
+        type: "subregion",
+        text: "Northern Africa",
+      },
+      {
+        type: "subregion",
+        text: "Sub-Saharan Africa",
+      },
+    ],
+  },
+  {
+    level: 1,
+    type: "region",
+    text: "Americas",
+    children: [
+      {
+        type: "subregion",
+        text: "Latin America and the Caribbean",
+      },
+      {
+        type: "subregion",
+        text: "Northern America",
+      },
+    ],
+  },
+  {
+    type: "region",
+    text: "Asia",
+    children: [
+      {
+        type: "subregion",
+        text: "Central Asia",
+      },
+      {
+        type: "subregion",
+        text: "Eastern Asia",
+      },
+      {
+        type: "subregion",
+        text: "South-eastern Asia",
+      },
+      {
+        type: "subregion",
+        text: "Southern Asia",
+      },
+      {
+        type: "subregion",
+        text: "Western Asia",
+      },
+    ],
+  },
+  {
+    type: "region",
+    text: "Europe",
+    children: [
+      {
+        type: "subregion",
+        text: "Eastern Europe",
+      },
+      {
+        type: "subregion",
+        text: "Northern Europe",
+      },
+      {
+        type: "subregion",
+        text: "Southern Europe",
+      },
+      {
+        type: "subregion",
+        text: "Western Europe",
+      },
+    ],
+  },
+  {
+    type: "region",
+    text: "Oceania",
+    children: [
+      {
+        type: "subregion",
+        text: "Australia and New Zealand",
+      },
+      {
+        type: "subregion",
+        text: "Melanesia",
+      },
+      {
+        type: "subregion",
+        text: "Micronesia",
+      },
+      {
+        type: "subregion",
+        text: "Polynesia",
+      },
+    ],
+  },
+];
 
 export interface PageForm {
   page: number;
@@ -55,6 +167,7 @@ export interface QueryForm {
 
 interface FilterFormProps {
   category: string;
+  componentTestId: string;
   queryForm: QueryForm;
   setQueryForm: (q: QueryForm) => void;
   defaultQueryForm: QueryForm;
@@ -66,6 +179,7 @@ interface FilterFormProps {
 
 const FilterForm = ({
   category,
+  componentTestId,
   queryForm,
   setQueryForm,
   defaultQueryForm,
@@ -153,20 +267,20 @@ const FilterForm = ({
           </HStack>
 
           <Accordion allowMultiple variant="filterForm">
-            <FilterAccordionItem id="region-accordion-button" name="Region">
-              <RegionRecursiveTreeFiltering />
+            <FilterAccordionItem componentTestId={componentTestId} name="Region & Subregion">
+              <HierarchicalCheckbox treeObject={regionsTree} />
             </FilterAccordionItem>
           </Accordion>
 
           <Accordion allowMultiple variant="filterForm">
-            <FilterAccordionItem id="open-access-accordion-button" name="Open Access">
+            <FilterAccordionItem componentTestId={componentTestId} name="Open Access">
               <OpenAccessForm defaultOpenAccess={defaultQueryForm.openAccess} histograms={entityStats.histograms} />
             </FilterAccordionItem>
           </Accordion>
 
           {category === "institution" ? (
             <Accordion allowMultiple variant="filterForm">
-              <FilterAccordionItem id="institution-accordion-button" name="Institution Type">
+              <FilterAccordionItem componentTestId={componentTestId} name="Institution Type">
                 <InstitutionTypeForm />
               </FilterAccordionItem>
             </Accordion>
@@ -175,11 +289,17 @@ const FilterForm = ({
           )}
 
           <HStack justifyContent="space-around" p={{ base: "24px 0px", md: "14px 0px" }} bgColor="white">
-            <Button variant="solid" size={useBreakpointValue({ base: "md", md: "sm" })} type="submit">
+            <Button
+              data-test={`${componentTestId}.Apply`}
+              variant="solid"
+              size={useBreakpointValue({ base: "md", md: "sm" })}
+              type="submit"
+            >
               Apply
             </Button>
 
             <Button
+              data-test={`${componentTestId}.Clear`}
               variant="solid"
               size={useBreakpointValue({ base: "md", md: "sm" })}
               onClick={onReset}

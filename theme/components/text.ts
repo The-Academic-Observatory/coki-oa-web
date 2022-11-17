@@ -12,26 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: Aniek Roelofs
+// Author: Alex Massen-Hane
 
-const Checkbox = {
-  variants: {
-    filterForm: {
-      p: "6px",
-      label: {
+const Text = {
+    variants: {
+      filterForm: {
+        ml: "8px",
+        textTransform: "uppercase",
         fontWeight: 500,
         fontSize: { base: "18px", md: "14px" },
-        textTransform: "uppercase",
         fontVariantNumeric: "tabular-nums",
       },
-      control: {
-        borderColor: "checkbox.500",
-        _focus: {
-          boxShadow: "none",
-        },
-      },
     },
-  },
-};
-
-export default Checkbox;
+  };
+  
+  export default Text;

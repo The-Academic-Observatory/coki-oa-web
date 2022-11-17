@@ -21,15 +21,15 @@ import React, { ReactNode } from "react";
 interface FilterAccordionItemProps {
   children: ReactNode;
   name: string;
-  id: string;
+  componentTestId: string;
 }
 
-const FilterAccordionItem = ({ children, name, id }: FilterAccordionItemProps) => {
+const FilterAccordionItem = ({ children, name, componentTestId }: FilterAccordionItemProps) => {
   return (
     <AccordionItem>
       {({ isExpanded }) => (
         <>
-          <AccordionButton data-test={id}>
+          <AccordionButton data-test={`${componentTestId}.${name}`}>
             <Text flex="1">{name}</Text>
             {isExpanded ? (
               <CloseIcon fontSize={{ base: "14px", md: "10px" }} mx="1px" />
