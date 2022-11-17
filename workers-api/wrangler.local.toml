@@ -16,9 +16,8 @@ command = "yarn run build"
 kv_persist = true
 cache_persist = true
 durable_objects_persist = true
-env_path = ".env.dev"
 
 [[ d1_databases ]]
-binding = "DB" # i.e. available in your Worker on env.DB
+binding = "DB"
 database_name = "db"
 database_id = "db"

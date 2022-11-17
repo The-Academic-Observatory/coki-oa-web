@@ -19,7 +19,6 @@ import path from "path";
 import { Dict, Entity, Query, QueryResult } from "@/types";
 
 const SCHEMA = `
-DROP TABLE IF EXISTS institution_institution_type;
 DROP TABLE IF EXISTS institution;
 DROP TABLE IF EXISTS country;
 
@@ -77,25 +76,16 @@ export function saveSQLToFile(dataPath: string, outputPath: string) {
 
   // Generate country SQL
   const countryMap = new Map<string, number>();
-  rows.push(
-    "INSERT INTO country (id, entity_id, name, logo_s, subregion, region, n_outputs, n_outputs_open, p_outputs_open, p_outputs_publisher_open_only, p_outputs_both, p_outputs_other_platform_open_only, p_outputs_closed)",
-  );
-  rows.push("VALUES");
   countries.forEach((entity, id) => {
     const name = entity.name.replaceAll("'", "''");
     rows.push(
-      `(${id}, '${entity.id}', '${name}', '${entity.logo_s}', '${entity.subregion}', '${entity.region}', ${entity.stats.n_outputs}, ${entity.stats.n_outputs_open}, ${entity.stats.p_outputs_open}, ${entity.stats.p_outputs_publisher_open_only}, ${entity.stats.p_outputs_both}, ${entity.stats.p_outputs_other_platform_open_only}, ${entity.stats.p_outputs_closed}),`,
+      `INSERT INTO country VALUES(${id},'${entity.id}','${name}','${entity.logo_s}','${entity.subregion}','${entity.region}',${entity.stats.n_outputs},${entity.stats.n_outputs_open},${entity.stats.p_outputs_open},${entity.stats.p_outputs_publisher_open_only},${entity.stats.p_outputs_both},${entity.stats.p_outputs_other_platform_open_only},${entity.stats.p_outputs_closed});`,
     );
     countryMap.set(entity.id, id);
   });
-  rows[rows.length - 1] = `${rows[rows.length - 1].slice(0, -1)};`;
 
   // Generate institution SQL
   rows.push("");
-  rows.push(
-    "INSERT INTO institution (id, entity_id, name, logo_s, subregion, region, country_id, institution_type, n_outputs, n_outputs_open, p_outputs_open, p_outputs_publisher_open_only, p_outputs_both, p_outputs_other_platform_open_only, p_outputs_closed)",
-  );
-  rows.push("VALUES");
   institutions.forEach((entity, i) => {
     const id = countries.length + i;
     const name = entity.name.replaceAll("'", "''");
@@ -104,10 +94,9 @@ export function saveSQLToFile(dataPath: string, outputPath: string) {
     }
     const countryId = countryMap.get(entity.country_code);
     rows.push(
-      `(${id}, '${entity.id}', '${name}', '${entity.logo_s}', '${entity.subregion}', '${entity.region}', ${countryId}, '${entity.institution_type}', ${entity.stats.n_outputs}, ${entity.stats.n_outputs_open}, ${entity.stats.p_outputs_open}, ${entity.stats.p_outputs_publisher_open_only}, ${entity.stats.p_outputs_both}, ${entity.stats.p_outputs_other_platform_open_only}, ${entity.stats.p_outputs_closed}),`,
+      `INSERT INTO institution VALUES(${id},'${entity.id}','${name}','${entity.logo_s}','${entity.subregion}','${entity.region}',${countryId},'${entity.institution_type}',${entity.stats.n_outputs},${entity.stats.n_outputs_open},${entity.stats.p_outputs_open},${entity.stats.p_outputs_publisher_open_only},${entity.stats.p_outputs_both},${entity.stats.p_outputs_other_platform_open_only},${entity.stats.p_outputs_closed});`,
     );
   });
-  rows[rows.length - 1] = `${rows[rows.length - 1].slice(0, -1)};`;
 
   // Save to file
   const sql = rows.join("\n");

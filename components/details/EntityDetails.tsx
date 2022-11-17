@@ -34,7 +34,7 @@ import OtherPlatformLocationsCard from "./OtherPlatformLocationsCard";
 export const makeDescription = (entity: Entity) => {
   let text = `Open Access statistics for ${entity.name},`;
   if (entity.category === "institution") {
-    text += ` ${entity.country},`;
+    text += ` ${entity.country_name},`;
   }
   text += ` covering academic research published from ${entity.start_year} to ${entity.end_year}.`;
   return text;

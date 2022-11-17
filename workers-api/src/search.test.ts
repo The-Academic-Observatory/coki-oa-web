@@ -14,42 +14,52 @@
 //
 // Author: James Diprose
 
-import { search, searchIndex } from "./search";
-import { importIndex, indexEntities, exportIndex } from "./searchIndex";
-import flexsearch, { Tokenizer } from "flexsearch";
-import { Entity } from "./types";
 import now from "performance-now";
+import flexsearch, { Tokenizer } from "flexsearch";
+import { search } from "@/search";
+import { exportIndex, importIndex, indexEntities, loadEntityIndexes } from "@/searchIndex";
+import { Entity, FlexSearchIndex } from "@/types";
 
 const { Index } = flexsearch;
+const DATA_PATH = "../latest/data";
 
-test("test search", () => {
+test("test search", async () => {
+  const { DB } = getMiniflareBindings();
+  console.log(`Cloudflare D1: ${DB}`)
+  const searchIndex = new Index({
+    language: "en",
+    tokenize: "forward",
+  }) as FlexSearchIndex;
+  const entities = loadEntityIndexes(DATA_PATH);
+  indexEntities(searchIndex, entities);
+
   let text = "south";
 
   // 1 result
   let limit = 1;
-  let results = search(searchIndex, text, limit);
+  let results = await search(DB, searchIndex, text, limit);
   expect(results.length).toBe(limit);
 
   // 5 result
   limit = 5;
-  results = search(searchIndex, text, limit);
+  results = await search(DB, searchIndex, text, limit);
   expect(results.length).toBe(limit);
 
   // All results
   limit = 0;
-  results = search(searchIndex, text, limit);
+  results = await search(DB, searchIndex, text, limit);
   expect(results.length).toBeGreaterThan(40);
 
   // No text
   text = "";
   limit = 5;
-  results = search(searchIndex, text, limit);
+  results = await search(DB, searchIndex, text, limit);
   expect(results.length).toBe(0);
 
   // Check country results schema
   text = "australia";
   limit = 1;
-  let result = search(searchIndex, text, limit)[0];
+  let result = (await search(DB, searchIndex, text, limit))[0];
   const expectedCountry = {
     id: "AUS",
     name: "Australia",
@@ -72,16 +82,16 @@ test("test search", () => {
   // Check institution results schema
   text = "curtin university";
   limit = 1;
-  result = search(searchIndex, text, limit)[0];
+  result = (await search(DB, searchIndex, text, limit))[0];
   const expectedInstitution = {
     id: "02n415q13",
     name: "Curtin University",
     logo_s: "/logos/institution/s/02n415q13.jpg",
     category: "institution",
-    country: "Australia",
+    // country_code: "Australia",
     subregion: "Australia and New Zealand",
     region: "Oceania",
-    institution_types: ["Education"],
+    // institution_types: ["Education"],
     stats: {
       n_outputs: expect.any(Number),
       n_outputs_open: expect.any(Number),
@@ -95,15 +105,14 @@ test("test search", () => {
   expect(result).toMatchObject(expectedInstitution);
 });
 
-async function benchmarkSearch(tokenize: Tokenizer) {
+async function benchmarkSearch(entities: Array<Entity>, tokenize: Tokenizer) {
   // Index
   let start = now();
-  const entities = dataRaw as Array<Entity>;
   const preset = {
     language: "en",
     tokenize: tokenize,
   };
-  let index = new Index(preset);
+  let index = new Index(preset) as FlexSearchIndex;
   indexEntities(index, entities);
   let end = now();
   let diff = end - start;
@@ -116,7 +125,7 @@ async function benchmarkSearch(tokenize: Tokenizer) {
 
   // Load pre-built index
   start = now();
-  index = new Index(preset);
+  index = new Index(preset) as FlexSearchIndex;
   await importIndex(index, exported);
   end = now();
   diff = end - start;
@@ -138,22 +147,25 @@ test("benchmark search indexing", async () => {
   // | reverse       | 139.96ms | 0.03ms |
   // | full          | 241.47ms | 0.03ms |
 
+  const { DB } = getMiniflareBindings();
+  const entities = loadEntityIndexes(DATA_PATH);
+
   const text = "Curtin";
   const expected = [{ id: "02n415q13" }];
 
-  let index = await benchmarkSearch("strict");
-  let results = search(index, text, 1);
+  let index = await benchmarkSearch(entities, "strict");
+  let results = await search(DB, index, text, 1);
   expect(results).toMatchObject(expected);
 
-  index = await benchmarkSearch("forward");
-  results = search(index, text, 1);
+  index = await benchmarkSearch(entities, "forward");
+  results = await search(DB, index, text, 1);
   expect(results).toMatchObject(expected);
 
-  index = await benchmarkSearch("reverse");
-  results = search(index, text, 1);
+  index = await benchmarkSearch(entities, "reverse");
+  results = await search(DB, index, text, 1);
   expect(results).toMatchObject(expected);
 
-  index = await benchmarkSearch("full");
-  results = search(index, text, 1);
+  index = await benchmarkSearch(entities, "full");
+  results = await search(DB, index, text, 1);
   expect(results).toMatchObject(expected);
 });

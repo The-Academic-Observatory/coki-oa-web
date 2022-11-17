@@ -16,6 +16,7 @@ export default {
     // Miniflare doesn't support main field in wrangler
     modules: true,
     kvNamespaces: ["TEST_NAMESPACE"],
+    d1Databases: ["DB"]
   },
   setupFilesAfterEnv: ["jest-sorted"],
 };
