@@ -236,7 +236,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
   const cokiTile = "COKI: Open Access Dashboard";
   const cokiPage = `${process.env.NEXT_PUBLIC_HOST}`; // Get URL of current route
   //TODO: Generate the homepage card with padding to make it look nicer.
-  const cokiLogoShareCard = `${process.env.NEXT_PUBLIC_HOST}/logo-sharecard.webp`;
+  const cokiLogoShareCard = `${process.env.NEXT_PUBLIC_HOST}/logo-sharecard.jpg`;
 
   return (
     <Box m={{ base: 0, md: "25px 25px 90px", std: "25px 40px 90px" }}>
