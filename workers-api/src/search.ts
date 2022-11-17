@@ -16,14 +16,14 @@
 
 import flexsearch from "flexsearch";
 import pako from "pako";
+import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import { SearchRequest, FlexSearchIndex } from "@/types";
 import { importIndex } from "@/searchIndex";
 import { selectEntities } from "@/database";
-
 const { Index } = flexsearch;
 
 let SEARCH_INDEX_LOADED = false;
-const FLEX_SEARCH_INDEX_KV_KEY = "flexsearchIndex.json.gz";
+const FLEX_SEARCH_INDEX_PATH = "flexsearchIndex.json.gz";
 const SEARCH_INDEX = new Index({
   language: "en",
   tokenize: "forward",
@@ -47,7 +47,8 @@ export const searchHandler = async (req: SearchRequest, env: Bindings, ctx: Exec
     console.log("Loading search index from KV storage into global memory.");
 
     // Fetch from KV
-    const data = await env.__STATIC_CONTENT.get(FLEX_SEARCH_INDEX_KV_KEY, { type: "arrayBuffer" });
+    const key = JSON.parse(manifestJSON)[FLEX_SEARCH_INDEX_PATH];
+    const data = await env.__STATIC_CONTENT.get(key, { type: "arrayBuffer" });
 
     if (data != null) {
       // Decompress file, convert to JSON and load into search index
@@ -55,7 +56,7 @@ export const searchHandler = async (req: SearchRequest, env: Bindings, ctx: Exec
       await importIndex(SEARCH_INDEX, flexSearchIndex);
       SEARCH_INDEX_LOADED = true;
     } else {
-      console.error(`searchHandler error: KV key ${FLEX_SEARCH_INDEX_KV_KEY} not found.`);
+      console.error(`searchHandler error: KV key ${key} not found.`);
     }
   }
 

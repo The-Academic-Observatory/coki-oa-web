@@ -14,6 +14,7 @@
 //
 // Author: James Diprose
 
+import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import { EntityRequest } from "@/types";
 
 const headers = {
@@ -26,16 +27,16 @@ export const fetchEntityHandler = async (req: EntityRequest, env: Bindings, ctx:
   const url = new URL(req.url);
   const entityType = url.pathname.split("/")[2];
   const entityId = req.params.id;
-  const kvKey = `${entityType}/${entityId}.json`;
+  const assetPath = `${entityType}/${entityId}.json`;
+  const kvKey = JSON.parse(manifestJSON)[assetPath];
 
   console.log(
-    `fetchEntityHandler: pathname=${url.pathname}, entityType=${entityType}, entityId=${entityId}, kvKey=${kvKey}`,
+    `fetchEntityHandler: pathname=${url.pathname}, entityType=${entityType}, entityId=${entityId}, assetPath=${assetPath}, kvKey=${kvKey}`,
   );
 
   // Fetch data from KV
   // Use a stream because it is the fastest, and we don't need to parse the JSON data
   const data = await env.__STATIC_CONTENT.get(kvKey, { type: "stream" });
-
   if (data !== null) {
     // Return response with data
     return new Response(data, {
