@@ -344,7 +344,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
         <Box gridArea="filter" display={{ base: "none", md: tabIndex === 0 ? "block" : "none" }}>
           <FilterForm
             category="country"
-            componentTestId="desktop-country-form"
+            platform="desktop"
             queryForm={queryFormCountry}
             setQueryForm={setQueryFormCountry}
             defaultQueryForm={defaultQueryFormCountry}
@@ -356,7 +356,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
         <Box gridArea="filter" display={{ base: "none", md: tabIndex === 1 ? "block" : "none" }}>
           <FilterForm
             category="institution"
-            componentTestId="desktop-institution-form"
+            platform="desktop"
             queryForm={queryFormInstitution}
             setQueryForm={setQueryFormInstitution}
             defaultQueryForm={defaultQueryFormInstitution}
@@ -370,7 +370,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
             <ModalBody>
               <FilterForm
                 category="country"
-                componentTestId="mobile-country-form"
+                platform="mobile"
                 queryForm={queryFormCountry}
                 setQueryForm={setQueryFormCountry}
                 defaultQueryForm={defaultQueryFormCountry}
@@ -388,7 +388,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
             <ModalBody>
               <FilterForm
                 category="institution"
-                componentTestId="mobile-institution-form"
+                platform="mobile"
                 queryForm={queryFormInstitution}
                 setQueryForm={setQueryFormInstitution}
                 defaultQueryForm={defaultQueryFormInstitution}

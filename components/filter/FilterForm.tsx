@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: Aniek Roelofs, James Diprose
+// Author: Aniek Roelofs, James Diprose, Alex Massen-Hane
 
 import React, { memo, useCallback } from "react";
 import { Accordion, Box, Button, HStack, IconButton, Text, useBreakpointValue } from "@chakra-ui/react";
 import { Form, FormikProvider, useFormik } from "formik";
 import Icon from "../common/Icon";
-import HierarchicalCheckbox from "../common/HierarchicalCheckbox";
+import CheckboxTree from "../common/CheckboxTree";
 import FilterAccordionItem from "./FilterAccordionItem";
 import { EntityStats } from "../../lib/model";
 import InstitutionTypeForm from "./InstitutionTypeForm";
@@ -38,8 +38,8 @@ export const regions: { [key: string]: Array<string> } = {
   Oceania: ["Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"],
 };
 
-// New regionsTree object that holds all the regions and subregions in a tree-like structure.
-export let regionsTree = [
+// New checkboxTree object that holds all the regions and subregions in a tree-like structure.
+export let checkboxTree = [
   {
     type: "region",
     text: "Africa",
@@ -167,7 +167,7 @@ export interface QueryForm {
 
 interface FilterFormProps {
   category: string;
-  componentTestId: string;
+  platform: string;
   queryForm: QueryForm;
   setQueryForm: (q: QueryForm) => void;
   defaultQueryForm: QueryForm;
@@ -179,7 +179,7 @@ interface FilterFormProps {
 
 const FilterForm = ({
   category,
-  componentTestId,
+  platform,
   queryForm,
   setQueryForm,
   defaultQueryForm,
@@ -239,7 +239,7 @@ const FilterForm = ({
 
   return (
     <FormikProvider value={formik}>
-      <Form onSubmit={formik.handleSubmit}>
+      <Form onSubmit={formik.handleSubmit} data-test={`${platform}-${category}-form`}>
         <Box
           boxShadow={{ base: "none", md: "0px 2px 5px 2px rgba(0,0,0,0.05)" }}
           maxWidth={{ md: `${filterMaxWidth}px` }}
@@ -266,40 +266,30 @@ const FilterForm = ({
             />
           </HStack>
 
-          <Accordion allowMultiple variant="filterForm">
-            <FilterAccordionItem componentTestId={componentTestId} name="Region & Subregion">
-              <HierarchicalCheckbox treeObject={regionsTree} />
+          <Accordion defaultIndex={[0]} allowMultiple variant="filterForm">
+            <FilterAccordionItem name="Region">
+              <CheckboxTree checkboxTree={checkboxTree} />
             </FilterAccordionItem>
-          </Accordion>
 
-          <Accordion allowMultiple variant="filterForm">
-            <FilterAccordionItem componentTestId={componentTestId} name="Open Access">
+            <FilterAccordionItem name="Open Access">
               <OpenAccessForm defaultOpenAccess={defaultQueryForm.openAccess} histograms={entityStats.histograms} />
             </FilterAccordionItem>
-          </Accordion>
 
-          {category === "institution" ? (
-            <Accordion allowMultiple variant="filterForm">
-              <FilterAccordionItem componentTestId={componentTestId} name="Institution Type">
+            {category === "institution" ? (
+              <FilterAccordionItem name="Institution Type">
                 <InstitutionTypeForm />
               </FilterAccordionItem>
-            </Accordion>
-          ) : (
-            ""
-          )}
+            ) : (
+              ""
+            )}
+          </Accordion>
 
           <HStack justifyContent="space-around" p={{ base: "24px 0px", md: "14px 0px" }} bgColor="white">
-            <Button
-              data-test={`${componentTestId}.Apply`}
-              variant="solid"
-              size={useBreakpointValue({ base: "md", md: "sm" })}
-              type="submit"
-            >
+            <Button variant="solid" size={useBreakpointValue({ base: "md", md: "sm" })} type="submit">
               Apply
             </Button>
 
             <Button
-              data-test={`${componentTestId}.Clear`}
               variant="solid"
               size={useBreakpointValue({ base: "md", md: "sm" })}
               onClick={onReset}

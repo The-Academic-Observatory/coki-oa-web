@@ -50,10 +50,10 @@ const Accordion = {
         p: 0,
       },
     },
-    hierarchicalCheckbox: {
+    checkboxTree: {
       button: {
-        p: "6px 0px",
-        pl: "25px",
+        p: 0,
+        my: "6px",
         bgColor: "grey.300",
         _hover: {
           boxShadow: "none",
@@ -75,7 +75,7 @@ const Accordion = {
         border: "none",
         borderBottomWidth: "none",
         borderColor: "none",
-        pl: "36px",
+        pl: "14px",
         pb: "8px",
         pr: 0,
         pt: 0,
