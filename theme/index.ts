@@ -292,6 +292,13 @@ const theme = extendTheme({
       whiteSpace: "nowrap",
       textTransform: "none",
     },
+    checkboxTreeParent: {
+      ml: "6px",
+      textTransform: "uppercase",
+      fontWeight: 500,
+      fontSize: { base: "18px", md: "14px" },
+      fontVariantNumeric: "tabular-nums",
+    },
   },
   layerStyles: {
     page: {

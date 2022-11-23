@@ -15,19 +15,37 @@
 // Author: Aniek Roelofs
 
 const Checkbox = {
+  baseStyle: {
+    label: {
+      textTransform: "uppercase",
+      fontVariantNumeric: "tabular-nums",
+    },
+    control: {
+      borderColor: "checkbox.500",
+      _focus: {
+        boxShadow: "none",
+      },
+    },
+  },
   variants: {
     filterForm: {
       label: {
         fontWeight: 500,
         fontSize: { base: "18px", md: "14px" },
-        textTransform: "uppercase",
-        fontVariantNumeric: "tabular-nums",
       },
+    },
+    checkboxTreeChild: {
+      label: {
+        fontWeight: 500,
+        fontSize: { base: "18px", md: "14px" },
+        lineHeight: { base: "20px", md: "16px" },
+      },
+    },
+    checkboxTreeParent: {
       control: {
-        borderColor: "checkbox.500",
-        _focus: {
-          boxShadow: "none",
-        },
+        // Stops label from being clicked
+        my: "3px",
+        mx: "2px",
       },
     },
   },

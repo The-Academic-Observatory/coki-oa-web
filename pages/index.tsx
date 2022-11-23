@@ -34,12 +34,11 @@ import { getIndexTableData, getStatsData, makeFilterUrl } from "../lib/api";
 import React, { useCallback, useEffect } from "react";
 import IndexTable from "../components/table/IndexTable";
 import Icon from "../components/common/Icon";
-import FilterForm, { QueryForm } from "../components/filter/FilterForm";
+import FilterForm, { QueryForm, regions } from "../components/filter/FilterForm";
 import TextCollapse from "../components/common/TextCollapse";
 import Head from "next/head";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import { institutionTypes } from "../components/filter/InstitutionTypeForm";
-import { regions } from "../components/filter/RegionForm";
 import { useEffectAfterRender } from "../lib/hooks";
 import PageLoader from "../components/common/PageLoader";
 
@@ -297,6 +296,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
               <Text fontSize={{ base: "14px", sm: "16px" }}>Institution</Text>
             </Tab>
             <Button
+              data-test="tab-filter-button"
               variant="filterTab"
               display={{ base: "flex", md: "none" }}
               onClick={() => {
@@ -344,6 +344,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
         <Box gridArea="filter" display={{ base: "none", md: tabIndex === 0 ? "block" : "none" }}>
           <FilterForm
             category="country"
+            platform="desktop"
             queryForm={queryFormCountry}
             setQueryForm={setQueryFormCountry}
             defaultQueryForm={defaultQueryFormCountry}
@@ -355,6 +356,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
         <Box gridArea="filter" display={{ base: "none", md: tabIndex === 1 ? "block" : "none" }}>
           <FilterForm
             category="institution"
+            platform="desktop"
             queryForm={queryFormInstitution}
             setQueryForm={setQueryFormInstitution}
             defaultQueryForm={defaultQueryFormInstitution}
@@ -368,6 +370,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
             <ModalBody>
               <FilterForm
                 category="country"
+                platform="mobile"
                 queryForm={queryFormCountry}
                 setQueryForm={setQueryFormCountry}
                 defaultQueryForm={defaultQueryFormCountry}
@@ -385,6 +388,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
             <ModalBody>
               <FilterForm
                 category="institution"
+                platform="mobile"
                 queryForm={queryFormInstitution}
                 setQueryForm={setQueryFormInstitution}
                 defaultQueryForm={defaultQueryFormInstitution}

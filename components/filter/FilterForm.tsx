@@ -12,14 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: Aniek Roelofs, James Diprose
+// Author: Aniek Roelofs, James Diprose, Alex Massen-Hane
 
 import React, { memo, useCallback } from "react";
 import { Accordion, Box, Button, HStack, IconButton, Text, useBreakpointValue } from "@chakra-ui/react";
 import { Form, FormikProvider, useFormik } from "formik";
 import Icon from "../common/Icon";
-import RegionForm from "./RegionForm";
-import SubregionForm from "./SubregionForm";
+import CheckboxTree from "../common/CheckboxTree";
 import FilterAccordionItem from "./FilterAccordionItem";
 import { EntityStats } from "../../lib/model";
 import InstitutionTypeForm from "./InstitutionTypeForm";
@@ -29,6 +28,118 @@ import { useEffectAfterRender } from "../../lib/hooks";
 import lodashIsEqual from "lodash.isequal";
 
 const filterMaxWidth = 300;
+
+// Old Regions array still needs to be used for Formik and creating the QueryForm.
+export const regions: { [key: string]: Array<string> } = {
+  Africa: ["Northern Africa", "Sub-Saharan Africa"],
+  Americas: ["Latin America and the Caribbean", "Northern America"],
+  Asia: ["Central Asia", "Eastern Asia", "South-eastern Asia", "Southern Asia", "Western Asia"],
+  Europe: ["Eastern Europe", "Northern Europe", "Southern Europe", "Western Europe"],
+  Oceania: ["Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"],
+};
+
+// New checkboxTree object that holds all the regions and subregions in a tree-like structure.
+export let checkboxTree = [
+  {
+    type: "region",
+    text: "Africa",
+    children: [
+      {
+        type: "subregion",
+        text: "Northern Africa",
+      },
+      {
+        type: "subregion",
+        text: "Sub-Saharan Africa",
+      },
+    ],
+  },
+  {
+    level: 1,
+    type: "region",
+    text: "Americas",
+    children: [
+      {
+        type: "subregion",
+        text: "Latin America and the Caribbean",
+      },
+      {
+        type: "subregion",
+        text: "Northern America",
+      },
+    ],
+  },
+  {
+    type: "region",
+    text: "Asia",
+    children: [
+      {
+        type: "subregion",
+        text: "Central Asia",
+      },
+      {
+        type: "subregion",
+        text: "Eastern Asia",
+      },
+      {
+        type: "subregion",
+        text: "South-eastern Asia",
+      },
+      {
+        type: "subregion",
+        text: "Southern Asia",
+      },
+      {
+        type: "subregion",
+        text: "Western Asia",
+      },
+    ],
+  },
+  {
+    type: "region",
+    text: "Europe",
+    children: [
+      {
+        type: "subregion",
+        text: "Eastern Europe",
+      },
+      {
+        type: "subregion",
+        text: "Northern Europe",
+      },
+      {
+        type: "subregion",
+        text: "Southern Europe",
+      },
+      {
+        type: "subregion",
+        text: "Western Europe",
+      },
+    ],
+  },
+  {
+    type: "region",
+    text: "Oceania",
+    children: [
+      {
+        type: "subregion",
+        text: "Australia and New Zealand",
+      },
+      {
+        type: "subregion",
+        text: "Melanesia",
+      },
+      {
+        type: "subregion",
+        text: "Micronesia",
+      },
+      {
+        type: "subregion",
+        text: "Polynesia",
+      },
+    ],
+  },
+];
 
 export interface PageForm {
   page: number;
@@ -56,6 +167,7 @@ export interface QueryForm {
 
 interface FilterFormProps {
   category: string;
+  platform: string;
   queryForm: QueryForm;
   setQueryForm: (q: QueryForm) => void;
   defaultQueryForm: QueryForm;
@@ -67,6 +179,7 @@ interface FilterFormProps {
 
 const FilterForm = ({
   category,
+  platform,
   queryForm,
   setQueryForm,
   defaultQueryForm,
@@ -100,6 +213,8 @@ const FilterForm = ({
     enableReinitialize: true, // enabled so that when queryForm is reset externally, or the values change externally, the form updates
     initialValues: queryForm,
     onSubmit: onSubmit,
+    validateOnChange: false, // this and validationOnBlur are to improve performance for the forms. Works the same as before.
+    validateOnBlur: false,
   });
 
   const onReset = useCallback(() => {
@@ -124,7 +239,7 @@ const FilterForm = ({
 
   return (
     <FormikProvider value={formik}>
-      <Form onSubmit={formik.handleSubmit}>
+      <Form onSubmit={formik.handleSubmit} data-test={`${platform}-${category}-form`}>
         <Box
           boxShadow={{ base: "none", md: "0px 2px 5px 2px rgba(0,0,0,0.05)" }}
           maxWidth={{ md: `${filterMaxWidth}px` }}
@@ -151,33 +266,23 @@ const FilterForm = ({
             />
           </HStack>
 
-          <Accordion allowMultiple variant="filterForm">
+          <Accordion defaultIndex={[0]} allowMultiple variant="filterForm">
             <FilterAccordionItem name="Region">
-              <RegionForm />
+              <CheckboxTree checkboxTree={checkboxTree} />
             </FilterAccordionItem>
-          </Accordion>
 
-          <Accordion allowMultiple variant="filterForm">
-            <FilterAccordionItem name="Subregion">
-              <SubregionForm />
-            </FilterAccordionItem>
-          </Accordion>
-
-          <Accordion allowMultiple variant="filterForm">
             <FilterAccordionItem name="Open Access">
               <OpenAccessForm defaultOpenAccess={defaultQueryForm.openAccess} histograms={entityStats.histograms} />
             </FilterAccordionItem>
-          </Accordion>
 
-          {category === "institution" ? (
-            <Accordion allowMultiple variant="filterForm">
+            {category === "institution" ? (
               <FilterAccordionItem name="Institution Type">
                 <InstitutionTypeForm />
               </FilterAccordionItem>
-            </Accordion>
-          ) : (
-            ""
-          )}
+            ) : (
+              ""
+            )}
+          </Accordion>
 
           <HStack justifyContent="space-around" p={{ base: "24px 0px", md: "14px 0px" }} bgColor="white">
             <Button variant="solid" size={useBreakpointValue({ base: "md", md: "sm" })} type="submit">
