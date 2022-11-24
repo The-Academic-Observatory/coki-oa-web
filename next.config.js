@@ -5,6 +5,8 @@ const webpack = require("webpack");
 module.exports = {
   reactStrictMode: true,
   trailingSlash: true,
+  swcMinify: true,
+  optimizeFonts: false,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -31,5 +33,4 @@ module.exports = {
       },
     ];
   },
-  optimizeFonts: false,
 };

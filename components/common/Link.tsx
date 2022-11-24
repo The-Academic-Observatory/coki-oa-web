@@ -25,7 +25,8 @@ interface LinkLinkProps extends LinkProps {
 
 const Link = ({ href, children, ...rest }: LinkLinkProps) => {
   return (
-    <NextLink href={href} passHref>
+    // Set legacyBehavior and passHref: https://chakra-ui.com/docs/components/link#nextjs-13
+    <NextLink href={href} legacyBehavior passHref>
       {/*The empty focus stops the ugly blue border from appearing on focus*/}
       <ChakraLink {...rest} _focus={{}}>
         {children}
