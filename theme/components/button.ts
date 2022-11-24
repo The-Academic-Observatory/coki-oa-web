@@ -208,6 +208,15 @@ const Button = {
       },
     },
 
+    // Submit: apply and clear buttons
+    submit: {
+      ...solidStyle,
+      height: { base: "36px", md: "26px" },
+      px: { base: "24px", md: "16px" },
+      fontSize: { base: "16px", md: "12px" },
+      lineHeight: "12px",
+    },
+
     buttonLink: {
       px: 0,
       mx: 0,

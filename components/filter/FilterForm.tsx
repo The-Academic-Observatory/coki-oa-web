@@ -285,16 +285,11 @@ const FilterForm = ({
           </Accordion>
 
           <HStack justifyContent="space-around" p={{ base: "24px 0px", md: "14px 0px" }} bgColor="white">
-            <Button variant="solid" size={useBreakpointValue({ base: "md", md: "sm" })} type="submit">
+            <Button variant="submit" type="submit">
               Apply
             </Button>
 
-            <Button
-              variant="solid"
-              size={useBreakpointValue({ base: "md", md: "sm" })}
-              onClick={onReset}
-              disabled={!isDirty()}
-            >
+            <Button variant="submit" onClick={onReset} disabled={!isDirty()}>
               Clear
             </Button>
           </HStack>
