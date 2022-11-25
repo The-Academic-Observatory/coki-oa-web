@@ -61,7 +61,7 @@ const OAPercentageChart = ({ data, startYear, ...rest }: OAPercentageChartProps)
         margin={{ ...props.margin, left: 40 }}
         offsetType="none"
       />
-      <div style={{ overflowX: "auto", direction: "rtl", width: 740 }}>
+      <div style={{ overflowX: "auto", overflowY: "hidden", direction: "rtl", width: 740 }}>
         <Stream {...props} axisLeft={null} margin={{ ...props.margin, left: 0 }} offsetType="none" />
       </div>
     </div>

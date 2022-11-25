@@ -21,11 +21,13 @@ import entity from "../../latest/data/country/NZL.json";
 import stats from "../../latest/data/stats.json";
 
 import { useRouter } from "next/router";
+
+// Mock next/router
 jest.mock("next/router", () => ({
   useRouter: jest.fn(),
 }));
 
-// Mock Next head
+// Mock next/head
 jest.mock(
   "next/head",
   () =>
@@ -33,6 +35,21 @@ jest.mock(
       return <>{children}</>;
     },
 );
+
+// Mock window.matchMedia
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
 
 const buildId = "9wunlCAp5nAMZGCCOIDUx";
 const publicHost = "http://127.0.0.1:3000";
