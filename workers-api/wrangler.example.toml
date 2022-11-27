@@ -7,6 +7,9 @@ compatibility_date = "2022-02-03"
 [build]
 command = "yarn run build"
 
+[site]
+bucket = "./public"
+
 [build.upload]
 format = "modules"
 dir = "dist"
