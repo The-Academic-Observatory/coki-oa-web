@@ -11,6 +11,9 @@ rm -fR ./workers-api/public/institution
 # Make public/data folder
 mkdir -p ./public/data
 
+# Make public/data folder
+mkdir ./workers-api/public
+
 # Extract data
 unzip -o latest.zip -d latest
 
