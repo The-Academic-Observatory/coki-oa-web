@@ -23,10 +23,10 @@ import HowPubTable from "../public/images/how-pub-table.svg";
 import Figure from "../components/common/Figure";
 import ScrollTable from "../components/common/ScrollTable";
 import Breadcrumbs from "../components/common/Breadcrumbs";
-import Head from "next/head";
 import { getStatsData } from "../lib/api";
 import { Stats } from "../lib/model";
 import Link from "../components/common/Link";
+import MetadataTags from "../components/details/MetadataTags";
 
 export async function getStaticProps() {
   const stats = getStatsData();
@@ -42,12 +42,13 @@ type Props = {
 };
 
 export default function How({ stats }: Props) {
+  const pageTitle = "COKI: How it Works";
+  const pageDescription = "The COKI Open Access Dataset is created.";
+
   return (
     <Box layerStyle="page">
-      <Head>
-        <title>COKI: How it Works</title>
-        <meta name="description" content="The COKI Open Access Dataset is created." />
-      </Head>
+      {/* This component contains the Head tag for the page. */}
+      <MetadataTags title={pageTitle} description={pageDescription} />
 
       <Breadcrumbs
         breadcrumbs={[

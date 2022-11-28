@@ -18,16 +18,17 @@ import { Box, Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import React from "react";
 import Card from "../components/common/Card";
 import Icon from "../components/common/Icon";
-import Head from "next/head";
 import Breadcrumbs from "../components/common/Breadcrumbs";
+import MetadataTags from "../components/details/MetadataTags";
 
 export default function Contact() {
+  const pageTitle = "COKI: Contact";
+  const pageDescription = "Contact the Curtin Open Knowledge Initiative.";
+
   return (
     <Box layerStyle="page">
-      <Head>
-        <title>COKI: Contact</title>
-        <meta name="description" content="Contact the Curtin Open Knowledge Initiative." />
-      </Head>
+      {/* This component contains the Head tag for the page. */}
+      <MetadataTags title={pageTitle} description={pageDescription} />
 
       <Breadcrumbs
         breadcrumbs={[

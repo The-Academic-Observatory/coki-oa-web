@@ -17,11 +17,11 @@
 import { Box, ListItem, Table, Tbody, Td, Text, Th, Thead, Tr, UnorderedList } from "@chakra-ui/react";
 import React from "react";
 import Card from "../components/common/Card";
-import Head from "next/head";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ScrollTable from "../components/common/ScrollTable";
 import { getStatsData } from "../lib/api";
 import { Stats } from "../lib/model";
+import MetadataTags from "../components/details/MetadataTags";
 
 export async function getStaticProps() {
   const stats = getStatsData();
@@ -38,12 +38,13 @@ type Props = {
 
 export default function Open({ stats }: Props) {
   const maxVersions = 5;
+  const pageTitle = "COKI: Data";
+  const pageDescription = "The COKI Open Access Dataset is available in JSON Lines format.";
+
   return (
     <Box layerStyle="page">
-      <Head>
-        <title>COKI: Data</title>
-        <meta name="description" content="The COKI Open Access Dataset is available in JSON Lines format." />
-      </Head>
+      {/* This component contains the Head tag for the page. */}
+      <MetadataTags title={pageTitle} description={pageDescription} />
 
       <Breadcrumbs
         breadcrumbs={[

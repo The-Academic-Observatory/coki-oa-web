@@ -36,11 +36,11 @@ import IndexTable from "../components/table/IndexTable";
 import Icon from "../components/common/Icon";
 import FilterForm, { QueryForm, regions } from "../components/filter/FilterForm";
 import TextCollapse from "../components/common/TextCollapse";
-import Head from "next/head";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import { institutionTypes } from "../components/filter/InstitutionTypeForm";
 import { useEffectAfterRender } from "../lib/hooks";
 import PageLoader from "../components/common/PageLoader";
+import MetadataTags from "../components/details/MetadataTags";
 
 const maxTabsWidth = "1100px";
 const maxPageSize = 18;
@@ -231,36 +231,16 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
     onClose: onCloseFilterInstitution,
   } = useDisclosure();
 
-  const cokiDescription =
+  const pageTitle = "COKI: Open Access Dashboard";
+  const pageDescription =
     "How Open is Academia? See how well your university or country performs at open access publishing.";
-  const cokiTile = "COKI: Open Access Dashboard";
-  const cokiPage = `${process.env.NEXT_PUBLIC_HOST}`; // Get URL of current route
-  //TODO: Generate the homepage card with padding to make it look nicer.
-  const cokiLogoShareCard = `${process.env.NEXT_PUBLIC_HOST}/logo-sharecard.jpg`;
 
   return (
     <Box m={{ base: 0, md: "25px 25px 90px", std: "25px 40px 90px" }}>
       <PageLoader isLoading={isLoadingCountry || isLoadingInstitution} />
 
-      <Head>
-        <title>COKI: Open Access Dashboard</title>
-        <meta name="description" content={cokiDescription} />
-
-        {/* Twitter card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@COKIproject" />
-        <meta name="twitter:title" content={cokiTile} />
-        <meta name="twitter:description" content={cokiDescription} />
-        <meta name="twitter:image" content={cokiLogoShareCard} />
-        <meta name="twitter:image:alt" content={cokiDescription} />
-
-        {/* Facebook and LinkedIn share cards */}
-        <meta property="og:title" content={cokiTile} />
-        <meta property="og:image" content={cokiLogoShareCard} />
-        <meta property="og:type" content="website" />
-        <meta property="og:description" content={cokiDescription} />
-        <meta property="og:url" content={cokiPage} />
-      </Head>
+      {/* This component contains the Head tag for the page. */}
+      <MetadataTags title={pageTitle} description={pageDescription} />
 
       <Breadcrumbs
         breadcrumbs={[]}
