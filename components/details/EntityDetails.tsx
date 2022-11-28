@@ -46,7 +46,7 @@ export interface EntityDetailsProps {
 }
 
 export function makeShareImageUrl(entityId: string): string {
-  let url = `${process.env.NEXT_PUBLIC_HOST}/twitter/${entityId}.jpg`;
+  let url = `${process.env.NEXT_PUBLIC_HOST}/twitter/${entityId}.webp`;
   // TODO: Change folder structure to reflect /share/${entityId}.jpg instead
   return addBuildId(url);
 }
