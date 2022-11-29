@@ -4,7 +4,7 @@
 rm -fR ./latest
 rm -fR ./public/data
 rm -fR ./public/logos
-rm -fR ./public/twitter
+rm -fR ./public/social-cards
 rm -fR ./workers-api/public/country
 rm -fR ./workers-api/public/institution
 
@@ -21,7 +21,7 @@ unzip -o latest.zip -d latest
 cp ./latest/data/country.json ./public/data/country.json
 cp ./latest/data/institution.json ./public/data/institution.json
 cp -R ./latest/logos ./public/logos
-cp -R ./latest/twitter ./public/twitter
+cp -R ./latest/social-cards ./public/social-cards
 
 # Copy country and institution data files into workers-api/public
 cp -R ./latest/data/country ./workers-api/public/country

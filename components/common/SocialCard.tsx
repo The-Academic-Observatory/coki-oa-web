@@ -18,11 +18,11 @@ import React, { memo, ReactElement } from "react";
 import { Box, BoxProps, Flex, HStack, Image, StackProps, Text, VStack } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
 import DonutSparkline from "../charts/DonutSparkline";
-import styles from "./TwitterCard.module.css";
+import styles from "./SocialCard.module.css";
 import { toReadableNumber } from "../../lib/utils";
 import COKISmall from "../../public/logo-small.svg";
 
-interface TwitterCardProps extends BoxProps {
+interface ShareCardProps extends BoxProps {
   entity: Entity;
 }
 
@@ -52,13 +52,13 @@ const Stats = ({ statsTitle, value, isPercent, ...rest }: StatsProps) => {
   );
 };
 
-const TwitterCard = ({ entity, ...rest }: TwitterCardProps) => {
+const SocialCard = ({ entity, ...rest }: ShareCardProps) => {
   const pOpen = Math.round(entity.stats.p_outputs_open);
   let titleFontSize = -1 * entity.name.length + 70;
   titleFontSize = Math.min(Math.max(titleFontSize, 32), 70);
 
   return (
-    <Box className="twitterCard" width="1200px" height="628px" p="48px">
+    <Box className="socialCard" width="1200px" height="628px" p="48px">
       <HStack>
         <Image
           rounded="48px"
@@ -107,4 +107,4 @@ const TwitterCard = ({ entity, ...rest }: TwitterCardProps) => {
   );
 };
 
-export default memo(TwitterCard);
+export default memo(SocialCard);

@@ -1,9 +1,9 @@
 {
-  "name": "twitter-cards",
+  "name": "social-cards",
   "private": true,
   "type": "module",
   "scripts": {
-    "render": "node --loader ts-node/esm twitter.ts"
+    "render": "node --loader ts-node/esm social-cards.ts"
   },
   "devDependencies": {
     "@types/node": "16.11.9",

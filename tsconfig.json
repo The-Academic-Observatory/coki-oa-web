@@ -16,5 +16,5 @@
     "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "workers-api", "workers-site", "twitter-cards"]
+  "exclude": ["node_modules", "workers-api", "workers-site", "social-cards"]
 }

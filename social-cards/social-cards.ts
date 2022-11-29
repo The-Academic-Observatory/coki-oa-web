@@ -10,11 +10,7 @@ export type Task = {
 
 const port = 9001;
 
-export async function makeTwitterCards(
-  inputPath: string,
-  maxConcurrency: number,
-  cardSelector: string = ".twitterCard",
-) {
+export async function makeShareCards(inputPath: string, maxConcurrency: number, cardSelector: string = ".socialCard") {
   const cluster = await Cluster.launch({
     puppeteerOptions: {
       product: "firefox",
@@ -24,15 +20,15 @@ export async function makeTwitterCards(
     maxConcurrency: maxConcurrency,
   });
 
-  // Make twitter folder
-  const dir = "../public/twitter";
+  // Make social-cards folder
+  const dir = "../public/social-cards";
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
 
   await cluster.task(async ({ page, data }) => {
     const url = data.url;
-    const path = `../public/twitter/${data.entity.id}.webp`;
+    const path = `../public/social-cards/${data.entity.id}.jpg`;
     console.log(`Fetching page: ${url}`);
     await page.goto(url);
     await page.waitForSelector(cardSelector);
@@ -40,7 +36,7 @@ export async function makeTwitterCards(
 
     if (element !== null) {
       console.log(`Saving screenshot to: ${path}`);
-      await element.screenshot({ path: path, quality: 100 });
+      await element.screenshot({ path: path, quality: 90 });
     }
   });
 
@@ -48,7 +44,7 @@ export async function makeTwitterCards(
   const entities = JSON.parse(fs.readFileSync(inputPath));
   for (const entity of entities) {
     const task = {
-      url: `http://localhost:${port}/twitter-${entity.category}/${entity.id}/`,
+      url: `http://localhost:${port}/${entity.category}-card/${entity.id}/`,
       entity: entity,
     } as Task;
     await cluster.queue(task);
@@ -61,8 +57,8 @@ export async function makeTwitterCards(
 // Start next.js server
 const server = spawn("yarn", ["run", "next", "-p", `${port}`], { cwd: "../" });
 
-// Render twitter cards
-await makeTwitterCards("../latest/data/index.json", 4);
+// Render cards
+await makeShareCards("../latest/data/index.json", 4);
 
 // Kill yarn
 server.kill();

@@ -39,7 +39,7 @@ const publicHost = "http://127.0.0.1:3000";
 
 test("test makeShareImageUrl", () => {
   let url = makeShareImageUrl("NZL");
-  expect(url).toEqual(`${publicHost}/twitter/NZL.webp?build=${buildId}`);
+  expect(url).toEqual(`${publicHost}/twitter/NZL.jpg?build=${buildId}`);
 });
 
 test("test makePageDescription country", () => {

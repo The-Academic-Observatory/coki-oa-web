@@ -2,6 +2,7 @@
 /public/logos
 /public/data
 /public/twitter
+/public/social-cards
 
 # dependencies
 /node_modules
