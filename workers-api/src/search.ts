@@ -27,6 +27,7 @@ export const searchIndex = new Index({
   language: "en",
   tokenize: "forward",
 });
+
 await importIndex(searchIndex, flexsearchIndex);
 
 const minLimit = 1;

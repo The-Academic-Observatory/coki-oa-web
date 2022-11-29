@@ -208,6 +208,18 @@ To manually view the social cards, start the local webserver and navigate to the
 * /country-card/[COUNTRY ID]
 * /institution-card/[ROR ID]
 
+### Making Icons
+Download the Adobe Illustrator icons-final.ai file.
+* Add your icon as a new artboard, it should be 64x64px in size.
+* File > Export for Screens > Format SVG, Export Artboard.
+* Open the IcoMoon App: https://icomoon.io/app/#/select.
+* Click "Import Icons" and choose components/common/selection.json.
+* Update or add your new icon.
+* Select the icons you want to export.
+* Click the "Generate Font" tab.
+* Click Download.
+* Get the selections.json file out of the downloaded file and replace the old selections.json file.
+
 ## 4. Configuring Github Actions
 The following Github Secrets need to be created:
 

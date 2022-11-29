@@ -18,6 +18,8 @@
 import fs from "fs";
 import { handleRequest } from "./router";
 import lodashGet from "lodash.get";
+import decompress from "decompress";
+import { Entity } from "./types";
 
 const host = "http://localhost";
 const institutionTestTimeout = 100000;
@@ -282,3 +284,89 @@ test(
   },
   institutionTestTimeout,
 );
+
+test("test downloadZip country", async () => {
+  // Get entity from local file
+  const testEntity: Entity = JSON.parse(fs.readFileSync("./public/country/NZL.json", "utf-8"));
+
+  // //Put data into KV namespace for testing
+  await env.__STATIC_CONTENT.put("country/NZL.json", fs.readFileSync("./public/country/NZL.json", "utf-8"));
+
+  // Make download request
+  let res = await handleRequest(new Request(`${host}/download/country/NZL`), env, ctx);
+  expect(res.status).toBe(200);
+
+  // Decompress response.
+  // Have to change to correct format for decompress package.
+  const resBlob = await res.blob();
+  const buffer = Buffer.from(await resBlob.arrayBuffer(), "binary");
+  const zippedFiles: any = await decompress(buffer, "dist");
+
+  // Check that all files are present.
+  const expectedZippedFiles = ["README.md", "repositories.csv", "years.csv"];
+  zippedFiles.forEach((file: any) => {
+    expect(expectedZippedFiles.includes(file.path)).toBeTruthy();
+
+    // Quickly check that the markdown file has the correct information.
+    if (file.path.toString().includes("README.md")) {
+      expect(file.data.toString().includes(testEntity.name)).toBeTruthy();
+      expect(file.data.toString().includes(testEntity.start_year)).toBeTruthy();
+      expect(file.data.toString().includes(testEntity.end_year)).toBeTruthy();
+    }
+  });
+});
+
+test("test downloadZip institution", async () => {
+  // Get entity from local file
+  const testEntity: Entity = JSON.parse(fs.readFileSync("./public/institution/030cszc07.json", "utf-8"));
+
+  // // Put data into KV namespace for testing
+  await env.__STATIC_CONTENT.put(
+    "institution/030cszc07.json",
+    fs.readFileSync("./public/institution/030cszc07.json", "utf-8"),
+  );
+
+  // Make download request
+  let res = await handleRequest(new Request(`${host}/download/institution/030cszc07`), env, ctx);
+  expect(res.status).toBe(200);
+
+  // Decompress response.
+  // Have to change to correct format for decompress package.
+  const resBlob = await res.blob();
+  const buffer = Buffer.from(await resBlob.arrayBuffer(), "binary");
+  const zippedFiles: any = await decompress(buffer, "dist");
+
+  // Check that all files are present.
+  const expectedZippedFiles = ["README.md", "repositories.csv", "years.csv"];
+  zippedFiles.forEach((file: any) => {
+    expect(expectedZippedFiles.includes(file.path)).toBeTruthy();
+
+    // Quickly check that the markdown file has the correct information.
+    if (file.path.toString().includes("README.md")) {
+      expect(file.data.toString().includes(testEntity.name)).toBeTruthy();
+      expect(file.data.toString().includes(testEntity.start_year)).toBeTruthy();
+      expect(file.data.toString().includes(testEntity.end_year)).toBeTruthy();
+    }
+  });
+});
+
+test("test downloadZip country NotFound", async () => {
+  // Put example country data into KVNamespace.
+  await env.__STATIC_CONTENT.put("country/NZL.json", fs.readFileSync("./public/country/NZL.json", "utf-8"));
+
+  // Assert that API returns a 404 for a bad country ID
+  let resCountry = await handleRequest(new Request(`${host}/download/country/ABC`), env, ctx);
+  expect(resCountry.status).toBe(404);
+});
+
+test("test downloadZip institution NotFound", async () => {
+  // Put example data into KVNamespace.
+  await env.__STATIC_CONTENT.put(
+    "institution/030cszc07.json",
+    fs.readFileSync("./public/institution/030cszc07.json", "utf-8"),
+  );
+
+  // Assert that API returns a 404 for a bad institution ID
+  let resInstitution = await handleRequest(new Request(`${host}/download/institution/123abcd45`), env, ctx);
+  expect(resInstitution.status).toBe(404);
+});
