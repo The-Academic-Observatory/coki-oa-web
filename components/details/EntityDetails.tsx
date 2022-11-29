@@ -45,7 +45,7 @@ export interface EntityDetailsProps {
   stats: Stats;
 }
 
-export function makeShareImageUrl(entityId: string): string {
+export function makeSocialCardUrl(entityId: string): string {
   let url = `${process.env.NEXT_PUBLIC_HOST}/social-cards/${entityId}.jpg`;
   return addBuildId(url);
 }
@@ -69,7 +69,7 @@ export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) =>
   const pageDescription = makePageDescription(entity, stats);
 
   const shareTitle = `${entity.name}'s Open Access Research Performance`;
-  const shareImage = makeShareImageUrl(entity.id);
+  const shareImage = makeSocialCardUrl(entity.id);
 
   return (
     <Box layerStyle="page">
