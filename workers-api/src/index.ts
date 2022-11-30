@@ -12,16 +12,17 @@ export async function fetchData(request: Request, env, ctx) {
   const cacheKey = makeCacheKey(request);
   let response = await cache.match(cacheKey);
 
-  if (!response) {
+  if (response) {
+    console.log(`Cache hit: ${cacheKey.url}.`);
+  } else {
     console.log(`Request ${cacheKey.url} not in cache, fetching and caching.`);
     response = await handleRequest(request);
-    //@ts-ignore
-    response.headers.append("Cache-Control", `s-maxage=${maxAge}`);
 
-    // @ts-ignore
-    ctx.waitUntil(cache.put(cacheKey, response.clone()));
-  } else {
-    console.log(`Cache hit: ${cacheKey.url}.`);
+    if (response?.status === 200) {
+      // If 200 code then cache response, else return error
+      response.headers.append("Cache-Control", `s-maxage=${maxAge}`);
+      ctx.waitUntil(cache.put(cacheKey, response.clone()));
+    }
   }
 
   return response;
