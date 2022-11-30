@@ -40,7 +40,7 @@ import Breadcrumbs from "../components/common/Breadcrumbs";
 import { institutionTypes } from "../components/filter/InstitutionTypeForm";
 import { useEffectAfterRender } from "../lib/hooks";
 import PageLoader from "../components/common/PageLoader";
-import MetadataTags from "../components/details/MetadataTags";
+import HeadMetadataTags from "../components/details/HeadMetadataTags";
 
 const maxTabsWidth = "1100px";
 const maxPageSize = 18;
@@ -231,8 +231,8 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
     onClose: onCloseFilterInstitution,
   } = useDisclosure();
 
-  const pageTitle = "COKI: Open Access Dashboard";
-  const pageDescription =
+  const title = "COKI: Open Access Dashboard";
+  const description =
     "How Open is Academia? See how well your university or country performs at open access publishing.";
 
   return (
@@ -240,7 +240,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
       <PageLoader isLoading={isLoadingCountry || isLoadingInstitution} />
 
       {/* This component contains the Head tag for the page. */}
-      <MetadataTags title={pageTitle} description={pageDescription} />
+      <HeadMetadataTags title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[]}

@@ -11,7 +11,7 @@ export interface MetadataShareTagsProps {
   type?: string;
 }
 
-const MetadataTags = ({
+const HeadMetadataTags = ({
   title,
   description,
   shareTitle,
@@ -28,7 +28,7 @@ const MetadataTags = ({
   }
 
   if (shareImage === undefined) {
-    shareImage = `${process.env.NEXT_PUBLIC_HOST}/logo-sharecard.jpg`;
+    shareImage = `${process.env.NEXT_PUBLIC_HOST}/logo-social-card.jpg`;
   }
 
   if (type === undefined) {
@@ -38,7 +38,6 @@ const MetadataTags = ({
   const pageUrl = `${process.env.NEXT_PUBLIC_HOST}${useRouter().asPath}`;
 
   // Next needs parts of all the page Head in one place for the meta tags to appear properly.
-  // PageUrl route needs to come from outside this function.
   return (
     <Head>
       {/* Page Details */}
@@ -48,6 +47,7 @@ const MetadataTags = ({
       {/* Metadata for Twitter sharing */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@COKIproject" />
+      <meta name="twitter:creator" content="@COKIproject" />
       <meta name="twitter:title" content={shareTitle} />
       <meta name="twitter:description" content={shareDescription} />
       <meta name="twitter:image" content={shareImage} />
@@ -59,9 +59,9 @@ const MetadataTags = ({
       <meta property="og:type" content={type} />
       <meta property="og:description" content={shareDescription} />
       <meta property="og:url" content={pageUrl} />
-      <meta property="og:image:alt" content={`${process.env.NEXT_PUBLIC_HOST}/logo-sharecard.jpg`} />
+      <meta property="og:image:alt" content={`${process.env.NEXT_PUBLIC_HOST}/logo-social-card.jpg`} />
     </Head>
   );
 };
 
-export default memo(MetadataTags);
+export default memo(HeadMetadataTags);

@@ -29,7 +29,7 @@ import Footer from "./Footer";
 import SummaryCard from "./SummaryCard";
 import OtherPlatformOpenCard from "./OtherPlatformOpenCard";
 import OtherPlatformLocationsCard from "./OtherPlatformLocationsCard";
-import MetadataTags from "./MetadataTags";
+import HeadMetadataTags from "./HeadMetadataTags";
 
 export const makeDescription = (entity: Entity) => {
   let text = `Open Access statistics for ${entity.name},`;
@@ -65,8 +65,8 @@ export function makePageDescription(entity: Entity, stats: Stats): string {
 }
 
 export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) => {
-  const pageTitle = `COKI: ${entity.name}`;
-  const pageDescription = makePageDescription(entity, stats);
+  const title = `COKI: ${entity.name}`;
+  const description = makePageDescription(entity, stats);
 
   const shareTitle = `${entity.name}'s Open Access Research Performance`;
   const shareImage = makeSocialCardUrl(entity.id);
@@ -74,7 +74,7 @@ export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) =>
   return (
     <Box layerStyle="page">
       {/* This component contains the Head tag for the page. */}
-      <MetadataTags title={pageTitle} description={pageDescription} shareTitle={shareTitle} shareImage={shareImage} />
+      <HeadMetadataTags title={title} description={description} shareTitle={shareTitle} shareImage={shareImage} />
 
       <Breadcrumbs
         breadcrumbs={[

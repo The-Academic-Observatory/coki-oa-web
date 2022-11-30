@@ -26,7 +26,7 @@ import Breadcrumbs from "../components/common/Breadcrumbs";
 import { getStatsData } from "../lib/api";
 import { Stats } from "../lib/model";
 import Link from "../components/common/Link";
-import MetadataTags from "../components/details/MetadataTags";
+import HeadMetadataTags from "../components/details/HeadMetadataTags";
 
 export async function getStaticProps() {
   const stats = getStatsData();
@@ -42,13 +42,13 @@ type Props = {
 };
 
 export default function How({ stats }: Props) {
-  const pageTitle = "COKI: How it Works";
-  const pageDescription = "The COKI Open Access Dataset is created.";
+  const title = "COKI: How it Works";
+  const description = "The COKI Open Access Dataset is created.";
 
   return (
     <Box layerStyle="page">
       {/* This component contains the Head tag for the page. */}
-      <MetadataTags title={pageTitle} description={pageDescription} />
+      <HeadMetadataTags title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[

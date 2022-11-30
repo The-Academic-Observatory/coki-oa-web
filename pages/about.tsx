@@ -21,16 +21,16 @@ import CurtinLogo from "../public/logo-curtin.svg";
 import MellonLogo from "../public/logo-mellon.svg";
 import ArcadiaLogo from "../public/logo-arcadia.svg";
 import Breadcrumbs from "../components/common/Breadcrumbs";
-import MetadataTags from "../components/details/MetadataTags";
+import HeadMetadataTags from "../components/details/HeadMetadataTags";
 
 export default function About() {
-  const pageTitle = "COKI: About";
-  const pageDescription = "About the Curtin Open Knowledge Initiative.";
+  const title = "COKI: About";
+  const description = "About the Curtin Open Knowledge Initiative.";
 
   return (
     <Box layerStyle="page">
       {/* This component contains the Head tag for the page. */}
-      <MetadataTags title={pageTitle} description={pageDescription} />
+      <HeadMetadataTags title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[

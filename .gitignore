@@ -3,6 +3,7 @@
 /public/data
 /public/twitter
 /public/social-cards
+/workers-api/public
 
 # dependencies
 /node_modules

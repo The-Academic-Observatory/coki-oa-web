@@ -149,7 +149,7 @@ const FooterCredits = ({ ...rest }: StackProps) => {
 };
 
 const FooterSocialMedia = ({ ...rest }: StackProps) => {
-  const url = `${process.env.NEXT_PUBLIC_HOST}`; // Get URL of home page
+  const url = process.env.NEXT_PUBLIC_HOST; // Get URL of home page
   return (
     <Stack {...rest}>
       <Flex alignItems="center" justifyContent="center">

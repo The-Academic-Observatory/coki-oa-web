@@ -19,16 +19,16 @@ import React from "react";
 import Card from "../components/common/Card";
 import Icon from "../components/common/Icon";
 import Breadcrumbs from "../components/common/Breadcrumbs";
-import MetadataTags from "../components/details/MetadataTags";
+import HeadMetadataTags from "../components/details/HeadMetadataTags";
 
 export default function Contact() {
-  const pageTitle = "COKI: Contact";
-  const pageDescription = "Contact the Curtin Open Knowledge Initiative.";
+  const title = "COKI: Contact";
+  const description = "Contact the Curtin Open Knowledge Initiative.";
 
   return (
     <Box layerStyle="page">
       {/* This component contains the Head tag for the page. */}
-      <MetadataTags title={pageTitle} description={pageDescription} />
+      <HeadMetadataTags title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[
