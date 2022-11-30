@@ -21,14 +21,15 @@ module.exports = {
     );
     return config;
   },
+  // Solution to rewrites problem: https://github.com/vercel/next.js/issues/40549#issuecomment-1278844506
   async rewrites() {
     return [
       {
-        source: "/country/",
+        source: "/country/{/}?",
         destination: "/",
       },
       {
-        source: "/institution/",
+        source: "/institution/{/}?",
         destination: "/",
       },
     ];
