@@ -54,7 +54,8 @@ export function makePageDescription(entity: Entity, stats: Stats): string {
   const pOpen = Math.round(entity.stats.p_outputs_open);
   // When the entity's OA% is over median say Over when under say Only
   let metaDescription = "Over ";
-  if (entity.stats.p_outputs_open < lodashGet(stats, `${entity.category}.median`).p_outputs_open) {
+  const median_p_outputs_open = lodashGet(stats, `${entity.category}.median.p_outputs_open`);
+  if (median_p_outputs_open === undefined || entity.stats.p_outputs_open < median_p_outputs_open) {
     metaDescription = "Only ";
   }
   metaDescription +=
