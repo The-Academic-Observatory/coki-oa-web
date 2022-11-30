@@ -40,7 +40,7 @@ import Breadcrumbs from "../components/common/Breadcrumbs";
 import { institutionTypes } from "../components/filter/InstitutionTypeForm";
 import { useEffectAfterRender } from "../lib/hooks";
 import PageLoader from "../components/common/PageLoader";
-import HeadMetadataTags from "../components/details/HeadMetadataTags";
+import Head from "../components/common/Head";
 
 const maxTabsWidth = "1100px";
 const maxPageSize = 18;
@@ -240,7 +240,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
       <PageLoader isLoading={isLoadingCountry || isLoadingInstitution} />
 
       {/* This component contains the Head tag for the page. */}
-      <HeadMetadataTags title={title} description={description} />
+      <Head title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[]}

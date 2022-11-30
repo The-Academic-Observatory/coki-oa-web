@@ -21,7 +21,7 @@ import CurtinLogo from "../public/logo-curtin.svg";
 import MellonLogo from "../public/logo-mellon.svg";
 import ArcadiaLogo from "../public/logo-arcadia.svg";
 import Breadcrumbs from "../components/common/Breadcrumbs";
-import HeadMetadataTags from "../components/details/HeadMetadataTags";
+import Head from "../components/common/Head";
 
 export default function About() {
   const title = "COKI: About";
@@ -30,7 +30,7 @@ export default function About() {
   return (
     <Box layerStyle="page">
       {/* This component contains the Head tag for the page. */}
-      <HeadMetadataTags title={title} description={description} />
+      <Head title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[

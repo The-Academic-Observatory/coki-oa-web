@@ -21,7 +21,7 @@ import Breadcrumbs from "../components/common/Breadcrumbs";
 import ScrollTable from "../components/common/ScrollTable";
 import { getStatsData } from "../lib/api";
 import { Stats } from "../lib/model";
-import HeadMetadataTags from "../components/details/HeadMetadataTags";
+import Head from "../components/common/Head";
 
 export async function getStaticProps() {
   const stats = getStatsData();
@@ -44,7 +44,7 @@ export default function Open({ stats }: Props) {
   return (
     <Box layerStyle="page">
       {/* This component contains the Head tag for the page. */}
-      <HeadMetadataTags title={title} description={description} />
+      <Head title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[

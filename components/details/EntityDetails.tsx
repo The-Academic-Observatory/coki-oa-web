@@ -29,7 +29,7 @@ import Footer from "./Footer";
 import SummaryCard from "./SummaryCard";
 import OtherPlatformOpenCard from "./OtherPlatformOpenCard";
 import OtherPlatformLocationsCard from "./OtherPlatformLocationsCard";
-import HeadMetadataTags from "./HeadMetadataTags";
+import Head from "../common/Head";
 
 export const makeDescription = (entity: Entity) => {
   let text = `Open Access statistics for ${entity.name},`;
@@ -74,7 +74,7 @@ export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) =>
   return (
     <Box layerStyle="page">
       {/* This component contains the Head tag for the page. */}
-      <HeadMetadataTags title={title} description={description} shareTitle={shareTitle} shareImage={shareImage} />
+      <Head title={title} description={description} shareTitle={shareTitle} shareImage={shareImage} />
 
       <Breadcrumbs
         breadcrumbs={[

@@ -19,7 +19,7 @@ import React from "react";
 import Card from "../components/common/Card";
 import Icon from "../components/common/Icon";
 import Breadcrumbs from "../components/common/Breadcrumbs";
-import HeadMetadataTags from "../components/details/HeadMetadataTags";
+import Head from "../components/common/Head";
 
 export default function Contact() {
   const title = "COKI: Contact";
@@ -28,7 +28,7 @@ export default function Contact() {
   return (
     <Box layerStyle="page">
       {/* This component contains the Head tag for the page. */}
-      <HeadMetadataTags title={title} description={description} />
+      <Head title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[

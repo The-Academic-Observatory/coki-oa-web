@@ -23,7 +23,7 @@ import OAFlowchart from "../public/images/oa-flowchart.svg";
 import Figure from "../components/common/Figure";
 import ScrollTable from "../components/common/ScrollTable";
 import Breadcrumbs from "../components/common/Breadcrumbs";
-import HeadMetadataTags from "../components/details/HeadMetadataTags";
+import Head from "../components/common/Head";
 
 export default function Open() {
   const title = "COKI: Open Access";
@@ -32,7 +32,7 @@ export default function Open() {
   return (
     <Box layerStyle="page">
       {/* This component contains the Head tag for the page. */}
-      <HeadMetadataTags title={title} description={description} />
+      <Head title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[

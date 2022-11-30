@@ -48,8 +48,10 @@ interface SharePopoverProps extends BoxProps {
 
 const SharePopover = ({ entity, platform, ...rest }: SharePopoverProps) => {
   const { isOpen, onToggle, onClose } = useDisclosure();
-  const url = `${process.env.NEXT_PUBLIC_HOST}${useRouter().asPath}`; // Get URL of current route
-  const text = encodeURIComponent(`Open Access statistics for ${entity.name}!`);
+  const url = encodeURIComponent(`${process.env.NEXT_PUBLIC_HOST}${useRouter().asPath}`); // Get URL of current route
+  const text = encodeURIComponent(
+    `Check out the Open Access statistics for ${entity.name} on the COKI Open Access Dashboard:`,
+  );
 
   // Open URL in a new tab
   const openUrlTab = (url: string) => {
@@ -95,21 +97,21 @@ const SharePopover = ({ entity, platform, ...rest }: SharePopoverProps) => {
     },
     {
       text: "Twitter",
-      href: "https://twitter.com/intent/tweet?text=" + text + "&url=" + url,
+      href: `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=OpenAccess,COKI&via=COKIproject`,
       icon: <FaTwitter size={size} />,
       action: openUrlTab,
       description: "Share on Twitter.",
     },
     {
       text: "Facebook",
-      href: "https://www.facebook.com/sharer/sharer.php?u=" + url,
+      href: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
       icon: <FaFacebook size={size} />,
       action: openUrlTab,
       description: "Share on Facebook.",
     },
     {
       text: "LinkedIn",
-      href: "https://www.linkedin.com/shareArticle?mini=true&url=" + url,
+      href: `https://www.linkedin.com/shareArticle?mini=true&url=${url}`,
       icon: <FaLinkedin size={size} />,
       action: openUrlTab,
       description: "Share on LinkedIn.",

@@ -149,7 +149,9 @@ const FooterCredits = ({ ...rest }: StackProps) => {
 };
 
 const FooterSocialMedia = ({ ...rest }: StackProps) => {
-  const url = process.env.NEXT_PUBLIC_HOST; // Get URL of home page
+  const url = encodeURIComponent(process.env.NEXT_PUBLIC_HOST); // Get URL of home page
+  const text = encodeURIComponent("Checkout the COKI Open Access Dashboard:");
+
   return (
     <Stack {...rest}>
       <Flex alignItems="center" justifyContent="center">
@@ -161,7 +163,11 @@ const FooterSocialMedia = ({ ...rest }: StackProps) => {
           Share
         </Text>
       </Flex>
-      <a href={`https://twitter.com/intent/tweet?url=${url}`} target="_blank" rel="noreferrer">
+      <a
+        href={`https://twitter.com/intent/tweet?url=${url}&text=${text}&hashtags=OpenAccess,COKI&via=COKIproject`}
+        target="_blank"
+        rel="noreferrer"
+      >
         <Icon icon="twitter" size={iconSize} color={{ base: "grey.900", std: "grey.100" }} />
       </a>
 

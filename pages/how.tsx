@@ -26,7 +26,7 @@ import Breadcrumbs from "../components/common/Breadcrumbs";
 import { getStatsData } from "../lib/api";
 import { Stats } from "../lib/model";
 import Link from "../components/common/Link";
-import HeadMetadataTags from "../components/details/HeadMetadataTags";
+import Head from "../components/common/Head";
 
 export async function getStaticProps() {
   const stats = getStatsData();
@@ -48,7 +48,7 @@ export default function How({ stats }: Props) {
   return (
     <Box layerStyle="page">
       {/* This component contains the Head tag for the page. */}
-      <HeadMetadataTags title={title} description={description} />
+      <Head title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[
