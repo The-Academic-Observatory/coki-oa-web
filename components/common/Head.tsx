@@ -24,9 +24,9 @@ export interface HeadProps {
   shareTitle?: string;
   shareDescription?: string;
   shareImage?: string;
-  imageWidth: string;
-  imageHeight: string;
-  imageType: string;
+  imageWidth?: string;
+  imageHeight?: string;
+  imageType?: string;
 }
 
 const Head = ({
