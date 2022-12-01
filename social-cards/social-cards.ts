@@ -36,7 +36,7 @@ export async function makeShareCards(inputPath: string, maxConcurrency: number, 
 
     if (element !== null) {
       console.log(`Saving screenshot to: ${path}`);
-      await element.screenshot({ path: path, quality: 100 });
+      await element.screenshot({ path: path });
     }
   });
 

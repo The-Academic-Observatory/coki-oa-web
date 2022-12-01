@@ -231,7 +231,7 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
     onClose: onCloseFilterInstitution,
   } = useDisclosure();
 
-  const title = "COKI: Open Access Dashboard";
+  const title = "COKI Open Access Dashboard";
   const description =
     "How Open is Academia? See how well your university or country performs at open access publishing.";
 

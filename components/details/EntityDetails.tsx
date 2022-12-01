@@ -46,7 +46,7 @@ export interface EntityDetailsProps {
 }
 
 export function makeSocialCardUrl(entityId: string): string {
-  let url = `${process.env.NEXT_PUBLIC_HOST}/social-cards/${entityId}.jpg`;
+  let url = `${process.env.NEXT_PUBLIC_HOST}/social-cards/${entityId}.png`;
   return addBuildId(url);
 }
 
