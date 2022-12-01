@@ -73,12 +73,10 @@ const BreakdownSparkline = ({ values, colors, width, height, labels, ...rest }: 
     );
   }
 
-  let valueSummary: string = "";
-  rects.map((rect) => (valueSummary += ` ${Math.round(rect.width)}% `));
-
   // The text included below is for the Google results of the website.
   // The rect is only rendered in the svg, only the text should appear
   // in the Google search results.
+  const valueSummary: string = values.map((value) => `${Math.round(value)}%`).join(" ");
 
   return (
     <Box {...rest}>
