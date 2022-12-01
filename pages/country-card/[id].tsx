@@ -16,16 +16,16 @@
 
 import { Entity } from "../../lib/model";
 import { getEntity, getEntityIds, idsToStaticPaths } from "../../lib/api";
-import TwitterCard from "../../components/common/TwitterCard";
+import SocialCard from "../../components/common/SocialCard";
 
-const category = "institution";
+const category = "country";
 
 type Props = {
   entity: Entity;
 };
 
-export default function TwitterInstitution({ entity }: Props) {
-  return <TwitterCard entity={entity} />;
+export default function CountryCard({ entity }: Props) {
+  return <SocialCard entity={entity} />;
 }
 
 type Params = {

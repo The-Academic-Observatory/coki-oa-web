@@ -149,6 +149,9 @@ const FooterCredits = ({ ...rest }: StackProps) => {
 };
 
 const FooterSocialMedia = ({ ...rest }: StackProps) => {
+  const url = encodeURIComponent(process.env.NEXT_PUBLIC_HOST); // Get URL of home page
+  const text = encodeURIComponent("Checkout the COKI Open Access Dashboard:");
+
   return (
     <Stack {...rest}>
       <Flex alignItems="center" justifyContent="center">
@@ -160,19 +163,19 @@ const FooterSocialMedia = ({ ...rest }: StackProps) => {
           Share
         </Text>
       </Flex>
-      <a href="https://twitter.com/intent/tweet?url=https://open.coki.ac/&text=" target="_blank" rel="noreferrer">
-        <Icon icon="twitter" size={iconSize} color={{ base: "grey.900", std: "grey.100" }} />
-      </a>
-
       <a
-        href="https://www.linkedin.com/shareArticle?mini=true&url=https://open.coki.ac/"
+        href={`https://twitter.com/intent/tweet?url=${url}&text=${text}&hashtags=OpenAccess,COKI&via=COKIproject`}
         target="_blank"
         rel="noreferrer"
       >
+        <Icon icon="twitter" size={iconSize} color={{ base: "grey.900", std: "grey.100" }} />
+      </a>
+
+      <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${url}`} target="_blank" rel="noreferrer">
         <Icon icon="linkedin" size={iconSize} color={{ base: "grey.900", std: "grey.100" }} />
       </a>
 
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://open.coki.ac/" target="_blank" rel="noreferrer">
+      <a href={`https://www.facebook.com/sharer/sharer.php?u=${url}`} target="_blank" rel="noreferrer">
         <Icon icon="facebook" size={iconSize} color={{ base: "grey.900", std: "grey.100" }} />
       </a>
     </Stack>

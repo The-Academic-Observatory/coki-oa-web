@@ -192,24 +192,24 @@ Build & deploy to production:
 wrangler publish -e production
 ```
 
-### Rendering Twitter Cards
-This will be removed when card generation is performed by the workflow.
+### Rendering Social Cards
+This will be removed when card generation is performed by the workflow or the API.
 
 To render the cards:
 ```bash
-cd ./twitter-cards
+cd ./social-cards
 PUPPETEER_PRODUCT=firefox yarn install
 yarn render
 ```
 
-The Twitter cards are saved in `public/twitter`.
-* Make a zip file of the twitter folder.
+The social cards are saved in `public/social-cards`.
+* Make a zip file of the social-cards folder.
 * Upload it to the `coki-oa-web-data` Google Cloud Storage Bucket. The cards will then be
 built into the latest.zip file by the Airflow workflow.
 
-To manually view the Twitter cards, start the local webserver and navigate to the following routes:
-* /twitter-country/[COUNTRY ID]
-* /twitter-institution/[ROR ID]
+To manually view the social cards, start the local webserver and navigate to the following routes:
+* /country-card/[COUNTRY ID]
+* /institution-card/[ROR ID]
 
 ## 4. Configuring Github Actions
 The following Github Secrets need to be created:

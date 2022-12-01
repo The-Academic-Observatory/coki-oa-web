@@ -22,19 +22,17 @@ import OAOverview from "../public/images/oa-overview.svg";
 import OAFlowchart from "../public/images/oa-flowchart.svg";
 import Figure from "../components/common/Figure";
 import ScrollTable from "../components/common/ScrollTable";
-import Head from "next/head";
 import Breadcrumbs from "../components/common/Breadcrumbs";
+import Head from "../components/common/Head";
 
 export default function Open() {
+  const title = "COKI: Open Access";
+  const description = "What is Open Access? Why is Open Access important? What can we do to improve Open Access?";
+
   return (
     <Box layerStyle="page">
-      <Head>
-        <title>COKI: Open Access</title>
-        <meta
-          name="description"
-          content="What is Open Access? Why is Open Access important? What can we do to improve Open Access?"
-        />
-      </Head>
+      {/* This component contains the Head tag for the page. */}
+      <Head title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[

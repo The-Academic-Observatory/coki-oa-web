@@ -20,16 +20,17 @@ import Card from "../components/common/Card";
 import CurtinLogo from "../public/logo-curtin.svg";
 import MellonLogo from "../public/logo-mellon.svg";
 import ArcadiaLogo from "../public/logo-arcadia.svg";
-import Head from "next/head";
 import Breadcrumbs from "../components/common/Breadcrumbs";
+import Head from "../components/common/Head";
 
 export default function About() {
+  const title = "COKI: About";
+  const description = "About the Curtin Open Knowledge Initiative.";
+
   return (
     <Box layerStyle="page">
-      <Head>
-        <title>COKI: About</title>
-        <meta name="description" content="About the Curtin Open Knowledge Initiative." />
-      </Head>
+      {/* This component contains the Head tag for the page. */}
+      <Head title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[

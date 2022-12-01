@@ -36,11 +36,11 @@ import IndexTable from "../components/table/IndexTable";
 import Icon from "../components/common/Icon";
 import FilterForm, { QueryForm, regions } from "../components/filter/FilterForm";
 import TextCollapse from "../components/common/TextCollapse";
-import Head from "next/head";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import { institutionTypes } from "../components/filter/InstitutionTypeForm";
 import { useEffectAfterRender } from "../lib/hooks";
 import PageLoader from "../components/common/PageLoader";
+import Head from "../components/common/Head";
 
 const maxTabsWidth = "1100px";
 const maxPageSize = 18;
@@ -231,17 +231,16 @@ const IndexPage = ({ countriesInitialState, institutionsInitialState, stats }: P
     onClose: onCloseFilterInstitution,
   } = useDisclosure();
 
+  const title = "COKI Open Access Dashboard";
+  const description =
+    "How Open is Academia? See how well your university or country performs at open access publishing.";
+
   return (
     <Box m={{ base: 0, md: "25px 25px 90px", std: "25px 40px 90px" }}>
       <PageLoader isLoading={isLoadingCountry || isLoadingInstitution} />
 
-      <Head>
-        <title>COKI: Open Access Dashboard</title>
-        <meta
-          name="description"
-          content="How Open is Academia? See how well your university or country performs at open access publishing."
-        />
-      </Head>
+      {/* This component contains the Head tag for the page. */}
+      <Head title={title} description={description} />
 
       <Breadcrumbs
         breadcrumbs={[]}
