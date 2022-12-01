@@ -15,7 +15,7 @@
 // Author: James Diprose
 
 import { ColumnInstance } from "react-table";
-import { HStack, Text } from "@chakra-ui/react";
+import { Grid, GridItem, HStack, Text } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import React, { memo } from "react";
 
@@ -33,6 +33,7 @@ const ColumnHeaders: { [id: string]: string } = {
 };
 
 function Header({ column }: ColumnProps) {
+  const subHeadings = ["Publisher open", "both", "other platform open", "closed"];
   return (
     <span>
       <HStack align="start" spacing="0">
@@ -48,10 +49,15 @@ function Header({ column }: ColumnProps) {
         )}
       </HStack>
       {column.id === "breakdown" ? (
-        <Text textStyle="tableSubHeader">
-          Publisher open <br />
-          both <br /> other platform open <br /> closed <br />
-        </Text>
+        <Grid key="subHeadingTable">
+          {subHeadings.map((subHead: string) => {
+            return (
+              <GridItem key={subHead}>
+                <Text textStyle="tableSubHeader">{subHead}</Text>
+              </GridItem>
+            );
+          })}
+        </Grid>
       ) : (
         ""
       )}
