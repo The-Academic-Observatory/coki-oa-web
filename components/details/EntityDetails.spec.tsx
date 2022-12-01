@@ -39,7 +39,7 @@ const publicHost = "http://127.0.0.1:3000";
 
 test("test makeSocialCardUrl", () => {
   let url = makeSocialCardUrl("NZL");
-  expect(url).toEqual(`${publicHost}/social-cards/NZL.png?build=${buildId}`);
+  expect(url).toEqual(`${publicHost}/social-cards/NZL.jpg?build=${buildId}`);
 });
 
 test("test makePageDescription country", () => {

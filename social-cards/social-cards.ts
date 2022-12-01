@@ -28,7 +28,7 @@ export async function makeShareCards(inputPath: string, maxConcurrency: number, 
 
   await cluster.task(async ({ page, data }) => {
     const url = data.url;
-    const path = `../public/social-cards/${data.entity.id}.png`;
+    const path = `../public/social-cards/${data.entity.id}.jpg`;
     console.log(`Fetching page: ${url}`);
     await page.goto(url);
     await page.waitForSelector(cardSelector);
@@ -36,7 +36,7 @@ export async function makeShareCards(inputPath: string, maxConcurrency: number, 
 
     if (element !== null) {
       console.log(`Saving screenshot to: ${path}`);
-      await element.screenshot({ path: path });
+      await element.screenshot({ path: path, quality: 90 });
     }
   });
 
