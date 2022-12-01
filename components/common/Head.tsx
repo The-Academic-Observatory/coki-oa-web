@@ -24,9 +24,9 @@ export interface HeadProps {
   shareTitle?: string;
   shareDescription?: string;
   shareImage?: string;
-  imageWidth?: string;
-  imageHeight?: string;
-  imageType?: string;
+  shareImageWidth?: string;
+  shareImageHeight?: string;
+  shareImageType?: string;
 }
 
 const Head = ({
@@ -35,9 +35,9 @@ const Head = ({
   shareTitle,
   shareDescription,
   shareImage,
-  imageWidth,
-  imageHeight,
-  imageType,
+  shareImageWidth,
+  shareImageHeight,
+  shareImageType,
 }: HeadProps) => {
   if (shareTitle === undefined) {
     shareTitle = title;
@@ -51,16 +51,16 @@ const Head = ({
     shareImage = `${process.env.NEXT_PUBLIC_HOST}/logo-social-card.png`;
   }
 
-  if (imageWidth === undefined) {
-    imageWidth = "1200";
+  if (shareImageWidth === undefined) {
+    shareImageWidth = "1200";
   }
 
-  if (imageHeight === undefined) {
-    imageHeight = "628";
+  if (shareImageHeight === undefined) {
+    shareImageHeight = "628";
   }
 
-  if (imageType === undefined) {
-    imageType = "image/png";
+  if (shareImageType === undefined) {
+    shareImageType = "image/png";
   }
 
   const pageUrl = `${process.env.NEXT_PUBLIC_HOST}${useRouter().asPath}`;
@@ -88,10 +88,10 @@ const Head = ({
       <meta property="og:type" content="website" />
       <meta property="og:image" content={shareImage} />
       <meta property="og:image:alt" content={shareDescription} />
-      <meta property="og:image:type" content={imageType} />
+      <meta property="og:image:type" content={shareImageType} />
       {/* Use width and height tags so that Facebook crawler can render card straight away: https://developers.facebook.com/docs/sharing/webmasters/images/ */}
-      <meta property="og:image:width" content={imageWidth} />
-      <meta property="og:image:height" content={imageHeight} />
+      <meta property="og:image:width" content={shareImageWidth} />
+      <meta property="og:image:height" content={shareImageHeight} />
       <meta property="og:url" content={pageUrl} />
     </NextHead>
   );

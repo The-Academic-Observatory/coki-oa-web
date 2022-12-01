@@ -79,7 +79,7 @@ export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) =>
         description={description}
         shareTitle={shareTitle}
         shareImage={shareImage}
-        imageType="image/jpeg"
+        shareImageType="image/jpeg"
       />
 
       <Breadcrumbs
