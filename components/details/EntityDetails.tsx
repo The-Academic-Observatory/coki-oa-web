@@ -46,7 +46,7 @@ export interface EntityDetailsProps {
 }
 
 export function makeSocialCardUrl(entityId: string): string {
-  let url = `${process.env.NEXT_PUBLIC_HOST}/social-cards/${entityId}.png`;
+  let url = `${process.env.NEXT_PUBLIC_HOST}/social-cards/${entityId}.jpg`;
   return addBuildId(url);
 }
 
@@ -74,7 +74,13 @@ export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) =>
   return (
     <Box layerStyle="page">
       {/* This component contains the Head tag for the page. */}
-      <Head title={title} description={description} shareTitle={shareTitle} shareImage={shareImage} />
+      <Head
+        title={title}
+        description={description}
+        shareTitle={shareTitle}
+        shareImage={shareImage}
+        shareImageType="image/jpeg"
+      />
 
       <Breadcrumbs
         breadcrumbs={[
