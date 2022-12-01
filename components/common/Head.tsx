@@ -36,7 +36,7 @@ const Head = ({ title, description, shareTitle, shareDescription, shareImage }: 
   }
 
   if (shareImage === undefined) {
-    shareImage = `${process.env.NEXT_PUBLIC_HOST}/logo-social-card.jpg`;
+    shareImage = `${process.env.NEXT_PUBLIC_HOST}/logo-social-card.png`;
   }
 
   const pageUrl = `${process.env.NEXT_PUBLIC_HOST}${useRouter().asPath}`;
