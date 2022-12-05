@@ -16,18 +16,12 @@
 
 import React from "react";
 import Dashboard, { getDashboardStaticProps } from "../components/dashboard/Dashboard";
-import { QueryResult, Stats } from "../lib/model";
+import { DashboardPageProps } from "./index";
 
-export type DashboardPageProps = {
-  defaultCountries: QueryResult;
-  defaultInstitutions: QueryResult;
-  stats: Stats;
-};
-
-const CountryIndexPage = ({ defaultCountries, defaultInstitutions, stats }: DashboardPageProps) => {
+const InstitutionIndexPage = ({ defaultCountries, defaultInstitutions, stats }: DashboardPageProps) => {
   return (
     <Dashboard
-      defaultCategory="country"
+      defaultCategory="institution"
       defaultCountries={defaultCountries}
       defaultInstitutions={defaultInstitutions}
       stats={stats}
@@ -39,4 +33,4 @@ export async function getStaticProps() {
   return getDashboardStaticProps();
 }
 
-export default CountryIndexPage;
+export default InstitutionIndexPage;

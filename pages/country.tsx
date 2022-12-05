@@ -16,13 +16,7 @@
 
 import React from "react";
 import Dashboard, { getDashboardStaticProps } from "../components/dashboard/Dashboard";
-import { QueryResult, Stats } from "../lib/model";
-
-export type DashboardPageProps = {
-  defaultCountries: QueryResult;
-  defaultInstitutions: QueryResult;
-  stats: Stats;
-};
+import { DashboardPageProps } from "./index";
 
 const CountryIndexPage = ({ defaultCountries, defaultInstitutions, stats }: DashboardPageProps) => {
   return (
