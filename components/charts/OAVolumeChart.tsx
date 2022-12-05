@@ -61,7 +61,7 @@ const OAVolumeChart = ({ data, startYear, ...rest }: OAVolumeChartProps) => {
   return (
     <div style={{ display: "flex" }}>
       <Bar {...props} layers={["axes"]} axisBottom={null} width={60} margin={{ ...props.margin, left: 60 }} />
-      <div style={{ overflowX: "auto", direction: "rtl", width: 740 }}>
+      <div style={{ overflowX: "auto", overflowY: "hidden", direction: "rtl", width: 740 }}>
         <Bar {...props} axisLeft={null} margin={{ ...props.margin, left: 0 }} />
       </div>
     </div>

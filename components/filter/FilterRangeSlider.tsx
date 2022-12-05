@@ -14,8 +14,15 @@
 //
 // Author: Aniek Roelofs, James Diprose
 
-import { Flex, Text, VStack } from "@chakra-ui/react";
-import { RangeSlider, RangeSliderFilledTrack, RangeSliderThumb, RangeSliderTrack } from "../chakra/range-slider";
+import {
+  Flex,
+  Text,
+  VStack,
+  RangeSlider,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
+  RangeSliderTrack,
+} from "@chakra-ui/react";
 import { getIn, useFormikContext } from "formik";
 
 import { QueryForm } from "./FilterForm";
@@ -54,10 +61,10 @@ const FilterRangeSlider = ({
   const step = (maxTrans - minTrans) / nSteps;
 
   // Callbacks
-  const onChange = useCallback((values) => {
+  const onChange = useCallback((values: Array<number>) => {
     setValue(values);
   }, []);
-  const onChangeEnd = useCallback((values) => {
+  const onChangeEnd = useCallback((values: Array<number>) => {
     // Update the form values when the changes end
     const [l, r] = values;
     setFieldValue(leftKey, inverseTransform(l));

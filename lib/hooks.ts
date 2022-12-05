@@ -14,17 +14,22 @@ export const useD3 = (
   return ref;
 };
 
+// In development environment useEffect mounts twice before the page has fully rendered
+// reactStrictMode: true should be on when developing
+let CALLBACK_THRESH = 1;
+if (process.env.NODE_ENV === "development") {
+  CALLBACK_THRESH = 2;
+}
+
 export const useEffectAfterRender = (callback: EffectCallback, deps?: DependencyList) => {
-  const isRendered = useRef(false);
+  const renderCount = useRef(0);
 
   useEffect(() => {
-    if (isRendered.current) {
-      // Run callback
-      return callback();
-    } else {
-      // Set render state to true
-      isRendered.current = true;
-      return;
+    renderCount.current += 1;
+
+    // Only run callback if we have passed CALLBACK_THRESH
+    if (renderCount.current > CALLBACK_THRESH) {
+      callback();
     }
   }, deps);
 };

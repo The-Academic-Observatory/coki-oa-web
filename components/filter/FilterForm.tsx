@@ -190,7 +190,7 @@ const FilterForm = ({
 }: FilterFormProps) => {
   // Create formik form
   const onSubmit = useCallback(
-    (values) => {
+    (values: QueryForm) => {
       // Only set page to 1 but don't change sort order
       const q = {
         ...values,

@@ -15,7 +15,6 @@
 // Author: James Diprose
 
 import { extendTheme } from "@chakra-ui/react";
-import { createBreakpoints } from "@chakra-ui/theme-tools";
 import Accordion from "./components/accordion";
 import Button from "./components/button";
 import Checkbox from "./components/checkbox";
@@ -29,14 +28,14 @@ import Menu from "./components/menu";
 import Tooltip from "./components/tooltip";
 import Alert from "./components/alert";
 
-const breakpoints = createBreakpoints({
+const breakpoints = {
   sm: "600px",
   md: "1000px",
   std: "1310px",
   lg: "1600px",
   xl: "1920px",
   "2xl": "3840px",
-});
+};
 
 const theme = extendTheme({
   breakpoints: breakpoints,

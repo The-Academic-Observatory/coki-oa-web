@@ -14,25 +14,23 @@
 //
 // Author: James Diprose
 
-import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
-import NextLink from "next/link";
-import { ReactNode } from "react";
+import React from "react";
+import Dashboard, { getDashboardStaticProps } from "../components/dashboard/Dashboard";
+import { DashboardPageProps } from "./index";
 
-interface LinkLinkProps extends LinkProps {
-  href: string;
-  children: ReactNode;
-}
-
-const Link = ({ href, children, ...rest }: LinkLinkProps) => {
+const CountryIndexPage = ({ defaultCountries, defaultInstitutions, stats }: DashboardPageProps) => {
   return (
-    // Set legacyBehavior and passHref: https://chakra-ui.com/docs/components/link#nextjs-13
-    <NextLink href={href} legacyBehavior passHref>
-      {/*The empty focus stops the ugly blue border from appearing on focus*/}
-      <ChakraLink {...rest} _focus={{}}>
-        {children}
-      </ChakraLink>
-    </NextLink>
+    <Dashboard
+      defaultCategory="country"
+      defaultCountries={defaultCountries}
+      defaultInstitutions={defaultInstitutions}
+      stats={stats}
+    />
   );
 };
 
-export default Link;
+export async function getStaticProps() {
+  return getDashboardStaticProps();
+}
+
+export default CountryIndexPage;
