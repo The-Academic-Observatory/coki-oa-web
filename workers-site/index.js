@@ -22,10 +22,6 @@ async function handleEvent(event) {
     } else if (pathname.endsWith(plausibleEndpointName)) {
       return proxyPlausibleEvent(event);
     } else {
-      // For /country/ and /institution/ set the request URL to the home page
-      if (pathname.endsWith("/country/") || pathname.endsWith("/institution/")) {
-        event.request.url = new URL(event.request.url).href;
-      }
       return await getAssetFromKV(event, options);
     }
   } catch (e) {
