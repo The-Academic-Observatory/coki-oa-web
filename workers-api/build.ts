@@ -1,6 +1,4 @@
-//@ts-ignore
 import path from "path";
-//@ts-ignore
 import { fileURLToPath } from "url";
 import { build } from "esbuild";
 import { saveIndexToFile } from "./src/searchIndex.js";
@@ -19,6 +17,7 @@ try {
     sourcemap: true,
     format: "esm",
     target: "esnext",
+    external: ["__STATIC_CONTENT_MANIFEST"],
     minify: true,
     entryPoints: [path.join(__dirname, "src", "index.ts")],
     outdir: path.join(__dirname, "dist"),

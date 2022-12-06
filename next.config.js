@@ -3,6 +3,9 @@ const { nanoid } = require("nanoid");
 const webpack = require("webpack");
 
 module.exports = {
+  experimental: {
+    appDir: true,
+  },
   reactStrictMode: true,
   trailingSlash: true,
   swcMinify: true,

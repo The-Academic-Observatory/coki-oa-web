@@ -14,6 +14,8 @@
 //
 // Author: James Diprose
 
+"use client";
+
 import React, { memo, ReactElement } from "react";
 import { Box, BoxProps, Flex, HStack, Image, StackProps, Text, VStack } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";

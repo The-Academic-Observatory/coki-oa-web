@@ -21,10 +21,10 @@ import lodashGet from "lodash.get";
 import lodashSet from "lodash.set";
 import { largestRemainder, sum } from "./utils";
 
-const dataPath: string = <string>process.env.DATA_PATH;
+const DATA_PATH: string = <string>process.env.DATA_PATH;
 
 export function getEntityIds(category: string) {
-  const path = join(dataPath, category);
+  const path = join(DATA_PATH, category);
   return fs.readdirSync(path).map((fileName) => fileName.replace(/\.json$/, ""));
 }
 
@@ -39,7 +39,7 @@ export function idsToStaticPaths(ids: Array<string>) {
 }
 
 export function getEntity(category: string, id: string): Entity {
-  const filePath = join(dataPath, category, `${id}.json`);
+  const filePath = join(DATA_PATH, category, `${id}.json`);
   const entity = JSON.parse(fs.readFileSync(filePath, "utf-8"));
   quantizeEntityPercentages(entity);
   return entity;
@@ -95,12 +95,12 @@ export function quantizeEntityPercentages(entity: Entity) {
 }
 
 export function getIndexTableData(category: string) {
-  const filePath = join(dataPath, `${category}.json`);
+  const filePath = join(DATA_PATH, `${category}.json`);
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }
 
 export function getStatsData(): Stats {
-  const filePath = join(dataPath, `stats.json`);
+  const filePath = join(DATA_PATH, `stats.json`);
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }
 
