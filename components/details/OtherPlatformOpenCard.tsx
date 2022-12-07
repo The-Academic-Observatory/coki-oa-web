@@ -20,12 +20,11 @@ import React, { memo } from "react";
 import EntityCard from "./EntityCard";
 import { FaBriefcaseMedical, FaFirstdraft, FaUniversity, FaUsers } from "react-icons/fa";
 import { TbWorld } from "react-icons/tb";
+import { toReadableNumber } from "../../lib/utils";
 
 interface OtherPlatformOpenCardProps extends BoxProps {
   entity: Entity;
 }
-
-const numberFormat = Intl.NumberFormat("en", { notation: "compact" });
 
 const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) => {
   const stats = entity.stats;
@@ -108,7 +107,7 @@ const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) 
                 </Flex>
               </Tooltip>
 
-              <Text textStyle="chartKeyDescription">{numberFormat.format(item.total_outputs)}</Text>
+              <Text textStyle="chartKeyDescription">{toReadableNumber(item.total_outputs)}</Text>
             </Flex>
 
             {/*Use an SVG for the bars rather an HTML progress because it is less of a pain to style across platforms */}

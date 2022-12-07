@@ -27,8 +27,7 @@ import { getIn, useFormikContext } from "formik";
 
 import { QueryForm } from "./FilterForm";
 import React, { memo, useCallback, useEffect } from "react";
-
-const numberFormat = Intl.NumberFormat("en", { notation: "compact" });
+import { toReadableNumber } from "../../lib/utils";
 
 export interface FilterRangeSliderProps {
   leftKey: string;
@@ -98,11 +97,11 @@ const FilterRangeSlider = ({
       </RangeSlider>
       <Flex pt="24px" alignItems="center" justifyContent="space-between" width="100%">
         <Text fontSize="sm">
-          {numberFormat.format(inverseTransform(value[0]))}
+          {toReadableNumber(inverseTransform(value[0]))}
           {unit}
         </Text>
         <Text fontSize="sm">
-          {numberFormat.format(inverseTransform(value[1]))}
+          {toReadableNumber(inverseTransform(value[1]))}
           {unit}
         </Text>
       </Flex>

@@ -19,8 +19,7 @@ import { Entity } from "../../lib/model";
 import React, { memo } from "react";
 import PublisherOpenDonut from "../charts/PublisherOpenDonut";
 import EntityCard from "./EntityCard";
-
-const numberFormat = Intl.NumberFormat("en", { notation: "compact" });
+import { toReadableNumber } from "../../lib/utils";
 
 interface PublisherOpenCardProps extends BoxProps {
   entity: Entity;
@@ -79,7 +78,7 @@ const PublisherOpenCard = ({ entity, ...rest }: PublisherOpenCardProps) => {
                     </Text>
                   </Flex>
                 </Tooltip>
-                <Text textStyle="chartKeyDescription">{numberFormat.format(item.total_outputs)}</Text>
+                <Text textStyle="chartKeyDescription">{toReadableNumber(item.total_outputs)}</Text>
               </Flex>
             </GridItem>
           ))}

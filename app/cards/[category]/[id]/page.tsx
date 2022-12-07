@@ -14,13 +14,10 @@
 //
 // Author: James Diprose
 
-// "use client";
-
 import { getEntityIds, quantizeEntityPercentages } from "../../../../lib/api";
 import SocialCard from "../../../../components/common/SocialCard";
 import { Entity } from "../../../../lib/model";
-import { join } from "path";
-import fs from "fs";
+import ChakraLayout from "../../../../components/layout/ChakraLayout";
 
 type Props = {
   params: {
@@ -29,8 +26,8 @@ type Props = {
   };
 };
 
-async function getEntity(category: string, id: string) {
-  const response = await fetch(`${}/`);
+async function getEntity(category: string, id: string): Promise<Entity> {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/${category}/${id}`);
   const entity = await response.json();
   quantizeEntityPercentages(entity);
   return entity;
@@ -38,11 +35,11 @@ async function getEntity(category: string, id: string) {
 
 export default async function Card({ params }: Props) {
   const entity = await getEntity(params.category, params.id);
-  return <SocialCard entity={entity} />;
-  //
-  // console.log(entity.name);
-
-  return <h1>Hello!</h1>;
+  return (
+    <ChakraLayout>
+      <SocialCard entity={entity} />
+    </ChakraLayout>
+  );
 }
 
 export function idsToStaticPaths(category: string, ids: Array<string>) {
@@ -55,8 +52,6 @@ export function idsToStaticPaths(category: string, ids: Array<string>) {
 }
 
 export async function generateStaticParams() {
-  console.log("generateStaticParams");
-
   return idsToStaticPaths("country", getEntityIds("country")).concat(
     idsToStaticPaths("institution", getEntityIds("institution")),
   );

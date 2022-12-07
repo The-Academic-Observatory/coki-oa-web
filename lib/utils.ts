@@ -16,33 +16,10 @@
 
 import React from "react";
 
-export function toReadableNumber(value: number) {
-  if (value < 1e4) {
-    // For values below 10,000
-    return Math.trunc(value).toLocaleString();
-  } else if (value < 1e6) {
-    // For values between 10,000 and 999,999 inclusive
-    // Convert to thousandths
-    value = Math.round(value / 1000);
-    if (value < 1000) {
-      return `${value}k`;
-    } else {
-      return `${value / 1000}m`;
-    }
-  } else if (value < 1e9) {
-    // For values from 1,000,000 and above
-    let result: string | number = "";
+const NUMBER_FORMAT = Intl.NumberFormat("en", { notation: "compact" });
 
-    // Convert to millionths
-    value = value / 1e6;
-    result = parseFloat(value.toFixed(1));
-    if (value > 100 || result % 1 == 0) {
-      // When greater than 100 million or when last digit is not 0
-      // remove all decimals without rounding
-      result = Math.trunc(result);
-    }
-    return `${result}m`;
-  }
+export function toReadableNumber(value: number) {
+  return NUMBER_FORMAT.format(value);
 }
 
 export function sum(input: Array<number>): number {
