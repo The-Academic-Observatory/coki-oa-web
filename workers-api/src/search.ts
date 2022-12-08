@@ -44,7 +44,7 @@ export const search = (index, text: string, limit: number) => {
   });
 };
 
-export const searchHandler = (req: SearchRequest) => {
+export const searchHandler = (req: SearchRequest, env?: Bindings, ctx?: ExecutionContext) => {
   // Parse parameters and query
   const text = decodeURIComponent(req.params.text);
   let limit = parseInt(req.query.limit) || maxLimit;

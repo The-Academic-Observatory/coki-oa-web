@@ -14,27 +14,20 @@
 //
 // Author: James Diprose
 
-import { getEntityIds, quantizeEntityPercentages } from "../../../../lib/api";
+import { OADataAPI } from "../../../../lib/api";
 import SocialCard from "../../../../components/common/SocialCard";
-import { Entity } from "../../../../lib/model";
 import ChakraLayout from "../../../../components/layout/ChakraLayout";
 
 type Props = {
   params: {
-    category: string;
+    entityType: string;
     id: string;
   };
 };
 
-async function getEntity(category: string, id: string): Promise<Entity> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/${category}/${id}`);
-  const entity = await response.json();
-  quantizeEntityPercentages(entity);
-  return entity;
-}
-
 export default async function Card({ params }: Props) {
-  const entity = await getEntity(params.category, params.id);
+  const client = new OADataAPI();
+  const entity = await client.getEntity(params.entityType, params.id);
   return (
     <ChakraLayout>
       <SocialCard entity={entity} />
@@ -42,17 +35,6 @@ export default async function Card({ params }: Props) {
   );
 }
 
-export function idsToStaticPaths(category: string, ids: Array<string>) {
-  return ids.map((entityId) => {
-    return {
-      category: category,
-      id: entityId,
-    };
-  });
-}
-
-export async function generateStaticParams() {
-  return idsToStaticPaths("country", getEntityIds("country")).concat(
-    idsToStaticPaths("institution", getEntityIds("institution")),
-  );
-}
+export const config = {
+  runtime: "experimental-edge",
+};

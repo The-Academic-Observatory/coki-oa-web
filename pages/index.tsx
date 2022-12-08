@@ -27,7 +27,7 @@ export type DashboardPageProps = {
 const CountryIndexPage = ({ defaultCountries, defaultInstitutions, stats }: DashboardPageProps) => {
   return (
     <Dashboard
-      defaultCategory="country"
+      defaultEntityType="country"
       defaultCountries={defaultCountries}
       defaultInstitutions={defaultInstitutions}
       stats={stats}

@@ -15,10 +15,10 @@
 // Author: James Diprose
 
 import { Entity, Stats } from "../../lib/model";
-import { getEntity, getEntityIds, getStatsData, idsToStaticPaths } from "../../lib/api";
+import { OADataAPI } from "../../lib/api";
 import EntityDetails from "../../components/details/EntityDetails";
 
-const category = "institution";
+const ENTITY_TYPE = "institution";
 
 type Props = {
   entity: Entity;
@@ -35,9 +35,11 @@ type Params = {
   };
 };
 
-export async function getStaticProps({ params }: Params) {
-  const entity = getEntity(category, params.id);
-  const stats = getStatsData();
+export async function getServerSideProps({ params }: Params) {
+  const client = new OADataAPI();
+  const entity = await client.getEntity(ENTITY_TYPE, params.id);
+  const stats = client.getStats();
+
   return {
     props: {
       entity: entity,
@@ -46,10 +48,6 @@ export async function getStaticProps({ params }: Params) {
   };
 }
 
-export async function getStaticPaths() {
-  const ids = getEntityIds(category);
-  return {
-    paths: idsToStaticPaths(ids),
-    fallback: false,
-  };
-}
+export const config = {
+  runtime: "experimental-edge",
+};

@@ -44,7 +44,7 @@ export class ArrayView<Type> {
 
 // Make country and institution array views
 const minLimit = 1;
-const maxLimit = 18;
+const maxLimit = 100;
 const minOutputs = 0;
 const minOutputsOpen = 0;
 
@@ -207,7 +207,7 @@ export function paginateResults<Type>(array: Array<Type>, pageSettings: PageSett
   return results.slice(start, end);
 }
 
-export const countriesHandler = (req: FilterRequest) => {
+export const countriesHandler = (req: FilterRequest, env?: Bindings, ctx?: ExecutionContext) => {
   const q = req["query"];
   const query = parseQuery(q);
   const pageSettings = parsePageSettings(q);
@@ -239,7 +239,7 @@ export const countriesHandler = (req: FilterRequest) => {
   });
 };
 
-export const institutionsHandler = (req: FilterRequest) => {
+export const institutionsHandler = (req: FilterRequest, env?: Bindings, ctx?: ExecutionContext) => {
   const q = req["query"];
   const query = parseQuery(q);
   const pageSettings = parsePageSettings(q);

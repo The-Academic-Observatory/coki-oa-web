@@ -21,7 +21,7 @@ import { DashboardPageProps } from "./index";
 const InstitutionIndexPage = ({ defaultCountries, defaultInstitutions, stats }: DashboardPageProps) => {
   return (
     <Dashboard
-      defaultCategory="institution"
+      defaultEntityType="institution"
       defaultCountries={defaultCountries}
       defaultInstitutions={defaultInstitutions}
       stats={stats}

@@ -18,7 +18,7 @@ import React, { memo } from "react";
 import { Box, Popover, PopoverAnchor, PopoverBody, PopoverContent, Text, useOutsideClick } from "@chakra-ui/react";
 import debounce from "lodash/debounce";
 import { Entity } from "../../lib/model";
-import { makeSearchUrl } from "../../lib/api";
+import { OADataAPI } from "../../lib/api";
 import SearchResult from "./SearchResult";
 import SearchBox from "./SearchBox";
 
@@ -37,13 +37,15 @@ const SearchDesktop = ({ ...rest }) => {
       setPopoverOpen(false);
     } else {
       setIsFetching(true);
-      const url = makeSearchUrl(value, searchLimit);
-      fetch(url)
-        .then((response) => response.json())
+      const client = new OADataAPI();
+      client
+        .searchEntities(value, searchLimit)
         .then((data) => {
           setSearchResults(data);
-          setIsFetching(false);
           setPopoverOpen(true);
+        })
+        .finally(() => {
+          setIsFetching(false);
         });
     }
   }, searchDebounce);

@@ -15,10 +15,10 @@
 // Author: James Diprose
 
 import { Entity, Stats } from "../../lib/model";
-import { getEntity, getEntityIds, getStatsData, idsToStaticPaths } from "../../lib/api";
+import { idsToStaticPaths, OADataLocal } from "../../lib/api";
 import EntityDetails from "../../components/details/EntityDetails";
 
-const category = "country";
+const ENTITY_TYPE = "country";
 
 type Props = {
   entity: Entity;
@@ -36,8 +36,9 @@ type Params = {
 };
 
 export async function getStaticProps({ params }: Params) {
-  const entity = getEntity(category, params.id);
-  const stats = getStatsData();
+  const client = new OADataLocal();
+  const entity = client.getEntity(ENTITY_TYPE, params.id);
+  const stats = client.getStats();
   return {
     props: {
       entity: entity,
@@ -47,7 +48,9 @@ export async function getStaticProps({ params }: Params) {
 }
 
 export async function getStaticPaths() {
-  const ids = getEntityIds(category);
+  const client = new OADataLocal();
+  const ids = client.getEntities(ENTITY_TYPE).map((e: Entity) => e.id);
+
   return {
     paths: idsToStaticPaths(ids),
     fallback: false,
