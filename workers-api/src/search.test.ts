@@ -54,8 +54,8 @@ test("test search", () => {
   const expectedCountry = {
     id: "AUS",
     name: "Australia",
-    logo_s: "/logos/country/s/AUS.svg",
-    category: "country",
+    logo_sm: "logos/country/sm/AUS.svg",
+    entityType: "country",
     subregion: "Australia and New Zealand",
     region: "Oceania",
     stats: {
@@ -77,8 +77,8 @@ test("test search", () => {
   const expectedInstitution = {
     id: "02n415q13",
     name: "Curtin University",
-    logo_s: "/logos/institution/s/02n415q13.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/02n415q13.jpg",
+    entityType: "institution",
     country: "Australia",
     subregion: "Australia and New Zealand",
     region: "Oceania",

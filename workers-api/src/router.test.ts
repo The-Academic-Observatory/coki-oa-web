@@ -18,42 +18,44 @@ import { handleRequest } from "./router";
 import lodashGet from "lodash.get";
 
 const institutionTestTimeout = 100000;
+const env = getMiniflareBindings();
+const ctx = {} as ExecutionContext;
 
 test("test handleRequest 404", async () => {
-  let res = await handleRequest(new Request("http://localhost"));
+  let res = await handleRequest(new Request("http://localhost"), env, ctx);
   expect(res.status).toBe(404);
 
-  res = await handleRequest(new Request("http://localhost/api"));
+  res = await handleRequest(new Request("http://localhost/api"), env, ctx);
   expect(res.status).toBe(404);
 
-  res = await handleRequest(new Request("http://localhost/api/search")); // no :text parameter
+  res = await handleRequest(new Request("http://localhost/api/search"), env, ctx); // no :text parameter
   expect(res.status).toBe(404);
 });
 
 test("test handleRequest search", async () => {
   // Search
-  let res = await handleRequest(new Request("http://localhost/api/search/curtin"));
+  let res = await handleRequest(new Request("http://localhost/api/search/curtin"), env, ctx);
   let json = await res.json();
   expect(res.status).toBe(200);
   expect(json.length).toBe(2);
   expect(json).toMatchObject([{ id: "02n415q13" }, { id: "024fm2y42" }]);
 
   // Search: text with spaces
-  res = await handleRequest(new Request("http://localhost/api/search/auckland%20university"));
+  res = await handleRequest(new Request("http://localhost/api/search/auckland%20university"), env, ctx);
   json = await res.json();
   expect(res.status).toBe(200);
   expect(json.length).toBe(2);
   expect(json).toMatchObject([{ id: "03b94tp07" }, { id: "01zvqw119" }]);
 
   // Limit: 1
-  res = await handleRequest(new Request("http://localhost/api/search/south%20korea?limit=1"));
+  res = await handleRequest(new Request("http://localhost/api/search/south%20korea?limit=1"), env, ctx);
   json = await res.json();
   expect(res.status).toBe(200);
   expect(json.length).toBe(1);
   expect(json).toMatchObject([{ id: "KOR" }]);
 
   // Limit > 20 still returns 20
-  res = await handleRequest(new Request("http://localhost/api/search/s?limit=21"));
+  res = await handleRequest(new Request("http://localhost/api/search/s?limit=21"), env, ctx);
   json = await res.json();
   expect(res.status).toBe(200);
   expect(json.length).toBe(20);
@@ -64,7 +66,7 @@ const fetchAll = async (endpoint: string, otherQueryParams: string = "") => {
   let results = [];
   let i = 0;
   while (true) {
-    let res = await handleRequest(new Request(`http://localhost/api/${endpoint}?page=${i}${otherQueryParams}`));
+    let res = await handleRequest(new Request(`http://localhost/api/${endpoint}?page=${i}${otherQueryParams}`), env, ctx);
     expect(res.status).toBe(200);
     let json = await res.json();
     expect(json).toHaveProperty("items");

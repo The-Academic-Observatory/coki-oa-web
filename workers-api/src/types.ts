@@ -19,8 +19,8 @@ import { Request, Obj } from "itty-router";
 export interface Entity extends Object {
   id: string;
   name: string;
-  category: string;
-  logo_s: string;
+  entityType: string;
+  logo_sm: string;
   region: string;
   subregion: string;
   country: string | null;
@@ -100,6 +100,7 @@ export interface EntityRequest extends Request {
   method: MethodType;
   url: string;
   params: {
+    entityType: string;
     id: string;
   };
   query: {};

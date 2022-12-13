@@ -49,7 +49,7 @@ const minOutputs = 0;
 const minOutputsOpen = 0;
 
 const firstInstitutionIndex = data.findIndex((entity: Entity) => {
-  return entity.category === "institution";
+  return entity.entityType === "institution";
 });
 const lastCountryIndex = firstInstitutionIndex - 1;
 export const countries = new ArrayView<Entity>(data, 0, lastCountryIndex);

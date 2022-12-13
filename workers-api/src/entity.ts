@@ -24,9 +24,11 @@ const headers = {
 };
 
 export const fetchEntityHandler = async (req: EntityRequest, env: Bindings, ctx: ExecutionContext) => {
-  // Parse params
   const url = new URL(req.url);
-  const entityType = url.pathname.split("/")[2];
+  const entityType = req.params.entityType;
+  if (!["country", "institution"].includes(entityType)) {
+    throw Error(`fetchEntityHandler invalid entityType: ${entityType}`);
+  }
   const entityId = req.params.id;
   const assetPath = `${entityType}/${entityId}.json`;
   const kvKey = JSON.parse(manifestJSON)[assetPath];

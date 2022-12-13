@@ -32,7 +32,7 @@ test("test parsePageSettings", () => {
   let settings = parsePageSettings(input);
   let expected = {
     page: 0,
-    limit: 18,
+    limit: 100,
     orderBy: "stats.p_outputs_open",
     orderDir: "dsc",
   };
@@ -41,7 +41,7 @@ test("test parsePageSettings", () => {
   // String input values
   input = {
     page: "0",
-    limit: "18",
+    limit: "100",
     orderBy: "stats.p_outputs_open",
     orderDir: "dsc",
   };
@@ -67,13 +67,13 @@ test("test parsePageSettings", () => {
   // Set maximum values
   input = {
     page: "1",
-    limit: "19",
+    limit: "101",
     orderBy: "stats.p_outputs_open",
     orderDir: "dsc",
   };
   expected = {
     page: 1,
-    limit: 18,
+    limit: 100,
     orderBy: "stats.p_outputs_open",
     orderDir: "dsc",
   };
@@ -165,8 +165,8 @@ test("test countries", () => {
   expect(countries).toBeDefined();
   for (let i = 0; i < countries.length; i++) {
     let entity = countries.get(i);
-    expect(entity.category).toBeDefined();
-    expect(entity.category).toBe("country");
+    expect(entity.entityType).toBeDefined();
+    expect(entity.entityType).toBe("country");
   }
 });
 
@@ -175,8 +175,8 @@ test("test institutions", () => {
   expect(institutions).toBeDefined();
   for (let i = 0; i < institutions.length; i++) {
     let entity = institutions.get(i);
-    expect(entity.category).toBeDefined();
-    expect(entity.category).toBe("institution");
+    expect(entity.entityType).toBeDefined();
+    expect(entity.entityType).toBe("institution");
   }
 });
 
@@ -454,8 +454,8 @@ const testCountries = [
   {
     id: "ALB",
     name: "Albania",
-    logo_s: "/logos/country/s/ALB.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/ALB.svg",
+    entityType: "country",
     country: null,
     subregion: "Southern Europe",
     region: "Europe",
@@ -474,8 +474,8 @@ const testCountries = [
   {
     id: "ARE",
     name: "United Arab Emirates",
-    logo_s: "/logos/country/s/ARE.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/ARE.svg",
+    entityType: "country",
     country: null,
     subregion: "Western Asia",
     region: "Asia",
@@ -494,8 +494,8 @@ const testCountries = [
   {
     id: "ARG",
     name: "Argentina",
-    logo_s: "/logos/country/s/ARG.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/ARG.svg",
+    entityType: "country",
     country: null,
     subregion: "Latin America and the Caribbean",
     region: "Americas",
@@ -514,8 +514,8 @@ const testCountries = [
   {
     id: "ARM",
     name: "Armenia",
-    logo_s: "/logos/country/s/ARM.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/ARM.svg",
+    entityType: "country",
     country: null,
     subregion: "Western Asia",
     region: "Asia",
@@ -534,8 +534,8 @@ const testCountries = [
   {
     id: "ATG",
     name: "Antigua & Barbuda",
-    logo_s: "/logos/country/s/ATG.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/ATG.svg",
+    entityType: "country",
     country: null,
     subregion: "Latin America and the Caribbean",
     region: "Americas",
@@ -554,8 +554,8 @@ const testCountries = [
   {
     id: "AUS",
     name: "Australia",
-    logo_s: "/logos/country/s/AUS.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/AUS.svg",
+    entityType: "country",
     country: null,
     subregion: "Australia and New Zealand",
     region: "Oceania",
@@ -574,8 +574,8 @@ const testCountries = [
   {
     id: "AUT",
     name: "Austria",
-    logo_s: "/logos/country/s/AUT.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/AUT.svg",
+    entityType: "country",
     country: null,
     subregion: "Western Europe",
     region: "Europe",
@@ -594,8 +594,8 @@ const testCountries = [
   {
     id: "AZE",
     name: "Azerbaijan",
-    logo_s: "/logos/country/s/AZE.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/AZE.svg",
+    entityType: "country",
     country: null,
     subregion: "Western Asia",
     region: "Asia",
@@ -614,8 +614,8 @@ const testCountries = [
   {
     id: "BEL",
     name: "Belgium",
-    logo_s: "/logos/country/s/BEL.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/BEL.svg",
+    entityType: "country",
     country: null,
     subregion: "Western Europe",
     region: "Europe",
@@ -634,8 +634,8 @@ const testCountries = [
   {
     id: "BEN",
     name: "Benin",
-    logo_s: "/logos/country/s/BEN.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/BEN.svg",
+    entityType: "country",
     country: null,
     subregion: "Sub-Saharan Africa",
     region: "Africa",
@@ -654,8 +654,8 @@ const testCountries = [
   {
     id: "BFA",
     name: "Burkina Faso",
-    logo_s: "/logos/country/s/BFA.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/BFA.svg",
+    entityType: "country",
     country: null,
     subregion: "Sub-Saharan Africa",
     region: "Africa",
@@ -674,8 +674,8 @@ const testCountries = [
   {
     id: "BGD",
     name: "Bangladesh",
-    logo_s: "/logos/country/s/BGD.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/BGD.svg",
+    entityType: "country",
     country: null,
     subregion: "Southern Asia",
     region: "Asia",
@@ -694,8 +694,8 @@ const testCountries = [
   {
     id: "BGR",
     name: "Bulgaria",
-    logo_s: "/logos/country/s/BGR.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/BGR.svg",
+    entityType: "country",
     country: null,
     subregion: "Eastern Europe",
     region: "Europe",
@@ -714,8 +714,8 @@ const testCountries = [
   {
     id: "BHR",
     name: "Bahrain",
-    logo_s: "/logos/country/s/BHR.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/BHR.svg",
+    entityType: "country",
     country: null,
     subregion: "Western Asia",
     region: "Asia",
@@ -734,8 +734,8 @@ const testCountries = [
   {
     id: "BIH",
     name: "Bosnia",
-    logo_s: "/logos/country/s/BIH.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/BIH.svg",
+    entityType: "country",
     country: null,
     subregion: "Southern Europe",
     region: "Europe",
@@ -754,8 +754,8 @@ const testCountries = [
   {
     id: "BLR",
     name: "Belarus",
-    logo_s: "/logos/country/s/BLR.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/BLR.svg",
+    entityType: "country",
     country: null,
     subregion: "Eastern Europe",
     region: "Europe",
@@ -774,8 +774,8 @@ const testCountries = [
   {
     id: "BOL",
     name: "Bolivia",
-    logo_s: "/logos/country/s/BOL.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/BOL.svg",
+    entityType: "country",
     country: null,
     subregion: "Latin America and the Caribbean",
     region: "Americas",
@@ -794,8 +794,8 @@ const testCountries = [
   {
     id: "BRA",
     name: "Brazil",
-    logo_s: "/logos/country/s/BRA.svg",
-    category: "country",
+    logo_sm: "/logos/country/s/BRA.svg",
+    entityType: "country",
     country: null,
     subregion: "Latin America and the Caribbean",
     region: "Americas",
@@ -818,8 +818,8 @@ const testInstitutions = [
   {
     id: "00013q465",
     name: "Pontifical Catholic University of Peru",
-    logo_s: "/logos/institution/s/00013q465.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/00013q465.jpg",
+    entityType: "institution",
     country: "Peru",
     subregion: "Latin America and the Caribbean",
     region: "Americas",
@@ -838,8 +838,8 @@ const testInstitutions = [
   {
     id: "0001fmy77",
     name: "University of Macerata",
-    logo_s: "/logos/institution/s/0001fmy77.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/0001fmy77.jpg",
+    entityType: "institution",
     country: "Italy",
     subregion: "Southern Europe",
     region: "Europe",
@@ -858,8 +858,8 @@ const testInstitutions = [
   {
     id: "0001ke483",
     name: "St George's Hospital",
-    logo_s: "/logos/institution/s/0001ke483.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/0001ke483.jpg",
+    entityType: "institution",
     country: "United Kingdom",
     subregion: "Northern Europe",
     region: "Europe",
@@ -878,8 +878,8 @@ const testInstitutions = [
   {
     id: "0002pcv65",
     name: "National University of R\u00edo Cuarto",
-    logo_s: "/unknown.svg",
-    category: "institution",
+    logo_sm: "unknown.svg",
+    entityType: "institution",
     country: "Argentina",
     subregion: "Latin America and the Caribbean",
     region: "Americas",
@@ -898,8 +898,8 @@ const testInstitutions = [
   {
     id: "0003e4m70",
     name: "Hull York Medical School",
-    logo_s: "/unknown.svg",
-    category: "institution",
+    logo_sm: "unknown.svg",
+    entityType: "institution",
     country: "United Kingdom",
     subregion: "Northern Europe",
     region: "Europe",
@@ -918,8 +918,8 @@ const testInstitutions = [
   {
     id: "0003zy991",
     name: "York Hospital",
-    logo_s: "/unknown.svg",
-    category: "institution",
+    logo_sm: "unknown.svg",
+    entityType: "institution",
     country: "United Kingdom",
     subregion: "Northern Europe",
     region: "Europe",
@@ -938,8 +938,8 @@ const testInstitutions = [
   {
     id: "0004wsx81",
     name: "Telkom University",
-    logo_s: "/logos/institution/s/0004wsx81.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/0004wsx81.jpg",
+    entityType: "institution",
     country: "Indonesia",
     subregion: "South-eastern Asia",
     region: "Asia",
@@ -958,8 +958,8 @@ const testInstitutions = [
   {
     id: "0005w8d69",
     name: "University of Camerino",
-    logo_s: "/logos/institution/s/0005w8d69.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/0005w8d69.jpg",
+    entityType: "institution",
     country: "Italy",
     subregion: "Southern Europe",
     region: "Europe",
@@ -978,8 +978,8 @@ const testInstitutions = [
   {
     id: "00088z429",
     name: "Kobe Pharmaceutical University",
-    logo_s: "/logos/institution/s/00088z429.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/00088z429.jpg",
+    entityType: "institution",
     country: "Japan",
     subregion: "Eastern Asia",
     region: "Asia",
@@ -998,8 +998,8 @@ const testInstitutions = [
   {
     id: "0008wzh48",
     name: "Royal Marsden NHS Foundation Trust",
-    logo_s: "/logos/institution/s/0008wzh48.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/0008wzh48.jpg",
+    entityType: "institution",
     country: "United Kingdom",
     subregion: "Northern Europe",
     region: "Europe",
@@ -1018,8 +1018,8 @@ const testInstitutions = [
   {
     id: "0009t4v78",
     name: "Anglia Ruskin University",
-    logo_s: "/logos/institution/s/0009t4v78.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/0009t4v78.jpg",
+    entityType: "institution",
     country: "United Kingdom",
     subregion: "Northern Europe",
     region: "Europe",
@@ -1038,8 +1038,8 @@ const testInstitutions = [
   {
     id: "000b7ms85",
     name: "Zhongkai University of Agriculture and Engineering",
-    logo_s: "/unknown.svg",
-    category: "institution",
+    logo_sm: "unknown.svg",
+    entityType: "institution",
     country: "China",
     subregion: "Eastern Asia",
     region: "Asia",
@@ -1058,8 +1058,8 @@ const testInstitutions = [
   {
     id: "000cyem11",
     name: "Donald Danforth Plant Science Center",
-    logo_s: "/logos/institution/s/000cyem11.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/000cyem11.jpg",
+    entityType: "institution",
     country: "United States",
     subregion: "Northern America",
     region: "Americas",
@@ -1078,8 +1078,8 @@ const testInstitutions = [
   {
     id: "000cytz87",
     name: "Weatherford (Switzerland)",
-    logo_s: "/logos/institution/s/000cytz87.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/000cytz87.jpg",
+    entityType: "institution",
     country: "Switzerland",
     subregion: "Western Europe",
     region: "Europe",
@@ -1098,8 +1098,8 @@ const testInstitutions = [
   {
     id: "000e0be47",
     name: "Northwestern University",
-    logo_s: "/logos/institution/s/000e0be47.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/000e0be47.jpg",
+    entityType: "institution",
     country: "United States",
     subregion: "Northern America",
     region: "Americas",
@@ -1118,8 +1118,8 @@ const testInstitutions = [
   {
     id: "000h6jb29",
     name: "Helmholtz Centre for Environmental Research",
-    logo_s: "/logos/institution/s/000h6jb29.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/000h6jb29.jpg",
+    entityType: "institution",
     country: "Germany",
     subregion: "Western Europe",
     region: "Europe",
@@ -1138,8 +1138,8 @@ const testInstitutions = [
   {
     id: "000hdh770",
     name: "Dalarna University",
-    logo_s: "/logos/institution/s/000hdh770.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/000hdh770.jpg",
+    entityType: "institution",
     country: "Sweden",
     subregion: "Northern Europe",
     region: "Europe",
@@ -1158,8 +1158,8 @@ const testInstitutions = [
   {
     id: "000hzy098",
     name: "Saint Petersburg State Pediatric Medical University",
-    logo_s: "/unknown.svg",
-    category: "institution",
+    logo_sm: "unknown.svg",
+    entityType: "institution",
     country: "Russia",
     subregion: "Eastern Europe",
     region: "Europe",
@@ -1178,8 +1178,8 @@ const testInstitutions = [
   {
     id: "000k1q888",
     name: "Netherlands Institute for Radio Astronomy",
-    logo_s: "/logos/institution/s/000k1q888.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/000k1q888.jpg",
+    entityType: "institution",
     country: "Netherlands",
     subregion: "Western Europe",
     region: "Europe",
@@ -1198,8 +1198,8 @@ const testInstitutions = [
   {
     id: "000pfrh90",
     name: "Baptist Hospital of Miami",
-    logo_s: "/logos/institution/s/000pfrh90.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/000pfrh90.jpg",
+    entityType: "institution",
     country: "United States",
     subregion: "Northern America",
     region: "Americas",
@@ -1218,8 +1218,8 @@ const testInstitutions = [
   {
     id: "000pmrk50",
     name: "Islamic University of Indonesia",
-    logo_s: "/logos/institution/s/000pmrk50.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/000pmrk50.jpg",
+    entityType: "institution",
     country: "Indonesia",
     subregion: "South-eastern Asia",
     region: "Asia",
@@ -1238,8 +1238,8 @@ const testInstitutions = [
   {
     id: "000prga03",
     name: "Guilin Medical University",
-    logo_s: "/unknown.svg",
-    category: "institution",
+    logo_sm: "unknown.svg",
+    entityType: "institution",
     country: "China",
     subregion: "Eastern Asia",
     region: "Asia",
@@ -1259,8 +1259,8 @@ const testInstitutions = [
   {
     id: "000qzf213",
     name: "Korea University of Science and Technology",
-    logo_s: "/unknown.svg",
-    category: "institution",
+    logo_sm: "unknown.svg",
+    entityType: "institution",
     country: "South Korea",
     subregion: "Eastern Asia",
     region: "Asia",
@@ -1279,8 +1279,8 @@ const testInstitutions = [
   {
     id: "000xsnr85",
     name: "University of the Basque Country",
-    logo_s: "/logos/institution/s/000xsnr85.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/000xsnr85.jpg",
+    entityType: "institution",
     country: "Spain",
     subregion: "Southern Europe",
     region: "Europe",
@@ -1299,8 +1299,8 @@ const testInstitutions = [
   {
     id: "000zhpw23",
     name: "Institut de la Vision",
-    logo_s: "/unknown.svg",
-    category: "institution",
+    logo_sm: "unknown.svg",
+    entityType: "institution",
     country: "France",
     subregion: "Western Europe",
     region: "Europe",
@@ -1319,8 +1319,8 @@ const testInstitutions = [
   {
     id: "0010b6s72",
     name: "Tianjin Agricultural University",
-    logo_s: "/unknown.svg",
-    category: "institution",
+    logo_sm: "unknown.svg",
+    entityType: "institution",
     country: "China",
     subregion: "Eastern Asia",
     region: "Asia",
@@ -1339,8 +1339,8 @@ const testInstitutions = [
   {
     id: "0010jkx06",
     name: "Indira Gandhi Institute of Technology",
-    logo_s: "/unknown.svg",
-    category: "institution",
+    logo_sm: "unknown.svg",
+    entityType: "institution",
     country: "India",
     subregion: "Southern Asia",
     region: "Asia",
@@ -1359,8 +1359,8 @@ const testInstitutions = [
   {
     id: "0011qv509",
     name: "University of Tennessee Health Science Center",
-    logo_s: "/logos/institution/s/0011qv509.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/0011qv509.jpg",
+    entityType: "institution",
     country: "United States",
     subregion: "Northern America",
     region: "Americas",

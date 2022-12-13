@@ -24,8 +24,7 @@ const { Router } = ittyRouter;
 export const router = Router({ base: "/api" });
 router
   .get("/search/:text", searchHandler) // Search all countries and institutions with full text search
-  .get("/country/:id", fetchEntityHandler) // Get the full details for a single country
-  .get("/institution/:id", fetchEntityHandler) // Get the full details for a single institution
+  .get("/:entityType/:id", fetchEntityHandler) // Get the full details for a single country or institution
   .get("/countries", countriesHandler) // Filter countries
   .get("/institutions", institutionsHandler) // Filter institutions
   .get(
