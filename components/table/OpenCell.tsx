@@ -20,7 +20,7 @@ import React, { memo } from "react";
 import { EntityProps, makeHref } from "./IndexTable";
 
 function OpenCell({ value, entity }: EntityProps) {
-  const href = makeHref(entity.category, entity.id);
+  const href = makeHref(entity.entityType, entity.id);
   return (
     <Link href={href}>
       <DonutSparkline value={value} color="#f47328" size={18} />

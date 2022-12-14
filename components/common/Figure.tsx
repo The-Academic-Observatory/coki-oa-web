@@ -19,7 +19,7 @@ import { Box, BoxProps, Text } from "@chakra-ui/react";
 
 interface FigureProps extends BoxProps {
   children: ReactNode;
-  caption: string;
+  caption?: string;
 }
 
 const Figure = ({ children, caption, ...rest }: FigureProps) => {
@@ -37,10 +37,6 @@ const Figure = ({ children, caption, ...rest }: FigureProps) => {
       </Box>
     </Box>
   );
-};
-
-Figure.defaultProps = {
-  caption: null,
 };
 
 export default Figure;

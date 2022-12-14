@@ -345,7 +345,7 @@ const OtherPlatformLocationsCard = ({ entity, ...rest }: TopOtherPlatformOpenCar
                 })}
               </MenuList>
             </Menu>
-            {entity.category === "institution" && (
+            {entity.entityType === "institution" && (
               <Button
                 variant={onlyHomeRepos ? "buttonLinkSelected" : "buttonLink"}
                 onClick={() => {

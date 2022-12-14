@@ -30,7 +30,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { EntityStats, QueryParams, QueryResult, Stats } from "../../lib/model";
-import { OADataLocal, OADataAPI } from "../../lib/api";
+import { OADataAPI, OADataLocal } from "../../lib/api";
 import React, { useCallback } from "react";
 import IndexTable from "../table/IndexTable";
 import Icon from "../common/Icon";
@@ -250,7 +250,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
       {/*Use free space units for grid so that column gap doesn't cause an overflow */}
       <Grid
         maxWidth={{ base: "full", std: MAX_TABS_WIDTH }}
-        templateAreas={`"header ." 
+        templateAreas={`"header ."
                         "table filter"
                         ". filter"`} // The last template area means that the filters can expand past the table
         templateColumns={{ base: "100%", md: `3fr 1fr` }}

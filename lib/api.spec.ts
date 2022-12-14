@@ -1,26 +1,26 @@
 import { addBuildId, makeSearchUrl } from "./api";
 
 const buildId = "9wunlCAp5nAMZGCCOIDUx";
-const publicApiHost = "http://127.0.0.1:8787";
+const host = "http://localhost";
 
 test("test addBuildId", () => {
   // Adding build to URL with no parameters
-  let url = addBuildId("http://localhost");
+  let url = addBuildId(host);
   expect(url).toEqual(`http://localhost?build=${buildId}`);
 
   // Adding build to URL that already has parameters
-  url = addBuildId("http://localhost?hello=world");
-  expect(url).toEqual(`http://localhost?hello=world&build=${buildId}`);
+  url = addBuildId(`${host}?hello=world`);
+  expect(url).toEqual(`${host}?hello=world&build=${buildId}`);
 });
 
 test("test makeSearchUrl", () => {
   const text = "Curtin University";
 
   // Default limit
-  let url = makeSearchUrl(text);
-  expect(url).toEqual(`${publicApiHost}/api/search/Curtin%20University?limit=10&build=${buildId}`);
+  let url = makeSearchUrl(host, text);
+  expect(url).toEqual(`${host}/api/search/Curtin%20University?limit=10&build=${buildId}`);
 
   // Custom limit
-  url = makeSearchUrl(text, 15);
-  expect(url).toEqual(`${publicApiHost}/api/search/Curtin%20University?limit=15&build=${buildId}`);
+  url = makeSearchUrl(host, text, 15);
+  expect(url).toEqual(`${host}/api/search/Curtin%20University?limit=15&build=${buildId}`);
 });

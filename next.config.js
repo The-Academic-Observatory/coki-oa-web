@@ -3,9 +3,6 @@ const { nanoid } = require("nanoid");
 const webpack = require("webpack");
 
 module.exports = {
-  experimental: {
-    appDir: true,
-  },
   reactStrictMode: true,
   trailingSlash: true,
   swcMinify: true,
@@ -24,4 +21,17 @@ module.exports = {
     );
     return config;
   },
+  // TODO: Vercel migration
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/js/script.js",
+  //       destination: "https://plausible.io/js/script.js",
+  //     },
+  //     {
+  //       source: "/api/event/",
+  //       destination: "https://plausible.io/api/event",
+  //     },
+  //   ];
+  // },
 };

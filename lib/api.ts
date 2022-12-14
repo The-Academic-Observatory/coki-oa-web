@@ -14,13 +14,15 @@
 //
 // Author: James Diprose
 
-import { Entity, QueryParams, QueryResult, Stats } from "./model";
+import { Dict, Entity, QueryParams, QueryResult, Stats } from "./model";
 import lodashGet from "lodash.get";
 import lodashSet from "lodash.set";
 import fs from "fs";
 import { join } from "path";
 import { largestRemainder, sum } from "./utils";
-import statsRaw from "../latest/data/stats.json";
+import statsRaw from "../data/stats.json";
+
+export const DEFAULT_N_OUTPUTS = 1000;
 
 export class OADataAPI {
   host: string;
@@ -30,7 +32,7 @@ export class OADataAPI {
   }
 
   getStats(): Stats {
-    return statsRaw as Stats;
+    return statsRaw as unknown as Stats;
   }
 
   async getEntity(entityType: string, id: string): Promise<Entity> {
@@ -54,15 +56,15 @@ export class OADataAPI {
 export class OADataLocal {
   dataPath: string;
 
-  constructor(dataPath: string = <string>process.env.DATA_PATH || "./latest/data") {
+  constructor(dataPath: string = "./data") {
     this.dataPath = dataPath;
   }
 
   getStats(): Stats {
-    return statsRaw as Stats;
+    return statsRaw as unknown as Stats;
   }
 
-  getEntity(entityType: string, id: string): Promise<Entity> {
+  getEntity(entityType: string, id: string): Entity {
     const filePath = join(this.dataPath, entityType, `${id}.json`);
     const entity = JSON.parse(fs.readFileSync(filePath, "utf-8"));
     quantizeEntityPercentages(entity);
@@ -137,7 +139,7 @@ export function addBuildId(url: string): string {
   return parts.join("");
 }
 
-function makeSearchUrl(host: string, text: string, limit: number = 10): string {
+export function makeSearchUrl(host: string, text: string, limit: number = 10): string {
   let url = `${host}/api/search/${encodeURIComponent(text)}`;
   if (limit) {
     url += `?limit=${limit}`;
@@ -189,16 +191,22 @@ function makeFilterUrl(host: string, entityType: string, filterQuery: QueryParam
   return addBuildId(url);
 }
 
+export default function cokiImageLoader(src: string) {
+  return `https://images.open.coki.ac/${src}`;
+}
+
 export function idsToStaticPaths(ids: Array<string>, entityType?: string) {
   return ids.map((entityId) => {
-    const result = {
+    const params: Dict = {
       id: entityId,
     };
 
     if (entityType !== undefined) {
-      result["entityType"] = entityType;
+      params["entityType"] = entityType;
     }
 
-    return result;
+    return {
+      params: params,
+    };
   });
 }

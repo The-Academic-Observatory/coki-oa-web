@@ -52,8 +52,12 @@ package-lock.json
 wrangler.toml
 
 # Ignore data files
-/latest
-latest.zip
+/data
+data.zip
+
+# Ignore images files
+/images
+images.zip
 
 public/robots.txt
 public/sitemap*

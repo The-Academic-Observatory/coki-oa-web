@@ -18,14 +18,15 @@ import Link from "../common/Link";
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import React, { memo } from "react";
 import { EntityProps, makeHref } from "./IndexTable";
+import cokiImageLoader from "../../lib/api";
 
 function EntityCell({ entity }: EntityProps) {
-  const href = makeHref(entity.category, entity.id);
+  const href = makeHref(entity.entityType, entity.id);
   return (
     <Link href={href}>
       <HStack>
         <Box width="16px" height="16px" minWidth="16px">
-          <Image rounded="full" objectFit="cover" boxSize="16px" src={entity.logo_s} />
+          <Image rounded="full" objectFit="cover" boxSize="16px" src={cokiImageLoader(entity.logo_sm)} />
         </Box>
         <Text>{entity.name}</Text>
       </HStack>

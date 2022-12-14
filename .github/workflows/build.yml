@@ -64,15 +64,13 @@ jobs:
 
       - name: Download and Extract Data
         env:
-          DATASET_VERSION: v7
+          DATASET_VERSION: v8
           BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
-          gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip
+          gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/data.zip data.zip
           ./data.sh
 
       - name: Build and Export Web App
-        env:
-          DATA_PATH: ./latest/data
         run: |
           yarn build
           yarn export

@@ -19,15 +19,15 @@ import React from "react";
 import Card from "../components/common/Card";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ScrollTable from "../components/common/ScrollTable";
-import { getStatsData } from "../lib/api";
+import { OADataLocal } from "../lib/api";
 import { Stats } from "../lib/model";
 import Head from "../components/common/Head";
 
 export async function getStaticProps() {
-  const stats = getStatsData();
+  const client = new OADataLocal();
   return {
     props: {
-      stats: stats,
+      stats: client.getStats(),
     },
   };
 }
@@ -36,7 +36,7 @@ type Props = {
   stats: Stats;
 };
 
-export default function Open({ stats }: Props) {
+export default function Data({ stats }: Props) {
   const maxVersions = 5;
   const title = "COKI: Data";
   const description = "The COKI Open Access Dataset is available in JSON Lines format.";

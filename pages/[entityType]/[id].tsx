@@ -18,26 +18,28 @@ import { Entity, Stats } from "../../lib/model";
 import { idsToStaticPaths, OADataLocal } from "../../lib/api";
 import EntityDetails from "../../components/details/EntityDetails";
 
-const ENTITY_TYPE = "country";
-
 type Props = {
   entity: Entity;
   stats: Stats;
 };
 
-export default function Country({ entity, stats }: Props) {
+export default function EntityDetailsPage({ entity, stats }: Props) {
   return <EntityDetails entity={entity} stats={stats} />;
 }
 
 type Params = {
   params: {
+    entityType: string;
     id: string;
   };
 };
 
 export async function getStaticProps({ params }: Params) {
+  // Use REST API to fetch data for entities as this function can be called
+  // at build time or run time for ISR (for blocking fallback pages).
+  // const client = new OADataAPI(); // TODO: Vercel migration
   const client = new OADataLocal();
-  const entity = client.getEntity(ENTITY_TYPE, params.id);
+  const entity = client.getEntity(params.entityType, params.id); // TODO: Vercel migration add await
   const stats = client.getStats();
   return {
     props: {
@@ -48,11 +50,29 @@ export async function getStaticProps({ params }: Params) {
 }
 
 export async function getStaticPaths() {
+  // Use local API as this is only ever called during build
   const client = new OADataLocal();
-  const ids = client.getEntities(ENTITY_TYPE).map((e: Entity) => e.id);
+
+  // Pre-render all country pages
+  const countryPaths = idsToStaticPaths(
+    client.getEntities("country").map((e: Entity) => e.id),
+    "country",
+  );
+
+  // Pre-render a subset of institutions by default, those with >= 1000 publications
+  // The rest are rendered on demand
+  const institutions = client
+    .getEntities("institution")
+    // .filter((e: Entity) => e.stats.n_outputs >= DEFAULT_N_OUTPUTS) // TODO: Vercel migration
+    .map((e: Entity) => e.id);
+  const institutionPaths = idsToStaticPaths(institutions, "institution");
+
+  // All paths to render
+  const paths = countryPaths.concat(institutionPaths);
 
   return {
-    paths: idsToStaticPaths(ids),
+    paths: paths,
     fallback: false,
+    // fallback: "blocking", // TODO: Vercel migration
   };
 }

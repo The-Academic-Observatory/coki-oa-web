@@ -280,8 +280,8 @@ curl https://open.coki.ac/api/search/curtin%20university
   {
     "id": "02n415q13",
     "name": "Curtin University",
-    "logo_s": "/logos/institution/s/02n415q13.jpg",
-    "category": "institution",
+    "logo_sm": "logos/institution/s/02n415q13.jpg",
+    "entityType": "institution",
     "country": "Australia",
     "subregion": "Australia and New Zealand",
     "region": "Oceania",
@@ -341,8 +341,8 @@ curl "https://open.coki.ac/api/countries?page=0&regions=Oceania"
     {
       "id": "PNG",
       "name": "Papua New Guinea",
-      "logo_s": "/logos/country/s/PNG.svg",
-      "category": "country",
+      "logo_sm": "logos/country/s/PNG.svg",
+      "entityType": "country",
       "subregion": "Melanesia",
       "region": "Oceania",
       "stats": {
@@ -358,8 +358,8 @@ curl "https://open.coki.ac/api/countries?page=0&regions=Oceania"
     {
       "id": "AUS",
       "name": "Australia",
-      "logo_s": "/logos/country/s/AUS.svg",
-      "category": "country",
+      "logo_sm": "logos/country/s/AUS.svg",
+      "entityType": "country",
       "subregion": "Australia and New Zealand",
       "region": "Oceania",
       "stats": {
@@ -375,8 +375,8 @@ curl "https://open.coki.ac/api/countries?page=0&regions=Oceania"
     {
       "id": "NZL",
       "name": "New Zealand",
-      "logo_s": "/logos/country/s/NZL.svg",
-      "category": "country",
+      "logo_sm": "logos/country/s/NZL.svg",
+      "entityType": "country",
       "subregion": "Australia and New Zealand",
       "region": "Oceania",
       "stats": {
@@ -443,8 +443,8 @@ curl "https://open.coki.ac/api/institutions?page=0&regions=Oceania&institutionTy
     {
       "id": "030cszc07",
       "name": "Australian Astronomical Observatory",
-      "logo_s": "/logos/institution/s/030cszc07.jpg",
-      "category": "institution",
+      "logo_sm": "logos/institution/s/030cszc07.jpg",
+      "entityType": "institution",
       "country": "Australia",
       "subregion": "Australia and New Zealand",
       "region": "Oceania",
@@ -464,8 +464,8 @@ curl "https://open.coki.ac/api/institutions?page=0&regions=Oceania&institutionTy
     {
       "id": "05qajvd42",
       "name": "Australia Telescope National Facility",
-      "logo_s": "/logos/institution/s/05qajvd42.jpg",
-      "category": "institution",
+      "logo_sm": "logos/institution/s/05qajvd42.jpg",
+      "entityType": "institution",
       "country": "Australia",
       "subregion": "Australia and New Zealand",
       "region": "Oceania",
@@ -485,8 +485,8 @@ curl "https://open.coki.ac/api/institutions?page=0&regions=Oceania&institutionTy
     {
       "id": "03dsbfb14",
       "name": "Australian Institute of Tropical Health and Medicine",
-      "logo_s": "/logos/institution/s/03dsbfb14.jpg",
-      "category": "institution",
+      "logo_sm": "logos/institution/s/03dsbfb14.jpg",
+      "entityType": "institution",
       "country": "Australia",
       "subregion": "Australia and New Zealand",
       "region": "Oceania",

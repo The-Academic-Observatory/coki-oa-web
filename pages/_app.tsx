@@ -27,6 +27,8 @@ import Script from "next/script";
 function OpenAccessWebApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
+      {/* TODO: Vercel migration */}
+      {/*<Script data-domain="open.coki.ac" src="/js/script.js" strategy="lazyOnload" />*/}
       <Script
         data-domain="open.coki.ac"
         data-api="https://open.coki.ac/site-api/event"

@@ -33,7 +33,7 @@ import Head from "../common/Head";
 
 export const makeDescription = (entity: Entity) => {
   let text = `Open Access statistics for ${entity.name},`;
-  if (entity.category === "institution") {
+  if (entity.entityType === "institution") {
     text += ` ${entity.country},`;
   }
   text += ` covering academic research published from ${entity.start_year} to ${entity.end_year}.`;
@@ -54,7 +54,7 @@ export function makePageDescription(entity: Entity, stats: Stats): string {
   const pOpen = Math.round(entity.stats.p_outputs_open);
   // When the entity's OA% is over median say Over when under say Only
   let metaDescription = "Over ";
-  const median_p_outputs_open = lodashGet(stats, `${entity.category}.median.p_outputs_open`);
+  const median_p_outputs_open = lodashGet(stats, `${entity.entityType}.median.p_outputs_open`);
   if (median_p_outputs_open === undefined || entity.stats.p_outputs_open < median_p_outputs_open) {
     metaDescription = "Only ";
   }
@@ -85,10 +85,10 @@ export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) =>
 
       <Breadcrumbs
         breadcrumbs={[
-          { title: entity.category, href: `/${entity.category}/` },
+          { title: entity.entityType, href: `/${entity.entityType}/` },
           {
             title: entity.name,
-            href: `/${entity.category}/${entity.id}/`,
+            href: `/${entity.entityType}/${entity.id}/`,
           },
         ]}
       />

@@ -14,8 +14,6 @@
 //
 // Author: James Diprose
 
-"use client";
-
 import React, { memo, ReactElement } from "react";
 import { Box, BoxProps, Flex, HStack, Image, StackProps, Text, VStack } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
@@ -23,6 +21,7 @@ import DonutSparkline from "../charts/DonutSparkline";
 import styles from "./SocialCard.module.css";
 import { toReadableNumber } from "../../lib/utils";
 import COKISmall from "../../public/logo-small.svg";
+import cokiImageLoader from "../../lib/api";
 
 interface ShareCardProps extends BoxProps {
   entity: Entity;
@@ -66,7 +65,7 @@ const SocialCard = ({ entity, ...rest }: ShareCardProps) => {
           rounded="48px"
           objectFit="cover"
           boxSize={{ base: "532px" }}
-          src={entity.logo_xl}
+          src={cokiImageLoader(entity.logo_lg)}
           alt={entity.name}
           style={{
             filter: "drop-shadow( 0px 0px 12px rgba(0, 0, 0, .3))",

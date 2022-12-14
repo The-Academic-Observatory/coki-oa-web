@@ -45,10 +45,10 @@ interface Props extends StackProps {
   value: number;
   color: string;
   size: number;
-  showText: Boolean;
+  showText?: Boolean;
 }
 
-const DonutSparkline = ({ value, color, size, showText, ...rest }: Props) => {
+const DonutSparkline = ({ value, color, size, showText = true, ...rest }: Props) => {
   let s = calcDonutSettings(value, color);
 
   let text = <></>;
@@ -83,10 +83,6 @@ const DonutSparkline = ({ value, color, size, showText, ...rest }: Props) => {
       </svg>
     </HStack>
   );
-};
-
-DonutSparkline.defaultProps = {
-  showText: true,
 };
 
 export default memo(DonutSparkline);

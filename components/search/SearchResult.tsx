@@ -18,6 +18,7 @@ import { Box, BoxProps, HStack, Image, Text } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
 import Link from "../common/Link";
 import React, { memo } from "react";
+import cokiImageLoader from "../../lib/api";
 
 interface SearchResultProps extends BoxProps {
   entity: Entity;
@@ -27,9 +28,15 @@ interface SearchResultProps extends BoxProps {
 const SearchResult = ({ entity, onClick, ...rest }: SearchResultProps) => {
   return (
     <Box key={entity.id} data-test={entity.id}>
-      <Link href={`/${entity.category}/${entity.id}`} onClick={onClick}>
+      <Link href={`/${entity.entityType}/${entity.id}`} onClick={onClick}>
         <HStack my="16px">
-          <Image rounded="full" objectFit="cover" boxSize="16px" src={entity.logo_s} alt={entity.name} />
+          <Image
+            rounded="full"
+            objectFit="cover"
+            boxSize="16px"
+            src={cokiImageLoader(entity.logo_sm)}
+            alt={entity.name}
+          />
           <Text textStyle="tableCell">{entity.name}</Text>
         </HStack>
       </Link>

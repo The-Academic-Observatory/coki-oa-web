@@ -28,7 +28,7 @@ const Footer = ({ entity, stats }: EntityDetailsProps) => {
       justifyContent="space-between"
       py="12px"
     >
-      <Link href={`/${entity.category}/`}>
+      <Link href={`/${entity.entityType}/`}>
         <Button variant="solid" size="lg">
           Return to Dashboard
         </Button>

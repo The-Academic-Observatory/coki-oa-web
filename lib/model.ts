@@ -18,10 +18,10 @@ export type Entity = {
   id: string;
   name: string;
   description: Description;
-  category: string;
-  logo_s: string;
-  logo_l: string;
-  logo_xl: string;
+  entityType: string;
+  logo_sm: string;
+  logo_md: string;
+  logo_lg: string;
   url: string;
   wikipedia_url: string;
   region: string;
@@ -156,4 +156,8 @@ export interface QueryParams {
   maxNOutputsOpen?: number;
   minPOutputsOpen?: number;
   maxPOutputsOpen?: number;
+}
+
+export interface Dict {
+  [key: string]: any;
 }
