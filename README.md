@@ -60,7 +60,6 @@ yarn test:e2e
 ### Build & Deploy
 Export environment variables, customising the host name:
 ```bash
-export DATA_PATH=./latest/data
 export NEXT_PUBLIC_HOST=https://develop.open.coki.ac
 export NEXT_PUBLIC_API_HOST=https://develop.open.coki.ac
 ```
@@ -260,6 +259,11 @@ cloudflare_api_token: http://:<cloudflare_api_token>@
 ## 5. REST API Endpoints
 The COKI Open Access Web REST API can be used to search and filter countries and institutions.
 
+The data available through the REST API is copyrighted by Curtin University and licensed under the 
+[Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/), 
+except the data in the `description.text fields`. These are licensed under the 
+[Creative Commons Attribution-ShareAlike 3.0 Unported License](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License), as they are derived from Wikipedia.
+
 ### Search
 Search for countries and institutions by name.
 
@@ -299,6 +303,166 @@ curl https://open.coki.ac/api/search/curtin%20university
     }
   }
 ]
+```
+
+### Country
+Get the full details for a country.
+
+``GET /api/country/:id``
+
+| Parameter | Description                      |
+|:----------|----------------------------------|
+| `:id`     | A three letter country ISO code. |
+
+#### Sample Request
+```bash
+curl https://open.coki.ac/api/country/NZL
+```
+
+#### Sample Response
+```json
+{
+  "id": "NZL",
+  "name": "New Zealand",
+  "description": {
+    "text": "New Zealand is an island country in the southwestern Pacific Ocean. It consists of two main landmasses\u2014the North Island and the South Island\u2014and over 700 smaller islands. It is the sixth-largest island country by area, covering 268,021 square kilometres.",
+    "license": "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License",
+    "url": "https://en.wikipedia.org/wiki/New_Zealand"
+  },
+  "entityType": "country",
+  "logo_sm": "logos/country/sm/NZL.svg",
+  "logo_md": "logos/country/md/NZL.svg",
+  "logo_lg": "logos/country/md/NZL.svg",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/New_Zealand",
+  "region": "Oceania",
+  "subregion": "Australia and New Zealand",
+  "start_year": 2000,
+  "end_year": 2021,
+  "stats": {
+    "n_citations": 5634926,
+    "n_outputs": 214124,
+    "n_outputs_open": 75448,
+    ...
+  },
+  "years": [
+    {
+      "year": 2000,
+      "date": "2000-12-31",
+      "stats": {
+        "n_citations": 176810,
+        "n_outputs": 3463,
+        "n_outputs_open": 668,
+        ...
+      }
+    },
+    ...
+  ],
+  "repositories": [
+    {
+      "id": "PubMed Central",
+      "total_outputs": 24570,
+      "entityType": "Domain",
+      "home_repo": false
+    },
+    {
+      "id": "Europe PMC",
+      "total_outputs": 19203,
+      "entityType": "Domain",
+      "home_repo": false
+    },
+    {
+      "id": "Semantic Scholar",
+      "total_outputs": 5851,
+      "entityType": "Public",
+      "home_repo": false
+    },
+    ...
+  ]
+}
+```
+
+### Institution
+Get the full details for an institution.
+
+``GET /api/institution/:id``
+
+| Parameter | Description                    |
+|:----------|--------------------------------|
+| `:id`     | The ROR ID of the institution. |
+
+#### Sample Request
+```bash
+curl https://open.coki.ac/api/institution/030cszc07
+```
+
+#### Sample Response
+```json
+{
+  "id": "030cszc07",
+  "name": "Australian Astronomical Observatory",
+  "description": {
+    "text": "The Australian Astronomical Observatory, formerly the Anglo-Australian Observatory, was an optical and near-infrared astronomy observatory with its headquarters in North Ryde in suburban Sydney, Australia.",
+    "license": "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License",
+    "url": "https://en.wikipedia.org/wiki/Australian_Astronomical_Observatory"
+  },
+  "entityType": "institution",
+  "logo_sm": "logos/institution/sm/030cszc07.jpg",
+  "logo_md": "logos/institution/md/030cszc07.jpg",
+  "logo_lg": "logos/institution/lg/030cszc07.png",
+  "url": "http://www.aao.gov.au/",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Australian_Astronomical_Observatory",
+  "region": "Oceania",
+  "subregion": "Australia and New Zealand",
+  "country": "Australia",
+  "institution_types": [
+    "Facility"
+  ],
+  "start_year": 2000,
+  "end_year": 2021,
+  "stats": {
+    "n_citations": 72555,
+    "n_outputs": 1243,
+    "n_outputs_open": 1115,
+    ...
+  },
+  "years": [
+    {
+      "year": 2000,
+      "date": "2000-12-31",
+      "stats": {
+        "n_citations": 171,
+        "n_outputs": 3,
+        "n_outputs_open": 2,
+        ...
+      }
+    },
+    ...
+  ],
+  "acronyms": [
+    "AAO"
+  ],
+  "repositories": [
+    {
+      "id": "arXiv",
+      "total_outputs": 1101,
+      "entityType": "Preprint",
+      "home_repo": false
+    },
+    {
+      "id": "Australian National University - ANU Open Research",
+      "total_outputs": 247,
+      "entityType": "Institution",
+      "home_repo": false
+    },
+    {
+      "id": "University College London - UCL Discovery",
+      "total_outputs": 194,
+      "entityType": "Institution",
+      "home_repo": false
+    },
+    ...
+  ]
+}
 ```
 
 ### Countries
