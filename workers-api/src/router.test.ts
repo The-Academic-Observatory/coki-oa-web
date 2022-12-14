@@ -22,13 +22,11 @@ const env = getMiniflareBindings();
 const ctx = {} as ExecutionContext;
 
 test("test handleRequest 404", async () => {
-  let res = await handleRequest(new Request("http://localhost"), env, ctx);
-  expect(res.status).toBe(404);
-
-  res = await handleRequest(new Request("http://localhost/api"), env, ctx);
+  let res = await handleRequest(new Request("http://localhost/api"), env, ctx);
   expect(res.status).toBe(404);
 
   res = await handleRequest(new Request("http://localhost/api/search"), env, ctx); // no :text parameter
+  console.log(res);
   expect(res.status).toBe(404);
 });
 
@@ -66,7 +64,11 @@ const fetchAll = async (endpoint: string, otherQueryParams: string = "") => {
   let results = [];
   let i = 0;
   while (true) {
-    let res = await handleRequest(new Request(`http://localhost/api/${endpoint}?page=${i}${otherQueryParams}`), env, ctx);
+    let res = await handleRequest(
+      new Request(`http://localhost/api/${endpoint}?page=${i}${otherQueryParams}`),
+      env,
+      ctx,
+    );
     expect(res.status).toBe(200);
     let json = await res.json();
     expect(json).toHaveProperty("items");
@@ -262,3 +264,11 @@ test(
   },
   institutionTestTimeout,
 );
+
+test("test handleRequest fetchEntityHandler country", () => {
+  fail();
+});
+
+test("test handleRequest fetchEntityHandler institution", () => {
+  fail();
+});

@@ -1,0 +1,3 @@
+test("test fetchEntityHandler", () => {
+  fail();
+});
