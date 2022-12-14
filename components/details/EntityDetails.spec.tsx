@@ -17,8 +17,8 @@
 import { render } from "../../lib/test-utils";
 import { EntityDetails, makePageDescription, makeSocialCardUrl } from "./EntityDetails";
 
-import entity from "../../latest/data/country/NZL.json";
-import stats from "../../latest/data/stats.json";
+import entity from "../../data/country/NZL.json";
+import stats from "../../data/stats.json";
 
 import { useRouter } from "next/router";
 

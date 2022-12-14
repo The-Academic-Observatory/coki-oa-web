@@ -16,7 +16,7 @@
 
 import { search, searchIndex } from "./search";
 import { importIndex, indexEntities, exportIndex } from "./searchIndex";
-import dataRaw from "../../latest/data/index.json";
+import dataRaw from "../../data/index.json";
 import flexsearch, { Tokenizer } from "flexsearch";
 import { Entity } from "./types";
 import now from "performance-now";
