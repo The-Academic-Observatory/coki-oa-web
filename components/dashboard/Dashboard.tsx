@@ -29,8 +29,8 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { EntityStats, QueryParams, QueryResult, Stats } from "../../lib/model";
-import { OADataAPI, OADataLocal } from "../../lib/api";
+import { Entity, EntityStats, QueryParams, QueryResult, Stats } from "../../lib/model";
+import cokiImageLoader, { OADataAPI, OADataLocal } from "../../lib/api";
 import React, { useCallback } from "react";
 import IndexTable from "../table/IndexTable";
 import Icon from "../common/Icon";
@@ -236,7 +236,15 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
       <PageLoader isLoading={isLoadingCountry || isLoadingInstitution} />
 
       {/* This component contains the Head tag for the page. */}
-      <Head title={title} description={description} />
+      <Head title={title} description={description}>
+        {/* Preload the first page of country and institution logos */}
+        {defaultCountries.items.map((e: Entity) => (
+          <link key={`${e.id}-logo-sm-preload`} rel="preload" href={cokiImageLoader(e.logo_sm)} as="image" />
+        ))}
+        {defaultInstitutions.items.map((e: Entity) => (
+          <link key={`${e.id}-logo-sm-preload`} rel="preload" href={cokiImageLoader(e.logo_sm)} as="image" />
+        ))}
+      </Head>
 
       <Breadcrumbs
         breadcrumbs={[]}

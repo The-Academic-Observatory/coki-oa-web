@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //@ts-ignore
-await saveIndexToFile("../latest/data/index.json", "../latest/data/flexsearchIndex.json");
+await saveIndexToFile("../data/index.json", "../data/flexsearchIndex.json");
 
 try {
   //@ts-ignore

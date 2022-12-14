@@ -1,0 +1,10 @@
+name = "coki-oa-images"
+type = "webpack"
+account_id = "my-cloudflare-account-id"
+zone_id = "my-cloudflare-zone-id"
+compatibility_date = "2022-02-03"
+routes = ["my-domain/*"]
+
+[site]
+bucket = "./public"
+entry-point = "."

@@ -14,10 +14,10 @@
 //
 // Author: James Diprose
 
-import dataRaw from "../../latest/data/index.json";
+import dataRaw from "../../data/index.json";
 import flexsearch from "flexsearch";
 import { Entity, SearchRequest } from "./types";
-import flexsearchIndex from "../../latest/data/flexsearchIndex.json";
+import flexsearchIndex from "../../data/flexsearchIndex.json";
 import { importIndex } from "./searchIndex";
 
 const { Index } = flexsearch;

@@ -14,11 +14,12 @@
 //
 // Author: Alex Massen-Hane
 
-import { memo } from "react";
+import { memo, ReactNode } from "react";
 import NextHead from "next/head";
 import { useRouter } from "next/router";
 
 export interface HeadProps {
+  children?: ReactNode;
   title: string;
   description: string;
   shareTitle?: string;
@@ -30,6 +31,7 @@ export interface HeadProps {
 }
 
 const Head = ({
+  children,
   title,
   description,
   shareTitle,
@@ -93,6 +95,8 @@ const Head = ({
       <meta property="og:image:width" content={shareImageWidth} />
       <meta property="og:image:height" content={shareImageHeight} />
       <meta property="og:url" content={pageUrl} />
+
+      {children}
     </NextHead>
   );
 };

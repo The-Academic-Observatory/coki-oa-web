@@ -20,7 +20,7 @@ import { Entity, Stats } from "../../lib/model";
 import Card from "../common/Card";
 import Breadcrumbs from "../common/Breadcrumbs";
 import lodashGet from "lodash.get";
-import { addBuildId } from "../../lib/api";
+import { cokiImageLoader, addBuildId } from "../../lib/api";
 import OATimeseriesCard from "./OATimeseriesCard";
 import PublisherOpenCard from "./PublisherOpenCard";
 import OAVolumeCard from "./OAVolumeCard";
@@ -81,7 +81,10 @@ export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) =>
         shareTitle={shareTitle}
         shareImage={shareImage}
         shareImageType="image/jpeg"
-      />
+      >
+        {/* Preload the entity logo */}
+        <link rel="preload" href={cokiImageLoader(entity.logo_md)} as="image" />
+      </Head>
 
       <Breadcrumbs
         breadcrumbs={[

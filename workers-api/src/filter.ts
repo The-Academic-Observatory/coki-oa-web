@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import dataRaw from "../../latest/data/index.json";
+import dataRaw from "../../data/index.json";
 import lodashGet from "lodash.get";
 import { Entity, FilterQuery, FilterRequest, PageSettings, Query } from "./types";
 
