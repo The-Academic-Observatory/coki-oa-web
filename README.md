@@ -264,7 +264,7 @@ Detailed information about individual countries and institutions can be retrieve
 
 The data available through the REST API is copyrighted by Curtin University and licensed under the 
 [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/), 
-except the data in the `description.text fields`. These are licensed under the 
+except the data in the `description.text` fields. These are licensed under the 
 [Creative Commons Attribution-ShareAlike 3.0 Unported License](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License), as they are derived from Wikipedia.
 
 ### Search
