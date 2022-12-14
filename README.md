@@ -257,7 +257,10 @@ cloudflare_api_token: http://:<cloudflare_api_token>@
 * [Cloudflare Creating API tokens](https://developers.cloudflare.com/api/tokens/create)
 
 ## 5. REST API Endpoints
-The COKI Open Access Web REST API can be used to search and filter countries and institutions.
+The COKI Open Access REST API offers a full text search endpoint for identifying countries and institutions based 
+on their names. Additionally, the API provides filtering capabilities that allow users to find a range of countries and 
+institutions that match specified parameters such as region, subregion, open access percentage, and number of outputs. 
+Detailed information about individual countries and institutions can be retrieved using dedicated endpoints.
 
 The data available through the REST API is copyrighted by Curtin University and licensed under the 
 [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/), 
