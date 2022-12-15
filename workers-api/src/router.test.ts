@@ -27,7 +27,6 @@ test("test handleRequest 404", async () => {
   expect(res.status).toBe(404);
 
   res = await handleRequest(new Request("http://localhost/api/search"), env, ctx); // no :text parameter
-  console.log(res);
   expect(res.status).toBe(404);
 });
 
