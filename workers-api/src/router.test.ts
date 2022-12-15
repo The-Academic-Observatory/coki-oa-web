@@ -14,6 +14,7 @@
 //
 // Author: James Diprose
 
+import fs from "fs";
 import { handleRequest } from "./router";
 import lodashGet from "lodash.get";
 
@@ -57,6 +58,28 @@ test("test handleRequest search", async () => {
   json = await res.json();
   expect(res.status).toBe(200);
   expect(json.length).toBe(20);
+});
+
+test("test handleRequest country", async () => {
+  // Put data into KV namespace for testing
+  await env.__STATIC_CONTENT.put("country/NZL.json", fs.readFileSync("./public/country/NZL.json", "utf-8"));
+
+  let res = await handleRequest(new Request("http://localhost/api/country/NZL"), env, ctx);
+  let json = await res.json();
+  expect(res.status).toBe(200);
+  expect(json).toMatchObject({ id: "NZL" });
+});
+
+test("test handleRequest institution", async () => {
+  // Put data into KV namespace for testing
+  await env.__STATIC_CONTENT.put(
+    "institution/030cszc07.json",
+    fs.readFileSync("./public/institution/030cszc07.json", "utf-8"),
+  );
+  let res = await handleRequest(new Request("http://localhost/api/institution/030cszc07"), env, ctx);
+  let json = await res.json();
+  expect(res.status).toBe(200);
+  expect(json).toMatchObject({ id: "030cszc07" });
 });
 
 const fetchAll = async (endpoint: string, otherQueryParams: string = "") => {
@@ -264,11 +287,3 @@ test(
   },
   institutionTestTimeout,
 );
-
-test("test handleRequest fetchEntityHandler country", () => {
-  fail();
-});
-
-test("test handleRequest fetchEntityHandler institution", () => {
-  fail();
-});

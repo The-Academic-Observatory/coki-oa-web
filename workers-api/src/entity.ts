@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-// @ts-ignore
+//@ts-ignore
 import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import { EntityRequest } from "@/types";
 
