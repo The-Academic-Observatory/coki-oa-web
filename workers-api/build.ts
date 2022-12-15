@@ -1,4 +1,6 @@
+//@ts-ignore
 import path from "path";
+//@ts-ignore
 import { fileURLToPath } from "url";
 import { build } from "esbuild";
 import { saveIndexToFile } from "./src/searchIndex.js";

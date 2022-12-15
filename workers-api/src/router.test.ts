@@ -14,6 +14,7 @@
 //
 // Author: James Diprose
 
+// @ts-ignore
 import fs from "fs";
 import { handleRequest } from "./router";
 import lodashGet from "lodash.get";

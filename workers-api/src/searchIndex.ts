@@ -14,6 +14,7 @@
 //
 // Author: James Diprose
 
+//@ts-ignore
 import fs from "fs";
 import { Entity } from "./types";
 import flexsearch from "flexsearch";
