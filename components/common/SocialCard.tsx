@@ -21,7 +21,7 @@ import DonutSparkline from "../charts/DonutSparkline";
 import styles from "./SocialCard.module.css";
 import { toReadableNumber } from "../../lib/utils";
 import COKISmall from "../../public/logo-small.svg";
-import cokiImageLoader from "../../lib/api";
+import { cokiImageLoader } from "../../lib/api";
 
 interface ShareCardProps extends BoxProps {
   entity: Entity;

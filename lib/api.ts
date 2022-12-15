@@ -23,6 +23,7 @@ import { largestRemainder, sum } from "./utils";
 import statsRaw from "../data/stats.json";
 
 export const DEFAULT_N_OUTPUTS = 1000;
+const IMAGES_HOST_NAME = "https://images.open.coki.ac";
 
 export class OADataAPI {
   host: string;
@@ -191,8 +192,8 @@ function makeFilterUrl(host: string, entityType: string, filterQuery: QueryParam
   return addBuildId(url);
 }
 
-export default function cokiImageLoader(src: string) {
-  return `https://images.open.coki.ac/${src}`;
+export function cokiImageLoader(src: string) {
+  return `${IMAGES_HOST_NAME}/${src}`;
 }
 
 export function idsToStaticPaths(ids: Array<string>, entityType?: string) {

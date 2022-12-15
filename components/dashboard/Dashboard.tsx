@@ -30,7 +30,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { Entity, EntityStats, QueryParams, QueryResult, Stats } from "../../lib/model";
-import cokiImageLoader, { OADataAPI, OADataLocal } from "../../lib/api";
+import { cokiImageLoader, OADataAPI, OADataLocal } from "../../lib/api";
 import React, { useCallback } from "react";
 import IndexTable from "../table/IndexTable";
 import Icon from "../common/Icon";

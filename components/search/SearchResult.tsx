@@ -18,7 +18,7 @@ import { Box, BoxProps, HStack, Image, Text } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
 import Link from "../common/Link";
 import React, { memo } from "react";
-import cokiImageLoader from "../../lib/api";
+import { cokiImageLoader } from "../../lib/api";
 
 interface SearchResultProps extends BoxProps {
   entity: Entity;

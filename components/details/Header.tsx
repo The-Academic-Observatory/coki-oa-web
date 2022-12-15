@@ -20,7 +20,7 @@ import TextCollapse from "../common/TextCollapse";
 import React, { memo } from "react";
 import { makeDescription } from "./EntityDetails";
 import SharePopover from "./SharePopover";
-import cokiImageLoader from "../../lib/api";
+import { cokiImageLoader } from "../../lib/api";
 
 interface EntityHeaderProps extends StackProps {
   entity: Entity;

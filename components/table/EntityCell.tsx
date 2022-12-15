@@ -18,7 +18,7 @@ import Link from "../common/Link";
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import React, { memo } from "react";
 import { EntityProps, makeHref } from "./IndexTable";
-import cokiImageLoader from "../../lib/api";
+import { cokiImageLoader } from "../../lib/api";
 
 function EntityCell({ entity }: EntityProps) {
   const href = makeHref(entity.entityType, entity.id);
