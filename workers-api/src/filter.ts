@@ -132,7 +132,7 @@ export function filterResults(array: ArrayView<Entity>, query: Query): Entity[] 
     }
 
     // Check if any institutionTypes match types in entity.institution_type
-    if (entity.institution_type !== undefined && entity.institution_type !== null) {
+    if (entity.institution_type !== undefined && entity.institution_type !== null && query.institutionTypes.size) {
       include = include && query.institutionTypes.has(entity.institution_type);
     }
 
