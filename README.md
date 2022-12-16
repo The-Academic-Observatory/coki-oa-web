@@ -288,13 +288,11 @@ curl https://open.coki.ac/api/search/curtin%20university
     "id": "02n415q13",
     "name": "Curtin University",
     "logo_sm": "logos/institution/sm/02n415q13.jpg",
-    "entityType": "institution",
+    "entity_type": "institution",
     "country": "Australia",
     "subregion": "Australia and New Zealand",
     "region": "Oceania",
-    "institution_types": [
-      "Education"
-    ],
+    "institution_type": "Education",
     "stats": {
       "n_outputs": 42938,
       "n_outputs_open": 18388,
@@ -332,7 +330,7 @@ curl https://open.coki.ac/api/country/NZL
     "license": "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License",
     "url": "https://en.wikipedia.org/wiki/New_Zealand"
   },
-  "entityType": "country",
+  "entity_type": "country",
   "logo_sm": "logos/country/sm/NZL.svg",
   "logo_md": "logos/country/md/NZL.svg",
   "logo_lg": "logos/country/md/NZL.svg",
@@ -364,19 +362,19 @@ curl https://open.coki.ac/api/country/NZL
     {
       "id": "PubMed Central",
       "total_outputs": 24570,
-      "entityType": "Domain",
+      "category": "Domain",
       "home_repo": false
     },
     {
       "id": "Europe PMC",
       "total_outputs": 19203,
-      "entityType": "Domain",
+      "category": "Domain",
       "home_repo": false
     },
     {
       "id": "Semantic Scholar",
       "total_outputs": 5851,
-      "entityType": "Public",
+      "category": "Public",
       "home_repo": false
     },
     ...
@@ -408,7 +406,7 @@ curl https://open.coki.ac/api/institution/030cszc07
     "license": "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License",
     "url": "https://en.wikipedia.org/wiki/Australian_Astronomical_Observatory"
   },
-  "entityType": "institution",
+  "entity_type": "institution",
   "logo_sm": "logos/institution/sm/030cszc07.jpg",
   "logo_md": "logos/institution/md/030cszc07.jpg",
   "logo_lg": "logos/institution/lg/030cszc07.png",
@@ -417,9 +415,7 @@ curl https://open.coki.ac/api/institution/030cszc07
   "region": "Oceania",
   "subregion": "Australia and New Zealand",
   "country": "Australia",
-  "institution_types": [
-    "Facility"
-  ],
+  "institution_type": "Facility",
   "start_year": 2000,
   "end_year": 2021,
   "stats": {
@@ -448,19 +444,19 @@ curl https://open.coki.ac/api/institution/030cszc07
     {
       "id": "arXiv",
       "total_outputs": 1101,
-      "entityType": "Preprint",
+      "category": "Preprint",
       "home_repo": false
     },
     {
       "id": "Australian National University - ANU Open Research",
       "total_outputs": 247,
-      "entityType": "Institution",
+      "category": "Institution",
       "home_repo": false
     },
     {
       "id": "University College London - UCL Discovery",
       "total_outputs": 194,
-      "entityType": "Institution",
+      "category": "Institution",
       "home_repo": false
     },
     ...
@@ -509,7 +505,7 @@ curl "https://open.coki.ac/api/countries?page=0&regions=Oceania"
       "id": "PNG",
       "name": "Papua New Guinea",
       "logo_sm": "logos/country/sm/PNG.svg",
-      "entityType": "country",
+      "entity_type": "country",
       "subregion": "Melanesia",
       "region": "Oceania",
       "stats": {
@@ -526,7 +522,7 @@ curl "https://open.coki.ac/api/countries?page=0&regions=Oceania"
       "id": "AUS",
       "name": "Australia",
       "logo_sm": "logos/country/sm/AUS.svg",
-      "entityType": "country",
+      "entity_type": "country",
       "subregion": "Australia and New Zealand",
       "region": "Oceania",
       "stats": {
@@ -543,7 +539,7 @@ curl "https://open.coki.ac/api/countries?page=0&regions=Oceania"
       "id": "NZL",
       "name": "New Zealand",
       "logo_sm": "logos/country/sm/NZL.svg",
-      "entityType": "country",
+      "entity_type": "country",
       "subregion": "Australia and New Zealand",
       "region": "Oceania",
       "stats": {
@@ -611,13 +607,11 @@ curl "https://open.coki.ac/api/institutions?page=0&regions=Oceania&institutionTy
       "id": "030cszc07",
       "name": "Australian Astronomical Observatory",
       "logo_sm": "logos/institution/sm/030cszc07.jpg",
-      "entityType": "institution",
+      "entity_type": "institution",
       "country": "Australia",
       "subregion": "Australia and New Zealand",
       "region": "Oceania",
-      "institution_types": [
-        "Facility"
-      ],
+      "institution_type": "Facility",
       "stats": {
         "n_outputs": 1243,
         "n_outputs_open": 1113,
@@ -632,13 +626,11 @@ curl "https://open.coki.ac/api/institutions?page=0&regions=Oceania&institutionTy
       "id": "05qajvd42",
       "name": "Australia Telescope National Facility",
       "logo_sm": "logos/institution/sm/05qajvd42.jpg",
-      "entityType": "institution",
+      "entity_type": "institution",
       "country": "Australia",
       "subregion": "Australia and New Zealand",
       "region": "Oceania",
-      "institution_types": [
-        "Facility"
-      ],
+      "institution_type": "Facility",
       "stats": {
         "n_outputs": 1742,
         "n_outputs_open": 1493,
@@ -653,13 +645,11 @@ curl "https://open.coki.ac/api/institutions?page=0&regions=Oceania&institutionTy
       "id": "03dsbfb14",
       "name": "Australian Institute of Tropical Health and Medicine",
       "logo_sm": "logos/institution/sm/03dsbfb14.jpg",
-      "entityType": "institution",
+      "entity_type": "institution",
       "country": "Australia",
       "subregion": "Australia and New Zealand",
       "region": "Oceania",
-      "institution_types": [
-        "Facility"
-      ],
+      "institution_type": "Facility",
       "stats": {
         "n_outputs": 1011,
         "n_outputs_open": 741,

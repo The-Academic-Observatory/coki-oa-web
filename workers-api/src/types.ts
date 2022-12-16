@@ -19,12 +19,12 @@ import { Request, Obj } from "itty-router";
 export interface Entity extends Object {
   id: string;
   name: string;
-  entityType: string;
+  entity_type: string;
   logo_sm: string;
   region: string;
   subregion: string;
   country: string | null;
-  institution_types: Array<string> | null;
+  institution_type: string | null;
   acronyms: Array<string>;
   stats: PublicationStats;
 }

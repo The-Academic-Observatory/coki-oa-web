@@ -20,7 +20,7 @@ import React, { memo } from "react";
 import { EntityProps, makeHref } from "./IndexTable";
 
 function BreakdownCell({ entity }: EntityProps) {
-  const href = makeHref(entity.entityType, entity.id);
+  const href = makeHref(entity.entity_type, entity.id);
   let stats = entity.stats;
   let values = [
     stats.p_outputs_publisher_open_only,

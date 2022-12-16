@@ -21,7 +21,7 @@ import { EntityProps, makeHref } from "./IndexTable";
 import { cokiImageLoader } from "../../lib/api";
 
 function EntityCell({ entity }: EntityProps) {
-  const href = makeHref(entity.entityType, entity.id);
+  const href = makeHref(entity.entity_type, entity.id);
   return (
     <Link href={href}>
       <HStack>

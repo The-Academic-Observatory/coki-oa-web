@@ -268,7 +268,7 @@ test(
 );
 
 test(
-  "test handleRequest institutions: institution_types",
+  "test handleRequest institutions: institution_type",
   async () => {
     const endpoint = "institutions";
     let results = await fetchAll(endpoint, "&institutionTypes=Education,Government");
@@ -280,9 +280,7 @@ test(
 
     // Assert that we only have entities from Oceania and Americas
     results.forEach((entity) => {
-      entity.institution_types.forEach((type: string) => {
-        expect(type).toMatch(/Education|Government/);
-      });
+      expect(entity.institution_type).toMatch(/Education|Government/);
     });
   },
   institutionTestTimeout,

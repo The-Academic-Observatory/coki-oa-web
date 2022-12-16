@@ -63,7 +63,7 @@ test("test makePageDescription country", () => {
   // Below median country
   let entity = {
     name: "New Zealand",
-    entityType: "country",
+    entity_type: "country",
     start_year: 2000,
     end_year: 2021,
     stats: {
@@ -88,7 +88,7 @@ test("test makePageDescription institution", () => {
   // Below median country
   let entity = {
     name: "Curtin University",
-    entityType: "institution",
+    entity_type: "institution",
     country: "Australia",
     start_year: 2000,
     end_year: 2021,

@@ -28,7 +28,7 @@ interface SearchResultProps extends BoxProps {
 const SearchResult = ({ entity, onClick, ...rest }: SearchResultProps) => {
   return (
     <Box key={entity.id} data-test={entity.id}>
-      <Link href={`/${entity.entityType}/${entity.id}`} onClick={onClick}>
+      <Link href={`/${entity.entity_type}/${entity.id}`} onClick={onClick}>
         <HStack my="16px">
           <Image
             rounded="full"

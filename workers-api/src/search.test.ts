@@ -55,7 +55,7 @@ test("test search", () => {
     id: "AUS",
     name: "Australia",
     logo_sm: "logos/country/sm/AUS.svg",
-    entityType: "country",
+    entity_type: "country",
     subregion: "Australia and New Zealand",
     region: "Oceania",
     stats: {
@@ -78,11 +78,11 @@ test("test search", () => {
     id: "02n415q13",
     name: "Curtin University",
     logo_sm: "logos/institution/sm/02n415q13.jpg",
-    entityType: "institution",
+    entity_type: "institution",
     country: "Australia",
     subregion: "Australia and New Zealand",
     region: "Oceania",
-    institution_types: ["Education"],
+    institution_type: "Education",
     stats: {
       n_outputs: expect.any(Number),
       n_outputs_open: expect.any(Number),

@@ -49,7 +49,7 @@ const minOutputs = 0;
 const minOutputsOpen = 0;
 
 const firstInstitutionIndex = data.findIndex((entity: Entity) => {
-  return entity.entityType === "institution";
+  return entity.entity_type === "institution";
 });
 const lastCountryIndex = firstInstitutionIndex - 1;
 export const countries = new ArrayView<Entity>(data, 0, lastCountryIndex);
@@ -131,18 +131,9 @@ export function filterResults(array: ArrayView<Entity>, query: Query): Entity[] 
       include = include && query.regions.has(entity.region);
     }
 
-    // Check if any institutionTypes match types in entity.institution_types
-    if (entity.institution_types !== undefined && entity.institution_types !== null && query.institutionTypes.size) {
-      let institutionTypesMatch = false;
-
-      for (let j = 0; j < entity.institution_types.length; j++) {
-        const type = entity.institution_types[j];
-        if (query.institutionTypes.has(type)) {
-          institutionTypesMatch = true;
-          break;
-        }
-      }
-      include = include && institutionTypesMatch;
+    // Check if any institutionTypes match types in entity.institution_type
+    if (entity.institution_type !== undefined && entity.institution_type !== null) {
+      include = include && query.institutionTypes.has(entity.institution_type);
     }
 
     // Include if n_outputs is between filter values

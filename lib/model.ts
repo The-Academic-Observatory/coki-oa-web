@@ -18,7 +18,7 @@ export type Entity = {
   id: string;
   name: string;
   description: Description;
-  entityType: string;
+  entity_type: string;
   logo_sm: string;
   logo_md: string;
   logo_lg: string;
@@ -27,7 +27,7 @@ export type Entity = {
   region: string;
   subregion: string;
   country: string;
-  institution_types: Array<string>;
+  institution_type: string;
   start_year: number;
   end_year: number;
   stats: PublicationStats;
