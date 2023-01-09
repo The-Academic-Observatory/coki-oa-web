@@ -49,6 +49,13 @@ Install workers-api dependencies:
 yarn workspace coki-oa-web-api install
 ```
 
+Install playwright for end-to-end tests:
+```bash
+npx playwright install-deps
+npx playwright install
+npx playwright install msedge
+```
+
 ### Running Development Server
 Run the development server:
 ```bash
@@ -58,7 +65,7 @@ yarn dev
 Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Running tests
-Runs playwright end to end tests:
+Runs playwright end-to-end tests:
 ```bash
 yarn test:e2e
 ```
