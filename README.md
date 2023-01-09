@@ -22,7 +22,6 @@ Open Knowledge Initiative's Open Access Dashboard: [open.coki.ac](https://open.c
 * Linux, Windows or MacOS.
 * NodeJS 16: https://nodejs.org/en/
 * yarn 3: https://yarnpkg.com/getting-started/install
-* Prettier code formatter: https://prettier.io/
 * Wrangler 1: `npm install -g @cloudflare/wrangler`
 
 ### Preparing Data Files
@@ -31,7 +30,7 @@ Apache Airflow workflow. This workflow needs to be run first to produce the data
 website. Normally the following steps are performed automatically by the workflow when the website is built and 
 deployed, however, during development this needs to be done manually.
 
-From the Google Cloud Storage bucket, download the `v2/latest.zip` file, saving it in the root of the project.
+From the Google Cloud Storage bucket, download the `v8/data.zip` file, saving it in the root of the project.
 
 Run the `data.sh` script, which will extract the data files and copy them to the right places 
 (this will also run on Windows).
@@ -40,20 +39,10 @@ Run the `data.sh` script, which will extract the data files and copy them to the
 See below for instructions specific to running the web application.
 
 ### Install dependencies
+Install coki-oa-web and coki-oa-web-api:
 ```bash
 yarn install
-```
-
-Install workers-api dependencies:
-```bash
 yarn workspace coki-oa-web-api install
-```
-
-Install playwright for end-to-end tests:
-```bash
-npx playwright install-deps
-npx playwright install
-npx playwright install msedge
 ```
 
 ### Running Development Server
@@ -65,6 +54,18 @@ yarn dev
 Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Running tests
+Run Jest unit tests:
+```bash
+yarn test:jest
+```
+
+Install playwright for end-to-end tests:
+```bash
+npx playwright install-deps
+npx playwright install
+npx playwright install msedge
+```
+
 Runs playwright end-to-end tests:
 ```bash
 yarn test:e2e

@@ -18,7 +18,6 @@ jobs:
         run: |
           corepack enable
           corepack prepare yarn@3.3.1 --activate
-          yarn --version
           yarn install
           yarn workspace coki-oa-web-api install
 
