@@ -27,7 +27,7 @@ function EntityCell({ entity }: EntityProps) {
         <Box width="16px" height="16px" minWidth="16px">
           <Image rounded="full" objectFit="cover" boxSize="16px" src={entity.logo_s} />
         </Box>
-        <Text>{entity.name}</Text>
+        <Text size={{ base: "m", smm: "s" }}>{entity.name}</Text>
       </HStack>
     </Link>
   );

@@ -18,6 +18,7 @@ import { extendTheme } from "@chakra-ui/react";
 import Accordion from "./components/accordion";
 import Button from "./components/button";
 import Checkbox from "./components/checkbox";
+import Card from "./components/card";
 import Popover from "./components/popover";
 import Slider from "./components/slider";
 import Table from "./components/table";
@@ -29,12 +30,13 @@ import Tooltip from "./components/tooltip";
 import Alert from "./components/alert";
 
 const breakpoints = {
-  sm: "600px",
-  md: "1000px",
-  std: "1310px",
-  lg: "1600px",
-  xl: "1920px",
-  "2xl": "3840px",
+  sm: "600px",   // small mobile
+  smm: "700px",  // small medium mobile
+  md: "1000px",  // mobile device
+  std: "1310px", // standard
+  lg: "1600px",  // large
+  xl: "1920px",  // extra large
+  "2xl": "3840px", 
 };
 
 const theme = extendTheme({
@@ -362,6 +364,7 @@ const theme = extendTheme({
     Accordion,
     Button,
     Checkbox,
+    Card,
     Slider,
     Table,
     Tabs,

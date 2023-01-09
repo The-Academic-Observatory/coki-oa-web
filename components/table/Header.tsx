@@ -15,7 +15,7 @@
 // Author: James Diprose
 
 import { ColumnInstance } from "react-table";
-import { Grid, GridItem, HStack, Text } from "@chakra-ui/react";
+import { Flex, Grid, GridItem, HStack, Text } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import React, { memo } from "react";
 
@@ -32,36 +32,63 @@ const ColumnHeaders: { [id: string]: string } = {
   openPublications: "Open Publications",
 };
 
+const ColumnHeadersMobile: { [id: string]: string } = {
+  Institution: "AZ",
+  Country: "AZ",
+  openPublications: "Open",
+  totalPublications: "Total",
+  open: "Open%",
+};
+
 function Header({ column }: ColumnProps) {
   const subHeadings = ["Publisher open", "both", "other platform open", "closed"];
   return (
-    <span>
-      <HStack align="start" spacing="0">
-        <Text>{ColumnHeaders[column.id]}</Text>
-        {column.isSorted ? (
-          column.isSortedDesc ? (
-            <ArrowDownIcon viewBox=" 0 -2 24 24" />
+    <>
+      {/* Desktop */}
+      <Flex display={{ base: "none", smm: "block" }}>
+        <HStack align="start" spacing="0">
+          <Text>{ColumnHeaders[column.id]}</Text>
+          {column.isSorted ? (
+            column.isSortedDesc ? (
+              <ArrowDownIcon viewBox=" 0 -2 24 24" />
+            ) : (
+              <ArrowUpIcon viewBox=" 0 -2 24 24" />
+            )
           ) : (
-            <ArrowUpIcon viewBox=" 0 -2 24 24" />
-          )
+            <ArrowDownIcon viewBox="0 0 0 0" />
+          )}
+        </HStack>
+        {column.id === "breakdown" ? (
+          <Grid key="subHeadingTable">
+            {subHeadings.map((subHead: string) => {
+              return (
+                <GridItem key={subHead}>
+                  <Text textStyle="tableSubHeader">{subHead}</Text>
+                </GridItem>
+              );
+            })}
+          </Grid>
         ) : (
-          <ArrowDownIcon viewBox="0 0 0 0" />
+          ""
         )}
-      </HStack>
-      {column.id === "breakdown" ? (
-        <Grid key="subHeadingTable">
-          {subHeadings.map((subHead: string) => {
-            return (
-              <GridItem key={subHead}>
-                <Text textStyle="tableSubHeader">{subHead}</Text>
-              </GridItem>
-            );
-          })}
-        </Grid>
-      ) : (
-        ""
-      )}
-    </span>
+      </Flex>
+
+      {/* Mobile */}
+      <Flex pl="20px" display={{ base: "block", smm: "none" }}>
+        <HStack align="start" spacing="0">
+          <Text>{ColumnHeadersMobile[column.id]}</Text>
+          {column.isSorted ? (
+            column.isSortedDesc ? (
+              <ArrowDownIcon viewBox=" 0 -2 24 24" />
+            ) : (
+              <ArrowUpIcon viewBox=" 0 -2 24 24" />
+            )
+          ) : (
+            <ArrowDownIcon viewBox="0 0 0 0" />
+          )}
+        </HStack>
+      </Flex>
+    </>
   );
 }
 

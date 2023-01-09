@@ -31,7 +31,8 @@ function BreakdownCell({ entity }: EntityProps) {
   const colors = ["#ffd700", "#4fa9dc", "#9FD27E", "#EBEBEB"];
   return (
     <Link href={href}>
-      <BreakdownSparkline values={values} colors={colors} width={110} height={17} />
+      {/* <BreakdownSparkline values={values} colors={colors} width={110} height={17} /> */}
+      <BreakdownSparkline values={values} colors={colors} width={{ base: 100, smm: 50 }} height={17} />
     </Link>
   );
 }

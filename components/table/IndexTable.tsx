@@ -14,7 +14,23 @@
 //
 // Author: James Diprose, Aniek Roelofs
 
-import { Box, BoxProps, Flex, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
+import {
+  Box,
+  BoxProps,
+  Flex,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  Grid,
+  GridItem,
+  VStack,
+  Spacer,
+} from "@chakra-ui/react";
+import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
 import React, { memo } from "react";
 import { Cell, Row, usePagination, useSortBy, useTable } from "react-table";
 import { Entity, QueryResult } from "../../lib/model";
@@ -69,8 +85,8 @@ const IndexTable = ({
         accessor: "name",
         Cell: EntityCell,
         minWidth: 100,
-        maxWidth: 220,
         width: "45%",
+        display: { base: "block", smm: "none" },
       },
       {
         Header: Header,
@@ -91,6 +107,7 @@ const IndexTable = ({
         maxWidth: 200,
         width: "12.5%",
         disableSortBy: true,
+        display: { base: "none", smm: "block" },
       },
       {
         Header: Header,
@@ -121,6 +138,7 @@ const IndexTable = ({
         accessor: (e: any) => e,
         width: "5%",
         disableSortBy: true,
+        display: { base: "none", smm: "block" },
       },
     ],
     [categoryName],
@@ -201,8 +219,10 @@ const IndexTable = ({
         {isLoading && (
           <Box position="absolute" zIndex={1} backgroundColor="rgba(0,0,0,0.05)" width="100%" height="100%"></Box>
         )}
+
+        {/* Desktop */}
         {/*The table*/}
-        <Table {...getTableProps()} size="sm" variant="dashboard">
+        <Table {...getTableProps()} size="sm" variant="dashboard" display={{ base: "none", smm: "table" }}>
           <Thead>
             {headerGroups.map((headerGroup) => {
               let props = headerGroup.getHeaderGroupProps();
@@ -253,7 +273,72 @@ const IndexTable = ({
             {data.length == 0 && <SkeletonResults nRows={8} />}
           </Tbody>
         </Table>
+
+        {/* Mobile. Countries and institutions render as cards */}
+        <Box display={{ base: "block", smm: "none" }}>
+          {/* TODO: Change header table to a one row grid using chakra ui*/}
+
+          <Table {...getTableProps()} size="sm" variant="dashboard" display={{ base: "table", smm: "none" }}>
+            <Thead>
+              {headerGroups.map((headerGroup) => {
+                let props = headerGroup.getHeaderGroupProps();
+                return (
+                  <Tr key={props.key}>
+                    {headerGroup.headers.map((column: any) => {
+                      const props = column.getHeaderProps(column.getSortByToggleProps());
+                      return (
+                        <Th
+                          key={props.key}
+                          {...props}
+                          minWidth={column.minWidth}
+                          maxWidth={column.maxWidth}
+                          width={column.width}
+                          display={column.display}
+                        >
+                          {column.render("Header")}
+                        </Th>
+                      );
+                    })}
+                  </Tr>
+                );
+              })}
+            </Thead>
+          </Table>
+
+          <VStack align="center" p="20px">
+            {page.map((row: Row<any>) => {
+              prepareRow(row);
+              return (
+                <Card variant="dashboard" key={row.id}>
+                  <CardHeader display="flex">
+                    {row.cells[0].render("Cell", { entity: row.original })}
+                    <Spacer />
+                    {row.cells[1].render("Cell", { entity: row.original })}
+                  </CardHeader>
+
+                  <CardBody>
+                    <Grid templateColumns="repeat(8, 1fr)" templateRows="repeat(2, 1fr)">
+                      <GridItem colSpan={3}>
+                        <Text>Open: {row.cells[4].render("Cell", { entity: row.original })}</Text>
+                      </GridItem>
+                      <GridItem colSpan={3}>
+                        <Text>Total: {row.cells[3].render("Cell", { entity: row.original })}</Text>
+                      </GridItem>
+                      <GridItem colSpan={4}>{row.cells[2].render("Cell", { entity: row.original })}</GridItem>
+                      <GridItem colSpan={4}>
+                        <Flex justifyContent="right">{row.cells[5].render("Cell", { entity: row.original })}</Flex>
+                      </GridItem>
+                    </Grid>
+                  </CardBody>
+
+                  <CardFooter display="none"></CardFooter>
+                </Card>
+              );
+            })}
+          </VStack>
+        </Box>
       </Box>
+
       <Flex
         w="full"
         alignItems="center"

@@ -79,7 +79,7 @@ const BreakdownSparkline = ({ values, colors, width, height, labels, ...rest }: 
   const valueSummary: string = values.map((value) => `${Math.round(value)}%`).join(" ");
 
   return (
-    <Box {...rest}>
+    <Box {...rest} pt={{ base: "3px", smm: "none" }} width={{ base: "110%", smm: "100%" }}>
       <svg width={width} height={height} viewBox={viewBox.join(" ")} preserveAspectRatio="none">
         {valueSummary}
         {rects.map((rect, i) => (
