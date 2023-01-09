@@ -20,10 +20,10 @@ import { Box, BoxProps, Collapse, Text, useDisclosure } from "@chakra-ui/react";
 interface TextCollapseProps extends BoxProps {
   previewText: string | ReactElement;
   text: string | ReactElement;
-  showCollapse: boolean;
+  showCollapse?: boolean;
 }
 
-const TextCollapse = ({ previewText, text, showCollapse, ...rest }: TextCollapseProps) => {
+const TextCollapse = ({ previewText, text, showCollapse = true, ...rest }: TextCollapseProps) => {
   const [actionText, setActionText] = React.useState<string>("Read More");
   const { isOpen, onToggle } = useDisclosure();
 
@@ -59,10 +59,6 @@ const TextCollapse = ({ previewText, text, showCollapse, ...rest }: TextCollapse
       </Collapse>
     </Box>
   );
-};
-
-TextCollapse.defaultProps = {
-  showCollapse: true,
 };
 
 export default memo(TextCollapse);

@@ -2,12 +2,12 @@
   "name": "coki-oa-web",
   "private": true,
   "scripts": {
-    "dev": "next dev & yarn --cwd ./workers-api dev",
+    "dev": "concurrently 'next dev' 'yarn workspace coki-oa-web-api dev'",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "postbuild": "cross-env next-sitemap --config next-sitemap.js",
-    "export": "./export.sh",
+    "export": "next export",
     "test:e2e": "playwright test",
     "test:jest": "jest"
   },
@@ -28,7 +28,7 @@
     "lodash.get": "^4.4.2",
     "lodash.isequal": "^4.5.0",
     "lodash.set": "^4.3.2",
-    "next": "^13.0.6",
+    "next": "v13.0.7-canary.4",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -51,6 +51,7 @@
     "@types/react-dom": "^18.0.9",
     "@types/react-table": "^7.7.8",
     "@types/react-test-renderer": "^18.0.0",
+    "concurrently": "^7.6.0",
     "cross-env": "^7.0.3",
     "eslint": "7",
     "eslint-config-next": "13.0.5",
@@ -60,9 +61,13 @@
     "next-sitemap": "^2.1.13",
     "prettier": "^2.6.2",
     "react-test-renderer": "^18.2.0",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.3",
+    "vercel": "^28.8.0"
   },
   "browser": {
     "fs": false
-  }
+  },
+  "workspaces": [
+    "workers-api"
+  ]
 }

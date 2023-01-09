@@ -29,8 +29,8 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { EntityStats, QueryParams, QueryResult, Stats } from "../../lib/model";
-import { getIndexTableData, getStatsData, makeFilterUrl } from "../../lib/api";
+import { Entity, EntityStats, QueryParams, QueryResult, Stats } from "../../lib/model";
+import { cokiImageLoader, OADataAPI, OADataLocal } from "../../lib/api";
 import React, { useCallback } from "react";
 import IndexTable from "../table/IndexTable";
 import Icon from "../common/Icon";
@@ -42,8 +42,8 @@ import { useEffectAfterRender } from "../../lib/hooks";
 import PageLoader from "../common/PageLoader";
 import Head from "../common/Head";
 
-const maxTabsWidth = "1100px";
-const maxPageSize = 18;
+const MAX_TABS_WIDTH = "1100px";
+const MAX_PAGE_SIZE = 18;
 
 export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
   const q = {
@@ -117,7 +117,7 @@ export const makeDefaultValues = (entityStats: EntityStats): QueryForm => {
 };
 
 const useEntityQuery = (
-  endpoint: string,
+  entityType: string,
   initialState: QueryResult,
   entityStats: EntityStats,
 ): [QueryResult, QueryForm, (q: QueryForm) => void, QueryForm, boolean, number, () => void] => {
@@ -137,28 +137,28 @@ const useEntityQuery = (
     const queryParams = queryFormToQueryParams(queryForm);
 
     // Make filter URL
-    const url = makeFilterUrl(endpoint, queryParams);
-    fetch(url)
-      .then((response) => response.json())
+    const client = new OADataAPI();
+    client
+      .filterEntities(entityType, queryParams)
       .then((data) => {
         setEntities(data);
       })
       .then(() => {
         setLoading(false);
       });
-  }, [endpoint, queryForm]);
+  }, [entityType, queryForm]);
 
   return [entities, queryForm, setQueryForm, defaultQueryForm, isLoading, resetFormState, onResetQueryForm];
 };
 
 export type DashboardProps = {
-  defaultCategory: string;
+  defaultEntityType: string;
   defaultCountries: QueryResult;
   defaultInstitutions: QueryResult;
   stats: Stats;
 };
 
-const Dashboard = ({ defaultCategory, defaultCountries, defaultInstitutions, stats }: DashboardProps) => {
+const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, stats }: DashboardProps) => {
   // Descriptions
   const descriptions = [
     {
@@ -178,7 +178,7 @@ const Dashboard = ({ defaultCategory, defaultCountries, defaultInstitutions, sta
   ];
 
   const categoryToTabIndex: Array<string> = ["country", "institution"];
-  const defaultTabIndex = categoryToTabIndex.indexOf(defaultCategory);
+  const defaultTabIndex = categoryToTabIndex.indexOf(defaultEntityType);
   const [tabIndex, setTabIndex] = React.useState<number>(defaultTabIndex);
   const defaultDescription = descriptions[defaultTabIndex];
   const [dashboardText, setDashboardText] = React.useState(defaultDescription);
@@ -236,7 +236,15 @@ const Dashboard = ({ defaultCategory, defaultCountries, defaultInstitutions, sta
       <PageLoader isLoading={isLoadingCountry || isLoadingInstitution} />
 
       {/* This component contains the Head tag for the page. */}
-      <Head title={title} description={description} />
+      <Head title={title} description={description}>
+        {/* Preload the first page of country and institution logos */}
+        {defaultCountries.items.map((e: Entity) => (
+          <link key={`${e.id}-logo-sm-preload`} rel="preload" href={cokiImageLoader(e.logo_sm)} as="image" />
+        ))}
+        {defaultInstitutions.items.map((e: Entity) => (
+          <link key={`${e.id}-logo-sm-preload`} rel="preload" href={cokiImageLoader(e.logo_sm)} as="image" />
+        ))}
+      </Head>
 
       <Breadcrumbs
         breadcrumbs={[]}
@@ -249,8 +257,8 @@ const Dashboard = ({ defaultCategory, defaultCountries, defaultInstitutions, sta
 
       {/*Use free space units for grid so that column gap doesn't cause an overflow */}
       <Grid
-        maxWidth={{ base: "full", std: maxTabsWidth }}
-        templateAreas={`"header ." 
+        maxWidth={{ base: "full", std: MAX_TABS_WIDTH }}
+        templateAreas={`"header ."
                         "table filter"
                         ". filter"`} // The last template area means that the filters can expand past the table
         templateColumns={{ base: "100%", md: `3fr 1fr` }}
@@ -312,7 +320,7 @@ const Dashboard = ({ defaultCategory, defaultCountries, defaultInstitutions, sta
           <TabPanels>
             <TabPanel p={0}>
               <IndexTable
-                categoryName="Country"
+                entityTypeName="Country"
                 queryResult={countries}
                 queryForm={queryFormCountry}
                 setQueryForm={setQueryFormCountry}
@@ -323,7 +331,7 @@ const Dashboard = ({ defaultCategory, defaultCountries, defaultInstitutions, sta
             </TabPanel>
             <TabPanel p={0}>
               <IndexTable
-                categoryName="Institution"
+                entityTypeName="Institution"
                 queryResult={institutions}
                 queryForm={queryFormInstitution}
                 setQueryForm={setQueryFormInstitution}
@@ -400,24 +408,25 @@ const Dashboard = ({ defaultCategory, defaultCountries, defaultInstitutions, sta
 };
 
 export function getDashboardStaticProps() {
-  const countries = getIndexTableData("country");
-  const institutions = getIndexTableData("institution");
-  const stats = getStatsData();
+  const client = new OADataLocal();
+  const countries = client.getEntities("country");
+  const institutions = client.getEntities("institution");
+  const stats = client.getStats();
   const defaultQueryResult = {
     page: 0,
-    limit: maxPageSize,
+    limit: MAX_PAGE_SIZE,
   };
 
   return {
     props: {
       defaultCountries: {
         ...defaultQueryResult,
-        items: countries.slice(0, maxPageSize),
+        items: countries.slice(0, MAX_PAGE_SIZE),
         nItems: countries.length,
       },
       defaultInstitutions: {
         ...defaultQueryResult,
-        items: institutions.slice(0, maxPageSize),
+        items: institutions.slice(0, MAX_PAGE_SIZE),
         nItems: institutions.length,
       },
       stats: stats,

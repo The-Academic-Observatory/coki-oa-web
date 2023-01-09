@@ -1,46 +1,85 @@
+// Copyright 2022 Curtin University
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// Author: James Diprose
+
+// @ts-ignore
+import fs from "fs";
 import { handleRequest } from "./router";
 import lodashGet from "lodash.get";
 
 const institutionTestTimeout = 100000;
+const env = getMiniflareBindings();
+const ctx = {} as ExecutionContext;
 
 test("test handleRequest 404", async () => {
-  let res = await handleRequest(new Request("http://localhost"));
+  let res = await handleRequest(new Request("http://localhost/api"), env, ctx);
   expect(res.status).toBe(404);
 
-  res = await handleRequest(new Request("http://localhost/api"));
-  expect(res.status).toBe(404);
-
-  res = await handleRequest(new Request("http://localhost/api/search")); // no :text parameter
+  res = await handleRequest(new Request("http://localhost/api/search"), env, ctx); // no :text parameter
   expect(res.status).toBe(404);
 });
 
 test("test handleRequest search", async () => {
   // Search
-  let res = await handleRequest(new Request("http://localhost/api/search/curtin"));
+  let res = await handleRequest(new Request("http://localhost/api/search/curtin"), env, ctx);
   let json = await res.json();
   expect(res.status).toBe(200);
   expect(json.length).toBe(2);
   expect(json).toMatchObject([{ id: "02n415q13" }, { id: "024fm2y42" }]);
 
   // Search: text with spaces
-  res = await handleRequest(new Request("http://localhost/api/search/auckland%20university"));
+  res = await handleRequest(new Request("http://localhost/api/search/auckland%20university"), env, ctx);
   json = await res.json();
   expect(res.status).toBe(200);
   expect(json.length).toBe(2);
   expect(json).toMatchObject([{ id: "03b94tp07" }, { id: "01zvqw119" }]);
 
   // Limit: 1
-  res = await handleRequest(new Request("http://localhost/api/search/south%20korea?limit=1"));
+  res = await handleRequest(new Request("http://localhost/api/search/south%20korea?limit=1"), env, ctx);
   json = await res.json();
   expect(res.status).toBe(200);
   expect(json.length).toBe(1);
   expect(json).toMatchObject([{ id: "KOR" }]);
 
   // Limit > 20 still returns 20
-  res = await handleRequest(new Request("http://localhost/api/search/s?limit=21"));
+  res = await handleRequest(new Request("http://localhost/api/search/s?limit=21"), env, ctx);
   json = await res.json();
   expect(res.status).toBe(200);
   expect(json.length).toBe(20);
+});
+
+test("test handleRequest country", async () => {
+  // Put data into KV namespace for testing
+  await env.__STATIC_CONTENT.put("country/NZL.json", fs.readFileSync("./public/country/NZL.json", "utf-8"));
+
+  let res = await handleRequest(new Request("http://localhost/api/country/NZL"), env, ctx);
+  let json = await res.json();
+  expect(res.status).toBe(200);
+  expect(json).toMatchObject({ id: "NZL" });
+});
+
+test("test handleRequest institution", async () => {
+  // Put data into KV namespace for testing
+  await env.__STATIC_CONTENT.put(
+    "institution/030cszc07.json",
+    fs.readFileSync("./public/institution/030cszc07.json", "utf-8"),
+  );
+  let res = await handleRequest(new Request("http://localhost/api/institution/030cszc07"), env, ctx);
+  let json = await res.json();
+  expect(res.status).toBe(200);
+  expect(json).toMatchObject({ id: "030cszc07" });
 });
 
 const fetchAll = async (endpoint: string, otherQueryParams: string = "") => {
@@ -48,7 +87,11 @@ const fetchAll = async (endpoint: string, otherQueryParams: string = "") => {
   let results = [];
   let i = 0;
   while (true) {
-    let res = await handleRequest(new Request(`http://localhost/api/${endpoint}?page=${i}${otherQueryParams}`));
+    let res = await handleRequest(
+      new Request(`http://localhost/api/${endpoint}?page=${i}${otherQueryParams}`),
+      env,
+      ctx,
+    );
     expect(res.status).toBe(200);
     let json = await res.json();
     expect(json).toHaveProperty("items");
@@ -225,7 +268,7 @@ test(
 );
 
 test(
-  "test handleRequest institutions: institution_types",
+  "test handleRequest institutions: institution_type",
   async () => {
     const endpoint = "institutions";
     let results = await fetchAll(endpoint, "&institutionTypes=Education,Government");
@@ -237,9 +280,7 @@ test(
 
     // Assert that we only have entities from Oceania and Americas
     results.forEach((entity) => {
-      entity.institution_types.forEach((type: string) => {
-        expect(type).toMatch(/Education|Government/);
-      });
+      expect(entity.institution_type).toMatch(/Education|Government/);
     });
   },
   institutionTestTimeout,

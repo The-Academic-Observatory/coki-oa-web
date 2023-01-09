@@ -1,4 +1,20 @@
-import dataRaw from "../../latest/data/index.json";
+// Copyright 2022 Curtin University
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// Author: James Diprose
+
+import dataRaw from "../../data/index.json";
 import lodashGet from "lodash.get";
 import { Entity, FilterQuery, FilterRequest, PageSettings, Query } from "./types";
 
@@ -28,12 +44,12 @@ export class ArrayView<Type> {
 
 // Make country and institution array views
 const minLimit = 1;
-const maxLimit = 18;
+const maxLimit = 100;
 const minOutputs = 0;
 const minOutputsOpen = 0;
 
 const firstInstitutionIndex = data.findIndex((entity: Entity) => {
-  return entity.category === "institution";
+  return entity.entity_type === "institution";
 });
 const lastCountryIndex = firstInstitutionIndex - 1;
 export const countries = new ArrayView<Entity>(data, 0, lastCountryIndex);
@@ -115,18 +131,9 @@ export function filterResults(array: ArrayView<Entity>, query: Query): Entity[] 
       include = include && query.regions.has(entity.region);
     }
 
-    // Check if any institutionTypes match types in entity.institution_types
-    if (entity.institution_types !== undefined && entity.institution_types !== null && query.institutionTypes.size) {
-      let institutionTypesMatch = false;
-
-      for (let j = 0; j < entity.institution_types.length; j++) {
-        const type = entity.institution_types[j];
-        if (query.institutionTypes.has(type)) {
-          institutionTypesMatch = true;
-          break;
-        }
-      }
-      include = include && institutionTypesMatch;
+    // Check if any institutionTypes match types in entity.institution_type
+    if (entity.institution_type !== undefined && entity.institution_type !== null && query.institutionTypes.size) {
+      include = include && query.institutionTypes.has(entity.institution_type);
     }
 
     // Include if n_outputs is between filter values
@@ -191,7 +198,7 @@ export function paginateResults<Type>(array: Array<Type>, pageSettings: PageSett
   return results.slice(start, end);
 }
 
-export const countriesHandler = (req: FilterRequest) => {
+export const countriesHandler = (req: FilterRequest, env?: Bindings, ctx?: ExecutionContext) => {
   const q = req["query"];
   const query = parseQuery(q);
   const pageSettings = parsePageSettings(q);
@@ -223,7 +230,7 @@ export const countriesHandler = (req: FilterRequest) => {
   });
 };
 
-export const institutionsHandler = (req: FilterRequest) => {
+export const institutionsHandler = (req: FilterRequest, env?: Bindings, ctx?: ExecutionContext) => {
   const q = req["query"];
   const query = parseQuery(q);
   const pageSettings = parsePageSettings(q);

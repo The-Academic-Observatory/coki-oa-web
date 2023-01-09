@@ -14,35 +14,68 @@
 //
 // Author: James Diprose
 
-import { Entity, QueryParams, Stats } from "./model";
-import fs from "fs";
-import { join } from "path";
+import { Dict, Entity, QueryParams, QueryResult, Stats } from "./model";
 import lodashGet from "lodash.get";
 import lodashSet from "lodash.set";
+import fs from "fs";
+import { join } from "path";
 import { largestRemainder, sum } from "./utils";
+import statsRaw from "../data/stats.json";
 
-const dataPath: string = <string>process.env.DATA_PATH;
+export const DEFAULT_N_OUTPUTS = 1000;
+const IMAGES_HOST_NAME = "https://images.open.coki.ac";
 
-export function getEntityIds(category: string) {
-  const path = join(dataPath, category);
-  return fs.readdirSync(path).map((fileName) => fileName.replace(/\.json$/, ""));
+export class OADataAPI {
+  host: string;
+
+  constructor(host: string = process.env.NEXT_PUBLIC_API_HOST || "https://open.coki.ac") {
+    this.host = host;
+  }
+
+  getStats(): Stats {
+    return statsRaw as unknown as Stats;
+  }
+
+  async getEntity(entityType: string, id: string): Promise<Entity> {
+    const response = await fetch(`${this.host}/api/${entityType}/${id}`);
+    const entity = await response.json();
+    quantizeEntityPercentages(entity);
+    return entity;
+  }
+
+  async searchEntities(text: string, limit: number): Promise<Array<Entity>> {
+    const url = makeSearchUrl(this.host, text, limit);
+    return fetch(url).then((response) => response.json());
+  }
+
+  async filterEntities(entityType: string, filterQuery: QueryParams): Promise<QueryResult> {
+    const url = makeFilterUrl(this.host, entityType, filterQuery);
+    return fetch(url).then((response) => response.json());
+  }
 }
 
-export function idsToStaticPaths(ids: Array<string>) {
-  return ids.map((entityId) => {
-    return {
-      params: {
-        id: entityId,
-      },
-    };
-  });
-}
+export class OADataLocal {
+  dataPath: string;
 
-export function getEntity(category: string, id: string): Entity {
-  const filePath = join(dataPath, category, `${id}.json`);
-  const entity = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-  quantizeEntityPercentages(entity);
-  return entity;
+  constructor(dataPath: string = "./data") {
+    this.dataPath = dataPath;
+  }
+
+  getStats(): Stats {
+    return statsRaw as unknown as Stats;
+  }
+
+  getEntity(entityType: string, id: string): Entity {
+    const filePath = join(this.dataPath, entityType, `${id}.json`);
+    const entity = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    quantizeEntityPercentages(entity);
+    return entity;
+  }
+
+  getEntities(entityType: string): Array<Entity> {
+    const filePath = join(this.dataPath, `${entityType}.json`);
+    return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  }
 }
 
 export function quantizeGroup(entity: Object, keys: Array<string>) {
@@ -94,16 +127,6 @@ export function quantizeEntityPercentages(entity: Entity) {
   });
 }
 
-export function getIndexTableData(category: string) {
-  const filePath = join(dataPath, `${category}.json`);
-  return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-}
-
-export function getStatsData(): Stats {
-  const filePath = join(dataPath, `stats.json`);
-  return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-}
-
 export function addBuildId(url: string): string {
   let parts = [url];
   if (url.indexOf("?") !== -1) {
@@ -117,23 +140,23 @@ export function addBuildId(url: string): string {
   return parts.join("");
 }
 
-export function makeSearchUrl(text: string, limit: number = 10): string {
-  let url = `${process.env.NEXT_PUBLIC_API_HOST}/api/search/${encodeURIComponent(text)}`;
+export function makeSearchUrl(host: string, text: string, limit: number = 10): string {
+  let url = `${host}/api/search/${encodeURIComponent(text)}`;
   if (limit) {
     url += `?limit=${limit}`;
   }
   return addBuildId(url);
 }
 
-export function makeFilterUrl(endpoint: string, filterQuery: QueryParams): string {
+function makeFilterUrl(host: string, entityType: string, filterQuery: QueryParams): string {
   // Make base URL
-  let url = `${process.env.NEXT_PUBLIC_API_HOST}/api/${endpoint}`;
+  let url = `${host}/api/${entityType}`;
 
   // Convert filterQuery into URL query parameters
   const query = Object.keys(filterQuery)
     .map((key) => {
       // Return null when property does not belong on this endpoint
-      if (endpoint !== "institutions" && ["institutionTypes"].includes(key)) {
+      if (entityType !== "institutions" && ["institutionTypes"].includes(key)) {
         return null;
       }
 
@@ -167,4 +190,24 @@ export function makeFilterUrl(endpoint: string, filterQuery: QueryParams): strin
     url += `?${query}`;
   }
   return addBuildId(url);
+}
+
+export function cokiImageLoader(src: string) {
+  return `${IMAGES_HOST_NAME}/${src}`;
+}
+
+export function idsToStaticPaths(ids: Array<string>, entityType?: string) {
+  return ids.map((entityId) => {
+    const params: Dict = {
+      id: entityId,
+    };
+
+    if (entityType !== undefined) {
+      params["entityType"] = entityType;
+    }
+
+    return {
+      params: params,
+    };
+  });
 }

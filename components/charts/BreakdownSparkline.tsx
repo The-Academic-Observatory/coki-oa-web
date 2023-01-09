@@ -49,7 +49,7 @@ interface Props extends BoxProps {
   colors: Array<string>;
   width: any;
   height: number;
-  labels: Array<string>;
+  labels?: Array<string>;
 }
 
 const BreakdownSparkline = ({ values, colors, width, height, labels, ...rest }: Props) => {
@@ -60,7 +60,7 @@ const BreakdownSparkline = ({ values, colors, width, height, labels, ...rest }: 
 
   // Create text
   let element = <></>;
-  if (labels !== null) {
+  if (labels !== undefined) {
     element = (
       <Flex w="full" alignItems="center" justifyContent="space-between">
         {labels.map((label, i) => (
@@ -90,9 +90,4 @@ const BreakdownSparkline = ({ values, colors, width, height, labels, ...rest }: 
     </Box>
   );
 };
-
-BreakdownSparkline.defaultProps = {
-  labels: null,
-};
-
 export default memo(BreakdownSparkline);

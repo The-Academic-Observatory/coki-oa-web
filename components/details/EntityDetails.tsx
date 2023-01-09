@@ -20,7 +20,7 @@ import { Entity, Stats } from "../../lib/model";
 import Card from "../common/Card";
 import Breadcrumbs from "../common/Breadcrumbs";
 import lodashGet from "lodash.get";
-import { addBuildId } from "../../lib/api";
+import { cokiImageLoader, addBuildId } from "../../lib/api";
 import OATimeseriesCard from "./OATimeseriesCard";
 import PublisherOpenCard from "./PublisherOpenCard";
 import OAVolumeCard from "./OAVolumeCard";
@@ -33,7 +33,7 @@ import Head from "../common/Head";
 
 export const makeDescription = (entity: Entity) => {
   let text = `Open Access statistics for ${entity.name},`;
-  if (entity.category === "institution") {
+  if (entity.entity_type === "institution") {
     text += ` ${entity.country},`;
   }
   text += ` covering academic research published from ${entity.start_year} to ${entity.end_year}.`;
@@ -54,7 +54,7 @@ export function makePageDescription(entity: Entity, stats: Stats): string {
   const pOpen = Math.round(entity.stats.p_outputs_open);
   // When the entity's OA% is over median say Over when under say Only
   let metaDescription = "Over ";
-  const median_p_outputs_open = lodashGet(stats, `${entity.category}.median.p_outputs_open`);
+  const median_p_outputs_open = lodashGet(stats, `${entity.entity_type}.median.p_outputs_open`);
   if (median_p_outputs_open === undefined || entity.stats.p_outputs_open < median_p_outputs_open) {
     metaDescription = "Only ";
   }
@@ -81,14 +81,17 @@ export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) =>
         shareTitle={shareTitle}
         shareImage={shareImage}
         shareImageType="image/jpeg"
-      />
+      >
+        {/* Preload the entity logo */}
+        <link rel="preload" href={cokiImageLoader(entity.logo_md)} as="image" />
+      </Head>
 
       <Breadcrumbs
         breadcrumbs={[
-          { title: entity.category, href: `/${entity.category}/` },
+          { title: entity.entity_type, href: `/${entity.entity_type}/` },
           {
             title: entity.name,
-            href: `/${entity.category}/${entity.id}/`,
+            href: `/${entity.entity_type}/${entity.id}/`,
           },
         ]}
       />

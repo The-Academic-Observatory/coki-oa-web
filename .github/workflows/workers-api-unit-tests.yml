@@ -17,6 +17,8 @@ jobs:
       - name: Install dependencies
         working-directory: ./workers-api
         run: |
+          corepack enable
+          corepack prepare yarn@3.3.1 --activate
           yarn install
 
       - name: Auth
@@ -29,10 +31,10 @@ jobs:
 
       - name: Download and Extract Data
         env:
-          DATASET_VERSION: v7
+          DATASET_VERSION: v8
           BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
-          gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/latest.zip latest.zip
+          gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/data.zip data.zip
           ./data.sh
 
       - name: Build

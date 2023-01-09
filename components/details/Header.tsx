@@ -20,6 +20,7 @@ import TextCollapse from "../common/TextCollapse";
 import React, { memo } from "react";
 import { makeDescription } from "./EntityDetails";
 import SharePopover from "./SharePopover";
+import { cokiImageLoader } from "../../lib/api";
 
 interface EntityHeaderProps extends StackProps {
   entity: Entity;
@@ -60,7 +61,7 @@ const Header = ({ entity, ...rest }: EntityHeaderProps) => {
               rounded="full"
               objectFit="cover"
               boxSize={{ base: "60px", md: "100px" }}
-              src={entity.logo_l}
+              src={cokiImageLoader(entity.logo_md)}
               alt={entity.name}
               style={{
                 filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",

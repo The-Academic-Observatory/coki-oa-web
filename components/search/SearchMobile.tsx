@@ -17,7 +17,7 @@
 import { BoxProps, Drawer, DrawerBody, DrawerContent, DrawerHeader, Text } from "@chakra-ui/react";
 import React, { memo } from "react";
 import debounce from "lodash/debounce";
-import { makeSearchUrl } from "../../lib/api";
+import { OADataAPI } from "../../lib/api";
 import { Entity } from "../../lib/model";
 import { searchDebounce, searchLimit } from "./SearchDesktop";
 import SearchResult from "./SearchResult";
@@ -39,12 +39,14 @@ const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: 
   const inputOnChange = debounce((value) => {
     if (value != "") {
       setIsFetching(true);
-      const url = makeSearchUrl(value, searchLimit);
-      fetch(url)
-        .then((response) => response.json())
+      const client = new OADataAPI();
+      client
+        .searchEntities(value, searchLimit)
         .then((data) => {
           //@ts-ignore
           setSearchResults(data);
+        })
+        .finally(() => {
           setIsFetching(false);
         });
     } else {

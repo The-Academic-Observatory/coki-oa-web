@@ -1,7 +1,23 @@
-import dataRaw from "../../latest/data/index.json";
+// Copyright 2022 Curtin University
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// Author: James Diprose
+
+import dataRaw from "../../data/index.json";
 import flexsearch from "flexsearch";
 import { Entity, SearchRequest } from "./types";
-import flexsearchIndex from "../../latest/data/flexsearchIndex.json";
+import flexsearchIndex from "../../data/flexsearchIndex.json";
 import { importIndex } from "./searchIndex";
 
 const { Index } = flexsearch;
@@ -28,7 +44,7 @@ export const search = (index, text: string, limit: number) => {
   });
 };
 
-export const searchHandler = (req: SearchRequest) => {
+export const searchHandler = (req: SearchRequest, env?: Bindings, ctx?: ExecutionContext) => {
   // Parse parameters and query
   const text = decodeURIComponent(req.params.text);
   let limit = parseInt(req.query.limit) || maxLimit;

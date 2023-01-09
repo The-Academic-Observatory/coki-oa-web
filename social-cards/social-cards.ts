@@ -44,7 +44,7 @@ export async function makeShareCards(inputPath: string, maxConcurrency: number, 
   const entities = JSON.parse(fs.readFileSync(inputPath));
   for (const entity of entities) {
     const task = {
-      url: `http://localhost:${port}/${entity.category}-card/${entity.id}/`,
+      url: `http://localhost:${port}/cards/${entity.category}/${entity.id}/`,
       entity: entity,
     } as Task;
     await cluster.queue(task);

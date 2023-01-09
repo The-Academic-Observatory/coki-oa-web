@@ -17,8 +17,8 @@
 import { render } from "../../lib/test-utils";
 import { EntityDetails, makePageDescription, makeSocialCardUrl } from "./EntityDetails";
 
-import entity from "../../latest/data/country/NZL.json";
-import stats from "../../latest/data/stats.json";
+import entity from "../../data/country/NZL.json";
+import stats from "../../data/stats.json";
 
 import { useRouter } from "next/router";
 
@@ -63,7 +63,7 @@ test("test makePageDescription country", () => {
   // Below median country
   let entity = {
     name: "New Zealand",
-    category: "country",
+    entity_type: "country",
     start_year: 2000,
     end_year: 2021,
     stats: {
@@ -88,7 +88,7 @@ test("test makePageDescription institution", () => {
   // Below median country
   let entity = {
     name: "Curtin University",
-    category: "institution",
+    entity_type: "institution",
     country: "Australia",
     start_year: 2000,
     end_year: 2021,

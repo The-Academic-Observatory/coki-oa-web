@@ -19,11 +19,11 @@ import { Box, BoxProps } from "@chakra-ui/react";
 
 interface CardProps extends BoxProps {
   children: ReactNode;
-  bgBase: string;
-  pBase: string;
+  bgBase?: string;
+  pBase?: string;
 }
 
-const Card = ({ children, bgBase, pBase, ...rest }: CardProps) => {
+const Card = ({ children, bgBase = "white", pBase = "24px", ...rest }: CardProps) => {
   return (
     <Box
       bg={{ base: bgBase, md: "white" }}
@@ -39,11 +39,6 @@ const Card = ({ children, bgBase, pBase, ...rest }: CardProps) => {
       {children}
     </Box>
   );
-};
-
-Card.defaultProps = {
-  bgBase: "white",
-  pBase: "24px",
 };
 
 export default Card;

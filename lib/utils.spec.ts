@@ -2,15 +2,15 @@ import { sum, toReadableNumber, largestRemainder } from "./utils";
 
 test("test toReadableNumber", () => {
   expect(toReadableNumber(0)).toBe("0");
-  expect(toReadableNumber(9999)).toBe("9,999");
-  expect(toReadableNumber(10000)).toBe("10k");
-  expect(toReadableNumber(10499)).toBe("10k");
-  expect(toReadableNumber(10999)).toBe("11k");
-  expect(toReadableNumber(999999)).toBe("1m");
-  expect(toReadableNumber(1000000)).toBe("1m");
-  expect(toReadableNumber(1500000)).toBe("1.5m");
-  expect(toReadableNumber(1999999)).toBe("2m");
-  expect(toReadableNumber(999999999)).toBe("1000m");
+  expect(toReadableNumber(9999)).toBe("10K");
+  expect(toReadableNumber(10000)).toBe("10K");
+  expect(toReadableNumber(10499)).toBe("10K");
+  expect(toReadableNumber(10999)).toBe("11K");
+  expect(toReadableNumber(999999)).toBe("1M");
+  expect(toReadableNumber(1000000)).toBe("1M");
+  expect(toReadableNumber(1500000)).toBe("1.5M");
+  expect(toReadableNumber(1999999)).toBe("2M");
+  expect(toReadableNumber(999999999)).toBe("1B");
 });
 
 test("test sum", () => {

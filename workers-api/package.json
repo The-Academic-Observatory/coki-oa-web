@@ -6,7 +6,7 @@
   "description": "The COKI Open Access Web Cloudflare Worker API",
   "main": "./dist/index.mjs",
   "scripts": {
-    "dev": "miniflare --watch --debug --wrangler-config wrangler.local.toml",
+    "dev": "yarn run miniflare --watch --debug --wrangler-config wrangler.local.toml",
     "build": "node --loader ts-node/esm build.ts",
     "test": "yarn run build && node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "format": "prettier --write '**/*.{js,css,json,md}'",
@@ -15,7 +15,7 @@
   "author": "Curtin University <coki@curtin.edu.au>",
   "license": "Apache 2.0",
   "devDependencies": {
-    "@cloudflare/workers-types": "^3.1.1",
+    "@cloudflare/workers-types": "^3.11.0",
     "@glenstack/cf-workers-function-memoizer": "^1.0.1",
     "@types/flexsearch": "^0.7.2",
     "@types/jest": "^27.4.1",
@@ -27,7 +27,7 @@
     "jest": "^27.5.1",
     "jest-environment-miniflare": "^2.3.0",
     "jest-sorted": "^1.0.14",
-    "miniflare": "^2.3.0",
+    "miniflare": "^2.11.0",
     "performance-now": "^2.1.0",
     "prettier": "^1.18.2",
     "ts-jest": "^27.0.7",
@@ -36,8 +36,12 @@
   },
   "dependencies": {
     "flexsearch": "^0.7.21",
-    "itty-router": "^2.5.1",
+    "itty-router": "^2.6.6",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2"
+  },
+  "browser": {
+    "fs": false,
+    "path": false
   }
 }

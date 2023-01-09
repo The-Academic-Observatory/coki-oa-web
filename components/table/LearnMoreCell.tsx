@@ -21,7 +21,7 @@ import React, { memo } from "react";
 import { EntityProps, makeHref } from "./IndexTable";
 
 function LearnMoreCell({ entity }: EntityProps) {
-  const href = makeHref(entity.category, entity.id);
+  const href = makeHref(entity.entity_type, entity.id);
   return (
     <Link href={href} textDecorationColor="white !important">
       <Button variant="solid" size="xs" rightIcon={<ChevronRightIcon />}>

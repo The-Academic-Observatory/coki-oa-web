@@ -180,7 +180,7 @@ const theme = extendTheme({
     },
     entityHeading: {
       fontWeight: 900,
-      fontSize: { base: "24px", md: "32px", std: "32px", sm: "28px" },
+      fontSize: { base: "24px", sm: "28px" },
       textTransform: "uppercase",
       color: "brand.500",
     },

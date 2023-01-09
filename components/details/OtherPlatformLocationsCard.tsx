@@ -45,8 +45,7 @@ import { ArrowDownIcon, ArrowUpIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import Pagination from "../table/Pagination";
 import { FaBriefcaseMedical, FaFirstdraft, FaUniversity, FaUsers } from "react-icons/fa";
 import { TbWorld } from "react-icons/tb";
-
-const numberFormat = Intl.NumberFormat("en", { notation: "compact" });
+import { toReadableNumber } from "../../lib/utils";
 
 export interface RepositoryProps {
   value: any;
@@ -130,7 +129,7 @@ function PlatformTypeCell({ value }: RepositoryProps) {
 }
 
 function NumberCell({ value }: RepositoryProps) {
-  return <span>{numberFormat.format(value)}</span>;
+  return <span>{toReadableNumber(value)}</span>;
 }
 
 interface NoResultsProps {
@@ -346,7 +345,7 @@ const OtherPlatformLocationsCard = ({ entity, ...rest }: TopOtherPlatformOpenCar
                 })}
               </MenuList>
             </Menu>
-            {entity.category === "institution" && (
+            {entity.entity_type === "institution" && (
               <Button
                 variant={onlyHomeRepos ? "buttonLinkSelected" : "buttonLink"}
                 onClick={() => {

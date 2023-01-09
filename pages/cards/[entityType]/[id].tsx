@@ -14,29 +14,29 @@
 //
 // Author: James Diprose
 
-import { Entity } from "../../lib/model";
-import { getEntity, getEntityIds, idsToStaticPaths } from "../../lib/api";
-import SocialCard from "../../components/common/SocialCard";
-
-const category = "country";
+import { Entity } from "../../../lib/model";
+import { OADataLocal, idsToStaticPaths } from "../../../lib/api";
+import SocialCard from "../../../components/common/SocialCard";
 
 type Props = {
   entity: Entity;
 };
 
-export default function CountryCard({ entity }: Props) {
+export default function InstitutionCard({ entity }: Props) {
   return <SocialCard entity={entity} />;
 }
 
 type Params = {
   params: {
+    entityType: string;
     id: string;
   };
 };
 
 export async function getStaticProps({ params }: Params) {
   if (process.env.NODE_ENV === "development") {
-    const entity = getEntity(category, params.id);
+    const client = new OADataLocal();
+    const entity = client.getEntity(params.entityType, params.id);
     return {
       props: {
         entity: entity,
@@ -49,9 +49,19 @@ export async function getStaticProps({ params }: Params) {
 
 export async function getStaticPaths() {
   if (process.env.NODE_ENV === "development") {
-    const ids = getEntityIds(category);
+    const client = new OADataLocal();
+    const countryPaths = idsToStaticPaths(
+      client.getEntities("country").map((e: Entity) => e.id),
+      "country",
+    );
+    const institutionPaths = idsToStaticPaths(
+      client.getEntities("institution").map((e: Entity) => e.id),
+      "institution",
+    );
+    const paths = countryPaths.concat(institutionPaths);
+
     return {
-      paths: idsToStaticPaths(ids),
+      paths: paths,
       fallback: false,
     };
   } else {

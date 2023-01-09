@@ -41,7 +41,7 @@ export interface EntityProps {
 }
 
 interface Props extends BoxProps {
-  categoryName: string;
+  entityTypeName: string;
   queryResult: QueryResult;
   queryForm: QueryForm;
   setQueryForm: (q: QueryForm) => void;
@@ -51,7 +51,7 @@ interface Props extends BoxProps {
 }
 
 const IndexTable = ({
-  categoryName,
+  entityTypeName,
   queryResult,
   queryForm,
   setQueryForm,
@@ -65,7 +65,7 @@ const IndexTable = ({
     () => [
       {
         Header: Header,
-        id: categoryName,
+        id: entityTypeName,
         accessor: "name",
         Cell: EntityCell,
         minWidth: 100,
@@ -123,7 +123,7 @@ const IndexTable = ({
         disableSortBy: true,
       },
     ],
-    [categoryName],
+    [entityTypeName],
   );
 
   // Memoized data

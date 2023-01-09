@@ -1,6 +1,22 @@
+// Copyright 2022 Curtin University
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// Author: James Diprose
+
 import { search, searchIndex } from "./search";
 import { importIndex, indexEntities, exportIndex } from "./searchIndex";
-import dataRaw from "../../latest/data/index.json";
+import dataRaw from "../../data/index.json";
 import flexsearch, { Tokenizer } from "flexsearch";
 import { Entity } from "./types";
 import now from "performance-now";
@@ -38,8 +54,8 @@ test("test search", () => {
   const expectedCountry = {
     id: "AUS",
     name: "Australia",
-    logo_s: "/logos/country/s/AUS.svg",
-    category: "country",
+    logo_sm: "logos/country/sm/AUS.svg",
+    entity_type: "country",
     subregion: "Australia and New Zealand",
     region: "Oceania",
     stats: {
@@ -61,12 +77,12 @@ test("test search", () => {
   const expectedInstitution = {
     id: "02n415q13",
     name: "Curtin University",
-    logo_s: "/logos/institution/s/02n415q13.jpg",
-    category: "institution",
+    logo_sm: "logos/institution/sm/02n415q13.jpg",
+    entity_type: "institution",
     country: "Australia",
     subregion: "Australia and New Zealand",
     region: "Oceania",
-    institution_types: ["Education"],
+    institution_type: "Education",
     stats: {
       n_outputs: expect.any(Number),
       n_outputs_open: expect.any(Number),

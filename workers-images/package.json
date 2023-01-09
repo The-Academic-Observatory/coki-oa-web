@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "coki-oa-images",
+  "version": "0.1.0",
+  "description": "The COKI Open Access Images Cloudflare Worker",
+  "main": "index.js",
+  "author": "Curtin University <coki@curtin.edu.au>",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.2.0"
+  }
+}

@@ -14,5 +14,5 @@
     },
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "bindings.d.ts"]
+  "include": ["src/**/*", "bindings.d.ts", "global.d.ts"]
 }
