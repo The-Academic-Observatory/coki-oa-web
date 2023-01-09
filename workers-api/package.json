@@ -6,7 +6,7 @@
   "description": "The COKI Open Access Web Cloudflare Worker API",
   "main": "./dist/index.mjs",
   "scripts": {
-    "dev": "miniflare --watch --debug --wrangler-config wrangler.local.toml",
+    "dev": "yarn run miniflare --watch --debug --wrangler-config wrangler.local.toml",
     "build": "node --loader ts-node/esm build.ts",
     "test": "yarn run build && node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "format": "prettier --write '**/*.{js,css,json,md}'",

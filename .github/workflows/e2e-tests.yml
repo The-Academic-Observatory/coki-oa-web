@@ -16,11 +16,13 @@ jobs:
 
       - name: Install dependencies
         run: |
+          corepack enable
+          corepack prepare yarn@3.3.1 --activate
           yarn install
           npx playwright install-deps
           npx playwright install
           npx playwright install msedge
-          cd ./workers-api && yarn install
+          yarn workspace coki-oa-web-api install
 
       - name: Auth
         uses: google-github-actions/auth@v0

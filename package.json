@@ -2,7 +2,7 @@
   "name": "coki-oa-web",
   "private": true,
   "scripts": {
-    "dev": "next dev & yarn --cwd ./workers-api dev",
+    "dev": "concurrently 'next dev' 'yarn workspace coki-oa-web-api dev'",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -51,6 +51,7 @@
     "@types/react-dom": "^18.0.9",
     "@types/react-table": "^7.7.8",
     "@types/react-test-renderer": "^18.0.0",
+    "concurrently": "^7.6.0",
     "cross-env": "^7.0.3",
     "eslint": "7",
     "eslint-config-next": "13.0.5",
@@ -65,5 +66,8 @@
   },
   "browser": {
     "fs": false
-  }
+  },
+  "workspaces": [
+    "workers-api"
+  ]
 }
