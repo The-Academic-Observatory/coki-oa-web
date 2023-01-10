@@ -19,7 +19,6 @@
 
 # Yarn 3 files
 .pnp.*
-.yarn/*
 .yarn
 
 # production
