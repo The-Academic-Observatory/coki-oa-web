@@ -69,5 +69,6 @@
   },
   "workspaces": [
     "workers-api"
-  ]
+  ],
+  "packageManager": "yarn@3.3.1"
 }
