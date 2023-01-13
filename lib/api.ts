@@ -22,13 +22,13 @@ import { join } from "path";
 import { largestRemainder, sum } from "./utils";
 import statsRaw from "../data/stats.json";
 
-export const DEFAULT_N_OUTPUTS = 1000;
-const IMAGES_HOST_NAME = "https://images.open.coki.ac";
+const API_HOST = process.env.COKI_API_URL || "https://api.coki.ac";
+const IMAGES_HOST = "https://images.open.coki.ac";
 
 export class OADataAPI {
   host: string;
 
-  constructor(host: string = process.env.NEXT_PUBLIC_API_HOST || "https://open.coki.ac") {
+  constructor(host: string = API_HOST) {
     this.host = host;
   }
 
@@ -37,7 +37,7 @@ export class OADataAPI {
   }
 
   async getEntity(entityType: string, id: string): Promise<Entity> {
-    const response = await fetch(`${this.host}/api/${entityType}/${id}`);
+    const response = await fetch(`${this.host}/${entityType}/${id}`);
     const entity = await response.json();
     quantizeEntityPercentages(entity);
     return entity;
@@ -141,7 +141,7 @@ export function addBuildId(url: string): string {
 }
 
 export function makeSearchUrl(host: string, text: string, limit: number = 10): string {
-  let url = `${host}/api/search/${encodeURIComponent(text)}`;
+  let url = `${host}/search/${encodeURIComponent(text)}`;
   if (limit) {
     url += `?limit=${limit}`;
   }
@@ -150,7 +150,7 @@ export function makeSearchUrl(host: string, text: string, limit: number = 10): s
 
 function makeFilterUrl(host: string, entityType: string, filterQuery: QueryParams): string {
   // Make base URL
-  let url = `${host}/api/${entityType}`;
+  let url = `${host}/${entityType}`;
 
   // Convert filterQuery into URL query parameters
   const query = Object.keys(filterQuery)
@@ -193,7 +193,7 @@ function makeFilterUrl(host: string, entityType: string, filterQuery: QueryParam
 }
 
 export function cokiImageLoader(src: string) {
-  return `${IMAGES_HOST_NAME}/${src}`;
+  return `${IMAGES_HOST}/${src}`;
 }
 
 export function idsToStaticPaths(ids: Array<string>, entityType?: string) {

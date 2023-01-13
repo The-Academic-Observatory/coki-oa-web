@@ -5,5 +5,5 @@
 // Learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom/extend-expect";
 
-process.env.NEXT_PUBLIC_HOST = "http://127.0.0.1:3000";
-process.env.NEXT_PUBLIC_API_HOST = "http://127.0.0.1:8787";
+process.env.COKI_SITE_URL = "http://127.0.0.1:3000";
+process.env.COKI_API_URL = "http://127.0.0.1:8787";

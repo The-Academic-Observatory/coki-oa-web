@@ -116,7 +116,7 @@ it("EntityDetails component renders Head metadata", () => {
     asPath: "/",
   }));
 
-  const pageUrl = `${process.env.NEXT_PUBLIC_HOST}${useRouter().asPath}`;
+  const pageUrl = `${process.env.COKI_SITE_URL}${useRouter().asPath}`;
 
   render(<EntityDetails entity={entity} stats={stats} />);
   const description = makePageDescription(entity, stats);

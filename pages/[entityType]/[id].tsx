@@ -15,8 +15,11 @@
 // Author: James Diprose
 
 import { Entity, Stats } from "../../lib/model";
-import { idsToStaticPaths, OADataLocal } from "../../lib/api";
+import { idsToStaticPaths, OADataLocal, OADataAPI } from "../../lib/api";
 import EntityDetails from "../../components/details/EntityDetails";
+import topInstitutions from "../../data/topInstitutions.json";
+
+const MAX_PREVIEW_INSTITUTIONS = 100;
 
 type Props = {
   entity: Entity;
@@ -37,9 +40,8 @@ type Params = {
 export async function getStaticProps({ params }: Params) {
   // Use REST API to fetch data for entities as this function can be called
   // at build time or run time for ISR (for blocking fallback pages).
-  // const client = new OADataAPI(); // TODO: Vercel migration
-  const client = new OADataLocal();
-  const entity = client.getEntity(params.entityType, params.id); // TODO: Vercel migration add await
+  const client = new OADataAPI();
+  const entity = await client.getEntity(params.entityType, params.id);
   const stats = client.getStats();
   return {
     props: {
@@ -59,20 +61,18 @@ export async function getStaticPaths() {
     "country",
   );
 
-  // Pre-render a subset of institutions by default, those with >= 1000 publications
-  // The rest are rendered on demand
-  const institutions = client
-    .getEntities("institution")
-    // .filter((e: Entity) => e.stats.n_outputs >= DEFAULT_N_OUTPUTS) // TODO: Vercel migration
-    .map((e: Entity) => e.id);
-  const institutionPaths = idsToStaticPaths(institutions, "institution");
+  // Pre-render the most viewed institutions
+  let institutionIds = topInstitutions;
+  if (process.env.COKI_ENVIRONMENT !== "production") {
+    institutionIds = institutionIds.slice(0, MAX_PREVIEW_INSTITUTIONS);
+  }
+  const institutionPaths = idsToStaticPaths(institutionIds, "institution");
 
   // All paths to render
   const paths = countryPaths.concat(institutionPaths);
 
   return {
     paths: paths,
-    fallback: false,
-    // fallback: "blocking", // TODO: Vercel migration
+    fallback: "blocking",
   };
 }

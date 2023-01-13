@@ -10,6 +10,9 @@ mkdir ./workers-api/public
 # Extract data
 unzip -o data.zip -d data
 
+# Make a fake topInstitutions file
+echo "[]" > ./data/topInstitutions.json
+
 ## Copy data files into workers-api/public
 cp -R ./data/country ./workers-api/public/country
 cp -R ./data/institution ./workers-api/public/institution

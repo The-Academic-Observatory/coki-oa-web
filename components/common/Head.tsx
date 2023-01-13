@@ -50,7 +50,7 @@ const Head = ({
   }
 
   if (shareImage === undefined) {
-    shareImage = `${process.env.NEXT_PUBLIC_HOST}/logo-social-card.png`;
+    shareImage = `${process.env.COKI_SITE_URL}/logo-social-card.png`;
   }
 
   if (shareImageWidth === undefined) {
@@ -65,7 +65,7 @@ const Head = ({
     shareImageType = "image/png";
   }
 
-  const pageUrl = `${process.env.NEXT_PUBLIC_HOST}${useRouter().asPath}`;
+  const pageUrl = `${process.env.COKI_SITE_URL}${useRouter().asPath}`;
 
   // Next needs parts of all the page Head in one place for the meta tags to appear properly.
   return (

@@ -5,7 +5,7 @@ import path from "path";
 const config: PlaywrightTestConfig = {
   timeout: 60 * 1000,
   testDir: path.join(__dirname, "e2e"),
-  retries: 2,
+  retries: 1,
   outputDir: "test-results/",
   webServer: {
     command: "yarn run dev",

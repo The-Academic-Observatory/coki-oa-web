@@ -1,4 +1,4 @@
-name = "coki-oa-web-api"
+name = "coki-oa-web-api-v1"
 type = "javascript"
 account_id = "my-cloudflare-account-id"
 zone_id = "my-cloudflare-zone-id"
@@ -20,14 +20,13 @@ type = "ESModule"
 globs = ["**/*.mjs"]
 
 [env.develop]
-route = "my-develop-domain/api*"
+route = "my-develop-domain/*"
 
 [env.staging]
-route = "my-staging-domain/api*"
+route = "my-staging-domain/*"
 
 [env.production]
-route = "my-production-domain/api*"
+route = "my-production-domain/*"
 
 [miniflare]
 durable_objects_persist = true
-

@@ -7,6 +7,11 @@ module.exports = {
   trailingSlash: true,
   swcMinify: true,
   optimizeFonts: false,
+  env: {
+    COKI_ENVIRONMENT: process.env.COKI_ENVIRONMENT,
+    COKI_SITE_URL: process.env.COKI_SITE_URL,
+    COKI_API_URL: process.env.COKI_API_URL,
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -21,17 +26,16 @@ module.exports = {
     );
     return config;
   },
-  // TODO: Vercel migration
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/js/script.js",
-  //       destination: "https://plausible.io/js/script.js",
-  //     },
-  //     {
-  //       source: "/api/event/",
-  //       destination: "https://plausible.io/api/event",
-  //     },
-  //   ];
-  // },
+  async rewrites() {
+    return [
+      {
+        source: "/js/script.js",
+        destination: "https://plausible.io/js/script.js",
+      },
+      {
+        source: "/api/event/",
+        destination: "https://plausible.io/api/event",
+      },
+    ];
+  },
 };
