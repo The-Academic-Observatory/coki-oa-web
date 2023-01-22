@@ -19,7 +19,7 @@ async function handleEvent(event) {
     };
     return await getAssetFromKV(event, options);
   } catch (e) {
-    new Response("Not found", {
+    return new Response("Not found", {
       status: 404,
     });
   }
