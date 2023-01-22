@@ -17,6 +17,11 @@
 /.next/
 /out/
 
+# Yarn 3 files
+.pnp.*
+.yarn
+.yarnrc.yml
+
 # production
 /build
 
