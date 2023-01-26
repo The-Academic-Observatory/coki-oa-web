@@ -48,7 +48,7 @@ interface SharePopoverProps extends BoxProps {
 
 const SharePopover = ({ entity, platform, ...rest }: SharePopoverProps) => {
   const { isOpen, onToggle, onClose } = useDisclosure();
-  const url = `${process.env.NEXT_PUBLIC_HOST}${useRouter().asPath}`; // Get URL of current route
+  const url = `${process.env.COKI_SITE_URL}${useRouter().asPath}`; // Get URL of current route
   const text = encodeURIComponent(
     `Check out the Open Access statistics for ${entity.name} on the COKI Open Access Dashboard:`,
   );

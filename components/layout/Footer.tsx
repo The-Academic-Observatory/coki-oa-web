@@ -150,7 +150,7 @@ const FooterCredits = ({ ...rest }: StackProps) => {
 
 const FooterSocialMedia = ({ ...rest }: StackProps) => {
   // Get URL of home page
-  const host = process.env.NEXT_PUBLIC_HOST ? process.env.NEXT_PUBLIC_HOST : "https://open.coki.ac";
+  const host = process.env.COKI_SITE_URL ? process.env.COKI_SITE_URL : "https://open.coki.ac";
   const url = encodeURIComponent(host);
   const text = encodeURIComponent("Checkout the COKI Open Access Dashboard:");
 

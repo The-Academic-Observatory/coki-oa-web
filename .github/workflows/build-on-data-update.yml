@@ -1,4 +1,6 @@
-name: Build and Deploy on Data Update
+# Build and deploy the project when data is updated
+
+name: "Build and Deploy on Data Update"
 
 on:
   repository_dispatch:
@@ -17,18 +19,14 @@ jobs:
       - name: Set environment develop
         if: github.event.action == 'data-update/develop'
         run: |
-          echo "ENVIRONMENT=develop" >> $GITHUB_ENV
+          echo "COKI_ENVIRONMENT=develop" >> $GITHUB_ENV
           echo "REPO_DISPATCH_REF=develop" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_HOST=https://develop.open.coki.ac" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_API_HOST=https://develop.open.coki.ac" >> $GITHUB_ENV
 
       - name: Set environment staging
         if: github.event.action == 'data-update/staging'
         run: |
-          echo "ENVIRONMENT=staging" >> $GITHUB_ENV
+          echo "COKI_ENVIRONMENT=staging" >> $GITHUB_ENV
           echo "REPO_DISPATCH_REF=main" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_HOST=https://staging.open.coki.ac" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_API_HOST=https://staging.open.coki.ac" >> $GITHUB_ENV
 
       - name: Get latest tag production
         if: github.event.action == 'data-update/production'
@@ -41,73 +39,31 @@ jobs:
       - name: Set environment production
         if: github.event.action == 'data-update/production'
         run: |
-          echo "ENVIRONMENT=production" >> $GITHUB_ENV
+          echo "COKI_ENVIRONMENT=production" >> $GITHUB_ENV
           echo "REPO_DISPATCH_REF=${{ steps.get_latest_tag.outputs.tag }}" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_HOST=https://open.coki.ac" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_API_HOST=https://open.coki.ac" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ env.REPO_DISPATCH_REF }}
 
       - name: Current Checked Out Ref
-        run: |
-          git symbolic-ref -q --short HEAD || git describe --tags --exact-match
+        run: git symbolic-ref -q --short HEAD || git describe --tags --exact-match
 
-      - name: Setup NodeJS
-        uses: actions/setup-node@v2
+      - name: Setup Environment
+        uses: ./.github/actions/setup-environment
         with:
-          node-version: 16.16.0
+          bucket_name: ${{ secrets.BUCKET_NAME }}
+          gcp_credentials: ${{ secrets.GCP_CREDENTIALS }}
+          vercel: true
+          wrangler: true
 
-      - name: Install Wrangler
-        run: |
-          npm i "@cloudflare/wrangler@1.19.11" -g
-
-      - name: Install Dependencies
-        run: |
-          corepack enable
-          corepack prepare yarn@3.3.1 --activate
-          yarn install
-          yarn workspace coki-oa-web-api install
-
-      - name: Auth
-        uses: google-github-actions/auth@v0
+      - name: Build App
+        uses: ./.github/actions/build-app
         with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0
-
-      - name: Download and Extract Data
-        env:
-          DATASET_VERSION: v8
-          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
-        run: |
-          gsutil cp gs://${BUCKET_NAME}/${DATASET_VERSION}/data.zip data.zip
-          ./data.sh
-
-      - name: Build and Export Web App
-        run: |
-          yarn build
-          yarn export
-
-      - name: Save wrangler.toml files
-        env:
-          WRANGLER_CONFIG: ${{ secrets.WRANGLER_CONFIG }}
-          WRANGLER_CONFIG_API: ${{ secrets.WRANGLER_CONFIG_API }}
-        run: |
-          echo "${WRANGLER_CONFIG}" > wrangler.toml
-          echo "${WRANGLER_CONFIG_API}" > ./workers-api/wrangler.toml
-
-      - name: Publish Cloudflare Workers API
-        working-directory: ./workers-api
-        env:
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-        run: |
-          wrangler publish -e ${ENVIRONMENT}
-
-      - name: Publish Cloudflare Workers WebApp
-        env:
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-        run: |
-          wrangler publish -e ${ENVIRONMENT}
+          environment: ${{ env.COKI_ENVIRONMENT }}
+          plausible_api_token: ${{ secrets.PLAUSIBLE_API_TOKEN }}
+          wrangler_config: ${{ secrets.WRANGLER_CONFIG_API }}
+          cloudflare_api_token: ${{ secrets.CF_API_TOKEN }}
+          vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel_token: ${{ secrets.VERCEL_TOKEN }}

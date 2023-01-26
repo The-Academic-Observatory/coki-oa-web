@@ -1,0 +1,10 @@
+.github
+.next
+.yarn
+data
+e2e
+node_modules
+social-cards
+workers-api
+workers-images
+

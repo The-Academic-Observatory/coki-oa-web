@@ -1,0 +1,102 @@
+name: "Build App"
+description: "Build and deploy the COKI OA Web REST API and web application"
+
+inputs:
+  environment:
+    description: "The environment to deploy to: develop, staging or production"
+    required: true
+  plausible_api_token:
+    description: "The Plausible Analytics API token"
+    required: true
+  wrangler_config:
+    description: "The Wrangler Config file for the REST API"
+    required: true
+  cloudflare_api_token:
+    description: "The Cloudflare API token"
+    required: true
+  vercel_org_id:
+    description: "The Vercel Org ID"
+    required: true
+  vercel_project_id:
+    description: "The Vercel Project ID"
+    required: true
+  vercel_token:
+    description: "The Vercel Token"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Configure develop environment
+      if: inputs.environment == 'develop'
+      run: |
+        echo "CF_ENVIRONMENT=develop" >> $GITHUB_ENV
+        echo "VERCEL_ENVIRONMENT=preview" >> $GITHUB_ENV
+        echo "VERCEL_PROD=" >> $GITHUB_ENV
+               
+        echo "COKI_SITE_URL=https://develop.open.coki.ac" >> $GITHUB_ENV
+        echo "COKI_API_URL=https://develop.api.coki.ac" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Configure staging environment
+      if: inputs.environment == 'staging'
+      run: |
+        echo "CF_ENVIRONMENT=staging" >> $GITHUB_ENV
+        echo "VERCEL_ENVIRONMENT=preview" >> $GITHUB_ENV
+        echo "VERCEL_PROD=" >> $GITHUB_ENV
+
+        echo "COKI_SITE_URL=https://staging.open.coki.ac" >> $GITHUB_ENV
+        echo "COKI_API_URL=https://staging.api.coki.ac" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Configure production environment
+      if: inputs.environment == 'production'
+      run: |
+        echo "CF_ENVIRONMENT=production" >> $GITHUB_ENV
+        echo "VERCEL_ENVIRONMENT=production" >> $GITHUB_ENV
+        echo "VERCEL_PROD=--prod" >> $GITHUB_ENV
+
+        echo "COKI_SITE_URL=https://open.coki.ac" >> $GITHUB_ENV
+        echo "COKI_API_URL=https://api.coki.ac" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Download Top Institution pages from Plausible
+      env:
+        PLAUSIBLE_API_TOKEN: ${{ inputs.plausible_api_token }}
+      run: ./top-institutions.sh
+      shell: bash
+
+    - name: Save wrangler.toml files
+      env:
+        WRANGLER_CONFIG_API: ${{ inputs.wrangler_config }}
+      run: echo "${WRANGLER_CONFIG_API}" > ./workers-api/wrangler.toml
+      shell: bash
+
+    - name: Publish Cloudflare Workers API
+      working-directory: ./workers-api
+      env:
+        CF_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+      run: wrangler publish -e ${CF_ENVIRONMENT}
+      shell: bash
+
+    - name: Pull Vercel Environment Information
+      env:
+        VERCEL_ORG_ID: ${{ inputs.vercel_org_id }}
+        VERCEL_PROJECT_ID: ${{ inputs.vercel_project_id }}
+      run: vercel pull --yes --environment=${VERCEL_ENVIRONMENT} --token=${{ inputs.vercel_token }}
+      shell: bash
+
+    - name: Build Project Artifacts
+      env:
+        VERCEL_ORG_ID: ${{ inputs.vercel_org_id }}
+        VERCEL_PROJECT_ID: ${{ inputs.vercel_project_id }}
+      run: vercel build --token=${{ inputs.vercel_token }} ${VERCEL_PROD}
+      shell: bash
+
+    - name: Deploy Project Artifacts to Vercel
+      env:
+        VERCEL_ORG_ID: ${{ inputs.vercel_org_id }}
+        VERCEL_PROJECT_ID: ${{ inputs.vercel_project_id }}
+      run: vercel deploy --prebuilt --token=${{ inputs.vercel_token }} ${VERCEL_PROD}
+      shell: bash
+

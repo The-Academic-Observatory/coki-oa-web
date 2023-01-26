@@ -21,7 +21,7 @@ import { fetchEntityHandler } from "@/entity";
 const { Router } = ittyRouter;
 
 // Setup API router
-export const router = Router({ base: "/api" });
+export const router = Router({ base: "/" });
 router
   .get("/search/:text", searchHandler) // Search all countries and institutions with full text search
   .get("/:entityType/:id", fetchEntityHandler) // Get the full details for a single country or institution

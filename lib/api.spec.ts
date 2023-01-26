@@ -18,9 +18,9 @@ test("test makeSearchUrl", () => {
 
   // Default limit
   let url = makeSearchUrl(host, text);
-  expect(url).toEqual(`${host}/api/search/Curtin%20University?limit=10&build=${buildId}`);
+  expect(url).toEqual(`${host}/search/Curtin%20University?limit=10&build=${buildId}`);
 
   // Custom limit
   url = makeSearchUrl(host, text, 15);
-  expect(url).toEqual(`${host}/api/search/Curtin%20University?limit=15&build=${buildId}`);
+  expect(url).toEqual(`${host}/search/Curtin%20University?limit=15&build=${buildId}`);
 });
