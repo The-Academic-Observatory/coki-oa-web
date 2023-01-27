@@ -56,7 +56,7 @@ const publicHost = "http://127.0.0.1:3000";
 
 test("test makeSocialCardUrl", () => {
   let url = makeSocialCardUrl("NZL");
-  expect(url).toEqual(`${publicHost}/social-cards/NZL.jpg?build=${buildId}`);
+  expect(url).toEqual(`https://images.open.coki.ac/social-cards/NZL.jpg?build=${buildId}`);
 });
 
 test("test makePageDescription country", () => {
@@ -73,7 +73,7 @@ test("test makePageDescription country", () => {
   let stats = { country: { median: { p_outputs_open: 40 } } };
   let description = makePageDescription(entity, stats);
   expect(description).toEqual(
-    "Only 37% of New Zealand's published academic research is freely available on the internet. Open Access statistics for New Zealand, covering academic research published from 2000 to 2021.",
+    "37% of New Zealand's published academic research is freely available on the internet. Open Access statistics for New Zealand, covering academic research published from 2000 to 2021.",
   );
 
   // Equal to or above median
@@ -99,7 +99,7 @@ test("test makePageDescription institution", () => {
   let stats = { institution: { median: { p_outputs_open: 40 } } };
   let description = makePageDescription(entity, stats);
   expect(description).toEqual(
-    "Only 37% of Curtin University's published academic research is freely available on the internet. Open Access statistics for Curtin University, Australia, covering academic research published from 2000 to 2021.",
+    "37% of Curtin University's published academic research is freely available on the internet. Open Access statistics for Curtin University, Australia, covering academic research published from 2000 to 2021.",
   );
 
   // Equal to or above median
