@@ -46,17 +46,17 @@ export interface EntityDetailsProps {
 }
 
 export function makeSocialCardUrl(entityId: string): string {
-  let url = `${process.env.COKI_SITE_URL}/social-cards/${entityId}.jpg`;
+  let url = cokiImageLoader(`social-cards/${entityId}.jpg`);
   return addBuildId(url);
 }
 
 export function makePageDescription(entity: Entity, stats: Stats): string {
   const pOpen = Math.round(entity.stats.p_outputs_open);
-  // When the entity's OA% is over median say Over when under say Only
+  // When the entity's OA% is over median say Over when under don't add any prefix
   let metaDescription = "Over ";
   const median_p_outputs_open = lodashGet(stats, `${entity.entity_type}.median.p_outputs_open`);
   if (median_p_outputs_open === undefined || entity.stats.p_outputs_open < median_p_outputs_open) {
-    metaDescription = "Only ";
+    metaDescription = "";
   }
   metaDescription +=
     `${pOpen}% of ${entity.name}'s published academic research is freely available on the internet. ` +
