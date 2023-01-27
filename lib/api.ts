@@ -37,7 +37,8 @@ export class OADataAPI {
   }
 
   async getEntity(entityType: string, id: string): Promise<Entity> {
-    const response = await fetch(`${this.host}/${entityType}/${id}`);
+    const url = addBuildId(`${this.host}/${entityType}/${id}`);
+    const response = await fetch(url);
     const entity = await response.json();
     quantizeEntityPercentages(entity);
     return entity;
