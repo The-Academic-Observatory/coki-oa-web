@@ -26,6 +26,7 @@ const memoize = makeMemoizer(TEST_NAMESPACE);
 const expirationTtl = 60 * 60; // 60 minutes
 const iterations = 5000;
 const defaultQuery = {
+  ids: new Set<string>(),
   countries: new Set<string>(),
   subregions: new Set<string>(),
   regions: new Set<string>(),

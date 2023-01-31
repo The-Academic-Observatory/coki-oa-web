@@ -23,7 +23,7 @@ import decompress from "decompress";
 import { Entity } from "./types";
 
 const host = "http://localhost";
-const institutionTestTimeout = 100000;
+const institutionTestTimeout = 500000;
 const env = getMiniflareBindings();
 const ctx = {} as ExecutionContext;
 
@@ -104,6 +104,21 @@ const fetchAll = async (endpoint: string, otherQueryParams: string = "") => {
 
     //@ts-ignore
     results = results.concat(json.items);
+
+    // Check that different entity types have correct fields
+    results.forEach((entity) => {
+      if (entity.entity_type == "country") {
+        expect(entity.country_name).toBeUndefined();
+        expect(entity.country_code).toBeUndefined();
+        expect(entity.institution_type).toBeUndefined();
+      } else if (entity.entity_type == "institution") {
+        expect(entity.country_name).toBeDefined();
+        expect(entity.country_code).toBeDefined();
+        expect(entity.institution_type).toBeDefined();
+      }
+    });
+
+    // Break if we are at the end
     if (json.items.length == 0) {
       break;
     }
@@ -157,6 +172,17 @@ test("test handleRequest countries: order key name", async () => {
   results = await fetchAll(endpoint, `&orderBy=${orderByKey}&orderDir=asc`);
   //@ts-ignore
   expect(results.map((x) => lodashGet(x, orderByKey))).toBeSorted({ descending: false });
+});
+
+test("test handleRequest countries: ids", async () => {
+  const endpoint = "countries";
+  let results = await fetchAll(endpoint, "&ids=NZL,AUS");
+
+  // Assert that we only have NZL and AUS
+  expect(results.length).toBe(2);
+  results.forEach((entity) => {
+    expect(entity).toMatchObject({ id: expect.stringMatching(/NZL|AUS/) });
+  });
 });
 
 test("test handleRequest countries: subregions", async () => {
@@ -228,19 +254,19 @@ test(
     const orderByKey = "stats.p_outputs_open";
 
     // Check sorted in descending order, with default params, after fetching all pages
-    let results = await fetchAll(endpoint);
+    let results = await fetchAll(endpoint, "&limit=100");
     expect(results.length).toBeGreaterThan(0);
     //@ts-ignore
     expect(results.map((x) => lodashGet(x, orderByKey))).toBeSorted({ descending: true });
 
     // Check sorted in descending order after fetching all pages
-    results = await fetchAll(endpoint, "&orderDir=dsc");
+    results = await fetchAll(endpoint, "&limit=100&orderDir=dsc");
     expect(results.length).toBeGreaterThan(0);
     //@ts-ignore
     expect(results.map((x) => lodashGet(x, orderByKey))).toBeSorted({ descending: true });
 
     // Check sorted in ascending order after fetching all pages
-    results = await fetchAll(endpoint, "&orderDir=asc");
+    results = await fetchAll(endpoint, "&limit=100&orderDir=asc");
     expect(results.length).toBeGreaterThan(0);
     //@ts-ignore
     expect(results.map((x) => lodashGet(x, orderByKey))).toBeSorted({ descending: false });
@@ -248,11 +274,22 @@ test(
   institutionTestTimeout,
 );
 
+test("test handleRequest institutions: ids", async () => {
+  const endpoint = "institutions";
+  let results = await fetchAll(endpoint, "&ids=02n415q13,03b94tp07");
+
+  // Assert that we only have 02n415q13 and 03b94tp07
+  expect(results.length).toBe(2);
+  results.forEach((entity) => {
+    expect(entity).toMatchObject({ id: expect.stringMatching(/02n415q13|03b94tp07/) });
+  });
+});
+
 test(
   "test handleRequest institutions: countries",
   async () => {
     const endpoint = "institutions";
-    let results = await fetchAll(endpoint, "&countries=Australia,New%20Zealand");
+    let results = await fetchAll(endpoint, "&countries=AUS,NZL");
 
     // Assert all results sorted
     expect(results.length).toBeGreaterThan(0);
@@ -261,7 +298,7 @@ test(
 
     // Assert that we only have entities from Oceania and Americas
     results.forEach((entity) => {
-      expect(entity).toMatchObject({ country: expect.stringMatching(/Australia|New Zealand/) });
+      expect(entity).toMatchObject({ country_name: expect.stringMatching(/Australia|New Zealand/) });
     });
   },
   institutionTestTimeout,
@@ -280,8 +317,11 @@ test(
 
     // Assert that we only have entities from Oceania and Americas
     results.forEach((entity) => {
+      expect(entity.institution_type).toBeDefined();
       expect(entity.institution_type).toMatch(/Education|Government/);
     });
+
+    fail();
   },
   institutionTestTimeout,
 );

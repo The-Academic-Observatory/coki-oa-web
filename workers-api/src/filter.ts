@@ -73,6 +73,7 @@ export const parsePageSettings = (q: FilterQuery): PageSettings => {
 };
 
 export const parseQuery = (q: FilterQuery): Query => {
+  let ids = q.ids === undefined ? new Set<string>() : new Set<string>(q.ids.split(","));
   let countries = q.countries === undefined ? new Set<string>() : new Set<string>(q.countries.split(","));
   let subregions = q.subregions === undefined ? new Set<string>() : new Set<string>(q.subregions.split(","));
   let regions = q.regions === undefined ? new Set<string>() : new Set<string>(q.regions.split(","));
@@ -93,6 +94,7 @@ export const parseQuery = (q: FilterQuery): Query => {
   maxPOutputsOpen = Math.max(Math.min(maxPOutputsOpen, 100), 0);
 
   return {
+    ids: ids,
     countries: countries,
     subregions: subregions,
     regions: regions,
@@ -116,40 +118,47 @@ export function filterResults(array: ArrayView<Entity>, query: Query): Entity[] 
     const entity = array.get(i);
     let include = true;
 
-    // Include if countries parameter specified and matches
-    if (entity.country !== undefined && entity.country !== null && query.countries.size) {
-      include = include && query.countries.has(entity.country);
+    if (query.ids.size) {
+      // Fetch specific entities
+      include = query.ids.has(entity.id);
+    } else {
+      // Include if countries parameter specified and matches
+      // not null or undefined
+      if (entity.entity_type == "institution" && query.countries.size) {
+        include = include && entity.country_code != null && query.countries.has(entity.country_code);
+      }
+
+      // Include if subregions parameter specified and matches
+      if (query.subregions.size) {
+        include = include && query.subregions.has(entity.subregion);
+      }
+
+      // Include if regions parameter specified and matches
+      if (query.regions.size) {
+        include = include && query.regions.has(entity.region);
+      }
+
+      // Check if any institutionTypes match types in entity.institution_type
+      // not null or undefined
+      if (entity.entity_type == "institution" && query.institutionTypes.size) {
+        include = include && entity.institution_type != null && query.institutionTypes.has(entity.institution_type);
+      }
+
+      // Include if n_outputs is between filter values
+      include = include && query.minNOutputs <= entity.stats.n_outputs && entity.stats.n_outputs <= query.maxNOutputs;
+
+      // Include if n_outputs_open is between filter values
+      include =
+        include &&
+        query.minNOutputsOpen <= entity.stats.n_outputs_open &&
+        entity.stats.n_outputs_open <= query.maxNOutputsOpen;
+
+      // Include if p_outputs_open is between filter values
+      include =
+        include &&
+        query.minPOutputsOpen <= entity.stats.p_outputs_open &&
+        entity.stats.p_outputs_open <= query.maxPOutputsOpen;
     }
-
-    // Include if subregions parameter specified and matches
-    if (query.subregions.size) {
-      include = include && query.subregions.has(entity.subregion);
-    }
-
-    // Include if regions parameter specified and matches
-    if (query.regions.size) {
-      include = include && query.regions.has(entity.region);
-    }
-
-    // Check if any institutionTypes match types in entity.institution_type
-    if (entity.institution_type !== undefined && entity.institution_type !== null && query.institutionTypes.size) {
-      include = include && query.institutionTypes.has(entity.institution_type);
-    }
-
-    // Include if n_outputs is between filter values
-    include = include && query.minNOutputs <= entity.stats.n_outputs && entity.stats.n_outputs <= query.maxNOutputs;
-
-    // Include if n_outputs_open is between filter values
-    include =
-      include &&
-      query.minNOutputsOpen <= entity.stats.n_outputs_open &&
-      entity.stats.n_outputs_open <= query.maxNOutputsOpen;
-
-    // Include if p_outputs_open is between filter values
-    include =
-      include &&
-      query.minPOutputsOpen <= entity.stats.p_outputs_open &&
-      entity.stats.p_outputs_open <= query.maxPOutputsOpen;
 
     if (include) {
       // Add to result list

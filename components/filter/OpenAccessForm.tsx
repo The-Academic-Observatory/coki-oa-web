@@ -21,15 +21,25 @@ import { EntityHistograms } from "../../lib/model";
 import { OpenAccess } from "./FilterForm";
 
 export interface OpenAccessFormProps {
-  defaultOpenAccess: OpenAccess;
+  rangeSliderMinMaxValues: OpenAccess;
   histograms: EntityHistograms;
 }
 
 const paddingLr = "24px";
 
-const OpenAccessForm = ({ defaultOpenAccess, histograms }: OpenAccessFormProps) => {
-  const forwardTransform = useCallback((val: number) => Math.log10(val), []);
-  const inverseTransform = useCallback((val: number) => Math.pow(10, val), []);
+const OpenAccessForm = ({ rangeSliderMinMaxValues, histograms }: OpenAccessFormProps) => {
+  const forwardTransform = useCallback((val: number) => {
+    if (val == 0) {
+      return val;
+    }
+    return Math.log10(val);
+  }, []);
+  const inverseTransform = useCallback((val: number) => {
+    if (val == 0) {
+      return val;
+    }
+    return parseInt(`${Math.pow(10, val)}`);
+  }, []);
 
   return (
     <VStack align="stretch" spacing={0}>
@@ -38,8 +48,8 @@ const OpenAccessForm = ({ defaultOpenAccess, histograms }: OpenAccessFormProps) 
         <HistogramRangeSlider
           leftKey="openAccess.minPOutputsOpen"
           rightKey="openAccess.maxPOutputsOpen"
-          min={defaultOpenAccess.minPOutputsOpen}
-          max={defaultOpenAccess.maxPOutputsOpen}
+          min={rangeSliderMinMaxValues.minPOutputsOpen}
+          max={rangeSliderMinMaxValues.maxPOutputsOpen}
           histogram={histograms.p_outputs_open}
           unit="%"
         />
@@ -50,8 +60,8 @@ const OpenAccessForm = ({ defaultOpenAccess, histograms }: OpenAccessFormProps) 
         <HistogramRangeSlider
           leftKey="openAccess.minNOutputs"
           rightKey="openAccess.maxNOutputs"
-          min={defaultOpenAccess.minNOutputs}
-          max={defaultOpenAccess.maxNOutputs}
+          min={rangeSliderMinMaxValues.minNOutputs}
+          max={rangeSliderMinMaxValues.maxNOutputs}
           histogram={histograms.n_outputs}
           forwardTransform={forwardTransform}
           inverseTransform={inverseTransform}
@@ -63,8 +73,8 @@ const OpenAccessForm = ({ defaultOpenAccess, histograms }: OpenAccessFormProps) 
         <HistogramRangeSlider
           leftKey="openAccess.minNOutputsOpen"
           rightKey="openAccess.maxNOutputsOpen"
-          min={defaultOpenAccess.minNOutputsOpen}
-          max={defaultOpenAccess.maxNOutputsOpen}
+          min={rangeSliderMinMaxValues.minNOutputsOpen}
+          max={rangeSliderMinMaxValues.maxNOutputsOpen}
           histogram={histograms.n_outputs_open}
           forwardTransform={forwardTransform}
           inverseTransform={inverseTransform}

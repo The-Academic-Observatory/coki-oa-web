@@ -34,7 +34,7 @@ import { cokiImageLoader, OADataAPI, OADataLocal } from "../../lib/api";
 import React, { useCallback } from "react";
 import IndexTable from "../table/IndexTable";
 import Icon from "../common/Icon";
-import FilterForm, { QueryForm, regions } from "../filter/FilterForm";
+import FilterForm, { OpenAccess, QueryForm, regions } from "../filter/FilterForm";
 import TextCollapse from "../common/TextCollapse";
 import Breadcrumbs from "../common/Breadcrumbs";
 import { institutionTypes } from "../filter/InstitutionTypeForm";
@@ -44,6 +44,7 @@ import Head from "../common/Head";
 
 const MAX_TABS_WIDTH = "1100px";
 const MAX_PAGE_SIZE = 18;
+const DEFAULT_N_OUTPUTS = 0;
 
 export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
   const q = {
@@ -79,6 +80,17 @@ export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
   return q;
 };
 
+export const makeRangeSliderMinMaxValues = (entityStats: EntityStats): OpenAccess => {
+  return {
+    minPOutputsOpen: entityStats.min.p_outputs_open,
+    maxPOutputsOpen: entityStats.max.p_outputs_open,
+    minNOutputs: entityStats.min.n_outputs,
+    maxNOutputs: entityStats.max.n_outputs,
+    minNOutputsOpen: entityStats.min.n_outputs_open,
+    maxNOutputsOpen: entityStats.max.n_outputs_open,
+  };
+};
+
 export const makeDefaultValues = (entityStats: EntityStats): QueryForm => {
   const defaults: QueryForm = {
     page: {
@@ -93,7 +105,7 @@ export const makeDefaultValues = (entityStats: EntityStats): QueryForm => {
     openAccess: {
       minPOutputsOpen: entityStats.min.p_outputs_open,
       maxPOutputsOpen: entityStats.max.p_outputs_open,
-      minNOutputs: entityStats.min.n_outputs,
+      minNOutputs: entityStats.min.n_outputs, //Replace with DEFAULT_N_OUTPUTS,
       maxNOutputs: entityStats.max.n_outputs,
       minNOutputsOpen: entityStats.min.n_outputs_open,
       maxNOutputsOpen: entityStats.max.n_outputs_open,
@@ -120,8 +132,9 @@ const useEntityQuery = (
   entityType: string,
   initialState: QueryResult,
   entityStats: EntityStats,
-): [QueryResult, QueryForm, (q: QueryForm) => void, QueryForm, boolean, number, () => void] => {
+): [QueryResult, QueryForm, (q: QueryForm) => void, QueryForm, boolean, number, () => void, OpenAccess] => {
   const defaultQueryForm = React.useMemo(() => makeDefaultValues(entityStats), [entityStats]);
+  const rangeSliderMinMaxValues = React.useMemo(() => makeRangeSliderMinMaxValues(entityStats), [entityStats]);
   const [entities, setEntities] = React.useState<QueryResult>(initialState);
   const [queryForm, setQueryForm] = React.useState<QueryForm>(defaultQueryForm);
   const [resetFormState, setResetFormState] = React.useState(0);
@@ -148,7 +161,16 @@ const useEntityQuery = (
       });
   }, [entityType, queryForm]);
 
-  return [entities, queryForm, setQueryForm, defaultQueryForm, isLoading, resetFormState, onResetQueryForm];
+  return [
+    entities,
+    queryForm,
+    setQueryForm,
+    defaultQueryForm,
+    isLoading,
+    resetFormState,
+    onResetQueryForm,
+    rangeSliderMinMaxValues,
+  ];
 };
 
 export type DashboardProps = {
@@ -205,6 +227,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
     isLoadingCountry,
     resetFormStateCountry,
     onResetQueryFormCountry,
+    countryRangeSliderMinMaxValues,
   ] = useEntityQuery("countries", defaultCountries, stats.country);
 
   // Institution entity query
@@ -216,6 +239,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
     isLoadingInstitution,
     resetFormStateInstitution,
     onResetQueryFormInstitution,
+    institutionRangeSliderMinMaxValues,
   ] = useEntityQuery("institutions", defaultInstitutions, stats.institution);
 
   // Modal filters
@@ -352,6 +376,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
             defaultQueryForm={defaultQueryFormCountry}
             entityStats={stats.country}
             resetFormState={resetFormStateCountry}
+            rangeSliderMinMaxValues={countryRangeSliderMinMaxValues}
           />
         </Box>
 
@@ -364,6 +389,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
             defaultQueryForm={defaultQueryFormInstitution}
             resetFormState={resetFormStateInstitution}
             entityStats={stats.institution}
+            rangeSliderMinMaxValues={institutionRangeSliderMinMaxValues}
           />
         </Box>
 
@@ -379,6 +405,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
                 entityStats={stats.country}
                 resetFormState={resetFormStateCountry}
                 onClose={onCloseFilterCountry}
+                rangeSliderMinMaxValues={countryRangeSliderMinMaxValues}
                 title="Country Filters"
               />
             </ModalBody>
@@ -397,6 +424,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
                 entityStats={stats.institution}
                 resetFormState={resetFormStateInstitution}
                 onClose={onCloseFilterInstitution}
+                rangeSliderMinMaxValues={institutionRangeSliderMinMaxValues}
                 title="Institution Filters"
               />
             </ModalBody>
@@ -409,8 +437,8 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
 
 export function getDashboardStaticProps() {
   const client = new OADataLocal();
-  const countries = client.getEntities("country");
-  const institutions = client.getEntities("institution");
+  const countries = client.getEntities("country").filter((e) => e.stats.n_outputs >= DEFAULT_N_OUTPUTS);
+  const institutions = client.getEntities("institution").filter((e) => e.stats.n_outputs >= DEFAULT_N_OUTPUTS);
   const stats = client.getStats();
   const defaultQueryResult = {
     page: 0,

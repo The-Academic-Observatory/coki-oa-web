@@ -173,6 +173,7 @@ interface FilterFormProps {
   defaultQueryForm: QueryForm;
   entityStats: EntityStats;
   resetFormState: number;
+  rangeSliderMinMaxValues: OpenAccess;
   onClose?: () => void;
   title?: string;
 }
@@ -185,6 +186,7 @@ const FilterForm = ({
   defaultQueryForm,
   entityStats,
   resetFormState,
+  rangeSliderMinMaxValues,
   onClose,
   title,
 }: FilterFormProps) => {
@@ -272,7 +274,7 @@ const FilterForm = ({
             </FilterAccordionItem>
 
             <FilterAccordionItem name="Open Access">
-              <OpenAccessForm defaultOpenAccess={defaultQueryForm.openAccess} histograms={entityStats.histograms} />
+              <OpenAccessForm rangeSliderMinMaxValues={rangeSliderMinMaxValues} histograms={entityStats.histograms} />
             </FilterAccordionItem>
 
             {category === "institution" ? (

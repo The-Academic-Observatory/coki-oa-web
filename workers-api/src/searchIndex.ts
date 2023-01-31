@@ -24,13 +24,15 @@ const { Index } = flexsearch;
 export function indexEntities(index, data: Array<Entity>) {
   data.forEach((entity: Entity, i: number) => {
     let acronyms = new Array<string>();
-    if (entity.acronyms !== undefined) {
+    if (entity.acronyms != undefined) {
+      // not null or undefined
       acronyms = entity.acronyms;
     }
     let keywords = [entity.name];
     keywords = keywords.concat(acronyms.join(" "));
-    if (entity.country !== null) {
-      keywords.push(entity.country);
+    if (entity.country_name != null) {
+      // not null or undefined
+      keywords.push(entity.country_name);
     }
     keywords.push(entity.region);
     const text = keywords.join(" ");

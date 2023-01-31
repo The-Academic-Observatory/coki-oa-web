@@ -22,4 +22,5 @@ export default {
     "^@json2csv/formatters/(.*)\\.js$": "<rootDir>/node_modules/@json2csv/formatters/src/$1.js",
   },
   setupFilesAfterEnv: ["jest-sorted"],
+  testTimeout: 30000,
 };
