@@ -16,6 +16,7 @@
 
 // @ts-ignore
 import fs from "fs";
+import tmp from "tmp";
 import { handleRequest } from "./router";
 import lodashGet from "lodash.get";
 import decompress from "decompress";
@@ -300,7 +301,8 @@ test("test downloadZip country", async () => {
   // Have to change to correct format for decompress package.
   const resBlob = await res.blob();
   const buffer = Buffer.from(await resBlob.arrayBuffer(), "binary");
-  const zippedFiles: any = await decompress(buffer, "dist");
+  const tmpDir = tmp.dirSync();
+  const zippedFiles: any = await decompress(buffer, tmpDir.name);
 
   // Check that all files are present.
   const expectedZippedFiles = ["README.md", "repositories.csv", "years.csv"];
@@ -334,7 +336,8 @@ test("test downloadZip institution", async () => {
   // Have to change to correct format for decompress package.
   const resBlob = await res.blob();
   const buffer = Buffer.from(await resBlob.arrayBuffer(), "binary");
-  const zippedFiles: any = await decompress(buffer, "dist");
+  const tmpDir = tmp.dirSync();
+  const zippedFiles: any = await decompress(buffer, tmpDir.name);
 
   // Check that all files are present.
   const expectedZippedFiles = ["README.md", "repositories.csv", "years.csv"];

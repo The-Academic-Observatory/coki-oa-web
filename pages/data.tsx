@@ -102,7 +102,17 @@ export default function Data({ stats }: Props) {
         </Text>
 
         <Text textStyle="h2">Citing</Text>
-        <Text textStyle="p">If you use the website or website code, please cite it as below:</Text>
+        <Text textStyle="p">To cite the COKI Open Access Dashboard please use the following citation:</Text>
+        <Text textStyle="p" pb="24px" px={{ base: "12px", md: "32px" }}>
+          Diprose, J., Hosking, R., Rigoni, R., Roelofs, A., Chien, T., Napier, K., Wilson, K., Huang, C., Handcock, R.,
+          Montgomery, L., & Neylon, C. (2023). A User-Friendly Dashboard for Tracking Global Open Access Performance.
+          The Journal of Electronic Publishing 26(1). doi:{" "}
+          <a href="https://doi.org/10.3998/jep.3398" target="_blank" rel="noreferrer">
+            https://doi.org/10.3998/jep.3398
+          </a>
+        </Text>
+
+        <Text textStyle="p">If you use the website code, please cite it as below:</Text>
         <Text textStyle="p" pb="24px" px={{ base: "12px", md: "32px" }}>
           James P. Diprose, Richard Hosking, Richard Rigoni, Aniek Roelofs, Alex Massen-Hane, Kathryn R. Napier,
           Tuan-Yow Chien, Katie S. Wilson, Lucy Montgomery, & Cameron Neylon. (2022). COKI Open Access Website. Zenodo.{" "}
