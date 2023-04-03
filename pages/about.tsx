@@ -65,8 +65,8 @@ export default function About() {
         <Text textStyle="p" layerStyle="pGap">
           The Curtin Open Knowledge Initiative (COKI) is a strategic initiative of the Research Office at Curtin, the
           Faculty of Humanities, School of Media, Creative Arts and Social Inquiry and the Curtin Institute for
-          Computation, with additional support from the Andrew W. Mellon Foundation and Arcadia, a charitable fund of
-          Lisbet Rausing and Peter Baldwin.
+          Computation, with additional support from the Mellon Foundation and Arcadia, a charitable fund of Lisbet
+          Rausing and Peter Baldwin.
         </Text>
 
         <Text as="h2" textStyle="h2">

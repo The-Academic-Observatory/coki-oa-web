@@ -135,11 +135,7 @@ const FooterLinks = ({ links, ...rest }: FooterLinksProps) => {
           {l.name}
         </Link>
       ))}
-      <Link href="/licenses/">Licenses</Link>
-      <Link href="https://informationmanagement.curtin.edu.au/privacy/" target="_blank">
-        Privacy
-      </Link>
-      )
+      <Link href="/licenses/">Licenses</Link>)
     </Stack>
   );
 };

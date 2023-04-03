@@ -5265,6 +5265,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/tmp@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "@types/tmp@npm:0.2.3"
+  checksum: 0ca45e99b3b3c6959d5c4f4555f73c8007db540cfb0fbbb9373217f9ab85e67eef75193f51a1d6564b0ee6c6f5ffa259d1034d7f7530a5b7ce80acb94cfc4daa
+  languageName: node
+  linkType: hard
+
 "@types/tough-cookie@npm:*":
   version: 4.0.2
   resolution: "@types/tough-cookie@npm:4.0.2"
@@ -6497,6 +6504,7 @@ __metadata:
     "@types/lodash.get": ^4.4.7
     "@types/lodash.set": ^4.3.7
     "@types/node": ^17.0.23
+    "@types/tmp": ^0.2.3
     decompress: ^4.2.1
     deepcopy: ^2.1.0
     esbuild: ^0.14.23
@@ -6512,6 +6520,7 @@ __metadata:
     miniflare: ^2.11.0
     performance-now: ^2.1.0
     prettier: ^1.18.2
+    tmp: ^0.2.1
     ts-jest: ^27.0.7
     ts-node: ^10.7.0
     typescript: ^4.4.4
@@ -14320,6 +14329,15 @@ __metadata:
   version: 1.0.3
   resolution: "tiny-warning@npm:1.0.3"
   checksum: da62c4acac565902f0624b123eed6dd3509bc9a8d30c06e017104bedcf5d35810da8ff72864400ad19c5c7806fc0a8323c68baf3e326af7cb7d969f846100d71
+  languageName: node
+  linkType: hard
+
+"tmp@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "tmp@npm:0.2.1"
+  dependencies:
+    rimraf: ^3.0.0
+  checksum: 8b1214654182575124498c87ca986ac53dc76ff36e8f0e0b67139a8d221eaecfdec108c0e6ec54d76f49f1f72ab9325500b246f562b926f85bcdfca8bf35df9e
   languageName: node
   linkType: hard
 
