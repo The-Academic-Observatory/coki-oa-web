@@ -1,4 +1,4 @@
 declare global {
-    function getMiniflareBindings(): Bindings
+  function getMiniflareBindings(): Bindings;
 }
 export {};

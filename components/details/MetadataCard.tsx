@@ -20,6 +20,7 @@ import EntityCard from "./EntityCard";
 import React, { memo } from "react";
 import MetadataLink from "./MetadataLink";
 import SharePopover from "./SharePopover";
+import { addBuildId } from "../../lib/api";
 
 interface MetadataCardProps extends BoxProps {
   entity: Entity;
@@ -67,7 +68,7 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
           <Flex w="full" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
             {wikipedia}
             {website}
-            <MetadataLink icon="download" name="Download" href="/data/" />
+            <MetadataLink icon="download-csv" name="Download" href="/data/" />
           </Flex>
 
           <Flex w="full" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
@@ -91,7 +92,12 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
         <Flex h="full" w="full" flexDirection="column" justifyContent="space-between">
           {wikipedia}
           {website}
-          <MetadataLink icon="download" name="Download" href="/data/" />
+
+          <MetadataLink
+            icon="download-csv"
+            name="download"
+            href={addBuildId(`${process.env.COKI_API_URL}/download/${entity.entity_type}/${entity.id}`)}
+          />
 
           <SharePopover entity={entity} platform="desktop" />
 

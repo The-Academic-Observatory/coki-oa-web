@@ -27,9 +27,13 @@ export interface Entity extends Object {
   institution_type: string | null;
   acronyms: Array<string>;
   stats: PublicationStats;
+  years: Array<Year>;
+  repositories: Array<Repository>;
+  start_year: number;
+  end_year: number;
 }
 
-export interface PublicationStats extends Object {
+export interface PublicationStats extends Object, Dict {
   n_outputs: number;
   n_outputs_open: number;
   p_outputs_open: number;
@@ -37,6 +41,19 @@ export interface PublicationStats extends Object {
   p_outputs_both: number;
   p_outputs_other_platform_open_only: number;
   p_outputs_closed: number;
+}
+
+export interface Year {
+  year: number;
+  date: string;
+  stats: PublicationStats;
+}
+
+export interface Repository extends Dict {
+  id: string;
+  total_outputs: number;
+  entity_type: string;
+  home_repo: boolean;
 }
 
 export type PageSettings = {
@@ -104,4 +121,13 @@ export interface EntityRequest extends Request {
     id: string;
   };
   query: {};
+}
+
+export interface FilesToZipType {
+  fileName: string;
+  fileData: Promise<string>;
+}
+
+export interface Dict {
+  [key: string]: any;
 }

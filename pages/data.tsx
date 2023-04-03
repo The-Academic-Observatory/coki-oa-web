@@ -104,8 +104,8 @@ export default function Data({ stats }: Props) {
         <Text textStyle="h2">Citing</Text>
         <Text textStyle="p">If you use the website or website code, please cite it as below:</Text>
         <Text textStyle="p" pb="24px" px={{ base: "12px", md: "32px" }}>
-          James P. Diprose, Richard Hosking, Richard Rigoni, Aniek Roelofs, Kathryn R. Napier, Tuan-Yow Chien, Katie S.
-          Wilson, Lucy Montgomery, & Cameron Neylon. (2022). COKI Open Access Website. Zenodo.{" "}
+          James P. Diprose, Richard Hosking, Richard Rigoni, Aniek Roelofs, Alex Massen-Hane, Kathryn R. Napier,
+          Tuan-Yow Chien, Katie S. Wilson, Lucy Montgomery, & Cameron Neylon. (2022). COKI Open Access Website. Zenodo.{" "}
           <a href="https://doi.org/10.5281/zenodo.6374486" target="_blank" rel="noreferrer">
             https://doi.org/10.5281/zenodo.6374486
           </a>
