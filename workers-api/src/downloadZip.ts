@@ -108,7 +108,7 @@ If you use the website code, please cite it as below:
 > James P. Diprose, Richard Hosking, Richard Rigoni, Aniek Roelofs, Alex Massen-Hane, Kathryn R. Napier, Tuan-Yow Chien, Katie S. Wilson, Lucy Montgomery, & Cameron Neylon. (2022). COKI Open Access Website. Zenodo. https://doi.org/10.5281/zenodo.6374486
 
 If you use this dataset, please cite it as below:
-> Richard Hosking, James P. Diprose, Aniek Roelofs, Tuan-Yow Chien, Lucy Montgomery, & Cameron Neylon. (2022). COKI Open Access Dataset [Data set]. Zenodo. https://doi.org/10.5281/zenodo.6399463
+> Richard Hosking, James P. Diprose, Aniek Roelofs, Tuan-Yow Chien, Lucy Montgomery, & Cameron Neylon. (2022). COKI Open Access Dataset [Data set]. Zenodo. https://doi.org/10.5281/zenodo.6399462
 
 ## Attributions
 The COKI Open Access Dataset contains information from:

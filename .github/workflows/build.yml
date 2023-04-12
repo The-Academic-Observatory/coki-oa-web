@@ -1,4 +1,4 @@
-# Build and deploy project from the develop and main branches and on new Github releases
+# Build and deploy project from the develop and main branches and on new GitHub releases
 
 name: "Build and Deploy"
 

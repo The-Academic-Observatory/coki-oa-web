@@ -75,7 +75,7 @@ export default function How({ stats }: Props) {
           <a href="https://github.com/The-Academic-Observatory/coki-oa-web" target="_blank" rel="noreferrer">
             COKI Open Access Website
           </a>{" "}
-          Github project.
+          GitHub project.
         </Text>
         <Text as="h2" textStyle="h2">
           1. Fetch Datasets

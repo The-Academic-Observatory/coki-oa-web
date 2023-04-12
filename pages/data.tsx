@@ -125,8 +125,8 @@ export default function Data({ stats }: Props) {
         <Text textStyle="p" pb="24px" px={{ base: "12px", md: "32px" }}>
           Richard Hosking, James P. Diprose, Aniek Roelofs, Tuan-Yow Chien, Lucy Montgomery, & Cameron Neylon. (2022).
           COKI Open Access Dataset [Data set]. Zenodo.{" "}
-          <a href="https://doi.org/10.5281/zenodo.6399463" target="_blank" rel="noreferrer">
-            https://doi.org/10.5281/zenodo.6399463
+          <a href="https://doi.org/10.5281/zenodo.6399462" target="_blank" rel="noreferrer">
+            https://doi.org/10.5281/zenodo.6399462
           </a>
         </Text>
 
