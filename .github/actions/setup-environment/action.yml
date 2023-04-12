@@ -1,5 +1,5 @@
 name: "Setup Environment"
-description: "Setup the COKI OA Web Github Actions environment"
+description: "Setup the COKI OA Web GitHub Actions environment"
 
 inputs:
   bucket_name:

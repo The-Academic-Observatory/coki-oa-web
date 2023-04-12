@@ -20,6 +20,7 @@ import Card from "../components/common/Card";
 import Icon from "../components/common/Icon";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import Head from "../components/common/Head";
+import { FiGithub } from "react-icons/fi";
 
 export default function Contact() {
   const title = "COKI: Contact";
@@ -70,9 +71,20 @@ export default function Contact() {
           <Icon icon="email" size={32} />
           <Text pl={2} textStyle="p" pb={0}>
             <b>
-              Please email us at:{" "}
+              Please email us at{" "}
               <a href="mailto:coki@curtin.edu.au" target="_blank" rel="noreferrer">
                 coki@curtin.edu.au
+              </a>
+            </b>
+          </Text>
+        </Flex>
+        <Flex alignItems="center" mt="32px">
+          <FiGithub size={32} strokeWidth={0.8} style={{ minWidth: "32px", minHeight: "32px" }} />
+          <Text pl={2} textStyle="p" pb={0}>
+            <b>
+              To report a bug please submit a{"  "}
+              <a href="https://github.com/The-Academic-Observatory/coki-oa-web/issues" target="_blank" rel="noreferrer">
+                Github Issue
               </a>
             </b>
           </Text>

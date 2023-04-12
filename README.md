@@ -12,7 +12,7 @@ Open Knowledge Initiative's Open Access Dashboard: [open.coki.ac](https://open.c
 1. [Requirements](#1-requirements)
 2. [Web App Development](#2-web-app-development)
 3. [REST API Development](#3-rest-api-development)
-4. [Configuring Github Actions](#4-configuring-github-actions)
+4. [Configuring GitHub Actions](#4-configuring-github-actions)
 5. [REST API Endpoints](#5-rest-api-endpoints)
 6. [Contributors](#6-contributors)
 7. [License](#7-license)
@@ -220,8 +220,8 @@ Download the Adobe Illustrator icons-final.ai file.
 * Click Download.
 * Get the selections.json file out of the downloaded file and replace the old selections.json file.
 
-## 4. Configuring Github Actions
-The following Github Secrets need to be created:
+## 4. Configuring GitHub Actions
+The following GitHub Secrets need to be created:
 
 * GCP_CREDENTIALS: credentials for gsutil.
 * BUCKET_NAME: the name of the Google Cloud Storage bucket that contains the data files.
@@ -235,10 +235,10 @@ See below for instructions on how to set these up.
 Two wrangler.toml files need to be created, one for the Web App Cloudflare Worker and one for the API Cloudflare Worker.
 
 For the web app, see the wrangler.example.toml file for an example of how to create the wrangler.toml file. Add the file 
-to the WRANGLER_CONFIG Github Secret.
+to the WRANGLER_CONFIG GitHub Secret.
 
 For the API, see workers-api/wrangler.example.toml file for an example of how to create the wrangler.toml file. Add the
-file to the WRANGLER_CONFIG_API Github Secret.
+file to the WRANGLER_CONFIG_API GitHub Secret.
 
 ### Cloudflare API Token
 This connection contains Cloudflare API token that enables Wrangler to publish the Open Access Website to Cloudflare.
