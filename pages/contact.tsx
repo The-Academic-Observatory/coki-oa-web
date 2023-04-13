@@ -82,7 +82,7 @@ export default function Contact() {
           <FiGithub size={32} strokeWidth={0.8} style={{ minWidth: "32px", minHeight: "32px" }} />
           <Text pl={2} textStyle="p" pb={0}>
             <b>
-              To report a bug please submit a{"  "}
+              To report a bug or to discuss a feature request please submit a{"  "}
               <a href="https://github.com/The-Academic-Observatory/coki-oa-web/issues" target="_blank" rel="noreferrer">
                 Github Issue
               </a>
