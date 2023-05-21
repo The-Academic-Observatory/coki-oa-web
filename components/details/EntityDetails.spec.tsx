@@ -89,7 +89,7 @@ test("test makePageDescription institution", () => {
   let entity = {
     name: "Curtin University",
     entity_type: "institution",
-    country: "Australia",
+    country_name: "Australia",
     start_year: 2000,
     end_year: 2021,
     stats: {
