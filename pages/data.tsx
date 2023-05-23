@@ -138,16 +138,12 @@ export default function Data({ stats }: Props) {
         <Text textStyle="p">The COKI Open Access Dataset contains information from:</Text>
         <UnorderedList textStyle="p">
           <ListItem>
-            <a
-              href="https://www.microsoft.com/en-us/research/project/microsoft-academic-graph/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Microsoft Academic Graph
+            <a href="https://openalex.org/" target="_blank" rel="noreferrer">
+              OpenAlex
             </a>{" "}
             which is made available under the{" "}
-            <a href="https://opendatacommons.org/licenses/by/1-0/" target="_blank" rel="noreferrer">
-              ODC Attribution License
+            <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noreferrer">
+              CC0 licence
             </a>
             .
           </ListItem>
@@ -276,19 +272,24 @@ export default function Data({ stats }: Props) {
                 <Td>The institution name.</Td>
               </Tr>
               <Tr>
-                <Td>country</Td>
+                <Td>country_name</Td>
                 <Td>String</Td>
-                <Td>The name of the country the institution is located in.</Td>
+                <Td>The name of the country where the institution is located.</Td>
+              </Tr>
+              <Tr>
+                <Td>country_code</Td>
+                <Td>String</Td>
+                <Td>The three letter an ISO 3166-1 alpha-3 code of the country where the institution is located.</Td>
               </Tr>
               <Tr>
                 <Td>subregion</Td>
                 <Td>String</Td>
-                <Td>The name of the subregion the institution is located in.</Td>
+                <Td>The name of the subregion where the institution is located.</Td>
               </Tr>
               <Tr>
                 <Td>region</Td>
                 <Td>String</Td>
-                <Td>The name of the region the institution is located in.</Td>
+                <Td>The name of the region where the institution is located.</Td>
               </Tr>
               <Tr>
                 <Td>institution_types</Td>

@@ -82,10 +82,10 @@ export default function How({ stats }: Props) {
         </Text>
         <Text textStyle="p">
           Each week we collect a number of specialised research publication datasets. These include Crossref Metadata,
-          Crossref Funder Registry, Crossref Events, Microsoft Academic Graph (MAG), Unpaywall, the Research
-          Organization Registry (ROR) and Open Citations. A subset of these datasets are used to produce the data for
-          this website and the COKI Open Access Dataset, including Crossref Metadata, MAG, Unpaywall and the ROR. The
-          table below illustrates what each dataset is used for.
+          Crossref Funder Registry, Crossref Events, OpenAlex, Unpaywall, the Research Organization Registry (ROR) and
+          Open Citations. A subset of these datasets are used to produce the data for this website and the COKI Open
+          Access Dataset, including Crossref Metadata, OpenAlex, Unpaywall and the ROR. The table below illustrates what
+          each dataset is used for.
         </Text>
         <ScrollTable caption="Table 1. Datasets and their roles." mb="32px">
           <Table variant="content">
@@ -109,7 +109,7 @@ export default function How({ stats }: Props) {
                 <Td>Social Media and Internet Events</Td>
               </Tr>
               <Tr>
-                <Td>Microsoft Academic Graph</Td>
+                <Td>OpenAlex</Td>
                 <Td>Affiliation, Subject</Td>
               </Tr>
               <Tr>
@@ -155,9 +155,9 @@ export default function How({ stats }: Props) {
           example of a single publication. Unique publications are discovered with Crossref Metadata, from which the
           publication’s DOI, Journal, Publisher, Funder identifiers and citation counts are derived. The publication’s
           Open Access status is computed using Unpaywall. The authors of the paper and their institutional affiliations
-          are derived with MAG. ROR is used to enrich the institutional affiliation records with institution details and
-          map institutions to countries and regions. The COKI Open Access Dataset uses the ROR assignment of country
-          codes to institutions.
+          are derived from OpenAlex. ROR is used to enrich the institutional affiliation records with institution
+          details and map institutions to countries and regions. The COKI Open Access Dataset uses the ROR assignment of
+          country codes to institutions.
         </Text>
 
         <Figure maxWidth="650px" caption="Figure 2. How each dataset contributes to the publications table.">
