@@ -354,8 +354,9 @@ export default function How({ stats }: Props) {
             quality diminishing the further back in time you go.
           </ListItem>
           <ListItem>
-            Microsoft Academic Graph, used to link institutions to research outputs, has substantial biases and
-            limitations with respect to affiliation sources.
+            Affiliation data used to link outputs to institutions (and then to countries) has limitations and biases.
+            This is true of any dataset and we are interested in working with anyone interested to contribute to the
+            improvement of this data over time.
           </ListItem>
         </UnorderedList>
       </Card>
