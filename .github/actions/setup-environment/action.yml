@@ -23,7 +23,7 @@ inputs:
   dataset_version:
     description: "The COKI OA Web dataset version"
     required: false
-    default: "v8"
+    default: "v9"
   node_version:
     description: "The NodeJS version"
     required: true
