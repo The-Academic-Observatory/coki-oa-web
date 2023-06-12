@@ -320,8 +320,6 @@ test(
       expect(entity.institution_type).toBeDefined();
       expect(entity.institution_type).toMatch(/Education|Government/);
     });
-
-    fail();
   },
   institutionTestTimeout,
 );
