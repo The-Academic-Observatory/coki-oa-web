@@ -176,17 +176,17 @@ durable_objects_persist = true
 
 Build & deploy to develop:
 ```bash
-wrangler publish -e develop
+wrangler deploy -e develop
 ```
 
 Build & deploy to staging:
 ```bash
-wrangler publish -e staging
+wrangler deploy -e staging
 ```
 
 Build & deploy to production:
 ```bash
-wrangler publish -e production
+wrangler deploy -e production
 ```
 
 ### Rendering Social Cards
@@ -227,7 +227,7 @@ The following GitHub Secrets need to be created:
 * BUCKET_NAME: the name of the Google Cloud Storage bucket that contains the data files.
 * WRANGLER_CONFIG: the Cloudflare Wrangler configuration file.
 * WRANGLER_CONFIG_API: the Cloudflare Wrangler configuration file for the workers-api Cloudflare Worker.
-* CF_API_TOKEN: the Cloudflare API Token.
+* CLOUDFLARE_API_TOKEN: the Cloudflare API Token.
 
 See below for instructions on how to set these up.
 

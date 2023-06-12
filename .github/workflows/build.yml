@@ -46,7 +46,7 @@ jobs:
           environment: ${{ env.COKI_ENVIRONMENT }}
           plausible_api_token: ${{ secrets.PLAUSIBLE_API_TOKEN }}
           wrangler_config: ${{ secrets.WRANGLER_CONFIG_API }}
-          cloudflare_api_token: ${{ secrets.CF_API_TOKEN }}
+          cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
           vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel_token: ${{ secrets.VERCEL_TOKEN }}

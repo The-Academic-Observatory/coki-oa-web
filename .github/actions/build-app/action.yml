@@ -75,8 +75,8 @@ runs:
     - name: Publish Cloudflare Workers API
       working-directory: ./workers-api
       env:
-        CF_API_TOKEN: ${{ inputs.cloudflare_api_token }}
-      run: wrangler publish -e ${CF_ENVIRONMENT}
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+      run: wrangler deploy -e ${CF_ENVIRONMENT}
       shell: bash
 
     - name: Pull Vercel Environment Information
