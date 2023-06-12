@@ -31,10 +31,12 @@ import OtherPlatformOpenCard from "./OtherPlatformOpenCard";
 import OtherPlatformLocationsCard from "./OtherPlatformLocationsCard";
 import Head from "../common/Head";
 
-export const makeDescription = (entity: Entity) => {
+export const makeDescription = (
+  entity: Pick<Entity, "name" | "entity_type" | "country_name" | "start_year" | "end_year">,
+) => {
   let text = `Open Access statistics for ${entity.name},`;
   if (entity.entity_type === "institution") {
-    text += ` ${entity.country},`;
+    text += ` ${entity.country_name},`;
   }
   text += ` covering academic research published from ${entity.start_year} to ${entity.end_year}.`;
   return text;
@@ -50,7 +52,10 @@ export function makeSocialCardUrl(entityId: string): string {
   return addBuildId(url);
 }
 
-export function makePageDescription(entity: Entity, stats: Stats): string {
+export function makePageDescription(
+  entity: Pick<Entity, "stats" | "entity_type" | "name" | "country_name" | "start_year" | "end_year">,
+  stats: Stats,
+): string {
   const pOpen = Math.round(entity.stats.p_outputs_open);
   // When the entity's OA% is over median say Over when under don't add any prefix
   let metaDescription = "Over ";

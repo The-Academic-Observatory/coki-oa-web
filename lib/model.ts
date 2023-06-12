@@ -26,7 +26,8 @@ export type Entity = {
   wikipedia_url: string;
   region: string;
   subregion: string;
-  country: string;
+  country_name: string;
+  country_code: string;
   institution_type: string;
   start_year: number;
   end_year: number;

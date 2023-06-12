@@ -23,7 +23,7 @@ inputs:
   dataset_version:
     description: "The COKI OA Web dataset version"
     required: false
-    default: "v8"
+    default: "v9"
   node_version:
     description: "The NodeJS version"
     required: true
@@ -39,7 +39,7 @@ inputs:
   wrangler_version:
     description: "The Cloudflare Wrangler version"
     required: false
-    default: "1.20.0"
+    default: "3.1.0"
 
 runs:
   using: "composite"
@@ -51,7 +51,7 @@ runs:
 
     - name: Install Wrangler
       if: inputs.wrangler == 'true'
-      run: npm i @cloudflare/wrangler@${{ inputs.wrangler_version }} -g
+      run: npm i wrangler@${{ inputs.wrangler_version }} -g
       shell: bash
 
     - name: Install Vercel CLI

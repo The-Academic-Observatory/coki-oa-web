@@ -23,9 +23,10 @@ export interface Entity extends Object {
   logo_sm: string;
   region: string;
   subregion: string;
-  country: string | null;
-  institution_type: string | null;
-  acronyms: Array<string>;
+  country_code?: string;
+  country_name?: string;
+  institution_type?: string;
+  acronyms?: Array<string>;
   stats: PublicationStats;
   years: Array<Year>;
   repositories: Array<Repository>;
@@ -64,6 +65,7 @@ export type PageSettings = {
 };
 
 export type Query = {
+  ids: Set<string>;
   countries: Set<string>;
   subregions: Set<string>;
   regions: Set<string>;
@@ -101,6 +103,7 @@ export interface FilterQuery {
   limit?: string;
   orderBy?: string;
   orderDir?: string;
+  ids?: string;
   countries?: string;
   subregions?: string;
   regions?: string;

@@ -67,11 +67,12 @@ export default function How({ stats }: Props) {
         <Text textStyle="p">
           The <Link href="/data">COKI Open Access Dataset</Link> measures open access performance for{" "}
           {stats.country.n_items} countries and {stats.institution.n_items} institutions. This dataset includes
-          countries having at least {stats.country.min.n_outputs} research outputs and institutions with at least{" "}
-          {stats.institution.min.n_outputs} research outputs. The COKI Open Access Dataset is created with the COKI
-          Academic Observatory data collection pipeline, which fetches data about research publications from multiple
-          sources, synthesises the datasets and creates the open access calculations for each country and institution.
-          The data is then visualised in this website. The code for this website is available at the{" "}
+          countries having at least 15 research outputs, institutions that we covered when our dataset was based on
+          Microsoft Academic Graph, and all other institutions with at least 800 research outputs. The COKI Open Access
+          Dataset is created with the COKI Academic Observatory data collection pipeline, which fetches data about
+          research publications from multiple sources, synthesises the datasets and creates the open access calculations
+          for each country and institution. The data is then visualised in this website. The code for this website is
+          available at the{" "}
           <a href="https://github.com/The-Academic-Observatory/coki-oa-web" target="_blank" rel="noreferrer">
             COKI Open Access Website
           </a>{" "}
@@ -82,10 +83,10 @@ export default function How({ stats }: Props) {
         </Text>
         <Text textStyle="p">
           Each week we collect a number of specialised research publication datasets. These include Crossref Metadata,
-          Crossref Funder Registry, Crossref Events, Microsoft Academic Graph (MAG), Unpaywall, the Research
-          Organization Registry (ROR) and Open Citations. A subset of these datasets are used to produce the data for
-          this website and the COKI Open Access Dataset, including Crossref Metadata, MAG, Unpaywall and the ROR. The
-          table below illustrates what each dataset is used for.
+          Crossref Funder Registry, Crossref Events, OpenAlex, Unpaywall, the Research Organization Registry (ROR) and
+          Open Citations. A subset of these datasets are used to produce the data for this website and the COKI Open
+          Access Dataset, including Crossref Metadata, OpenAlex, Unpaywall and the ROR. The table below illustrates what
+          each dataset is used for.
         </Text>
         <ScrollTable caption="Table 1. Datasets and their roles." mb="32px">
           <Table variant="content">
@@ -109,7 +110,7 @@ export default function How({ stats }: Props) {
                 <Td>Social Media and Internet Events</Td>
               </Tr>
               <Tr>
-                <Td>Microsoft Academic Graph</Td>
+                <Td>OpenAlex</Td>
                 <Td>Affiliation, Subject</Td>
               </Tr>
               <Tr>
@@ -155,9 +156,9 @@ export default function How({ stats }: Props) {
           example of a single publication. Unique publications are discovered with Crossref Metadata, from which the
           publication’s DOI, Journal, Publisher, Funder identifiers and citation counts are derived. The publication’s
           Open Access status is computed using Unpaywall. The authors of the paper and their institutional affiliations
-          are derived with MAG. ROR is used to enrich the institutional affiliation records with institution details and
-          map institutions to countries and regions. The COKI Open Access Dataset uses the ROR assignment of country
-          codes to institutions.
+          are derived from OpenAlex. ROR is used to enrich the institutional affiliation records with institution
+          details and map institutions to countries and regions. The COKI Open Access Dataset uses the ROR assignment of
+          country codes to institutions.
         </Text>
 
         <Figure maxWidth="650px" caption="Figure 2. How each dataset contributes to the publications table.">
@@ -354,8 +355,9 @@ export default function How({ stats }: Props) {
             quality diminishing the further back in time you go.
           </ListItem>
           <ListItem>
-            Microsoft Academic Graph, used to link institutions to research outputs, has substantial biases and
-            limitations with respect to affiliation sources.
+            Affiliation data used to link outputs to institutions (and then to countries) has limitations and biases.
+            This is true of any dataset and we are interested in working with anyone interested to contribute to the
+            improvement of this data over time.
           </ListItem>
         </UnorderedList>
       </Card>
