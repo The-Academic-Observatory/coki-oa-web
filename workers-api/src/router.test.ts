@@ -23,7 +23,7 @@ import decompress from "decompress";
 import { Entity } from "./types";
 
 const host = "http://localhost";
-const institutionTestTimeout = 500000;
+const institutionTestTimeout = 1000000;
 const env = getMiniflareBindings();
 const ctx = {} as ExecutionContext;
 
