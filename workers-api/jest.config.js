@@ -18,6 +18,6 @@ export default {
     // See issue: https://github.com/juanjoDiaz/json2csv/issues/21
     "^@json2csv/formatters/(.*)\\.js$": "<rootDir>/node_modules/@json2csv/formatters/src/$1.js",
   },
-  setupFilesAfterEnv: ["./setupJestSorted.js"],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   testTimeout: 30000,
 };
