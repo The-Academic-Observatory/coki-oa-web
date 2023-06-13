@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "yarn run wrangler dev --config wrangler.local.toml",
     "build": "node --loader ts-node/esm build.ts",
-    "test": "yarn run build && node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "yarn run build && node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose",
     "format": "prettier --write '**/*.{js,css,json,md}'",
     "types:check": "tsc && tsc -p tsconfig.json",
     "licenses": "license-checker-rseidelsohn --customPath ../customFormat.json  --clarificationsFile ../clarifications.json --production --direct --json > licenses.json"
@@ -27,14 +27,14 @@
     "decompress": "^4.2.1",
     "deepcopy": "^2.1.0",
     "esbuild": "^0.14.23",
-    "jest": "^27.5.1",
+    "jest": "^29.5.0",
     "jest-environment-miniflare": "^2.14.0",
-    "jest-sorted": "^1.0.14",
+    "jest-extended": "^4.0.0",
     "license-checker-rseidelsohn": "^4.2.0",
     "performance-now": "^2.1.0",
     "prettier": "^1.18.2",
     "tmp": "^0.2.1",
-    "ts-jest": "^27.0.7",
+    "ts-jest": "^29.1.0",
     "ts-node": "^10.7.0",
     "typescript": "^4.4.4",
     "wrangler": "^3.1.0"

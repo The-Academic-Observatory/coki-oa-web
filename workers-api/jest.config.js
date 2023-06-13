@@ -6,11 +6,8 @@ export default {
     kvNamespaces: ["__STATIC_CONTENT"],
   },
   preset: "ts-jest/presets/default-esm",
-  globals: {
-    "ts-jest": {
-      tsconfig: "tsconfig.json",
-      useESM: true,
-    },
+  transform: {
+    "^.+\\.tsx?$": ["ts-jest", { tsconfig: "tsconfig.json", useESM: true }],
   },
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
@@ -21,6 +18,6 @@ export default {
     // See issue: https://github.com/juanjoDiaz/json2csv/issues/21
     "^@json2csv/formatters/(.*)\\.js$": "<rootDir>/node_modules/@json2csv/formatters/src/$1.js",
   },
-  setupFilesAfterEnv: ["jest-sorted"],
+  setupFilesAfterEnv: ["./setupJestSorted.js"],
   testTimeout: 30000,
 };
