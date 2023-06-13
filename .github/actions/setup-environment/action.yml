@@ -47,7 +47,7 @@ runs:
 
     - name: Install libc++1 for Wrangler
       run: |
-        apt -y install libc++1
+        apt-get -y install libc++1
       shell: bash
 
     - name: Install Vercel CLI
