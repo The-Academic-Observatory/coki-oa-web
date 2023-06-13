@@ -29,7 +29,6 @@
     "esbuild": "^0.14.23",
     "jest": "^29.5.0",
     "jest-environment-miniflare": "^2.14.0",
-    "jest-extended": "^4.0.0",
     "license-checker-rseidelsohn": "^4.2.0",
     "performance-now": "^2.1.0",
     "prettier": "^1.18.2",
