@@ -4,8 +4,7 @@
     "target": "esnext",
     "module": "esnext",
     "lib": ["esnext"],
-    "types": ["@cloudflare/workers-types", "@types/jest"],
-//    , "jest-environment-miniflare/globals"
+    "types": ["@cloudflare/workers-types", "@types/jest", "jest-environment-miniflare/globals"],
     "moduleResolution": "node",
     "strict": true,
     "noEmit": true,
