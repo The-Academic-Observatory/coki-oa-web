@@ -15,6 +15,7 @@ const customJestConfig = {
 
     "^@/pages/(.*)$": "<rootDir>/pages/$1",
   },
+  modulePathIgnorePatterns: ["<rootDir>/.vercel/"],
   testPathIgnorePatterns: ["<rootDir>/e2e/", "<rootDir>/workers-api/", "<rootDir>/workers-site/"],
   globals: {
     BUILD_ID: "9wunlCAp5nAMZGCCOIDUx",

@@ -22,7 +22,7 @@ Open Knowledge Initiative's Open Access Dashboard: [open.coki.ac](https://open.c
 * Linux, Windows or MacOS.
 * NodeJS 16: https://nodejs.org/en/
 * yarn 3: https://yarnpkg.com/getting-started/install
-* Wrangler 1: `npm install -g @cloudflare/wrangler`
+* libc++1 which is required for Wrangler 3: `sudo apt-get -y install libc++1`
 * Vercel CLI: `npm install --global vercel`
 
 ### Preparing Data Files
@@ -141,9 +141,7 @@ yarn test:e2e
 Customise your wrangler.toml file, see wrangler.example.toml:
 ```toml
 name = "coki-oa-web-api"
-type = "javascript"
 account_id = "my-cloudflare-account-id"
-zone_id = "my-cloudflare-zone-id"
 compatibility_date = "2022-02-03"
 
 [build]
@@ -151,15 +149,6 @@ command = "yarn run build"
 
 [site]
 bucket = "./public"
-
-[build.upload]
-format = "modules"
-dir = "dist"
-main = "./index.mjs"
-
-[[build.upload.rules]]
-type = "ESModule"
-globs = ["**/*.mjs"]
 
 [env.develop]
 route = "my-develop-domain/*"
@@ -169,24 +158,23 @@ route = "my-staging-domain/*"
 
 [env.production]
 route = "my-production-domain/*"
-
-[miniflare]
-durable_objects_persist = true
 ```
+
+Make sure you are in the workers-api directory.
 
 Build & deploy to develop:
 ```bash
-wrangler deploy -e develop
+yarn run wrangler deploy -e develop
 ```
 
 Build & deploy to staging:
 ```bash
-wrangler deploy -e staging
+yarn run wrangler deploy -e staging
 ```
 
 Build & deploy to production:
 ```bash
-wrangler deploy -e production
+yarn run wrangler deploy -e production
 ```
 
 ### Rendering Social Cards
