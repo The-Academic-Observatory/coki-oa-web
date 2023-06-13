@@ -44,11 +44,11 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.node_version }}
-
-    - name: Install libc++1 for Wrangler
-      run: |
-        apt-get -y install libc++1
-      shell: bash
+#
+#    - name: Install libc++1 for Wrangler
+#      run: |
+#        apt-get -y install libc++1
+#      shell: bash
 
     - name: Install Vercel CLI
       if: inputs.vercel == 'true'
