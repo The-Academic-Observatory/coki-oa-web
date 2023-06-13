@@ -7,4 +7,3 @@ command = "yarn run build"
 
 [site]
 bucket = "./public"
-

@@ -36,10 +36,6 @@ inputs:
     description: "The Vercel CLI version"
     required: false
     default: "28.11.1"
-  wrangler_version:
-    description: "The Cloudflare Wrangler version"
-    required: false
-    default: "3.1.0"
 
 runs:
   using: "composite"
@@ -49,9 +45,9 @@ runs:
       with:
         node-version: ${{ inputs.node_version }}
 
-    - name: Install Wrangler
-      if: inputs.wrangler == 'true'
-      run: npm i wrangler@${{ inputs.wrangler_version }} -g
+    - name: Install libc++1 for Wrangler
+      run: |
+        apt -y install libc++1
       shell: bash
 
     - name: Install Vercel CLI

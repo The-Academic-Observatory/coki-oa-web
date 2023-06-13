@@ -55,7 +55,6 @@ jobs:
           bucket_name: ${{ secrets.BUCKET_NAME }}
           gcp_credentials: ${{ secrets.GCP_CREDENTIALS }}
           vercel: true
-          wrangler: true
 
       - name: Build App
         uses: ./.github/actions/build-app
