@@ -67,6 +67,3 @@ const toBeSorted = (received, options = {}) => {
 };
 
 expect.extend({ toBeSorted });
-
-// ReferenceError: setImmediate is not defined
-global.setImmediate = global.setImmediate || ((fn, ...args) => global.setTimeout(fn, 0, ...args));
