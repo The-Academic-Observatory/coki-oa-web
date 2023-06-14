@@ -14,7 +14,6 @@
 //
 // Author: James Diprose
 
-import { expect, test } from "@jest/globals";
 import {
   ArrayView,
   countries,

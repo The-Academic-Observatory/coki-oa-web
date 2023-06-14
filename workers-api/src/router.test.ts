@@ -14,11 +14,6 @@
 //
 // Author: James Diprose
 
-// Fix ReferenceError: setImmediate is not defined
-import {expect, jest, test} from '@jest/globals';
-//@ts-ignore
-global.setImmediate = jest.useRealTimers;
-
 // @ts-ignore
 import fs from "fs";
 import tmp from "tmp";

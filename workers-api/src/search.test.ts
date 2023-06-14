@@ -14,7 +14,6 @@
 //
 // Author: James Diprose
 
-import { expect, test } from "@jest/globals";
 import { search, searchIndex } from "./search";
 import { importIndex, indexEntities, exportIndex } from "./searchIndex";
 import dataRaw from "../../data/index.json";
