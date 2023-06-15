@@ -4,3 +4,4 @@ transpiled
 /.idea/
 wrangler.toml
 worker
+.wrangler

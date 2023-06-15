@@ -36,10 +36,6 @@ inputs:
     description: "The Vercel CLI version"
     required: false
     default: "28.11.1"
-  wrangler_version:
-    description: "The Cloudflare Wrangler version"
-    required: false
-    default: "3.1.0"
 
 runs:
   using: "composite"
@@ -48,11 +44,6 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.node_version }}
-
-    - name: Install Wrangler
-      if: inputs.wrangler == 'true'
-      run: npm i wrangler@${{ inputs.wrangler_version }} -g
-      shell: bash
 
     - name: Install Vercel CLI
       if: inputs.vercel == 'true'

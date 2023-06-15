@@ -7,9 +7,9 @@
   "license": "Apache-2.0",
   "main": "./dist/index.mjs",
   "scripts": {
-    "dev": "yarn run miniflare --watch --debug --wrangler-config wrangler.local.toml",
+    "dev": "yarn run wrangler dev --config wrangler.local.toml",
     "build": "node --loader ts-node/esm build.ts",
-    "test": "yarn run build && node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "yarn run build && node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose",
     "format": "prettier --write '**/*.{js,css,json,md}'",
     "types:check": "tsc && tsc -p tsconfig.json",
     "licenses": "license-checker-rseidelsohn --customPath ../customFormat.json  --clarificationsFile ../clarifications.json --production --direct --json > licenses.json"
@@ -31,13 +31,13 @@
     "jest-environment-miniflare": "^2.3.0",
     "jest-sorted": "^1.0.14",
     "license-checker-rseidelsohn": "^4.2.0",
-    "miniflare": "^2.11.0",
     "performance-now": "^2.1.0",
     "prettier": "^1.18.2",
     "tmp": "^0.2.1",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.7.0",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "wrangler": "^3.1.0"
   },
   "dependencies": {
     "@json2csv/plainjs": "^6.1.2",

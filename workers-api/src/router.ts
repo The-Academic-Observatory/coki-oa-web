@@ -41,6 +41,6 @@ router
       }),
   );
 
-export async function handleRequest(request: Request, env: Bindings, ctx: ExecutionContext) {
+export async function handleRequest(request: Request, env: Record<string, any>, ctx: ExecutionContext) {
   return router.handle(request, env, ctx);
 }
