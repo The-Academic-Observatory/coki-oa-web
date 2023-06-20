@@ -8,7 +8,7 @@ export type Task = {
   entity: Entity;
 };
 
-const port = 9001;
+const port = 3000;
 
 export async function makeShareCards(inputPath: string, maxConcurrency: number, cardSelector: string = ".socialCard") {
   const cluster = await Cluster.launch({
@@ -21,14 +21,14 @@ export async function makeShareCards(inputPath: string, maxConcurrency: number, 
   });
 
   // Make social-cards folder
-  const dir = "../public/social-cards";
+  const dir = "../workers-images/public/social-cards";
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
 
   await cluster.task(async ({ page, data }) => {
     const url = data.url;
-    const path = `../public/social-cards/${data.entity.id}.jpg`;
+    const path = `../workers-images/public/social-cards/${data.entity.id}.jpg`;
     console.log(`Fetching page: ${url}`);
     await page.goto(url);
     await page.waitForSelector(cardSelector);
@@ -44,7 +44,7 @@ export async function makeShareCards(inputPath: string, maxConcurrency: number, 
   const entities = JSON.parse(fs.readFileSync(inputPath));
   for (const entity of entities) {
     const task = {
-      url: `http://localhost:${port}/cards/${entity.category}/${entity.id}/`,
+      url: `http://localhost:${port}/cards/${entity.entity_type}/${entity.id}/`,
       entity: entity,
     } as Task;
     await cluster.queue(task);
@@ -55,10 +55,10 @@ export async function makeShareCards(inputPath: string, maxConcurrency: number, 
 }
 
 // Start next.js server
-const server = spawn("yarn", ["run", "next", "-p", `${port}`], { cwd: "../" });
+const server = spawn("yarn", ["run", "dev"], { cwd: "../" });
 
 // Render cards
-await makeShareCards("../latest/data/index.json", 4);
+await makeShareCards("../data/index.json", 4);
 
 // Kill yarn
 server.kill();
