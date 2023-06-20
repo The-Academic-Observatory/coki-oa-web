@@ -68,7 +68,7 @@ export default function How({ stats }: Props) {
           The <Link href="/data">COKI Open Access Dataset</Link> measures open access performance for{" "}
           {stats.country.n_items.toLocaleString()} countries and {stats.institution.n_items.toLocaleString()} institutions. This dataset includes
           countries having at least 15 research outputs, institutions that we covered when our dataset was based on
-          Microsoft Academic Graph, and all other institutions with at least 800 research outputs. The COKI Open Access
+          Microsoft Academic Graph, and all other institutions with at least 1000 research outputs. The COKI Open Access
           Dataset is created with the COKI Academic Observatory data collection pipeline, which fetches data about
           research publications from multiple sources, synthesises the datasets and creates the open access calculations
           for each country and institution. The data is then visualised in this website. The code for this website is
@@ -134,11 +134,12 @@ export default function How({ stats }: Props) {
         <Text textStyle="p">
           After fetching the datasets, they are synthesised to produce aggregate time series statistics for each country
           and institution (entity type) in the dataset. The aggregate timeseries statistics include publication count,
-          open access status, citation count and alt-metrics.{" "}
+          open access status, citation count and alt-metrics.
         </Text>
         <Text textStyle="p">The synthesis occurs in three steps (Figure 1): </Text>
         <OrderedList textStyle="p">
           <ListItem>Creating a table of publications.</ListItem>
+          <ListItem>Filtering publications based on their Crossref Metadata type.</ListItem>
           <ListItem>Grouping the publications by entity type and year of publication.</ListItem>
           <ListItem>
             Computing aggregated summaries for each group. Each step of the process is explained below with examples.
@@ -166,7 +167,15 @@ export default function How({ stats }: Props) {
         </Figure>
 
         <Text textStyle="p">
-          Once the publications table has been created, the publications are grouped by entity type and publication
+          After creating the publications table, we filter the publications based on their Crossref Metadata type.
+          The types we include in this process are journal articles, proceedings articles, reports, posted content,
+          edited books, books, book chapters, book parts, book sections, reference books, monographs, reference entries,
+          and other. However, we exclude types such as datasets, databases, components, report components, peer reviews,
+          grants, proceedings, journal issues, report series, book tracks, and any with a null type.
+        </Text>
+
+        <Text textStyle="p">
+          Once the publications table has been filtered, the publications are grouped by entity type and publication
           year. For instance, as shown in Figure 3 below, publications are grouped by institution and publication year.
           The last step involves creating aggregate timeseries statistics based on the yearly groups of publications.
         </Text>
