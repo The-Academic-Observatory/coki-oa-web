@@ -66,7 +66,7 @@ export default function How({ stats }: Props) {
         </Text>
         <Text textStyle="p">
           The <Link href="/data">COKI Open Access Dataset</Link> measures open access performance for{" "}
-          {stats.country.n_items} countries and {stats.institution.n_items} institutions. This dataset includes
+          {stats.country.n_items.toLocaleString()} countries and {stats.institution.n_items.toLocaleString()} institutions. This dataset includes
           countries having at least 15 research outputs, institutions that we covered when our dataset was based on
           Microsoft Academic Graph, and all other institutions with at least 800 research outputs. The COKI Open Access
           Dataset is created with the COKI Academic Observatory data collection pipeline, which fetches data about
