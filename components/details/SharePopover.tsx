@@ -34,10 +34,10 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react";
-import React, { memo } from "react";
+import React, { memo, ReactElement } from "react";
 import { FiLink2, FiShare2 } from "react-icons/fi";
 import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
-
+import Link from "../common/Link";
 import { useRouter } from "next/router";
 import { Entity } from "../../lib/model";
 
@@ -90,13 +90,6 @@ const SharePopover = ({ entity, platform, ...rest }: SharePopoverProps) => {
   const encodedUrl = encodeURIComponent(url);
   const shareLinks = [
     {
-      text: "Link",
-      href: url,
-      icon: <FiLink2 size={size} />,
-      action: openLinkCopyToast,
-      description: "Copy link to clipboard.",
-    },
-    {
       text: "Twitter",
       href: `https://twitter.com/intent/tweet?text=${text}&url=${encodedUrl}&hashtags=OpenAccess,COKI&via=COKIproject`,
       icon: <FaTwitter size={size} />,
@@ -132,29 +125,35 @@ const SharePopover = ({ entity, platform, ...rest }: SharePopoverProps) => {
             <PopoverArrow />
             <PopoverBody>
               <Grid templateRows="repeat(3)" templateColumns="repeat(2, 1fr)" justifyItems="center" gap="12px">
-                {shareLinks.map((item) => {
+                <GridItem key="share-link">
+                  <ShareIconButton
+                    dataTest="share-link"
+                    icon={<FiLink2 size={size} />}
+                    text="Link"
+                    description="Copy link to clipboard."
+                    onClick={() => {
+                      openLinkCopyToast();
+                      // Close popover
+                      onClose();
+                    }}
+                  />
+                </GridItem>
+
+                {shareLinks.map(item => {
                   const id = `share-${item.text.toLowerCase()}`;
                   return (
                     <GridItem key={id}>
-                      <IconButton
-                        data-test={id}
-                        variant="iconText"
-                        aria-label={item.description}
-                        onClick={() => {
-                          // Run action
-                          item.action(item.href);
-
-                          // Close popover
-                          onClose();
-                        }}
-                      >
-                        <VStack>
-                          {item.icon}
-                          <Text marginTop="3px !important" fontSize="14px">
-                            {item.text}
-                          </Text>
-                        </VStack>
-                      </IconButton>
+                      <Link data-test={id} href={item.href} isExternal>
+                        <ShareIconButton
+                          icon={item.icon}
+                          text={item.text}
+                          description={item.description}
+                          onClick={() => {
+                            // Close popover
+                            onClose();
+                          }}
+                        />
+                      </Link>
                     </GridItem>
                   );
                 })}
@@ -164,6 +163,27 @@ const SharePopover = ({ entity, platform, ...rest }: SharePopoverProps) => {
         </Portal>
       </Popover>
     </Box>
+  );
+};
+
+interface ShareIconButtonProps {
+  icon: ReactElement;
+  text: string;
+  description: string;
+  onClick: () => void;
+  dataTest?: string;
+}
+
+const ShareIconButton = ({ icon, text, description, onClick, dataTest }: ShareIconButtonProps) => {
+  return (
+    <IconButton data-test={dataTest} variant="iconText" aria-label={description} onClick={onClick}>
+      <VStack>
+        {icon}
+        <Text marginTop="3px !important" fontSize="14px">
+          {text}
+        </Text>
+      </VStack>
+    </IconButton>
   );
 };
 
