@@ -26,6 +26,17 @@ module.exports = {
     );
     return config;
   },
+  async redirects() {
+    return [
+      // At one point in time the social cards were hosted on the https://open.coki.ac/social-cards path
+      // Hence we need to redirect them to their new location
+      {
+        source: "/social-cards/:slug",
+        destination: "https://images.open.coki.ac/social-cards/:slug",
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {

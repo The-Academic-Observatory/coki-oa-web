@@ -148,7 +148,7 @@ const getLicenseInfo = (licensesData: LicensesData) => {
   return licenses;
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const webAppLicensesData = webAppLicensesJson as LicensesData;
   const apiLicensesData = apiLicensesJson as LicensesData;
   const webAppLicenses = getLicenseInfo(webAppLicensesData);
