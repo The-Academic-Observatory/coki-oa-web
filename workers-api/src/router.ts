@@ -15,8 +15,8 @@
 // Author: James Diprose
 
 import ittyRouter from "itty-router";
-import { searchHandler } from "@/search";
-import { countriesHandler, institutionsHandler } from "@/filter";
+// import { searchHandler } from "@/search";
+import { filterEntitiesHandler } from "@/filter";
 import { downloadDataZipHandler } from "@/downloadZip";
 import { fetchEntityHandler } from "@/entity";
 const { Router } = ittyRouter;
@@ -24,10 +24,10 @@ const { Router } = ittyRouter;
 // Setup API router
 export const router = Router({ base: "/" });
 router
-  .get("/search/:text", searchHandler) // Search all countries and institutions with full text search
+  // .get("/search/:text", searchHandler) // Search all countries and institutions with full text search
   .get("/:entityType/:id", fetchEntityHandler) // Get the full details for a single country or institution
-  .get("/countries", countriesHandler) // Filter countries
-  .get("/institutions", institutionsHandler) // Filter institutions
+  .get("/countries", filterEntitiesHandler.bind(null, "country")) // Filter countries
+  .get("/institutions", filterEntitiesHandler.bind(null, "institution")) // Filter institutions
   .get("/download/:entityType/:id", downloadDataZipHandler) // For frontend download of entity data in a zip
   .get(
     "*",

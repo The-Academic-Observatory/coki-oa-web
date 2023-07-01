@@ -51,7 +51,7 @@ export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
     // Set page values
     page: queryForm.page.page,
     limit: queryForm.page.limit,
-    orderBy: queryForm.page.orderBy,
+    orderBy: queryForm.page.orderBy.replace("stats.", ""), // Remove stats. as nested fields are not used by the API,
     orderDir: queryForm.page.orderDir,
 
     // Default arrays
@@ -68,12 +68,12 @@ export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
   };
 
   // Set subregions keys that are true
-  q.subregions = Object.keys(queryForm.subregion).filter((key) => {
+  q.subregions = Object.keys(queryForm.subregion).filter(key => {
     return queryForm.subregion[key];
   });
 
   // Set institution types
-  q.institutionTypes = Object.keys(queryForm.institutionType).filter((key) => {
+  q.institutionTypes = Object.keys(queryForm.institutionType).filter(key => {
     return queryForm.institutionType[key];
   });
 
@@ -113,7 +113,7 @@ export const makeDefaultValues = (entityStats: EntityStats): QueryForm => {
   };
 
   // Default region and subregion values
-  Object.keys(regions).map((region) => {
+  Object.keys(regions).map(region => {
     defaults.region[region] = false;
     for (let subregion of regions[region]) {
       defaults.subregion[subregion] = false;
@@ -121,7 +121,7 @@ export const makeDefaultValues = (entityStats: EntityStats): QueryForm => {
   });
 
   // Default institutionType values
-  institutionTypes.map((institutionType) => {
+  institutionTypes.map(institutionType => {
     defaults.institutionType[institutionType] = false;
   });
 
@@ -139,7 +139,7 @@ const useEntityQuery = (
   const [queryForm, setQueryForm] = React.useState<QueryForm>(defaultQueryForm);
   const [resetFormState, setResetFormState] = React.useState(0);
   const onResetQueryForm = useCallback(() => {
-    setResetFormState((state) => state + 1);
+    setResetFormState(state => state + 1);
   }, []);
 
   const [isLoading, setLoading] = React.useState<boolean>(false);
@@ -153,7 +153,7 @@ const useEntityQuery = (
     const client = new OADataAPI();
     client
       .filterEntities(entityType, queryParams)
-      .then((data) => {
+      .then(data => {
         setEntities(data);
       })
       .then(() => {
@@ -437,8 +437,8 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
 
 export function getDashboardStaticProps() {
   const client = new OADataLocal();
-  const countries = client.getEntities("country").filter((e) => e.stats.n_outputs >= DEFAULT_N_OUTPUTS);
-  const institutions = client.getEntities("institution").filter((e) => e.stats.n_outputs >= DEFAULT_N_OUTPUTS);
+  const countries = client.getEntities("country").filter(e => e.stats.n_outputs >= DEFAULT_N_OUTPUTS);
+  const institutions = client.getEntities("institution").filter(e => e.stats.n_outputs >= DEFAULT_N_OUTPUTS);
   const stats = client.getStats();
   const defaultQueryResult = {
     page: 0,

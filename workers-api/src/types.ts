@@ -57,13 +57,6 @@ export interface Repository extends Dict {
   home_repo: boolean;
 }
 
-export type PageSettings = {
-  page: number;
-  limit: number;
-  orderBy: string;
-  orderDir: string;
-};
-
 export type Query = {
   ids: Set<string>;
   countries: Set<string>;
@@ -76,6 +69,10 @@ export type Query = {
   maxNOutputsOpen: number;
   minPOutputsOpen: number;
   maxPOutputsOpen: number;
+  page: number;
+  limit: number;
+  orderBy: string;
+  orderDir: string;
 };
 
 type MethodType = "GET";
@@ -133,4 +130,17 @@ export interface FilesToZipType {
 
 export interface Dict {
   [key: string]: any;
+}
+
+// export interface Dict<T> {
+//   [key: string]: T;
+// }
+
+export interface QueryResult {
+  items: Array<Entity>;
+  nItems: number;
+  page: number;
+  limit: number;
+  orderBy: string;
+  orderDir: string;
 }
