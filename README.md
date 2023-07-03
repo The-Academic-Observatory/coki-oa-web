@@ -55,8 +55,9 @@ yarn dev
 To load the local database:
 ```bash
 cd workers-api
+wrangler d1 create coki-oa-web-db-d1-exp --experimental-backend
 wrangler d1 execute DB --file ../data/db.sql --local --config wrangler.local.toml
-wrangler d1 execute coki-oa-web-db-d1 --file ../data/db.sql --local --config wrangler.toml
+wrangler d1 execute coki-oa-web-db-d1-exp --file ../data/db.sql --local --config wrangler.toml
 ```
 
 Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
