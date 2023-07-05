@@ -14,7 +14,6 @@
 //
 // Author: James Diprose
 
-import { search, searchIndex } from "./search";
 import { importIndex, indexEntities, exportIndex } from "./searchIndex";
 import dataRaw from "../../data/index.json";
 import flexsearch, { Tokenizer } from "flexsearch";
@@ -112,7 +111,7 @@ async function benchmarkSearch(tokenize: Tokenizer) {
   console.log(`Time to index tokenize=${tokenize}: ${diff.toFixed(2)}ms`);
 
   // Export index
-  let exported = await exportIndex(index).then((data) => {
+  let exported = await exportIndex(index).then(data => {
     return data;
   });
 

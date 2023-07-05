@@ -18,7 +18,6 @@
     "@cloudflare/workers-types": "^3.11.0",
     "@glenstack/cf-workers-function-memoizer": "^1.0.1",
     "@types/decompress": "^4.2.4",
-    "@types/flexsearch": "0.7.2",
     "@types/jest": "^27.4.1",
     "@types/lodash.get": "^4.4.7",
     "@types/lodash.set": "^4.3.7",
@@ -42,7 +41,6 @@
   "dependencies": {
     "@json2csv/plainjs": "^6.1.2",
     "@json2csv/transforms": "^6.1.2",
-    "flexsearch": "0.7.21",
     "itty-router": "^2.6.6",
     "jszip": "3.10.1",
     "lodash.get": "^4.4.2",

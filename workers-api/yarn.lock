@@ -1265,13 +1265,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/flexsearch@npm:0.7.2":
-  version: 0.7.2
-  resolution: "@types/flexsearch@npm:0.7.2"
-  checksum: 76f696461c03f8a792a4011500355231dd4a3cc1f084b5559b7cf78b9f968069b4579554018e9e593628ed176888b8a7268bbfb40a0770eae11e1253d4556d8b
-  languageName: node
-  linkType: hard
-
 "@types/graceful-fs@npm:^4.1.2":
   version: 4.1.5
   resolution: "@types/graceful-fs@npm:4.1.5"
@@ -2071,7 +2064,6 @@ __metadata:
     "@json2csv/plainjs": ^6.1.2
     "@json2csv/transforms": ^6.1.2
     "@types/decompress": ^4.2.4
-    "@types/flexsearch": 0.7.2
     "@types/jest": ^27.4.1
     "@types/lodash.get": ^4.4.7
     "@types/lodash.set": ^4.3.7
@@ -2080,7 +2072,6 @@ __metadata:
     decompress: ^4.2.1
     deepcopy: ^2.1.0
     esbuild: ^0.14.23
-    flexsearch: 0.7.21
     itty-router: ^2.6.6
     jest: ^27.5.1
     jest-environment-miniflare: ^2.3.0
@@ -3048,13 +3039,6 @@ __metadata:
     locate-path: ^5.0.0
     path-exists: ^4.0.0
   checksum: 4c172680e8f8c1f78839486e14a43ef82e9decd0e74145f40707cc42e7420506d5ec92d9a11c22bd2c48fb0c384ea05dd30e10dd152fefeec6f2f75282a8b844
-  languageName: node
-  linkType: hard
-
-"flexsearch@npm:0.7.21":
-  version: 0.7.21
-  resolution: "flexsearch@npm:0.7.21"
-  checksum: ae77c6ebba6f02660bf28a36b56427ec2d737dcb9bd03564db27801484be2dd943fc7350e60a6f0aed47ab1b85af7fd5b33e27e84fd2fcbb241d9c5d21c8d068
   languageName: node
   linkType: hard
 
