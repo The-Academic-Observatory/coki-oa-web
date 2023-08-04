@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { FilterQuery, FilterRequest, Query } from "./types";
+import { FilterQuery, FilterRequest, Query } from "@/types";
 import { filterEntities } from "@/database";
 
 // Make country and institution array views

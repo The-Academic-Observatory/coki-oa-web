@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { handleRequest } from "./router";
+import { handleRequest } from "@/router";
 
 const maxAge = 604800; // cache data for 7 days
 

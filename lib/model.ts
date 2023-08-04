@@ -68,6 +68,7 @@ export type PublicationStats = {
   n_outputs_institution: number;
   n_outputs_public: number;
   n_outputs_other_internet: number;
+  n_outputs_black: number;
   p_outputs_open: number;
   p_outputs_publisher_open: number;
   p_outputs_publisher_open_only: number;
@@ -83,6 +84,7 @@ export type PublicationStats = {
   p_outputs_institution: number;
   p_outputs_public: number;
   p_outputs_other_internet: number;
+  p_outputs_black: number;
 };
 
 export type Identifier = {

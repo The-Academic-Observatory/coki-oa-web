@@ -38,11 +38,13 @@ CREATE TABLE entity (
     institution_type TEXT, -- null for country
     n_outputs INT NOT NULL,
     n_outputs_open INT NOT NULL,
+    n_outputs_black INT NOT NULL,
     p_outputs_open FLOAT NOT NULL,
     p_outputs_publisher_open_only FLOAT NOT NULL,
     p_outputs_both FLOAT NOT NULL,
     p_outputs_other_platform_open_only FLOAT NOT NULL,
-    p_outputs_closed FLOAT NOT NULL
+    p_outputs_closed FLOAT NOT NULL,
+    p_outputs_black FLOAT NOT NULL
 );
 
 -- Filter by entity_type
@@ -54,8 +56,11 @@ CREATE INDEX idx_entity_n_outputs ON entity(n_outputs);
 CREATE INDEX idx_entity_n_outputs_open ON entity(n_outputs_open);
 CREATE INDEX idx_entity_p_outputs_open ON entity(p_outputs_open);
 
+--- Indexes for filtering
+CREATE INDEX idx_entity_filter ON entity(entity_type, n_outputs, n_outputs_open, p_outputs_open, subregion, institution_type);
+
 -- Virtual table for text search
-CREATE VIRTUAL TABLE entity_fts5 USING fts5(name, acronyms, subregion, region, country_name, content='entity', content_rowid='id', tokenize='trigram');
+CREATE VIRTUAL TABLE entity_fts5 USING fts5(name, acronyms, subregion, region, country_name, content='entity', content_rowid='id', tokenize='porter unicode61 remove_diacritics 1');
 
 `;
 
@@ -127,12 +132,14 @@ export function saveSQLToFile(dataPath: string, outputPath: string) {
       country_name,
       institution_type,
       entity.stats.n_outputs,
+      entity.stats.n_outputs_black,
       entity.stats.n_outputs_open,
       entity.stats.p_outputs_open,
       entity.stats.p_outputs_publisher_open_only,
       entity.stats.p_outputs_both,
       entity.stats.p_outputs_other_platform_open_only,
       entity.stats.p_outputs_closed,
+      entity.stats.p_outputs_black,
     ];
     rows.push(`INSERT INTO entity VALUES(${joinWithCommas(values)});`);
   });
@@ -171,11 +178,13 @@ export function rowsToEntities(rows: Array<Dict>): Array<Entity> {
     row["stats"] = {
       n_outputs: row["n_outputs"],
       n_outputs_open: row["n_outputs_open"],
+      n_outputs_black: row["n_outputs_black"],
       p_outputs_open: row["p_outputs_open"],
       p_outputs_publisher_open_only: row["p_outputs_publisher_open_only"],
       p_outputs_both: row["p_outputs_both"],
       p_outputs_other_platform_open_only: row["p_outputs_other_platform_open_only"],
       p_outputs_closed: row["p_outputs_closed"],
+      p_outputs_black: row["p_outputs_black"],
     };
 
     // Delete unused properties
@@ -216,7 +225,14 @@ export async function searchEntities(db: D1Database, text: string, limit: number
 }
 
 const VALID_ENTITY_TYPES = new Set(["country", "institution"]);
-const VALID_ORDER_BY = new Set(["name", "n_outputs", "n_outputs_open", "p_outputs_open"]);
+const VALID_ORDER_BY = new Set([
+  "name",
+  "n_outputs",
+  "n_outputs_open",
+  "p_outputs_open",
+  "n_outputs_black",
+  "p_outputs_black",
+]);
 
 export async function filterEntities(entityType: string, db: D1Database, query: Query): Promise<QueryResult> {
   // Validate parameters that are string substituted without using .bind
@@ -315,7 +331,7 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
   const queryString = sql.join("\n");
   console.log(queryString);
 
-  // // Run query plan
+  // Run query plan
   // const stmt_query_plan = db.prepare("EXPLAIN QUERY PLAN " + queryString).bind(...params);
   // const results_query_plan = await stmt_query_plan.all();
   // console.log(`QUERY PLAN: ${JSON.stringify(results_query_plan)}`);

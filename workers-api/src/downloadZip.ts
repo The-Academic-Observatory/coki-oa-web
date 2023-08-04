@@ -14,7 +14,6 @@
 //
 // Author: Alex Massen-Hane
 
-//@ts-ignore
 import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import { EntityRequest, FilesToZipType, Entity } from "@/types";
 import JSZip from "jszip";

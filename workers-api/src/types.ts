@@ -37,11 +37,13 @@ export interface Entity extends Object {
 export interface PublicationStats extends Object, Dict {
   n_outputs: number;
   n_outputs_open: number;
+  n_outputs_black: number;
   p_outputs_open: number;
   p_outputs_publisher_open_only: number;
   p_outputs_both: number;
   p_outputs_other_platform_open_only: number;
   p_outputs_closed: number;
+  p_outputs_black: number;
 }
 
 export interface Year {
@@ -131,10 +133,6 @@ export interface FilesToZipType {
 export interface Dict {
   [key: string]: any;
 }
-
-// export interface Dict<T> {
-//   [key: string]: T;
-// }
 
 export interface QueryResult {
   items: Array<Entity>;

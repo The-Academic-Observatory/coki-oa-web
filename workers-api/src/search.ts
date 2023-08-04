@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { SearchRequest } from "./types";
+import { SearchRequest } from "@/types";
 import { searchEntities } from "@/database";
 
 const minLimit = 1;
