@@ -86,6 +86,7 @@ export interface SearchRequest extends Request {
     text: string;
   };
   query: {
+    page: string;
     limit: string;
   };
 }
@@ -139,6 +140,6 @@ export interface QueryResult {
   nItems: number;
   page: number;
   limit: number;
-  orderBy: string;
-  orderDir: string;
+  orderBy?: string;
+  orderDir?: string;
 }

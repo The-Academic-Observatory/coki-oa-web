@@ -12,7 +12,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"), // Maps @ symbol in imports to correct path
-      __STATIC_CONTENT_MANIFEST: path.resolve(__dirname, "testManifest.ts"),
+      __STATIC_CONTENT_MANIFEST: path.resolve(__dirname, "fixtures", "manifest.ts"), // Loads a fake __STATIC_CONTENT_MANIFEST module
     },
   },
 });

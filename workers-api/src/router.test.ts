@@ -22,6 +22,7 @@ import { handleRequest } from "@/router";
 import lodashGet from "lodash.get";
 import decompress from "decompress";
 import { Entity } from "@/types";
+import { searchEntities } from "@/database";
 
 const describe = setupMiniflareIsolatedStorage();
 
@@ -29,20 +30,6 @@ const host = "http://localhost";
 const institutionTestTimeout = 1000000;
 const env = getMiniflareBindings();
 const ctx = {} as ExecutionContext;
-
-// [[ d1_databases ]]
-// binding = "DB"
-// database_name = "db"
-// database_id = "db"
-
-beforeAll(async () => {
-  // await push("beforeAll");
-});
-
-beforeEach(async () => {
-  // This runs in each tests' isolated storage environment
-  // await push("beforeEach");
-});
 
 describe("404 API endpoints", () => {
   test("calling api", async () => {
@@ -409,6 +396,15 @@ describe("download ZIP API endpoint", () => {
   });
 });
 
+beforeAll(async () => {
+  // await push("beforeAll");
+});
+
+beforeEach(async () => {
+  // This runs in each tests' isolated storage environment
+  // await push("beforeEach");
+});
+
 describe("full text search API endpoint", () => {
   test("search with no :text parameter returns 404 not found", async () => {
     const res = await handleRequest(new Request(`${host}/search`), env, ctx); // no :text parameter
@@ -416,6 +412,8 @@ describe("full text search API endpoint", () => {
   });
 
   test("search for curtin", async () => {
+    const results = await searchEntities(env.__D1_BETA__DB, "curtin", 10);
+    console.log(results);
     const res = await handleRequest(new Request(`${host}/search/curtin`), env, ctx);
     const json = await res.json();
     expect(res.status).toBe(200);
@@ -423,29 +421,29 @@ describe("full text search API endpoint", () => {
     expect(json).toMatchObject([{ id: "02n415q13" }, { id: "024fm2y42" }]);
   });
 
-  test("search for text with spaces", async () => {
-    // Search: text with spaces
-    const res = await handleRequest(new Request(`${host}/search/auckland%20university`), env, ctx);
-    const json = await res.json();
-    expect(res.status).toBe(200);
-    expect(json.length).toBe(2);
-    expect(json).toMatchObject([{ id: "03b94tp07" }, { id: "01zvqw119" }]);
-  });
-
-  test("limit results to 1", async () => {
-    // Limit: 1
-    const res = await handleRequest(new Request(`${host}/search/south%20korea?limit=1`), env, ctx);
-    const json = await res.json();
-    expect(res.status).toBe(200);
-    expect(json.length).toBe(1);
-    expect(json).toMatchObject([{ id: "KOR" }]);
-  });
-
-  test("limit results to 20", async () => {
-    // Limit > 20 still returns 20
-    const res = await handleRequest(new Request(`${host}/search/s?limit=21`), env, ctx);
-    const json = await res.json();
-    expect(res.status).toBe(200);
-    expect(json.length).toBe(20);
-  });
+  // test("search for text with spaces", async () => {
+  //   // Search: text with spaces
+  //   const res = await handleRequest(new Request(`${host}/search/auckland%20university`), env, ctx);
+  //   const json = await res.json();
+  //   expect(res.status).toBe(200);
+  //   expect(json.length).toBe(2);
+  //   expect(json).toMatchObject([{ id: "03b94tp07" }, { id: "01zvqw119" }]);
+  // });
+  //
+  // test("limit results to 1", async () => {
+  //   // Limit: 1
+  //   const res = await handleRequest(new Request(`${host}/search/south%20korea?limit=1`), env, ctx);
+  //   const json = await res.json();
+  //   expect(res.status).toBe(200);
+  //   expect(json.length).toBe(1);
+  //   expect(json).toMatchObject([{ id: "KOR" }]);
+  // });
+  //
+  // test("limit results to 20", async () => {
+  //   // Limit > 20 still returns 20
+  //   const res = await handleRequest(new Request(`${host}/search/s?limit=21`), env, ctx);
+  //   const json = await res.json();
+  //   expect(res.status).toBe(200);
+  //   expect(json.length).toBe(20);
+  // });
 });

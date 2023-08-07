@@ -1,4 +1,4 @@
-// Copyright 2023 Curtin University
+// Copyright 2022 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,15 +12,145 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: Alex Massen-Hane
+// Author: James Diprose, Alex Massen-Hane
 
-import manifestJSON from "__STATIC_CONTENT_MANIFEST";
-import { EntityRequest, FilesToZipType, Entity } from "@/types";
 import JSZip from "jszip";
 import { Parser } from "@json2csv/plainjs";
 import { flatten } from "@json2csv/transforms";
+import manifestJSON from "__STATIC_CONTENT_MANIFEST";
+import { Entity, EntityRequest, FilesToZipType, FilterQuery, FilterRequest, Query, SearchRequest } from "@/types";
+import { filterEntities, searchEntities } from "@/database";
 
-export const downloadDataZipHandler = async (req: EntityRequest, env: Bindings) => {
+export const HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Content-type": "application/json",
+};
+const MIN_LIMIT = 1;
+const MAX_LIMIT = 100;
+const MIN_OUTPUTS = 0;
+const MIN_OUTPUTS_OPEN = 0;
+
+export const fetchEntityHandler = async (req: EntityRequest, env: Bindings, ctx: ExecutionContext) => {
+  const url = new URL(req.url);
+  const entityType = req.params.entityType;
+  if (!["country", "institution"].includes(entityType)) {
+    throw Error(`fetchEntityHandler invalid entityType: ${entityType}`);
+  }
+  const entityId = req.params.id;
+  const assetPath = `${entityType}/${entityId}.json`;
+  const kvKey = JSON.parse(manifestJSON)[assetPath];
+
+  console.log(
+    `fetchEntityHandler: pathname=${url.pathname}, entityType=${entityType}, entityId=${entityId}, assetPath=${assetPath}, kvKey=${kvKey}`,
+  );
+
+  // Fetch data from KV
+  // Use a stream because it is the fastest, and we don't need to parse the JSON data
+  const data = await env.__STATIC_CONTENT.get(kvKey, { type: "stream" });
+  if (data !== null) {
+    // Return response with data
+    return new Response(data, {
+      headers: HEADERS,
+    });
+  }
+
+  // No data file found, return 404 not found
+  return new Response("Not found", {
+    status: 404,
+    headers: HEADERS,
+  });
+};
+
+export const parseQuery = (q: FilterQuery): Query => {
+  // Parse query params
+  let ids = q.ids === undefined ? new Set<string>() : new Set<string>(q.ids.split(","));
+  let countries = q.countries === undefined ? new Set<string>() : new Set<string>(q.countries.split(","));
+  let subregions = q.subregions === undefined ? new Set<string>() : new Set<string>(q.subregions.split(","));
+  let regions = q.regions === undefined ? new Set<string>() : new Set<string>(q.regions.split(","));
+  let institutionTypes =
+    q.institutionTypes === undefined ? new Set<string>() : new Set<string>(q.institutionTypes.split(","));
+
+  let minNOutputs = q.minNOutputs === undefined ? MIN_OUTPUTS : parseInt(q.minNOutputs);
+  minNOutputs = Math.max(minNOutputs, MIN_OUTPUTS);
+  let maxNOutputs = q.maxNOutputs === undefined ? Number.MAX_VALUE : parseInt(q.maxNOutputs);
+  maxNOutputs = Math.max(maxNOutputs, MIN_OUTPUTS);
+  let minNOutputsOpen = q.minNOutputsOpen === undefined ? MIN_OUTPUTS_OPEN : parseInt(q.minNOutputsOpen);
+  minNOutputsOpen = Math.max(minNOutputsOpen, MIN_OUTPUTS_OPEN);
+  let maxNOutputsOpen = q.maxNOutputsOpen === undefined ? Number.MAX_VALUE : parseInt(q.maxNOutputsOpen);
+  maxNOutputsOpen = Math.max(maxNOutputsOpen, MIN_OUTPUTS_OPEN);
+  let minPOutputsOpen = q.minPOutputsOpen === undefined ? 0 : parseInt(q.minPOutputsOpen);
+  minPOutputsOpen = Math.min(Math.max(minPOutputsOpen, 0), 100);
+  let maxPOutputsOpen = q.maxPOutputsOpen === undefined ? 100 : parseInt(q.maxPOutputsOpen);
+  maxPOutputsOpen = Math.max(Math.min(maxPOutputsOpen, 100), 0);
+
+  // Parse page settings
+  let page = q.page === undefined ? 0 : parseInt(q.page);
+  let limit = q.limit === undefined ? MAX_LIMIT : parseInt(q.limit);
+  page = Math.max(page, 0);
+  limit = Math.max(Math.min(limit, MAX_LIMIT), MIN_LIMIT);
+  let orderBy = q.orderBy || "stats.p_outputs_open";
+  let orderDir = q.orderDir || "dsc";
+
+  return {
+    ids: ids,
+    countries: countries,
+    subregions: subregions,
+    regions: regions,
+    institutionTypes: institutionTypes,
+    minNOutputs: minNOutputs,
+    maxNOutputs: maxNOutputs,
+    minNOutputsOpen: minNOutputsOpen,
+    maxNOutputsOpen: maxNOutputsOpen,
+    minPOutputsOpen: minPOutputsOpen,
+    maxPOutputsOpen: maxPOutputsOpen,
+    page: page,
+    limit: limit,
+    orderBy: orderBy,
+    orderDir: orderDir,
+  };
+};
+
+export const filterEntitiesHandler = async (
+  entityType: string,
+  req: FilterRequest,
+  env: Bindings,
+  ctx?: ExecutionContext,
+) => {
+  const q = req["query"];
+  const query = parseQuery(q);
+
+  // Fetch data
+  const results = await filterEntities(entityType, env.DB, query);
+
+  // Convert to JSON, returning results
+  const json = JSON.stringify(results);
+  return new Response(json, {
+    headers: HEADERS,
+  });
+};
+
+export const searchHandler = async (req: SearchRequest, env: Bindings, ctx: ExecutionContext) => {
+  // Parse parameters and query
+  const text = decodeURIComponent(req.params.text);
+  let page = parseInt(req.query.page);
+  let limit = parseInt(req.query.limit) || MAX_LIMIT;
+  limit = Math.max(Math.min(limit, MAX_LIMIT), MIN_LIMIT);
+
+  // Convert returned ids to objects
+  const results = await searchEntities(env.DB, text, page, limit);
+
+  // Convert to JSON, returning results
+  const json = JSON.stringify(results);
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Content-type": "application/json",
+  };
+  return new Response(json, {
+    headers: headers,
+  });
+};
+
+export const downloadDataHandler = async (req: EntityRequest, env: Bindings) => {
   const entityType = req.params.entityType;
   const entityId = req.params.id;
 

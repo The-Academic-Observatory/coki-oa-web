@@ -20,49 +20,58 @@ import fs from "fs";
 import path from "path";
 import { Dict, Entity, Query, QueryResult } from "@/types";
 
-const SCHEMA = `
-DROP TABLE IF EXISTS entity;
+const VALID_ENTITY_TYPES = new Set(["country", "institution"]);
+const VALID_ORDER_BY = new Set([
+  "name",
+  "n_outputs",
+  "n_outputs_open",
+  "p_outputs_open",
+  "n_outputs_black",
+  "p_outputs_black",
+]);
+const PROPERTIES_TO_DELETE = [
+  "entity_id",
+  "n_outputs",
+  "n_outputs_open",
+  "p_outputs_open",
+  "p_outputs_publisher_open_only",
+  "p_outputs_both",
+  "p_outputs_other_platform_open_only",
+  "p_outputs_closed",
+  "total_rows",
+  "n_outputs_black",
+  "p_outputs_black",
+  "acronyms",
+];
+
+// entity
+// entity_type TEXT NOT NULL, -- country, institution
+// country_code INTEGER, -- null for country
+// country_name TEXT, -- null for country
+// institution_type TEXT, -- null for country
+// -- Filter by entity_type
+// idx_entity_entity_type
+// -- Indexes for sorting
+// idx_entity_name
+// idx_entity_n_outputs
+// idx_entity_n_outputs_open
+// idx_entity_p_outputs_open
+// --- Indexes for filtering
+// idx_entity_filter
+// -- Virtual table for text search
+// entity_fts5
+
+// The Miniflare V2 db.exec doesn't parse SQL very well, hence the lack of newlines and comments
+const SCHEMA = `DROP TABLE IF EXISTS entity;
 DROP TABLE IF EXISTS entity_fts5;
-
-CREATE TABLE entity (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    entity_id TEXT NOT NULL,
-    entity_type TEXT NOT NULL, -- country, institution
-    name TEXT NOT NULL,
-    acronyms TEXT,
-    logo_sm TEXT NOT NULL,
-    subregion TEXT NOT NULL,
-    region TEXT NOT NULL, 
-    country_code INTEGER, -- null for country
-    country_name TEXT, -- null for country       
-    institution_type TEXT, -- null for country
-    n_outputs INT NOT NULL,
-    n_outputs_open INT NOT NULL,
-    n_outputs_black INT NOT NULL,
-    p_outputs_open FLOAT NOT NULL,
-    p_outputs_publisher_open_only FLOAT NOT NULL,
-    p_outputs_both FLOAT NOT NULL,
-    p_outputs_other_platform_open_only FLOAT NOT NULL,
-    p_outputs_closed FLOAT NOT NULL,
-    p_outputs_black FLOAT NOT NULL
-);
-
--- Filter by entity_type
+CREATE TABLE entity (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_id TEXT NOT NULL, entity_type TEXT NOT NULL, name TEXT NOT NULL, acronyms TEXT, logo_sm TEXT NOT NULL, subregion TEXT NOT NULL, region TEXT NOT NULL, country_code INTEGER, country_name TEXT, institution_type TEXT, n_outputs INT NOT NULL, n_outputs_open INT NOT NULL, n_outputs_black INT NOT NULL, p_outputs_open FLOAT NOT NULL, p_outputs_publisher_open_only FLOAT NOT NULL, p_outputs_both FLOAT NOT NULL, p_outputs_other_platform_open_only FLOAT NOT NULL, p_outputs_closed FLOAT NOT NULL, p_outputs_black FLOAT NOT NULL);
 CREATE INDEX idx_entity_entity_type ON entity(entity_type);
-
--- Indexes for sorting
 CREATE INDEX idx_entity_name ON entity(name);
 CREATE INDEX idx_entity_n_outputs ON entity(n_outputs);
 CREATE INDEX idx_entity_n_outputs_open ON entity(n_outputs_open);
 CREATE INDEX idx_entity_p_outputs_open ON entity(p_outputs_open);
-
---- Indexes for filtering
 CREATE INDEX idx_entity_filter ON entity(entity_type, n_outputs, n_outputs_open, p_outputs_open, subregion, institution_type);
-
--- Virtual table for text search
-CREATE VIRTUAL TABLE entity_fts5 USING fts5(name, acronyms, subregion, region, country_name, content='entity', content_rowid='id', tokenize='porter unicode61 remove_diacritics 1');
-
-`;
+CREATE VIRTUAL TABLE entity_fts5 USING fts5(name, acronyms, subregion, region, country_name, content='entity', content_rowid='id', tokenize='porter unicode61 remove_diacritics 1');`;
 
 /*
 -- Country indexes for filtering
@@ -81,8 +90,19 @@ CREATE INDEX idx_institution_n_outputs_open ON institution(n_outputs_open);
 CREATE INDEX idx_institution_p_outputs_open ON institution(p_outputs_open);
  */
 
+export function loadEntities(dataPath: string): Array<Entity> {
+  return [
+    ...loadEntityIndex(path.join(dataPath, "country.json")),
+    ...loadEntityIndex(path.join(dataPath, "institution.json")),
+  ];
+}
+
 function loadEntityIndex(filePath: string): Array<Entity> {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
+}
+
+export function saveSQLToFile(sql: string, outputPath: string) {
+  fs.writeFileSync(outputPath, sql);
 }
 
 function joinWithCommas(arr: (string | number | null | undefined)[]): string {
@@ -100,13 +120,7 @@ function joinWithCommas(arr: (string | number | null | undefined)[]): string {
     .join(",");
 }
 
-export function saveSQLToFile(dataPath: string, outputPath: string) {
-  // Generate the SQL for the database
-  let entities = [
-    ...loadEntityIndex(path.join(dataPath, "country.json")),
-    ...loadEntityIndex(path.join(dataPath, "institution.json")),
-  ];
-
+export function entitiesToSQL(entities: Array<Entity>) {
   // Add schema
   const rows = [SCHEMA];
 
@@ -150,21 +164,8 @@ export function saveSQLToFile(dataPath: string, outputPath: string) {
   );
 
   // Save to file
-  const sql = rows.join("\n");
-  fs.writeFileSync(outputPath, sql);
+  return rows.join("\n");
 }
-
-const PROPERTIES_TO_DELETE = [
-  "entity_id",
-  "n_outputs",
-  "n_outputs_open",
-  "p_outputs_open",
-  "p_outputs_publisher_open_only",
-  "p_outputs_both",
-  "p_outputs_other_platform_open_only",
-  "p_outputs_closed",
-  "total_rows",
-];
 
 export function rowsToEntities(rows: Array<Dict>): Array<Entity> {
   const entities: Array<Entity> = [];
@@ -188,7 +189,7 @@ export function rowsToEntities(rows: Array<Dict>): Array<Entity> {
     };
 
     // Delete unused properties
-    const properties = PROPERTIES_TO_DELETE;
+    const properties = [...PROPERTIES_TO_DELETE]; // Copy array otherwise we end up modifying it
     if (row.entity_type === "country") {
       properties.push(...["country_code", "country_name", "institution_type"]);
     }
@@ -198,7 +199,6 @@ export function rowsToEntities(rows: Array<Dict>): Array<Entity> {
         delete row[property];
       }
     }
-
     entities.push(row as Entity);
   }
 
@@ -211,28 +211,43 @@ function makeTemplateParams(n: number) {
     .join(",");
 }
 
-export async function searchEntities(db: D1Database, text: string, limit: number) {
-  console.log("searchEntities");
-  const { results } = await db
-    .prepare(
-      "SELECT entity.*, entity_fts5.rank FROM entity JOIN entity_fts5 ON entity.id = entity_fts5.rowid WHERE entity_fts5 MATCH ? ORDER BY entity_fts5.rank LIMIT ?;",
-      // "SELECT* FROM entity_fts5 WHERE entity_fts5 MATCH ?",
-    )
-    .bind(text, limit)
-    .all();
-  // console.log(results);
-  return rowsToEntities(results as Array<Dict>);
-}
+const SEARCH_QUERY = `SELECT entity.*, subset.total_rows
+FROM entity
+INNER JOIN (SELECT entity.id, COUNT(*) OVER() AS total_rows
+FROM entity 
+JOIN entity_fts5 ON entity.id = entity_fts5.rowid 
+WHERE entity_fts5 MATCH ? 
+ORDER BY entity_fts5.rank 
+LIMIT ? OFFSET ?
+) AS subset ON subset.id = entity.id`;
 
-const VALID_ENTITY_TYPES = new Set(["country", "institution"]);
-const VALID_ORDER_BY = new Set([
-  "name",
-  "n_outputs",
-  "n_outputs_open",
-  "p_outputs_open",
-  "n_outputs_black",
-  "p_outputs_black",
-]);
+export async function searchEntities(db: D1Database, text: string, page: number, limit: number): Promise<QueryResult> {
+  let nItems = 0;
+  let entities: Array<Entity> = [];
+
+  // If empty string then return empty results
+  if (text.trim() !== "") {
+    const { results } = await db
+      .prepare(SEARCH_QUERY)
+      .bind(text, limit, page)
+      .all();
+
+    // Parse results
+    if (results?.length) {
+      // @ts-ignore
+      nItems = results[0]["total_rows"];
+      entities = rowsToEntities(results as Array<Dict>);
+    }
+  }
+
+  // Make final search object
+  return {
+    items: entities,
+    nItems: nItems,
+    page: page,
+    limit: limit,
+  };
+}
 
 export async function filterEntities(entityType: string, db: D1Database, query: Query): Promise<QueryResult> {
   // Validate parameters that are string substituted without using .bind
@@ -329,7 +344,7 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
 
   // Build query
   const queryString = sql.join("\n");
-  console.log(queryString);
+  // console.log(queryString);
 
   // Run query plan
   // const stmt_query_plan = db.prepare("EXPLAIN QUERY PLAN " + queryString).bind(...params);

@@ -1,0 +1,4798 @@
+[
+  {
+    "id": "00d7gza76",
+    "name": "Universitas Darul Ulum Islamic Centre Sudirman",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNDARIS"
+    ],
+    "stats": {
+      "n_outputs": 64,
+      "n_outputs_open": 64,
+      "n_outputs_black": 5,
+      "p_outputs_open": 100,
+      "p_outputs_publisher_open_only": 84.375,
+      "p_outputs_both": 15.625,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 0,
+      "p_outputs_black": 7.8125
+    }
+  },
+  {
+    "id": "014r5ah89",
+    "name": "ZOE (United Kingdom)",
+    "logo_sm": "logos/institution/sm/014r5ah89.jpg",
+    "entity_type": "institution",
+    "country_code": "GBR",
+    "country_name": "United Kingdom",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "institution_type": "Company",
+    "stats": {
+      "n_outputs": 83,
+      "n_outputs_open": 83,
+      "n_outputs_black": 25,
+      "p_outputs_open": 100,
+      "p_outputs_publisher_open_only": 9.63855421686747,
+      "p_outputs_both": 62.65060240963856,
+      "p_outputs_other_platform_open_only": 27.710843373493976,
+      "p_outputs_closed": 0,
+      "p_outputs_black": 30.120481927710845
+    }
+  },
+  {
+    "id": "0204daw86",
+    "name": "National Office for Sanitation of Senegal",
+    "logo_sm": "logos/institution/sm/0204daw86.jpg",
+    "entity_type": "institution",
+    "country_code": "SEN",
+    "country_name": "Senegal",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "institution_type": "Government",
+    "acronyms": [
+      "ONAS"
+    ],
+    "stats": {
+      "n_outputs": 57,
+      "n_outputs_open": 57,
+      "n_outputs_black": 18,
+      "p_outputs_open": 100,
+      "p_outputs_publisher_open_only": 7.017543859649122,
+      "p_outputs_both": 73.68421052631578,
+      "p_outputs_other_platform_open_only": 19.298245614035086,
+      "p_outputs_closed": 0,
+      "p_outputs_black": 31.57894736842105
+    }
+  },
+  {
+    "id": "02atwwv43",
+    "name": "Slovenian Institute for Adult Education",
+    "logo_sm": "logos/institution/sm/02atwwv43.jpg",
+    "entity_type": "institution",
+    "country_code": "SVN",
+    "country_name": "Slovenia",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Facility",
+    "acronyms": [
+      "SIAE"
+    ],
+    "stats": {
+      "n_outputs": 64,
+      "n_outputs_open": 64,
+      "n_outputs_black": 0,
+      "p_outputs_open": 100,
+      "p_outputs_publisher_open_only": 96.875,
+      "p_outputs_both": 3.125,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 0,
+      "p_outputs_black": 0
+    }
+  },
+  {
+    "id": "02ctmwv42",
+    "name": "Universitas Islam Ogan Komering Ilir",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 89,
+      "n_outputs_open": 89,
+      "n_outputs_black": 1,
+      "p_outputs_open": 100,
+      "p_outputs_publisher_open_only": 93.25842696629213,
+      "p_outputs_both": 6.741573033707865,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 0,
+      "p_outputs_black": 1.1235955056179776
+    }
+  },
+  {
+    "id": "03z6nc566",
+    "name": "Atheno (Norway)",
+    "logo_sm": "logos/institution/sm/03z6nc566.jpg",
+    "entity_type": "institution",
+    "country_code": "NOR",
+    "country_name": "Norway",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "institution_type": "Company",
+    "stats": {
+      "n_outputs": 66,
+      "n_outputs_open": 66,
+      "n_outputs_black": 0,
+      "p_outputs_open": 100,
+      "p_outputs_publisher_open_only": 92.42424242424242,
+      "p_outputs_both": 7.575757575757576,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 0,
+      "p_outputs_black": 0
+    }
+  },
+  {
+    "id": "05j1wft12",
+    "name": "Taube Koret Center",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "USA",
+    "country_name": "United States",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "institution_type": "Facility",
+    "stats": {
+      "n_outputs": 50,
+      "n_outputs_open": 50,
+      "n_outputs_black": 38,
+      "p_outputs_open": 100,
+      "p_outputs_publisher_open_only": 2,
+      "p_outputs_both": 64,
+      "p_outputs_other_platform_open_only": 34,
+      "p_outputs_closed": 0,
+      "p_outputs_black": 76
+    }
+  },
+  {
+    "id": "05jx58n20",
+    "name": "Indonesian Bakti University of Banyuwangi",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UBI"
+    ],
+    "stats": {
+      "n_outputs": 51,
+      "n_outputs_open": 51,
+      "n_outputs_black": 1,
+      "p_outputs_open": 100,
+      "p_outputs_publisher_open_only": 88.23529411764706,
+      "p_outputs_both": 11.76470588235294,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 0,
+      "p_outputs_black": 1.9607843137254901
+    }
+  },
+  {
+    "id": "01k57xn28",
+    "name": "Institut za kardiovaskularne bolesti Dedinje",
+    "logo_sm": "logos/institution/sm/01k57xn28.jpg",
+    "entity_type": "institution",
+    "country_code": "SRB",
+    "country_name": "Serbia",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Healthcare",
+    "acronyms": [
+      "IKVBD"
+    ],
+    "stats": {
+      "n_outputs": 407,
+      "n_outputs_open": 405,
+      "n_outputs_black": 50,
+      "p_outputs_open": 99.5085995085995,
+      "p_outputs_publisher_open_only": 59.95085995085995,
+      "p_outputs_both": 17.444717444717444,
+      "p_outputs_other_platform_open_only": 22.11302211302211,
+      "p_outputs_closed": 0.4914004914004914,
+      "p_outputs_black": 12.285012285012286
+    }
+  },
+  {
+    "id": "04f49a463",
+    "name": "American Society of Plant Biologists",
+    "logo_sm": "logos/institution/sm/04f49a463.jpg",
+    "entity_type": "institution",
+    "country_code": "USA",
+    "country_name": "United States",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "institution_type": "Other",
+    "acronyms": [
+      "ASPB"
+    ],
+    "stats": {
+      "n_outputs": 191,
+      "n_outputs_open": 190,
+      "n_outputs_black": 29,
+      "p_outputs_open": 99.47643979057592,
+      "p_outputs_publisher_open_only": 21.98952879581152,
+      "p_outputs_both": 75.91623036649214,
+      "p_outputs_other_platform_open_only": 1.5706806282722512,
+      "p_outputs_closed": 0.5235602094240838,
+      "p_outputs_black": 15.18324607329843
+    }
+  },
+  {
+    "id": "03gssyp02",
+    "name": "Universitas Kejuangan 45 Jakarta",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 152,
+      "n_outputs_open": 151,
+      "n_outputs_black": 7,
+      "p_outputs_open": 99.3421052631579,
+      "p_outputs_publisher_open_only": 96.71052631578947,
+      "p_outputs_both": 2.631578947368421,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 0.6578947368421052,
+      "p_outputs_black": 4.605263157894736
+    }
+  },
+  {
+    "id": "01r43ed56",
+    "name": "Canadian Urological Association",
+    "logo_sm": "logos/institution/sm/01r43ed56.jpg",
+    "entity_type": "institution",
+    "country_code": "CAN",
+    "country_name": "Canada",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "institution_type": "Other",
+    "acronyms": [
+      "CUA"
+    ],
+    "stats": {
+      "n_outputs": 136,
+      "n_outputs_open": 135,
+      "n_outputs_black": 120,
+      "p_outputs_open": 99.26470588235294,
+      "p_outputs_publisher_open_only": 51.470588235294116,
+      "p_outputs_both": 35.294117647058826,
+      "p_outputs_other_platform_open_only": 12.5,
+      "p_outputs_closed": 0.7352941176470588,
+      "p_outputs_black": 88.23529411764706
+    }
+  },
+  {
+    "id": "01pp5tt34",
+    "name": "Science Council of Japan",
+    "logo_sm": "logos/institution/sm/01pp5tt34.jpg",
+    "entity_type": "institution",
+    "country_code": "JPN",
+    "country_name": "Japan",
+    "subregion": "Eastern Asia",
+    "region": "Asia",
+    "institution_type": "Other",
+    "acronyms": [
+      "SCJ"
+    ],
+    "stats": {
+      "n_outputs": 940,
+      "n_outputs_open": 932,
+      "n_outputs_black": 41,
+      "p_outputs_open": 99.14893617021276,
+      "p_outputs_publisher_open_only": 98.72340425531915,
+      "p_outputs_both": 0.3191489361702127,
+      "p_outputs_other_platform_open_only": 0.10638297872340426,
+      "p_outputs_closed": 0.851063829787234,
+      "p_outputs_black": 4.361702127659575
+    }
+  },
+  {
+    "id": "02mahq469",
+    "name": "Sri Lanka College of Paediatricians",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "LKA",
+    "country_name": "Sri Lanka",
+    "subregion": "Southern Asia",
+    "region": "Asia",
+    "institution_type": "Other",
+    "acronyms": [
+      "SLCP"
+    ],
+    "stats": {
+      "n_outputs": 231,
+      "n_outputs_open": 229,
+      "n_outputs_black": 0,
+      "p_outputs_open": 99.13419913419914,
+      "p_outputs_publisher_open_only": 45.887445887445885,
+      "p_outputs_both": 53.246753246753244,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 0.8658008658008658,
+      "p_outputs_black": 0
+    }
+  },
+  {
+    "id": "00e7apb48",
+    "name": "ASTRO-3D",
+    "logo_sm": "logos/institution/sm/00e7apb48.jpg",
+    "entity_type": "institution",
+    "country_code": "AUS",
+    "country_name": "Australia",
+    "subregion": "Australia and New Zealand",
+    "region": "Oceania",
+    "institution_type": "Facility",
+    "stats": {
+      "n_outputs": 668,
+      "n_outputs_open": 662,
+      "n_outputs_black": 255,
+      "p_outputs_open": 99.10179640718563,
+      "p_outputs_publisher_open_only": 1.0479041916167664,
+      "p_outputs_both": 55.08982035928144,
+      "p_outputs_other_platform_open_only": 42.964071856287426,
+      "p_outputs_closed": 0.8982035928143712,
+      "p_outputs_black": 38.17365269461078
+    }
+  },
+  {
+    "id": "02tr89m76",
+    "name": "Flowminder Foundation",
+    "logo_sm": "logos/institution/sm/02tr89m76.jpg",
+    "entity_type": "institution",
+    "country_code": "SWE",
+    "country_name": "Sweden",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "institution_type": "Nonprofit",
+    "stats": {
+      "n_outputs": 105,
+      "n_outputs_open": 104,
+      "n_outputs_black": 94,
+      "p_outputs_open": 99.04761904761905,
+      "p_outputs_publisher_open_only": 4.761904761904762,
+      "p_outputs_both": 87.61904761904762,
+      "p_outputs_other_platform_open_only": 6.666666666666667,
+      "p_outputs_closed": 0.9523809523809524,
+      "p_outputs_black": 89.52380952380953
+    }
+  },
+  {
+    "id": "050gfgn67",
+    "name": "Institute of Lithuanian Literature and Folklore",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "LTU",
+    "country_name": "Lithuania",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "institution_type": "Facility",
+    "stats": {
+      "n_outputs": 297,
+      "n_outputs_open": 294,
+      "n_outputs_black": 2,
+      "p_outputs_open": 98.98989898989899,
+      "p_outputs_publisher_open_only": 96.63299663299664,
+      "p_outputs_both": 2.0202020202020203,
+      "p_outputs_other_platform_open_only": 0.33670033670033667,
+      "p_outputs_closed": 1.0101010101010102,
+      "p_outputs_black": 0.6734006734006733
+    }
+  },
+  {
+    "id": "01pva1129",
+    "name": "Ministarstvo Gospodarstva",
+    "logo_sm": "logos/institution/sm/01pva1129.jpg",
+    "entity_type": "institution",
+    "country_code": "BIH",
+    "country_name": "Bosnia and Herzegovina",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Government",
+    "stats": {
+      "n_outputs": 96,
+      "n_outputs_open": 95,
+      "n_outputs_black": 18,
+      "p_outputs_open": 98.95833333333334,
+      "p_outputs_publisher_open_only": 58.333333333333336,
+      "p_outputs_both": 40.625,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 1.0416666666666665,
+      "p_outputs_black": 18.75
+    }
+  },
+  {
+    "id": "02nc54350",
+    "name": "Universitas Sawerigading Makassar",
+    "logo_sm": "logos/institution/sm/02nc54350.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNSA"
+    ],
+    "stats": {
+      "n_outputs": 96,
+      "n_outputs_open": 95,
+      "n_outputs_black": 0,
+      "p_outputs_open": 98.95833333333334,
+      "p_outputs_publisher_open_only": 85.41666666666666,
+      "p_outputs_both": 13.541666666666666,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 1.0416666666666665,
+      "p_outputs_black": 0
+    }
+  },
+  {
+    "id": "0409c3r50",
+    "name": "Institute for Fundamental Physics of the Universe",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "ITA",
+    "country_name": "Italy",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Facility",
+    "acronyms": [
+      "IFPU"
+    ],
+    "stats": {
+      "n_outputs": 472,
+      "n_outputs_open": 467,
+      "n_outputs_black": 126,
+      "p_outputs_open": 98.9406779661017,
+      "p_outputs_publisher_open_only": 1.2711864406779663,
+      "p_outputs_both": 53.60169491525424,
+      "p_outputs_other_platform_open_only": 44.06779661016949,
+      "p_outputs_closed": 1.059322033898305,
+      "p_outputs_black": 26.69491525423729
+    }
+  },
+  {
+    "id": "0117rgr12",
+    "name": "Perth Exoplanet Survey Telescope Observatory",
+    "logo_sm": "logos/institution/sm/0117rgr12.jpg",
+    "entity_type": "institution",
+    "country_code": "AUS",
+    "country_name": "Australia",
+    "subregion": "Australia and New Zealand",
+    "region": "Oceania",
+    "institution_type": "Facility",
+    "acronyms": [
+      "PEST"
+    ],
+    "stats": {
+      "n_outputs": 82,
+      "n_outputs_open": 81,
+      "n_outputs_black": 49,
+      "p_outputs_open": 98.78048780487805,
+      "p_outputs_publisher_open_only": 1.2195121951219512,
+      "p_outputs_both": 76.82926829268293,
+      "p_outputs_other_platform_open_only": 20.73170731707317,
+      "p_outputs_closed": 1.2195121951219512,
+      "p_outputs_black": 59.756097560975604
+    }
+  },
+  {
+    "id": "03ykx6g33",
+    "name": "Centro Universitario FIAM FAAM",
+    "logo_sm": "logos/institution/sm/03ykx6g33.jpg",
+    "entity_type": "institution",
+    "country_code": "BRA",
+    "country_name": "Brazil",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 80,
+      "n_outputs_open": 79,
+      "n_outputs_black": 12,
+      "p_outputs_open": 98.75,
+      "p_outputs_publisher_open_only": 62.5,
+      "p_outputs_both": 35,
+      "p_outputs_other_platform_open_only": 1.25,
+      "p_outputs_closed": 1.25,
+      "p_outputs_black": 15
+    }
+  },
+  {
+    "id": "04hjv8v27",
+    "name": "Universitas Nusantara Manado",
+    "logo_sm": "logos/institution/sm/04hjv8v27.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 154,
+      "n_outputs_open": 152,
+      "n_outputs_black": 8,
+      "p_outputs_open": 98.7012987012987,
+      "p_outputs_publisher_open_only": 96.1038961038961,
+      "p_outputs_both": 2.5974025974025974,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 1.2987012987012987,
+      "p_outputs_black": 5.194805194805195
+    }
+  },
+  {
+    "id": "051xzna40",
+    "name": "Universitas Muhammadiyah Palu",
+    "logo_sm": "logos/institution/sm/051xzna40.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 376,
+      "n_outputs_open": 371,
+      "n_outputs_black": 12,
+      "p_outputs_open": 98.67021276595744,
+      "p_outputs_publisher_open_only": 94.68085106382979,
+      "p_outputs_both": 3.723404255319149,
+      "p_outputs_other_platform_open_only": 0.26595744680851063,
+      "p_outputs_closed": 1.3297872340425532,
+      "p_outputs_black": 3.1914893617021276
+    }
+  },
+  {
+    "id": "05m25pj04",
+    "name": "Institut za zdravstvenu zaštitu dece i omladine Vojvodine",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "SRB",
+    "country_name": "Serbia",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Other",
+    "stats": {
+      "n_outputs": 224,
+      "n_outputs_open": 221,
+      "n_outputs_black": 60,
+      "p_outputs_open": 98.66071428571429,
+      "p_outputs_publisher_open_only": 53.57142857142857,
+      "p_outputs_both": 19.196428571428573,
+      "p_outputs_other_platform_open_only": 25.892857142857146,
+      "p_outputs_closed": 1.3392857142857142,
+      "p_outputs_black": 26.785714285714285
+    }
+  },
+  {
+    "id": "02whw1h12",
+    "name": "Universitas Kristen Indonesia Tomohon",
+    "logo_sm": "logos/institution/sm/02whw1h12.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UKIT"
+    ],
+    "stats": {
+      "n_outputs": 147,
+      "n_outputs_open": 145,
+      "n_outputs_black": 3,
+      "p_outputs_open": 98.63945578231292,
+      "p_outputs_publisher_open_only": 96.5986394557823,
+      "p_outputs_both": 2.0408163265306123,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 1.3605442176870748,
+      "p_outputs_black": 2.0408163265306123
+    }
+  },
+  {
+    "id": "04v9m3h35",
+    "name": "ARC Centre of Excellence for All-sky Astrophysics",
+    "logo_sm": "logos/institution/sm/04v9m3h35.jpg",
+    "entity_type": "institution",
+    "country_code": "AUS",
+    "country_name": "Australia",
+    "subregion": "Australia and New Zealand",
+    "region": "Oceania",
+    "institution_type": "Facility",
+    "acronyms": [
+      "CAASTRO"
+    ],
+    "stats": {
+      "n_outputs": 1298,
+      "n_outputs_open": 1280,
+      "n_outputs_black": 811,
+      "p_outputs_open": 98.61325115562404,
+      "p_outputs_publisher_open_only": 1.7719568567026194,
+      "p_outputs_both": 55.932203389830505,
+      "p_outputs_other_platform_open_only": 40.909090909090914,
+      "p_outputs_closed": 1.386748844375963,
+      "p_outputs_black": 62.480739599383675
+    }
+  },
+  {
+    "id": "0051xhq65",
+    "name": "Chinese Academy of Science South America Center for Astronomy",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "CHL",
+    "country_name": "Chile",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Facility",
+    "acronyms": [
+      "CCJCA",
+      "CASSACA"
+    ],
+    "stats": {
+      "n_outputs": 140,
+      "n_outputs_open": 138,
+      "n_outputs_black": 114,
+      "p_outputs_open": 98.57142857142858,
+      "p_outputs_publisher_open_only": 9.285714285714286,
+      "p_outputs_both": 64.28571428571429,
+      "p_outputs_other_platform_open_only": 25,
+      "p_outputs_closed": 1.4285714285714286,
+      "p_outputs_black": 81.42857142857143
+    }
+  },
+  {
+    "id": "016n6yn28",
+    "name": "Universitas Yudharta Pasuruan",
+    "logo_sm": "logos/institution/sm/016n6yn28.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UYP"
+    ],
+    "stats": {
+      "n_outputs": 389,
+      "n_outputs_open": 383,
+      "n_outputs_black": 7,
+      "p_outputs_open": 98.45758354755783,
+      "p_outputs_publisher_open_only": 96.1439588688946,
+      "p_outputs_both": 2.056555269922879,
+      "p_outputs_other_platform_open_only": 0.2570694087403599,
+      "p_outputs_closed": 1.5424164524421593,
+      "p_outputs_black": 1.7994858611825193
+    }
+  },
+  {
+    "id": "01wjew854",
+    "name": "Joint Space Science Institute",
+    "logo_sm": "logos/institution/sm/01wjew854.jpg",
+    "entity_type": "institution",
+    "country_code": "USA",
+    "country_name": "United States",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "institution_type": "Facility",
+    "acronyms": [
+      "JSI"
+    ],
+    "stats": {
+      "n_outputs": 574,
+      "n_outputs_open": 565,
+      "n_outputs_black": 457,
+      "p_outputs_open": 98.43205574912892,
+      "p_outputs_publisher_open_only": 3.3101045296167246,
+      "p_outputs_both": 68.1184668989547,
+      "p_outputs_other_platform_open_only": 27.00348432055749,
+      "p_outputs_closed": 1.5679442508710801,
+      "p_outputs_black": 79.61672473867596
+    }
+  },
+  {
+    "id": "044nhav08",
+    "name": "Institut Sains dan Teknologi Al-Kamal",
+    "logo_sm": "logos/institution/sm/044nhav08.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "ISTA"
+    ],
+    "stats": {
+      "n_outputs": 621,
+      "n_outputs_open": 611,
+      "n_outputs_black": 25,
+      "p_outputs_open": 98.38969404186795,
+      "p_outputs_publisher_open_only": 42.99516908212561,
+      "p_outputs_both": 52.49597423510467,
+      "p_outputs_other_platform_open_only": 2.898550724637681,
+      "p_outputs_closed": 1.610305958132045,
+      "p_outputs_black": 4.025764895330113
+    }
+  },
+  {
+    "id": "05jx29z89",
+    "name": "London Centre for Neglected Tropical Disease Research",
+    "logo_sm": "logos/institution/sm/05jx29z89.jpg",
+    "entity_type": "institution",
+    "country_code": "GBR",
+    "country_name": "United Kingdom",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "institution_type": "Facility",
+    "acronyms": [
+      "LCNTDR"
+    ],
+    "stats": {
+      "n_outputs": 427,
+      "n_outputs_open": 420,
+      "n_outputs_black": 263,
+      "p_outputs_open": 98.36065573770492,
+      "p_outputs_publisher_open_only": 0.702576112412178,
+      "p_outputs_both": 80.56206088992974,
+      "p_outputs_other_platform_open_only": 17.096018735362996,
+      "p_outputs_closed": 1.639344262295082,
+      "p_outputs_black": 61.59250585480094
+    }
+  },
+  {
+    "id": "00zq3ce72",
+    "name": "QuSoft",
+    "logo_sm": "logos/institution/sm/00zq3ce72.jpg",
+    "entity_type": "institution",
+    "country_code": "NLD",
+    "country_name": "Netherlands",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "institution_type": "Facility",
+    "stats": {
+      "n_outputs": 117,
+      "n_outputs_open": 115,
+      "n_outputs_black": 57,
+      "p_outputs_open": 98.29059829059828,
+      "p_outputs_publisher_open_only": 0,
+      "p_outputs_both": 41.88034188034188,
+      "p_outputs_other_platform_open_only": 56.41025641025641,
+      "p_outputs_closed": 1.7094017094017095,
+      "p_outputs_black": 48.717948717948715
+    }
+  },
+  {
+    "id": "01zte6c10",
+    "name": "Universitas Cordova",
+    "logo_sm": "logos/institution/sm/01zte6c10.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNDOVA"
+    ],
+    "stats": {
+      "n_outputs": 58,
+      "n_outputs_open": 57,
+      "n_outputs_black": 0,
+      "p_outputs_open": 98.27586206896551,
+      "p_outputs_publisher_open_only": 98.27586206896551,
+      "p_outputs_both": 0,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 1.7241379310344827,
+      "p_outputs_black": 0
+    }
+  },
+  {
+    "id": "046np1j53",
+    "name": "Institut za Reumatologiju",
+    "logo_sm": "logos/institution/sm/046np1j53.jpg",
+    "entity_type": "institution",
+    "country_code": "SRB",
+    "country_name": "Serbia",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 713,
+      "n_outputs_open": 700,
+      "n_outputs_black": 107,
+      "p_outputs_open": 98.17671809256662,
+      "p_outputs_publisher_open_only": 44.88078541374474,
+      "p_outputs_both": 36.605890603085555,
+      "p_outputs_other_platform_open_only": 16.690042075736326,
+      "p_outputs_closed": 1.8232819074333801,
+      "p_outputs_black": 15.007012622720897
+    }
+  },
+  {
+    "id": "00wmm1d15",
+    "name": "Institute of Art History",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "HRV",
+    "country_name": "Croatia",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Nonprofit",
+    "acronyms": [
+      "IPU"
+    ],
+    "stats": {
+      "n_outputs": 161,
+      "n_outputs_open": 158,
+      "n_outputs_black": 27,
+      "p_outputs_open": 98.13664596273291,
+      "p_outputs_publisher_open_only": 52.17391304347826,
+      "p_outputs_both": 45.3416149068323,
+      "p_outputs_other_platform_open_only": 0.6211180124223602,
+      "p_outputs_closed": 1.8633540372670807,
+      "p_outputs_black": 16.77018633540373
+    }
+  },
+  {
+    "id": "02dx8kd29",
+    "name": "Institut za Zdravstvenu Zastitu Majke i Deteta",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "SRB",
+    "country_name": "Serbia",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Facility",
+    "stats": {
+      "n_outputs": 161,
+      "n_outputs_open": 158,
+      "n_outputs_black": 25,
+      "p_outputs_open": 98.13664596273291,
+      "p_outputs_publisher_open_only": 45.962732919254655,
+      "p_outputs_both": 39.130434782608695,
+      "p_outputs_other_platform_open_only": 13.043478260869565,
+      "p_outputs_closed": 1.8633540372670807,
+      "p_outputs_black": 15.527950310559005
+    }
+  },
+  {
+    "id": "040egw157",
+    "name": "Institut Teknologi dan Sains Nahdlatul Ulama",
+    "logo_sm": "logos/institution/sm/040egw157.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "ITSNU"
+    ],
+    "stats": {
+      "n_outputs": 107,
+      "n_outputs_open": 105,
+      "n_outputs_black": 0,
+      "p_outputs_open": 98.13084112149532,
+      "p_outputs_publisher_open_only": 92.5233644859813,
+      "p_outputs_both": 3.7383177570093453,
+      "p_outputs_other_platform_open_only": 1.8691588785046727,
+      "p_outputs_closed": 1.8691588785046727,
+      "p_outputs_black": 0
+    }
+  },
+  {
+    "id": "02f49t952",
+    "name": "Universitas Almuslim",
+    "logo_sm": "logos/institution/sm/02f49t952.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 365,
+      "n_outputs_open": 358,
+      "n_outputs_black": 19,
+      "p_outputs_open": 98.08219178082192,
+      "p_outputs_publisher_open_only": 95.34246575342465,
+      "p_outputs_both": 2.4657534246575343,
+      "p_outputs_other_platform_open_only": 0.273972602739726,
+      "p_outputs_closed": 1.9178082191780823,
+      "p_outputs_black": 5.205479452054795
+    }
+  },
+  {
+    "id": "04p9k4b15",
+    "name": "Universitas Merdeka Ponorogo",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 677,
+      "n_outputs_open": 664,
+      "n_outputs_black": 6,
+      "p_outputs_open": 98.07976366322009,
+      "p_outputs_publisher_open_only": 95.12555391432792,
+      "p_outputs_both": 2.954209748892171,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 1.9202363367799113,
+      "p_outputs_black": 0.8862629246676514
+    }
+  },
+  {
+    "id": "01e0vxt85",
+    "name": "Fundación Universitaria Monserrate",
+    "logo_sm": "logos/institution/sm/01e0vxt85.jpg",
+    "entity_type": "institution",
+    "country_code": "COL",
+    "country_name": "Colombia",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIMONSERRATE"
+    ],
+    "stats": {
+      "n_outputs": 52,
+      "n_outputs_open": 51,
+      "n_outputs_black": 3,
+      "p_outputs_open": 98.07692307692307,
+      "p_outputs_publisher_open_only": 46.15384615384615,
+      "p_outputs_both": 48.07692307692308,
+      "p_outputs_other_platform_open_only": 3.8461538461538463,
+      "p_outputs_closed": 1.9230769230769231,
+      "p_outputs_black": 5.769230769230769
+    }
+  },
+  {
+    "id": "03sdg3x20",
+    "name": "Universidad Femenina del Sagrado Corazón",
+    "logo_sm": "logos/institution/sm/03sdg3x20.jpg",
+    "entity_type": "institution",
+    "country_code": "PER",
+    "country_name": "Peru",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIFÉ"
+    ],
+    "stats": {
+      "n_outputs": 727,
+      "n_outputs_open": 713,
+      "n_outputs_black": 45,
+      "p_outputs_open": 98.07427785419533,
+      "p_outputs_publisher_open_only": 41.95323246217332,
+      "p_outputs_both": 54.470426409903716,
+      "p_outputs_other_platform_open_only": 1.6506189821182942,
+      "p_outputs_closed": 1.925722145804677,
+      "p_outputs_black": 6.189821182943604
+    }
+  },
+  {
+    "id": "01845nt85",
+    "name": "Universitas Pendidikan Putra Indonesia Cianjur",
+    "logo_sm": "logos/institution/sm/01845nt85.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNPI"
+    ],
+    "stats": {
+      "n_outputs": 102,
+      "n_outputs_open": 100,
+      "n_outputs_black": 4,
+      "p_outputs_open": 98.0392156862745,
+      "p_outputs_publisher_open_only": 90.19607843137256,
+      "p_outputs_both": 7.8431372549019605,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 1.9607843137254901,
+      "p_outputs_black": 3.9215686274509802
+    }
+  },
+  {
+    "id": "019qp0530",
+    "name": "Universitas Boyolali",
+    "logo_sm": "logos/institution/sm/019qp0530.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UBY"
+    ],
+    "stats": {
+      "n_outputs": 202,
+      "n_outputs_open": 198,
+      "n_outputs_black": 7,
+      "p_outputs_open": 98.01980198019803,
+      "p_outputs_publisher_open_only": 94.05940594059405,
+      "p_outputs_both": 2.9702970297029703,
+      "p_outputs_other_platform_open_only": 0.9900990099009901,
+      "p_outputs_closed": 1.9801980198019802,
+      "p_outputs_black": 3.4653465346534658
+    }
+  },
+  {
+    "id": "04ka27d61",
+    "name": "Al Asyariah Mandar University",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNASMAN"
+    ],
+    "stats": {
+      "n_outputs": 745,
+      "n_outputs_open": 730,
+      "n_outputs_black": 21,
+      "p_outputs_open": 97.98657718120806,
+      "p_outputs_publisher_open_only": 97.0469798657718,
+      "p_outputs_both": 0.9395973154362416,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.013422818791946,
+      "p_outputs_black": 2.8187919463087248
+    }
+  },
+  {
+    "id": "03yca6a35",
+    "name": "Universitas Ratu Samban",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNRAS"
+    ],
+    "stats": {
+      "n_outputs": 194,
+      "n_outputs_open": 190,
+      "n_outputs_black": 18,
+      "p_outputs_open": 97.9381443298969,
+      "p_outputs_publisher_open_only": 96.90721649484536,
+      "p_outputs_both": 1.0309278350515463,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.0618556701030926,
+      "p_outputs_black": 9.278350515463918
+    }
+  },
+  {
+    "id": "03fehwj53",
+    "name": "Universidad San Pedro",
+    "logo_sm": "logos/institution/sm/03fehwj53.jpg",
+    "entity_type": "institution",
+    "country_code": "PER",
+    "country_name": "Peru",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "USP"
+    ],
+    "stats": {
+      "n_outputs": 5441,
+      "n_outputs_open": 5326,
+      "n_outputs_black": 2411,
+      "p_outputs_open": 97.88641793787906,
+      "p_outputs_publisher_open_only": 33.98272376401397,
+      "p_outputs_both": 62.98474545120383,
+      "p_outputs_other_platform_open_only": 0.9189487226612755,
+      "p_outputs_closed": 2.113582062120934,
+      "p_outputs_black": 44.311707406726704
+    }
+  },
+  {
+    "id": "01pqwjq49",
+    "name": "Universitas Merdeka Surabaya",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 94,
+      "n_outputs_open": 92,
+      "n_outputs_black": 5,
+      "p_outputs_open": 97.87234042553192,
+      "p_outputs_publisher_open_only": 88.29787234042553,
+      "p_outputs_both": 9.574468085106384,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.127659574468085,
+      "p_outputs_black": 5.319148936170213
+    }
+  },
+  {
+    "id": "03wya1h47",
+    "name": "Universitas Pandanaran",
+    "logo_sm": "logos/institution/sm/03wya1h47.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNPAND"
+    ],
+    "stats": {
+      "n_outputs": 188,
+      "n_outputs_open": 184,
+      "n_outputs_black": 14,
+      "p_outputs_open": 97.87234042553192,
+      "p_outputs_publisher_open_only": 92.5531914893617,
+      "p_outputs_both": 4.787234042553192,
+      "p_outputs_other_platform_open_only": 0.5319148936170213,
+      "p_outputs_closed": 2.127659574468085,
+      "p_outputs_black": 7.446808510638298
+    }
+  },
+  {
+    "id": "00tas1680",
+    "name": "North Sumatra Islamic University",
+    "logo_sm": "logos/institution/sm/00tas1680.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UISU"
+    ],
+    "stats": {
+      "n_outputs": 1398,
+      "n_outputs_open": 1368,
+      "n_outputs_black": 47,
+      "p_outputs_open": 97.85407725321889,
+      "p_outputs_publisher_open_only": 92.56080114449213,
+      "p_outputs_both": 5.007153075822604,
+      "p_outputs_other_platform_open_only": 0.28612303290414876,
+      "p_outputs_closed": 2.1459227467811157,
+      "p_outputs_black": 3.3619456366237483
+    }
+  },
+  {
+    "id": "05ds5vg25",
+    "name": "Opća Bolnica Zadar",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "HRV",
+    "country_name": "Croatia",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Healthcare",
+    "stats": {
+      "n_outputs": 536,
+      "n_outputs_open": 524,
+      "n_outputs_black": 79,
+      "p_outputs_open": 97.76119402985076,
+      "p_outputs_publisher_open_only": 29.291044776119403,
+      "p_outputs_both": 66.97761194029852,
+      "p_outputs_other_platform_open_only": 1.4925373134328357,
+      "p_outputs_closed": 2.2388059701492535,
+      "p_outputs_black": 14.738805970149254
+    }
+  },
+  {
+    "id": "017g3c465",
+    "name": "Universidad Metropolitana de Ciencia y Tecnología",
+    "logo_sm": "logos/institution/sm/017g3c465.jpg",
+    "entity_type": "institution",
+    "country_code": "PAN",
+    "country_name": "Panama",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UMECIT"
+    ],
+    "stats": {
+      "n_outputs": 178,
+      "n_outputs_open": 174,
+      "n_outputs_black": 2,
+      "p_outputs_open": 97.75280898876404,
+      "p_outputs_publisher_open_only": 88.76404494382022,
+      "p_outputs_both": 7.865168539325842,
+      "p_outputs_other_platform_open_only": 1.1235955056179776,
+      "p_outputs_closed": 2.247191011235955,
+      "p_outputs_black": 1.1235955056179776
+    }
+  },
+  {
+    "id": "007j5qg12",
+    "name": "Universitas Muhammadiyah Palangkaraya",
+    "logo_sm": "logos/institution/sm/007j5qg12.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UMP",
+      "UMPR"
+    ],
+    "stats": {
+      "n_outputs": 1151,
+      "n_outputs_open": 1125,
+      "n_outputs_black": 34,
+      "p_outputs_open": 97.74109470026065,
+      "p_outputs_publisher_open_only": 91.74630755864466,
+      "p_outputs_both": 5.907906168549087,
+      "p_outputs_other_platform_open_only": 0.08688097306689835,
+      "p_outputs_closed": 2.2589052997393573,
+      "p_outputs_black": 2.9539530842745436
+    }
+  },
+  {
+    "id": "033d86250",
+    "name": "Therachem Research Medilab (India)",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IND",
+    "country_name": "India",
+    "subregion": "Southern Asia",
+    "region": "Asia",
+    "institution_type": "Company",
+    "stats": {
+      "n_outputs": 130,
+      "n_outputs_open": 127,
+      "n_outputs_black": 130,
+      "p_outputs_open": 97.6923076923077,
+      "p_outputs_publisher_open_only": 2.307692307692308,
+      "p_outputs_both": 56.15384615384615,
+      "p_outputs_other_platform_open_only": 39.23076923076923,
+      "p_outputs_closed": 2.307692307692308,
+      "p_outputs_black": 100
+    }
+  },
+  {
+    "id": "04e8qfh32",
+    "name": "Universidad Marcelino Champagnat",
+    "logo_sm": "logos/institution/sm/04e8qfh32.jpg",
+    "entity_type": "institution",
+    "country_code": "PER",
+    "country_name": "Peru",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UMCH"
+    ],
+    "stats": {
+      "n_outputs": 129,
+      "n_outputs_open": 126,
+      "n_outputs_black": 3,
+      "p_outputs_open": 97.67441860465115,
+      "p_outputs_publisher_open_only": 37.98449612403101,
+      "p_outputs_both": 59.68992248062015,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.3255813953488373,
+      "p_outputs_black": 2.3255813953488373
+    }
+  },
+  {
+    "id": "00y5xdc54",
+    "name": "Universitas Nahdlatul Ulama Surakarta",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNU"
+    ],
+    "stats": {
+      "n_outputs": 128,
+      "n_outputs_open": 125,
+      "n_outputs_black": 0,
+      "p_outputs_open": 97.65625,
+      "p_outputs_publisher_open_only": 96.875,
+      "p_outputs_both": 0.78125,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.34375,
+      "p_outputs_black": 0
+    }
+  },
+  {
+    "id": "05j2ycs33",
+    "name": "Universitas Mathla'ul Anwar Banten",
+    "logo_sm": "logos/institution/sm/05j2ycs33.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNMA"
+    ],
+    "stats": {
+      "n_outputs": 296,
+      "n_outputs_open": 289,
+      "n_outputs_black": 13,
+      "p_outputs_open": 97.63513513513513,
+      "p_outputs_publisher_open_only": 91.21621621621621,
+      "p_outputs_both": 6.418918918918918,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.364864864864865,
+      "p_outputs_black": 4.391891891891892
+    }
+  },
+  {
+    "id": "01trfvq12",
+    "name": "NASA Exoplanet Science Institute",
+    "logo_sm": "logos/institution/sm/01trfvq12.jpg",
+    "entity_type": "institution",
+    "country_code": "USA",
+    "country_name": "United States",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "institution_type": "Other",
+    "acronyms": [
+      "NExScI"
+    ],
+    "stats": {
+      "n_outputs": 743,
+      "n_outputs_open": 725,
+      "n_outputs_black": 544,
+      "p_outputs_open": 97.57738896366084,
+      "p_outputs_publisher_open_only": 2.826379542395693,
+      "p_outputs_both": 73.88963660834455,
+      "p_outputs_other_platform_open_only": 20.861372812920592,
+      "p_outputs_closed": 2.4226110363391657,
+      "p_outputs_black": 73.21668909825033
+    }
+  },
+  {
+    "id": "03g8fqe42",
+    "name": "Universitas Mpu Tantular",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UMT"
+    ],
+    "stats": {
+      "n_outputs": 82,
+      "n_outputs_open": 80,
+      "n_outputs_black": 2,
+      "p_outputs_open": 97.5609756097561,
+      "p_outputs_publisher_open_only": 93.90243902439023,
+      "p_outputs_both": 2.4390243902439024,
+      "p_outputs_other_platform_open_only": 1.2195121951219512,
+      "p_outputs_closed": 2.4390243902439024,
+      "p_outputs_black": 2.4390243902439024
+    }
+  },
+  {
+    "id": "04n1has83",
+    "name": "Universitas Sahid Surakarta",
+    "logo_sm": "logos/institution/sm/04n1has83.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "USS"
+    ],
+    "stats": {
+      "n_outputs": 163,
+      "n_outputs_open": 159,
+      "n_outputs_black": 4,
+      "p_outputs_open": 97.54601226993866,
+      "p_outputs_publisher_open_only": 95.0920245398773,
+      "p_outputs_both": 1.8404907975460123,
+      "p_outputs_other_platform_open_only": 0.6134969325153374,
+      "p_outputs_closed": 2.4539877300613497,
+      "p_outputs_black": 2.4539877300613497
+    }
+  },
+  {
+    "id": "05v4xtv52",
+    "name": "Universitas Nasional Pasim",
+    "logo_sm": "logos/institution/sm/05v4xtv52.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 81,
+      "n_outputs_open": 79,
+      "n_outputs_black": 6,
+      "p_outputs_open": 97.53086419753086,
+      "p_outputs_publisher_open_only": 96.29629629629629,
+      "p_outputs_both": 1.2345679012345678,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.4691358024691357,
+      "p_outputs_black": 7.4074074074074066
+    }
+  },
+  {
+    "id": "044qwdk10",
+    "name": "Guru Performance (United Kingdom)",
+    "logo_sm": "logos/institution/sm/044qwdk10.jpg",
+    "entity_type": "institution",
+    "country_code": "GBR",
+    "country_name": "United Kingdom",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "institution_type": "Company",
+    "stats": {
+      "n_outputs": 80,
+      "n_outputs_open": 78,
+      "n_outputs_black": 8,
+      "p_outputs_open": 97.5,
+      "p_outputs_publisher_open_only": 85,
+      "p_outputs_both": 12.5,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.5,
+      "p_outputs_black": 10
+    }
+  },
+  {
+    "id": "04b4w6n09",
+    "name": "Universidad de las Naciones",
+    "logo_sm": "logos/institution/sm/04b4w6n09.jpg",
+    "entity_type": "institution",
+    "country_code": "MEX",
+    "country_name": "Mexico",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UN"
+    ],
+    "stats": {
+      "n_outputs": 80,
+      "n_outputs_open": 78,
+      "n_outputs_black": 13,
+      "p_outputs_open": 97.5,
+      "p_outputs_publisher_open_only": 35,
+      "p_outputs_both": 55.00000000000001,
+      "p_outputs_other_platform_open_only": 7.5,
+      "p_outputs_closed": 2.5,
+      "p_outputs_black": 16.25
+    }
+  },
+  {
+    "id": "0567mpb57",
+    "name": "Universitas Abdurahman Saleh Situbondo",
+    "logo_sm": "logos/institution/sm/0567mpb57.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 600,
+      "n_outputs_open": 585,
+      "n_outputs_black": 9,
+      "p_outputs_open": 97.5,
+      "p_outputs_publisher_open_only": 95.33333333333334,
+      "p_outputs_both": 2,
+      "p_outputs_other_platform_open_only": 0.16666666666666669,
+      "p_outputs_closed": 2.5,
+      "p_outputs_black": 1.5
+    }
+  },
+  {
+    "id": "0037nyg09",
+    "name": "University of Muhammadiyah Mataram",
+    "logo_sm": "logos/institution/sm/0037nyg09.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UMMAT"
+    ],
+    "stats": {
+      "n_outputs": 1100,
+      "n_outputs_open": 1072,
+      "n_outputs_black": 47,
+      "p_outputs_open": 97.45454545454545,
+      "p_outputs_publisher_open_only": 91.81818181818183,
+      "p_outputs_both": 5.363636363636363,
+      "p_outputs_other_platform_open_only": 0.27272727272727276,
+      "p_outputs_closed": 2.5454545454545454,
+      "p_outputs_black": 4.2727272727272725
+    }
+  },
+  {
+    "id": "05t56qd09",
+    "name": "Universitas Dayanu Ikhsanuddin",
+    "logo_sm": "logos/institution/sm/05t56qd09.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 471,
+      "n_outputs_open": 459,
+      "n_outputs_black": 8,
+      "p_outputs_open": 97.45222929936305,
+      "p_outputs_publisher_open_only": 95.54140127388536,
+      "p_outputs_both": 1.0615711252653928,
+      "p_outputs_other_platform_open_only": 0.8492569002123143,
+      "p_outputs_closed": 2.547770700636943,
+      "p_outputs_black": 1.6985138004246285
+    }
+  },
+  {
+    "id": "05jthsa98",
+    "name": "Universidad Abierta Para Adultos",
+    "logo_sm": "logos/institution/sm/05jthsa98.jpg",
+    "entity_type": "institution",
+    "country_code": "DOM",
+    "country_name": "Dominican Republic",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UAPA"
+    ],
+    "stats": {
+      "n_outputs": 154,
+      "n_outputs_open": 150,
+      "n_outputs_black": 4,
+      "p_outputs_open": 97.40259740259741,
+      "p_outputs_publisher_open_only": 78.57142857142857,
+      "p_outputs_both": 18.181818181818183,
+      "p_outputs_other_platform_open_only": 0.6493506493506493,
+      "p_outputs_closed": 2.5974025974025974,
+      "p_outputs_black": 2.5974025974025974
+    }
+  },
+  {
+    "id": "03mmdq014",
+    "name": "Universitas Batanghari",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 951,
+      "n_outputs_open": 926,
+      "n_outputs_black": 10,
+      "p_outputs_open": 97.37118822292324,
+      "p_outputs_publisher_open_only": 95.58359621451105,
+      "p_outputs_both": 1.3669821240799158,
+      "p_outputs_other_platform_open_only": 0.4206098843322818,
+      "p_outputs_closed": 2.6288117770767614,
+      "p_outputs_black": 1.0515247108307046
+    }
+  },
+  {
+    "id": "01zj87490",
+    "name": "Institut Ilmu Kesehatan STRADA Indonesia",
+    "logo_sm": "logos/institution/sm/01zj87490.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 304,
+      "n_outputs_open": 296,
+      "n_outputs_black": 2,
+      "p_outputs_open": 97.36842105263158,
+      "p_outputs_publisher_open_only": 96.38157894736842,
+      "p_outputs_both": 0.6578947368421052,
+      "p_outputs_other_platform_open_only": 0.3289473684210526,
+      "p_outputs_closed": 2.631578947368421,
+      "p_outputs_black": 0.6578947368421052
+    }
+  },
+  {
+    "id": "04b6ahj46",
+    "name": "Universidad Independiente",
+    "logo_sm": "logos/institution/sm/04b6ahj46.jpg",
+    "entity_type": "institution",
+    "country_code": "CRI",
+    "country_name": "Costa Rica",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 2955,
+      "n_outputs_open": 2877,
+      "n_outputs_black": 108,
+      "p_outputs_open": 97.36040609137055,
+      "p_outputs_publisher_open_only": 47.20812182741117,
+      "p_outputs_both": 49.407783417935704,
+      "p_outputs_other_platform_open_only": 0.7445008460236886,
+      "p_outputs_closed": 2.6395939086294415,
+      "p_outputs_black": 3.654822335025381
+    }
+  },
+  {
+    "id": "00mqpp445",
+    "name": "Universitas Samawa",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNSA"
+    ],
+    "stats": {
+      "n_outputs": 303,
+      "n_outputs_open": 295,
+      "n_outputs_black": 17,
+      "p_outputs_open": 97.35973597359737,
+      "p_outputs_publisher_open_only": 92.4092409240924,
+      "p_outputs_both": 4.29042904290429,
+      "p_outputs_other_platform_open_only": 0.6600660066006601,
+      "p_outputs_closed": 2.6402640264026402,
+      "p_outputs_black": 5.6105610561056105
+    }
+  },
+  {
+    "id": "00sgdxg36",
+    "name": "Millennium Institute of Astrophysics",
+    "logo_sm": "logos/institution/sm/00sgdxg36.jpg",
+    "entity_type": "institution",
+    "country_code": "CHL",
+    "country_name": "Chile",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Nonprofit",
+    "acronyms": [
+      "MAS"
+    ],
+    "stats": {
+      "n_outputs": 1169,
+      "n_outputs_open": 1138,
+      "n_outputs_black": 821,
+      "p_outputs_open": 97.34816082121472,
+      "p_outputs_publisher_open_only": 2.4807527801539777,
+      "p_outputs_both": 70.05988023952095,
+      "p_outputs_other_platform_open_only": 24.807527801539777,
+      "p_outputs_closed": 2.6518391787852864,
+      "p_outputs_black": 70.23096663815227
+    }
+  },
+  {
+    "id": "025eq1v74",
+    "name": "Universitas Gajah Putih",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 300,
+      "n_outputs_open": 292,
+      "n_outputs_black": 10,
+      "p_outputs_open": 97.33333333333334,
+      "p_outputs_publisher_open_only": 93,
+      "p_outputs_both": 4.333333333333334,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.666666666666667,
+      "p_outputs_black": 3.3333333333333335
+    }
+  },
+  {
+    "id": "02p9va007",
+    "name": "Rumah Sakit Umum Haji Surabaya",
+    "logo_sm": "logos/institution/sm/02p9va007.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Healthcare",
+    "stats": {
+      "n_outputs": 112,
+      "n_outputs_open": 109,
+      "n_outputs_black": 4,
+      "p_outputs_open": 97.32142857142857,
+      "p_outputs_publisher_open_only": 81.25,
+      "p_outputs_both": 14.285714285714285,
+      "p_outputs_other_platform_open_only": 1.7857142857142856,
+      "p_outputs_closed": 2.6785714285714284,
+      "p_outputs_black": 3.571428571428571
+    }
+  },
+  {
+    "id": "036gv0184",
+    "name": "Institut Seni Indonesia Surakarta",
+    "logo_sm": "logos/institution/sm/036gv0184.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "ISI Surakarta",
+      "ASKI"
+    ],
+    "stats": {
+      "n_outputs": 1303,
+      "n_outputs_open": 1268,
+      "n_outputs_black": 13,
+      "p_outputs_open": 97.31389102072141,
+      "p_outputs_publisher_open_only": 73.75287797390638,
+      "p_outputs_both": 23.177283192632387,
+      "p_outputs_other_platform_open_only": 0.38372985418265537,
+      "p_outputs_closed": 2.686108979278588,
+      "p_outputs_black": 0.9976976208749041
+    }
+  },
+  {
+    "id": "058bps337",
+    "name": "Universitas Pasir Pangaraian",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UPP"
+    ],
+    "stats": {
+      "n_outputs": 409,
+      "n_outputs_open": 398,
+      "n_outputs_black": 20,
+      "p_outputs_open": 97.31051344743277,
+      "p_outputs_publisher_open_only": 95.11002444987776,
+      "p_outputs_both": 2.2004889975550124,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.689486552567237,
+      "p_outputs_black": 4.88997555012225
+    }
+  },
+  {
+    "id": "053gxvt69",
+    "name": "Universitas Saburai",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "USBRJ"
+    ],
+    "stats": {
+      "n_outputs": 889,
+      "n_outputs_open": 865,
+      "n_outputs_black": 3,
+      "p_outputs_open": 97.30033745781778,
+      "p_outputs_publisher_open_only": 95.50056242969629,
+      "p_outputs_both": 1.687289088863892,
+      "p_outputs_other_platform_open_only": 0.11248593925759282,
+      "p_outputs_closed": 2.699662542182227,
+      "p_outputs_black": 0.3374578177727784
+    }
+  },
+  {
+    "id": "05dg8jj08",
+    "name": "Institut Kesehatan Medistra Lubuk Pakam",
+    "logo_sm": "logos/institution/sm/05dg8jj08.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Other",
+    "stats": {
+      "n_outputs": 1030,
+      "n_outputs_open": 1002,
+      "n_outputs_black": 5,
+      "p_outputs_open": 97.28155339805825,
+      "p_outputs_publisher_open_only": 95.4368932038835,
+      "p_outputs_both": 1.650485436893204,
+      "p_outputs_other_platform_open_only": 0.1941747572815534,
+      "p_outputs_closed": 2.7184466019417477,
+      "p_outputs_black": 0.48543689320388345
+    }
+  },
+  {
+    "id": "04sb3zx15",
+    "name": "Institut Pertanian Intan",
+    "logo_sm": "logos/institution/sm/04sb3zx15.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 108,
+      "n_outputs_open": 105,
+      "n_outputs_black": 4,
+      "p_outputs_open": 97.22222222222221,
+      "p_outputs_publisher_open_only": 96.29629629629629,
+      "p_outputs_both": 0.9259259259259258,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.7777777777777777,
+      "p_outputs_black": 3.7037037037037033
+    }
+  },
+  {
+    "id": "0139vf833",
+    "name": "Universidad San Gregorio de Portoviejo",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "ECU",
+    "country_name": "Ecuador",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "USGP"
+    ],
+    "stats": {
+      "n_outputs": 251,
+      "n_outputs_open": 244,
+      "n_outputs_black": 7,
+      "p_outputs_open": 97.21115537848605,
+      "p_outputs_publisher_open_only": 50.199203187250994,
+      "p_outputs_both": 36.65338645418327,
+      "p_outputs_other_platform_open_only": 10.358565737051793,
+      "p_outputs_closed": 2.788844621513944,
+      "p_outputs_black": 2.788844621513944
+    }
+  },
+  {
+    "id": "00vcqer65",
+    "name": "Universitas Mahendradatta",
+    "logo_sm": "logos/institution/sm/00vcqer65.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 285,
+      "n_outputs_open": 277,
+      "n_outputs_black": 2,
+      "p_outputs_open": 97.19298245614036,
+      "p_outputs_publisher_open_only": 95.08771929824562,
+      "p_outputs_both": 1.7543859649122806,
+      "p_outputs_other_platform_open_only": 0.3508771929824561,
+      "p_outputs_closed": 2.807017543859649,
+      "p_outputs_black": 0.7017543859649122
+    }
+  },
+  {
+    "id": "0018jvy55",
+    "name": "Universitas Alkhairaat",
+    "logo_sm": "logos/institution/sm/0018jvy55.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 318,
+      "n_outputs_open": 309,
+      "n_outputs_black": 4,
+      "p_outputs_open": 97.16981132075472,
+      "p_outputs_publisher_open_only": 94.65408805031447,
+      "p_outputs_both": 1.5723270440251573,
+      "p_outputs_other_platform_open_only": 0.9433962264150944,
+      "p_outputs_closed": 2.8301886792452833,
+      "p_outputs_black": 1.257861635220126
+    }
+  },
+  {
+    "id": "03ceh0618",
+    "name": "Sri Lanka College of Obstetricians & Gynaecologists",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "LKA",
+    "country_name": "Sri Lanka",
+    "subregion": "Southern Asia",
+    "region": "Asia",
+    "institution_type": "Healthcare",
+    "acronyms": [
+      "SLCOG"
+    ],
+    "stats": {
+      "n_outputs": 277,
+      "n_outputs_open": 269,
+      "n_outputs_black": 10,
+      "p_outputs_open": 97.11191335740072,
+      "p_outputs_publisher_open_only": 49.81949458483754,
+      "p_outputs_both": 46.931407942238266,
+      "p_outputs_other_platform_open_only": 0.36101083032490977,
+      "p_outputs_closed": 2.888086642599278,
+      "p_outputs_black": 3.6101083032490973
+    }
+  },
+  {
+    "id": "00s582s04",
+    "name": "Universidad Alas Peruanas",
+    "logo_sm": "logos/institution/sm/00s582s04.jpg",
+    "entity_type": "institution",
+    "country_code": "PER",
+    "country_name": "Peru",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UAP"
+    ],
+    "stats": {
+      "n_outputs": 900,
+      "n_outputs_open": 874,
+      "n_outputs_black": 31,
+      "p_outputs_open": 97.11111111111111,
+      "p_outputs_publisher_open_only": 40.33333333333333,
+      "p_outputs_both": 53.666666666666664,
+      "p_outputs_other_platform_open_only": 3.111111111111111,
+      "p_outputs_closed": 2.888888888888889,
+      "p_outputs_black": 3.4444444444444446
+    }
+  },
+  {
+    "id": "03f856541",
+    "name": "Ministerio de Educación Pública",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "CRI",
+    "country_name": "Costa Rica",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Government",
+    "acronyms": [
+      "MEP"
+    ],
+    "stats": {
+      "n_outputs": 242,
+      "n_outputs_open": 235,
+      "n_outputs_black": 15,
+      "p_outputs_open": 97.10743801652893,
+      "p_outputs_publisher_open_only": 44.62809917355372,
+      "p_outputs_both": 51.652892561983464,
+      "p_outputs_other_platform_open_only": 0.8264462809917356,
+      "p_outputs_closed": 2.8925619834710745,
+      "p_outputs_black": 6.198347107438017
+    }
+  },
+  {
+    "id": "02tc9zr52",
+    "name": "Darul Ulum Islamic University",
+    "logo_sm": "logos/institution/sm/02tc9zr52.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNISDA"
+    ],
+    "stats": {
+      "n_outputs": 378,
+      "n_outputs_open": 367,
+      "n_outputs_black": 15,
+      "p_outputs_open": 97.08994708994709,
+      "p_outputs_publisher_open_only": 91.53439153439153,
+      "p_outputs_both": 5.555555555555555,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.91005291005291,
+      "p_outputs_black": 3.968253968253968
+    }
+  },
+  {
+    "id": "02z5xhm28",
+    "name": "Universitas Gunung Kidul",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UGK",
+      "UGKY"
+    ],
+    "stats": {
+      "n_outputs": 103,
+      "n_outputs_open": 100,
+      "n_outputs_black": 2,
+      "p_outputs_open": 97.0873786407767,
+      "p_outputs_publisher_open_only": 85.43689320388349,
+      "p_outputs_both": 11.650485436893204,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.912621359223301,
+      "p_outputs_black": 1.9417475728155338
+    }
+  },
+  {
+    "id": "05c132b31",
+    "name": "Universitas Satya Negara Indonesia",
+    "logo_sm": "logos/institution/sm/05c132b31.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "USNI"
+    ],
+    "stats": {
+      "n_outputs": 343,
+      "n_outputs_open": 333,
+      "n_outputs_black": 1,
+      "p_outputs_open": 97.08454810495627,
+      "p_outputs_publisher_open_only": 94.16909620991254,
+      "p_outputs_both": 2.623906705539359,
+      "p_outputs_other_platform_open_only": 0.2915451895043732,
+      "p_outputs_closed": 2.9154518950437316,
+      "p_outputs_black": 0.2915451895043732
+    }
+  },
+  {
+    "id": "03hzyvt65",
+    "name": "Universitas Pahlawan Tuanku Tambusai",
+    "logo_sm": "logos/institution/sm/03hzyvt65.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UP"
+    ],
+    "stats": {
+      "n_outputs": 715,
+      "n_outputs_open": 694,
+      "n_outputs_black": 8,
+      "p_outputs_open": 97.06293706293707,
+      "p_outputs_publisher_open_only": 95.24475524475524,
+      "p_outputs_both": 1.8181818181818181,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.937062937062937,
+      "p_outputs_black": 1.118881118881119
+    }
+  },
+  {
+    "id": "00g9rmg66",
+    "name": "Institut Pertanian Malang",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "IPM"
+    ],
+    "stats": {
+      "n_outputs": 136,
+      "n_outputs_open": 132,
+      "n_outputs_black": 5,
+      "p_outputs_open": 97.05882352941177,
+      "p_outputs_publisher_open_only": 95.58823529411765,
+      "p_outputs_both": 1.4705882352941175,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.941176470588235,
+      "p_outputs_black": 3.6764705882352944
+    }
+  },
+  {
+    "id": "00zq16723",
+    "name": "Ministerio de la Presidencia",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "ESP",
+    "country_name": "Spain",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Government",
+    "acronyms": [
+      "MPR"
+    ],
+    "stats": {
+      "n_outputs": 68,
+      "n_outputs_open": 66,
+      "n_outputs_black": 15,
+      "p_outputs_open": 97.05882352941177,
+      "p_outputs_publisher_open_only": 63.23529411764706,
+      "p_outputs_both": 32.35294117647059,
+      "p_outputs_other_platform_open_only": 1.4705882352941175,
+      "p_outputs_closed": 2.941176470588235,
+      "p_outputs_black": 22.058823529411764
+    }
+  },
+  {
+    "id": "05y7rdz72",
+    "name": "Očesna Klinika UKC Ljubljana",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "SVN",
+    "country_name": "Slovenia",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Healthcare",
+    "stats": {
+      "n_outputs": 68,
+      "n_outputs_open": 66,
+      "n_outputs_black": 12,
+      "p_outputs_open": 97.05882352941177,
+      "p_outputs_publisher_open_only": 67.64705882352942,
+      "p_outputs_both": 29.411764705882355,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 2.941176470588235,
+      "p_outputs_black": 17.647058823529413
+    }
+  },
+  {
+    "id": "010wkny21",
+    "name": "Excellence Cluster Origins",
+    "logo_sm": "logos/institution/sm/010wkny21.jpg",
+    "entity_type": "institution",
+    "country_code": "DEU",
+    "country_name": "Germany",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "institution_type": "Facility",
+    "stats": {
+      "n_outputs": 169,
+      "n_outputs_open": 164,
+      "n_outputs_black": 26,
+      "p_outputs_open": 97.0414201183432,
+      "p_outputs_publisher_open_only": 4.142011834319527,
+      "p_outputs_both": 66.86390532544378,
+      "p_outputs_other_platform_open_only": 26.035502958579883,
+      "p_outputs_closed": 2.9585798816568047,
+      "p_outputs_black": 15.384615384615385
+    }
+  },
+  {
+    "id": "01crwkz66",
+    "name": "Fatoni University",
+    "logo_sm": "logos/institution/sm/01crwkz66.jpg",
+    "entity_type": "institution",
+    "country_code": "THA",
+    "country_name": "Thailand",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 67,
+      "n_outputs_open": 65,
+      "n_outputs_black": 8,
+      "p_outputs_open": 97.01492537313433,
+      "p_outputs_publisher_open_only": 86.56716417910447,
+      "p_outputs_both": 4.477611940298507,
+      "p_outputs_other_platform_open_only": 5.970149253731343,
+      "p_outputs_closed": 2.9850746268656714,
+      "p_outputs_black": 11.940298507462686
+    }
+  },
+  {
+    "id": "039t7kh95",
+    "name": "Universitas Victory Sorong",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNVIC"
+    ],
+    "stats": {
+      "n_outputs": 133,
+      "n_outputs_open": 129,
+      "n_outputs_black": 2,
+      "p_outputs_open": 96.99248120300751,
+      "p_outputs_publisher_open_only": 93.23308270676691,
+      "p_outputs_both": 2.2556390977443606,
+      "p_outputs_other_platform_open_only": 1.5037593984962405,
+      "p_outputs_closed": 3.007518796992481,
+      "p_outputs_black": 1.5037593984962405
+    }
+  },
+  {
+    "id": "04b4kxc62",
+    "name": "Universitas Halmahera",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 166,
+      "n_outputs_open": 161,
+      "n_outputs_black": 14,
+      "p_outputs_open": 96.98795180722891,
+      "p_outputs_publisher_open_only": 90.36144578313254,
+      "p_outputs_both": 6.024096385542169,
+      "p_outputs_other_platform_open_only": 0.6024096385542169,
+      "p_outputs_closed": 3.0120481927710845,
+      "p_outputs_black": 8.433734939759036
+    }
+  },
+  {
+    "id": "03dxh7253",
+    "name": "Universitas Bojonegoro",
+    "logo_sm": "logos/institution/sm/03dxh7253.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIGORO"
+    ],
+    "stats": {
+      "n_outputs": 563,
+      "n_outputs_open": 546,
+      "n_outputs_black": 9,
+      "p_outputs_open": 96.98046181172292,
+      "p_outputs_publisher_open_only": 91.47424511545293,
+      "p_outputs_both": 5.328596802841918,
+      "p_outputs_other_platform_open_only": 0.17761989342806395,
+      "p_outputs_closed": 3.019538188277087,
+      "p_outputs_black": 1.5985790408525755
+    }
+  },
+  {
+    "id": "05hkzza95",
+    "name": "Politeknik Kesehatan Kemenkes Semarang",
+    "logo_sm": "logos/institution/sm/05hkzza95.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 4522,
+      "n_outputs_open": 4385,
+      "n_outputs_black": 93,
+      "p_outputs_open": 96.9703670942061,
+      "p_outputs_publisher_open_only": 89.34099955771782,
+      "p_outputs_both": 7.253427686864219,
+      "p_outputs_other_platform_open_only": 0.37593984962406013,
+      "p_outputs_closed": 3.0296329057938967,
+      "p_outputs_black": 2.056612118531623
+    }
+  },
+  {
+    "id": "02y8mb071",
+    "name": "Sustainable Sciences Institute",
+    "logo_sm": "logos/institution/sm/02y8mb071.jpg",
+    "entity_type": "institution",
+    "country_code": "USA",
+    "country_name": "United States",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "institution_type": "Nonprofit",
+    "acronyms": [
+      "AMB/ATT",
+      "SSI"
+    ],
+    "stats": {
+      "n_outputs": 132,
+      "n_outputs_open": 128,
+      "n_outputs_black": 82,
+      "p_outputs_open": 96.96969696969697,
+      "p_outputs_publisher_open_only": 7.575757575757576,
+      "p_outputs_both": 65.15151515151516,
+      "p_outputs_other_platform_open_only": 24.242424242424242,
+      "p_outputs_closed": 3.0303030303030303,
+      "p_outputs_black": 62.121212121212125
+    }
+  },
+  {
+    "id": "05frq8d16",
+    "name": "Modern Art Research Institute",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "UKR",
+    "country_name": "Ukraine",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 99,
+      "n_outputs_open": 96,
+      "n_outputs_black": 0,
+      "p_outputs_open": 96.96969696969697,
+      "p_outputs_publisher_open_only": 93.93939393939394,
+      "p_outputs_both": 3.0303030303030303,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.0303030303030303,
+      "p_outputs_black": 0
+    }
+  },
+  {
+    "id": "030wwj796",
+    "name": "Universitas Jabal Ghafur",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIGHA"
+    ],
+    "stats": {
+      "n_outputs": 263,
+      "n_outputs_open": 255,
+      "n_outputs_black": 6,
+      "p_outputs_open": 96.95817490494296,
+      "p_outputs_publisher_open_only": 96.1977186311787,
+      "p_outputs_both": 0.7604562737642585,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.041825095057034,
+      "p_outputs_black": 2.2813688212927756
+    }
+  },
+  {
+    "id": "02xwcny57",
+    "name": "Universitas Muhammadiyah Buton",
+    "logo_sm": "logos/institution/sm/02xwcny57.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UMButon"
+    ],
+    "stats": {
+      "n_outputs": 677,
+      "n_outputs_open": 656,
+      "n_outputs_black": 28,
+      "p_outputs_open": 96.89807976366322,
+      "p_outputs_publisher_open_only": 95.86410635155096,
+      "p_outputs_both": 1.03397341211226,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.10192023633678,
+      "p_outputs_black": 4.13589364844904
+    }
+  },
+  {
+    "id": "03mx33742",
+    "name": "Universidad de Santander",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "PAN",
+    "country_name": "Panama",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 413,
+      "n_outputs_open": 400,
+      "n_outputs_black": 29,
+      "p_outputs_open": 96.85230024213075,
+      "p_outputs_publisher_open_only": 44.30992736077482,
+      "p_outputs_both": 46.73123486682809,
+      "p_outputs_other_platform_open_only": 5.811138014527845,
+      "p_outputs_closed": 3.14769975786925,
+      "p_outputs_black": 7.021791767554479
+    }
+  },
+  {
+    "id": "02spway15",
+    "name": "Francisco Gavidia University",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "SLV",
+    "country_name": "El Salvador",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UFG"
+    ],
+    "stats": {
+      "n_outputs": 126,
+      "n_outputs_open": 122,
+      "n_outputs_black": 6,
+      "p_outputs_open": 96.82539682539682,
+      "p_outputs_publisher_open_only": 41.269841269841265,
+      "p_outputs_both": 48.41269841269841,
+      "p_outputs_other_platform_open_only": 7.142857142857142,
+      "p_outputs_closed": 3.1746031746031744,
+      "p_outputs_black": 4.761904761904762
+    }
+  },
+  {
+    "id": "0382vme49",
+    "name": "Quality Leadership University Panama",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "PAN",
+    "country_name": "Panama",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "QLU"
+    ],
+    "stats": {
+      "n_outputs": 94,
+      "n_outputs_open": 91,
+      "n_outputs_black": 0,
+      "p_outputs_open": 96.80851063829788,
+      "p_outputs_publisher_open_only": 96.80851063829788,
+      "p_outputs_both": 0,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.1914893617021276,
+      "p_outputs_black": 0
+    }
+  },
+  {
+    "id": "01d4n5957",
+    "name": "Institut Seni Indonesia Denpasar",
+    "logo_sm": "logos/institution/sm/01d4n5957.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 469,
+      "n_outputs_open": 454,
+      "n_outputs_black": 18,
+      "p_outputs_open": 96.80170575692964,
+      "p_outputs_publisher_open_only": 82.08955223880598,
+      "p_outputs_both": 13.859275053304904,
+      "p_outputs_other_platform_open_only": 0.8528784648187633,
+      "p_outputs_closed": 3.1982942430703627,
+      "p_outputs_black": 3.8379530916844353
+    }
+  },
+  {
+    "id": "02vh58j74",
+    "name": "National Quantum Information Centre in Gdansk",
+    "logo_sm": "logos/institution/sm/02vh58j74.jpg",
+    "entity_type": "institution",
+    "country_code": "POL",
+    "country_name": "Poland",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "institution_type": "Education",
+    "acronyms": [
+      "KCIK"
+    ],
+    "stats": {
+      "n_outputs": 92,
+      "n_outputs_open": 89,
+      "n_outputs_black": 78,
+      "p_outputs_open": 96.73913043478261,
+      "p_outputs_publisher_open_only": 2.1739130434782608,
+      "p_outputs_both": 22.82608695652174,
+      "p_outputs_other_platform_open_only": 71.73913043478261,
+      "p_outputs_closed": 3.260869565217391,
+      "p_outputs_black": 84.78260869565217
+    }
+  },
+  {
+    "id": "04byxj259",
+    "name": "Universitas Winaya Mukti",
+    "logo_sm": "logos/institution/sm/04byxj259.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNWIM"
+    ],
+    "stats": {
+      "n_outputs": 276,
+      "n_outputs_open": 267,
+      "n_outputs_black": 11,
+      "p_outputs_open": 96.73913043478261,
+      "p_outputs_publisher_open_only": 94.20289855072464,
+      "p_outputs_both": 2.1739130434782608,
+      "p_outputs_other_platform_open_only": 0.36231884057971014,
+      "p_outputs_closed": 3.260869565217391,
+      "p_outputs_black": 3.985507246376811
+    }
+  },
+  {
+    "id": "04ztbty92",
+    "name": "Institut Ilmu Sosial dan Ilmu Politik Jakarta",
+    "logo_sm": "logos/institution/sm/04ztbty92.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "IISIP"
+    ],
+    "stats": {
+      "n_outputs": 941,
+      "n_outputs_open": 910,
+      "n_outputs_black": 8,
+      "p_outputs_open": 96.70563230605738,
+      "p_outputs_publisher_open_only": 93.30499468650372,
+      "p_outputs_both": 2.975557917109458,
+      "p_outputs_other_platform_open_only": 0.4250797024442083,
+      "p_outputs_closed": 3.294367693942614,
+      "p_outputs_black": 0.8501594048884166
+    }
+  },
+  {
+    "id": "05vhdrp61",
+    "name": "IAIN Kudus",
+    "logo_sm": "logos/institution/sm/05vhdrp61.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "IAIN"
+    ],
+    "stats": {
+      "n_outputs": 2228,
+      "n_outputs_open": 2154,
+      "n_outputs_black": 47,
+      "p_outputs_open": 96.67863554757629,
+      "p_outputs_publisher_open_only": 91.33752244165171,
+      "p_outputs_both": 5.026929982046679,
+      "p_outputs_other_platform_open_only": 0.3141831238779174,
+      "p_outputs_closed": 3.321364452423698,
+      "p_outputs_black": 2.10951526032316
+    }
+  },
+  {
+    "id": "048bfyy22",
+    "name": "Universitas Islam Kadiri",
+    "logo_sm": "logos/institution/sm/048bfyy22.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNISKA"
+    ],
+    "stats": {
+      "n_outputs": 1264,
+      "n_outputs_open": 1222,
+      "n_outputs_black": 11,
+      "p_outputs_open": 96.67721518987342,
+      "p_outputs_publisher_open_only": 94.4620253164557,
+      "p_outputs_both": 1.89873417721519,
+      "p_outputs_other_platform_open_only": 0.31645569620253167,
+      "p_outputs_closed": 3.322784810126582,
+      "p_outputs_black": 0.870253164556962
+    }
+  },
+  {
+    "id": "01vt7w207",
+    "name": "Universitas PGRI Madiun",
+    "logo_sm": "logos/institution/sm/01vt7w207.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIPMA"
+    ],
+    "stats": {
+      "n_outputs": 2158,
+      "n_outputs_open": 2086,
+      "n_outputs_black": 87,
+      "p_outputs_open": 96.66357738646896,
+      "p_outputs_publisher_open_only": 89.89805375347544,
+      "p_outputs_both": 6.626506024096386,
+      "p_outputs_other_platform_open_only": 0.13901760889712697,
+      "p_outputs_closed": 3.3364226135310475,
+      "p_outputs_black": 4.031510658016682
+    }
+  },
+  {
+    "id": "01aa12z17",
+    "name": "State Islamic University Ar-Raniry",
+    "logo_sm": "logos/institution/sm/01aa12z17.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UIN Ar-Raniry"
+    ],
+    "stats": {
+      "n_outputs": 3006,
+      "n_outputs_open": 2905,
+      "n_outputs_black": 80,
+      "p_outputs_open": 96.64005322687957,
+      "p_outputs_publisher_open_only": 87.79108449767132,
+      "p_outputs_both": 7.95076513639388,
+      "p_outputs_other_platform_open_only": 0.8982035928143712,
+      "p_outputs_closed": 3.359946773120426,
+      "p_outputs_black": 2.661343978709248
+    }
+  },
+  {
+    "id": "05v56p320",
+    "name": "Universitas Muhammadiyah Tapanuli Selatan",
+    "logo_sm": "logos/institution/sm/05v56p320.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UMTS",
+      "STKIP"
+    ],
+    "stats": {
+      "n_outputs": 10725,
+      "n_outputs_open": 10364,
+      "n_outputs_black": 306,
+      "p_outputs_open": 96.63403263403264,
+      "p_outputs_publisher_open_only": 91.50582750582751,
+      "p_outputs_both": 4.951048951048951,
+      "p_outputs_other_platform_open_only": 0.17715617715617715,
+      "p_outputs_closed": 3.3659673659673657,
+      "p_outputs_black": 2.8531468531468533
+    }
+  },
+  {
+    "id": "04fh2kz81",
+    "name": "Papieski Wydział Teologiczny w Warszawie",
+    "logo_sm": "logos/institution/sm/04fh2kz81.jpg",
+    "entity_type": "institution",
+    "country_code": "POL",
+    "country_name": "Poland",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "institution_type": "Education",
+    "acronyms": [
+      "PWTW"
+    ],
+    "stats": {
+      "n_outputs": 178,
+      "n_outputs_open": 172,
+      "n_outputs_black": 2,
+      "p_outputs_open": 96.62921348314607,
+      "p_outputs_publisher_open_only": 87.07865168539325,
+      "p_outputs_both": 8.426966292134832,
+      "p_outputs_other_platform_open_only": 1.1235955056179776,
+      "p_outputs_closed": 3.3707865168539324,
+      "p_outputs_black": 1.1235955056179776
+    }
+  },
+  {
+    "id": "01hygy214",
+    "name": "Ministry of National Development",
+    "logo_sm": "logos/institution/sm/01hygy214.jpg",
+    "entity_type": "institution",
+    "country_code": "HUN",
+    "country_name": "Hungary",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "institution_type": "Government",
+    "acronyms": [
+      "NFM"
+    ],
+    "stats": {
+      "n_outputs": 59,
+      "n_outputs_open": 57,
+      "n_outputs_black": 1,
+      "p_outputs_open": 96.61016949152543,
+      "p_outputs_publisher_open_only": 93.22033898305084,
+      "p_outputs_both": 3.389830508474576,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.389830508474576,
+      "p_outputs_black": 1.694915254237288
+    }
+  },
+  {
+    "id": "00hy0st98",
+    "name": "Universitas Dehasen Bengkulu",
+    "logo_sm": "logos/institution/sm/00hy0st98.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIVED"
+    ],
+    "stats": {
+      "n_outputs": 1000,
+      "n_outputs_open": 966,
+      "n_outputs_black": 21,
+      "p_outputs_open": 96.6,
+      "p_outputs_publisher_open_only": 93.8,
+      "p_outputs_both": 2.7,
+      "p_outputs_other_platform_open_only": 0.1,
+      "p_outputs_closed": 3.4000000000000004,
+      "p_outputs_black": 2.1
+    }
+  },
+  {
+    "id": "008b1vj68",
+    "name": "Instituto de Astronomía Teórica y Experimental",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "ARG",
+    "country_name": "Argentina",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Facility",
+    "acronyms": [
+      "IATE"
+    ],
+    "stats": {
+      "n_outputs": 323,
+      "n_outputs_open": 312,
+      "n_outputs_black": 226,
+      "p_outputs_open": 96.59442724458205,
+      "p_outputs_publisher_open_only": 2.1671826625387,
+      "p_outputs_both": 53.86996904024768,
+      "p_outputs_other_platform_open_only": 40.55727554179567,
+      "p_outputs_closed": 3.4055727554179565,
+      "p_outputs_black": 69.96904024767801
+    }
+  },
+  {
+    "id": "00yg0kc17",
+    "name": "Ação Educativa",
+    "logo_sm": "logos/institution/sm/00yg0kc17.jpg",
+    "entity_type": "institution",
+    "country_code": "BRA",
+    "country_name": "Brazil",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Other",
+    "stats": {
+      "n_outputs": 645,
+      "n_outputs_open": 623,
+      "n_outputs_black": 41,
+      "p_outputs_open": 96.58914728682171,
+      "p_outputs_publisher_open_only": 51.007751937984494,
+      "p_outputs_both": 44.18604651162791,
+      "p_outputs_other_platform_open_only": 1.3953488372093024,
+      "p_outputs_closed": 3.4108527131782944,
+      "p_outputs_black": 6.3565891472868215
+    }
+  },
+  {
+    "id": "031478740",
+    "name": "Office of Scientific and Technical Information",
+    "logo_sm": "logos/institution/sm/031478740.jpg",
+    "entity_type": "institution",
+    "country_code": "USA",
+    "country_name": "United States",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "institution_type": "Government",
+    "acronyms": [
+      "OSTI"
+    ],
+    "stats": {
+      "n_outputs": 674,
+      "n_outputs_open": 651,
+      "n_outputs_black": 25,
+      "p_outputs_open": 96.58753709198812,
+      "p_outputs_publisher_open_only": 1.1869436201780417,
+      "p_outputs_both": 50.445103857566764,
+      "p_outputs_other_platform_open_only": 44.95548961424332,
+      "p_outputs_closed": 3.4124629080118694,
+      "p_outputs_black": 3.7091988130563793
+    }
+  },
+  {
+    "id": "04xmkh626",
+    "name": "Universitas 45 Surabaya",
+    "logo_sm": "logos/institution/sm/04xmkh626.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 842,
+      "n_outputs_open": 813,
+      "n_outputs_black": 63,
+      "p_outputs_open": 96.55581947743468,
+      "p_outputs_publisher_open_only": 48.574821852731596,
+      "p_outputs_both": 43.23040380047506,
+      "p_outputs_other_platform_open_only": 4.750593824228028,
+      "p_outputs_closed": 3.44418052256532,
+      "p_outputs_black": 7.4821852731591445
+    }
+  },
+  {
+    "id": "040bxjg62",
+    "name": "Fundação Casa de Rui Barbosa",
+    "logo_sm": "logos/institution/sm/040bxjg62.jpg",
+    "entity_type": "institution",
+    "country_code": "BRA",
+    "country_name": "Brazil",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Government",
+    "stats": {
+      "n_outputs": 115,
+      "n_outputs_open": 111,
+      "n_outputs_black": 14,
+      "p_outputs_open": 96.52173913043478,
+      "p_outputs_publisher_open_only": 63.47826086956522,
+      "p_outputs_both": 33.04347826086956,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.4782608695652173,
+      "p_outputs_black": 12.173913043478262
+    }
+  },
+  {
+    "id": "01w7c9759",
+    "name": "Universitas Islam Al-Azhar Mataram",
+    "logo_sm": "logos/institution/sm/01w7c9759.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIZAR"
+    ],
+    "stats": {
+      "n_outputs": 285,
+      "n_outputs_open": 275,
+      "n_outputs_black": 10,
+      "p_outputs_open": 96.49122807017544,
+      "p_outputs_publisher_open_only": 89.12280701754386,
+      "p_outputs_both": 6.315789473684211,
+      "p_outputs_other_platform_open_only": 1.0526315789473684,
+      "p_outputs_closed": 3.508771929824561,
+      "p_outputs_black": 3.508771929824561
+    }
+  },
+  {
+    "id": "03z1wm043",
+    "name": "Universitas Islam Negeri Sumatera Utara",
+    "logo_sm": "logos/institution/sm/03z1wm043.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "IAIN SU",
+      "UINSU"
+    ],
+    "stats": {
+      "n_outputs": 4088,
+      "n_outputs_open": 3944,
+      "n_outputs_black": 35,
+      "p_outputs_open": 96.4774951076321,
+      "p_outputs_publisher_open_only": 86.20352250489238,
+      "p_outputs_both": 9.858121330724071,
+      "p_outputs_other_platform_open_only": 0.4158512720156555,
+      "p_outputs_closed": 3.522504892367906,
+      "p_outputs_black": 0.8561643835616438
+    }
+  },
+  {
+    "id": "00p574j49",
+    "name": "Institut za filozofiju",
+    "logo_sm": "logos/institution/sm/00p574j49.jpg",
+    "entity_type": "institution",
+    "country_code": "HRV",
+    "country_name": "Croatia",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Facility",
+    "stats": {
+      "n_outputs": 3051,
+      "n_outputs_open": 2943,
+      "n_outputs_black": 277,
+      "p_outputs_open": 96.46017699115043,
+      "p_outputs_publisher_open_only": 58.9642740085218,
+      "p_outputs_both": 33.20222877745002,
+      "p_outputs_other_platform_open_only": 4.29367420517863,
+      "p_outputs_closed": 3.5398230088495577,
+      "p_outputs_black": 9.0789904949197
+    }
+  },
+  {
+    "id": "043zbev87",
+    "name": "Indraprasta Pgri University",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNINDRA"
+    ],
+    "stats": {
+      "n_outputs": 4651,
+      "n_outputs_open": 4486,
+      "n_outputs_black": 110,
+      "p_outputs_open": 96.45237583315416,
+      "p_outputs_publisher_open_only": 93.35626746936143,
+      "p_outputs_both": 2.902601591055687,
+      "p_outputs_other_platform_open_only": 0.19350677273704578,
+      "p_outputs_closed": 3.5476241668458397,
+      "p_outputs_black": 2.3650827778972263
+    }
+  },
+  {
+    "id": "04svrs371",
+    "name": "Universitas Bangun Nusantara",
+    "logo_sm": "logos/institution/sm/04svrs371.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIVET BANTARA"
+    ],
+    "stats": {
+      "n_outputs": 730,
+      "n_outputs_open": 704,
+      "n_outputs_black": 12,
+      "p_outputs_open": 96.43835616438356,
+      "p_outputs_publisher_open_only": 93.56164383561644,
+      "p_outputs_both": 2.191780821917808,
+      "p_outputs_other_platform_open_only": 0.684931506849315,
+      "p_outputs_closed": 3.5616438356164384,
+      "p_outputs_black": 1.643835616438356
+    }
+  },
+  {
+    "id": "01nm4t960",
+    "name": "Universitas Teuku Umar",
+    "logo_sm": "logos/institution/sm/01nm4t960.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UTU"
+    ],
+    "stats": {
+      "n_outputs": 1600,
+      "n_outputs_open": 1543,
+      "n_outputs_black": 58,
+      "p_outputs_open": 96.4375,
+      "p_outputs_publisher_open_only": 94.1875,
+      "p_outputs_both": 2.1875,
+      "p_outputs_other_platform_open_only": 0.0625,
+      "p_outputs_closed": 3.5624999999999996,
+      "p_outputs_black": 3.6249999999999996
+    }
+  },
+  {
+    "id": "02s6q6726",
+    "name": "Universitas Al Washliyah",
+    "logo_sm": "logos/institution/sm/02s6q6726.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIVA"
+    ],
+    "stats": {
+      "n_outputs": 364,
+      "n_outputs_open": 351,
+      "n_outputs_black": 12,
+      "p_outputs_open": 96.42857142857143,
+      "p_outputs_publisher_open_only": 91.48351648351648,
+      "p_outputs_both": 4.395604395604396,
+      "p_outputs_other_platform_open_only": 0.5494505494505495,
+      "p_outputs_closed": 3.571428571428571,
+      "p_outputs_black": 3.296703296703297
+    }
+  },
+  {
+    "id": "02gxxae53",
+    "name": "Universitas Panji Sakti",
+    "logo_sm": "logos/institution/sm/02gxxae53.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIPAS"
+    ],
+    "stats": {
+      "n_outputs": 361,
+      "n_outputs_open": 348,
+      "n_outputs_black": 2,
+      "p_outputs_open": 96.39889196675901,
+      "p_outputs_publisher_open_only": 94.18282548476455,
+      "p_outputs_both": 2.21606648199446,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.6011080332409975,
+      "p_outputs_black": 0.554016620498615
+    }
+  },
+  {
+    "id": "01ykn4490",
+    "name": "NIHR Leeds In Vitro Diagnostics Co-operative",
+    "logo_sm": "logos/institution/sm/01ykn4490.jpg",
+    "entity_type": "institution",
+    "country_code": "GBR",
+    "country_name": "United Kingdom",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "institution_type": "Facility",
+    "stats": {
+      "n_outputs": 111,
+      "n_outputs_open": 107,
+      "n_outputs_black": 55,
+      "p_outputs_open": 96.3963963963964,
+      "p_outputs_publisher_open_only": 13.513513513513514,
+      "p_outputs_both": 61.261261261261254,
+      "p_outputs_other_platform_open_only": 21.62162162162162,
+      "p_outputs_closed": 3.6036036036036037,
+      "p_outputs_black": 49.549549549549546
+    }
+  },
+  {
+    "id": "053d5gs04",
+    "name": "Universidad Filadelfia de México",
+    "logo_sm": "logos/institution/sm/053d5gs04.jpg",
+    "entity_type": "institution",
+    "country_code": "MEX",
+    "country_name": "Mexico",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UFM"
+    ],
+    "stats": {
+      "n_outputs": 388,
+      "n_outputs_open": 374,
+      "n_outputs_black": 37,
+      "p_outputs_open": 96.3917525773196,
+      "p_outputs_publisher_open_only": 71.90721649484536,
+      "p_outputs_both": 23.969072164948454,
+      "p_outputs_other_platform_open_only": 0.5154639175257731,
+      "p_outputs_closed": 3.608247422680412,
+      "p_outputs_black": 9.536082474226804
+    }
+  },
+  {
+    "id": "03q9g2k63",
+    "name": "Universitas Muhammadiyah Gorontalo",
+    "logo_sm": "logos/institution/sm/03q9g2k63.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 553,
+      "n_outputs_open": 533,
+      "n_outputs_black": 15,
+      "p_outputs_open": 96.38336347197107,
+      "p_outputs_publisher_open_only": 91.86256781193491,
+      "p_outputs_both": 4.3399638336347195,
+      "p_outputs_other_platform_open_only": 0.18083182640144665,
+      "p_outputs_closed": 3.616636528028933,
+      "p_outputs_black": 2.7124773960216997
+    }
+  },
+  {
+    "id": "03vhr8v79",
+    "name": "Escuela Superior de Administración Pública",
+    "logo_sm": "logos/institution/sm/03vhr8v79.jpg",
+    "entity_type": "institution",
+    "country_code": "COL",
+    "country_name": "Colombia",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "ESAP"
+    ],
+    "stats": {
+      "n_outputs": 303,
+      "n_outputs_open": 292,
+      "n_outputs_black": 21,
+      "p_outputs_open": 96.36963696369637,
+      "p_outputs_publisher_open_only": 36.303630363036305,
+      "p_outputs_both": 54.45544554455446,
+      "p_outputs_other_platform_open_only": 5.6105610561056105,
+      "p_outputs_closed": 3.6303630363036308,
+      "p_outputs_black": 6.9306930693069315
+    }
+  },
+  {
+    "id": "016drwn73",
+    "name": "Universidad de las Artes",
+    "logo_sm": "logos/institution/sm/016drwn73.jpg",
+    "entity_type": "institution",
+    "country_code": "ECU",
+    "country_name": "Ecuador",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UArtes"
+    ],
+    "stats": {
+      "n_outputs": 110,
+      "n_outputs_open": 106,
+      "n_outputs_black": 6,
+      "p_outputs_open": 96.36363636363636,
+      "p_outputs_publisher_open_only": 60,
+      "p_outputs_both": 34.54545454545455,
+      "p_outputs_other_platform_open_only": 1.8181818181818181,
+      "p_outputs_closed": 3.6363636363636362,
+      "p_outputs_black": 5.454545454545454
+    }
+  },
+  {
+    "id": "02cqmj630",
+    "name": "Fundacion Arriarán",
+    "logo_sm": "logos/institution/sm/02cqmj630.jpg",
+    "entity_type": "institution",
+    "country_code": "CHL",
+    "country_name": "Chile",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Nonprofit",
+    "stats": {
+      "n_outputs": 55,
+      "n_outputs_open": 53,
+      "n_outputs_black": 46,
+      "p_outputs_open": 96.36363636363636,
+      "p_outputs_publisher_open_only": 14.545454545454545,
+      "p_outputs_both": 63.63636363636363,
+      "p_outputs_other_platform_open_only": 18.181818181818183,
+      "p_outputs_closed": 3.6363636363636362,
+      "p_outputs_black": 83.63636363636363
+    }
+  },
+  {
+    "id": "03a8hhw69",
+    "name": "Universitas Islam Negeri Maulana Malik Ibrahim",
+    "logo_sm": "logos/institution/sm/03a8hhw69.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 4449,
+      "n_outputs_open": 4287,
+      "n_outputs_black": 226,
+      "p_outputs_open": 96.35873229939313,
+      "p_outputs_publisher_open_only": 46.79703304113284,
+      "p_outputs_both": 47.741065407956846,
+      "p_outputs_other_platform_open_only": 1.8206338503034392,
+      "p_outputs_closed": 3.6412677006068783,
+      "p_outputs_black": 5.079793211957743
+    }
+  },
+  {
+    "id": "00m77t269",
+    "name": "Institut Ilmu Kesehatan Bhakti Wiyata",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "IIK"
+    ],
+    "stats": {
+      "n_outputs": 1368,
+      "n_outputs_open": 1318,
+      "n_outputs_black": 24,
+      "p_outputs_open": 96.34502923976608,
+      "p_outputs_publisher_open_only": 92.17836257309942,
+      "p_outputs_both": 3.9473684210526314,
+      "p_outputs_other_platform_open_only": 0.21929824561403508,
+      "p_outputs_closed": 3.654970760233918,
+      "p_outputs_black": 1.7543859649122806
+    }
+  },
+  {
+    "id": "05q79g396",
+    "name": "Infrared Processing and Analysis Center",
+    "logo_sm": "logos/institution/sm/05q79g396.jpg",
+    "entity_type": "institution",
+    "country_code": "USA",
+    "country_name": "United States",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "institution_type": "Facility",
+    "acronyms": [
+      "IPAC"
+    ],
+    "stats": {
+      "n_outputs": 2706,
+      "n_outputs_open": 2607,
+      "n_outputs_black": 2010,
+      "p_outputs_open": 96.34146341463415,
+      "p_outputs_publisher_open_only": 6.39320029563932,
+      "p_outputs_both": 72.69031781226903,
+      "p_outputs_other_platform_open_only": 17.257945306725794,
+      "p_outputs_closed": 3.6585365853658534,
+      "p_outputs_black": 74.27937915742794
+    }
+  },
+  {
+    "id": "05pg3mb97",
+    "name": "Muria Kudus University",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UMK"
+    ],
+    "stats": {
+      "n_outputs": 1825,
+      "n_outputs_open": 1758,
+      "n_outputs_black": 79,
+      "p_outputs_open": 96.32876712328768,
+      "p_outputs_publisher_open_only": 91.34246575342466,
+      "p_outputs_both": 4.931506849315069,
+      "p_outputs_other_platform_open_only": 0.0547945205479452,
+      "p_outputs_closed": 3.6712328767123292,
+      "p_outputs_black": 4.328767123287671
+    }
+  },
+  {
+    "id": "01n6mms53",
+    "name": "State Library of Württemberg",
+    "logo_sm": "logos/institution/sm/01n6mms53.jpg",
+    "entity_type": "institution",
+    "country_code": "DEU",
+    "country_name": "Germany",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "institution_type": "Archive",
+    "acronyms": [
+      "WLB"
+    ],
+    "stats": {
+      "n_outputs": 353,
+      "n_outputs_open": 340,
+      "n_outputs_black": 15,
+      "p_outputs_open": 96.3172804532578,
+      "p_outputs_publisher_open_only": 96.03399433427762,
+      "p_outputs_both": 0.28328611898017,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.6827195467422094,
+      "p_outputs_black": 4.2492917847025495
+    }
+  },
+  {
+    "id": "030vbff53",
+    "name": "Universitas Muhammadiyah Sumatera Barat",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UMSB"
+    ],
+    "stats": {
+      "n_outputs": 1542,
+      "n_outputs_open": 1485,
+      "n_outputs_black": 40,
+      "p_outputs_open": 96.3035019455253,
+      "p_outputs_publisher_open_only": 87.094682230869,
+      "p_outputs_both": 9.014267185473411,
+      "p_outputs_other_platform_open_only": 0.19455252918287938,
+      "p_outputs_closed": 3.6964980544747084,
+      "p_outputs_black": 2.594033722438392
+    }
+  },
+  {
+    "id": "02bsxxg37",
+    "name": "PAGEPress (Italy)",
+    "logo_sm": "logos/institution/sm/02bsxxg37.jpg",
+    "entity_type": "institution",
+    "country_code": "ITA",
+    "country_name": "Italy",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "institution_type": "Company",
+    "stats": {
+      "n_outputs": 81,
+      "n_outputs_open": 78,
+      "n_outputs_black": 68,
+      "p_outputs_open": 96.29629629629629,
+      "p_outputs_publisher_open_only": 29.629629629629626,
+      "p_outputs_both": 66.66666666666666,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.7037037037037033,
+      "p_outputs_black": 83.9506172839506
+    }
+  },
+  {
+    "id": "053ya0s96",
+    "name": "Państwowa Wyższa Szkoła Zawodowa we Włocławku",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "POL",
+    "country_name": "Poland",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "institution_type": "Education",
+    "acronyms": [
+      "PWSZ"
+    ],
+    "stats": {
+      "n_outputs": 81,
+      "n_outputs_open": 78,
+      "n_outputs_black": 0,
+      "p_outputs_open": 96.29629629629629,
+      "p_outputs_publisher_open_only": 93.82716049382715,
+      "p_outputs_both": 2.4691358024691357,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.7037037037037033,
+      "p_outputs_black": 0
+    }
+  },
+  {
+    "id": "0191rk783",
+    "name": "Universitas Sains Al-Qur'an",
+    "logo_sm": "logos/institution/sm/0191rk783.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNSIQ"
+    ],
+    "stats": {
+      "n_outputs": 1294,
+      "n_outputs_open": 1246,
+      "n_outputs_black": 22,
+      "p_outputs_open": 96.29057187017001,
+      "p_outputs_publisher_open_only": 94.12673879443587,
+      "p_outputs_both": 2.0865533230293662,
+      "p_outputs_other_platform_open_only": 0.07727975270479134,
+      "p_outputs_closed": 3.7094281298299845,
+      "p_outputs_black": 1.7001545595054095
+    }
+  },
+  {
+    "id": "00red6q96",
+    "name": "Politeknik Medica Farma Husada Mataram",
+    "logo_sm": "logos/institution/sm/00red6q96.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "MFH"
+    ],
+    "stats": {
+      "n_outputs": 134,
+      "n_outputs_open": 129,
+      "n_outputs_black": 7,
+      "p_outputs_open": 96.26865671641791,
+      "p_outputs_publisher_open_only": 92.53731343283582,
+      "p_outputs_both": 3.731343283582089,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.731343283582089,
+      "p_outputs_black": 5.223880597014925
+    }
+  },
+  {
+    "id": "05c5yp582",
+    "name": "Universitas Subang",
+    "logo_sm": "logos/institution/sm/05c5yp582.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNSUB"
+    ],
+    "stats": {
+      "n_outputs": 214,
+      "n_outputs_open": 206,
+      "n_outputs_black": 7,
+      "p_outputs_open": 96.26168224299066,
+      "p_outputs_publisher_open_only": 93.45794392523365,
+      "p_outputs_both": 2.803738317757009,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.7383177570093453,
+      "p_outputs_black": 3.2710280373831773
+    }
+  },
+  {
+    "id": "02k0z7185",
+    "name": "Polytechnic University of Nicaragua",
+    "logo_sm": "logos/institution/sm/02k0z7185.jpg",
+    "entity_type": "institution",
+    "country_code": "NIC",
+    "country_name": "Nicaragua",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UPOLI"
+    ],
+    "stats": {
+      "n_outputs": 267,
+      "n_outputs_open": 257,
+      "n_outputs_black": 7,
+      "p_outputs_open": 96.25468164794007,
+      "p_outputs_publisher_open_only": 86.89138576779027,
+      "p_outputs_both": 8.614232209737828,
+      "p_outputs_other_platform_open_only": 0.7490636704119851,
+      "p_outputs_closed": 3.7453183520599254,
+      "p_outputs_black": 2.6217228464419478
+    }
+  },
+  {
+    "id": "058na1954",
+    "name": "Universitas Kanjuruhan",
+    "logo_sm": "logos/institution/sm/058na1954.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 1118,
+      "n_outputs_open": 1076,
+      "n_outputs_black": 97,
+      "p_outputs_open": 96.2432915921288,
+      "p_outputs_publisher_open_only": 87.29874776386404,
+      "p_outputs_both": 8.765652951699463,
+      "p_outputs_other_platform_open_only": 0.17889087656529518,
+      "p_outputs_closed": 3.7567084078711988,
+      "p_outputs_black": 8.676207513416816
+    }
+  },
+  {
+    "id": "021p07t45",
+    "name": "Universitas Gunung Rinjani",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UGR"
+    ],
+    "stats": {
+      "n_outputs": 212,
+      "n_outputs_open": 204,
+      "n_outputs_black": 11,
+      "p_outputs_open": 96.22641509433963,
+      "p_outputs_publisher_open_only": 87.26415094339622,
+      "p_outputs_both": 8.018867924528301,
+      "p_outputs_other_platform_open_only": 0.9433962264150944,
+      "p_outputs_closed": 3.7735849056603774,
+      "p_outputs_black": 5.188679245283019
+    }
+  },
+  {
+    "id": "00ckv2g77",
+    "name": "Multidisciplinary Digital Publishing Institute (Switzerland)",
+    "logo_sm": "logos/institution/sm/00ckv2g77.jpg",
+    "entity_type": "institution",
+    "country_code": "CHE",
+    "country_name": "Switzerland",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "institution_type": "Company",
+    "acronyms": [
+      "MDPI"
+    ],
+    "stats": {
+      "n_outputs": 79,
+      "n_outputs_open": 76,
+      "n_outputs_black": 64,
+      "p_outputs_open": 96.20253164556962,
+      "p_outputs_publisher_open_only": 30.37974683544304,
+      "p_outputs_both": 63.29113924050633,
+      "p_outputs_other_platform_open_only": 2.5316455696202533,
+      "p_outputs_closed": 3.79746835443038,
+      "p_outputs_black": 81.0126582278481
+    }
+  },
+  {
+    "id": "02a1v1364",
+    "name": "Universitas Lakidende",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNILAKI"
+    ],
+    "stats": {
+      "n_outputs": 158,
+      "n_outputs_open": 152,
+      "n_outputs_black": 1,
+      "p_outputs_open": 96.20253164556962,
+      "p_outputs_publisher_open_only": 95.56962025316456,
+      "p_outputs_both": 0.6329113924050633,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.79746835443038,
+      "p_outputs_black": 0.6329113924050633
+    }
+  },
+  {
+    "id": "04hr13565",
+    "name": "Department of Public Health",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "MMR",
+    "country_name": "Myanmar",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Government",
+    "stats": {
+      "n_outputs": 79,
+      "n_outputs_open": 76,
+      "n_outputs_black": 66,
+      "p_outputs_open": 96.20253164556962,
+      "p_outputs_publisher_open_only": 6.329113924050633,
+      "p_outputs_both": 83.54430379746836,
+      "p_outputs_other_platform_open_only": 6.329113924050633,
+      "p_outputs_closed": 3.79746835443038,
+      "p_outputs_black": 83.54430379746836
+    }
+  },
+  {
+    "id": "045w8cb33",
+    "name": "Faculdades Integradas do Vale do Ivaí",
+    "logo_sm": "logos/institution/sm/045w8cb33.jpg",
+    "entity_type": "institution",
+    "country_code": "BRA",
+    "country_name": "Brazil",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 184,
+      "n_outputs_open": 177,
+      "n_outputs_black": 16,
+      "p_outputs_open": 96.19565217391305,
+      "p_outputs_publisher_open_only": 73.36956521739131,
+      "p_outputs_both": 20.652173913043477,
+      "p_outputs_other_platform_open_only": 2.1739130434782608,
+      "p_outputs_closed": 3.804347826086957,
+      "p_outputs_black": 8.695652173913043
+    }
+  },
+  {
+    "id": "013mk4f48",
+    "name": "Universitas Wiralodra",
+    "logo_sm": "logos/institution/sm/013mk4f48.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNWIR"
+    ],
+    "stats": {
+      "n_outputs": 682,
+      "n_outputs_open": 656,
+      "n_outputs_black": 19,
+      "p_outputs_open": 96.18768328445748,
+      "p_outputs_publisher_open_only": 93.54838709677419,
+      "p_outputs_both": 2.6392961876832843,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.812316715542522,
+      "p_outputs_black": 2.785923753665689
+    }
+  },
+  {
+    "id": "01c1p1v81",
+    "name": "Universitas PGRI Semarang",
+    "logo_sm": "logos/institution/sm/01c1p1v81.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UPGRIS"
+    ],
+    "stats": {
+      "n_outputs": 5854,
+      "n_outputs_open": 5630,
+      "n_outputs_black": 196,
+      "p_outputs_open": 96.17355654253502,
+      "p_outputs_publisher_open_only": 91.3905022207038,
+      "p_outputs_both": 4.7147249743764945,
+      "p_outputs_other_platform_open_only": 0.0683293474547318,
+      "p_outputs_closed": 3.8264434574649813,
+      "p_outputs_black": 3.3481380252818584
+    }
+  },
+  {
+    "id": "0020mxe10",
+    "name": "Shevchenko Institute of Literature",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "UKR",
+    "country_name": "Ukraine",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "institution_type": "Facility",
+    "stats": {
+      "n_outputs": 104,
+      "n_outputs_open": 100,
+      "n_outputs_black": 1,
+      "p_outputs_open": 96.15384615384616,
+      "p_outputs_publisher_open_only": 46.15384615384615,
+      "p_outputs_both": 48.07692307692308,
+      "p_outputs_other_platform_open_only": 1.9230769230769231,
+      "p_outputs_closed": 3.8461538461538463,
+      "p_outputs_black": 0.9615384615384616
+    }
+  },
+  {
+    "id": "039sshh33",
+    "name": "Na Kama Kai",
+    "logo_sm": "logos/institution/sm/039sshh33.jpg",
+    "entity_type": "institution",
+    "country_code": "USA",
+    "country_name": "United States",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "institution_type": "Nonprofit",
+    "stats": {
+      "n_outputs": 52,
+      "n_outputs_open": 50,
+      "n_outputs_black": 1,
+      "p_outputs_open": 96.15384615384616,
+      "p_outputs_publisher_open_only": 90.38461538461539,
+      "p_outputs_both": 3.8461538461538463,
+      "p_outputs_other_platform_open_only": 1.9230769230769231,
+      "p_outputs_closed": 3.8461538461538463,
+      "p_outputs_black": 1.9230769230769231
+    }
+  },
+  {
+    "id": "00bt0h739",
+    "name": "Universitas Muhammadiyah Parepare",
+    "logo_sm": "logos/institution/sm/00bt0h739.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UMPAR"
+    ],
+    "stats": {
+      "n_outputs": 1060,
+      "n_outputs_open": 1019,
+      "n_outputs_black": 42,
+      "p_outputs_open": 96.1320754716981,
+      "p_outputs_publisher_open_only": 92.0754716981132,
+      "p_outputs_both": 3.9622641509433962,
+      "p_outputs_other_platform_open_only": 0.09433962264150944,
+      "p_outputs_closed": 3.8679245283018866,
+      "p_outputs_black": 3.9622641509433962
+    }
+  },
+  {
+    "id": "04jhxpq45",
+    "name": "Universidad Iberoamericana",
+    "logo_sm": "logos/institution/sm/04jhxpq45.jpg",
+    "entity_type": "institution",
+    "country_code": "PRY",
+    "country_name": "Paraguay",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIBE"
+    ],
+    "stats": {
+      "n_outputs": 103,
+      "n_outputs_open": 99,
+      "n_outputs_black": 1,
+      "p_outputs_open": 96.11650485436894,
+      "p_outputs_publisher_open_only": 87.37864077669903,
+      "p_outputs_both": 6.796116504854369,
+      "p_outputs_other_platform_open_only": 1.9417475728155338,
+      "p_outputs_closed": 3.8834951456310676,
+      "p_outputs_black": 0.9708737864077669
+    }
+  },
+  {
+    "id": "001hawd46",
+    "name": "Universitas Al-washliyah Labuhanbatu",
+    "logo_sm": "logos/institution/sm/001hawd46.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 873,
+      "n_outputs_open": 839,
+      "n_outputs_black": 17,
+      "p_outputs_open": 96.10538373424971,
+      "p_outputs_publisher_open_only": 94.15807560137456,
+      "p_outputs_both": 1.9473081328751431,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.8946162657502863,
+      "p_outputs_black": 1.9473081328751431
+    }
+  },
+  {
+    "id": "00567j574",
+    "name": "Universitas Malahayati",
+    "logo_sm": "logos/institution/sm/00567j574.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNMAL"
+    ],
+    "stats": {
+      "n_outputs": 1360,
+      "n_outputs_open": 1307,
+      "n_outputs_black": 43,
+      "p_outputs_open": 96.1029411764706,
+      "p_outputs_publisher_open_only": 91.76470588235294,
+      "p_outputs_both": 4.264705882352941,
+      "p_outputs_other_platform_open_only": 0.07352941176470588,
+      "p_outputs_closed": 3.8970588235294117,
+      "p_outputs_black": 3.161764705882353
+    }
+  },
+  {
+    "id": "01jra8x56",
+    "name": "Institut Kesenian Jakarta",
+    "logo_sm": "logos/institution/sm/01jra8x56.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "IKJ",
+      "LPKJ"
+    ],
+    "stats": {
+      "n_outputs": 513,
+      "n_outputs_open": 493,
+      "n_outputs_black": 8,
+      "p_outputs_open": 96.10136452241716,
+      "p_outputs_publisher_open_only": 92.98245614035088,
+      "p_outputs_both": 3.1189083820662766,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 3.898635477582846,
+      "p_outputs_black": 1.5594541910331383
+    }
+  },
+  {
+    "id": "052crx470",
+    "name": "Universitas Islam Lamongan",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNISLA"
+    ],
+    "stats": {
+      "n_outputs": 1741,
+      "n_outputs_open": 1673,
+      "n_outputs_black": 20,
+      "p_outputs_open": 96.09419873635842,
+      "p_outputs_publisher_open_only": 93.27972429638139,
+      "p_outputs_both": 2.642159678345778,
+      "p_outputs_other_platform_open_only": 0.17231476163124643,
+      "p_outputs_closed": 3.9058012636415853,
+      "p_outputs_black": 1.1487650775416427
+    }
+  },
+  {
+    "id": "055rtmw65",
+    "name": "Universitas Baiturrahmah",
+    "logo_sm": "logos/institution/sm/055rtmw65.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "Unbrah"
+    ],
+    "stats": {
+      "n_outputs": 715,
+      "n_outputs_open": 687,
+      "n_outputs_black": 16,
+      "p_outputs_open": 96.0839160839161,
+      "p_outputs_publisher_open_only": 91.18881118881119,
+      "p_outputs_both": 4.615384615384616,
+      "p_outputs_other_platform_open_only": 0.27972027972027974,
+      "p_outputs_closed": 3.9160839160839163,
+      "p_outputs_black": 2.237762237762238
+    }
+  },
+  {
+    "id": "01h06nz15",
+    "name": "ARC Centre of Excellence for Particle Physics at the Terascale",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "AUS",
+    "country_name": "Australia",
+    "subregion": "Australia and New Zealand",
+    "region": "Oceania",
+    "institution_type": "Facility",
+    "acronyms": [
+      "CoEPP "
+    ],
+    "stats": {
+      "n_outputs": 483,
+      "n_outputs_open": 464,
+      "n_outputs_black": 457,
+      "p_outputs_open": 96.06625258799171,
+      "p_outputs_publisher_open_only": 2.070393374741201,
+      "p_outputs_both": 50.931677018633536,
+      "p_outputs_other_platform_open_only": 43.064182194616976,
+      "p_outputs_closed": 3.9337474120082816,
+      "p_outputs_black": 94.61697722567288
+    }
+  },
+  {
+    "id": "02ywmkj38",
+    "name": "Ukrainian Free University",
+    "logo_sm": "logos/institution/sm/02ywmkj38.jpg",
+    "entity_type": "institution",
+    "country_code": "DEU",
+    "country_name": "Germany",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "institution_type": "Education",
+    "acronyms": [
+      "UFU"
+    ],
+    "stats": {
+      "n_outputs": 533,
+      "n_outputs_open": 512,
+      "n_outputs_black": 97,
+      "p_outputs_open": 96.06003752345215,
+      "p_outputs_publisher_open_only": 60.97560975609756,
+      "p_outputs_both": 34.146341463414636,
+      "p_outputs_other_platform_open_only": 0.9380863039399625,
+      "p_outputs_closed": 3.9399624765478425,
+      "p_outputs_black": 18.19887429643527
+    }
+  },
+  {
+    "id": "04zc7sw86",
+    "name": "Serang Raya University",
+    "logo_sm": "logos/institution/sm/04zc7sw86.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNSERA"
+    ],
+    "stats": {
+      "n_outputs": 907,
+      "n_outputs_open": 871,
+      "n_outputs_black": 49,
+      "p_outputs_open": 96.03087100330761,
+      "p_outputs_publisher_open_only": 90.6284454244763,
+      "p_outputs_both": 4.740904079382579,
+      "p_outputs_other_platform_open_only": 0.6615214994487321,
+      "p_outputs_closed": 3.9691289966923926,
+      "p_outputs_black": 5.402425578831313
+    }
+  },
+  {
+    "id": "059ycz158",
+    "name": "Universitas Islam Balitar",
+    "logo_sm": "logos/institution/sm/059ycz158.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 554,
+      "n_outputs_open": 532,
+      "n_outputs_black": 6,
+      "p_outputs_open": 96.028880866426,
+      "p_outputs_publisher_open_only": 92.96028880866426,
+      "p_outputs_both": 2.888086642599278,
+      "p_outputs_other_platform_open_only": 0.18050541516245489,
+      "p_outputs_closed": 3.9711191335740073,
+      "p_outputs_black": 1.083032490974729
+    }
+  },
+  {
+    "id": "01t79g318",
+    "name": "Universitas Slamet Riyadi",
+    "logo_sm": "logos/institution/sm/01t79g318.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNISRI"
+    ],
+    "stats": {
+      "n_outputs": 578,
+      "n_outputs_open": 555,
+      "n_outputs_black": 6,
+      "p_outputs_open": 96.02076124567473,
+      "p_outputs_publisher_open_only": 93.25259515570934,
+      "p_outputs_both": 2.422145328719723,
+      "p_outputs_other_platform_open_only": 0.34602076124567477,
+      "p_outputs_closed": 3.9792387543252596,
+      "p_outputs_black": 1.0380622837370241
+    }
+  },
+  {
+    "id": "047e48t34",
+    "name": "École Nationale d'Administration Pénitentiaire",
+    "logo_sm": "logos/institution/sm/047e48t34.jpg",
+    "entity_type": "institution",
+    "country_code": "FRA",
+    "country_name": "France",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "institution_type": "Education",
+    "acronyms": [
+      "ÉNAP"
+    ],
+    "stats": {
+      "n_outputs": 1076,
+      "n_outputs_open": 1033,
+      "n_outputs_black": 21,
+      "p_outputs_open": 96.00371747211895,
+      "p_outputs_publisher_open_only": 90.24163568773234,
+      "p_outputs_both": 4.83271375464684,
+      "p_outputs_other_platform_open_only": 0.929368029739777,
+      "p_outputs_closed": 3.9962825278810405,
+      "p_outputs_black": 1.9516728624535316
+    }
+  },
+  {
+    "id": "012a9r338",
+    "name": "Bodeker Scientific (New Zealand)",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "NZL",
+    "country_name": "New Zealand",
+    "subregion": "Australia and New Zealand",
+    "region": "Oceania",
+    "institution_type": "Company",
+    "stats": {
+      "n_outputs": 100,
+      "n_outputs_open": 96,
+      "n_outputs_black": 72,
+      "p_outputs_open": 96,
+      "p_outputs_publisher_open_only": 9,
+      "p_outputs_both": 79,
+      "p_outputs_other_platform_open_only": 8,
+      "p_outputs_closed": 4,
+      "p_outputs_black": 72
+    }
+  },
+  {
+    "id": "02p0xr181",
+    "name": "Corporación Universitaria Cenda",
+    "logo_sm": "logos/institution/sm/02p0xr181.jpg",
+    "entity_type": "institution",
+    "country_code": "COL",
+    "country_name": "Colombia",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 50,
+      "n_outputs_open": 48,
+      "n_outputs_black": 3,
+      "p_outputs_open": 96,
+      "p_outputs_publisher_open_only": 74,
+      "p_outputs_both": 22,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 4,
+      "p_outputs_black": 6
+    }
+  },
+  {
+    "id": "01fnz6z30",
+    "name": "Universitas Islam Jember",
+    "logo_sm": "logos/institution/sm/01fnz6z30.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UIJ"
+    ],
+    "stats": {
+      "n_outputs": 1124,
+      "n_outputs_open": 1079,
+      "n_outputs_black": 23,
+      "p_outputs_open": 95.99644128113879,
+      "p_outputs_publisher_open_only": 94.03914590747331,
+      "p_outputs_both": 1.9572953736654803,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 4.0035587188612105,
+      "p_outputs_black": 2.0462633451957295
+    }
+  },
+  {
+    "id": "00f8d9297",
+    "name": "Universitas Muhammadiyah Gresik",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UMG"
+    ],
+    "stats": {
+      "n_outputs": 1614,
+      "n_outputs_open": 1549,
+      "n_outputs_black": 55,
+      "p_outputs_open": 95.9727385377943,
+      "p_outputs_publisher_open_only": 93.37050805452293,
+      "p_outputs_both": 2.478314745972739,
+      "p_outputs_other_platform_open_only": 0.12391573729863693,
+      "p_outputs_closed": 4.027261462205701,
+      "p_outputs_black": 3.407682775712516
+    }
+  },
+  {
+    "id": "027de2r94",
+    "name": "Universitas Islam Negeri Raden Intan Lampung",
+    "logo_sm": "logos/institution/sm/027de2r94.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 4227,
+      "n_outputs_open": 4056,
+      "n_outputs_black": 134,
+      "p_outputs_open": 95.95457771469127,
+      "p_outputs_publisher_open_only": 92.21670215282707,
+      "p_outputs_both": 3.6669032410693165,
+      "p_outputs_other_platform_open_only": 0.07097232079488999,
+      "p_outputs_closed": 4.045422285308729,
+      "p_outputs_black": 3.170096995505086
+    }
+  },
+  {
+    "id": "02eehp307",
+    "name": "Warmadewa University",
+    "logo_sm": "logos/institution/sm/02eehp307.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "Unwar"
+    ],
+    "stats": {
+      "n_outputs": 2222,
+      "n_outputs_open": 2132,
+      "n_outputs_black": 125,
+      "p_outputs_open": 95.94959495949595,
+      "p_outputs_publisher_open_only": 90.81908190819082,
+      "p_outputs_both": 4.455445544554455,
+      "p_outputs_other_platform_open_only": 0.6750675067506751,
+      "p_outputs_closed": 4.05040504050405,
+      "p_outputs_black": 5.625562556255625
+    }
+  },
+  {
+    "id": "007hp0t61",
+    "name": "Muhammadiyah University of North Maluku",
+    "logo_sm": "logos/institution/sm/007hp0t61.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UMMU"
+    ],
+    "stats": {
+      "n_outputs": 370,
+      "n_outputs_open": 355,
+      "n_outputs_black": 25,
+      "p_outputs_open": 95.94594594594594,
+      "p_outputs_publisher_open_only": 92.43243243243244,
+      "p_outputs_both": 3.5135135135135136,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 4.054054054054054,
+      "p_outputs_black": 6.756756756756757
+    }
+  },
+  {
+    "id": "00gq7p328",
+    "name": "Walisongo State Islamic University",
+    "logo_sm": "logos/institution/sm/00gq7p328.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UIN Walisongo",
+      "WSIU"
+    ],
+    "stats": {
+      "n_outputs": 2516,
+      "n_outputs_open": 2414,
+      "n_outputs_black": 98,
+      "p_outputs_open": 95.94594594594594,
+      "p_outputs_publisher_open_only": 84.73767885532591,
+      "p_outputs_both": 10.651828298887123,
+      "p_outputs_other_platform_open_only": 0.5564387917329093,
+      "p_outputs_closed": 4.054054054054054,
+      "p_outputs_black": 3.8950715421303657
+    }
+  },
+  {
+    "id": "04s5e9593",
+    "name": "Universitas Muhammadiyah Purworejo",
+    "logo_sm": "logos/institution/sm/04s5e9593.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 715,
+      "n_outputs_open": 686,
+      "n_outputs_black": 33,
+      "p_outputs_open": 95.94405594405593,
+      "p_outputs_publisher_open_only": 90.20979020979021,
+      "p_outputs_both": 5.594405594405594,
+      "p_outputs_other_platform_open_only": 0.13986013986013987,
+      "p_outputs_closed": 4.055944055944056,
+      "p_outputs_black": 4.615384615384616
+    }
+  },
+  {
+    "id": "05dybcw48",
+    "name": "Universitas Tulungagung",
+    "logo_sm": "logos/institution/sm/05dybcw48.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 2016,
+      "n_outputs_open": 1934,
+      "n_outputs_black": 31,
+      "p_outputs_open": 95.93253968253968,
+      "p_outputs_publisher_open_only": 82.2420634920635,
+      "p_outputs_both": 13.343253968253968,
+      "p_outputs_other_platform_open_only": 0.3472222222222222,
+      "p_outputs_closed": 4.067460317460317,
+      "p_outputs_black": 1.5376984126984126
+    }
+  },
+  {
+    "id": "01555fr96",
+    "name": "Centro Universitário Amparense",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "BRA",
+    "country_name": "Brazil",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIFIA"
+    ],
+    "stats": {
+      "n_outputs": 172,
+      "n_outputs_open": 165,
+      "n_outputs_black": 33,
+      "p_outputs_open": 95.93023255813954,
+      "p_outputs_publisher_open_only": 61.04651162790697,
+      "p_outputs_both": 30.23255813953488,
+      "p_outputs_other_platform_open_only": 4.651162790697675,
+      "p_outputs_closed": 4.069767441860465,
+      "p_outputs_black": 19.186046511627907
+    }
+  },
+  {
+    "id": "00syyzh74",
+    "name": "Institut Bisnis Nusantara",
+    "logo_sm": "logos/institution/sm/00syyzh74.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 661,
+      "n_outputs_open": 634,
+      "n_outputs_black": 1,
+      "p_outputs_open": 95.91527987897126,
+      "p_outputs_publisher_open_only": 95.15885022692889,
+      "p_outputs_both": 0.45385779122541603,
+      "p_outputs_other_platform_open_only": 0.30257186081694404,
+      "p_outputs_closed": 4.084720121028744,
+      "p_outputs_black": 0.15128593040847202
+    }
+  },
+  {
+    "id": "00nmvbd84",
+    "name": "Sunan Kalijaga State Islamic University Yogyakarta",
+    "logo_sm": "logos/institution/sm/00nmvbd84.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 9311,
+      "n_outputs_open": 8930,
+      "n_outputs_black": 155,
+      "p_outputs_open": 95.90806572870798,
+      "p_outputs_publisher_open_only": 86.26355923101707,
+      "p_outputs_both": 9.08602727956181,
+      "p_outputs_other_platform_open_only": 0.5584792181290946,
+      "p_outputs_closed": 4.09193427129202,
+      "p_outputs_black": 1.6646976694232627
+    }
+  },
+  {
+    "id": "03yp20v68",
+    "name": "Institut Agama Islam Negeri",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "IAIN"
+    ],
+    "stats": {
+      "n_outputs": 16630,
+      "n_outputs_open": 15949,
+      "n_outputs_black": 209,
+      "p_outputs_open": 95.90499098015634,
+      "p_outputs_publisher_open_only": 92.44137101623572,
+      "p_outputs_both": 3.241130487071557,
+      "p_outputs_other_platform_open_only": 0.22248947684906795,
+      "p_outputs_closed": 4.095009019843656,
+      "p_outputs_black": 1.2567648827420324
+    }
+  },
+  {
+    "id": "005jv5x16",
+    "name": "Universitas Mayjen Sungkono",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 122,
+      "n_outputs_open": 117,
+      "n_outputs_black": 1,
+      "p_outputs_open": 95.90163934426229,
+      "p_outputs_publisher_open_only": 93.44262295081968,
+      "p_outputs_both": 0.819672131147541,
+      "p_outputs_other_platform_open_only": 1.639344262295082,
+      "p_outputs_closed": 4.098360655737705,
+      "p_outputs_black": 0.819672131147541
+    }
+  },
+  {
+    "id": "0091hm651",
+    "name": "University of Pattimura",
+    "logo_sm": "logos/institution/sm/0091hm651.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 3329,
+      "n_outputs_open": 3192,
+      "n_outputs_black": 261,
+      "p_outputs_open": 95.88465004505858,
+      "p_outputs_publisher_open_only": 90.56773805947732,
+      "p_outputs_both": 5.106638630219285,
+      "p_outputs_other_platform_open_only": 0.21027335536197056,
+      "p_outputs_closed": 4.115349954941424,
+      "p_outputs_black": 7.840192249924903
+    }
+  },
+  {
+    "id": "0283yy536",
+    "name": "Universitas Lancang Kuning",
+    "logo_sm": "logos/institution/sm/0283yy536.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNILAK"
+    ],
+    "stats": {
+      "n_outputs": 1917,
+      "n_outputs_open": 1838,
+      "n_outputs_black": 170,
+      "p_outputs_open": 95.87897756911842,
+      "p_outputs_publisher_open_only": 92.5925925925926,
+      "p_outputs_both": 2.8169014084507045,
+      "p_outputs_other_platform_open_only": 0.4694835680751174,
+      "p_outputs_closed": 4.1210224308815855,
+      "p_outputs_black": 8.868022952529994
+    }
+  },
+  {
+    "id": "043pjwk57",
+    "name": "DNAnexus (United States)",
+    "logo_sm": "logos/institution/sm/043pjwk57.jpg",
+    "entity_type": "institution",
+    "country_code": "USA",
+    "country_name": "United States",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "institution_type": "Company",
+    "stats": {
+      "n_outputs": 97,
+      "n_outputs_open": 93,
+      "n_outputs_black": 38,
+      "p_outputs_open": 95.87628865979381,
+      "p_outputs_publisher_open_only": 4.123711340206185,
+      "p_outputs_both": 59.79381443298969,
+      "p_outputs_other_platform_open_only": 31.958762886597935,
+      "p_outputs_closed": 4.123711340206185,
+      "p_outputs_black": 39.175257731958766
+    }
+  },
+  {
+    "id": "04wsxm558",
+    "name": "Faculdade Cásper Líbero",
+    "logo_sm": "logos/institution/sm/04wsxm558.jpg",
+    "entity_type": "institution",
+    "country_code": "BRA",
+    "country_name": "Brazil",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "FCL"
+    ],
+    "stats": {
+      "n_outputs": 291,
+      "n_outputs_open": 279,
+      "n_outputs_black": 38,
+      "p_outputs_open": 95.87628865979381,
+      "p_outputs_publisher_open_only": 65.63573883161511,
+      "p_outputs_both": 28.865979381443296,
+      "p_outputs_other_platform_open_only": 1.3745704467353952,
+      "p_outputs_closed": 4.123711340206185,
+      "p_outputs_black": 13.058419243986256
+    }
+  },
+  {
+    "id": "058jm1724",
+    "name": "Politeknik Kesehatan Kementerian Kesehatan Jakarta II",
+    "logo_sm": "logos/institution/sm/058jm1724.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 1260,
+      "n_outputs_open": 1208,
+      "n_outputs_black": 30,
+      "p_outputs_open": 95.87301587301587,
+      "p_outputs_publisher_open_only": 87.53968253968254,
+      "p_outputs_both": 7.936507936507936,
+      "p_outputs_other_platform_open_only": 0.3968253968253968,
+      "p_outputs_closed": 4.1269841269841265,
+      "p_outputs_black": 2.380952380952381
+    }
+  },
+  {
+    "id": "02v806644",
+    "name": "Universitas Suryakancana Cianjur",
+    "logo_sm": "logos/institution/sm/02v806644.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 823,
+      "n_outputs_open": 789,
+      "n_outputs_black": 23,
+      "p_outputs_open": 95.86877278250304,
+      "p_outputs_publisher_open_only": 89.91494532199272,
+      "p_outputs_both": 5.953827460510328,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 4.131227217496963,
+      "p_outputs_black": 2.7946537059538272
+    }
+  },
+  {
+    "id": "04a8tp355",
+    "name": "Universitas Teknologi Sulawesi",
+    "logo_sm": "logos/institution/sm/04a8tp355.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UTS"
+    ],
+    "stats": {
+      "n_outputs": 96,
+      "n_outputs_open": 92,
+      "n_outputs_black": 6,
+      "p_outputs_open": 95.83333333333334,
+      "p_outputs_publisher_open_only": 94.79166666666666,
+      "p_outputs_both": 1.0416666666666665,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 4.166666666666666,
+      "p_outputs_black": 6.25
+    }
+  },
+  {
+    "id": "00e26jr92",
+    "name": "Universitas Bale Bandung",
+    "logo_sm": "logos/institution/sm/00e26jr92.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNIBBA"
+    ],
+    "stats": {
+      "n_outputs": 143,
+      "n_outputs_open": 137,
+      "n_outputs_black": 6,
+      "p_outputs_open": 95.8041958041958,
+      "p_outputs_publisher_open_only": 92.3076923076923,
+      "p_outputs_both": 3.4965034965034967,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 4.195804195804196,
+      "p_outputs_black": 4.195804195804196
+    }
+  },
+  {
+    "id": "04t3peq77",
+    "name": "Institut Manajemen Koperasi Indonesia",
+    "logo_sm": "logos/institution/sm/04t3peq77.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "Ikopin"
+    ],
+    "stats": {
+      "n_outputs": 715,
+      "n_outputs_open": 685,
+      "n_outputs_black": 13,
+      "p_outputs_open": 95.8041958041958,
+      "p_outputs_publisher_open_only": 91.8881118881119,
+      "p_outputs_both": 3.6363636363636362,
+      "p_outputs_other_platform_open_only": 0.27972027972027974,
+      "p_outputs_closed": 4.195804195804196,
+      "p_outputs_black": 1.8181818181818181
+    }
+  },
+  {
+    "id": "02fm1my09",
+    "name": "Universitas Kristen Indonesia Paulus",
+    "logo_sm": "unknown.svg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UKIP"
+    ],
+    "stats": {
+      "n_outputs": 308,
+      "n_outputs_open": 295,
+      "n_outputs_black": 42,
+      "p_outputs_open": 95.77922077922078,
+      "p_outputs_publisher_open_only": 92.53246753246754,
+      "p_outputs_both": 2.5974025974025974,
+      "p_outputs_other_platform_open_only": 0.6493506493506493,
+      "p_outputs_closed": 4.220779220779221,
+      "p_outputs_black": 13.636363636363635
+    }
+  },
+  {
+    "id": "009cc1d57",
+    "name": "UIN Sunan Ampel Surabaya",
+    "logo_sm": "logos/institution/sm/009cc1d57.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "stats": {
+      "n_outputs": 3669,
+      "n_outputs_open": 3514,
+      "n_outputs_black": 80,
+      "p_outputs_open": 95.77541564458981,
+      "p_outputs_publisher_open_only": 87.89860997547015,
+      "p_outputs_both": 7.440719542109567,
+      "p_outputs_other_platform_open_only": 0.43608612701008453,
+      "p_outputs_closed": 4.224584355410194,
+      "p_outputs_black": 2.1804306350504223
+    }
+  },
+  {
+    "id": "05417j740",
+    "name": "State University of Gorontalo",
+    "logo_sm": "logos/institution/sm/05417j740.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNG"
+    ],
+    "stats": {
+      "n_outputs": 3077,
+      "n_outputs_open": 2947,
+      "n_outputs_black": 175,
+      "p_outputs_open": 95.77510562235943,
+      "p_outputs_publisher_open_only": 90.31524211894703,
+      "p_outputs_both": 5.199870003249918,
+      "p_outputs_other_platform_open_only": 0.25999350016249595,
+      "p_outputs_closed": 4.224894377640559,
+      "p_outputs_black": 5.687357816054599
+    }
+  },
+  {
+    "id": "01zstgj41",
+    "name": "Universidad Nacional Experimental Rafael María Baralt",
+    "logo_sm": "logos/institution/sm/01zstgj41.jpg",
+    "entity_type": "institution",
+    "country_code": "VEN",
+    "country_name": "Venezuela",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "institution_type": "Education",
+    "acronyms": [
+      "UNERMB"
+    ],
+    "stats": {
+      "n_outputs": 142,
+      "n_outputs_open": 136,
+      "n_outputs_black": 4,
+      "p_outputs_open": 95.77464788732394,
+      "p_outputs_publisher_open_only": 38.028169014084504,
+      "p_outputs_both": 57.74647887323944,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 4.225352112676056,
+      "p_outputs_black": 2.8169014084507045
+    }
+  },
+  {
+    "id": "04pad1p35",
+    "name": "Universitas Cokroaminoto Yogyakarta",
+    "logo_sm": "logos/institution/sm/04pad1p35.jpg",
+    "entity_type": "institution",
+    "country_code": "IDN",
+    "country_name": "Indonesia",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "institution_type": "Education",
+    "acronyms": [
+      "UCY"
+    ],
+    "stats": {
+      "n_outputs": 142,
+      "n_outputs_open": 136,
+      "n_outputs_black": 1,
+      "p_outputs_open": 95.77464788732394,
+      "p_outputs_publisher_open_only": 93.66197183098592,
+      "p_outputs_both": 2.112676056338028,
+      "p_outputs_other_platform_open_only": 0,
+      "p_outputs_closed": 4.225352112676056,
+      "p_outputs_black": 0.7042253521126761
+    }
+  }
+]

@@ -15,7 +15,7 @@
 // Author: James Diprose
 
 import { expect, test, describe } from "vitest";
-import { parseQuery } from "@/filter";
+import { parseQuery } from "@/handlers";
 
 describe("parseQuery", () => {
   test("test default values", () => {

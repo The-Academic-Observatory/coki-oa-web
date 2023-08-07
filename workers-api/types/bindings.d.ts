@@ -4,4 +4,7 @@ interface Bindings {
 
   // D1 database
   DB: D1Database;
+
+  // D1 database
+  __D1_BETA__DB: D1Database;
 }
