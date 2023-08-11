@@ -33,7 +33,7 @@ describe("parseQuery", () => {
       maxPOutputsOpen: 100,
       page: 0,
       limit: 100,
-      orderBy: "stats.p_outputs_open",
+      orderBy: "p_outputs_open",
       orderDir: "dsc",
     };
     expect(settings).toMatchObject(expected);
@@ -52,7 +52,7 @@ describe("parseQuery", () => {
       maxPOutputsOpen: "100",
       page: "0",
       limit: "100",
-      orderBy: "stats.p_outputs_open",
+      orderBy: "p_outputs_open",
       orderDir: "dsc",
     };
     const settings = parseQuery(input);
@@ -68,7 +68,7 @@ describe("parseQuery", () => {
       maxPOutputsOpen: 100,
       page: 0,
       limit: 100,
-      orderBy: "stats.p_outputs_open",
+      orderBy: "p_outputs_open",
       orderDir: "dsc",
     };
     expect(settings).toMatchObject(expected);
@@ -82,7 +82,7 @@ describe("parseQuery", () => {
       maxPOutputsOpen: "-1",
       page: "-1",
       limit: "0",
-      orderBy: "stats.p_outputs_open",
+      orderBy: "p_outputs_open",
       orderDir: "dsc",
     };
     const expected = {
@@ -96,7 +96,7 @@ describe("parseQuery", () => {
       maxPOutputsOpen: 0,
       page: 0,
       limit: 1,
-      orderBy: "stats.p_outputs_open",
+      orderBy: "p_outputs_open",
       orderDir: "dsc",
     };
     const settings = parseQuery(input);
@@ -109,7 +109,7 @@ describe("parseQuery", () => {
       maxPOutputsOpen: "101",
       page: "1",
       limit: "101",
-      orderBy: "stats.p_outputs_open",
+      orderBy: "p_outputs_open",
       orderDir: "dsc",
     };
     const expected = {
@@ -123,7 +123,7 @@ describe("parseQuery", () => {
       maxPOutputsOpen: 100,
       page: 1,
       limit: 100,
-      orderBy: "stats.p_outputs_open",
+      orderBy: "p_outputs_open",
       orderDir: "dsc",
     };
     const settings = parseQuery(input);

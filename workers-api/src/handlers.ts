@@ -88,7 +88,7 @@ export const parseQuery = (q: FilterQuery): Query => {
   let limit = q.limit === undefined ? MAX_LIMIT : parseInt(q.limit);
   page = Math.max(page, 0);
   limit = Math.max(Math.min(limit, MAX_LIMIT), MIN_LIMIT);
-  let orderBy = q.orderBy || "stats.p_outputs_open";
+  let orderBy = q.orderBy || "p_outputs_open";
   let orderDir = q.orderDir || "dsc";
 
   return {
@@ -110,6 +110,15 @@ export const parseQuery = (q: FilterQuery): Query => {
   };
 };
 
+const getDatabaseBinding = (env: Bindings): D1Database => {
+  if (env.DB !== undefined) {
+    return env.DB;
+  } else if (env.__D1_BETA__DB !== undefined) {
+    return env.__D1_BETA__DB;
+  }
+  throw new Error("getDatabaseBinding: no database binding found");
+};
+
 export const filterEntitiesHandler = async (
   entityType: string,
   req: FilterRequest,
@@ -120,7 +129,7 @@ export const filterEntitiesHandler = async (
   const query = parseQuery(q);
 
   // Fetch data
-  const results = await filterEntities(entityType, env.DB, query);
+  const results = await filterEntities(entityType, getDatabaseBinding(env), query);
 
   // Convert to JSON, returning results
   const json = JSON.stringify(results);
@@ -132,21 +141,17 @@ export const filterEntitiesHandler = async (
 export const searchHandler = async (req: SearchRequest, env: Bindings, ctx: ExecutionContext) => {
   // Parse parameters and query
   const text = decodeURIComponent(req.params.text);
-  let page = parseInt(req.query.page);
+  let page = parseInt(req.query.page) || 0;
   let limit = parseInt(req.query.limit) || MAX_LIMIT;
   limit = Math.max(Math.min(limit, MAX_LIMIT), MIN_LIMIT);
 
   // Convert returned ids to objects
-  const results = await searchEntities(env.DB, text, page, limit);
+  const results = await searchEntities(getDatabaseBinding(env), text, page, limit);
 
   // Convert to JSON, returning results
   const json = JSON.stringify(results);
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-type": "application/json",
-  };
   return new Response(json, {
-    headers: headers,
+    headers: HEADERS,
   });
 };
 
@@ -212,10 +217,7 @@ export const downloadDataHandler = async (req: EntityRequest, env: Bindings) => 
   // Entity was not found.
   return new Response("Not found", {
     status: 404,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Content-type": "application/zip",
-    },
+    headers: HEADERS,
   });
 };
 

@@ -246,6 +246,8 @@ export async function searchEntities(db: D1Database, text: string, page: number,
     nItems: nItems,
     page: page,
     limit: limit,
+    orderBy: undefined,
+    orderDir: undefined,
   };
 }
 
