@@ -14,15 +14,14 @@
 //
 // Author: James Diprose
 
-import { expect, test, beforeAll, beforeEach } from "vitest";
+import { beforeAll, expect, test } from "vitest";
 // @ts-ignore
 import fs from "fs";
 import tmp from "tmp";
 import { handleRequest } from "@/router";
-import lodashGet from "lodash.get";
 import decompress from "decompress";
-import { Entity, QueryResult } from "@/types";
-import { entitiesToSQL, filterEntities, loadEntities, searchEntities } from "@/database";
+import { Entity } from "@/types";
+import { entitiesToSQL, loadEntities } from "@/database";
 import path from "path";
 import { toBeSorted } from "../vitestToBeSorted";
 
@@ -75,14 +74,6 @@ const fetchPages = async (origin: string, pathname: string, params: URLSearchPar
 
   return results;
 };
-
-// const assertEntityProperties = (json: any) => {
-//   expect(json).toHaveProperty("items");
-//   expect(json).toHaveProperty("nItems");
-//   expect(json).toHaveProperty("page");
-//   expect(json).toHaveProperty("limit");
-//   expect(json.items).toBeInstanceOf(Array);
-// };
 
 const assertEntityProperties = (entities: Array<Entity>) => {
   entities.forEach(entity => {
@@ -143,6 +134,10 @@ const fetchAll = async (path: string, otherQueryParams: string = ""): Promise<Ar
   }
 
   return results;
+};
+
+const localeCompare = (a: string, b: string) => {
+  return a.localeCompare(b, "en", { sensitivity: "base" });
 };
 
 describe("404 API endpoints", () => {
@@ -305,8 +300,9 @@ describe("countries API endpoint", () => {
     assertEntityProperties(entities);
 
     // Check sorted in ascending order after fetching all pages
+    // TODO: unicode
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.name)).toBeSorted({ descending: false });
+    expect(entities.map(x => x.name)).toBeSorted({ descending: false, compare: localeCompare });
   });
 
   test("orderBy string, orderDir dsc", async () => {
@@ -321,8 +317,9 @@ describe("countries API endpoint", () => {
     assertEntityProperties(entities);
 
     // Check sorted in descending order after fetching all pages
+    // TODO: unicode
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.name)).toBeSorted({ descending: true });
+    expect(entities.map(x => x.name)).toBeSorted({ descending: true, compare: localeCompare });
   });
 
   test("orderBy numeric, orderDir asc", async () => {
@@ -358,34 +355,230 @@ describe("countries API endpoint", () => {
   });
 });
 
-// describe("institutions API endpoint", () => {
-//   test(
-//     "order",
-//     async () => {
-//       const endpoint = "institutions";
-//       const orderByKey = "p_outputs_open";
-//
-//       // Check sorted in descending order, with default params, after fetching all pages
-//       let results = await fetchAll(endpoint, "&limit=100");
-//       expect(results.length).toBeGreaterThan(0);
-//       //@ts-ignore
-//       expect(results.map(x => lodashGet(x, orderByKey))).toBeSorted({ descending: true });
-//
-//       // Check sorted in descending order after fetching all pages
-//       results = await fetchAll(endpoint, "&limit=100&orderDir=dsc");
-//       expect(results.length).toBeGreaterThan(0);
-//       //@ts-ignore
-//       expect(results.map(x => lodashGet(x, orderByKey))).toBeSorted({ descending: true });
-//
-//       // Check sorted in ascending order after fetching all pages
-//       results = await fetchAll(endpoint, "&limit=100&orderDir=asc");
-//       expect(results.length).toBeGreaterThan(0);
-//       //@ts-ignore
-//       expect(results.map(x => lodashGet(x, orderByKey))).toBeSorted({ descending: false });
-//     },
-//     institutionTestTimeout,
-//   );
-//
+describe("institutions API endpoint", () => {
+  test("widest filters", async () => {
+    let entities = await fetchPages(host, "institutions", new URLSearchParams({}));
+    assertEntityProperties(entities);
+    expect(entities.length).toBe(200);
+    for (const entity of entities) {
+      expect(entity.entity_type).toBe("institution");
+    }
+  });
+
+  test("ids filter", async () => {
+    let entities = await fetchPages(
+      host,
+      "institutions",
+      new URLSearchParams({
+        ids: "050gfgn67,04v9m3h35",
+      }),
+    );
+    assertEntityProperties(entities);
+
+    // Assert that we only have NZL and AUS
+    expect(entities.length).toBe(2);
+    entities.forEach(entity => {
+      expect(entity).toMatchObject({ id: expect.stringMatching(/050gfgn67|04v9m3h35/) });
+    });
+  });
+
+  test("regions filter", async () => {
+    const entities = await fetchPages(
+      host,
+      "institutions",
+      new URLSearchParams({
+        regions: "Oceania,Americas",
+      }),
+    );
+    assertEntityProperties(entities);
+
+    // Assert all results sorted
+    expect(entities.length).toBeGreaterThan(0);
+    expect(entities.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+
+    // Assert that we only have entities from Oceania and Americas
+    entities.forEach(entity => {
+      expect(entity).toMatchObject({ region: expect.stringMatching(/Oceania|Americas/) });
+    });
+  });
+
+  test("subregions filter", async () => {
+    const entities = await fetchPages(
+      host,
+      "institutions",
+      new URLSearchParams({
+        subregions: "Southern Asia,Latin America and the Caribbean",
+      }),
+    );
+    assertEntityProperties(entities);
+
+    // Assert all results sorted
+    expect(entities.length).toBeGreaterThan(0);
+    expect(entities.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+
+    // Assert that we only have entities from Southern Asia or Latin America and the Caribbean
+    entities.forEach(entity => {
+      expect(entity).toMatchObject({
+        subregion: expect.stringMatching(/Southern Asia|Latin America and the Caribbean/),
+      });
+    });
+  });
+
+  test("minNOutputs, maxNOutputs filter", async () => {
+    const minNOutputs = 1705;
+    const maxNOutputs = 3252;
+    const entities = await fetchPages(
+      host,
+      "institutions",
+      new URLSearchParams({
+        minNOutputs: minNOutputs.toString(),
+        maxNOutputs: maxNOutputs.toString(),
+      }),
+    );
+    assertEntityProperties(entities);
+
+    // Assert all results sorted
+    expect(entities.length).toBeGreaterThan(0);
+    expect(entities.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+
+    // Check that results are within expected range
+    entities.forEach(entity => {
+      expect(entity.stats.n_outputs).toBeGreaterThanOrEqual(minNOutputs);
+      expect(entity.stats.n_outputs).toBeLessThanOrEqual(maxNOutputs);
+    });
+  });
+
+  test("minPOutputsOpen, maxPOutputsOpen filter", async () => {
+    const minPOutputsOpen = 98;
+    const maxPOutputsOpen = 99;
+    const entities = await fetchPages(
+      host,
+      "institutions",
+      new URLSearchParams({
+        minPOutputsOpen: minPOutputsOpen.toString(),
+        maxPOutputsOpen: maxPOutputsOpen.toString(),
+      }),
+    );
+    assertEntityProperties(entities);
+
+    // Assert all results sorted
+    expect(entities.length).toBeGreaterThan(0);
+    expect(entities.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+
+    // Assert that we only have entities from Oceania and Americas
+    entities.forEach(entity => {
+      expect(entity.stats.p_outputs_open).toBeGreaterThanOrEqual(minPOutputsOpen);
+      expect(entity.stats.p_outputs_open).toBeLessThanOrEqual(maxPOutputsOpen);
+    });
+  });
+
+  test(
+    "countries filter",
+    async () => {
+      const endpoint = "institutions";
+      let results = await fetchAll(endpoint, "&countries=AUS,NZL");
+
+      // Assert all results sorted
+      expect(results.length).toBeGreaterThan(0);
+      expect(results.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+
+      // Assert that we only have entities from Oceania and Americas
+      results.forEach(entity => {
+        expect(entity).toMatchObject({ country_name: expect.stringMatching(/Australia|New Zealand/) });
+      });
+    },
+    institutionTestTimeout,
+  );
+
+  test(
+    "institution_type filter",
+    async () => {
+      const endpoint = "institutions";
+      let results = await fetchAll(endpoint, "&institutionTypes=Education,Government");
+
+      // Assert all results sorted
+      expect(results.length).toBeGreaterThan(0);
+      expect(results.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+
+      // Assert that we only have entities from Oceania and Americas
+      results.forEach(entity => {
+        expect(entity.institution_type).toBeDefined();
+        expect(entity.institution_type).toMatch(/Education|Government/);
+      });
+    },
+    institutionTestTimeout,
+  );
+
+  test("orderBy string, orderDir asc", async () => {
+    const entities = await fetchPages(
+      host,
+      "institutions",
+      new URLSearchParams({
+        orderBy: "name",
+        orderDir: "asc",
+      }),
+    );
+    assertEntityProperties(entities);
+
+    // Check sorted in ascending order after fetching all pages
+    // TODO: unicode
+    expect(entities.length).toBeGreaterThan(0);
+    expect(entities.map(x => x.name)).toBeSorted({ descending: false, compare: localeCompare });
+  });
+
+  test("orderBy string, orderDir dsc", async () => {
+    const entities = await fetchPages(
+      host,
+      "institutions",
+      new URLSearchParams({
+        orderBy: "name",
+        orderDir: "dsc",
+      }),
+    );
+    assertEntityProperties(entities);
+
+    // Check sorted in descending order after fetching all pages
+    // TODO: unicode
+    expect(entities.length).toBeGreaterThan(0);
+    expect(entities.map(x => x.name)).toBeSorted({
+      descending: true,
+      compare: localeCompare,
+    });
+  });
+
+  test("orderBy numeric, orderDir asc", async () => {
+    const entities = await fetchPages(
+      host,
+      "institutions",
+      new URLSearchParams({
+        orderBy: "n_outputs",
+        orderDir: "asc",
+      }),
+    );
+    assertEntityProperties(entities);
+
+    // Check sorted in ascending order after fetching all pages
+    expect(entities.length).toBeGreaterThan(0);
+    expect(entities.map(x => x.stats.n_outputs)).toBeSorted({ descending: false });
+  });
+
+  test("orderBy numeric, orderDir dsc", async () => {
+    const entities = await fetchPages(
+      host,
+      "institutions",
+      new URLSearchParams({
+        orderBy: "n_outputs",
+        orderDir: "dsc",
+      }),
+    );
+    assertEntityProperties(entities);
+
+    // Check sorted in descending order after fetching all pages
+    expect(entities.length).toBeGreaterThan(0);
+    expect(entities.map(x => x.stats.n_outputs)).toBeSorted({ descending: true });
+  });
+});
+
 //   test("ids", async () => {
 //     const endpoint = "institutions";
 //     let results = await fetchAll(endpoint, "&ids=02n415q13,03b94tp07");
@@ -396,46 +589,6 @@ describe("countries API endpoint", () => {
 //       expect(entity).toMatchObject({ id: expect.stringMatching(/02n415q13|03b94tp07/) });
 //     });
 //   });
-//
-//   test(
-//     "countries",
-//     async () => {
-//       const endpoint = "institutions";
-//       let results = await fetchAll(endpoint, "&countries=AUS,NZL");
-//
-//       // Assert all results sorted
-//       expect(results.length).toBeGreaterThan(0);
-//       //@ts-ignore
-//       expect(results.map(x => lodashGet(x, "p_outputs_open"))).toBeSorted({ descending: true });
-//
-//       // Assert that we only have entities from Oceania and Americas
-//       results.forEach(entity => {
-//         expect(entity).toMatchObject({ country_name: expect.stringMatching(/Australia|New Zealand/) });
-//       });
-//     },
-//     institutionTestTimeout,
-//   );
-//
-//   test(
-//     "institution_type",
-//     async () => {
-//       const endpoint = "institutions";
-//       let results = await fetchAll(endpoint, "&institutionTypes=Education,Government");
-//
-//       // Assert all results sorted
-//       expect(results.length).toBeGreaterThan(0);
-//       //@ts-ignore
-//       expect(results.map(x => lodashGet(x, "p_outputs_open"))).toBeSorted({ descending: true });
-//
-//       // Assert that we only have entities from Oceania and Americas
-//       results.forEach(entity => {
-//         expect(entity.institution_type).toBeDefined();
-//         expect(entity.institution_type).toMatch(/Education|Government/);
-//       });
-//     },
-//     institutionTestTimeout,
-//   );
-// });
 
 describe("search API endpoint", () => {
   test("search with no :text parameter returns 404 not found", async () => {

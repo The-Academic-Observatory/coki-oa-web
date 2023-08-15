@@ -3,7 +3,7 @@ import path from "path";
 //@ts-ignore
 import { fileURLToPath } from "url";
 import { build } from "esbuild";
-import { saveSQLToFile } from "./src/database.js";
+import { entitiesToSQL, loadEntities, saveSQLToFile } from "./src/database.js";
 
 //@ts-ignore
 const __filename = fileURLToPath(import.meta.url);
@@ -12,7 +12,9 @@ const __dirname = path.dirname(__filename);
 const DATA_PATH = "../data";
 
 // Generate the SQL for the Cloudflare D1 database
-saveSQLToFile(DATA_PATH, `${DATA_PATH}/db.sql`);
+const entities = loadEntities(DATA_PATH);
+const sql = entitiesToSQL(entities);
+saveSQLToFile(sql, `${DATA_PATH}/db.sql`);
 
 try {
   //@ts-ignore
