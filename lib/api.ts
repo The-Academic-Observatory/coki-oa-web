@@ -33,25 +33,25 @@ export class OADataAPI {
   }
 
   getStats(): Stats {
-    return statsRaw as unknown as Stats;
+    return (statsRaw as unknown) as Stats;
   }
 
   async getEntity(entityType: string, id: string): Promise<Entity> {
-    const url = addBuildId(`${this.host}/${entityType}/${id}`);
+    const url = makeEntityUrl(this.host, entityType, id);
     const response = await fetch(url);
     const entity = await response.json();
     quantizeEntityPercentages(entity);
     return entity;
   }
 
-  async searchEntities(text: string, limit: number): Promise<Array<Entity>> {
-    const url = makeSearchUrl(this.host, text, limit);
-    return fetch(url).then((response) => response.json());
+  async searchEntities(text: string, acronym: boolean, page: number, limit: number): Promise<QueryResult> {
+    const url = makeSearchUrl(this.host, text, acronym, page, limit);
+    return fetch(url).then(response => response.json());
   }
 
   async filterEntities(entityType: string, filterQuery: QueryParams): Promise<QueryResult> {
     const url = makeFilterUrl(this.host, entityType, filterQuery);
-    return fetch(url).then((response) => response.json());
+    return fetch(url).then(response => response.json());
   }
 }
 
@@ -63,7 +63,7 @@ export class OADataLocal {
   }
 
   getStats(): Stats {
-    return statsRaw as unknown as Stats;
+    return (statsRaw as unknown) as Stats;
   }
 
   getEntity(entityType: string, id: string): Entity {
@@ -81,13 +81,13 @@ export class OADataLocal {
 
 export function quantizeGroup(entity: Object, keys: Array<string>) {
   // Get samples
-  let samples = keys.map((key) => {
+  let samples = keys.map(key => {
     return lodashGet(entity, key);
   });
 
   // Make samples sum to 100
   let total = sum(samples);
-  samples = samples.map((sample) => {
+  samples = samples.map(sample => {
     return (sample / total) * 100;
   });
 
@@ -117,7 +117,7 @@ export function quantizeEntityPercentages(entity: Entity) {
     quantizeGroup(entity, pubKeys);
   }
 
-  entity.years.forEach((year) => {
+  entity.years.forEach(year => {
     if (year.stats.n_outputs > 0) {
       quantizeGroup(year, oaKeys);
     }
@@ -128,69 +128,76 @@ export function quantizeEntityPercentages(entity: Entity) {
   });
 }
 
-export function addBuildId(url: string): string {
-  let parts = [url];
-  if (url.indexOf("?") !== -1) {
-    parts.push("&");
-  } else {
-    parts.push("?");
-  }
-  //@ts-ignore
-  parts.push(`build=${BUILD_ID}`);
-
-  return parts.join("");
+export function makeEntityUrl(host: string, entityType: string, id: string): string {
+  const url = new URL(`${host}/${entityType}/${id}`);
+  const params = new URLSearchParams();
+  params.append("build", BUILD_ID);
+  url.search = params.toString();
+  return url.toString();
 }
 
-export function makeSearchUrl(host: string, text: string, limit: number = 10): string {
-  let url = `${host}/search/${encodeURIComponent(text)}`;
-  if (limit) {
-    url += `?limit=${limit}`;
-  }
-  return addBuildId(url);
+export function makeSearchUrl(host: string, text: string, acronym: boolean, page: number, limit: number): string {
+  const url = new URL(`${host}/search/${encodeURIComponent(text)}`);
+  const params = new URLSearchParams();
+  params.append("acronym", acronym.toString());
+  params.append("page", page.toString());
+  params.append("limit", limit.toString());
+  params.append("build", BUILD_ID);
+  url.search = params.toString();
+  return url.toString();
 }
 
 function makeFilterUrl(host: string, entityType: string, filterQuery: QueryParams): string {
   // Make base URL
-  let url = `${host}/${entityType}`;
+  const url = new URL(`${host}/${entityType}`);
+  const params = new URLSearchParams();
 
   // Convert filterQuery into URL query parameters
-  const query = Object.keys(filterQuery)
-    .map((key) => {
-      // Return null when property does not belong on this endpoint
-      if (entityType !== "institutions" && ["institutionTypes"].includes(key)) {
-        return null;
-      }
+  Object.keys(filterQuery).forEach(key => {
+    // Return null when property does not belong on this endpoint
+    if (entityType !== "institutions" && ["institutionTypes"].includes(key)) {
+      return;
+    }
 
-      // Get the value of the key
-      const property = filterQuery[key as keyof typeof filterQuery];
+    // Get the value of the key
+    const property = filterQuery[key as keyof typeof filterQuery];
 
-      if (property === undefined || property === null) {
-        return null;
-      }
-      if (Array.isArray(property) && property.length == 0) {
-        // If empty array then return empty string
-        return null;
-      } else if (Array.isArray(property)) {
-        // If the property is a non-empty array, URI encode each value in the array and then join them with commas
-        let value = property
-          .map((v) => {
-            return encodeURIComponent(v);
-          })
-          .join(",");
-        return `${key}=${value}`;
-      } else {
-        // If any other type then convert to string and URI encode
-        let value = encodeURIComponent(property.toLocaleString("fullwide", { useGrouping: false }));
-        return `${key}=${value}`;
-      }
-    })
-    .filter((v) => v !== null)
-    .join("&");
+    if (property === undefined || property === null) {
+      return;
+    }
+    if (Array.isArray(property) && property.length == 0) {
+      // If empty array then do nothing
+      return;
+    } else if (Array.isArray(property)) {
+      // If the property is a non-empty array, URI encode each value in the array and then join them with commas
+      const value = property.join(",");
+      params.append(key, value);
+    } else {
+      // If any other type then convert to string and URI encode
+      const value = property.toLocaleString("fullwide", { useGrouping: false });
+      params.append(key, value);
+    }
+  });
 
-  if (query) {
-    url += `?${query}`;
-  }
-  return addBuildId(url);
+  params.append("build", BUILD_ID);
+  url.search = params.toString();
+  return url.toString();
+}
+
+export function makeDownloadDataUrl(entityType: string, id: string): string {
+  const url = new URL(`${API_HOST}/download/${entityType}/${id}`);
+  const params = new URLSearchParams();
+  params.append("build", BUILD_ID);
+  url.search = params.toString();
+  return url.toString();
+}
+
+export function makeSocialCardUrl(entityId: string): string {
+  const url = new URL(`${IMAGES_HOST}/social-cards/${entityId}.jpg`);
+  const params = new URLSearchParams();
+  params.append("build", BUILD_ID);
+  url.search = params.toString();
+  return url.toString();
 }
 
 export function cokiImageLoader(src: string) {
@@ -198,7 +205,7 @@ export function cokiImageLoader(src: string) {
 }
 
 export function idsToStaticPaths(ids: Array<string>, entityType?: string) {
-  return ids.map((entityId) => {
+  return ids.map(entityId => {
     const params: Dict = {
       id: entityId,
     };

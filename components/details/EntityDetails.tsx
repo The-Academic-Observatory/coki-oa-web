@@ -20,7 +20,7 @@ import { Entity, Stats } from "../../lib/model";
 import Card from "../common/Card";
 import Breadcrumbs from "../common/Breadcrumbs";
 import lodashGet from "lodash.get";
-import { cokiImageLoader, addBuildId } from "../../lib/api";
+import { cokiImageLoader, makeSocialCardUrl } from "../../lib/api";
 import OATimeseriesCard from "./OATimeseriesCard";
 import PublisherOpenCard from "./PublisherOpenCard";
 import OAVolumeCard from "./OAVolumeCard";
@@ -45,11 +45,6 @@ export const makeDescription = (
 export interface EntityDetailsProps {
   entity: Entity;
   stats: Stats;
-}
-
-export function makeSocialCardUrl(entityId: string): string {
-  let url = cokiImageLoader(`social-cards/${entityId}.jpg`);
-  return addBuildId(url);
 }
 
 export function makePageDescription(

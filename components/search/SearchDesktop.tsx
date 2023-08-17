@@ -17,31 +17,34 @@
 import React, { memo } from "react";
 import { Box, Popover, PopoverAnchor, PopoverBody, PopoverContent, Text, useOutsideClick } from "@chakra-ui/react";
 import debounce from "lodash/debounce";
-import { Entity } from "../../lib/model";
+import { Entity, QueryResult } from "../../lib/model";
 import { OADataAPI } from "../../lib/api";
 import SearchResult from "./SearchResult";
 import SearchBox from "./SearchBox";
 
-export const searchLimit = 10;
+export const searchLimit = 1000;
 export const searchDebounce = 300;
 
 const SearchDesktop = ({ ...rest }) => {
+  const [page, setPage] = React.useState<number>(0);
   const [isFetching, setIsFetching] = React.useState<boolean>(false);
   const [searchText, setSearchText] = React.useState<string>("");
-  const [searchResults, setSearchResults] = React.useState<Array<any>>([]);
+  const [searchResults, setSearchResults] = React.useState<Array<Entity>>([]);
   const [isPopoverOpen, setPopoverOpen] = React.useState(false);
 
   // Search for entities
-  const inputOnChange = debounce((value) => {
+  const inputOnChange = debounce(value => {
     if (value === "") {
       setPopoverOpen(false);
     } else {
+      const isAcronym = value.length >= 2 && value === value.toUpperCase();
+
       setIsFetching(true);
       const client = new OADataAPI();
       client
-        .searchEntities(value, searchLimit)
-        .then((data) => {
-          setSearchResults(data);
+        .searchEntities(value, isAcronym, page, searchLimit)
+        .then(data => {
+          setSearchResults(data.items);
           setPopoverOpen(true);
         })
         .finally(() => {
@@ -66,7 +69,7 @@ const SearchDesktop = ({ ...rest }) => {
             <SearchBox
               inputDataTest="searchInputDesktop"
               value={searchText}
-              onChange={(e) => {
+              onChange={e => {
                 const text = e.target.value;
                 setSearchText(text);
                 inputOnChange(text);
@@ -76,7 +79,7 @@ const SearchDesktop = ({ ...rest }) => {
         </PopoverAnchor>
         <PopoverContent
           borderRadius={14}
-          width={"386px"}
+          width="386px"
           _focus={{
             boxShadow: "none",
           }}

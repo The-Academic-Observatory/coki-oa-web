@@ -141,12 +141,13 @@ export const filterEntitiesHandler = async (
 export const searchHandler = async (req: SearchRequest, env: Bindings, ctx: ExecutionContext) => {
   // Parse parameters and query
   const text = decodeURIComponent(req.params.text);
+  const acronym = req.query.acronym === "true";
   let page = parseInt(req.query.page) || 0;
   let limit = parseInt(req.query.limit) || MAX_LIMIT;
   limit = Math.max(Math.min(limit, MAX_LIMIT), MIN_LIMIT);
 
   // Convert returned ids to objects
-  const results = await searchEntities(getDatabaseBinding(env), text, page, limit);
+  const results = await searchEntities(getDatabaseBinding(env), text, acronym, page, limit);
 
   // Convert to JSON, returning results
   const json = JSON.stringify(results);

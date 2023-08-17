@@ -1,17 +1,7 @@
-import { addBuildId, makeSearchUrl } from "./api";
+import { makeSearchUrl } from "./api";
 
 const buildId = "9wunlCAp5nAMZGCCOIDUx";
 const host = "http://localhost";
-
-test("test addBuildId", () => {
-  // Adding build to URL with no parameters
-  let url = addBuildId(host);
-  expect(url).toEqual(`http://localhost?build=${buildId}`);
-
-  // Adding build to URL that already has parameters
-  url = addBuildId(`${host}?hello=world`);
-  expect(url).toEqual(`${host}?hello=world&build=${buildId}`);
-});
 
 test("test makeSearchUrl", () => {
   const text = "Curtin University";

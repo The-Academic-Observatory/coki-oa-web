@@ -42,6 +42,9 @@ const PROPERTIES_TO_DELETE = [
   "n_outputs_black",
   "p_outputs_black",
   "acronyms",
+  "search_weight",
+  "search_country_region_weight",
+  "search_inst_country_weight",
 ];
 
 // entity
@@ -64,14 +67,14 @@ const PROPERTIES_TO_DELETE = [
 // The Miniflare V2 db.exec doesn't parse SQL very well, hence the lack of newlines and comments
 const SCHEMA = `DROP TABLE IF EXISTS entity;
 DROP TABLE IF EXISTS entity_fts5;
-CREATE TABLE entity (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_id TEXT NOT NULL, entity_type TEXT NOT NULL, name TEXT NOT NULL, acronyms TEXT, logo_sm TEXT NOT NULL, subregion TEXT NOT NULL, region TEXT NOT NULL, country_code INTEGER, country_name TEXT, institution_type TEXT, n_outputs INT NOT NULL, n_outputs_open INT NOT NULL, n_outputs_black INT NOT NULL, p_outputs_open FLOAT NOT NULL, p_outputs_publisher_open_only FLOAT NOT NULL, p_outputs_both FLOAT NOT NULL, p_outputs_other_platform_open_only FLOAT NOT NULL, p_outputs_closed FLOAT NOT NULL, p_outputs_black FLOAT NOT NULL);
+CREATE TABLE entity (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_id TEXT NOT NULL, entity_type TEXT NOT NULL, name TEXT NOT NULL, acronyms TEXT, logo_sm TEXT NOT NULL, subregion TEXT NOT NULL, region TEXT NOT NULL, country_code INTEGER, country_name TEXT, institution_type TEXT, n_outputs INT NOT NULL, n_outputs_open INT NOT NULL, n_outputs_black INT NOT NULL, p_outputs_open FLOAT NOT NULL, p_outputs_publisher_open_only FLOAT NOT NULL, p_outputs_both FLOAT NOT NULL, p_outputs_other_platform_open_only FLOAT NOT NULL, p_outputs_closed FLOAT NOT NULL, p_outputs_black FLOAT NOT NULL, search_weight FLOAT NOT NULL, search_country_region_weight FLOAT NOT NULL, search_inst_country_weight FLOAT NOT NULL);
 CREATE INDEX idx_entity_entity_type ON entity(entity_type);
 CREATE INDEX idx_entity_name ON entity(name);
 CREATE INDEX idx_entity_n_outputs ON entity(n_outputs);
 CREATE INDEX idx_entity_n_outputs_open ON entity(n_outputs_open);
 CREATE INDEX idx_entity_p_outputs_open ON entity(p_outputs_open);
 CREATE INDEX idx_entity_filter ON entity(entity_type, n_outputs, n_outputs_open, p_outputs_open, subregion, institution_type);
-CREATE VIRTUAL TABLE entity_fts5 USING fts5(name, acronyms, subregion, region, country_name, content='entity', content_rowid='id', tokenize='porter unicode61 remove_diacritics 1');`;
+CREATE VIRTUAL TABLE entity_fts5 USING fts5(name, acronyms, region, country_name, content='none', tokenize='porter unicode61 remove_diacritics 1');`;
 
 /*
 -- Country indexes for filtering
@@ -124,6 +127,32 @@ export function entitiesToSQL(entities: Array<Entity>) {
   // Add schema
   const rows = [SCHEMA];
 
+  // Find max outputs for institutions in each country
+  const instCountryMaxOutputs: { [key: string]: number } = {};
+  for (const entity of entities) {
+    const countryCode = entity.country_code;
+    if (countryCode && entity.entity_type === "institution") {
+      if (!(countryCode in instCountryMaxOutputs)) {
+        instCountryMaxOutputs[countryCode] = entity.stats.n_outputs;
+      } else if (entity.stats.n_outputs > instCountryMaxOutputs[countryCode]) {
+        instCountryMaxOutputs[countryCode] = entity.stats.n_outputs;
+      }
+    }
+  }
+
+  // Find max outputs for countries in regions
+  const countryRegionMaxOutputs: { [key: string]: number } = {};
+  for (const entity of entities) {
+    const region = entity.region;
+    if (entity.entity_type === "country") {
+      if (!(region in countryRegionMaxOutputs)) {
+        countryRegionMaxOutputs[region] = entity.stats.n_outputs;
+      } else if (entity.stats.n_outputs > countryRegionMaxOutputs[region]) {
+        countryRegionMaxOutputs[region] = entity.stats.n_outputs;
+      }
+    }
+  }
+
   // Generate country SQL
   entities.forEach(entity => {
     const entity_id = entity.id;
@@ -133,7 +162,26 @@ export function entitiesToSQL(entities: Array<Entity>) {
     const country_name = entity.country_name;
     const institution_type = entity.institution_type;
 
-    const values = [
+    // Calculate search weights
+    // For the fts5 ranking, more negative is better
+    let search_weight = 1.0;
+    let search_country_region_weight = 1.0;
+    let search_inst_country_weight = 1.0;
+    entity.stats.n_outputs;
+    if (entity.entity_type === "country") {
+      // Make countries appear higher in results than institutions
+      // E.g. when you type "New Zealand", the New Zealand entity should appear first and then institutions from New Zealand
+      search_weight = 2.0;
+
+      // When searching by region, make countries with more publications appear first
+      search_country_region_weight = 1 + entity.stats.n_outputs / countryRegionMaxOutputs[entity.region];
+    } else if (entity.entity_type === "institution") {
+      // When searching by country, make institutions with more publications appear first
+      search_inst_country_weight = 1 + entity.stats.n_outputs / instCountryMaxOutputs[entity.country_code as string];
+    }
+
+    // Careful with the ordering of these!
+    let values = [
       null,
       entity_id,
       entity.entity_type,
@@ -146,22 +194,34 @@ export function entitiesToSQL(entities: Array<Entity>) {
       country_name,
       institution_type,
       entity.stats.n_outputs,
-      entity.stats.n_outputs_black,
       entity.stats.n_outputs_open,
+      entity.stats.n_outputs_black,
       entity.stats.p_outputs_open,
       entity.stats.p_outputs_publisher_open_only,
       entity.stats.p_outputs_both,
       entity.stats.p_outputs_other_platform_open_only,
       entity.stats.p_outputs_closed,
       entity.stats.p_outputs_black,
+      search_weight,
+      search_country_region_weight,
+      search_inst_country_weight,
     ];
     rows.push(`INSERT INTO entity VALUES(${joinWithCommas(values)});`);
-  });
 
-  // Insert data into fts5 table
-  rows.push(
-    `INSERT INTO entity_fts5 (rowid, name, acronyms, subregion, region, country_name) SELECT id, name, acronyms, subregion, region, country_name FROM entity;`,
-  );
+    // Insert into entity_fts5
+    // Remove country name for countries that already have that exact name in their title
+    let fts_country_name: string | null | undefined = country_name;
+    if (country_name != null && name.toLowerCase().includes(country_name.toLowerCase())) {
+      fts_country_name = null;
+    }
+    // Don't include subregion as sometimes these have country names which make the search unintuitive,
+    values = [name, acronyms, entity.region, fts_country_name];
+    rows.push(
+      `INSERT INTO entity_fts5(rowid, name, acronyms, region, country_name) VALUES(last_insert_rowid(), ${joinWithCommas(
+        values,
+      )});`,
+    );
+  });
 
   // Save to file
   return rows.join("\n");
@@ -211,25 +271,39 @@ function makeTemplateParams(n: number) {
     .join(",");
 }
 
-const SEARCH_QUERY = `SELECT entity.*, subset.total_rows
+const SEARCH_QUERY = `SELECT entity.*, weighted_rank, subset.total_rows
 FROM entity
-INNER JOIN (SELECT entity.id, COUNT(*) OVER() AS total_rows
+INNER JOIN (SELECT entity.id, entity_fts5.rank * entity.search_weight * entity.search_country_region_weight * entity.search_inst_country_weight as weighted_rank, COUNT(*) OVER() AS total_rows
 FROM entity 
-JOIN entity_fts5 ON entity.id = entity_fts5.rowid 
-WHERE entity_fts5 MATCH ? 
-ORDER BY entity_fts5.rank 
+JOIN entity_fts5 ON entity.id = entity_fts5.rowid
+WHERE entity_fts5 MATCH ?
+ORDER BY weighted_rank
 LIMIT ? OFFSET ?
 ) AS subset ON subset.id = entity.id`;
 
-export async function searchEntities(db: D1Database, text: string, page: number, limit: number): Promise<QueryResult> {
+function ftsEscape(text: string) {
+  return text.replace(/"/g, '""');
+}
+
+export async function searchEntities(
+  db: D1Database,
+  text: string,
+  acronym: boolean,
+  page: number,
+  limit: number,
+): Promise<QueryResult> {
   let nItems = 0;
   let entities: Array<Entity> = [];
 
   // If empty string then return empty results
   if (text.trim() !== "") {
+    let value = `"${ftsEscape(text)}"*`;
+    if (acronym) {
+      value = `acronyms:"${ftsEscape(text)}"*`;
+    }
     const { results } = await db
       .prepare(SEARCH_QUERY)
-      .bind(text, limit, page)
+      .bind(value, limit, page)
       .all();
 
     // Parse results
