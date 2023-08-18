@@ -301,9 +301,12 @@ export async function searchEntities(
     if (acronym) {
       value = `acronyms:"${ftsEscape(text)}"*`;
     }
+
+    // Calculate offset
+    const offset = page * limit;
     const { results } = await db
       .prepare(SEARCH_QUERY)
-      .bind(value, limit, page)
+      .bind(value, limit, offset)
       .all();
 
     // Parse results
