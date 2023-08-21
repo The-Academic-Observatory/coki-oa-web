@@ -14,6 +14,8 @@
 //
 // Author: James Diprose
 
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axiosRetry, { exponentialDelay } from "axios-retry";
 import { Dict, Entity, QueryParams, QueryResult, Stats } from "./model";
 import lodashGet from "lodash.get";
 import lodashSet from "lodash.set";
@@ -27,9 +29,15 @@ const IMAGES_HOST = "https://images.open.coki.ac";
 
 export class OADataAPI {
   host: string;
+  private api: AxiosInstance;
 
   constructor(host: string = API_HOST) {
     this.host = host;
+    this.api = axios.create();
+    axiosRetry(this.api, {
+      retryDelay: exponentialDelay,
+      retries: 3,
+    });
   }
 
   getStats(): Stats {
@@ -44,9 +52,19 @@ export class OADataAPI {
     return entity;
   }
 
-  async searchEntities(text: string, acronym: boolean, page: number, limit: number): Promise<QueryResult> {
-    const url = makeSearchUrl(this.host, text, acronym, page, limit);
-    return fetch(url).then(response => response.json());
+  async searchEntities(
+    query: string,
+    page: number,
+    limit: number,
+    controller: AbortController | null = null,
+  ): Promise<AxiosResponse<QueryResult>> {
+    const acronym = query.length >= 2 && query === query.toUpperCase();
+    const url = makeSearchUrl(this.host, query, page, limit, acronym);
+    const options: AxiosRequestConfig = {};
+    if (controller != null) {
+      options.signal = controller.signal;
+    }
+    return this.api.get(url, options);
   }
 
   async filterEntities(entityType: string, filterQuery: QueryParams): Promise<QueryResult> {
@@ -136,7 +154,7 @@ export function makeEntityUrl(host: string, entityType: string, id: string): str
   return url.toString();
 }
 
-export function makeSearchUrl(host: string, text: string, acronym: boolean, page: number, limit: number): string {
+export function makeSearchUrl(host: string, text: string, page: number, limit: number, acronym: boolean): string {
   const url = new URL(`${host}/search/${encodeURIComponent(text)}`);
   const params = new URLSearchParams();
   params.append("acronym", acronym.toString());

@@ -17,17 +17,18 @@
 import { Box, BoxProps, HStack, Image, Text } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
 import Link from "../common/Link";
-import React, { memo } from "react";
+import React, { memo, LegacyRef } from "react";
 import { cokiImageLoader } from "../../lib/api";
 
 interface SearchResultProps extends BoxProps {
   entity: Entity;
   onClick: () => void;
+  lastEntityRef: LegacyRef<HTMLDivElement> | null;
 }
 
-const SearchResult = ({ entity, onClick, ...rest }: SearchResultProps) => {
+const SearchResult = ({ entity, onClick, lastEntityRef, ...rest }: SearchResultProps) => {
   return (
-    <Box key={entity.id} data-test={entity.id}>
+    <Box key={entity.id} data-test={entity.id} ref={lastEntityRef} {...rest}>
       <Link href={`/${entity.entity_type}/${entity.id}`} onClick={onClick}>
         <HStack my="16px">
           <Image

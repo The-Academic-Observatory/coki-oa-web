@@ -14,50 +14,114 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
+import React, { LegacyRef, memo, useCallback, useEffect, useRef } from "react";
 import { Box, Popover, PopoverAnchor, PopoverBody, PopoverContent, Text, useOutsideClick } from "@chakra-ui/react";
 import debounce from "lodash/debounce";
-import { Entity, QueryResult } from "../../lib/model";
+import { Entity } from "../../lib/model";
 import { OADataAPI } from "../../lib/api";
 import SearchResult from "./SearchResult";
 import SearchBox from "./SearchBox";
 
-export const searchLimit = 1000;
+export const searchLimit = 20;
 export const searchDebounce = 300;
 
-const SearchDesktop = ({ ...rest }) => {
+const useEntitySearch = (
+  onDataLoaded: any = null,
+): [
+  Array<Entity>,
+  string,
+  (val: string) => void,
+  boolean,
+  (val: boolean) => void,
+  LegacyRef<HTMLDivElement>,
+  (e: any) => void,
+] => {
+  const client = new OADataAPI();
   const [page, setPage] = React.useState<number>(0);
-  const [isFetching, setIsFetching] = React.useState<boolean>(false);
-  const [searchText, setSearchText] = React.useState<string>("");
-  const [searchResults, setSearchResults] = React.useState<Array<Entity>>([]);
-  const [isPopoverOpen, setPopoverOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [hasMore, setHasMore] = React.useState<boolean>(false);
+  const [query, setQuery] = React.useState<string>("");
+  const [entities, setEntities] = React.useState<Array<Entity>>([]);
+  const observer = useRef<IntersectionObserver>();
+  const lastEntityRef = useCallback(
+    (node: any) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPage((prevPage: number) => {
+            return prevPage + 1;
+          });
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading, hasMore],
+  );
 
-  // Search for entities
-  const inputOnChange = debounce(value => {
-    if (value === "") {
-      setPopoverOpen(false);
-    } else {
-      const isAcronym = value.length >= 2 && value === value.toUpperCase();
+  const searchBoxOnChange = (e: any) => {
+    const query = e.target.value;
+    setQuery(query);
+    setPage(0);
+  };
 
-      setIsFetching(true);
-      const client = new OADataAPI();
+  const fetchData = useCallback(
+    debounce((query: string, page: number, abortController: AbortController) => {
+      // When query is an empty string just set no results
+      if (query.trim() === "") {
+        setEntities([]);
+        return;
+      }
+
+      // Query
+      setLoading(true);
       client
-        .searchEntities(value, isAcronym, page, searchLimit)
-        .then(data => {
-          setSearchResults(data.items);
-          setPopoverOpen(true);
-        })
-        .finally(() => {
-          setIsFetching(false);
-        });
-    }
-  }, searchDebounce);
+        .searchEntities(query, page, searchLimit, abortController)
+        .then(response => {
+          setEntities(prevEntities => {
+            // If we are on the first page then just use new items
+            if (page === 0) return response.data.items;
 
+            // If on subsequent pages, then add previous entries and new entries together
+            return [...prevEntities, ...response.data.items];
+          });
+          setHasMore(response.data.items.length > 0);
+          setLoading(false);
+
+          // Callback where behaviour can be customised after data has been loaded
+          if (onDataLoaded != null) {
+            onDataLoaded();
+          }
+        })
+        .catch(e => {
+          if (abortController.signal.aborted) return;
+        });
+    }, searchDebounce),
+    [],
+  );
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    fetchData(query, page, abortController);
+    return () => abortController.abort();
+  }, [query, page]);
+
+  return [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange];
+};
+
+const SearchDesktop = ({ ...rest }) => {
+  // Control search popover behaviour
   // When receive a click outside search input or popover, then close
+  const [isPopoverOpen, setPopoverOpen] = React.useState(false);
   const ref = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   useOutsideClick({
     ref: ref,
     handler: () => setPopoverOpen(false),
+  });
+
+  // Search query
+  const [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange] = useEntitySearch(() => {
+    setPopoverOpen(true);
   });
 
   return (
@@ -68,11 +132,12 @@ const SearchDesktop = ({ ...rest }) => {
           <div>
             <SearchBox
               inputDataTest="searchInputDesktop"
-              value={searchText}
-              onChange={e => {
-                const text = e.target.value;
-                setSearchText(text);
-                inputOnChange(text);
+              value={query}
+              onChange={(e: any) => {
+                if (e.target.value === "") {
+                  setPopoverOpen(false);
+                }
+                searchBoxOnChange(e);
               }}
             />
           </div>
@@ -84,23 +149,35 @@ const SearchDesktop = ({ ...rest }) => {
             boxShadow: "none",
           }}
         >
-          <PopoverBody data-test="searchResultsDesktop">
-            {!isFetching && searchText !== "" && searchResults.length === 0 && <Text>No results</Text>}
-            {searchResults.map((entity: Entity) => (
-              <SearchResult
-                key={entity.id}
-                entity={entity}
-                onClick={() => {
-                  // On click:
-                  // - Close search results
-                  // - Reset research results
-                  // - Set search text to empty string
-                  setPopoverOpen(false);
-                  setSearchResults([]);
-                  setSearchText("");
-                }}
-              />
-            ))}
+          <PopoverBody
+            id="searchResultsDesktop"
+            data-test="searchResultsDesktop"
+            pt={0}
+            pb={0}
+            maxHeight="500px"
+            overflowY="auto"
+          >
+            {entities.map((entity: Entity, index: number) => {
+              let ref = null;
+              if (entities.length === index + 1) {
+                ref = lastEntityRef;
+              }
+              return (
+                <SearchResult
+                  key={entity.id}
+                  entity={entity}
+                  onClick={() => {
+                    // On click:
+                    // - Close search results
+                    // - Set search text to empty string
+                    setPopoverOpen(false);
+                    setQuery("");
+                  }}
+                  lastEntityRef={ref}
+                />
+              );
+            })}
+            {!loading && query !== "" && entities.length === 0 && <Text>No results</Text>}
           </PopoverBody>
         </PopoverContent>
       </Popover>
