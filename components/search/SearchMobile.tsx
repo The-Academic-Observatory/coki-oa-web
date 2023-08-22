@@ -16,12 +16,11 @@
 
 import { BoxProps, Drawer, DrawerBody, DrawerContent, DrawerHeader, Text } from "@chakra-ui/react";
 import React, { memo } from "react";
-import debounce from "lodash/debounce";
-import { OADataAPI } from "../../lib/api";
 import { Entity } from "../../lib/model";
-import { searchDebounce, searchLimit } from "./SearchDesktop";
+import { useEntitySearch } from "./SearchDesktop";
 import SearchResult from "./SearchResult";
 import SearchBox from "./SearchBox";
+import SkeletonSearchResult from "./SkeletonSearchResult";
 
 interface SearchDrawerProps extends BoxProps {
   isOpen: boolean;
@@ -31,60 +30,52 @@ interface SearchDrawerProps extends BoxProps {
 }
 
 const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: SearchDrawerProps) => {
-  const [isFetching, setIsFetching] = React.useState<boolean>(false);
-  const [searchText, setSearchText] = React.useState<string>("");
-  const [searchResults, setSearchResults] = React.useState<Array<any>>([]);
-
-  // Search for entities
-  const inputOnChange = debounce((value) => {
-    if (value != "") {
-      setIsFetching(true);
-      const client = new OADataAPI();
-      client
-        .searchEntities(value, searchLimit)
-        .then((data) => {
-          //@ts-ignore
-          setSearchResults(data);
-        })
-        .finally(() => {
-          setIsFetching(false);
-        });
-    } else {
-      setSearchResults([]);
-    }
-  }, searchDebounce);
+  const [
+    entities,
+    query,
+    setQuery,
+    loading,
+    setLoading,
+    lastEntityRef,
+    searchBoxOnChange,
+    hasMore,
+  ] = useEntitySearch(() => {});
 
   return (
-    <Drawer size="full" placement="right" onClose={onClose} isOpen={isOpen} preserveScrollBarGap={true}>
-      <DrawerContent top={`${navbarHeightMobile}px !important`} bg="none" boxShadow="none">
+    <Drawer size="full" placement="right" onClose={onClose} isOpen={isOpen} preserveScrollBarGap={true} {...rest}>
+      <DrawerContent
+        top={`${navbarHeightMobile}px !important`}
+        bg="none"
+        boxShadow="none"
+        height={`calc(100vh - ${navbarHeightMobile}px)`}
+      >
         <DrawerHeader bg="brand.500">
           <SearchBox
             inputDataTest="searchInputMobile"
-            value={searchText}
-            onChange={(e) => {
-              const text = e.target.value;
-              setSearchText(text);
-              inputOnChange(text);
+            value={query}
+            onChange={e => {
+              searchBoxOnChange(e);
             }}
           />
         </DrawerHeader>
-        <DrawerBody bg="white" data-test="searchResultsMobile">
-          {!isFetching && searchText !== "" && searchResults.length === 0 && <Text>No results</Text>}
-          {searchResults.map((entity: Entity) => (
-            <SearchResult
-              key={entity.id}
-              entity={entity}
-              onClick={() => {
-                // On click:
-                // - Close search results
-                // - Reset research results
-                // - Set search text to empty string
-                onClose();
-                setSearchResults([]);
-                setSearchText("");
-              }}
-            />
-          ))}
+        <DrawerBody bg="white" data-test="searchResultsMobile" pt="2px" pb={0} height="100vh" overflowY="auto">
+          {!loading && query !== "" && entities.length === 0 && <Text>No results</Text>}
+          {entities.map((entity: Entity) => {
+            return (
+              <SearchResult
+                key={entity.id}
+                entity={entity}
+                onClick={() => {
+                  // On click:
+                  // - Close search results
+                  // - Set search text to empty string
+                  onClose();
+                  setQuery("");
+                }}
+              />
+            );
+          })}
+          {hasMore && <SkeletonSearchResult lastEntityRef={lastEntityRef} />}
         </DrawerBody>
       </DrawerContent>
     </Drawer>

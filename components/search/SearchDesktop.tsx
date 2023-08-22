@@ -14,19 +14,19 @@
 //
 // Author: James Diprose
 
-import React, { LegacyRef, memo, useCallback, useEffect, useRef } from "react";
 import { Box, Popover, PopoverAnchor, PopoverBody, PopoverContent, Text, useOutsideClick } from "@chakra-ui/react";
-import debounce from "lodash/debounce";
 import { Entity } from "../../lib/model";
+import React, { LegacyRef, memo, useCallback, useEffect, useRef } from "react";
 import { OADataAPI } from "../../lib/api";
+import debounce from "lodash/debounce";
 import SearchResult from "./SearchResult";
 import SearchBox from "./SearchBox";
+import SkeletonSearchResult from "./SkeletonSearchResult";
 
-export const searchLimit = 20;
-export const searchDebounce = 300;
-
-const useEntitySearch = (
+export const useEntitySearch = (
   onDataLoaded: any = null,
+  searchLimit: number = 20,
+  searchDebounce: number = 300,
 ): [
   Array<Entity>,
   string,
@@ -35,6 +35,7 @@ const useEntitySearch = (
   (val: boolean) => void,
   LegacyRef<HTMLDivElement>,
   (e: any) => void,
+  boolean,
 ] => {
   const client = new OADataAPI();
   const [page, setPage] = React.useState<number>(0);
@@ -63,6 +64,7 @@ const useEntitySearch = (
     const query = e.target.value;
     setQuery(query);
     setPage(0);
+    setHasMore(false);
   };
 
   const fetchData = useCallback(
@@ -85,7 +87,8 @@ const useEntitySearch = (
             // If on subsequent pages, then add previous entries and new entries together
             return [...prevEntities, ...response.data.items];
           });
-          setHasMore(response.data.items.length > 0);
+
+          setHasMore(response.data.page + 1 < response.data.nPages);
           setLoading(false);
 
           // Callback where behaviour can be customised after data has been loaded
@@ -106,7 +109,7 @@ const useEntitySearch = (
     return () => abortController.abort();
   }, [query, page]);
 
-  return [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange];
+  return [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore];
 };
 
 const SearchDesktop = ({ ...rest }) => {
@@ -120,9 +123,11 @@ const SearchDesktop = ({ ...rest }) => {
   });
 
   // Search query
-  const [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange] = useEntitySearch(() => {
-    setPopoverOpen(true);
-  });
+  const [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore] = useEntitySearch(
+    () => {
+      setPopoverOpen(true);
+    },
+  );
 
   return (
     <Box {...rest} ref={ref}>
@@ -157,11 +162,7 @@ const SearchDesktop = ({ ...rest }) => {
             maxHeight="500px"
             overflowY="auto"
           >
-            {entities.map((entity: Entity, index: number) => {
-              let ref = null;
-              if (entities.length === index + 1) {
-                ref = lastEntityRef;
-              }
+            {entities.map((entity: Entity) => {
               return (
                 <SearchResult
                   key={entity.id}
@@ -173,10 +174,12 @@ const SearchDesktop = ({ ...rest }) => {
                     setPopoverOpen(false);
                     setQuery("");
                   }}
-                  lastEntityRef={ref}
                 />
               );
             })}
+            {hasMore && <SkeletonSearchResult lastEntityRef={lastEntityRef} />}
+
+            {/*TODO: set something better than no results, it flashes oddly */}
             {!loading && query !== "" && entities.length === 0 && <Text>No results</Text>}
           </PopoverBody>
         </PopoverContent>

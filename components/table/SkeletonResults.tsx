@@ -26,14 +26,14 @@ const SkeletonResults = ({ nRows }: SkeletonResultsProps) => {
 
   return (
     <>
-      {Array.from(Array(nRows).keys()).map((key) => {
+      {Array.from(Array(nRows).keys()).map(key => {
         return (
           <Tr key={key} role="row" zIndex="1" data-test={key}>
             <Td role="cell">
               {/*Logo & name*/}
               <HStack mr="1%">
                 <SkeletonCircle startColor={color} endColor={color} size="16px" />
-                <Skeleton startColor={color} endColor={color} height="16px" width="100%" />
+                <Skeleton startColor={color} endColor={color} height="16px" flex="1" />
               </HStack>
             </Td>
             <Td role="cell">

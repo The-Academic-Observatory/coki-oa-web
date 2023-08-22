@@ -140,6 +140,7 @@ export interface QueryResult {
   items: Array<Entity>;
   nItems: number;
   page: number;
+  nPages: number;
   limit: number;
   orderBy?: string;
   orderDir?: string;

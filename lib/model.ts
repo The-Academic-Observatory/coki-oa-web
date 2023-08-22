@@ -134,6 +134,7 @@ export type Stats = {
 export interface QueryResult {
   items: Array<Entity>;
   nItems: number;
+  nPages: number;
   page: number;
   limit: number;
   orderBy: string;
