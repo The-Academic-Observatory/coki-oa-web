@@ -126,6 +126,14 @@ function joinWithCommas(arr: (string | number | null | undefined)[]): string {
     .join(",");
 }
 
+function cleanName(text: string): string {
+  return text.trim().replace(/\u200B/g, "");
+}
+
+function escapeSingleQuotes(text: string): string {
+  return text.replaceAll("'", "''");
+}
+
 export function entitiesToSQL(entities: Array<Entity>) {
   // Add schema
   const rows = [SCHEMA];
@@ -159,10 +167,8 @@ export function entitiesToSQL(entities: Array<Entity>) {
   // Generate country SQL
   entities.forEach(entity => {
     const entity_id = entity.id;
-    const name = entity.name.replaceAll("'", "''");
-    const name_ascii_folded = FoldToASCII.foldMaintaining(entity.name)
-      .toLowerCase()
-      .replaceAll("'", "''");
+    const name = escapeSingleQuotes(cleanName(entity.name));
+    const name_ascii_folded = escapeSingleQuotes(FoldToASCII.foldMaintaining(cleanName(entity.name))).toLowerCase();
     const acronyms = entity.acronyms?.map(v => v.replaceAll("'", "''"))?.join(" ");
     const country_code = entity.country_code;
     const country_name = entity.country_name;
@@ -416,17 +422,20 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
 
   // Order by
   // TODO: replace with a unicode coalesce algorithm when this is supported
-  let order;
-  let orderBy = query.orderBy;
+  let orderBy;
+  let orderByCol = query.orderBy;
   if (query.orderBy === "name") {
-    orderBy = "name_ascii_folded";
+    orderByCol = "name_ascii_folded";
   }
   if (query.orderDir === "asc") {
-    order = `ORDER BY entity.${orderBy} ASC`;
+    orderBy = `ORDER BY entity.${orderByCol} ASC`;
   } else {
-    order = `ORDER BY entity.${orderBy} DESC`;
+    orderBy = `ORDER BY entity.${orderByCol} DESC`;
   }
-  sql.push(order);
+  if (query.orderBy !== "name") {
+    orderBy += ", entity.name_ascii_folded ASC";
+  }
+  sql.push(orderBy);
 
   // Limit and offset
   const limit = query.limit;
@@ -441,7 +450,7 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
 
   // Build query
   const queryString = sql.join("\n");
-  // console.log(queryString);
+  console.log(queryString);
 
   // Run query plan
   // const stmt_query_plan = db.prepare("EXPLAIN QUERY PLAN " + queryString).bind(...params);
