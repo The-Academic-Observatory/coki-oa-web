@@ -375,7 +375,7 @@ describe("institutions API endpoint", () => {
     );
     assertEntityProperties(entities);
 
-    // Assert that we only have NZL and AUS
+    // Assert that we only have 050gfgn67 and 04v9m3h35
     expect(entities.length).toBe(2);
     entities.forEach(entity => {
       expect(entity).toMatchObject({ id: expect.stringMatching(/050gfgn67|04v9m3h35/) });
@@ -579,17 +579,6 @@ describe("institutions API endpoint", () => {
   });
 });
 
-//   test("ids", async () => {
-//     const endpoint = "institutions";
-//     let results = await fetchAll(endpoint, "&ids=02n415q13,03b94tp07");
-//
-//     // Assert that we only have 02n415q13 and 03b94tp07
-//     expect(results.length).toBe(2);
-//     results.forEach(entity => {
-//       expect(entity).toMatchObject({ id: expect.stringMatching(/02n415q13|03b94tp07/) });
-//     });
-//   });
-
 describe("search API endpoint", () => {
   test("search with no :text parameter returns 404 not found", async () => {
     const res = await handleRequest(new Request(`${host}/search`), env, ctx); // no :text parameter
@@ -666,10 +655,9 @@ describe("search API endpoint", () => {
   });
 
   test("paginate", async () => {
-    const results = await fetchPages(host, "search/new%20zealand", new URLSearchParams({ limit: "10" }));
-    console.log(`NZ results: ${results.length}`);
-    expect(results.length).toBeGreaterThan(20);
-    assertEntityProperties(results);
+    const entities = await fetchPages(host, "search/a", new URLSearchParams({ limit: "10" }));
+    expect(entities.length).toBeGreaterThan(20);
+    assertEntityProperties(entities);
   });
 
   test("no text", async () => {
