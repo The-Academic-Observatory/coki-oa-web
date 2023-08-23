@@ -72,6 +72,7 @@ DROP TABLE IF EXISTS entity_fts5;
 CREATE TABLE entity (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_id TEXT NOT NULL, entity_type TEXT NOT NULL, name TEXT NOT NULL, name_ascii_folded TEXT NOT NULL, acronyms TEXT, logo_sm TEXT NOT NULL, subregion TEXT NOT NULL, region TEXT NOT NULL, country_code INTEGER, country_name TEXT, institution_type TEXT, n_outputs INT NOT NULL, n_outputs_open INT NOT NULL, n_outputs_black INT NOT NULL, p_outputs_open FLOAT NOT NULL, p_outputs_publisher_open_only FLOAT NOT NULL, p_outputs_both FLOAT NOT NULL, p_outputs_other_platform_open_only FLOAT NOT NULL, p_outputs_closed FLOAT NOT NULL, p_outputs_black FLOAT NOT NULL, search_weight FLOAT NOT NULL, search_country_region_weight FLOAT NOT NULL, search_inst_country_weight FLOAT NOT NULL);
 CREATE INDEX idx_entity_entity_type ON entity(entity_type);
 CREATE INDEX idx_entity_name ON entity(name);
+CREATE INDEX idx_entity_name_ascii_folded ON entity(name_ascii_folded);
 CREATE INDEX idx_entity_n_outputs ON entity(n_outputs);
 CREATE INDEX idx_entity_n_outputs_open ON entity(n_outputs_open);
 CREATE INDEX idx_entity_p_outputs_open ON entity(p_outputs_open);
@@ -159,6 +160,9 @@ export function entitiesToSQL(entities: Array<Entity>) {
   entities.forEach(entity => {
     const entity_id = entity.id;
     const name = entity.name.replaceAll("'", "''");
+    const name_ascii_folded = FoldToASCII.foldMaintaining(entity.name)
+      .toLowerCase()
+      .replaceAll("'", "''");
     const acronyms = entity.acronyms?.map(v => v.replaceAll("'", "''"))?.join(" ");
     const country_code = entity.country_code;
     const country_name = entity.country_name;
@@ -188,7 +192,7 @@ export function entitiesToSQL(entities: Array<Entity>) {
       entity_id,
       entity.entity_type,
       name,
-      FoldToASCII.foldMaintaining(name), // ascii folded name
+      name_ascii_folded,
       acronyms,
       entity.logo_sm,
       entity.subregion,
