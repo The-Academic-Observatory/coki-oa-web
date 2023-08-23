@@ -421,7 +421,7 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
   }
 
   // Order by
-  // TODO: replace with a unicode coalesce algorithm when this is supported
+  // TODO: replace with a unicode coalesce algorithm when this is supported in D1
   let orderBy;
   let orderByCol = query.orderBy;
   if (query.orderBy === "name") {

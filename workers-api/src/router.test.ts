@@ -300,7 +300,6 @@ describe("countries API endpoint", () => {
     assertEntityProperties(entities);
 
     // Check sorted in ascending order after fetching all pages
-    // TODO: unicode
     expect(entities.length).toBeGreaterThan(0);
     expect(entities.map(x => x.name)).toBeSorted({ descending: false, compare: localeCompare });
   });
@@ -317,7 +316,6 @@ describe("countries API endpoint", () => {
     assertEntityProperties(entities);
 
     // Check sorted in descending order after fetching all pages
-    // TODO: unicode
     expect(entities.length).toBeGreaterThan(0);
     expect(entities.map(x => x.name)).toBeSorted({ descending: true, compare: localeCompare });
   });
@@ -521,7 +519,6 @@ describe("institutions API endpoint", () => {
     assertEntityProperties(entities);
 
     // Check sorted in ascending order after fetching all pages
-    // TODO: unicode
     expect(entities.length).toBeGreaterThan(0);
     expect(entities.map(x => x.name)).toBeSorted({ descending: false, compare: localeCompare });
   });
@@ -538,7 +535,6 @@ describe("institutions API endpoint", () => {
     assertEntityProperties(entities);
 
     // Check sorted in descending order after fetching all pages
-    // TODO: unicode
     expect(entities.length).toBeGreaterThan(0);
     expect(entities.map(x => x.name)).toBeSorted({
       descending: true,
