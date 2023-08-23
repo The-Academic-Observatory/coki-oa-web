@@ -19,6 +19,7 @@ import fs from "fs";
 //@ts-ignore
 import path from "path";
 import { Dict, Entity, Query, QueryResult } from "@/types";
+import FoldToASCII from "fold-to-ascii";
 
 const VALID_ENTITY_TYPES = new Set(["country", "institution"]);
 const VALID_ORDER_BY = new Set([
@@ -45,6 +46,7 @@ const PROPERTIES_TO_DELETE = [
   "search_weight",
   "search_country_region_weight",
   "search_inst_country_weight",
+  "name_ascii_folded",
 ];
 
 // entity
@@ -67,7 +69,7 @@ const PROPERTIES_TO_DELETE = [
 // The Miniflare V2 db.exec doesn't parse SQL very well, hence the lack of newlines and comments
 const SCHEMA = `DROP TABLE IF EXISTS entity;
 DROP TABLE IF EXISTS entity_fts5;
-CREATE TABLE entity (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_id TEXT NOT NULL, entity_type TEXT NOT NULL, name TEXT NOT NULL, acronyms TEXT, logo_sm TEXT NOT NULL, subregion TEXT NOT NULL, region TEXT NOT NULL, country_code INTEGER, country_name TEXT, institution_type TEXT, n_outputs INT NOT NULL, n_outputs_open INT NOT NULL, n_outputs_black INT NOT NULL, p_outputs_open FLOAT NOT NULL, p_outputs_publisher_open_only FLOAT NOT NULL, p_outputs_both FLOAT NOT NULL, p_outputs_other_platform_open_only FLOAT NOT NULL, p_outputs_closed FLOAT NOT NULL, p_outputs_black FLOAT NOT NULL, search_weight FLOAT NOT NULL, search_country_region_weight FLOAT NOT NULL, search_inst_country_weight FLOAT NOT NULL);
+CREATE TABLE entity (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_id TEXT NOT NULL, entity_type TEXT NOT NULL, name TEXT NOT NULL, name_ascii_folded TEXT NOT NULL, acronyms TEXT, logo_sm TEXT NOT NULL, subregion TEXT NOT NULL, region TEXT NOT NULL, country_code INTEGER, country_name TEXT, institution_type TEXT, n_outputs INT NOT NULL, n_outputs_open INT NOT NULL, n_outputs_black INT NOT NULL, p_outputs_open FLOAT NOT NULL, p_outputs_publisher_open_only FLOAT NOT NULL, p_outputs_both FLOAT NOT NULL, p_outputs_other_platform_open_only FLOAT NOT NULL, p_outputs_closed FLOAT NOT NULL, p_outputs_black FLOAT NOT NULL, search_weight FLOAT NOT NULL, search_country_region_weight FLOAT NOT NULL, search_inst_country_weight FLOAT NOT NULL);
 CREATE INDEX idx_entity_entity_type ON entity(entity_type);
 CREATE INDEX idx_entity_name ON entity(name);
 CREATE INDEX idx_entity_n_outputs ON entity(n_outputs);
@@ -186,6 +188,7 @@ export function entitiesToSQL(entities: Array<Entity>) {
       entity_id,
       entity.entity_type,
       name,
+      FoldToASCII.foldMaintaining(name), // ascii folded name
       acronyms,
       entity.logo_sm,
       entity.subregion,
@@ -408,13 +411,21 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
   }
 
   // Order by
-  let orderBy;
-  if (query.orderDir === "asc") {
-    orderBy = `ORDER BY entity.${query.orderBy} ASC`;
-  } else {
-    orderBy = `ORDER BY entity.${query.orderBy} DESC`;
+  // TODO: replace with a unicode coalesce algorithm when this is supported
+  let order;
+  let orderBy = query.orderBy;
+  if (query.orderBy === "name") {
+    orderBy = "name_ascii_folded";
   }
-  sql.push(orderBy);
+  if (query.orderDir === "asc") {
+    order = `ORDER BY entity.${orderBy} ASC`;
+  } else {
+    order = `ORDER BY entity.${orderBy} DESC`;
+  }
+  if (query.orderBy !== "name") {
+    order += ", entity.name_ascii_folded ASC";
+  }
+  sql.push(order);
 
   // Limit and offset
   const limit = query.limit;
