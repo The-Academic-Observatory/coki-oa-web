@@ -422,9 +422,6 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
   } else {
     order = `ORDER BY entity.${orderBy} DESC`;
   }
-  if (query.orderBy !== "name") {
-    order += ", entity.name_ascii_folded ASC";
-  }
   sql.push(order);
 
   // Limit and offset
