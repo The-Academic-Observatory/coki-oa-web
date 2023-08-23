@@ -27,6 +27,7 @@ import Progress from "./components/progress";
 import Menu from "./components/menu";
 import Tooltip from "./components/tooltip";
 import Alert from "./components/alert";
+import List from "./components/list";
 
 const breakpoints = {
   sm: "600px",
@@ -298,6 +299,13 @@ const theme = extendTheme({
       fontSize: { base: "18px", md: "14px" },
       fontVariantNumeric: "tabular-nums",
     },
+    searchText: {
+      // Light
+      fontWeight: 300,
+      fontSize: { base: "16px" },
+      lineHeight: { base: "20px" },
+      pb: "12px",
+    },
   },
   layerStyles: {
     page: {
@@ -371,6 +379,7 @@ const theme = extendTheme({
     Menu,
     Tooltip,
     Alert,
+    List,
   },
 });
 

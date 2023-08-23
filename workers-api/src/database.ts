@@ -297,9 +297,14 @@ export async function searchEntities(
 
   // If empty string then return empty results
   if (text.trim() !== "") {
-    let value = `"${ftsEscape(text)}"*`;
+    let value = "";
     if (acronym) {
       value = `acronyms:"${ftsEscape(text)}"*`;
+    } else {
+      value = `${text
+        .split(" ")
+        .map(v => `"${ftsEscape(v)}"*`)
+        .join(" ")}`;
     }
 
     // Calculate offset

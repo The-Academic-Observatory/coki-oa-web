@@ -1,28 +1,11 @@
 /* Hide scrollbars as this messes with setting the viewport width*/
 body {
-    -ms-overflow-style: none; /* Edge */
-    scrollbar-width: none; /* Firefox */
+    /*-ms-overflow-style: none; !* Edge *!*/
+    /*scrollbar-width: none; !* Firefox *!*/
 }
 
 body::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
-}
-
-li::marker {
-    color: #FF671C;
-}
-
-
-#country-dropdown ul li {
-    margin-bottom: 1px;
-}
-
-ul > li {
-    margin-bottom: 16px;
-}
-
-ol > li {
-    margin-bottom: 16px;
+    /*display: none; !* Chrome, Safari and Opera *!*/
 }
 
 /*Publisher Donut Drop Shadow */
@@ -53,6 +36,7 @@ li a:hover {
     color: #737373 !important;
 }
 
+/*TODO: move into own module?*/
 .socialCard {
     position: absolute;
     top: 0;

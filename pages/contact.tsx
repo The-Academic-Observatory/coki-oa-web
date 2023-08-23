@@ -47,7 +47,7 @@ export default function Contact() {
         <Text textStyle="p" mb="24px">
           <b>WE WOULD LOVE TO HEAR FROM YOU.</b>
         </Text>
-        <UnorderedList textStyle="p">
+        <UnorderedList textStyle="p" spacing="16px">
           <ListItem>
             <b>Reports and Dashboards.</b> Get more detailed information about my country or institution’s Open Access
             performance. We can provide reports and more detail about your institution or country on demand. We also

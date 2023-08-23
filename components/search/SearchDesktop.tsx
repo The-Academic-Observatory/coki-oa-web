@@ -14,6 +14,7 @@
 //
 // Author: James Diprose
 
+import { RemoveScroll } from "react-remove-scroll";
 import { Box, Popover, PopoverAnchor, PopoverBody, PopoverContent, Text, useOutsideClick } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
 import React, { LegacyRef, memo, useCallback, useEffect, useRef } from "react";
@@ -22,6 +23,7 @@ import debounce from "lodash/debounce";
 import SearchResult from "./SearchResult";
 import SearchBox from "./SearchBox";
 import SkeletonSearchResult from "./SkeletonSearchResult";
+import NoResults from "./NoResults";
 
 export const useEntitySearch = (
   onDataLoaded: any = null,
@@ -36,12 +38,14 @@ export const useEntitySearch = (
   LegacyRef<HTMLDivElement>,
   (e: any) => void,
   boolean,
+  string,
 ] => {
   const client = new OADataAPI();
   const [page, setPage] = React.useState<number>(0);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [hasMore, setHasMore] = React.useState<boolean>(false);
   const [query, setQuery] = React.useState<string>("");
+  const [queryFinal, setQueryFinal] = React.useState<string>("");
   const [entities, setEntities] = React.useState<Array<Entity>>([]);
   const observer = useRef<IntersectionObserver>();
   const lastEntityRef = useCallback(
@@ -89,6 +93,7 @@ export const useEntitySearch = (
           });
 
           setHasMore(response.data.page + 1 < response.data.nPages);
+          setQueryFinal(query); // Update this value once the query has finished
           setLoading(false);
 
           // Callback where behaviour can be customised after data has been loaded
@@ -109,7 +114,7 @@ export const useEntitySearch = (
     return () => abortController.abort();
   }, [query, page]);
 
-  return [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore];
+  return [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore, queryFinal];
 };
 
 const SearchDesktop = ({ ...rest }) => {
@@ -119,71 +124,88 @@ const SearchDesktop = ({ ...rest }) => {
   const ref = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   useOutsideClick({
     ref: ref,
-    handler: () => setPopoverOpen(false),
+    handler: () => {
+      // Close popover and clear text when click outside
+      setPopoverOpen(false);
+      setQuery("");
+    },
   });
 
   // Search query
-  const [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore] = useEntitySearch(
-    () => {
-      setPopoverOpen(true);
-    },
-  );
+  const [
+    entities,
+    query,
+    setQuery,
+    loading,
+    setLoading,
+    lastEntityRef,
+    searchBoxOnChange,
+    hasMore,
+    queryFinal,
+  ] = useEntitySearch(() => {
+    setPopoverOpen(true);
+  });
 
   return (
     <Box {...rest} ref={ref}>
-      <Popover placement="bottom-start" offset={[0, 1]} autoFocus={false} isLazy={true} isOpen={isPopoverOpen}>
-        <PopoverAnchor>
-          {/*div is required to prevent Function components cannot be given refs error */}
-          <div>
-            <SearchBox
-              inputDataTest="searchInputDesktop"
-              value={query}
-              onChange={(e: any) => {
-                if (e.target.value === "") {
-                  setPopoverOpen(false);
-                }
-                searchBoxOnChange(e);
-              }}
-            />
-          </div>
-        </PopoverAnchor>
-        <PopoverContent
-          borderRadius={14}
-          width="386px"
-          _focus={{
-            boxShadow: "none",
-          }}
-        >
-          <PopoverBody
-            id="searchResultsDesktop"
-            data-test="searchResultsDesktop"
-            pt={0}
-            pb={0}
-            maxHeight="500px"
-            overflowY="auto"
-          >
-            {entities.map((entity: Entity) => {
-              return (
-                <SearchResult
-                  key={entity.id}
-                  entity={entity}
-                  onClick={() => {
-                    // On click:
-                    // - Close search results
-                    // - Set search text to empty string
+      <RemoveScroll enabled={isPopoverOpen}>
+        <Popover placement="bottom-start" offset={[0, 1]} autoFocus={false} isLazy={true} isOpen={isPopoverOpen}>
+          <PopoverAnchor>
+            {/*div is required to prevent Function components cannot be given refs error */}
+            <div>
+              <SearchBox
+                inputDataTest="searchInputDesktop"
+                value={query}
+                onChange={(e: any) => {
+                  if (e.target.value === "") {
                     setPopoverOpen(false);
-                    setQuery("");
-                  }}
-                />
-              );
-            })}
-            {hasMore && <SkeletonSearchResult lastEntityRef={lastEntityRef} />}
+                  }
+                  searchBoxOnChange(e);
+                }}
+              />
+            </div>
+          </PopoverAnchor>
+          <PopoverContent
+            borderRadius={14}
+            width="386px"
+            _focus={{
+              boxShadow: "none",
+            }}
+          >
+            <PopoverBody
+              id="searchResultsDesktop"
+              data-test="searchResultsDesktop"
+              py={0}
+              px="16px"
+              maxHeight="500px"
+              overflowY="auto"
+            >
+              {/* Search results */}
+              {entities.map((entity: Entity) => {
+                return (
+                  <SearchResult
+                    key={entity.id}
+                    entity={entity}
+                    onClick={() => {
+                      // On click:
+                      // - Close search results
+                      // - Set search text to empty string
+                      setPopoverOpen(false);
+                      setQuery("");
+                    }}
+                  />
+                );
+              })}
 
-            {/*TODO: set something better than no results, it flashes oddly */}
-            {!loading && query !== "" && entities.length === 0 && <Text>No results</Text>}
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
+              {/* Skeleton search item which loads more results */}
+              {hasMore && <SkeletonSearchResult lastEntityRef={lastEntityRef} />}
+
+              {/* No results helper information */}
+              {entities.length === 0 && <NoResults query={queryFinal} />}
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+      </RemoveScroll>
     </Box>
   );
 };

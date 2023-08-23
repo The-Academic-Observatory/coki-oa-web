@@ -136,7 +136,7 @@ export default function Data({ stats }: Props) {
           Dataset Attributions
         </Text>
         <Text textStyle="p">The COKI Open Access Dataset contains information from:</Text>
-        <UnorderedList textStyle="p">
+        <UnorderedList textStyle="p" spacing="16px">
           <ListItem>
             <a href="https://openalex.org/" target="_blank" rel="noreferrer">
               OpenAlex

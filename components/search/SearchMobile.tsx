@@ -14,6 +14,7 @@
 //
 // Author: James Diprose
 
+import { RemoveScroll } from "react-remove-scroll";
 import { BoxProps, Drawer, DrawerBody, DrawerContent, DrawerHeader, Text } from "@chakra-ui/react";
 import React, { memo } from "react";
 import { Entity } from "../../lib/model";
@@ -21,6 +22,7 @@ import { useEntitySearch } from "./SearchDesktop";
 import SearchResult from "./SearchResult";
 import SearchBox from "./SearchBox";
 import SkeletonSearchResult from "./SkeletonSearchResult";
+import NoResults from "./NoResults";
 
 interface SearchDrawerProps extends BoxProps {
   isOpen: boolean;
@@ -39,46 +41,65 @@ const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: 
     lastEntityRef,
     searchBoxOnChange,
     hasMore,
+    queryFinal,
   ] = useEntitySearch(() => {});
 
   return (
-    <Drawer size="full" placement="right" onClose={onClose} isOpen={isOpen} preserveScrollBarGap={true} {...rest}>
-      <DrawerContent
-        top={`${navbarHeightMobile}px !important`}
-        bg="none"
-        boxShadow="none"
-        height={`calc(100vh - ${navbarHeightMobile}px)`}
+    <RemoveScroll enabled={isOpen}>
+      <Drawer
+        size="full"
+        placement="right"
+        onClose={() => {
+          // Close drawer and clear query
+          onClose();
+          setQuery("");
+        }}
+        isOpen={isOpen}
+        preserveScrollBarGap={true}
+        {...rest}
       >
-        <DrawerHeader bg="brand.500">
-          <SearchBox
-            inputDataTest="searchInputMobile"
-            value={query}
-            onChange={e => {
-              searchBoxOnChange(e);
-            }}
-          />
-        </DrawerHeader>
-        <DrawerBody bg="white" data-test="searchResultsMobile" pt="2px" pb={0} height="100vh" overflowY="auto">
-          {!loading && query !== "" && entities.length === 0 && <Text>No results</Text>}
-          {entities.map((entity: Entity) => {
-            return (
-              <SearchResult
-                key={entity.id}
-                entity={entity}
-                onClick={() => {
-                  // On click:
-                  // - Close search results
-                  // - Set search text to empty string
-                  onClose();
-                  setQuery("");
-                }}
-              />
-            );
-          })}
-          {hasMore && <SkeletonSearchResult lastEntityRef={lastEntityRef} />}
-        </DrawerBody>
-      </DrawerContent>
-    </Drawer>
+        <DrawerContent
+          top={`${navbarHeightMobile}px !important`}
+          bg="none"
+          boxShadow="none"
+          height={`calc(100vh - ${navbarHeightMobile}px)`}
+        >
+          <DrawerHeader bg="brand.500">
+            <SearchBox
+              inputDataTest="searchInputMobile"
+              value={query}
+              onChange={e => {
+                searchBoxOnChange(e);
+              }}
+            />
+          </DrawerHeader>
+          <DrawerBody bg="white" data-test="searchResultsMobile" pt="2px" pb={0} height="100vh" overflowY="auto">
+            {/* Search results */}
+            {entities.map((entity: Entity) => {
+              return (
+                <SearchResult
+                  key={entity.id}
+                  entity={entity}
+                  onClick={() => {
+                    // On click:
+                    // - Close search results
+                    // - Set search text to empty string
+                    onClose();
+                    setQuery("");
+                  }}
+                />
+              );
+            })}
+
+            {/* Skeleton search item which loads more results */}
+            {hasMore && <SkeletonSearchResult lastEntityRef={lastEntityRef} />}
+
+            {/* No results helper information */}
+            {!loading && query !== "" && entities.length === 0 && <NoResults query={queryFinal} />}
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </RemoveScroll>
   );
 };
 
