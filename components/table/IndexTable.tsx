@@ -164,7 +164,7 @@ const IndexTable = ({
   const getTableOrderState = () => {
     // Get orderBy and orderDir parameters
     const columnSortBy = sortBy[0];
-    const orderBy = columns.find(column => column.id === columnSortBy.id).accessor;
+    const orderBy = columns.find((column) => column.id === columnSortBy.id).accessor;
     const orderDir = columnSortBy.desc ? "dsc" : "asc";
 
     return [orderBy, orderDir];
@@ -204,7 +204,7 @@ const IndexTable = ({
         {/*The table*/}
         <Table {...getTableProps()} size="sm" variant="dashboard">
           <Thead>
-            {headerGroups.map(headerGroup => {
+            {headerGroups.map((headerGroup) => {
               let props = headerGroup.getHeaderGroupProps();
               return (
                 <Tr key={props.key}>

@@ -144,7 +144,7 @@ const NoResults = ({ nRows, onlyHomeRepos, entity, onReset }: NoResultsProps) =>
 
   return (
     <>
-      {Array.from(Array(nRows).keys()).map(key => {
+      {Array.from(Array(nRows).keys()).map((key) => {
         return (
           <Tr key={key} role="row" zIndex="1" data-test={key}>
             <Td role="cell">
@@ -363,7 +363,7 @@ const OtherPlatformLocationsCard = ({ entity, ...rest }: TopOtherPlatformOpenCar
       <Box overflowX="auto" maxWidth="100vw" position="relative" my="12px">
         <Table {...getTableProps()} size="sm" variant="details">
           <Thead>
-            {headerGroups.map(headerGroup => {
+            {headerGroups.map((headerGroup) => {
               let props = headerGroup.getHeaderGroupProps();
               return (
                 <Tr key={props.key}>

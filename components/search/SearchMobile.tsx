@@ -32,17 +32,8 @@ interface SearchDrawerProps extends BoxProps {
 }
 
 const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: SearchDrawerProps) => {
-  const [
-    entities,
-    query,
-    setQuery,
-    loading,
-    setLoading,
-    lastEntityRef,
-    searchBoxOnChange,
-    hasMore,
-    queryFinal,
-  ] = useEntitySearch(() => {});
+  const [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore, queryFinal] =
+    useEntitySearch(() => {});
 
   return (
     <RemoveScroll enabled={isOpen}>
@@ -68,7 +59,7 @@ const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: 
             <SearchBox
               inputDataTest="searchInputMobile"
               value={query}
-              onChange={e => {
+              onChange={(e) => {
                 searchBoxOnChange(e);
               }}
             />

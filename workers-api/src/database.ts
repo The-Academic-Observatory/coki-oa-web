@@ -113,7 +113,7 @@ export function saveSQLToFile(sql: string, outputPath: string) {
 
 function joinWithCommas(arr: (string | number | null | undefined)[]): string {
   return arr
-    .map(item => {
+    .map((item) => {
       // null or undefined
       if (item == null) {
         return "NULL";
@@ -165,11 +165,11 @@ export function entitiesToSQL(entities: Array<Entity>) {
   }
 
   // Generate country SQL
-  entities.forEach(entity => {
+  entities.forEach((entity) => {
     const entity_id = entity.id;
     const name = escapeSingleQuotes(cleanName(entity.name));
     const name_ascii_folded = escapeSingleQuotes(FoldToASCII.foldMaintaining(cleanName(entity.name))).toLowerCase();
-    const acronyms = entity.acronyms?.map(v => v.replaceAll("'", "''"))?.join(" ");
+    const acronyms = entity.acronyms?.map((v) => v.replaceAll("'", "''"))?.join(" ");
     const country_code = entity.country_code;
     const country_name = entity.country_name;
     const institution_type = entity.institution_type;
@@ -279,9 +279,7 @@ export function rowsToEntities(rows: Array<Dict>): Array<Entity> {
 }
 
 function makeTemplateParams(n: number) {
-  return Array(n)
-    .fill("?")
-    .join(",");
+  return Array(n).fill("?").join(",");
 }
 
 const SEARCH_QUERY = `SELECT entity.*, weighted_rank, subset.total_rows
@@ -316,16 +314,13 @@ export async function searchEntities(
     } else {
       value = `${text
         .split(" ")
-        .map(v => `"${ftsEscape(v)}"*`)
+        .map((v) => `"${ftsEscape(v)}"*`)
         .join(" ")}`;
     }
 
     // Calculate offset
     const offset = page * limit;
-    const { results } = await db
-      .prepare(SEARCH_QUERY)
-      .bind(value, limit, offset)
-      .all();
+    const { results } = await db.prepare(SEARCH_QUERY).bind(value, limit, offset).all();
 
     // Parse results
     if (results?.length) {

@@ -7,6 +7,7 @@ Open Knowledge Initiative's Open Access Dashboard: [open.coki.ac](https://open.c
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?logo=Cloudflare&logoColor=white)](https://workers.cloudflare.com/)
 [![e2e Tests](https://github.com/The-Academic-Observatory/coki-oa-web/actions/workflows/e2e-tests.yml/badge.svg)](https://github.com/The-Academic-Observatory/coki-oa-web/actions/workflows/e2e-tests.yml)
 [![Workers API Unit Tests](https://github.com/The-Academic-Observatory/coki-oa-web/actions/workflows/workers-api-unit-tests.yml/badge.svg)](https://github.com/The-Academic-Observatory/coki-oa-web/actions/workflows/workers-api-unit-tests.yml)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![DOI](https://zenodo.org/badge/430557646.svg)](https://zenodo.org/badge/latestdoi/430557646)
 
 1. [Requirements](#1-requirements)

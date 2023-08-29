@@ -52,7 +52,7 @@ export const useEntitySearch = (
     (node: any) => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver(entries => {
+      observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
           setPage((prevPage: number) => {
             return prevPage + 1;
@@ -83,8 +83,8 @@ export const useEntitySearch = (
       setLoading(true);
       client
         .searchEntities(query, page, searchLimit, abortController)
-        .then(response => {
-          setEntities(prevEntities => {
+        .then((response) => {
+          setEntities((prevEntities) => {
             // If we are on the first page then just use new items
             if (page === 0) return response.data.items;
 
@@ -101,7 +101,7 @@ export const useEntitySearch = (
             onDataLoaded();
           }
         })
-        .catch(e => {
+        .catch((e) => {
           if (abortController.signal.aborted) return;
         });
     }, searchDebounce),
@@ -132,19 +132,10 @@ const SearchDesktop = ({ ...rest }) => {
   });
 
   // Search query
-  const [
-    entities,
-    query,
-    setQuery,
-    loading,
-    setLoading,
-    lastEntityRef,
-    searchBoxOnChange,
-    hasMore,
-    queryFinal,
-  ] = useEntitySearch(() => {
-    setPopoverOpen(true);
-  });
+  const [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore, queryFinal] =
+    useEntitySearch(() => {
+      setPopoverOpen(true);
+    });
 
   return (
     <Box {...rest} ref={ref}>

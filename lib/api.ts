@@ -41,7 +41,7 @@ export class OADataAPI {
   }
 
   getStats(): Stats {
-    return (statsRaw as unknown) as Stats;
+    return statsRaw as unknown as Stats;
   }
 
   async getEntity(entityType: string, id: string): Promise<Entity> {
@@ -69,7 +69,7 @@ export class OADataAPI {
 
   async filterEntities(entityType: string, filterQuery: QueryParams): Promise<QueryResult> {
     const url = makeFilterUrl(this.host, entityType, filterQuery);
-    return fetch(url).then(response => response.json());
+    return fetch(url).then((response) => response.json());
   }
 }
 
@@ -81,7 +81,7 @@ export class OADataLocal {
   }
 
   getStats(): Stats {
-    return (statsRaw as unknown) as Stats;
+    return statsRaw as unknown as Stats;
   }
 
   getEntity(entityType: string, id: string): Entity {
@@ -99,13 +99,13 @@ export class OADataLocal {
 
 export function quantizeGroup(entity: Object, keys: Array<string>) {
   // Get samples
-  let samples = keys.map(key => {
+  let samples = keys.map((key) => {
     return lodashGet(entity, key);
   });
 
   // Make samples sum to 100
   let total = sum(samples);
-  samples = samples.map(sample => {
+  samples = samples.map((sample) => {
     return (sample / total) * 100;
   });
 
@@ -135,7 +135,7 @@ export function quantizeEntityPercentages(entity: Entity) {
     quantizeGroup(entity, pubKeys);
   }
 
-  entity.years.forEach(year => {
+  entity.years.forEach((year) => {
     if (year.stats.n_outputs > 0) {
       quantizeGroup(year, oaKeys);
     }
@@ -165,13 +165,13 @@ export function makeSearchUrl(host: string, text: string, page: number, limit: n
   return url.toString();
 }
 
-function makeFilterUrl(host: string, entityType: string, filterQuery: QueryParams): string {
+export function makeFilterUrl(host: string, entityType: string, filterQuery: QueryParams): string {
   // Make base URL
   const url = new URL(`${host}/${entityType}`);
   const params = new URLSearchParams();
 
   // Convert filterQuery into URL query parameters
-  Object.keys(filterQuery).forEach(key => {
+  Object.keys(filterQuery).forEach((key) => {
     // Return null when property does not belong on this endpoint
     if (entityType !== "institutions" && ["institutionTypes"].includes(key)) {
       return;
@@ -223,7 +223,7 @@ export function cokiImageLoader(src: string) {
 }
 
 export function idsToStaticPaths(ids: Array<string>, entityType?: string) {
-  return ids.map(entityId => {
+  return ids.map((entityId) => {
     const params: Dict = {
       id: entityId,
     };

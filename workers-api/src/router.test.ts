@@ -76,7 +76,7 @@ const fetchPages = async (origin: string, pathname: string, params: URLSearchPar
 };
 
 const assertEntityProperties = (entities: Array<Entity>) => {
-  entities.forEach(entity => {
+  entities.forEach((entity) => {
     // Properties on all entities
     expect(entity).toMatchObject({
       id: expect.any(String),
@@ -193,7 +193,7 @@ describe("countries API endpoint", () => {
 
     // Assert that we only have NZL and AUS
     expect(entities.length).toBe(2);
-    entities.forEach(entity => {
+    entities.forEach((entity) => {
       expect(entity).toMatchObject({ id: expect.stringMatching(/NZL|AUS/) });
     });
   });
@@ -210,10 +210,10 @@ describe("countries API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
 
     // Assert that we only have entities from Oceania and Americas
-    entities.forEach(entity => {
+    entities.forEach((entity) => {
       expect(entity).toMatchObject({ region: expect.stringMatching(/Oceania|Americas/) });
     });
   });
@@ -230,10 +230,10 @@ describe("countries API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
 
     // Assert that we only have entities from Southern Asia or Latin America and the Caribbean
-    entities.forEach(entity => {
+    entities.forEach((entity) => {
       expect(entity).toMatchObject({
         subregion: expect.stringMatching(/Southern Asia|Latin America and the Caribbean/),
       });
@@ -255,10 +255,10 @@ describe("countries API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
 
     // Check that results are within expected range
-    entities.forEach(entity => {
+    entities.forEach((entity) => {
       expect(entity.stats.n_outputs).toBeGreaterThanOrEqual(minNOutputs);
       expect(entity.stats.n_outputs).toBeLessThanOrEqual(maxNOutputs);
     });
@@ -279,10 +279,10 @@ describe("countries API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
 
     // Assert that we only have entities from Oceania and Americas
-    entities.forEach(entity => {
+    entities.forEach((entity) => {
       expect(entity.stats.p_outputs_open).toBeGreaterThanOrEqual(minPOutputsOpen);
       expect(entity.stats.p_outputs_open).toBeLessThanOrEqual(maxPOutputsOpen);
     });
@@ -301,7 +301,7 @@ describe("countries API endpoint", () => {
 
     // Check sorted in ascending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.name)).toBeSorted({ descending: false, compare: localeCompare });
+    expect(entities.map((x) => x.name)).toBeSorted({ descending: false, compare: localeCompare });
   });
 
   test("orderBy string, orderDir dsc", async () => {
@@ -317,7 +317,7 @@ describe("countries API endpoint", () => {
 
     // Check sorted in descending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.name)).toBeSorted({ descending: true, compare: localeCompare });
+    expect(entities.map((x) => x.name)).toBeSorted({ descending: true, compare: localeCompare });
   });
 
   test("orderBy numeric, orderDir asc", async () => {
@@ -333,7 +333,7 @@ describe("countries API endpoint", () => {
 
     // Check sorted in ascending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.stats.n_outputs)).toBeSorted({ descending: false });
+    expect(entities.map((x) => x.stats.n_outputs)).toBeSorted({ descending: false });
   });
 
   test("orderBy numeric, orderDir dsc", async () => {
@@ -349,7 +349,7 @@ describe("countries API endpoint", () => {
 
     // Check sorted in descending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.stats.n_outputs)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.n_outputs)).toBeSorted({ descending: true });
   });
 });
 
@@ -375,7 +375,7 @@ describe("institutions API endpoint", () => {
 
     // Assert that we only have 050gfgn67 and 04v9m3h35
     expect(entities.length).toBe(2);
-    entities.forEach(entity => {
+    entities.forEach((entity) => {
       expect(entity).toMatchObject({ id: expect.stringMatching(/050gfgn67|04v9m3h35/) });
     });
   });
@@ -392,10 +392,10 @@ describe("institutions API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
 
     // Assert that we only have entities from Oceania and Americas
-    entities.forEach(entity => {
+    entities.forEach((entity) => {
       expect(entity).toMatchObject({ region: expect.stringMatching(/Oceania|Americas/) });
     });
   });
@@ -412,10 +412,10 @@ describe("institutions API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
 
     // Assert that we only have entities from Southern Asia or Latin America and the Caribbean
-    entities.forEach(entity => {
+    entities.forEach((entity) => {
       expect(entity).toMatchObject({
         subregion: expect.stringMatching(/Southern Asia|Latin America and the Caribbean/),
       });
@@ -437,10 +437,10 @@ describe("institutions API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
 
     // Check that results are within expected range
-    entities.forEach(entity => {
+    entities.forEach((entity) => {
       expect(entity.stats.n_outputs).toBeGreaterThanOrEqual(minNOutputs);
       expect(entity.stats.n_outputs).toBeLessThanOrEqual(maxNOutputs);
     });
@@ -461,10 +461,10 @@ describe("institutions API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
 
     // Assert that we only have entities from Oceania and Americas
-    entities.forEach(entity => {
+    entities.forEach((entity) => {
       expect(entity.stats.p_outputs_open).toBeGreaterThanOrEqual(minPOutputsOpen);
       expect(entity.stats.p_outputs_open).toBeLessThanOrEqual(maxPOutputsOpen);
     });
@@ -478,10 +478,10 @@ describe("institutions API endpoint", () => {
 
       // Assert all results sorted
       expect(results.length).toBeGreaterThan(0);
-      expect(results.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+      expect(results.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
 
       // Assert that we only have entities from Oceania and Americas
-      results.forEach(entity => {
+      results.forEach((entity) => {
         expect(entity).toMatchObject({ country_name: expect.stringMatching(/Australia|New Zealand/) });
       });
     },
@@ -496,10 +496,10 @@ describe("institutions API endpoint", () => {
 
       // Assert all results sorted
       expect(results.length).toBeGreaterThan(0);
-      expect(results.map(x => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+      expect(results.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
 
       // Assert that we only have entities from Oceania and Americas
-      results.forEach(entity => {
+      results.forEach((entity) => {
         expect(entity.institution_type).toBeDefined();
         expect(entity.institution_type).toMatch(/Education|Government/);
       });
@@ -520,7 +520,7 @@ describe("institutions API endpoint", () => {
 
     // Check sorted in ascending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.name)).toBeSorted({ descending: false, compare: localeCompare });
+    expect(entities.map((x) => x.name)).toBeSorted({ descending: false, compare: localeCompare });
   });
 
   test("orderBy string, orderDir dsc", async () => {
@@ -536,7 +536,7 @@ describe("institutions API endpoint", () => {
 
     // Check sorted in descending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.name)).toBeSorted({
+    expect(entities.map((x) => x.name)).toBeSorted({
       descending: true,
       compare: localeCompare,
     });
@@ -555,7 +555,7 @@ describe("institutions API endpoint", () => {
 
     // Check sorted in ascending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.stats.n_outputs)).toBeSorted({ descending: false });
+    expect(entities.map((x) => x.stats.n_outputs)).toBeSorted({ descending: false });
   });
 
   test("orderBy numeric, orderDir dsc", async () => {
@@ -571,7 +571,7 @@ describe("institutions API endpoint", () => {
 
     // Check sorted in descending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map(x => x.stats.n_outputs)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.n_outputs)).toBeSorted({ descending: true });
   });
 });
 

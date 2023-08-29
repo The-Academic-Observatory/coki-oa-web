@@ -1,4 +1,4 @@
-import type {Assertion, AsymmetricMatchersContaining} from 'vitest'
+import type { Assertion, AsymmetricMatchersContaining } from "vitest";
 
 interface CustomMatchers<R = unknown> {
   toBeSorted(options?: {

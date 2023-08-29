@@ -27,7 +27,7 @@
     "esbuild": "^0.18.17",
     "license-checker-rseidelsohn": "^4.2.0",
     "performance-now": "^2.1.0",
-    "prettier": "^1.18.2",
+    "prettier": "^3.0.2",
     "tmp": "^0.2.1",
     "ts-node": "^10.7.0",
     "typescript": "^4.4.4",

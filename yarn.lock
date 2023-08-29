@@ -6643,7 +6643,7 @@ __metadata:
     lodash.get: ^4.4.2
     lodash.set: ^4.3.2
     performance-now: ^2.1.0
-    prettier: ^1.18.2
+    prettier: ^3.0.2
     tmp: ^0.2.1
     ts-node: ^10.7.0
     typescript: ^4.4.4
@@ -6701,7 +6701,7 @@ __metadata:
     nanoid: ^3.3.2
     next: v13.0.7
     next-sitemap: ^2.1.13
-    prettier: ^2.6.2
+    prettier: ^3.0.2
     prop-types: ^15.8.1
     react: 18.2.0
     react-dom: 18.2.0
@@ -12532,21 +12532,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^1.18.2":
-  version: 1.19.1
-  resolution: "prettier@npm:1.19.1"
+"prettier@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "prettier@npm:3.0.2"
   bin:
-    prettier: ./bin-prettier.js
-  checksum: bc78219e0f8173a808f4c6c8e0a137dd8ebd4fbe013e63fe1a37a82b48612f17b8ae8e18a992adf802ee2cf7428f14f084e7c2846ca5759cf4013c6e54810e1f
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^2.6.2":
-  version: 2.8.0
-  resolution: "prettier@npm:2.8.0"
-  bin:
-    prettier: bin-prettier.js
-  checksum: 72004ce0cc9bb097daf3e3833f62495768724392c1d5b178dd47372337616e9e50ecbb0804f236596223f7b5eb1bbe69cefc8957dca21112c5777e77ef73a564
+    prettier: bin/prettier.cjs
+  checksum: 118b59ddb6c80abe2315ab6d0f4dd1b253be5cfdb20622fa5b65bb1573dcd362e6dd3dcf2711dd3ebfe64aecf7bdc75de8a69dc2422dcd35bdde7610586b677a
   languageName: node
   linkType: hard
 

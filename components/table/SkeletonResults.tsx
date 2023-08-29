@@ -26,7 +26,7 @@ const SkeletonResults = ({ nRows }: SkeletonResultsProps) => {
 
   return (
     <>
-      {Array.from(Array(nRows).keys()).map(key => {
+      {Array.from(Array(nRows).keys()).map((key) => {
         return (
           <Tr key={key} role="row" zIndex="1" data-test={key}>
             <Td role="cell">

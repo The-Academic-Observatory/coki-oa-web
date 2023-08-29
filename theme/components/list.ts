@@ -20,7 +20,7 @@ import { mode } from "@chakra-ui/theme-tools";
 
 const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(parts.keys);
 
-const baseStyle = definePartsStyle(props => ({
+const baseStyle = definePartsStyle((props) => ({
   item: {
     "&::marker": {
       color: mode("brand.500", "brand.500")(props),
