@@ -28,10 +28,11 @@ import {
   Tabs,
   Text,
   useDisclosure,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { Entity, EntityStats, QueryParams, QueryResult, Stats } from "../../lib/model";
 import { cokiImageLoader, OADataAPI } from "../../lib/api";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import IndexTable from "../table/IndexTable";
 import Icon from "../common/Icon";
 import FilterForm, { OpenAccess, QueryForm, regions } from "../filter/FilterForm";
@@ -250,6 +251,15 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
     onClose: onCloseFilterInstitution,
   } = useDisclosure();
 
+  // Close modal filters when md screen size or above
+  const [isMd] = useMediaQuery("(min-width: 1000px)");
+  useEffect(() => {
+    if (isMd) {
+      onCloseFilterCountry();
+      onCloseFilterInstitution();
+    }
+  }, [isMd]);
+
   const title = "COKI Open Access Dashboard";
   const description =
     "How Open is Academia? See how well your university or country performs at open access publishing.";
@@ -393,7 +403,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
         </Box>
 
         <Modal variant="filterModal" onClose={onCloseFilterCountry} size="full" isOpen={isOpenFilterCountry}>
-          <ModalContent>
+          <ModalContent display={{ base: "flex", md: "none" }}>
             <ModalBody>
               <FilterForm
                 category="country"
@@ -412,7 +422,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
         </Modal>
 
         <Modal variant="filterModal" onClose={onCloseFilterInstitution} size="full" isOpen={isOpenFilterInstitution}>
-          <ModalContent>
+          <ModalContent display={{ base: "flex", md: "none" }}>
             <ModalBody>
               <FilterForm
                 category="institution"

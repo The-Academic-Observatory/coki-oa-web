@@ -15,8 +15,8 @@
 // Author: James Diprose
 
 import { RemoveScroll } from "react-remove-scroll";
-import { BoxProps, Drawer, DrawerBody, DrawerContent, DrawerHeader } from "@chakra-ui/react";
-import React, { memo } from "react";
+import { BoxProps, Drawer, DrawerBody, DrawerContent, DrawerHeader, useMediaQuery } from "@chakra-ui/react";
+import React, { memo, useEffect } from "react";
 import { Entity } from "../../lib/model";
 import { useEntitySearch } from "./SearchDesktop";
 import SearchResult from "./SearchResult";
@@ -35,6 +35,21 @@ const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: 
   const [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore, queryFinal] =
     useEntitySearch(() => {});
 
+  const [isStd] = useMediaQuery("(min-width: 1310px)");
+
+  const closeAndResetQuery = () => {
+    // - Close search results drawer
+    // - Set search text to empty string
+    onClose();
+    setQuery("");
+  };
+
+  useEffect(() => {
+    if (isStd) {
+      closeAndResetQuery();
+    }
+  }, [isStd]);
+
   return (
     <RemoveScroll enabled={isOpen}>
       <Drawer
@@ -42,11 +57,7 @@ const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: 
         trapFocus={true}
         size="full"
         placement="right"
-        onClose={() => {
-          // Close drawer and clear query
-          onClose();
-          setQuery("");
-        }}
+        onClose={closeAndResetQuery}
         isOpen={isOpen}
         preserveScrollBarGap={true}
         {...rest}
@@ -57,6 +68,7 @@ const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: 
           bg="none"
           boxShadow="none"
           height={`calc(100% - ${navbarHeightMobile}px)`}
+          display={{ base: "flex", std: "none" }}
         >
           <DrawerHeader bg="brand.500">
             <SearchBox
@@ -68,29 +80,10 @@ const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: 
               }}
             />
           </DrawerHeader>
-          <DrawerBody
-            bg="white"
-            data-test="searchResultsMobile"
-            pt="2px"
-            pb={0}
-            // height={"calc(100vh + 68px)"}
-            overflowY="auto"
-          >
+          <DrawerBody bg="white" data-test="searchResultsMobile" pt="2px" pb={0} overflowY="auto">
             {/* Search results */}
             {entities.map((entity: Entity) => {
-              return (
-                <SearchResult
-                  key={entity.id}
-                  entity={entity}
-                  onClick={() => {
-                    // On click:
-                    // - Close search results
-                    // - Set search text to empty string
-                    onClose();
-                    setQuery("");
-                  }}
-                />
-              );
+              return <SearchResult key={entity.id} entity={entity} onClick={closeAndResetQuery} />;
             })}
 
             {/* Skeleton search item which loads more results */}

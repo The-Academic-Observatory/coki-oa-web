@@ -14,8 +14,8 @@
 //
 // Author: James Diprose
 
-import React, { ReactNode } from "react";
-import { Box, Drawer, DrawerContent, Flex, useDisclosure } from "@chakra-ui/react";
+import React, { ReactNode, useEffect } from "react";
+import { Box, Drawer, DrawerContent, Flex, useDisclosure, useMediaQuery } from "@chakra-ui/react";
 import { RemoveScroll } from "react-remove-scroll";
 import Footer from "./Footer";
 import SidebarContent from "../layout/SidebarContent";
@@ -41,6 +41,13 @@ const links: Array<LinkProps> = [
 const Layout = ({ children }: { children: ReactNode }) => {
   const { isOpen: isOpenSidebar, onOpen: onOpenSidebar, onClose: onCloseSidebar } = useDisclosure();
   const { isOpen: isOpenSearch, onOpen: onOpenSearch, onClose: onCloseSearch } = useDisclosure();
+
+  const [isStd] = useMediaQuery("(min-width: 1310px)");
+  useEffect(() => {
+    if (isStd) {
+      onCloseSidebar();
+    }
+  }, [isStd]);
 
   const navbarHeightMobile: number = 68;
   const sidebarWidth: number = 310;
@@ -89,7 +96,13 @@ const Layout = ({ children }: { children: ReactNode }) => {
             size="full"
           >
             {/* pointerEvents="none" stops the drawer from blocking pointer events from the close button */}
-            <DrawerContent bg="white" top={`${navbarHeightMobile}px !important`} pointerEvents="none" boxShadow="none">
+            <DrawerContent
+              bg="white"
+              top={`${navbarHeightMobile}px !important`}
+              pointerEvents="none"
+              boxShadow="none"
+              display={{ base: "flex", std: "none" }}
+            >
               <SidebarContent
                 id="sidebar-mobile"
                 links={links}
