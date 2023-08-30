@@ -11,6 +11,9 @@ inputs:
   wrangler_config:
     description: "The Wrangler Config file for the REST API"
     required: true
+  wrangler_config_images:
+    description: "The Wrangler Config file for the Images API"
+    required: true
   cloudflare_api_token:
     description: "The Cloudflare API token"
     required: true
@@ -69,7 +72,27 @@ runs:
     - name: Save wrangler.toml files
       env:
         WRANGLER_CONFIG_API: ${{ inputs.wrangler_config }}
-      run: echo "${WRANGLER_CONFIG_API}" > ./workers-api/wrangler.toml
+        WRANGLER_CONFIG_IMAGES: ${{ inputs.wrangler_config_images }}
+      run: |
+        echo "${WRANGLER_CONFIG_API}" > ./workers-api/wrangler.toml
+        echo "${WRANGLER_CONFIG_IMAGES}" > ./workers-images/wrangler.toml
+      shell: bash
+
+    - name: Publish Cloudflare Workers Images
+      if: inputs.environment == 'production'
+      working-directory: ./workers-images
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+      run: yarn run wrangler deploy
+      shell: bash
+
+    - name: Update Cloudflare D1 Database
+      working-directory: ./workers-api
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+      run: |
+        yarn run build # Creates ../data/db.sql
+        wrangler d1 execute DB --yes --file ../data/db.sql -e ${CF_ENVIRONMENT}
       shell: bash
 
     - name: Publish Cloudflare Workers API

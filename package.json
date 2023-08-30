@@ -76,7 +76,8 @@
     "fs": false
   },
   "workspaces": [
-    "workers-api"
+    "workers-api",
+    "workers-images"
   ],
   "packageManager": "yarn@3.3.1"
 }

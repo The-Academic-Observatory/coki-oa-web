@@ -9,6 +9,7 @@ mkdir ./workers-images/public
 
 # Extract data
 unzip -o images.zip -d images
+unzip -o social-cards.zip -d images/social-cards
 
 ## Copy images into workers-api/public
 cp -R ./images/. ./workers-images/public

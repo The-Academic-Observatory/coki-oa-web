@@ -45,20 +45,20 @@ Install coki-oa-web and coki-oa-web-api:
 ```bash
 yarn install
 yarn workspace coki-oa-web-api install
+yarn workspace coki-oa-images install
 ```
 
 ### Running Development Server
-Run the development server:
-```bash
-yarn dev
-```
-
 To load the local database:
 ```bash
 cd workers-api
-wrangler d1 create coki-oa-web-db-d1-exp --experimental-backend
+yarn build # Creates ../data/db.sql
 wrangler d1 execute DB --file ../data/db.sql --local --config wrangler.local.toml
-wrangler d1 execute coki-oa-web-db-d1-exp --file ../data/db.sql 
+```
+
+Run the development server:
+```bash
+yarn dev
 ```
 
 Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
