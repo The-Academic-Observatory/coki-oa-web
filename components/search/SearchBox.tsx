@@ -44,6 +44,7 @@ const SearchBox = ({ value, onFocus, onChange, inputDataTest }: SearchBoxProps) 
         placeholder="Search"
         onFocus={onFocus}
         onChange={onChange}
+        autoCapitalize="none"
       />
     </InputGroup>
   );

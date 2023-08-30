@@ -61,7 +61,7 @@ const SearchTips = ({ query, showNoResults, ...rest }: SearchTipsProps) => {
           University&rdquo;, &ldquo;Harvard&rdquo;, or &ldquo;Cambridge&rdquo;.
         </ListItem>
         <ListItem>
-          Input an acronym{punctuation} {capitalize("e", showNoResults)}xamples include &ldquo;UK&rdquo;,
+          Input an acronym in uppercase{punctuation} {capitalize("e", showNoResults)}xamples include &ldquo;UK&rdquo;,
           &ldquo;MIT&rdquo;, or &ldquo;CERN&rdquo;.
         </ListItem>
         <ListItem>
