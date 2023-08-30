@@ -42,8 +42,6 @@ const Navbar = ({
   navbarHeightMobile,
   ...rest
 }: NavbarProps) => {
-  const cokiLogoWidthMobile = 146;
-  const cokiLogoWidthDesktop = 269;
   const navbarHeightDesktop: number = 136;
   const navbarLrPaddingMobile = 22;
   const navbarLrPaddingDesktop = 40 / 4;
@@ -80,12 +78,14 @@ const Navbar = ({
       />
 
       <Link href="/">
-        <Box minWidth={cokiLogoWidthDesktop} width={cokiLogoWidthDesktop} display={{ base: "none", std: "block" }}>
-          <COKILogo />
+        {/* Safari on iOS can cut the bottom of the logo off if the dimensions are not exact */}
+        <Box display={{ base: "none", std: "block" }}>
+          <COKILogo width="270px" height="50px" />
         </Box>
 
-        <Box minWidth={cokiLogoWidthMobile} width={cokiLogoWidthMobile} display={{ base: "block", std: "none" }}>
-          <COKILogoWhite />
+        {/* Safari on iOS can cut the bottom of the logo off if the dimensions are not exact */}
+        <Box display={{ base: "block", std: "none" }}>
+          <COKILogoWhite width="147px" height="27px" />
         </Box>
       </Link>
 
