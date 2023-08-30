@@ -12,9 +12,7 @@ test("Should navigate to Country: Indonesia", async ({ page }) => {
   await expect(page.locator("h1")).toContainText("Indonesia");
 });
 
-test("Should navigate to Institution: Office of Scientific and Technical Information", async ({
-  page,
-}) => {
+test("Should navigate to Institution: Office of Scientific and Technical Information", async ({ page }) => {
   const route = "/";
   await page.goto(route);
   await expect(page).toHaveURL(route);
@@ -23,12 +21,8 @@ test("Should navigate to Institution: Office of Scientific and Technical Informa
   await page.locator("button[data-test='tab-institution']").click();
 
   // Click OSTI
-  await page
-    .locator("tr[data-test='031478740'] > td:first-of-type > a")
-    .click();
+  await page.locator("tr[data-test='031478740'] > td:first-of-type > a").click();
 
   await expect(page).toHaveURL("/institution/031478740/");
-  await expect(page.locator("h1")).toContainText(
-    "Office of Scientific and Technical Information"
-  );
+  await expect(page.locator("h1")).toContainText("Office of Scientific and Technical Information");
 });

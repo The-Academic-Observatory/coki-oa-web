@@ -20,17 +20,19 @@ import React, { memo } from "react";
 
 interface SearchBoxProps {
   value: string;
+  onFocus: (e: any) => void;
   onChange: (e: any) => void;
   inputDataTest: string;
 }
 
-const SearchBox = ({ value, onChange, inputDataTest }: SearchBoxProps) => {
+const SearchBox = ({ value, onFocus, onChange, inputDataTest }: SearchBoxProps) => {
   return (
     <InputGroup borderColor="grey.900" bg="white" rounded={50} w={{ base: "full", std: 388 }}>
       <InputLeftElement pointerEvents="none">
         <SearchIcon color="gray.900" />
       </InputLeftElement>
       <Input
+        autoFocus
         data-test={inputDataTest}
         value={value}
         variant="outline"
@@ -40,6 +42,7 @@ const SearchBox = ({ value, onChange, inputDataTest }: SearchBoxProps) => {
         focusBorderColor="brand.400"
         fontWeight={500}
         placeholder="Search"
+        onFocus={onFocus}
         onChange={onChange}
       />
     </InputGroup>

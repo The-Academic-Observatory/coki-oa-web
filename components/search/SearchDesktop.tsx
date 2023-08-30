@@ -15,7 +15,7 @@
 // Author: James Diprose
 
 import { RemoveScroll } from "react-remove-scroll";
-import { Box, Popover, PopoverAnchor, PopoverBody, PopoverContent, Text, useOutsideClick } from "@chakra-ui/react";
+import { Box, Popover, PopoverAnchor, PopoverBody, PopoverContent, useOutsideClick } from "@chakra-ui/react";
 import { Entity } from "../../lib/model";
 import React, { LegacyRef, memo, useCallback, useEffect, useRef } from "react";
 import { OADataAPI } from "../../lib/api";
@@ -23,7 +23,7 @@ import debounce from "lodash/debounce";
 import SearchResult from "./SearchResult";
 import SearchBox from "./SearchBox";
 import SkeletonSearchResult from "./SkeletonSearchResult";
-import NoResults from "./NoResults";
+import SearchTips from "./SearchTips";
 
 export const useEntitySearch = (
   onDataLoaded: any = null,
@@ -76,6 +76,7 @@ export const useEntitySearch = (
       // When query is an empty string just set no results
       if (query.trim() === "") {
         setEntities([]);
+        setQueryFinal(query);
         return;
       }
 
@@ -139,7 +140,7 @@ const SearchDesktop = ({ ...rest }) => {
 
   return (
     <Box {...rest} ref={ref}>
-      <RemoveScroll enabled={isPopoverOpen}>
+      <RemoveScroll enabled={isPopoverOpen} removeScrollBar={false}>
         <Popover placement="bottom-start" offset={[0, 1]} autoFocus={false} isLazy={true} isOpen={isPopoverOpen}>
           <PopoverAnchor>
             {/*div is required to prevent Function components cannot be given refs error */}
@@ -147,6 +148,9 @@ const SearchDesktop = ({ ...rest }) => {
               <SearchBox
                 inputDataTest="searchInputDesktop"
                 value={query}
+                onFocus={() => {
+                  setPopoverOpen(true);
+                }}
                 onChange={(e: any) => {
                   if (e.target.value === "") {
                     setPopoverOpen(false);
@@ -189,10 +193,12 @@ const SearchDesktop = ({ ...rest }) => {
               })}
 
               {/* Skeleton search item which loads more results */}
-              {hasMore && <SkeletonSearchResult lastEntityRef={lastEntityRef} />}
+              {entities.length !== 0 && hasMore && <SkeletonSearchResult lastEntityRef={lastEntityRef} />}
 
               {/* No results helper information */}
-              {entities.length === 0 && <NoResults query={queryFinal} />}
+              {entities.length === 0 && (
+                <SearchTips query={queryFinal} showNoResults={queryFinal.trim() !== "" && entities.length === 0} />
+              )}
             </PopoverBody>
           </PopoverContent>
         </Popover>

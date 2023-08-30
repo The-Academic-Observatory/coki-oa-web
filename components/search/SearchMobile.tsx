@@ -15,14 +15,14 @@
 // Author: James Diprose
 
 import { RemoveScroll } from "react-remove-scroll";
-import { BoxProps, Drawer, DrawerBody, DrawerContent, DrawerHeader, Text } from "@chakra-ui/react";
+import { BoxProps, Drawer, DrawerBody, DrawerContent, DrawerHeader } from "@chakra-ui/react";
 import React, { memo } from "react";
 import { Entity } from "../../lib/model";
 import { useEntitySearch } from "./SearchDesktop";
 import SearchResult from "./SearchResult";
 import SearchBox from "./SearchBox";
 import SkeletonSearchResult from "./SkeletonSearchResult";
-import NoResults from "./NoResults";
+import SearchTips from "./SearchTips";
 
 interface SearchDrawerProps extends BoxProps {
   isOpen: boolean;
@@ -38,6 +38,8 @@ const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: 
   return (
     <RemoveScroll enabled={isOpen}>
       <Drawer
+        autoFocus={true}
+        trapFocus={true}
         size="full"
         placement="right"
         onClose={() => {
@@ -49,22 +51,31 @@ const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: 
         preserveScrollBarGap={true}
         {...rest}
       >
+        {/* Set % for height rather than vh otherwise on Safari iOS the address bar overlaps the scrolling content */}
         <DrawerContent
           top={`${navbarHeightMobile}px !important`}
           bg="none"
           boxShadow="none"
-          height={`calc(100vh - ${navbarHeightMobile}px)`}
+          height={`calc(100% - ${navbarHeightMobile}px)`}
         >
           <DrawerHeader bg="brand.500">
             <SearchBox
               inputDataTest="searchInputMobile"
               value={query}
+              onFocus={(e) => {}}
               onChange={(e) => {
                 searchBoxOnChange(e);
               }}
             />
           </DrawerHeader>
-          <DrawerBody bg="white" data-test="searchResultsMobile" pt="2px" pb={0} height="100vh" overflowY="auto">
+          <DrawerBody
+            bg="white"
+            data-test="searchResultsMobile"
+            pt="2px"
+            pb={0}
+            // height={"calc(100vh + 68px)"}
+            overflowY="auto"
+          >
             {/* Search results */}
             {entities.map((entity: Entity) => {
               return (
@@ -83,10 +94,12 @@ const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: 
             })}
 
             {/* Skeleton search item which loads more results */}
-            {hasMore && <SkeletonSearchResult lastEntityRef={lastEntityRef} />}
+            {entities.length !== 0 && hasMore && <SkeletonSearchResult lastEntityRef={lastEntityRef} />}
 
             {/* No results helper information */}
-            {!loading && query !== "" && entities.length === 0 && <NoResults query={queryFinal} />}
+            {entities.length === 0 && (
+              <SearchTips query={queryFinal} showNoResults={queryFinal.trim() !== "" && entities.length === 0} />
+            )}
           </DrawerBody>
         </DrawerContent>
       </Drawer>

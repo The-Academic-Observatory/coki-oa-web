@@ -62,6 +62,12 @@ const Navbar = ({
         data-test="menu"
         aria-label="Menu"
         onClick={() => {
+          // Force scrolling to top as we should be at top of page when drawer is open
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+
           if (!isOpenSidebar) {
             onOpenSidebar();
           } else {
@@ -93,13 +99,40 @@ const Navbar = ({
         isRound
         color="white"
         onClick={() => {
+          // Force scrolling to top as we should be at top of page when drawer is open
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+
           if (!isOpenSearch) {
             onOpenSearch();
           } else {
             onCloseSearch();
           }
         }}
-        icon={isOpenSearch ? <Icon icon="cross" size={iconSize} /> : <Icon icon="search" size={iconSize} />}
+        icon={
+          <Box position="relative">
+            <Icon
+              icon="search"
+              size={iconSize}
+              position="absolute"
+              top="50%"
+              left="50%"
+              transform="translate(-50%, -50%)"
+              opacity={isOpenSearch ? 0 : 1}
+            />
+            <Icon
+              icon="cross"
+              size={iconSize}
+              position="absolute"
+              top="50%"
+              left="50%"
+              transform="translate(-50%, -50%)"
+              opacity={isOpenSearch ? 1 : 0}
+            />
+          </Box>
+        }
       />
     </Flex>
   );

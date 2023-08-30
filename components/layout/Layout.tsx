@@ -16,7 +16,7 @@
 
 import React, { ReactNode } from "react";
 import { Box, Drawer, DrawerContent, Flex, useDisclosure } from "@chakra-ui/react";
-
+import { RemoveScroll } from "react-remove-scroll";
 import Footer from "./Footer";
 import SidebarContent from "../layout/SidebarContent";
 import Navbar from "../layout/Navbar";
@@ -76,26 +76,29 @@ const Layout = ({ children }: { children: ReactNode }) => {
           navbarHeightMobile={navbarHeightMobile}
         />
 
-        <Drawer
-          autoFocus={false}
-          isOpen={isOpenSidebar}
-          placement="left"
-          onClose={onCloseSidebar}
-          returnFocusOnClose={false}
-          onOverlayClick={onCloseSidebar}
-          preserveScrollBarGap={true}
-          size="full"
-        >
-          {/* pointerEvents="none" stops the drawer from blocking pointer events from the close button */}
-          <DrawerContent bg="white" top={`${navbarHeightMobile}px !important`} pointerEvents="none" boxShadow="none">
-            <SidebarContent
-              id="sidebar-mobile"
-              links={links}
-              navbarHeightMobile={navbarHeightMobile}
-              onClose={onCloseSidebar}
-            />
-          </DrawerContent>
-        </Drawer>
+        <RemoveScroll enabled={isOpenSidebar}>
+          <Drawer
+            autoFocus={true}
+            trapFocus={true}
+            isOpen={isOpenSidebar}
+            placement="left"
+            onClose={onCloseSidebar}
+            returnFocusOnClose={false}
+            onOverlayClick={onCloseSidebar}
+            preserveScrollBarGap={true}
+            size="full"
+          >
+            {/* pointerEvents="none" stops the drawer from blocking pointer events from the close button */}
+            <DrawerContent bg="white" top={`${navbarHeightMobile}px !important`} pointerEvents="none" boxShadow="none">
+              <SidebarContent
+                id="sidebar-mobile"
+                links={links}
+                navbarHeightMobile={navbarHeightMobile}
+                onClose={onCloseSidebar}
+              />
+            </DrawerContent>
+          </Drawer>
+        </RemoveScroll>
       </Box>
 
       <Flex flex={1}>
