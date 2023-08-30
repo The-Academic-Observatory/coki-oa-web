@@ -445,9 +445,9 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
 
   // Build query
   const queryString = sql.join("\n");
-  console.log(queryString);
 
   // Run query plan
+  // console.log(queryString);
   // const stmt_query_plan = db.prepare("EXPLAIN QUERY PLAN " + queryString).bind(...params);
   // const results_query_plan = await stmt_query_plan.all();
   // console.log(`QUERY PLAN: ${JSON.stringify(results_query_plan)}`);
