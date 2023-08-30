@@ -166,14 +166,23 @@ export function makeSearchUrl(host: string, text: string, page: number, limit: n
 }
 
 export function makeFilterUrl(host: string, entityType: string, filterQuery: QueryParams): string {
+  let endpoint = "";
+  if (entityType === "country") {
+    endpoint = "countries";
+  } else if (entityType === "institution") {
+    endpoint = "institutions";
+  } else {
+    throw Error(`makeFilterUrl: unknown entity type ${entityType}`);
+  }
+
   // Make base URL
-  const url = new URL(`${host}/${entityType}`);
+  const url = new URL(`${host}/${endpoint}`);
   const params = new URLSearchParams();
 
   // Convert filterQuery into URL query parameters
   Object.keys(filterQuery).forEach((key) => {
     // Return null when property does not belong on this endpoint
-    if (entityType !== "institutions" && ["institutionTypes"].includes(key)) {
+    if (entityType !== "institution" && ["institutionTypes"].includes(key)) {
       return;
     }
 
