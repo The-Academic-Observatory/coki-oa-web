@@ -92,7 +92,7 @@ runs:
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
       run: |
         yarn run build # Creates ../data/db.sql
-        wrangler d1 execute DB --yes --file ../data/db.sql -e ${CF_ENVIRONMENT}
+        yarn run wrangler d1 execute DB --yes --file ../data/db.sql -e ${CF_ENVIRONMENT}
       shell: bash
 
     - name: Publish Cloudflare Workers API
