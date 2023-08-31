@@ -18,8 +18,15 @@ jobs:
           gcp_credentials: ${{ secrets.GCP_CREDENTIALS }}
           playwright: true
 
+      - name: Load Local D1 Database
+        working-directory: ./workers-api
+        run: |
+          yarn build # Creates ../data/db.sql
+          wrangler d1 execute DB --file ../data/db.sql --local --config wrangler.local.toml
+
       - name: Run e2e Tests
-        run: yarn run test:e2e
+        run: |         
+          yarn run test:e2e
 
       - name: Upload Playwright Test Results to Cloud Storage
         if: failure()
