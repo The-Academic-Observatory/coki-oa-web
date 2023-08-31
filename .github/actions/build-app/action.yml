@@ -79,11 +79,10 @@ runs:
       shell: bash
 
     - name: Publish Cloudflare Workers Images
-      if: inputs.environment == 'production'
       working-directory: ./workers-images
       env:
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
-      run: yarn run wrangler deploy
+      run: yarn run wrangler deploy -e ${CF_ENVIRONMENT}
       shell: bash
 
     - name: Update Cloudflare D1 Database

@@ -25,7 +25,7 @@ import { largestRemainder, sum } from "./utils";
 import statsRaw from "../data/stats.json";
 
 export const API_HOST = process.env.COKI_API_URL || "https://api.coki.ac";
-const IMAGES_HOST = "https://images.open.coki.ac";
+export const IMAGES_HOST = process.env.COKI_IMAGES_URL || "https://images.open.coki.ac";
 
 export class OADataAPI {
   host: string;

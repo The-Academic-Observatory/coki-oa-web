@@ -90,7 +90,7 @@ runs:
       shell: bash
 
     - name: Download and Extract Images
-      if: inputs.download_images == 'true' && inputs.environment == 'production'
+      if: inputs.download_images == 'true'
       run: |
         gsutil cp gs://${{ inputs.bucket_name }}/${{ inputs.dataset_version }}/images.zip images.zip
         gsutil cp gs://${{ inputs.bucket_name }}/${{ inputs.dataset_version }}/social-cards.zip social-cards.zip

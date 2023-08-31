@@ -279,9 +279,14 @@ Search for countries and institutions by name.
 
 ``GET /search/:text``
 
-| Parameter | Description                                                                     |
-|:----------|---------------------------------------------------------------------------------|
-| `:text`   | The url encoded name or partial name of a country or institution to search for. |
+| Parameter       | Description                                                                     |
+|:----------------|---------------------------------------------------------------------------------|
+| `:text`         | The url encoded name or partial name of a country or institution to search for. |
+
+| Query Parameter  | Description                                        |
+|:-----------------|----------------------------------------------------|
+| `page[number]`   | The page number starting at 0. Default value of 0. |
+| `limit[number]`  | The number of items per page.                      |
 
 #### Sample Request
 ```bash
@@ -290,28 +295,33 @@ curl https://api.coki.ac/search/curtin%20university
 
 #### Sample Response
 ```json
-[
-  {
-    "id": "02n415q13",
-    "name": "Curtin University",
-    "logo_sm": "logos/institution/sm/02n415q13.jpg",
-    "entity_type": "institution",
-    "country_name": "Australia",
-    "country_code": "AUS",
-    "subregion": "Australia and New Zealand",
-    "region": "Oceania",
-    "institution_type": "Education",
-    "stats": {
-      "n_outputs": 42938,
-      "n_outputs_open": 18388,
-      "p_outputs_open": 42.824537705528904,
-      "p_outputs_publisher_open_only": 8,
-      "p_outputs_both": 16,
-      "p_outputs_other_platform_open_only": 19,
-      "p_outputs_closed": 57
+{
+  "items": [
+    {
+      "id": "02n415q13",
+      "name": "Curtin University",
+      "logo_sm": "logos/institution/sm/02n415q13.jpg",
+      "entity_type": "institution",
+      "country_name": "Australia",
+      "country_code": "AUS",
+      "subregion": "Australia and New Zealand",
+      "region": "Oceania",
+      "institution_type": "Education",
+      "stats": {
+        "n_outputs": 42938,
+        "n_outputs_open": 18388,
+        "p_outputs_open": 42.824537705528904,
+        "p_outputs_publisher_open_only": 8,
+        "p_outputs_both": 16,
+        "p_outputs_other_platform_open_only": 19,
+        "p_outputs_closed": 57
+      }
     }
-  }
-]
+  ],
+  "nItems": 1,
+  "page": 0,
+  "limit": 18
+}
 ```
 
 ### Country

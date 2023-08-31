@@ -5,6 +5,7 @@ import {
   makeFilterUrl,
   makeSearchUrl,
   makeSocialCardUrl,
+  IMAGES_HOST,
 } from "./api";
 
 const buildId = "9wunlCAp5nAMZGCCOIDUx";
@@ -69,10 +70,10 @@ test("test makeDownloadDataUrl", () => {
 
 test("test makeSocialCardUrl", () => {
   const url = makeSocialCardUrl("NZL");
-  expect(url).toEqual(`https://images.open.coki.ac/social-cards/NZL.jpg?build=${buildId}`);
+  expect(url).toEqual(`${IMAGES_HOST}/social-cards/NZL.jpg?build=${buildId}`);
 });
 
 test("test cokiImageLoader", () => {
   const url = cokiImageLoader("path/to/image.jpg");
-  expect(url).toEqual(`https://images.open.coki.ac/path/to/image.jpg`);
+  expect(url).toEqual(`${IMAGES_HOST}/path/to/image.jpg`);
 });
