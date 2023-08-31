@@ -7,3 +7,4 @@ import "@testing-library/jest-dom/extend-expect";
 
 process.env.COKI_SITE_URL = "http://127.0.0.1:3000";
 process.env.COKI_API_URL = "http://127.0.0.1:8787";
+process.env.COKI_IMAGES_URL = "https://develop.images.open.coki.ac";
