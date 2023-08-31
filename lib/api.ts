@@ -24,7 +24,7 @@ import { join } from "path";
 import { largestRemainder, sum } from "./utils";
 import statsRaw from "../data/stats.json";
 
-const API_HOST = process.env.COKI_API_URL || "https://api.coki.ac";
+export const API_HOST = process.env.COKI_API_URL || "https://api.coki.ac";
 const IMAGES_HOST = "https://images.open.coki.ac";
 
 export class OADataAPI {
@@ -211,8 +211,8 @@ export function makeFilterUrl(host: string, entityType: string, filterQuery: Que
   return url.toString();
 }
 
-export function makeDownloadDataUrl(entityType: string, id: string): string {
-  const url = new URL(`${API_HOST}/download/${entityType}/${id}`);
+export function makeDownloadDataUrl(host: string, entityType: string, id: string): string {
+  const url = new URL(`${host}/download/${entityType}/${id}`);
   const params = new URLSearchParams();
   params.append("build", BUILD_ID);
   url.search = params.toString();

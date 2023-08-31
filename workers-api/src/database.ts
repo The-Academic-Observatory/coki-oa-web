@@ -80,6 +80,7 @@ CREATE INDEX idx_entity_filter ON entity(entity_type, n_outputs, n_outputs_open,
 CREATE VIRTUAL TABLE entity_fts5 USING fts5(name, acronyms, region, country_name, content='none', tokenize='porter unicode61 remove_diacritics 1');`;
 
 /*
+TODO: optimise indexes when adding more entities
 -- Country indexes for filtering
 CREATE INDEX idx_country_filter ON country(n_outputs, n_outputs_open, p_outputs_open, subregion);
 CREATE INDEX idx_country_entity_id ON country(entity_id);

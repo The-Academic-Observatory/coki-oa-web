@@ -20,7 +20,7 @@ import EntityCard from "./EntityCard";
 import React, { memo } from "react";
 import MetadataLink from "./MetadataLink";
 import SharePopover from "./SharePopover";
-import { makeDownloadDataUrl } from "../../lib/api";
+import { makeDownloadDataUrl, API_HOST } from "../../lib/api";
 
 interface MetadataCardProps extends BoxProps {
   entity: Entity;
@@ -93,7 +93,11 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
           {wikipedia}
           {website}
 
-          <MetadataLink icon="download-csv" name="download" href={makeDownloadDataUrl(entity.entity_type, entity.id)} />
+          <MetadataLink
+            icon="download-csv"
+            name="download"
+            href={makeDownloadDataUrl(API_HOST, entity.entity_type, entity.id)}
+          />
 
           <SharePopover entity={entity} platform="desktop" />
 
