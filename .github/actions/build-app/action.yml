@@ -39,6 +39,7 @@ runs:
                
         echo "COKI_SITE_URL=https://develop.open.coki.ac" >> $GITHUB_ENV
         echo "COKI_API_URL=https://develop.api.coki.ac" >> $GITHUB_ENV
+        echo "COKI_IMAGES_URL=https://develop.images.open.coki.ac" >> $GITHUB_ENV
       shell: bash
 
     - name: Configure staging environment
@@ -50,6 +51,7 @@ runs:
 
         echo "COKI_SITE_URL=https://staging.open.coki.ac" >> $GITHUB_ENV
         echo "COKI_API_URL=https://staging.api.coki.ac" >> $GITHUB_ENV
+        echo "COKI_IMAGES_URL=https://staging.images.open.coki.ac" >> $GITHUB_ENV
       shell: bash
 
     - name: Configure production environment
@@ -61,6 +63,7 @@ runs:
 
         echo "COKI_SITE_URL=https://open.coki.ac" >> $GITHUB_ENV
         echo "COKI_API_URL=https://api.coki.ac" >> $GITHUB_ENV
+        echo "COKI_IMAGES_URL=https://images.open.coki.ac" >> $GITHUB_ENV
       shell: bash
 
     - name: Download Top Institution pages from Plausible
