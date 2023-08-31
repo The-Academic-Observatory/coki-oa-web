@@ -155,7 +155,7 @@ const NoResults = ({ nRows, onlyHomeRepos, entity, onReset }: NoResultsProps) =>
               {/* Type */}
               <HStack mr="1%">
                 <SkeletonCircle startColor={color} endColor={color} size="24px" />
-                <Skeleton startColor={color} endColor={color} height="24px" width="100px" />
+                <Skeleton startColor={color} endColor={color} height="24px" flex="1" />
               </HStack>
             </Td>
             <Td role="cell">

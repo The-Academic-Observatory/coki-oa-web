@@ -14,6 +14,8 @@
 //
 // Author: James Diprose
 
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axiosRetry, { exponentialDelay } from "axios-retry";
 import { Dict, Entity, QueryParams, QueryResult, Stats } from "./model";
 import lodashGet from "lodash.get";
 import lodashSet from "lodash.set";
@@ -22,14 +24,20 @@ import { join } from "path";
 import { largestRemainder, sum } from "./utils";
 import statsRaw from "../data/stats.json";
 
-const API_HOST = process.env.COKI_API_URL || "https://api.coki.ac";
-const IMAGES_HOST = "https://images.open.coki.ac";
+export const API_HOST = process.env.COKI_API_URL || "https://api.coki.ac";
+export const IMAGES_HOST = process.env.COKI_IMAGES_URL || "https://images.open.coki.ac";
 
 export class OADataAPI {
   host: string;
+  private api: AxiosInstance;
 
   constructor(host: string = API_HOST) {
     this.host = host;
+    this.api = axios.create();
+    axiosRetry(this.api, {
+      retryDelay: exponentialDelay,
+      retries: 3,
+    });
   }
 
   getStats(): Stats {
@@ -37,16 +45,26 @@ export class OADataAPI {
   }
 
   async getEntity(entityType: string, id: string): Promise<Entity> {
-    const url = addBuildId(`${this.host}/${entityType}/${id}`);
+    const url = makeEntityUrl(this.host, entityType, id);
     const response = await fetch(url);
     const entity = await response.json();
     quantizeEntityPercentages(entity);
     return entity;
   }
 
-  async searchEntities(text: string, limit: number): Promise<Array<Entity>> {
-    const url = makeSearchUrl(this.host, text, limit);
-    return fetch(url).then((response) => response.json());
+  async searchEntities(
+    query: string,
+    page: number,
+    limit: number,
+    controller: AbortController | null = null,
+  ): Promise<AxiosResponse<QueryResult>> {
+    const acronym = query.length >= 2 && query === query.toUpperCase();
+    const url = makeSearchUrl(this.host, query, page, limit, acronym);
+    const options: AxiosRequestConfig = {};
+    if (controller != null) {
+      options.signal = controller.signal;
+    }
+    return this.api.get(url, options);
   }
 
   async filterEntities(entityType: string, filterQuery: QueryParams): Promise<QueryResult> {
@@ -128,69 +146,85 @@ export function quantizeEntityPercentages(entity: Entity) {
   });
 }
 
-export function addBuildId(url: string): string {
-  let parts = [url];
-  if (url.indexOf("?") !== -1) {
-    parts.push("&");
+export function makeEntityUrl(host: string, entityType: string, id: string): string {
+  const url = new URL(`${host}/${entityType}/${id}`);
+  const params = new URLSearchParams();
+  params.append("build", BUILD_ID);
+  url.search = params.toString();
+  return url.toString();
+}
+
+export function makeSearchUrl(host: string, text: string, page: number, limit: number, acronym: boolean): string {
+  const url = new URL(`${host}/search/${encodeURIComponent(text)}`);
+  const params = new URLSearchParams();
+  params.append("acronym", acronym.toString());
+  params.append("page", page.toString());
+  params.append("limit", limit.toString());
+  params.append("build", BUILD_ID);
+  url.search = params.toString();
+  return url.toString();
+}
+
+export function makeFilterUrl(host: string, entityType: string, filterQuery: QueryParams): string {
+  let endpoint = "";
+  if (entityType === "country") {
+    endpoint = "countries";
+  } else if (entityType === "institution") {
+    endpoint = "institutions";
   } else {
-    parts.push("?");
+    throw Error(`makeFilterUrl: unknown entity type ${entityType}`);
   }
-  //@ts-ignore
-  parts.push(`build=${BUILD_ID}`);
 
-  return parts.join("");
-}
-
-export function makeSearchUrl(host: string, text: string, limit: number = 10): string {
-  let url = `${host}/search/${encodeURIComponent(text)}`;
-  if (limit) {
-    url += `?limit=${limit}`;
-  }
-  return addBuildId(url);
-}
-
-function makeFilterUrl(host: string, entityType: string, filterQuery: QueryParams): string {
   // Make base URL
-  let url = `${host}/${entityType}`;
+  const url = new URL(`${host}/${endpoint}`);
+  const params = new URLSearchParams();
 
   // Convert filterQuery into URL query parameters
-  const query = Object.keys(filterQuery)
-    .map((key) => {
-      // Return null when property does not belong on this endpoint
-      if (entityType !== "institutions" && ["institutionTypes"].includes(key)) {
-        return null;
-      }
+  Object.keys(filterQuery).forEach((key) => {
+    // Return null when property does not belong on this endpoint
+    if (entityType !== "institution" && ["institutionTypes"].includes(key)) {
+      return;
+    }
 
-      // Get the value of the key
-      const property = filterQuery[key as keyof typeof filterQuery];
+    // Get the value of the key
+    const property = filterQuery[key as keyof typeof filterQuery];
 
-      if (property === undefined || property === null) {
-        return null;
-      }
-      if (Array.isArray(property) && property.length == 0) {
-        // If empty array then return empty string
-        return null;
-      } else if (Array.isArray(property)) {
-        // If the property is a non-empty array, URI encode each value in the array and then join them with commas
-        let value = property
-          .map((v) => {
-            return encodeURIComponent(v);
-          })
-          .join(",");
-        return `${key}=${value}`;
-      } else {
-        // If any other type then convert to string and URI encode
-        let value = encodeURIComponent(property.toLocaleString("fullwide", { useGrouping: false }));
-        return `${key}=${value}`;
-      }
-    })
-    .filter((v) => v !== null)
-    .join("&");
+    if (property === undefined || property === null) {
+      return;
+    }
+    if (Array.isArray(property) && property.length == 0) {
+      // If empty array then do nothing
+      return;
+    } else if (Array.isArray(property)) {
+      // If the property is a non-empty array, URI encode each value in the array and then join them with commas
+      const value = property.join(",");
+      params.append(key, value);
+    } else {
+      // If any other type then convert to string and URI encode
+      const value = property.toLocaleString("fullwide", { useGrouping: false });
+      params.append(key, value);
+    }
+  });
 
-  if (query) {
-    url += `?${query}`;
-  }
-  return addBuildId(url);
+  params.append("build", BUILD_ID);
+  url.search = params.toString();
+  return url.toString();
+}
+
+export function makeDownloadDataUrl(host: string, entityType: string, id: string): string {
+  const url = new URL(`${host}/download/${entityType}/${id}`);
+  const params = new URLSearchParams();
+  params.append("build", BUILD_ID);
+  url.search = params.toString();
+  return url.toString();
+}
+
+export function makeSocialCardUrl(entityId: string): string {
+  const url = new URL(`${IMAGES_HOST}/social-cards/${entityId}.jpg`);
+  const params = new URLSearchParams();
+  params.append("build", BUILD_ID);
+  url.search = params.toString();
+  return url.toString();
 }
 
 export function cokiImageLoader(src: string) {

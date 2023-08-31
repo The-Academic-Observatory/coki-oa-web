@@ -1,28 +1,9 @@
-/* Hide scrollbars as this messes with setting the viewport width*/
+
 body {
-    -ms-overflow-style: none; /* Edge */
-    scrollbar-width: none; /* Firefox */
-}
-
-body::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
-}
-
-li::marker {
-    color: #FF671C;
-}
-
-
-#country-dropdown ul li {
-    margin-bottom: 1px;
-}
-
-ul > li {
-    margin-bottom: 16px;
-}
-
-ol > li {
-    margin-bottom: 16px;
+    /* When the left and right hand menu and search drawers are opened, the scrollbar is removed and the background of
+    the site shows, so we use a linear gradient with black for the first 68px to mimic the navbar and a light grey for
+    the rest of the page so that the scrollbar removal is not too jarring */
+    background-image: linear-gradient(to bottom, #101820 0px, #101820 68px, #FAFAFA 68px) !important;
 }
 
 /*Publisher Donut Drop Shadow */
@@ -53,6 +34,7 @@ li a:hover {
     color: #737373 !important;
 }
 
+/*TODO: move into own module?*/
 .socialCard {
     position: absolute;
     top: 0;

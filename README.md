@@ -7,6 +7,7 @@ Open Knowledge Initiative's Open Access Dashboard: [open.coki.ac](https://open.c
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?logo=Cloudflare&logoColor=white)](https://workers.cloudflare.com/)
 [![e2e Tests](https://github.com/The-Academic-Observatory/coki-oa-web/actions/workflows/e2e-tests.yml/badge.svg)](https://github.com/The-Academic-Observatory/coki-oa-web/actions/workflows/e2e-tests.yml)
 [![Workers API Unit Tests](https://github.com/The-Academic-Observatory/coki-oa-web/actions/workflows/workers-api-unit-tests.yml/badge.svg)](https://github.com/The-Academic-Observatory/coki-oa-web/actions/workflows/workers-api-unit-tests.yml)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![DOI](https://zenodo.org/badge/430557646.svg)](https://zenodo.org/badge/latestdoi/430557646)
 
 1. [Requirements](#1-requirements)
@@ -44,9 +45,17 @@ Install coki-oa-web and coki-oa-web-api:
 ```bash
 yarn install
 yarn workspace coki-oa-web-api install
+yarn workspace coki-oa-images install
 ```
 
 ### Running Development Server
+To load the local database:
+```bash
+cd workers-api
+yarn build # Creates ../data/db.sql
+wrangler d1 execute DB --file ../data/db.sql --local --config wrangler.local.toml
+```
+
 Run the development server:
 ```bash
 yarn dev
@@ -270,9 +279,14 @@ Search for countries and institutions by name.
 
 ``GET /search/:text``
 
-| Parameter | Description                                                                     |
-|:----------|---------------------------------------------------------------------------------|
-| `:text`   | The url encoded name or partial name of a country or institution to search for. |
+| Parameter       | Description                                                                     |
+|:----------------|---------------------------------------------------------------------------------|
+| `:text`         | The url encoded name or partial name of a country or institution to search for. |
+
+| Query Parameter  | Description                                        |
+|:-----------------|----------------------------------------------------|
+| `page[number]`   | The page number starting at 0. Default value of 0. |
+| `limit[number]`  | The number of items per page.                      |
 
 #### Sample Request
 ```bash
@@ -281,28 +295,33 @@ curl https://api.coki.ac/search/curtin%20university
 
 #### Sample Response
 ```json
-[
-  {
-    "id": "02n415q13",
-    "name": "Curtin University",
-    "logo_sm": "logos/institution/sm/02n415q13.jpg",
-    "entity_type": "institution",
-    "country_name": "Australia",
-    "country_code": "AUS",
-    "subregion": "Australia and New Zealand",
-    "region": "Oceania",
-    "institution_type": "Education",
-    "stats": {
-      "n_outputs": 42938,
-      "n_outputs_open": 18388,
-      "p_outputs_open": 42.824537705528904,
-      "p_outputs_publisher_open_only": 8,
-      "p_outputs_both": 16,
-      "p_outputs_other_platform_open_only": 19,
-      "p_outputs_closed": 57
+{
+  "items": [
+    {
+      "id": "02n415q13",
+      "name": "Curtin University",
+      "logo_sm": "logos/institution/sm/02n415q13.jpg",
+      "entity_type": "institution",
+      "country_name": "Australia",
+      "country_code": "AUS",
+      "subregion": "Australia and New Zealand",
+      "region": "Oceania",
+      "institution_type": "Education",
+      "stats": {
+        "n_outputs": 42938,
+        "n_outputs_open": 18388,
+        "p_outputs_open": 42.824537705528904,
+        "p_outputs_publisher_open_only": 8,
+        "p_outputs_both": 16,
+        "p_outputs_other_platform_open_only": 19,
+        "p_outputs_closed": 57
+      }
     }
-  }
-]
+  ],
+  "nItems": 1,
+  "page": 0,
+  "limit": 18
+}
 ```
 
 ### Country

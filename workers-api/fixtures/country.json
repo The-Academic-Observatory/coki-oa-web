@@ -1,0 +1,4201 @@
+[
+  {
+    "id": "STP",
+    "name": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+    "logo_sm": "logos/country/sm/STP.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 1602,
+      "n_outputs_open": 1486,
+      "n_outputs_black": 755,
+      "p_outputs_open": 92.75905118601749,
+      "p_outputs_publisher_open_only": 26.591760299625467,
+      "p_outputs_both": 61.86017478152309,
+      "p_outputs_other_platform_open_only": 4.307116104868914,
+      "p_outputs_closed": 7.240948813982522,
+      "p_outputs_black": 47.12858926342072
+    }
+  },
+  {
+    "id": "IDN",
+    "name": "Indonesia",
+    "logo_sm": "logos/country/sm/IDN.svg",
+    "entity_type": "country",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 974154,
+      "n_outputs_open": 864955,
+      "n_outputs_black": 135677,
+      "p_outputs_open": 88.79037605963738,
+      "p_outputs_publisher_open_only": 78.63684797270247,
+      "p_outputs_both": 9.10543918107404,
+      "p_outputs_other_platform_open_only": 1.0480889058608804,
+      "p_outputs_closed": 11.209623940362611,
+      "p_outputs_black": 13.927674679773425
+    }
+  },
+  {
+    "id": "NIC",
+    "name": "Nicaragua",
+    "logo_sm": "logos/country/sm/NIC.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 5115,
+      "n_outputs_open": 4263,
+      "n_outputs_black": 1231,
+      "p_outputs_open": 83.34310850439883,
+      "p_outputs_publisher_open_only": 40.56695992179863,
+      "p_outputs_both": 37.32160312805474,
+      "p_outputs_other_platform_open_only": 5.454545454545454,
+      "p_outputs_closed": 16.656891495601172,
+      "p_outputs_black": 24.066471163245357
+    }
+  },
+  {
+    "id": "GNQ",
+    "name": "Equatorial Guinea",
+    "logo_sm": "logos/country/sm/GNQ.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 130,
+      "n_outputs_open": 107,
+      "n_outputs_black": 94,
+      "p_outputs_open": 82.3076923076923,
+      "p_outputs_publisher_open_only": 6.923076923076923,
+      "p_outputs_both": 67.6923076923077,
+      "p_outputs_other_platform_open_only": 7.6923076923076925,
+      "p_outputs_closed": 17.692307692307693,
+      "p_outputs_black": 72.3076923076923
+    }
+  },
+  {
+    "id": "PER",
+    "name": "Peru",
+    "logo_sm": "logos/country/sm/PER.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 84492,
+      "n_outputs_open": 67691,
+      "n_outputs_black": 24015,
+      "p_outputs_open": 80.11527718600577,
+      "p_outputs_publisher_open_only": 35.75249727784879,
+      "p_outputs_both": 39.08417364957629,
+      "p_outputs_other_platform_open_only": 5.278606258580694,
+      "p_outputs_closed": 19.884722813994223,
+      "p_outputs_black": 28.422809260048286
+    }
+  },
+  {
+    "id": "GMB",
+    "name": "The Gambia",
+    "logo_sm": "logos/country/sm/GMB.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 3302,
+      "n_outputs_open": 2621,
+      "n_outputs_black": 2341,
+      "p_outputs_open": 79.37613567534827,
+      "p_outputs_publisher_open_only": 14.900060569351908,
+      "p_outputs_both": 53.331314354936396,
+      "p_outputs_other_platform_open_only": 11.144760751059964,
+      "p_outputs_closed": 20.623864324651723,
+      "p_outputs_black": 70.89642640823743
+    }
+  },
+  {
+    "id": "AGO",
+    "name": "Angola",
+    "logo_sm": "logos/country/sm/AGO.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 2333,
+      "n_outputs_open": 1816,
+      "n_outputs_black": 753,
+      "p_outputs_open": 77.8396913844835,
+      "p_outputs_publisher_open_only": 49.078439777111015,
+      "p_outputs_both": 23.83197599657094,
+      "p_outputs_other_platform_open_only": 4.929275610801543,
+      "p_outputs_closed": 22.160308615516502,
+      "p_outputs_black": 32.27603943420488
+    }
+  },
+  {
+    "id": "CRI",
+    "name": "Costa Rica",
+    "logo_sm": "logos/country/sm/CRI.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 32090,
+      "n_outputs_open": 24848,
+      "n_outputs_black": 10684,
+      "p_outputs_open": 77.43222187597382,
+      "p_outputs_publisher_open_only": 29.504518541601744,
+      "p_outputs_both": 41.95699594889374,
+      "p_outputs_other_platform_open_only": 5.970707385478343,
+      "p_outputs_closed": 22.567778124026177,
+      "p_outputs_black": 33.2938610158928
+    }
+  },
+  {
+    "id": "HND",
+    "name": "Honduras",
+    "logo_sm": "logos/country/sm/HND.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 3650,
+      "n_outputs_open": 2766,
+      "n_outputs_black": 1287,
+      "p_outputs_open": 75.78082191780821,
+      "p_outputs_publisher_open_only": 42.10958904109589,
+      "p_outputs_both": 27.150684931506845,
+      "p_outputs_other_platform_open_only": 6.520547945205479,
+      "p_outputs_closed": 24.21917808219178,
+      "p_outputs_black": 35.26027397260274
+    }
+  },
+  {
+    "id": "DOM",
+    "name": "Dominican Republic",
+    "logo_sm": "logos/country/sm/DOM.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 4277,
+      "n_outputs_open": 3235,
+      "n_outputs_black": 1502,
+      "p_outputs_open": 75.63712882861819,
+      "p_outputs_publisher_open_only": 32.733224222585925,
+      "p_outputs_both": 33.94902969371055,
+      "p_outputs_other_platform_open_only": 8.95487491232172,
+      "p_outputs_closed": 24.36287117138181,
+      "p_outputs_black": 35.11807341594576
+    }
+  },
+  {
+    "id": "LBR",
+    "name": "Liberia",
+    "logo_sm": "logos/country/sm/LBR.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 738,
+      "n_outputs_open": 549,
+      "n_outputs_black": 480,
+      "p_outputs_open": 74.39024390243902,
+      "p_outputs_publisher_open_only": 22.493224932249323,
+      "p_outputs_both": 42.140921409214094,
+      "p_outputs_other_platform_open_only": 9.75609756097561,
+      "p_outputs_closed": 25.609756097560975,
+      "p_outputs_black": 65.04065040650406
+    }
+  },
+  {
+    "id": "HTI",
+    "name": "Haiti",
+    "logo_sm": "logos/country/sm/HTI.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 860,
+      "n_outputs_open": 638,
+      "n_outputs_black": 544,
+      "p_outputs_open": 74.18604651162791,
+      "p_outputs_publisher_open_only": 15.930232558139535,
+      "p_outputs_both": 41.86046511627907,
+      "p_outputs_other_platform_open_only": 16.395348837209305,
+      "p_outputs_closed": 25.813953488372093,
+      "p_outputs_black": 63.25581395348837
+    }
+  },
+  {
+    "id": "SLE",
+    "name": "Sierra Leone",
+    "logo_sm": "logos/country/sm/SLE.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 1742,
+      "n_outputs_open": 1292,
+      "n_outputs_black": 1005,
+      "p_outputs_open": 74.16762342135476,
+      "p_outputs_publisher_open_only": 19.747416762342134,
+      "p_outputs_both": 45.98163030998852,
+      "p_outputs_other_platform_open_only": 8.43857634902411,
+      "p_outputs_closed": 25.83237657864523,
+      "p_outputs_black": 57.692307692307686
+    }
+  },
+  {
+    "id": "PRY",
+    "name": "Paraguay",
+    "logo_sm": "logos/country/sm/PRY.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 8144,
+      "n_outputs_open": 6014,
+      "n_outputs_black": 2766,
+      "p_outputs_open": 73.84577603143418,
+      "p_outputs_publisher_open_only": 44.30255402750491,
+      "p_outputs_both": 25.196463654223965,
+      "p_outputs_other_platform_open_only": 4.346758349705305,
+      "p_outputs_closed": 26.154223968565816,
+      "p_outputs_black": 33.96365422396856
+    }
+  },
+  {
+    "id": "NPL",
+    "name": "Nepal",
+    "logo_sm": "logos/country/sm/NPL.svg",
+    "entity_type": "country",
+    "subregion": "Southern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 44103,
+      "n_outputs_open": 32266,
+      "n_outputs_black": 21186,
+      "p_outputs_open": 73.16055597124912,
+      "p_outputs_publisher_open_only": 42.78847243951658,
+      "p_outputs_both": 25.184227830306327,
+      "p_outputs_other_platform_open_only": 5.187855701426207,
+      "p_outputs_closed": 26.83944402875088,
+      "p_outputs_black": 48.03754846609074
+    }
+  },
+  {
+    "id": "ECU",
+    "name": "Ecuador",
+    "logo_sm": "logos/country/sm/ECU.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 58705,
+      "n_outputs_open": 42324,
+      "n_outputs_black": 19049,
+      "p_outputs_open": 72.09607358828039,
+      "p_outputs_publisher_open_only": 34.79260710331318,
+      "p_outputs_both": 31.617409079294777,
+      "p_outputs_other_platform_open_only": 5.686057405672431,
+      "p_outputs_closed": 27.903926411719617,
+      "p_outputs_black": 32.44868409845839
+    }
+  },
+  {
+    "id": "GNB",
+    "name": "Guinea-Bissau",
+    "logo_sm": "logos/country/sm/GNB.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 948,
+      "n_outputs_open": 682,
+      "n_outputs_black": 672,
+      "p_outputs_open": 71.94092827004219,
+      "p_outputs_publisher_open_only": 25.421940928270043,
+      "p_outputs_both": 37.130801687763714,
+      "p_outputs_other_platform_open_only": 9.388185654008439,
+      "p_outputs_closed": 28.059071729957807,
+      "p_outputs_black": 70.88607594936708
+    }
+  },
+  {
+    "id": "MWI",
+    "name": "Malawi",
+    "logo_sm": "logos/country/sm/MWI.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 9888,
+      "n_outputs_open": 7059,
+      "n_outputs_black": 6788,
+      "p_outputs_open": 71.38956310679612,
+      "p_outputs_publisher_open_only": 12.075242718446603,
+      "p_outputs_both": 46.00525889967638,
+      "p_outputs_other_platform_open_only": 13.309061488673137,
+      "p_outputs_closed": 28.610436893203882,
+      "p_outputs_black": 68.64886731391586
+    }
+  },
+  {
+    "id": "AFG",
+    "name": "Afghanistan",
+    "logo_sm": "logos/country/sm/AFG.svg",
+    "entity_type": "country",
+    "subregion": "Southern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 2896,
+      "n_outputs_open": 2047,
+      "n_outputs_black": 1151,
+      "p_outputs_open": 70.68370165745857,
+      "p_outputs_publisher_open_only": 34.8756906077348,
+      "p_outputs_both": 28.314917127071826,
+      "p_outputs_other_platform_open_only": 7.4930939226519335,
+      "p_outputs_closed": 29.316298342541437,
+      "p_outputs_black": 39.74447513812155
+    }
+  },
+  {
+    "id": "COL",
+    "name": "Colombia",
+    "logo_sm": "logos/country/sm/COL.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 201684,
+      "n_outputs_open": 142407,
+      "n_outputs_black": 84997,
+      "p_outputs_open": 70.60897245195454,
+      "p_outputs_publisher_open_only": 27.451855377719603,
+      "p_outputs_both": 36.479343924158584,
+      "p_outputs_other_platform_open_only": 6.677773150076358,
+      "p_outputs_closed": 29.391027548045457,
+      "p_outputs_black": 42.14365046310069
+    }
+  },
+  {
+    "id": "ZMB",
+    "name": "Zambia",
+    "logo_sm": "logos/country/sm/ZMB.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 10325,
+      "n_outputs_open": 7284,
+      "n_outputs_black": 6014,
+      "p_outputs_open": 70.54721549636804,
+      "p_outputs_publisher_open_only": 21.685230024213077,
+      "p_outputs_both": 35.738498789346245,
+      "p_outputs_other_platform_open_only": 13.123486682808716,
+      "p_outputs_closed": 29.452784503631964,
+      "p_outputs_black": 58.246973365617436
+    }
+  },
+  {
+    "id": "SLV",
+    "name": "El Salvador",
+    "logo_sm": "logos/country/sm/SLV.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 4427,
+      "n_outputs_open": 3116,
+      "n_outputs_black": 880,
+      "p_outputs_open": 70.3862660944206,
+      "p_outputs_publisher_open_only": 39.643099164219564,
+      "p_outputs_both": 25.254122430539873,
+      "p_outputs_other_platform_open_only": 5.48904449966117,
+      "p_outputs_closed": 29.613733905579398,
+      "p_outputs_black": 19.878021233340863
+    }
+  },
+  {
+    "id": "MLI",
+    "name": "Mali",
+    "logo_sm": "logos/country/sm/MLI.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 5238,
+      "n_outputs_open": 3663,
+      "n_outputs_black": 3706,
+      "p_outputs_open": 69.93127147766323,
+      "p_outputs_publisher_open_only": 16.246659030164185,
+      "p_outputs_both": 37.72432226040473,
+      "p_outputs_other_platform_open_only": 15.960290187094312,
+      "p_outputs_closed": 30.06872852233677,
+      "p_outputs_black": 70.75219549446354
+    }
+  },
+  {
+    "id": "CPV",
+    "name": "Cabo Verde",
+    "logo_sm": "logos/country/sm/CPV.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 553,
+      "n_outputs_open": 386,
+      "n_outputs_black": 277,
+      "p_outputs_open": 69.8010849909584,
+      "p_outputs_publisher_open_only": 23.688969258589513,
+      "p_outputs_both": 35.80470162748644,
+      "p_outputs_other_platform_open_only": 10.30741410488246,
+      "p_outputs_closed": 30.198915009041592,
+      "p_outputs_black": 50.09041591320072
+    }
+  },
+  {
+    "id": "BOL",
+    "name": "Bolivia",
+    "logo_sm": "logos/country/sm/BOL.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 9993,
+      "n_outputs_open": 6967,
+      "n_outputs_black": 3815,
+      "p_outputs_open": 69.71880316221355,
+      "p_outputs_publisher_open_only": 32.9530671470029,
+      "p_outputs_both": 30.131091764234963,
+      "p_outputs_other_platform_open_only": 6.634644250975683,
+      "p_outputs_closed": 30.28119683778645,
+      "p_outputs_black": 38.176723706594615
+    }
+  },
+  {
+    "id": "VCT",
+    "name": "Saint Vincent and the Grenadines",
+    "logo_sm": "logos/country/sm/VCT.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 108,
+      "n_outputs_open": 75,
+      "n_outputs_black": 49,
+      "p_outputs_open": 69.44444444444444,
+      "p_outputs_publisher_open_only": 32.407407407407405,
+      "p_outputs_both": 26.851851851851855,
+      "p_outputs_other_platform_open_only": 10.185185185185185,
+      "p_outputs_closed": 30.555555555555557,
+      "p_outputs_black": 45.370370370370374
+    }
+  },
+  {
+    "id": "ETH",
+    "name": "Ethiopia",
+    "logo_sm": "logos/country/sm/ETH.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 58410,
+      "n_outputs_open": 40419,
+      "n_outputs_black": 30779,
+      "p_outputs_open": 69.19876733436055,
+      "p_outputs_publisher_open_only": 20.46738572162301,
+      "p_outputs_both": 38.632083547337785,
+      "p_outputs_other_platform_open_only": 10.09929806539976,
+      "p_outputs_closed": 30.801232665639443,
+      "p_outputs_black": 52.694744050676256
+    }
+  },
+  {
+    "id": "SUR",
+    "name": "Suriname",
+    "logo_sm": "logos/country/sm/SUR.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 636,
+      "n_outputs_open": 440,
+      "n_outputs_black": 434,
+      "p_outputs_open": 69.18238993710692,
+      "p_outputs_publisher_open_only": 22.0125786163522,
+      "p_outputs_both": 36.16352201257861,
+      "p_outputs_other_platform_open_only": 11.0062893081761,
+      "p_outputs_closed": 30.81761006289308,
+      "p_outputs_black": 68.23899371069182
+    }
+  },
+  {
+    "id": "UGA",
+    "name": "Uganda",
+    "logo_sm": "logos/country/sm/UGA.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 28481,
+      "n_outputs_open": 19676,
+      "n_outputs_black": 18468,
+      "p_outputs_open": 69.08465292651242,
+      "p_outputs_publisher_open_only": 15.986095993820443,
+      "p_outputs_both": 40.7745514553562,
+      "p_outputs_other_platform_open_only": 12.324005477335767,
+      "p_outputs_closed": 30.915347073487588,
+      "p_outputs_black": 64.84322881921281
+    }
+  },
+  {
+    "id": "COD",
+    "name": "Democratic Republic of the Congo",
+    "logo_sm": "logos/country/sm/COD.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 5822,
+      "n_outputs_open": 4013,
+      "n_outputs_black": 3374,
+      "p_outputs_open": 68.92820336654071,
+      "p_outputs_publisher_open_only": 18.30985915492958,
+      "p_outputs_both": 38.35451734799038,
+      "p_outputs_other_platform_open_only": 12.263826863620748,
+      "p_outputs_closed": 31.071796633459293,
+      "p_outputs_black": 57.952593610443145
+    }
+  },
+  {
+    "id": "BRA",
+    "name": "Brazil",
+    "logo_sm": "logos/country/sm/BRA.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 1696254,
+      "n_outputs_open": 1158714,
+      "n_outputs_black": 857139,
+      "p_outputs_open": 68.3101705287062,
+      "p_outputs_publisher_open_only": 31.583300614176885,
+      "p_outputs_both": 31.21820199097541,
+      "p_outputs_other_platform_open_only": 5.508667923553902,
+      "p_outputs_closed": 31.689829471293802,
+      "p_outputs_black": 50.53128835657867
+    }
+  },
+  {
+    "id": "SYC",
+    "name": "Seychelles",
+    "logo_sm": "logos/country/sm/SYC.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 727,
+      "n_outputs_open": 496,
+      "n_outputs_black": 551,
+      "p_outputs_open": 68.22558459422284,
+      "p_outputs_publisher_open_only": 14.442916093535077,
+      "p_outputs_both": 37.13892709766162,
+      "p_outputs_other_platform_open_only": 16.643741403026134,
+      "p_outputs_closed": 31.77441540577717,
+      "p_outputs_black": 75.79092159559835
+    }
+  },
+  {
+    "id": "GTM",
+    "name": "Guatemala",
+    "logo_sm": "logos/country/sm/GTM.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 7239,
+      "n_outputs_open": 4937,
+      "n_outputs_black": 3459,
+      "p_outputs_open": 68.20002762812544,
+      "p_outputs_publisher_open_only": 33.67868490122945,
+      "p_outputs_both": 27.559055118110237,
+      "p_outputs_other_platform_open_only": 6.962287608785744,
+      "p_outputs_closed": 31.799972371874567,
+      "p_outputs_black": 47.782842934106924
+    }
+  },
+  {
+    "id": "KIR",
+    "name": "Kiribati",
+    "logo_sm": "logos/country/sm/KIR.svg",
+    "entity_type": "country",
+    "subregion": "Micronesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 91,
+      "n_outputs_open": 62,
+      "n_outputs_black": 61,
+      "p_outputs_open": 68.13186813186813,
+      "p_outputs_publisher_open_only": 17.582417582417584,
+      "p_outputs_both": 38.46153846153847,
+      "p_outputs_other_platform_open_only": 12.087912087912088,
+      "p_outputs_closed": 31.868131868131865,
+      "p_outputs_black": 67.03296703296702
+    }
+  },
+  {
+    "id": "TLS",
+    "name": "East Timor",
+    "logo_sm": "logos/country/sm/TLS.svg",
+    "entity_type": "country",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 431,
+      "n_outputs_open": 291,
+      "n_outputs_black": 206,
+      "p_outputs_open": 67.51740139211137,
+      "p_outputs_publisher_open_only": 34.33874709976798,
+      "p_outputs_both": 30.39443155452436,
+      "p_outputs_other_platform_open_only": 2.784222737819025,
+      "p_outputs_closed": 32.48259860788863,
+      "p_outputs_black": 47.79582366589327
+    }
+  },
+  {
+    "id": "COG",
+    "name": "Republic of the Congo",
+    "logo_sm": "logos/country/sm/COG.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 4153,
+      "n_outputs_open": 2800,
+      "n_outputs_black": 2636,
+      "p_outputs_open": 67.42114134360703,
+      "p_outputs_publisher_open_only": 17.577654707440406,
+      "p_outputs_both": 39.36913074885624,
+      "p_outputs_other_platform_open_only": 10.474355887310379,
+      "p_outputs_closed": 32.57885865639297,
+      "p_outputs_black": 63.47218877919576
+    }
+  },
+  {
+    "id": "SOM",
+    "name": "Somalia",
+    "logo_sm": "logos/country/sm/SOM.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 553,
+      "n_outputs_open": 371,
+      "n_outputs_black": 199,
+      "p_outputs_open": 67.08860759493672,
+      "p_outputs_publisher_open_only": 25.31645569620253,
+      "p_outputs_both": 31.103074141048825,
+      "p_outputs_other_platform_open_only": 10.669077757685352,
+      "p_outputs_closed": 32.91139240506329,
+      "p_outputs_black": 35.98553345388788
+    }
+  },
+  {
+    "id": "MOZ",
+    "name": "Mozambique",
+    "logo_sm": "logos/country/sm/MOZ.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 8793,
+      "n_outputs_open": 5897,
+      "n_outputs_black": 4482,
+      "p_outputs_open": 67.06471056522234,
+      "p_outputs_publisher_open_only": 26.555214375071078,
+      "p_outputs_both": 32.95803480040942,
+      "p_outputs_other_platform_open_only": 7.5514613897418394,
+      "p_outputs_closed": 32.935289434777665,
+      "p_outputs_black": 50.97236438075742
+    }
+  },
+  {
+    "id": "LAO",
+    "name": "Laos",
+    "logo_sm": "logos/country/sm/LAO.svg",
+    "entity_type": "country",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 2323,
+      "n_outputs_open": 1549,
+      "n_outputs_black": 1572,
+      "p_outputs_open": 66.68101592767972,
+      "p_outputs_publisher_open_only": 19.41455015066724,
+      "p_outputs_both": 39.99139044339216,
+      "p_outputs_other_platform_open_only": 7.275075333620319,
+      "p_outputs_closed": 33.318984072320276,
+      "p_outputs_black": 67.67111493758071
+    }
+  },
+  {
+    "id": "TZA",
+    "name": "Tanzania",
+    "logo_sm": "logos/country/sm/TZA.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 27179,
+      "n_outputs_open": 18078,
+      "n_outputs_black": 17228,
+      "p_outputs_open": 66.5145884690386,
+      "p_outputs_publisher_open_only": 20.243570403620442,
+      "p_outputs_both": 37.407557305272455,
+      "p_outputs_other_platform_open_only": 8.863460760145701,
+      "p_outputs_closed": 33.48541153096141,
+      "p_outputs_black": 63.387173921041985
+    }
+  },
+  {
+    "id": "RWA",
+    "name": "Rwanda",
+    "logo_sm": "logos/country/sm/RWA.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 5942,
+      "n_outputs_open": 3951,
+      "n_outputs_black": 3355,
+      "p_outputs_open": 66.49276337933355,
+      "p_outputs_publisher_open_only": 22.36620666442275,
+      "p_outputs_both": 34.87041400201952,
+      "p_outputs_other_platform_open_only": 9.256142712891283,
+      "p_outputs_closed": 33.50723662066644,
+      "p_outputs_black": 56.46247054863682
+    }
+  },
+  {
+    "id": "IRQ",
+    "name": "Iraq",
+    "logo_sm": "logos/country/sm/IRQ.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 77983,
+      "n_outputs_open": 51446,
+      "n_outputs_black": 28764,
+      "p_outputs_open": 65.97078850518703,
+      "p_outputs_publisher_open_only": 47.65782285882821,
+      "p_outputs_both": 14.372363207365707,
+      "p_outputs_other_platform_open_only": 3.940602438993114,
+      "p_outputs_closed": 34.02921149481297,
+      "p_outputs_black": 36.884962107125915
+    }
+  },
+  {
+    "id": "CHL",
+    "name": "Chile",
+    "logo_sm": "logos/country/sm/CHL.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 221291,
+      "n_outputs_open": 144812,
+      "n_outputs_black": 130822,
+      "p_outputs_open": 65.43962474750442,
+      "p_outputs_publisher_open_only": 22.909201006819075,
+      "p_outputs_both": 33.60687962908568,
+      "p_outputs_other_platform_open_only": 8.923544111599659,
+      "p_outputs_closed": 34.56037525249558,
+      "p_outputs_black": 59.11763243873451
+    }
+  },
+  {
+    "id": "CAF",
+    "name": "Central African Republic",
+    "logo_sm": "logos/country/sm/CAF.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 668,
+      "n_outputs_open": 437,
+      "n_outputs_black": 484,
+      "p_outputs_open": 65.41916167664671,
+      "p_outputs_publisher_open_only": 16.16766467065868,
+      "p_outputs_both": 38.47305389221557,
+      "p_outputs_other_platform_open_only": 10.778443113772456,
+      "p_outputs_closed": 34.58083832335329,
+      "p_outputs_black": 72.45508982035929
+    }
+  },
+  {
+    "id": "KEN",
+    "name": "Kenya",
+    "logo_sm": "logos/country/sm/KEN.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 54726,
+      "n_outputs_open": 35694,
+      "n_outputs_black": 33254,
+      "p_outputs_open": 65.22311150093192,
+      "p_outputs_publisher_open_only": 23.233929028249825,
+      "p_outputs_both": 31.68329496034791,
+      "p_outputs_other_platform_open_only": 10.305887512334174,
+      "p_outputs_closed": 34.776888499068086,
+      "p_outputs_black": 60.76453605233344
+    }
+  },
+  {
+    "id": "FRO",
+    "name": "Faroe Islands",
+    "logo_sm": "logos/country/sm/FRO.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 1203,
+      "n_outputs_open": 768,
+      "n_outputs_black": 867,
+      "p_outputs_open": 63.84039900249376,
+      "p_outputs_publisher_open_only": 18.28761429758936,
+      "p_outputs_both": 30.92269326683292,
+      "p_outputs_other_platform_open_only": 14.630091438071489,
+      "p_outputs_closed": 36.15960099750624,
+      "p_outputs_black": 72.06982543640898
+    }
+  },
+  {
+    "id": "KHM",
+    "name": "Cambodia",
+    "logo_sm": "logos/country/sm/KHM.svg",
+    "entity_type": "country",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 10034,
+      "n_outputs_open": 6360,
+      "n_outputs_black": 5563,
+      "p_outputs_open": 63.3844927247359,
+      "p_outputs_publisher_open_only": 23.4801674307355,
+      "p_outputs_both": 29.390073749252544,
+      "p_outputs_other_platform_open_only": 10.514251544747857,
+      "p_outputs_closed": 36.6155072752641,
+      "p_outputs_black": 55.44149890372733
+    }
+  },
+  {
+    "id": "XKX",
+    "name": "Kosovo",
+    "logo_sm": "logos/country/sm/XKX.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 5453,
+      "n_outputs_open": 3452,
+      "n_outputs_black": 2012,
+      "p_outputs_open": 63.30460297084174,
+      "p_outputs_publisher_open_only": 32.25747295066936,
+      "p_outputs_both": 24.536952136438657,
+      "p_outputs_other_platform_open_only": 6.510177883733724,
+      "p_outputs_closed": 36.69539702915826,
+      "p_outputs_black": 36.897120850907754
+    }
+  },
+  {
+    "id": "NER",
+    "name": "Niger",
+    "logo_sm": "logos/country/sm/NER.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 3346,
+      "n_outputs_open": 2115,
+      "n_outputs_black": 2047,
+      "p_outputs_open": 63.2098027495517,
+      "p_outputs_publisher_open_only": 21.4584578601315,
+      "p_outputs_both": 30.185295875672445,
+      "p_outputs_other_platform_open_only": 11.566049013747758,
+      "p_outputs_closed": 36.7901972504483,
+      "p_outputs_black": 61.177525403466824
+    }
+  },
+  {
+    "id": "PAN",
+    "name": "Panama",
+    "logo_sm": "logos/country/sm/PAN.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 11344,
+      "n_outputs_open": 7161,
+      "n_outputs_black": 7169,
+      "p_outputs_open": 63.12588152327221,
+      "p_outputs_publisher_open_only": 25.837447108603666,
+      "p_outputs_both": 26.974612129760228,
+      "p_outputs_other_platform_open_only": 10.313822284908323,
+      "p_outputs_closed": 36.87411847672779,
+      "p_outputs_black": 63.19640338504936
+    }
+  },
+  {
+    "id": "BFA",
+    "name": "Burkina Faso",
+    "logo_sm": "logos/country/sm/BFA.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 8089,
+      "n_outputs_open": 5095,
+      "n_outputs_black": 5539,
+      "p_outputs_open": 62.98677215972308,
+      "p_outputs_publisher_open_only": 16.5657065150204,
+      "p_outputs_both": 38.06403758190135,
+      "p_outputs_other_platform_open_only": 8.357028062801335,
+      "p_outputs_closed": 37.01322784027692,
+      "p_outputs_black": 68.47570775126715
+    }
+  },
+  {
+    "id": "GRL",
+    "name": "Greenland",
+    "logo_sm": "logos/country/sm/GRL.svg",
+    "entity_type": "country",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 1622,
+      "n_outputs_open": 1017,
+      "n_outputs_black": 1251,
+      "p_outputs_open": 62.70036991368681,
+      "p_outputs_publisher_open_only": 13.625154130702835,
+      "p_outputs_both": 37.6078914919852,
+      "p_outputs_other_platform_open_only": 11.467324290998766,
+      "p_outputs_closed": 37.29963008631319,
+      "p_outputs_black": 77.12700369913686
+    }
+  },
+  {
+    "id": "GUF",
+    "name": "French Guiana",
+    "logo_sm": "logos/country/sm/GUF.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 2060,
+      "n_outputs_open": 1291,
+      "n_outputs_black": 1617,
+      "p_outputs_open": 62.66990291262135,
+      "p_outputs_publisher_open_only": 9.951456310679612,
+      "p_outputs_both": 37.37864077669903,
+      "p_outputs_other_platform_open_only": 15.339805825242719,
+      "p_outputs_closed": 37.33009708737864,
+      "p_outputs_black": 78.49514563106797
+    }
+  },
+  {
+    "id": "TCD",
+    "name": "Chad",
+    "logo_sm": "logos/country/sm/TCD.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 682,
+      "n_outputs_open": 421,
+      "n_outputs_black": 413,
+      "p_outputs_open": 61.73020527859238,
+      "p_outputs_publisher_open_only": 21.407624633431084,
+      "p_outputs_both": 29.32551319648094,
+      "p_outputs_other_platform_open_only": 10.997067448680351,
+      "p_outputs_closed": 38.26979472140762,
+      "p_outputs_black": 60.55718475073314
+    }
+  },
+  {
+    "id": "BIH",
+    "name": "Bosnia and Herzegovina",
+    "logo_sm": "logos/country/sm/BIH.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 17979,
+      "n_outputs_open": 11086,
+      "n_outputs_black": 7720,
+      "p_outputs_open": 61.660826519828696,
+      "p_outputs_publisher_open_only": 30.079537237888648,
+      "p_outputs_both": 24.03359474942989,
+      "p_outputs_other_platform_open_only": 7.5476945325101505,
+      "p_outputs_closed": 38.33917348017131,
+      "p_outputs_black": 42.93898437065465
+    }
+  },
+  {
+    "id": "GIN",
+    "name": "Guinea",
+    "logo_sm": "logos/country/sm/GIN.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 1181,
+      "n_outputs_open": 725,
+      "n_outputs_black": 754,
+      "p_outputs_open": 61.38865368331922,
+      "p_outputs_publisher_open_only": 17.696867061812025,
+      "p_outputs_both": 34.462320067739206,
+      "p_outputs_other_platform_open_only": 9.229466553767992,
+      "p_outputs_closed": 38.61134631668078,
+      "p_outputs_black": 63.844199830651995
+    }
+  },
+  {
+    "id": "ATG",
+    "name": "Antigua and Barbuda",
+    "logo_sm": "logos/country/sm/ATG.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 947,
+      "n_outputs_open": 578,
+      "n_outputs_black": 357,
+      "p_outputs_open": 61.034846884899686,
+      "p_outputs_publisher_open_only": 21.013727560718056,
+      "p_outputs_both": 29.883843717001056,
+      "p_outputs_other_platform_open_only": 10.137275607180571,
+      "p_outputs_closed": 38.965153115100314,
+      "p_outputs_black": 37.69799366420274
+    }
+  },
+  {
+    "id": "MDV",
+    "name": "Maldives",
+    "logo_sm": "logos/country/sm/MDV.svg",
+    "entity_type": "country",
+    "subregion": "Southern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 1050,
+      "n_outputs_open": 630,
+      "n_outputs_black": 634,
+      "p_outputs_open": 60.0,
+      "p_outputs_publisher_open_only": 24.857142857142858,
+      "p_outputs_both": 25.61904761904762,
+      "p_outputs_other_platform_open_only": 9.523809523809524,
+      "p_outputs_closed": 40.0,
+      "p_outputs_black": 60.38095238095238
+    }
+  },
+  {
+    "id": "ALB",
+    "name": "Albania",
+    "logo_sm": "logos/country/sm/ALB.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 7630,
+      "n_outputs_open": 4573,
+      "n_outputs_black": 3985,
+      "p_outputs_open": 59.93446920052424,
+      "p_outputs_publisher_open_only": 29.554390563564876,
+      "p_outputs_both": 24.692005242463956,
+      "p_outputs_other_platform_open_only": 5.688073394495413,
+      "p_outputs_closed": 40.06553079947575,
+      "p_outputs_black": 52.228047182175615
+    }
+  },
+  {
+    "id": "CIV",
+    "name": "Ivory Coast",
+    "logo_sm": "logos/country/sm/CIV.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 9254,
+      "n_outputs_open": 5546,
+      "n_outputs_black": 5257,
+      "p_outputs_open": 59.93084071752756,
+      "p_outputs_publisher_open_only": 27.339528852388156,
+      "p_outputs_both": 23.211584179814135,
+      "p_outputs_other_platform_open_only": 9.379727685325264,
+      "p_outputs_closed": 40.06915928247244,
+      "p_outputs_black": 56.80786686838124
+    }
+  },
+  {
+    "id": "KNA",
+    "name": "Saint Kitts and Nevis",
+    "logo_sm": "logos/country/sm/KNA.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 1501,
+      "n_outputs_open": 899,
+      "n_outputs_black": 926,
+      "p_outputs_open": 59.893404397068615,
+      "p_outputs_publisher_open_only": 15.389740173217856,
+      "p_outputs_both": 36.77548301132578,
+      "p_outputs_other_platform_open_only": 7.728181212524983,
+      "p_outputs_closed": 40.10659560293138,
+      "p_outputs_black": 61.692205196535646
+    }
+  },
+  {
+    "id": "SDN",
+    "name": "Sudan",
+    "logo_sm": "logos/country/sm/SDN.svg",
+    "entity_type": "country",
+    "subregion": "Northern Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 14307,
+      "n_outputs_open": 8558,
+      "n_outputs_black": 7595,
+      "p_outputs_open": 59.81687285943944,
+      "p_outputs_publisher_open_only": 26.476549940588523,
+      "p_outputs_both": 25.742643461242746,
+      "p_outputs_other_platform_open_only": 7.597679457608164,
+      "p_outputs_closed": 40.183127140560565,
+      "p_outputs_black": 53.08590200601104
+    }
+  },
+  {
+    "id": "MDG",
+    "name": "Madagascar",
+    "logo_sm": "logos/country/sm/MDG.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 4436,
+      "n_outputs_open": 2632,
+      "n_outputs_black": 3220,
+      "p_outputs_open": 59.33273219116321,
+      "p_outputs_publisher_open_only": 15.419296663660957,
+      "p_outputs_both": 32.23624887285843,
+      "p_outputs_other_platform_open_only": 11.677186654643823,
+      "p_outputs_closed": 40.66726780883679,
+      "p_outputs_black": 72.58791704238052
+    }
+  },
+  {
+    "id": "BTN",
+    "name": "Bhutan",
+    "logo_sm": "logos/country/sm/BTN.svg",
+    "entity_type": "country",
+    "subregion": "Southern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 1463,
+      "n_outputs_open": 861,
+      "n_outputs_black": 673,
+      "p_outputs_open": 58.85167464114832,
+      "p_outputs_publisher_open_only": 33.35611756664388,
+      "p_outputs_both": 21.189336978810662,
+      "p_outputs_other_platform_open_only": 4.30622009569378,
+      "p_outputs_closed": 41.14832535885167,
+      "p_outputs_black": 46.001367053998635
+    }
+  },
+  {
+    "id": "JEY",
+    "name": "Jersey",
+    "logo_sm": "logos/country/sm/JEY.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 469,
+      "n_outputs_open": 276,
+      "n_outputs_black": 367,
+      "p_outputs_open": 58.84861407249466,
+      "p_outputs_publisher_open_only": 20.46908315565032,
+      "p_outputs_both": 24.946695095948826,
+      "p_outputs_other_platform_open_only": 13.432835820895523,
+      "p_outputs_closed": 41.15138592750533,
+      "p_outputs_black": 78.25159914712152
+    }
+  },
+  {
+    "id": "PYF",
+    "name": "French Polynesia",
+    "logo_sm": "logos/country/sm/PYF.svg",
+    "entity_type": "country",
+    "subregion": "Polynesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 1769,
+      "n_outputs_open": 1041,
+      "n_outputs_black": 1434,
+      "p_outputs_open": 58.84680610514415,
+      "p_outputs_publisher_open_only": 9.892594686263426,
+      "p_outputs_both": 33.29564725833804,
+      "p_outputs_other_platform_open_only": 15.65856416054268,
+      "p_outputs_closed": 41.153193894855846,
+      "p_outputs_black": 81.06274731486715
+    }
+  },
+  {
+    "id": "BDI",
+    "name": "Burundi",
+    "logo_sm": "logos/country/sm/BDI.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 3655,
+      "n_outputs_open": 2150,
+      "n_outputs_black": 2082,
+      "p_outputs_open": 58.82352941176471,
+      "p_outputs_publisher_open_only": 14.36388508891929,
+      "p_outputs_both": 20.601915184678525,
+      "p_outputs_other_platform_open_only": 23.857729138166896,
+      "p_outputs_closed": 41.17647058823529,
+      "p_outputs_black": 56.96306429548563
+    }
+  },
+  {
+    "id": "LKA",
+    "name": "Sri Lanka",
+    "logo_sm": "logos/country/sm/LKA.svg",
+    "entity_type": "country",
+    "subregion": "Southern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 45046,
+      "n_outputs_open": 26295,
+      "n_outputs_black": 20611,
+      "p_outputs_open": 58.373662478355456,
+      "p_outputs_publisher_open_only": 32.24259645695511,
+      "p_outputs_both": 20.963015584069616,
+      "p_outputs_other_platform_open_only": 5.168050437330728,
+      "p_outputs_closed": 41.626337521644544,
+      "p_outputs_black": 45.75544998446033
+    }
+  },
+  {
+    "id": "REU",
+    "name": "R\u00e9union",
+    "logo_sm": "logos/country/sm/REU.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 3612,
+      "n_outputs_open": 2107,
+      "n_outputs_black": 2667,
+      "p_outputs_open": 58.333333333333336,
+      "p_outputs_publisher_open_only": 8.720930232558139,
+      "p_outputs_both": 35.18826135105205,
+      "p_outputs_other_platform_open_only": 14.424141749723146,
+      "p_outputs_closed": 41.66666666666667,
+      "p_outputs_black": 73.83720930232558
+    }
+  },
+  {
+    "id": "ABW",
+    "name": "Aruba",
+    "logo_sm": "logos/country/sm/ABW.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 256,
+      "n_outputs_open": 149,
+      "n_outputs_black": 133,
+      "p_outputs_open": 58.203125,
+      "p_outputs_publisher_open_only": 22.265625,
+      "p_outputs_both": 26.953125,
+      "p_outputs_other_platform_open_only": 8.984375,
+      "p_outputs_closed": 41.796875,
+      "p_outputs_black": 51.953125
+    }
+  },
+  {
+    "id": "GAB",
+    "name": "Gabon",
+    "logo_sm": "logos/country/sm/GAB.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 3057,
+      "n_outputs_open": 1778,
+      "n_outputs_black": 2221,
+      "p_outputs_open": 58.1615963362774,
+      "p_outputs_publisher_open_only": 14.39319594373569,
+      "p_outputs_both": 34.44553483807655,
+      "p_outputs_other_platform_open_only": 9.322865554465162,
+      "p_outputs_closed": 41.83840366372261,
+      "p_outputs_black": 72.65292770690219
+    }
+  },
+  {
+    "id": "BEN",
+    "name": "Benin",
+    "logo_sm": "logos/country/sm/BEN.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 8404,
+      "n_outputs_open": 4870,
+      "n_outputs_black": 5043,
+      "p_outputs_open": 57.948595906711084,
+      "p_outputs_publisher_open_only": 24.238457877201334,
+      "p_outputs_both": 25.095192765349832,
+      "p_outputs_other_platform_open_only": 8.614945264159923,
+      "p_outputs_closed": 42.05140409328891,
+      "p_outputs_black": 60.00713945740124
+    }
+  },
+  {
+    "id": "GHA",
+    "name": "Ghana",
+    "logo_sm": "logos/country/sm/GHA.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 43144,
+      "n_outputs_open": 24896,
+      "n_outputs_black": 24456,
+      "p_outputs_open": 57.70443167068422,
+      "p_outputs_publisher_open_only": 22.63118857778602,
+      "p_outputs_both": 27.44761728166141,
+      "p_outputs_other_platform_open_only": 7.625625811236788,
+      "p_outputs_closed": 42.29556832931578,
+      "p_outputs_black": 56.68459113665863
+    }
+  },
+  {
+    "id": "GUY",
+    "name": "Guyana",
+    "logo_sm": "logos/country/sm/GUY.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 695,
+      "n_outputs_open": 401,
+      "n_outputs_black": 400,
+      "p_outputs_open": 57.697841726618705,
+      "p_outputs_publisher_open_only": 25.899280575539567,
+      "p_outputs_both": 22.87769784172662,
+      "p_outputs_other_platform_open_only": 8.920863309352518,
+      "p_outputs_closed": 42.302158273381295,
+      "p_outputs_black": 57.55395683453237
+    }
+  },
+  {
+    "id": "LTU",
+    "name": "Lithuania",
+    "logo_sm": "logos/country/sm/LTU.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 59002,
+      "n_outputs_open": 33961,
+      "n_outputs_black": 32432,
+      "p_outputs_open": 57.55906579437985,
+      "p_outputs_publisher_open_only": 33.56835361513169,
+      "p_outputs_both": 19.041727399071217,
+      "p_outputs_other_platform_open_only": 4.948984780176943,
+      "p_outputs_closed": 42.44093420562015,
+      "p_outputs_black": 54.96762821599268
+    }
+  },
+  {
+    "id": "TON",
+    "name": "Tonga",
+    "logo_sm": "logos/country/sm/TON.svg",
+    "entity_type": "country",
+    "subregion": "Polynesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 207,
+      "n_outputs_open": 119,
+      "n_outputs_black": 148,
+      "p_outputs_open": 57.48792270531401,
+      "p_outputs_publisher_open_only": 18.357487922705314,
+      "p_outputs_both": 30.434782608695656,
+      "p_outputs_other_platform_open_only": 8.695652173913043,
+      "p_outputs_closed": 42.51207729468599,
+      "p_outputs_black": 71.49758454106279
+    }
+  },
+  {
+    "id": "URY",
+    "name": "Uruguay",
+    "logo_sm": "logos/country/sm/URY.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 28619,
+      "n_outputs_open": 16428,
+      "n_outputs_black": 16515,
+      "p_outputs_open": 57.402424962437536,
+      "p_outputs_publisher_open_only": 23.07208497851078,
+      "p_outputs_both": 24.91701317306684,
+      "p_outputs_other_platform_open_only": 9.413326810859918,
+      "p_outputs_closed": 42.59757503756246,
+      "p_outputs_black": 57.706418812676894
+    }
+  },
+  {
+    "id": "HRV",
+    "name": "Croatia",
+    "logo_sm": "logos/country/sm/HRV.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 93835,
+      "n_outputs_open": 53518,
+      "n_outputs_black": 58358,
+      "p_outputs_open": 57.034155698833054,
+      "p_outputs_publisher_open_only": 22.689827889380297,
+      "p_outputs_both": 25.84323546651036,
+      "p_outputs_other_platform_open_only": 8.501092342942398,
+      "p_outputs_closed": 42.965844301166946,
+      "p_outputs_black": 62.192145787819044
+    }
+  },
+  {
+    "id": "SXM",
+    "name": "Sint Maarten",
+    "logo_sm": "logos/country/sm/SXM.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 216,
+      "n_outputs_open": 123,
+      "n_outputs_black": 112,
+      "p_outputs_open": 56.94444444444444,
+      "p_outputs_publisher_open_only": 15.74074074074074,
+      "p_outputs_both": 32.407407407407405,
+      "p_outputs_other_platform_open_only": 8.796296296296296,
+      "p_outputs_closed": 43.05555555555556,
+      "p_outputs_black": 51.85185185185185
+    }
+  },
+  {
+    "id": "LCA",
+    "name": "Saint Lucia",
+    "logo_sm": "logos/country/sm/LCA.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 185,
+      "n_outputs_open": 105,
+      "n_outputs_black": 73,
+      "p_outputs_open": 56.75675675675676,
+      "p_outputs_publisher_open_only": 21.62162162162162,
+      "p_outputs_both": 21.08108108108108,
+      "p_outputs_other_platform_open_only": 14.054054054054054,
+      "p_outputs_closed": 43.24324324324324,
+      "p_outputs_black": 39.45945945945946
+    }
+  },
+  {
+    "id": "CUW",
+    "name": "Cura\u00e7ao",
+    "logo_sm": "logos/country/sm/CUW.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 944,
+      "n_outputs_open": 534,
+      "n_outputs_black": 653,
+      "p_outputs_open": 56.567796610169495,
+      "p_outputs_publisher_open_only": 17.266949152542374,
+      "p_outputs_both": 28.283898305084747,
+      "p_outputs_other_platform_open_only": 11.016949152542372,
+      "p_outputs_closed": 43.43220338983051,
+      "p_outputs_black": 69.17372881355932
+    }
+  },
+  {
+    "id": "WSM",
+    "name": "Samoa",
+    "logo_sm": "logos/country/sm/WSM.svg",
+    "entity_type": "country",
+    "subregion": "Polynesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 485,
+      "n_outputs_open": 274,
+      "n_outputs_black": 294,
+      "p_outputs_open": 56.49484536082474,
+      "p_outputs_publisher_open_only": 20.20618556701031,
+      "p_outputs_both": 22.68041237113402,
+      "p_outputs_other_platform_open_only": 13.608247422680412,
+      "p_outputs_closed": 43.50515463917526,
+      "p_outputs_black": 60.618556701030926
+    }
+  },
+  {
+    "id": "LUX",
+    "name": "Luxembourg",
+    "logo_sm": "logos/country/sm/LUX.svg",
+    "entity_type": "country",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 30513,
+      "n_outputs_open": 17219,
+      "n_outputs_black": 20776,
+      "p_outputs_open": 56.4316848556353,
+      "p_outputs_publisher_open_only": 9.333726608330876,
+      "p_outputs_both": 23.32776193753482,
+      "p_outputs_other_platform_open_only": 23.770196309769606,
+      "p_outputs_closed": 43.568315144364696,
+      "p_outputs_black": 68.08901124111034
+    }
+  },
+  {
+    "id": "AND",
+    "name": "Andorra",
+    "logo_sm": "logos/country/sm/AND.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 272,
+      "n_outputs_open": 153,
+      "n_outputs_black": 173,
+      "p_outputs_open": 56.25,
+      "p_outputs_publisher_open_only": 12.132352941176471,
+      "p_outputs_both": 31.985294117647058,
+      "p_outputs_other_platform_open_only": 12.132352941176471,
+      "p_outputs_closed": 43.75,
+      "p_outputs_black": 63.60294117647059
+    }
+  },
+  {
+    "id": "PNG",
+    "name": "Papua New Guinea",
+    "logo_sm": "logos/country/sm/PNG.svg",
+    "entity_type": "country",
+    "subregion": "Melanesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 2992,
+      "n_outputs_open": 1683,
+      "n_outputs_black": 2165,
+      "p_outputs_open": 56.25,
+      "p_outputs_publisher_open_only": 13.068181818181818,
+      "p_outputs_both": 31.65106951871658,
+      "p_outputs_other_platform_open_only": 11.530748663101605,
+      "p_outputs_closed": 43.75,
+      "p_outputs_black": 72.3596256684492
+    }
+  },
+  {
+    "id": "ARG",
+    "name": "Argentina",
+    "logo_sm": "logos/country/sm/ARG.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 242181,
+      "n_outputs_open": 136167,
+      "n_outputs_black": 157634,
+      "p_outputs_open": 56.225302562959115,
+      "p_outputs_publisher_open_only": 14.958233717756553,
+      "p_outputs_both": 28.122767682022946,
+      "p_outputs_other_platform_open_only": 13.144301163179605,
+      "p_outputs_closed": 43.77469743704089,
+      "p_outputs_black": 65.0893340105128
+    }
+  },
+  {
+    "id": "NCL",
+    "name": "New Caledonia",
+    "logo_sm": "logos/country/sm/NCL.svg",
+    "entity_type": "country",
+    "subregion": "Melanesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 2363,
+      "n_outputs_open": 1324,
+      "n_outputs_black": 1949,
+      "p_outputs_open": 56.03046974185357,
+      "p_outputs_publisher_open_only": 10.622090562843843,
+      "p_outputs_both": 27.71900126957258,
+      "p_outputs_other_platform_open_only": 17.689377909437155,
+      "p_outputs_closed": 43.96953025814642,
+      "p_outputs_black": 82.47989843419383
+    }
+  },
+  {
+    "id": "NGA",
+    "name": "Nigeria",
+    "logo_sm": "logos/country/sm/NGA.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 169179,
+      "n_outputs_open": 94766,
+      "n_outputs_black": 78075,
+      "p_outputs_open": 56.01522647609928,
+      "p_outputs_publisher_open_only": 33.54789897091246,
+      "p_outputs_both": 16.620857198588475,
+      "p_outputs_other_platform_open_only": 5.846470306598336,
+      "p_outputs_closed": 43.98477352390072,
+      "p_outputs_black": 46.149344776834006
+    }
+  },
+  {
+    "id": "GLP",
+    "name": "Guadeloupe",
+    "logo_sm": "logos/country/sm/GLP.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 5490,
+      "n_outputs_open": 3061,
+      "n_outputs_black": 4370,
+      "p_outputs_open": 55.75591985428051,
+      "p_outputs_publisher_open_only": 8.287795992714026,
+      "p_outputs_both": 27.86885245901639,
+      "p_outputs_other_platform_open_only": 19.59927140255009,
+      "p_outputs_closed": 44.24408014571949,
+      "p_outputs_black": 79.59927140255009
+    }
+  },
+  {
+    "id": "ERI",
+    "name": "Eritrea",
+    "logo_sm": "logos/country/sm/ERI.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 666,
+      "n_outputs_open": 371,
+      "n_outputs_black": 435,
+      "p_outputs_open": 55.70570570570571,
+      "p_outputs_publisher_open_only": 15.015015015015015,
+      "p_outputs_both": 32.13213213213213,
+      "p_outputs_other_platform_open_only": 8.558558558558559,
+      "p_outputs_closed": 44.294294294294296,
+      "p_outputs_black": 65.31531531531532
+    }
+  },
+  {
+    "id": "VUT",
+    "name": "Vanuatu",
+    "logo_sm": "logos/country/sm/VUT.svg",
+    "entity_type": "country",
+    "subregion": "Melanesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 463,
+      "n_outputs_open": 256,
+      "n_outputs_black": 366,
+      "p_outputs_open": 55.291576673866096,
+      "p_outputs_publisher_open_only": 13.174946004319654,
+      "p_outputs_both": 30.021598272138228,
+      "p_outputs_other_platform_open_only": 12.095032397408207,
+      "p_outputs_closed": 44.70842332613391,
+      "p_outputs_black": 79.04967602591793
+    }
+  },
+  {
+    "id": "CHE",
+    "name": "Switzerland",
+    "logo_sm": "logos/country/sm/CHE.svg",
+    "entity_type": "country",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 823867,
+      "n_outputs_open": 454237,
+      "n_outputs_black": 626830,
+      "p_outputs_open": 55.13474869123293,
+      "p_outputs_publisher_open_only": 11.000440605097667,
+      "p_outputs_both": 25.758526558291567,
+      "p_outputs_other_platform_open_only": 18.375781527843692,
+      "p_outputs_closed": 44.86525130876707,
+      "p_outputs_black": 76.08388247132122
+    }
+  },
+  {
+    "id": "CMR",
+    "name": "Cameroon",
+    "logo_sm": "logos/country/sm/CMR.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 26060,
+      "n_outputs_open": 14323,
+      "n_outputs_black": 16950,
+      "p_outputs_open": 54.96162701458174,
+      "p_outputs_publisher_open_only": 19.14428242517268,
+      "p_outputs_both": 24.80046047582502,
+      "p_outputs_other_platform_open_only": 11.016884113584037,
+      "p_outputs_closed": 45.03837298541827,
+      "p_outputs_black": 65.04221028396009
+    }
+  },
+  {
+    "id": "MMR",
+    "name": "Myanmar",
+    "logo_sm": "logos/country/sm/MMR.svg",
+    "entity_type": "country",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 5817,
+      "n_outputs_open": 3195,
+      "n_outputs_black": 3708,
+      "p_outputs_open": 54.92521918514698,
+      "p_outputs_publisher_open_only": 22.503008423586042,
+      "p_outputs_both": 25.700532920749524,
+      "p_outputs_other_platform_open_only": 6.721677840811415,
+      "p_outputs_closed": 45.074780814853014,
+      "p_outputs_black": 63.74419804022692
+    }
+  },
+  {
+    "id": "PLW",
+    "name": "Palau",
+    "logo_sm": "logos/country/sm/PLW.svg",
+    "entity_type": "country",
+    "subregion": "Micronesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 275,
+      "n_outputs_open": 151,
+      "n_outputs_black": 190,
+      "p_outputs_open": 54.90909090909091,
+      "p_outputs_publisher_open_only": 22.181818181818183,
+      "p_outputs_both": 25.454545454545453,
+      "p_outputs_other_platform_open_only": 7.2727272727272725,
+      "p_outputs_closed": 45.09090909090909,
+      "p_outputs_black": 69.0909090909091
+    }
+  },
+  {
+    "id": "SEN",
+    "name": "Senegal",
+    "logo_sm": "logos/country/sm/SEN.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 11274,
+      "n_outputs_open": 6152,
+      "n_outputs_black": 7639,
+      "p_outputs_open": 54.56803264147596,
+      "p_outputs_publisher_open_only": 16.764236295902077,
+      "p_outputs_both": 28.66773106262196,
+      "p_outputs_other_platform_open_only": 9.136065282951925,
+      "p_outputs_closed": 45.43196735852404,
+      "p_outputs_black": 67.75767252084442
+    }
+  },
+  {
+    "id": "CUB",
+    "name": "Cuba",
+    "logo_sm": "logos/country/sm/CUB.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 24530,
+      "n_outputs_open": 13372,
+      "n_outputs_black": 14678,
+      "p_outputs_open": 54.51284141867101,
+      "p_outputs_publisher_open_only": 22.017937219730943,
+      "p_outputs_both": 25.018344883815736,
+      "p_outputs_other_platform_open_only": 7.476559315124337,
+      "p_outputs_closed": 45.487158581328984,
+      "p_outputs_black": 59.83693436608235
+    }
+  },
+  {
+    "id": "NLD",
+    "name": "Netherlands",
+    "logo_sm": "logos/country/sm/NLD.svg",
+    "entity_type": "country",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 1074642,
+      "n_outputs_open": 584956,
+      "n_outputs_black": 849030,
+      "p_outputs_open": 54.43263896255684,
+      "p_outputs_publisher_open_only": 11.611960076006707,
+      "p_outputs_both": 26.094364448811792,
+      "p_outputs_other_platform_open_only": 16.726314437738335,
+      "p_outputs_closed": 45.56736103744316,
+      "p_outputs_black": 79.00584566767351
+    }
+  },
+  {
+    "id": "VAT",
+    "name": "Holy See",
+    "logo_sm": "logos/country/sm/VAT.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 298,
+      "n_outputs_open": 162,
+      "n_outputs_black": 197,
+      "p_outputs_open": 54.36241610738255,
+      "p_outputs_publisher_open_only": 24.161073825503358,
+      "p_outputs_both": 17.114093959731544,
+      "p_outputs_other_platform_open_only": 13.087248322147651,
+      "p_outputs_closed": 45.63758389261745,
+      "p_outputs_black": 66.10738255033557
+    }
+  },
+  {
+    "id": "BGD",
+    "name": "Bangladesh",
+    "logo_sm": "logos/country/sm/BGD.svg",
+    "entity_type": "country",
+    "subregion": "Southern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 115137,
+      "n_outputs_open": 62470,
+      "n_outputs_black": 65070,
+      "p_outputs_open": 54.257102408435166,
+      "p_outputs_publisher_open_only": 29.99904461641349,
+      "p_outputs_both": 18.47364444097032,
+      "p_outputs_other_platform_open_only": 5.784413351051356,
+      "p_outputs_closed": 45.74289759156483,
+      "p_outputs_black": 56.5152817947315
+    }
+  },
+  {
+    "id": "SWZ",
+    "name": "Eswatini",
+    "logo_sm": "logos/country/sm/SWZ.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 1462,
+      "n_outputs_open": 792,
+      "n_outputs_black": 882,
+      "p_outputs_open": 54.172366621067034,
+      "p_outputs_publisher_open_only": 20.930232558139537,
+      "p_outputs_both": 24.6922024623803,
+      "p_outputs_other_platform_open_only": 8.549931600547197,
+      "p_outputs_closed": 45.82763337893297,
+      "p_outputs_black": 60.32831737346102
+    }
+  },
+  {
+    "id": "POL",
+    "name": "Poland",
+    "logo_sm": "logos/country/sm/POL.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 723340,
+      "n_outputs_open": 389981,
+      "n_outputs_black": 425839,
+      "p_outputs_open": 53.91392706058009,
+      "p_outputs_publisher_open_only": 26.56648325821882,
+      "p_outputs_both": 21.03146514778666,
+      "p_outputs_other_platform_open_only": 6.315978654574613,
+      "p_outputs_closed": 46.086072939419914,
+      "p_outputs_black": 58.871208560289766
+    }
+  },
+  {
+    "id": "BHS",
+    "name": "The Bahamas",
+    "logo_sm": "logos/country/sm/BHS.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 1213,
+      "n_outputs_open": 653,
+      "n_outputs_black": 708,
+      "p_outputs_open": 53.83347073371806,
+      "p_outputs_publisher_open_only": 23.000824402308325,
+      "p_outputs_both": 19.455894476504536,
+      "p_outputs_other_platform_open_only": 11.376751854905194,
+      "p_outputs_closed": 46.16652926628195,
+      "p_outputs_black": 58.367683429513605
+    }
+  },
+  {
+    "id": "PRT",
+    "name": "Portugal",
+    "logo_sm": "logos/country/sm/PRT.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 395342,
+      "n_outputs_open": 212205,
+      "n_outputs_black": 273907,
+      "p_outputs_open": 53.676310637372204,
+      "p_outputs_publisher_open_only": 13.488068558362126,
+      "p_outputs_both": 23.834806319591646,
+      "p_outputs_other_platform_open_only": 16.353435759418428,
+      "p_outputs_closed": 46.3236893626278,
+      "p_outputs_black": 69.28355702151555
+    }
+  },
+  {
+    "id": "TUV",
+    "name": "Tuvalu",
+    "logo_sm": "logos/country/sm/TUV.svg",
+    "entity_type": "country",
+    "subregion": "Polynesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 30,
+      "n_outputs_open": 16,
+      "n_outputs_black": 26,
+      "p_outputs_open": 53.333333333333336,
+      "p_outputs_publisher_open_only": 30.0,
+      "p_outputs_both": 16.666666666666664,
+      "p_outputs_other_platform_open_only": 6.666666666666667,
+      "p_outputs_closed": 46.666666666666664,
+      "p_outputs_black": 86.66666666666667
+    }
+  },
+  {
+    "id": "SRB",
+    "name": "Serbia",
+    "logo_sm": "logos/country/sm/SRB.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 109265,
+      "n_outputs_open": 58169,
+      "n_outputs_black": 66203,
+      "p_outputs_open": 53.23662655013042,
+      "p_outputs_publisher_open_only": 21.153159749233517,
+      "p_outputs_both": 24.307875348922344,
+      "p_outputs_other_platform_open_only": 7.775591451974558,
+      "p_outputs_closed": 46.76337344986958,
+      "p_outputs_black": 60.58939276071935
+    }
+  },
+  {
+    "id": "UKR",
+    "name": "Ukraine",
+    "logo_sm": "logos/country/sm/UKR.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 256779,
+      "n_outputs_open": 136362,
+      "n_outputs_black": 112283,
+      "p_outputs_open": 53.10480997277814,
+      "p_outputs_publisher_open_only": 35.52665911153171,
+      "p_outputs_both": 12.983148933518706,
+      "p_outputs_other_platform_open_only": 4.5950019277277345,
+      "p_outputs_closed": 46.89519002722185,
+      "p_outputs_black": 43.727485503097995
+    }
+  },
+  {
+    "id": "FSM",
+    "name": "Micronesia",
+    "logo_sm": "logos/country/sm/FSM.svg",
+    "entity_type": "country",
+    "subregion": "Micronesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 225,
+      "n_outputs_open": 118,
+      "n_outputs_black": 163,
+      "p_outputs_open": 52.44444444444445,
+      "p_outputs_publisher_open_only": 13.777777777777779,
+      "p_outputs_both": 27.111111111111114,
+      "p_outputs_other_platform_open_only": 11.555555555555555,
+      "p_outputs_closed": 47.55555555555556,
+      "p_outputs_black": 72.44444444444444
+    }
+  },
+  {
+    "id": "SLB",
+    "name": "Solomon Islands",
+    "logo_sm": "logos/country/sm/SLB.svg",
+    "entity_type": "country",
+    "subregion": "Melanesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 84,
+      "n_outputs_open": 44,
+      "n_outputs_black": 51,
+      "p_outputs_open": 52.38095238095239,
+      "p_outputs_publisher_open_only": 7.142857142857142,
+      "p_outputs_both": 34.523809523809526,
+      "p_outputs_other_platform_open_only": 10.714285714285714,
+      "p_outputs_closed": 47.61904761904761,
+      "p_outputs_black": 60.71428571428571
+    }
+  },
+  {
+    "id": "MEX",
+    "name": "Mexico",
+    "logo_sm": "logos/country/sm/MEX.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 421209,
+      "n_outputs_open": 220320,
+      "n_outputs_black": 249855,
+      "p_outputs_open": 52.3065746458409,
+      "p_outputs_publisher_open_only": 21.58595851465662,
+      "p_outputs_both": 23.855378208917664,
+      "p_outputs_other_platform_open_only": 6.865237922266617,
+      "p_outputs_closed": 47.693425354159096,
+      "p_outputs_black": 59.3185330797775
+    }
+  },
+  {
+    "id": "MNE",
+    "name": "Montenegro",
+    "logo_sm": "logos/country/sm/MNE.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 5879,
+      "n_outputs_open": 3062,
+      "n_outputs_black": 3480,
+      "p_outputs_open": 52.08368770199014,
+      "p_outputs_publisher_open_only": 21.602313318591598,
+      "p_outputs_both": 22.4187787038612,
+      "p_outputs_other_platform_open_only": 8.062595679537337,
+      "p_outputs_closed": 47.91631229800986,
+      "p_outputs_black": 59.19374043204627
+    }
+  },
+  {
+    "id": "TGO",
+    "name": "Togo",
+    "logo_sm": "logos/country/sm/TGO.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 2935,
+      "n_outputs_open": 1523,
+      "n_outputs_black": 1839,
+      "p_outputs_open": 51.89097103918229,
+      "p_outputs_publisher_open_only": 22.044293015332197,
+      "p_outputs_both": 22.82793867120954,
+      "p_outputs_other_platform_open_only": 7.018739352640544,
+      "p_outputs_closed": 48.10902896081772,
+      "p_outputs_black": 62.65758091993185
+    }
+  },
+  {
+    "id": "HUN",
+    "name": "Hungary",
+    "logo_sm": "logos/country/sm/HUN.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 202362,
+      "n_outputs_open": 104955,
+      "n_outputs_black": 138730,
+      "p_outputs_open": 51.864974649390696,
+      "p_outputs_publisher_open_only": 16.369674148308476,
+      "p_outputs_both": 22.541781559779007,
+      "p_outputs_other_platform_open_only": 12.95351894130321,
+      "p_outputs_closed": 48.135025350609304,
+      "p_outputs_black": 68.55536118441209
+    }
+  },
+  {
+    "id": "DNK",
+    "name": "Denmark",
+    "logo_sm": "logos/country/sm/DNK.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 445111,
+      "n_outputs_open": 230769,
+      "n_outputs_black": 349247,
+      "p_outputs_open": 51.84527005623316,
+      "p_outputs_publisher_open_only": 11.838620029610592,
+      "p_outputs_both": 23.598158661547345,
+      "p_outputs_other_platform_open_only": 16.40849136507523,
+      "p_outputs_closed": 48.15472994376683,
+      "p_outputs_black": 78.46290026532708
+    }
+  },
+  {
+    "id": "TKM",
+    "name": "Turkmenistan",
+    "logo_sm": "logos/country/sm/TKM.svg",
+    "entity_type": "country",
+    "subregion": "Central Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 556,
+      "n_outputs_open": 288,
+      "n_outputs_black": 199,
+      "p_outputs_open": 51.798561151079134,
+      "p_outputs_publisher_open_only": 39.02877697841727,
+      "p_outputs_both": 8.81294964028777,
+      "p_outputs_other_platform_open_only": 3.9568345323741005,
+      "p_outputs_closed": 48.201438848920866,
+      "p_outputs_black": 35.79136690647482
+    }
+  },
+  {
+    "id": "YEM",
+    "name": "Yemen",
+    "logo_sm": "logos/country/sm/YEM.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 11736,
+      "n_outputs_open": 6060,
+      "n_outputs_black": 6179,
+      "p_outputs_open": 51.63599182004091,
+      "p_outputs_publisher_open_only": 29.91649625085208,
+      "p_outputs_both": 16.419563735514657,
+      "p_outputs_other_platform_open_only": 5.299931833674165,
+      "p_outputs_closed": 48.3640081799591,
+      "p_outputs_black": 52.64996591683708
+    }
+  },
+  {
+    "id": "VEN",
+    "name": "Venezuela",
+    "logo_sm": "logos/country/sm/VEN.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 30725,
+      "n_outputs_open": 15861,
+      "n_outputs_black": 19352,
+      "p_outputs_open": 51.62245728234337,
+      "p_outputs_publisher_open_only": 21.965825874694875,
+      "p_outputs_both": 22.642799023596417,
+      "p_outputs_other_platform_open_only": 7.013832384052075,
+      "p_outputs_closed": 48.37754271765663,
+      "p_outputs_black": 62.984540276647685
+    }
+  },
+  {
+    "id": "EGY",
+    "name": "Egypt",
+    "logo_sm": "logos/country/sm/EGY.svg",
+    "entity_type": "country",
+    "subregion": "Northern Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 373094,
+      "n_outputs_open": 192492,
+      "n_outputs_black": 204934,
+      "p_outputs_open": 51.593432218154135,
+      "p_outputs_publisher_open_only": 34.867620492422816,
+      "p_outputs_both": 12.75174620873024,
+      "p_outputs_other_platform_open_only": 3.9740655170010775,
+      "p_outputs_closed": 48.40656778184586,
+      "p_outputs_black": 54.92824864511356
+    }
+  },
+  {
+    "id": "KAZ",
+    "name": "Kazakhstan",
+    "logo_sm": "logos/country/sm/KAZ.svg",
+    "entity_type": "country",
+    "subregion": "Central Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 38916,
+      "n_outputs_open": 20042,
+      "n_outputs_black": 17858,
+      "p_outputs_open": 51.500668105663486,
+      "p_outputs_publisher_open_only": 29.37095282146161,
+      "p_outputs_both": 15.80583821564395,
+      "p_outputs_other_platform_open_only": 6.323877068557919,
+      "p_outputs_closed": 48.499331894336514,
+      "p_outputs_black": 45.88858053242882
+    }
+  },
+  {
+    "id": "ZAF",
+    "name": "South Africa",
+    "logo_sm": "logos/country/sm/ZAF.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 361580,
+      "n_outputs_open": 186015,
+      "n_outputs_black": 253006,
+      "p_outputs_open": 51.445046739310804,
+      "p_outputs_publisher_open_only": 18.085071076940096,
+      "p_outputs_both": 23.3215332706455,
+      "p_outputs_other_platform_open_only": 10.038442391725207,
+      "p_outputs_closed": 48.554953260689196,
+      "p_outputs_black": 69.97234360307539
+    }
+  },
+  {
+    "id": "SYR",
+    "name": "Syria",
+    "logo_sm": "logos/country/sm/SYR.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 8527,
+      "n_outputs_open": 4368,
+      "n_outputs_black": 5276,
+      "p_outputs_open": 51.22551893983817,
+      "p_outputs_publisher_open_only": 20.640318986747978,
+      "p_outputs_both": 22.387709628239712,
+      "p_outputs_other_platform_open_only": 8.197490324850474,
+      "p_outputs_closed": 48.77448106016184,
+      "p_outputs_black": 61.874047144364965
+    }
+  },
+  {
+    "id": "DMA",
+    "name": "Dominica",
+    "logo_sm": "logos/country/sm/DMA.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 267,
+      "n_outputs_open": 136,
+      "n_outputs_black": 182,
+      "p_outputs_open": 50.936329588014985,
+      "p_outputs_publisher_open_only": 17.60299625468165,
+      "p_outputs_both": 24.344569288389515,
+      "p_outputs_other_platform_open_only": 8.98876404494382,
+      "p_outputs_closed": 49.063670411985015,
+      "p_outputs_black": 68.16479400749064
+    }
+  },
+  {
+    "id": "SWE",
+    "name": "Sweden",
+    "logo_sm": "logos/country/sm/SWE.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 708365,
+      "n_outputs_open": 360005,
+      "n_outputs_black": 570357,
+      "p_outputs_open": 50.821963253407496,
+      "p_outputs_publisher_open_only": 12.810486119444073,
+      "p_outputs_both": 24.85865337784899,
+      "p_outputs_other_platform_open_only": 13.152823756114431,
+      "p_outputs_closed": 49.178036746592504,
+      "p_outputs_black": 80.51738863439046
+    }
+  },
+  {
+    "id": "ISL",
+    "name": "Iceland",
+    "logo_sm": "logos/country/sm/ISL.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 25178,
+      "n_outputs_open": 12793,
+      "n_outputs_black": 18963,
+      "p_outputs_open": 50.81023115418222,
+      "p_outputs_publisher_open_only": 13.078878385892445,
+      "p_outputs_both": 23.341806338867265,
+      "p_outputs_other_platform_open_only": 14.389546429422511,
+      "p_outputs_closed": 49.189768845817774,
+      "p_outputs_black": 75.31575184685042
+    }
+  },
+  {
+    "id": "NAM",
+    "name": "Namibia",
+    "logo_sm": "logos/country/sm/NAM.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 4789,
+      "n_outputs_open": 2429,
+      "n_outputs_black": 2933,
+      "p_outputs_open": 50.72040091877219,
+      "p_outputs_publisher_open_only": 18.60513677176864,
+      "p_outputs_both": 23.198997703069534,
+      "p_outputs_other_platform_open_only": 8.916266443934015,
+      "p_outputs_closed": 49.279599081227815,
+      "p_outputs_black": 61.24451868866152
+    }
+  },
+  {
+    "id": "ESP",
+    "name": "Spain",
+    "logo_sm": "logos/country/sm/ESP.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 1616329,
+      "n_outputs_open": 819231,
+      "n_outputs_black": 1180276,
+      "p_outputs_open": 50.68466877721058,
+      "p_outputs_publisher_open_only": 13.460378425431951,
+      "p_outputs_both": 23.359167595211122,
+      "p_outputs_other_platform_open_only": 13.865122756567505,
+      "p_outputs_closed": 49.315331222789425,
+      "p_outputs_black": 73.02201470121491
+    }
+  },
+  {
+    "id": "PAK",
+    "name": "Pakistan",
+    "logo_sm": "logos/country/sm/PAK.svg",
+    "entity_type": "country",
+    "subregion": "Southern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 244216,
+      "n_outputs_open": 123674,
+      "n_outputs_black": 137652,
+      "p_outputs_open": 50.64123562747731,
+      "p_outputs_publisher_open_only": 27.284862580666296,
+      "p_outputs_both": 17.765420775051595,
+      "p_outputs_other_platform_open_only": 5.590952271759426,
+      "p_outputs_closed": 49.358764372522685,
+      "p_outputs_black": 56.36485733940446
+    }
+  },
+  {
+    "id": "PRK",
+    "name": "North Korea",
+    "logo_sm": "logos/country/sm/PRK.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 719,
+      "n_outputs_open": 364,
+      "n_outputs_black": 436,
+      "p_outputs_open": 50.62586926286509,
+      "p_outputs_publisher_open_only": 28.929068150208625,
+      "p_outputs_both": 11.68289290681502,
+      "p_outputs_other_platform_open_only": 10.013908205841446,
+      "p_outputs_closed": 49.374130737134905,
+      "p_outputs_black": 60.639777468706534
+    }
+  },
+  {
+    "id": "LVA",
+    "name": "Latvia",
+    "logo_sm": "logos/country/sm/LVA.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 36272,
+      "n_outputs_open": 18352,
+      "n_outputs_black": 19788,
+      "p_outputs_open": 50.5955006616674,
+      "p_outputs_publisher_open_only": 26.339876488751656,
+      "p_outputs_both": 14.686259373621526,
+      "p_outputs_other_platform_open_only": 9.569364799294222,
+      "p_outputs_closed": 49.4044993383326,
+      "p_outputs_black": 54.554477282752536
+    }
+  },
+  {
+    "id": "LBY",
+    "name": "Libya",
+    "logo_sm": "logos/country/sm/LBY.svg",
+    "entity_type": "country",
+    "subregion": "Northern Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 7383,
+      "n_outputs_open": 3735,
+      "n_outputs_black": 3712,
+      "p_outputs_open": 50.58919138561561,
+      "p_outputs_publisher_open_only": 29.0667750237031,
+      "p_outputs_both": 15.400243803331978,
+      "p_outputs_other_platform_open_only": 6.122172558580523,
+      "p_outputs_closed": 49.41080861438439,
+      "p_outputs_black": 50.277664905864825
+    }
+  },
+  {
+    "id": "BEL",
+    "name": "Belgium",
+    "logo_sm": "logos/country/sm/BEL.svg",
+    "entity_type": "country",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 589199,
+      "n_outputs_open": 297801,
+      "n_outputs_black": 460601,
+      "p_outputs_open": 50.54336480543925,
+      "p_outputs_publisher_open_only": 10.456229559113304,
+      "p_outputs_both": 21.22593554978878,
+      "p_outputs_other_platform_open_only": 18.861199696537163,
+      "p_outputs_closed": 49.45663519456075,
+      "p_outputs_black": 78.17409737626846
+    }
+  },
+  {
+    "id": "GBR",
+    "name": "United Kingdom",
+    "logo_sm": "logos/country/sm/GBR.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 3917463,
+      "n_outputs_open": 1979692,
+      "n_outputs_black": 3085317,
+      "p_outputs_open": 50.53505291562422,
+      "p_outputs_publisher_open_only": 10.854856829534828,
+      "p_outputs_both": 21.31611708904462,
+      "p_outputs_other_platform_open_only": 18.36407899704477,
+      "p_outputs_closed": 49.46494708437578,
+      "p_outputs_black": 78.75803804656228
+    }
+  },
+  {
+    "id": "MRT",
+    "name": "Mauritania",
+    "logo_sm": "logos/country/sm/MRT.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 723,
+      "n_outputs_open": 365,
+      "n_outputs_black": 517,
+      "p_outputs_open": 50.48409405255878,
+      "p_outputs_publisher_open_only": 16.32088520055325,
+      "p_outputs_both": 25.03457814661134,
+      "p_outputs_other_platform_open_only": 9.12863070539419,
+      "p_outputs_closed": 49.51590594744122,
+      "p_outputs_black": 71.5076071922545
+    }
+  },
+  {
+    "id": "DJI",
+    "name": "Djibouti",
+    "logo_sm": "logos/country/sm/DJI.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 264,
+      "n_outputs_open": 133,
+      "n_outputs_black": 186,
+      "p_outputs_open": 50.378787878787875,
+      "p_outputs_publisher_open_only": 16.28787878787879,
+      "p_outputs_both": 23.106060606060606,
+      "p_outputs_other_platform_open_only": 10.984848484848484,
+      "p_outputs_closed": 49.621212121212125,
+      "p_outputs_black": 70.45454545454545
+    }
+  },
+  {
+    "id": "SJM",
+    "name": "Svalbard and Jan Mayen",
+    "logo_sm": "logos/country/sm/SJM.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 248,
+      "n_outputs_open": 124,
+      "n_outputs_black": 169,
+      "p_outputs_open": 50.0,
+      "p_outputs_publisher_open_only": 17.741935483870968,
+      "p_outputs_both": 19.35483870967742,
+      "p_outputs_other_platform_open_only": 12.903225806451612,
+      "p_outputs_closed": 50.0,
+      "p_outputs_black": 68.14516129032258
+    }
+  },
+  {
+    "id": "SAU",
+    "name": "Saudi Arabia",
+    "logo_sm": "logos/country/sm/SAU.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 304067,
+      "n_outputs_open": 151731,
+      "n_outputs_black": 195209,
+      "p_outputs_open": 49.90051534694656,
+      "p_outputs_publisher_open_only": 19.296405068619745,
+      "p_outputs_both": 22.76044424419618,
+      "p_outputs_other_platform_open_only": 7.843666034130637,
+      "p_outputs_closed": 50.09948465305344,
+      "p_outputs_black": 64.19933764597934
+    }
+  },
+  {
+    "id": "LSO",
+    "name": "Lesotho",
+    "logo_sm": "logos/country/sm/LSO.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 1015,
+      "n_outputs_open": 502,
+      "n_outputs_black": 586,
+      "p_outputs_open": 49.45812807881773,
+      "p_outputs_publisher_open_only": 23.54679802955665,
+      "p_outputs_both": 18.226600985221676,
+      "p_outputs_other_platform_open_only": 7.684729064039408,
+      "p_outputs_closed": 50.54187192118227,
+      "p_outputs_black": 57.73399014778325
+    }
+  },
+  {
+    "id": "PSE",
+    "name": "Palestine",
+    "logo_sm": "logos/country/sm/PSE.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 12051,
+      "n_outputs_open": 5953,
+      "n_outputs_black": 7397,
+      "p_outputs_open": 49.398390175089204,
+      "p_outputs_publisher_open_only": 21.940087959505437,
+      "p_outputs_both": 20.919425773794707,
+      "p_outputs_other_platform_open_only": 6.538876441789062,
+      "p_outputs_closed": 50.601609824910796,
+      "p_outputs_black": 61.38079827400216
+    }
+  },
+  {
+    "id": "PHL",
+    "name": "Philippines",
+    "logo_sm": "logos/country/sm/PHL.svg",
+    "entity_type": "country",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 56118,
+      "n_outputs_open": 27574,
+      "n_outputs_black": 30824,
+      "p_outputs_open": 49.1357496703375,
+      "p_outputs_publisher_open_only": 25.97384083538259,
+      "p_outputs_both": 15.875476674150896,
+      "p_outputs_other_platform_open_only": 7.2864321608040195,
+      "p_outputs_closed": 50.8642503296625,
+      "p_outputs_black": 54.92711785879754
+    }
+  },
+  {
+    "id": "IRL",
+    "name": "Ireland",
+    "logo_sm": "logos/country/sm/IRL.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 261201,
+      "n_outputs_open": 127913,
+      "n_outputs_black": 200510,
+      "p_outputs_open": 48.9710988855326,
+      "p_outputs_publisher_open_only": 12.890073162047619,
+      "p_outputs_both": 19.390431123923722,
+      "p_outputs_other_platform_open_only": 16.690594599561255,
+      "p_outputs_closed": 51.02890111446741,
+      "p_outputs_black": 76.76463719511027
+    }
+  },
+  {
+    "id": "MSR",
+    "name": "Montserrat",
+    "logo_sm": "logos/country/sm/MSR.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 284,
+      "n_outputs_open": 139,
+      "n_outputs_black": 170,
+      "p_outputs_open": 48.943661971830984,
+      "p_outputs_publisher_open_only": 13.732394366197184,
+      "p_outputs_both": 20.070422535211268,
+      "p_outputs_other_platform_open_only": 15.140845070422534,
+      "p_outputs_closed": 51.056338028169016,
+      "p_outputs_black": 59.859154929577464
+    }
+  },
+  {
+    "id": "FIN",
+    "name": "Finland",
+    "logo_sm": "logos/country/sm/FIN.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 354858,
+      "n_outputs_open": 173531,
+      "n_outputs_black": 277948,
+      "p_outputs_open": 48.901532443963504,
+      "p_outputs_publisher_open_only": 11.566034864650085,
+      "p_outputs_both": 22.10095305727925,
+      "p_outputs_other_platform_open_only": 15.234544522034167,
+      "p_outputs_closed": 51.098467556036496,
+      "p_outputs_black": 78.32654188435939
+    }
+  },
+  {
+    "id": "ZWE",
+    "name": "Zimbabwe",
+    "logo_sm": "logos/country/sm/ZWE.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 15196,
+      "n_outputs_open": 7420,
+      "n_outputs_black": 9154,
+      "p_outputs_open": 48.828639115556726,
+      "p_outputs_publisher_open_only": 18.379836799157673,
+      "p_outputs_both": 23.01921558304817,
+      "p_outputs_other_platform_open_only": 7.429586733350882,
+      "p_outputs_closed": 51.171360884443274,
+      "p_outputs_black": 60.23953672018953
+    }
+  },
+  {
+    "id": "MKD",
+    "name": "North Macedonia",
+    "logo_sm": "logos/country/sm/MKD.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 17449,
+      "n_outputs_open": 8515,
+      "n_outputs_black": 9355,
+      "p_outputs_open": 48.7993581294057,
+      "p_outputs_publisher_open_only": 22.809330047567194,
+      "p_outputs_both": 15.926414121153073,
+      "p_outputs_other_platform_open_only": 10.063613960685426,
+      "p_outputs_closed": 51.200641870594296,
+      "p_outputs_black": 53.613387586681185
+    }
+  },
+  {
+    "id": "SVN",
+    "name": "Slovenia",
+    "logo_sm": "logos/country/sm/SVN.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 95503,
+      "n_outputs_open": 46193,
+      "n_outputs_black": 66636,
+      "p_outputs_open": 48.36811409065684,
+      "p_outputs_publisher_open_only": 17.617247625729036,
+      "p_outputs_both": 20.971068971655342,
+      "p_outputs_other_platform_open_only": 9.779797493272463,
+      "p_outputs_closed": 51.63188590934317,
+      "p_outputs_black": 69.77372438562139
+    }
+  },
+  {
+    "id": "MNG",
+    "name": "Mongolia",
+    "logo_sm": "logos/country/sm/MNG.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 13349,
+      "n_outputs_open": 6452,
+      "n_outputs_black": 7498,
+      "p_outputs_open": 48.33320848003596,
+      "p_outputs_publisher_open_only": 26.443928384148624,
+      "p_outputs_both": 15.27455240092891,
+      "p_outputs_other_platform_open_only": 6.6147276949584235,
+      "p_outputs_closed": 51.666791519964036,
+      "p_outputs_black": 56.16900142332759
+    }
+  },
+  {
+    "id": "PRI",
+    "name": "Puerto Rico",
+    "logo_sm": "logos/country/sm/PRI.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 4184,
+      "n_outputs_open": 2022,
+      "n_outputs_black": 3127,
+      "p_outputs_open": 48.32695984703633,
+      "p_outputs_publisher_open_only": 15.607074569789676,
+      "p_outputs_both": 20.363288718929255,
+      "p_outputs_other_platform_open_only": 12.3565965583174,
+      "p_outputs_closed": 51.673040152963665,
+      "p_outputs_black": 74.73709369024857
+    }
+  },
+  {
+    "id": "FJI",
+    "name": "Fiji",
+    "logo_sm": "logos/country/sm/FJI.svg",
+    "entity_type": "country",
+    "subregion": "Melanesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 4885,
+      "n_outputs_open": 2340,
+      "n_outputs_black": 3381,
+      "p_outputs_open": 47.901740020470825,
+      "p_outputs_publisher_open_only": 12.77379733879222,
+      "p_outputs_both": 19.590583418628455,
+      "p_outputs_other_platform_open_only": 15.537359263050154,
+      "p_outputs_closed": 52.098259979529175,
+      "p_outputs_black": 69.21187308085977
+    }
+  },
+  {
+    "id": "MLT",
+    "name": "Malta",
+    "logo_sm": "logos/country/sm/MLT.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 12352,
+      "n_outputs_open": 5909,
+      "n_outputs_black": 8141,
+      "p_outputs_open": 47.83840673575129,
+      "p_outputs_publisher_open_only": 10.92130829015544,
+      "p_outputs_both": 21.47830310880829,
+      "p_outputs_other_platform_open_only": 15.438795336787564,
+      "p_outputs_closed": 52.16159326424871,
+      "p_outputs_black": 65.90835492227978
+    }
+  },
+  {
+    "id": "MYS",
+    "name": "Malaysia",
+    "logo_sm": "logos/country/sm/MYS.svg",
+    "entity_type": "country",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 369013,
+      "n_outputs_open": 175233,
+      "n_outputs_black": 240181,
+      "p_outputs_open": 47.48694490438006,
+      "p_outputs_publisher_open_only": 23.71081777606751,
+      "p_outputs_both": 16.88883589467038,
+      "p_outputs_other_platform_open_only": 6.887291233642174,
+      "p_outputs_closed": 52.51305509561994,
+      "p_outputs_black": 65.08740884467484
+    }
+  },
+  {
+    "id": "SVK",
+    "name": "Slovakia",
+    "logo_sm": "logos/country/sm/SVK.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 104535,
+      "n_outputs_open": 49333,
+      "n_outputs_black": 71895,
+      "p_outputs_open": 47.192806237145454,
+      "p_outputs_publisher_open_only": 22.8784617592194,
+      "p_outputs_both": 16.950303726024778,
+      "p_outputs_other_platform_open_only": 7.3640407519012765,
+      "p_outputs_closed": 52.807193762854546,
+      "p_outputs_black": 68.77600803558617
+    }
+  },
+  {
+    "id": "QAT",
+    "name": "Qatar",
+    "logo_sm": "logos/country/sm/QAT.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 54312,
+      "n_outputs_open": 25591,
+      "n_outputs_black": 35814,
+      "p_outputs_open": 47.11850051553984,
+      "p_outputs_publisher_open_only": 13.057887759611136,
+      "p_outputs_both": 24.0480925025777,
+      "p_outputs_other_platform_open_only": 10.01252025335101,
+      "p_outputs_closed": 52.88149948446016,
+      "p_outputs_black": 65.94122845779938
+    }
+  },
+  {
+    "id": "UZB",
+    "name": "Uzbekistan",
+    "logo_sm": "logos/country/sm/UZB.svg",
+    "entity_type": "country",
+    "subregion": "Central Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 23313,
+      "n_outputs_open": 10881,
+      "n_outputs_black": 10424,
+      "p_outputs_open": 46.67352979024579,
+      "p_outputs_publisher_open_only": 29.734482906532833,
+      "p_outputs_both": 11.152575816068289,
+      "p_outputs_other_platform_open_only": 5.786471067644662,
+      "p_outputs_closed": 53.32647020975422,
+      "p_outputs_black": 44.71325011795994
+    }
+  },
+  {
+    "id": "ROU",
+    "name": "Romania",
+    "logo_sm": "logos/country/sm/ROU.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 183683,
+      "n_outputs_open": 85675,
+      "n_outputs_black": 120531,
+      "p_outputs_open": 46.64285753172586,
+      "p_outputs_publisher_open_only": 23.806231387771323,
+      "p_outputs_both": 16.979252298797384,
+      "p_outputs_other_platform_open_only": 5.857373845157145,
+      "p_outputs_closed": 53.35714246827414,
+      "p_outputs_black": 65.61902843485788
+    }
+  },
+  {
+    "id": "GRD",
+    "name": "Grenada",
+    "logo_sm": "logos/country/sm/GRD.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 3363,
+      "n_outputs_open": 1568,
+      "n_outputs_black": 2361,
+      "p_outputs_open": 46.62503716919417,
+      "p_outputs_publisher_open_only": 15.016354445435622,
+      "p_outputs_both": 23.788284269997025,
+      "p_outputs_other_platform_open_only": 7.820398453761522,
+      "p_outputs_closed": 53.37496283080583,
+      "p_outputs_black": 70.20517395182873
+    }
+  },
+  {
+    "id": "GEO",
+    "name": "Georgia",
+    "logo_sm": "logos/country/sm/GEO.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 32172,
+      "n_outputs_open": 14989,
+      "n_outputs_black": 22053,
+      "p_outputs_open": 46.59020266069874,
+      "p_outputs_publisher_open_only": 18.693273654109163,
+      "p_outputs_both": 18.01255750341912,
+      "p_outputs_other_platform_open_only": 9.884371503170458,
+      "p_outputs_closed": 53.40979733930126,
+      "p_outputs_black": 68.54718388660947
+    }
+  },
+  {
+    "id": "MCO",
+    "name": "Monaco",
+    "logo_sm": "logos/country/sm/MCO.svg",
+    "entity_type": "country",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 2594,
+      "n_outputs_open": 1205,
+      "n_outputs_black": 2045,
+      "p_outputs_open": 46.45335389360062,
+      "p_outputs_publisher_open_only": 13.801079414032383,
+      "p_outputs_both": 23.053199691595992,
+      "p_outputs_other_platform_open_only": 9.599074787972244,
+      "p_outputs_closed": 53.546646106399386,
+      "p_outputs_black": 78.83577486507325
+    }
+  },
+  {
+    "id": "KGZ",
+    "name": "Kyrgyzstan",
+    "logo_sm": "logos/country/sm/KGZ.svg",
+    "entity_type": "country",
+    "subregion": "Central Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 5995,
+      "n_outputs_open": 2779,
+      "n_outputs_black": 1822,
+      "p_outputs_open": 46.35529608006672,
+      "p_outputs_publisher_open_only": 31.40950792326939,
+      "p_outputs_both": 10.97581317764804,
+      "p_outputs_other_platform_open_only": 3.969974979149291,
+      "p_outputs_closed": 53.64470391993328,
+      "p_outputs_black": 30.391993327773143
+    }
+  },
+  {
+    "id": "AZE",
+    "name": "Azerbaijan",
+    "logo_sm": "logos/country/sm/AZE.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 20962,
+      "n_outputs_open": 9700,
+      "n_outputs_black": 10931,
+      "p_outputs_open": 46.27421047609961,
+      "p_outputs_publisher_open_only": 25.784753363228702,
+      "p_outputs_both": 13.887033679992367,
+      "p_outputs_other_platform_open_only": 6.602423432878542,
+      "p_outputs_closed": 53.72578952390039,
+      "p_outputs_black": 52.146741723118026
+    }
+  },
+  {
+    "id": "SSD",
+    "name": "South Sudan",
+    "logo_sm": "logos/country/sm/SSD.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 2962,
+      "n_outputs_open": 1366,
+      "n_outputs_black": 1975,
+      "p_outputs_open": 46.11748818365969,
+      "p_outputs_publisher_open_only": 17.65698852126941,
+      "p_outputs_both": 15.327481431465225,
+      "p_outputs_other_platform_open_only": 13.13301823092505,
+      "p_outputs_closed": 53.882511816340305,
+      "p_outputs_black": 66.67792032410533
+    }
+  },
+  {
+    "id": "SMR",
+    "name": "San Marino",
+    "logo_sm": "logos/country/sm/SMR.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 408,
+      "n_outputs_open": 188,
+      "n_outputs_black": 293,
+      "p_outputs_open": 46.07843137254902,
+      "p_outputs_publisher_open_only": 13.23529411764706,
+      "p_outputs_both": 23.774509803921568,
+      "p_outputs_other_platform_open_only": 9.068627450980392,
+      "p_outputs_closed": 53.92156862745098,
+      "p_outputs_black": 71.81372549019608
+    }
+  },
+  {
+    "id": "BWA",
+    "name": "Botswana",
+    "logo_sm": "logos/country/sm/BWA.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 9334,
+      "n_outputs_open": 4295,
+      "n_outputs_black": 6200,
+      "p_outputs_open": 46.01457038782944,
+      "p_outputs_publisher_open_only": 17.02378401542747,
+      "p_outputs_both": 20.67709449325048,
+      "p_outputs_other_platform_open_only": 8.313691879151488,
+      "p_outputs_closed": 53.985429612170556,
+      "p_outputs_black": 66.42382686950931
+    }
+  },
+  {
+    "id": "VNM",
+    "name": "Vietnam",
+    "logo_sm": "logos/country/sm/VNM.svg",
+    "entity_type": "country",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 108721,
+      "n_outputs_open": 49919,
+      "n_outputs_black": 65850,
+      "p_outputs_open": 45.91477267501219,
+      "p_outputs_publisher_open_only": 22.552220822104285,
+      "p_outputs_both": 16.361144581083693,
+      "p_outputs_other_platform_open_only": 7.00140727182421,
+      "p_outputs_closed": 54.08522732498782,
+      "p_outputs_black": 60.56787557141674
+    }
+  },
+  {
+    "id": "NOR",
+    "name": "Norway",
+    "logo_sm": "logos/country/sm/NOR.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 408737,
+      "n_outputs_open": 187317,
+      "n_outputs_black": 314672,
+      "p_outputs_open": 45.82824652527175,
+      "p_outputs_publisher_open_only": 13.298526925626991,
+      "p_outputs_both": 21.10917289112559,
+      "p_outputs_other_platform_open_only": 11.42054670851917,
+      "p_outputs_closed": 54.17175347472825,
+      "p_outputs_black": 76.98642403305793
+    }
+  },
+  {
+    "id": "AUT",
+    "name": "Austria",
+    "logo_sm": "logos/country/sm/AUT.svg",
+    "entity_type": "country",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 427702,
+      "n_outputs_open": 195799,
+      "n_outputs_black": 321519,
+      "p_outputs_open": 45.77930428195332,
+      "p_outputs_publisher_open_only": 13.380811873687753,
+      "p_outputs_both": 21.47523275551669,
+      "p_outputs_other_platform_open_only": 10.923259652748877,
+      "p_outputs_closed": 54.22069571804668,
+      "p_outputs_black": 75.17360218095777
+    }
+  },
+  {
+    "id": "CYM",
+    "name": "Cayman Islands",
+    "logo_sm": "logos/country/sm/CYM.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 501,
+      "n_outputs_open": 228,
+      "n_outputs_black": 276,
+      "p_outputs_open": 45.50898203592814,
+      "p_outputs_publisher_open_only": 13.17365269461078,
+      "p_outputs_both": 17.964071856287426,
+      "p_outputs_other_platform_open_only": 14.37125748502994,
+      "p_outputs_closed": 54.49101796407185,
+      "p_outputs_black": 55.08982035928144
+    }
+  },
+  {
+    "id": "EST",
+    "name": "Estonia",
+    "logo_sm": "logos/country/sm/EST.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 47936,
+      "n_outputs_open": 21790,
+      "n_outputs_black": 34293,
+      "p_outputs_open": 45.456441922563414,
+      "p_outputs_publisher_open_only": 15.677152870493993,
+      "p_outputs_both": 19.628254339118826,
+      "p_outputs_other_platform_open_only": 10.151034712950601,
+      "p_outputs_closed": 54.543558077436586,
+      "p_outputs_black": 71.5391355140187
+    }
+  },
+  {
+    "id": "FRA",
+    "name": "France",
+    "logo_sm": "logos/country/sm/FRA.svg",
+    "entity_type": "country",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 1993295,
+      "n_outputs_open": 904357,
+      "n_outputs_black": 1581128,
+      "p_outputs_open": 45.369952766650194,
+      "p_outputs_publisher_open_only": 10.578414133382164,
+      "p_outputs_both": 18.116234676753816,
+      "p_outputs_other_platform_open_only": 16.675303956514213,
+      "p_outputs_closed": 54.63004723334981,
+      "p_outputs_black": 79.32232810497192
+    }
+  },
+  {
+    "id": "ITA",
+    "name": "Italy",
+    "logo_sm": "logos/country/sm/ITA.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 1834740,
+      "n_outputs_open": 826567,
+      "n_outputs_black": 1423686,
+      "p_outputs_open": 45.05090639545657,
+      "p_outputs_publisher_open_only": 11.157602712100898,
+      "p_outputs_both": 20.901653640297805,
+      "p_outputs_other_platform_open_only": 12.991650043057874,
+      "p_outputs_closed": 54.94909360454342,
+      "p_outputs_black": 77.59606265737925
+    }
+  },
+  {
+    "id": "CYP",
+    "name": "Cyprus",
+    "logo_sm": "logos/country/sm/CYP.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 42360,
+      "n_outputs_open": 19041,
+      "n_outputs_black": 28596,
+      "p_outputs_open": 44.950424929178475,
+      "p_outputs_publisher_open_only": 13.699244570349386,
+      "p_outputs_both": 18.255429650613785,
+      "p_outputs_other_platform_open_only": 12.995750708215297,
+      "p_outputs_closed": 55.04957507082153,
+      "p_outputs_black": 67.5070821529745
+    }
+  },
+  {
+    "id": "CZE",
+    "name": "Czech Republic",
+    "logo_sm": "logos/country/sm/CZE.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 321944,
+      "n_outputs_open": 142028,
+      "n_outputs_black": 232512,
+      "p_outputs_open": 44.1157468379594,
+      "p_outputs_publisher_open_only": 16.277365007578958,
+      "p_outputs_both": 18.315607683323808,
+      "p_outputs_other_platform_open_only": 9.522774147056632,
+      "p_outputs_closed": 55.8842531620406,
+      "p_outputs_black": 72.22125587058619
+    }
+  },
+  {
+    "id": "ARM",
+    "name": "Armenia",
+    "logo_sm": "logos/country/sm/ARM.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 18068,
+      "n_outputs_open": 7950,
+      "n_outputs_black": 12264,
+      "p_outputs_open": 44.00044277175116,
+      "p_outputs_publisher_open_only": 19.299313703785696,
+      "p_outputs_both": 14.605933141465574,
+      "p_outputs_other_platform_open_only": 10.095195926499889,
+      "p_outputs_closed": 55.99955722824884,
+      "p_outputs_black": 67.87690945317689
+    }
+  },
+  {
+    "id": "FLK",
+    "name": "Falkland Islands",
+    "logo_sm": "logos/country/sm/FLK.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 405,
+      "n_outputs_open": 178,
+      "n_outputs_black": 338,
+      "p_outputs_open": 43.95061728395061,
+      "p_outputs_publisher_open_only": 10.864197530864198,
+      "p_outputs_both": 21.23456790123457,
+      "p_outputs_other_platform_open_only": 11.851851851851853,
+      "p_outputs_closed": 56.04938271604938,
+      "p_outputs_black": 83.4567901234568
+    }
+  },
+  {
+    "id": "BHR",
+    "name": "Bahrain",
+    "logo_sm": "logos/country/sm/BHR.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 9775,
+      "n_outputs_open": 4295,
+      "n_outputs_black": 5378,
+      "p_outputs_open": 43.9386189258312,
+      "p_outputs_publisher_open_only": 20.61381074168798,
+      "p_outputs_both": 16.930946291560105,
+      "p_outputs_other_platform_open_only": 6.3938618925831205,
+      "p_outputs_closed": 56.06138107416881,
+      "p_outputs_black": 55.01790281329924
+    }
+  },
+  {
+    "id": "IMN",
+    "name": "Isle of Man",
+    "logo_sm": "logos/country/sm/IMN.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 324,
+      "n_outputs_open": 142,
+      "n_outputs_black": 268,
+      "p_outputs_open": 43.82716049382716,
+      "p_outputs_publisher_open_only": 18.51851851851852,
+      "p_outputs_both": 13.271604938271606,
+      "p_outputs_other_platform_open_only": 12.037037037037036,
+      "p_outputs_closed": 56.17283950617284,
+      "p_outputs_black": 82.71604938271605
+    }
+  },
+  {
+    "id": "BGR",
+    "name": "Bulgaria",
+    "logo_sm": "logos/country/sm/BGR.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 77121,
+      "n_outputs_open": 33758,
+      "n_outputs_black": 50024,
+      "p_outputs_open": 43.772772655956224,
+      "p_outputs_publisher_open_only": 21.98882275904099,
+      "p_outputs_both": 13.880784740861763,
+      "p_outputs_other_platform_open_only": 7.903165156053474,
+      "p_outputs_closed": 56.227227344043776,
+      "p_outputs_black": 64.8643041454338
+    }
+  },
+  {
+    "id": "BRB",
+    "name": "Barbados",
+    "logo_sm": "logos/country/sm/BRB.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 2356,
+      "n_outputs_open": 1018,
+      "n_outputs_black": 1700,
+      "p_outputs_open": 43.20882852292021,
+      "p_outputs_publisher_open_only": 15.025466893039049,
+      "p_outputs_both": 20.246179966044142,
+      "p_outputs_other_platform_open_only": 7.937181663837012,
+      "p_outputs_closed": 56.79117147707979,
+      "p_outputs_black": 72.15619694397284
+    }
+  },
+  {
+    "id": "JPN",
+    "name": "Japan",
+    "logo_sm": "logos/country/sm/JPN.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 2874862,
+      "n_outputs_open": 1238597,
+      "n_outputs_black": 2111531,
+      "p_outputs_open": 43.08370280034311,
+      "p_outputs_publisher_open_only": 24.427816013429513,
+      "p_outputs_both": 12.433083744541477,
+      "p_outputs_other_platform_open_only": 6.222803042372121,
+      "p_outputs_closed": 56.91629719965688,
+      "p_outputs_black": 73.44808202967656
+    }
+  },
+  {
+    "id": "MTQ",
+    "name": "Martinique",
+    "logo_sm": "logos/country/sm/MTQ.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 1861,
+      "n_outputs_open": 799,
+      "n_outputs_black": 1498,
+      "p_outputs_open": 42.933906501880706,
+      "p_outputs_publisher_open_only": 12.197743148844706,
+      "p_outputs_both": 24.12681354110693,
+      "p_outputs_other_platform_open_only": 6.609349811929071,
+      "p_outputs_closed": 57.06609349811929,
+      "p_outputs_black": 80.49435787211176
+    }
+  },
+  {
+    "id": "OMN",
+    "name": "Oman",
+    "logo_sm": "logos/country/sm/OMN.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 25792,
+      "n_outputs_open": 11034,
+      "n_outputs_black": 16060,
+      "p_outputs_open": 42.78070719602978,
+      "p_outputs_publisher_open_only": 18.49022952853598,
+      "p_outputs_both": 18.734491315136477,
+      "p_outputs_other_platform_open_only": 5.55598635235732,
+      "p_outputs_closed": 57.21929280397022,
+      "p_outputs_black": 62.267369727047154
+    }
+  },
+  {
+    "id": "BRN",
+    "name": "Brunei",
+    "logo_sm": "logos/country/sm/BRN.svg",
+    "entity_type": "country",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 7187,
+      "n_outputs_open": 3069,
+      "n_outputs_black": 4169,
+      "p_outputs_open": 42.70210101572283,
+      "p_outputs_publisher_open_only": 20.411854737720887,
+      "p_outputs_both": 15.75066091554195,
+      "p_outputs_other_platform_open_only": 6.539585362459997,
+      "p_outputs_closed": 57.29789898427716,
+      "p_outputs_black": 58.00751356616113
+    }
+  },
+  {
+    "id": "BLZ",
+    "name": "Belize",
+    "logo_sm": "logos/country/sm/BLZ.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 652,
+      "n_outputs_open": 278,
+      "n_outputs_black": 495,
+      "p_outputs_open": 42.63803680981595,
+      "p_outputs_publisher_open_only": 17.94478527607362,
+      "p_outputs_both": 16.717791411042946,
+      "p_outputs_other_platform_open_only": 7.975460122699387,
+      "p_outputs_closed": 57.36196319018405,
+      "p_outputs_black": 75.920245398773
+    }
+  },
+  {
+    "id": "TUR",
+    "name": "Turkey",
+    "logo_sm": "logos/country/sm/TUR.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 695014,
+      "n_outputs_open": 295556,
+      "n_outputs_black": 446930,
+      "p_outputs_open": 42.52518654300489,
+      "p_outputs_publisher_open_only": 19.592698852109454,
+      "p_outputs_both": 16.195213333832122,
+      "p_outputs_other_platform_open_only": 6.737274357063311,
+      "p_outputs_closed": 57.47481345699511,
+      "p_outputs_black": 64.30517946401079
+    }
+  },
+  {
+    "id": "USA",
+    "name": "United States",
+    "logo_sm": "logos/country/sm/USA.svg",
+    "entity_type": "country",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 13289402,
+      "n_outputs_open": 5608519,
+      "n_outputs_black": 10317219,
+      "p_outputs_open": 42.20294487291452,
+      "p_outputs_publisher_open_only": 12.775563565614165,
+      "p_outputs_both": 15.913755938754806,
+      "p_outputs_other_platform_open_only": 13.51362536854555,
+      "p_outputs_closed": 57.79705512708547,
+      "p_outputs_black": 77.63493797538821
+    }
+  },
+  {
+    "id": "JOR",
+    "name": "Jordan",
+    "logo_sm": "logos/country/sm/JOR.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 54207,
+      "n_outputs_open": 22820,
+      "n_outputs_black": 34056,
+      "p_outputs_open": 42.09788403711698,
+      "p_outputs_publisher_open_only": 20.191119228143968,
+      "p_outputs_both": 16.75060416551368,
+      "p_outputs_other_platform_open_only": 5.156160643459332,
+      "p_outputs_closed": 57.90211596288303,
+      "p_outputs_black": 62.82583430184293
+    }
+  },
+  {
+    "id": "AUS",
+    "name": "Australia",
+    "logo_sm": "logos/country/sm/AUS.svg",
+    "entity_type": "country",
+    "subregion": "Australia and New Zealand",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 1642677,
+      "n_outputs_open": 688298,
+      "n_outputs_black": 1297659,
+      "p_outputs_open": 41.900994535139894,
+      "p_outputs_publisher_open_only": 11.415451729098296,
+      "p_outputs_both": 17.246360666156523,
+      "p_outputs_other_platform_open_only": 13.239182139885077,
+      "p_outputs_closed": 58.0990054648601,
+      "p_outputs_black": 78.99660127949683
+    }
+  },
+  {
+    "id": "THA",
+    "name": "Thailand",
+    "logo_sm": "logos/country/sm/THA.svg",
+    "entity_type": "country",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 211002,
+      "n_outputs_open": 87269,
+      "n_outputs_black": 153718,
+      "p_outputs_open": 41.35932360830703,
+      "p_outputs_publisher_open_only": 17.569501710884257,
+      "p_outputs_both": 18.452431730504923,
+      "p_outputs_other_platform_open_only": 5.337390166917849,
+      "p_outputs_closed": 58.64067639169297,
+      "p_outputs_black": 72.85144216642496
+    }
+  },
+  {
+    "id": "GUM",
+    "name": "Guam",
+    "logo_sm": "logos/country/sm/GUM.svg",
+    "entity_type": "country",
+    "subregion": "Micronesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 1316,
+      "n_outputs_open": 544,
+      "n_outputs_black": 878,
+      "p_outputs_open": 41.33738601823708,
+      "p_outputs_publisher_open_only": 15.19756838905775,
+      "p_outputs_both": 17.857142857142858,
+      "p_outputs_other_platform_open_only": 8.282674772036474,
+      "p_outputs_closed": 58.662613981762924,
+      "p_outputs_black": 66.71732522796353
+    }
+  },
+  {
+    "id": "LBN",
+    "name": "Lebanon",
+    "logo_sm": "logos/country/sm/LBN.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 45107,
+      "n_outputs_open": 18646,
+      "n_outputs_black": 32340,
+      "p_outputs_open": 41.33726472609573,
+      "p_outputs_publisher_open_only": 12.756334936927749,
+      "p_outputs_both": 19.26751945374332,
+      "p_outputs_other_platform_open_only": 9.313410335424658,
+      "p_outputs_closed": 58.662735273904275,
+      "p_outputs_black": 71.69618906156472
+    }
+  },
+  {
+    "id": "CAN",
+    "name": "Canada",
+    "logo_sm": "logos/country/sm/CAN.svg",
+    "entity_type": "country",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 1976776,
+      "n_outputs_open": 808484,
+      "n_outputs_black": 1535731,
+      "p_outputs_open": 40.899120588271,
+      "p_outputs_publisher_open_only": 14.123147994512278,
+      "p_outputs_both": 16.55685823785801,
+      "p_outputs_other_platform_open_only": 10.219114355900718,
+      "p_outputs_closed": 59.100879411729004,
+      "p_outputs_black": 77.68867084586215
+    }
+  },
+  {
+    "id": "DEU",
+    "name": "Germany",
+    "logo_sm": "logos/country/sm/DEU.svg",
+    "entity_type": "country",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 3239091,
+      "n_outputs_open": 1315300,
+      "n_outputs_black": 2404536,
+      "p_outputs_open": 40.6070715518644,
+      "p_outputs_publisher_open_only": 11.463308687529928,
+      "p_outputs_both": 17.243171000752987,
+      "p_outputs_other_platform_open_only": 11.90059186358148,
+      "p_outputs_closed": 59.392928448135606,
+      "p_outputs_black": 74.23490108799042
+    }
+  },
+  {
+    "id": "ISR",
+    "name": "Israel",
+    "logo_sm": "logos/country/sm/ISR.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 394241,
+      "n_outputs_open": 157667,
+      "n_outputs_black": 311160,
+      "p_outputs_open": 39.99254263255217,
+      "p_outputs_publisher_open_only": 11.815615321592631,
+      "p_outputs_both": 15.943039917208,
+      "p_outputs_other_platform_open_only": 12.233887393751537,
+      "p_outputs_closed": 60.00745736744783,
+      "p_outputs_black": 78.92634200907567
+    }
+  },
+  {
+    "id": "MDA",
+    "name": "Moldova",
+    "logo_sm": "logos/country/sm/MDA.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 8072,
+      "n_outputs_open": 3204,
+      "n_outputs_black": 5079,
+      "p_outputs_open": 39.69276511397423,
+      "p_outputs_publisher_open_only": 20.911793855302278,
+      "p_outputs_both": 11.149653121902874,
+      "p_outputs_other_platform_open_only": 7.631318136769079,
+      "p_outputs_closed": 60.307234886025775,
+      "p_outputs_black": 62.921209117938545
+    }
+  },
+  {
+    "id": "TTO",
+    "name": "Trinidad and Tobago",
+    "logo_sm": "logos/country/sm/TTO.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 6260,
+      "n_outputs_open": 2464,
+      "n_outputs_black": 4391,
+      "p_outputs_open": 39.36102236421725,
+      "p_outputs_publisher_open_only": 13.961661341853034,
+      "p_outputs_both": 18.78594249201278,
+      "p_outputs_other_platform_open_only": 6.613418530351438,
+      "p_outputs_closed": 60.638977635782744,
+      "p_outputs_black": 70.14376996805112
+    }
+  },
+  {
+    "id": "ARE",
+    "name": "United Arab Emirates",
+    "logo_sm": "logos/country/sm/ARE.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 81708,
+      "n_outputs_open": 32037,
+      "n_outputs_black": 50752,
+      "p_outputs_open": 39.209134968424145,
+      "p_outputs_publisher_open_only": 14.783130170852305,
+      "p_outputs_both": 16.76702403681402,
+      "p_outputs_other_platform_open_only": 7.658980760757821,
+      "p_outputs_closed": 60.790865031575855,
+      "p_outputs_black": 62.11386889900622
+    }
+  },
+  {
+    "id": "JAM",
+    "name": "Jamaica",
+    "logo_sm": "logos/country/sm/JAM.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 12232,
+      "n_outputs_open": 4792,
+      "n_outputs_black": 8746,
+      "p_outputs_open": 39.17593198168738,
+      "p_outputs_publisher_open_only": 13.497383911052976,
+      "p_outputs_both": 17.985611510791365,
+      "p_outputs_other_platform_open_only": 7.692936559843035,
+      "p_outputs_closed": 60.82406801831263,
+      "p_outputs_black": 71.50098103335513
+    }
+  },
+  {
+    "id": "KOR",
+    "name": "South Korea",
+    "logo_sm": "logos/country/sm/KOR.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 1331017,
+      "n_outputs_open": 517222,
+      "n_outputs_black": 997051,
+      "p_outputs_open": 38.85915807236121,
+      "p_outputs_publisher_open_only": 15.90272701250247,
+      "p_outputs_both": 17.38850818584586,
+      "p_outputs_other_platform_open_only": 5.567922874012879,
+      "p_outputs_closed": 61.14084192763879,
+      "p_outputs_black": 74.90896059178809
+    }
+  },
+  {
+    "id": "GRC",
+    "name": "Greece",
+    "logo_sm": "logos/country/sm/GRC.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 340307,
+      "n_outputs_open": 130974,
+      "n_outputs_black": 259041,
+      "p_outputs_open": 38.4870131969075,
+      "p_outputs_publisher_open_only": 14.093744765755625,
+      "p_outputs_both": 15.562124787324386,
+      "p_outputs_other_platform_open_only": 8.831143643827485,
+      "p_outputs_closed": 61.51298680309251,
+      "p_outputs_black": 76.11979771206587
+    }
+  },
+  {
+    "id": "NZL",
+    "name": "New Zealand",
+    "logo_sm": "logos/country/sm/NZL.svg",
+    "entity_type": "country",
+    "subregion": "Australia and New Zealand",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 260695,
+      "n_outputs_open": 100295,
+      "n_outputs_black": 206694,
+      "p_outputs_open": 38.472160954371965,
+      "p_outputs_publisher_open_only": 12.595178273461324,
+      "p_outputs_both": 15.357410000191795,
+      "p_outputs_other_platform_open_only": 10.519572680718847,
+      "p_outputs_closed": 61.52783904562803,
+      "p_outputs_black": 79.2857553846449
+    }
+  },
+  {
+    "id": "BMU",
+    "name": "Bermuda",
+    "logo_sm": "logos/country/sm/BMU.svg",
+    "entity_type": "country",
+    "subregion": "Northern America",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 1312,
+      "n_outputs_open": 504,
+      "n_outputs_black": 1088,
+      "p_outputs_open": 38.41463414634146,
+      "p_outputs_publisher_open_only": 11.204268292682928,
+      "p_outputs_both": 15.015243902439025,
+      "p_outputs_other_platform_open_only": 12.195121951219512,
+      "p_outputs_closed": 61.58536585365854,
+      "p_outputs_black": 82.92682926829268
+    }
+  },
+  {
+    "id": "KWT",
+    "name": "Kuwait",
+    "logo_sm": "logos/country/sm/KWT.svg",
+    "entity_type": "country",
+    "subregion": "Western Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 28804,
+      "n_outputs_open": 10731,
+      "n_outputs_black": 20528,
+      "p_outputs_open": 37.25524232745452,
+      "p_outputs_publisher_open_only": 16.376197750312457,
+      "p_outputs_both": 15.591584502152479,
+      "p_outputs_other_platform_open_only": 5.287460074989585,
+      "p_outputs_closed": 62.74475767254548,
+      "p_outputs_black": 71.26787946118594
+    }
+  },
+  {
+    "id": "BLR",
+    "name": "Belarus",
+    "logo_sm": "logos/country/sm/BLR.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 42901,
+      "n_outputs_open": 15884,
+      "n_outputs_black": 26508,
+      "p_outputs_open": 37.02477797720333,
+      "p_outputs_publisher_open_only": 21.118388848744786,
+      "p_outputs_both": 10.183911796927811,
+      "p_outputs_other_platform_open_only": 5.722477331530733,
+      "p_outputs_closed": 62.97522202279667,
+      "p_outputs_black": 61.78876949255262
+    }
+  },
+  {
+    "id": "SGP",
+    "name": "Singapore",
+    "logo_sm": "logos/country/sm/SGP.svg",
+    "entity_type": "country",
+    "subregion": "South-eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 345382,
+      "n_outputs_open": 127071,
+      "n_outputs_black": 273892,
+      "p_outputs_open": 36.79143672802868,
+      "p_outputs_publisher_open_only": 9.683191364923475,
+      "p_outputs_both": 14.295186199628237,
+      "p_outputs_other_platform_open_only": 12.81305916347696,
+      "p_outputs_closed": 63.20856327197133,
+      "p_outputs_black": 79.3011795634978
+    }
+  },
+  {
+    "id": "IRN",
+    "name": "Iran",
+    "logo_sm": "logos/country/sm/IRN.svg",
+    "entity_type": "country",
+    "subregion": "Southern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 671895,
+      "n_outputs_open": 242135,
+      "n_outputs_black": 468767,
+      "p_outputs_open": 36.037624926513814,
+      "p_outputs_publisher_open_only": 17.017688775775976,
+      "p_outputs_both": 13.191942193348662,
+      "p_outputs_other_platform_open_only": 5.827993957389175,
+      "p_outputs_closed": 63.962375073486186,
+      "p_outputs_black": 69.76789528125674
+    }
+  },
+  {
+    "id": "MAR",
+    "name": "Morocco",
+    "logo_sm": "logos/country/sm/MAR.svg",
+    "entity_type": "country",
+    "subregion": "Northern Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 93089,
+      "n_outputs_open": 33127,
+      "n_outputs_black": 62694,
+      "p_outputs_open": 35.58637432994231,
+      "p_outputs_publisher_open_only": 14.403420382644565,
+      "p_outputs_both": 14.83741365789728,
+      "p_outputs_other_platform_open_only": 6.345540289400466,
+      "p_outputs_closed": 64.41362567005768,
+      "p_outputs_black": 67.34845148191516
+    }
+  },
+  {
+    "id": "RUS",
+    "name": "Russia",
+    "logo_sm": "logos/country/sm/RUS.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 1319634,
+      "n_outputs_open": 463668,
+      "n_outputs_black": 812012,
+      "p_outputs_open": 35.13610592027789,
+      "p_outputs_publisher_open_only": 21.05652021696925,
+      "p_outputs_both": 8.645124329927842,
+      "p_outputs_other_platform_open_only": 5.434461373380801,
+      "p_outputs_closed": 64.8638940797221,
+      "p_outputs_black": 61.533122062632515
+    }
+  },
+  {
+    "id": "HKG",
+    "name": "Hong Kong",
+    "logo_sm": "logos/country/sm/HKG.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 8946,
+      "n_outputs_open": 3108,
+      "n_outputs_black": 6837,
+      "p_outputs_open": 34.74178403755869,
+      "p_outputs_publisher_open_only": 10.898725687458082,
+      "p_outputs_both": 12.050078247261347,
+      "p_outputs_other_platform_open_only": 11.792980102839259,
+      "p_outputs_closed": 65.25821596244131,
+      "p_outputs_black": 76.42521797451374
+    }
+  },
+  {
+    "id": "ALA",
+    "name": "\u00c5land",
+    "logo_sm": "logos/country/sm/ALA.svg",
+    "entity_type": "country",
+    "subregion": "Northern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 29,
+      "n_outputs_open": 10,
+      "n_outputs_black": 23,
+      "p_outputs_open": 34.48275862068966,
+      "p_outputs_publisher_open_only": 17.24137931034483,
+      "p_outputs_both": 13.793103448275861,
+      "p_outputs_other_platform_open_only": 3.4482758620689653,
+      "p_outputs_closed": 65.51724137931035,
+      "p_outputs_black": 79.3103448275862
+    }
+  },
+  {
+    "id": "IND",
+    "name": "India",
+    "logo_sm": "logos/country/sm/IND.svg",
+    "entity_type": "country",
+    "subregion": "Southern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 2147328,
+      "n_outputs_open": 714362,
+      "n_outputs_black": 1382332,
+      "p_outputs_open": 33.267484054601816,
+      "p_outputs_publisher_open_only": 16.200925056628517,
+      "p_outputs_both": 10.646906294706723,
+      "p_outputs_other_platform_open_only": 6.4196527032665704,
+      "p_outputs_closed": 66.73251594539819,
+      "p_outputs_black": 64.37451567715785
+    }
+  },
+  {
+    "id": "TWN",
+    "name": "Taiwan",
+    "logo_sm": "logos/country/sm/TWN.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 665238,
+      "n_outputs_open": 216456,
+      "n_outputs_black": 549824,
+      "p_outputs_open": 32.53812921089896,
+      "p_outputs_publisher_open_only": 12.206157796157164,
+      "p_outputs_both": 14.118405743508339,
+      "p_outputs_other_platform_open_only": 6.213565671233454,
+      "p_outputs_closed": 67.46187078910104,
+      "p_outputs_black": 82.65072049401869
+    }
+  },
+  {
+    "id": "NIU",
+    "name": "Niue",
+    "logo_sm": "logos/country/sm/NIU.svg",
+    "entity_type": "country",
+    "subregion": "Polynesia",
+    "region": "Oceania",
+    "stats": {
+      "n_outputs": 22,
+      "n_outputs_open": 7,
+      "n_outputs_black": 9,
+      "p_outputs_open": 31.818181818181817,
+      "p_outputs_publisher_open_only": 9.090909090909092,
+      "p_outputs_both": 13.636363636363635,
+      "p_outputs_other_platform_open_only": 9.090909090909092,
+      "p_outputs_closed": 68.18181818181817,
+      "p_outputs_black": 40.909090909090914
+    }
+  },
+  {
+    "id": "MUS",
+    "name": "Mauritius",
+    "logo_sm": "logos/country/sm/MUS.svg",
+    "entity_type": "country",
+    "subregion": "Sub-Saharan Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 4594,
+      "n_outputs_open": 1452,
+      "n_outputs_black": 3226,
+      "p_outputs_open": 31.606443186765347,
+      "p_outputs_publisher_open_only": 12.886373530692207,
+      "p_outputs_both": 11.993905093600349,
+      "p_outputs_other_platform_open_only": 6.72616456247279,
+      "p_outputs_closed": 68.39355681323465,
+      "p_outputs_black": 70.22202873313017
+    }
+  },
+  {
+    "id": "GIB",
+    "name": "Gibraltar",
+    "logo_sm": "logos/country/sm/GIB.svg",
+    "entity_type": "country",
+    "subregion": "Southern Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 577,
+      "n_outputs_open": 180,
+      "n_outputs_black": 441,
+      "p_outputs_open": 31.195840554592717,
+      "p_outputs_publisher_open_only": 8.838821490467938,
+      "p_outputs_both": 16.11785095320624,
+      "p_outputs_other_platform_open_only": 6.239168110918544,
+      "p_outputs_closed": 68.80415944540728,
+      "p_outputs_black": 76.42980935875217
+    }
+  },
+  {
+    "id": "CHN",
+    "name": "China",
+    "logo_sm": "logos/country/sm/CHN.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 6696104,
+      "n_outputs_open": 2083228,
+      "n_outputs_black": 5037627,
+      "p_outputs_open": 31.111046064995406,
+      "p_outputs_publisher_open_only": 11.48729171470455,
+      "p_outputs_both": 14.266191206110298,
+      "p_outputs_other_platform_open_only": 5.357563144180556,
+      "p_outputs_closed": 68.8889539350046,
+      "p_outputs_black": 75.23220965504717
+    }
+  },
+  {
+    "id": "DZA",
+    "name": "Algeria",
+    "logo_sm": "logos/country/sm/DZA.svg",
+    "entity_type": "country",
+    "subregion": "Northern Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 85437,
+      "n_outputs_open": 25785,
+      "n_outputs_black": 57664,
+      "p_outputs_open": 30.180132729379544,
+      "p_outputs_publisher_open_only": 15.452321593688916,
+      "p_outputs_both": 8.680080058990836,
+      "p_outputs_other_platform_open_only": 6.04773107669979,
+      "p_outputs_closed": 69.81986727062046,
+      "p_outputs_black": 67.49300654283273
+    }
+  },
+  {
+    "id": "LIE",
+    "name": "Liechtenstein",
+    "logo_sm": "logos/country/sm/LIE.svg",
+    "entity_type": "country",
+    "subregion": "Western Europe",
+    "region": "Europe",
+    "stats": {
+      "n_outputs": 2058,
+      "n_outputs_open": 619,
+      "n_outputs_black": 1414,
+      "p_outputs_open": 30.077745383867832,
+      "p_outputs_publisher_open_only": 9.66958211856171,
+      "p_outputs_both": 13.119533527696792,
+      "p_outputs_other_platform_open_only": 7.288629737609329,
+      "p_outputs_closed": 69.92225461613216,
+      "p_outputs_black": 68.70748299319727
+    }
+  },
+  {
+    "id": "MAC",
+    "name": "Macau",
+    "logo_sm": "logos/country/sm/MAC.svg",
+    "entity_type": "country",
+    "subregion": "Eastern Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 11279,
+      "n_outputs_open": 3275,
+      "n_outputs_black": 7895,
+      "p_outputs_open": 29.036262079971632,
+      "p_outputs_publisher_open_only": 8.511392853976417,
+      "p_outputs_both": 13.813281319265894,
+      "p_outputs_other_platform_open_only": 6.71158790672932,
+      "p_outputs_closed": 70.96373792002836,
+      "p_outputs_black": 69.99734018973314
+    }
+  },
+  {
+    "id": "TJK",
+    "name": "Tajikistan",
+    "logo_sm": "logos/country/sm/TJK.svg",
+    "entity_type": "country",
+    "subregion": "Central Asia",
+    "region": "Asia",
+    "stats": {
+      "n_outputs": 25218,
+      "n_outputs_open": 7275,
+      "n_outputs_black": 14153,
+      "p_outputs_open": 28.848441589340943,
+      "p_outputs_publisher_open_only": 20.663811563169165,
+      "p_outputs_both": 4.373859941311761,
+      "p_outputs_other_platform_open_only": 3.8107700848600206,
+      "p_outputs_closed": 71.15155841065905,
+      "p_outputs_black": 56.1226108335316
+    }
+  },
+  {
+    "id": "TUN",
+    "name": "Tunisia",
+    "logo_sm": "logos/country/sm/TUN.svg",
+    "entity_type": "country",
+    "subregion": "Northern Africa",
+    "region": "Africa",
+    "stats": {
+      "n_outputs": 108824,
+      "n_outputs_open": 30292,
+      "n_outputs_black": 83388,
+      "p_outputs_open": 27.83577152098802,
+      "p_outputs_publisher_open_only": 11.575571565095935,
+      "p_outputs_both": 10.515143718297434,
+      "p_outputs_other_platform_open_only": 5.745056237594648,
+      "p_outputs_closed": 72.16422847901198,
+      "p_outputs_black": 76.62647945306182
+    }
+  },
+  {
+    "id": "TCA",
+    "name": "Turks and Caicos Islands",
+    "logo_sm": "logos/country/sm/TCA.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 173,
+      "n_outputs_open": 24,
+      "n_outputs_black": 30,
+      "p_outputs_open": 13.872832369942195,
+      "p_outputs_publisher_open_only": 2.8901734104046244,
+      "p_outputs_both": 2.8901734104046244,
+      "p_outputs_other_platform_open_only": 8.092485549132949,
+      "p_outputs_closed": 86.1271676300578,
+      "p_outputs_black": 17.341040462427745
+    }
+  },
+  {
+    "id": "VGB",
+    "name": "Virgin Islands",
+    "logo_sm": "logos/country/sm/VGB.svg",
+    "entity_type": "country",
+    "subregion": "Latin America and the Caribbean",
+    "region": "Americas",
+    "stats": {
+      "n_outputs": 9815,
+      "n_outputs_open": 166,
+      "n_outputs_black": 7795,
+      "p_outputs_open": 1.6912888436067246,
+      "p_outputs_publisher_open_only": 0.9169638308711157,
+      "p_outputs_both": 0.13245033112582782,
+      "p_outputs_other_platform_open_only": 0.6418746816097809,
+      "p_outputs_closed": 98.30871115639329,
+      "p_outputs_black": 79.41925624044829
+    }
+  }
+]

@@ -7,3 +7,8 @@ command = "yarn run build"
 
 [site]
 bucket = "./public"
+
+[[ d1_databases ]]
+binding = "DB"
+database_name = "db"
+database_id = "db"

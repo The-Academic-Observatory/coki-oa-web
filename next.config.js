@@ -11,6 +11,7 @@ module.exports = {
     COKI_ENVIRONMENT: process.env.COKI_ENVIRONMENT,
     COKI_SITE_URL: process.env.COKI_SITE_URL,
     COKI_API_URL: process.env.COKI_API_URL,
+    COKI_IMAGES_URL: process.env.COKI_IMAGES_URL,
   },
   webpack(config) {
     config.module.rules.push({

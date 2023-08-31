@@ -37,11 +37,13 @@ export interface Entity extends Object {
 export interface PublicationStats extends Object, Dict {
   n_outputs: number;
   n_outputs_open: number;
+  n_outputs_black: number;
   p_outputs_open: number;
   p_outputs_publisher_open_only: number;
   p_outputs_both: number;
   p_outputs_other_platform_open_only: number;
   p_outputs_closed: number;
+  p_outputs_black: number;
 }
 
 export interface Year {
@@ -57,13 +59,6 @@ export interface Repository extends Dict {
   home_repo: boolean;
 }
 
-export type PageSettings = {
-  page: number;
-  limit: number;
-  orderBy: string;
-  orderDir: string;
-};
-
 export type Query = {
   ids: Set<string>;
   countries: Set<string>;
@@ -76,6 +71,10 @@ export type Query = {
   maxNOutputsOpen: number;
   minPOutputsOpen: number;
   maxPOutputsOpen: number;
+  page: number;
+  limit: number;
+  orderBy: string;
+  orderDir: string;
 };
 
 type MethodType = "GET";
@@ -87,6 +86,8 @@ export interface SearchRequest extends Request {
     text: string;
   };
   query: {
+    acronym: string;
+    page: string;
     limit: string;
   };
 }
@@ -133,4 +134,14 @@ export interface FilesToZipType {
 
 export interface Dict {
   [key: string]: any;
+}
+
+export interface QueryResult {
+  items: Array<Entity>;
+  nItems: number;
+  page: number;
+  nPages: number;
+  limit: number;
+  orderBy?: string;
+  orderDir?: string;
 }

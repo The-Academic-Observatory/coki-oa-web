@@ -14,8 +14,9 @@
 //
 // Author: James Diprose
 
+import { makeSocialCardUrl } from "../../lib/api";
 import { render } from "../../lib/test-utils";
-import { EntityDetails, makePageDescription, makeSocialCardUrl } from "./EntityDetails";
+import { EntityDetails, makePageDescription } from "./EntityDetails";
 
 import entity from "../../data/country/NZL.json";
 import stats from "../../data/stats.json";
@@ -49,14 +50,6 @@ Object.defineProperty(window, "matchMedia", {
     removeEventListener: jest.fn(),
     dispatchEvent: jest.fn(),
   })),
-});
-
-const buildId = "9wunlCAp5nAMZGCCOIDUx";
-const publicHost = "http://127.0.0.1:3000";
-
-test("test makeSocialCardUrl", () => {
-  let url = makeSocialCardUrl("NZL");
-  expect(url).toEqual(`https://images.open.coki.ac/social-cards/NZL.jpg?build=${buildId}`);
 });
 
 test("test makePageDescription country", () => {

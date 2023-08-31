@@ -11,6 +11,9 @@ inputs:
   wrangler_config:
     description: "The Wrangler Config file for the REST API"
     required: true
+  wrangler_config_images:
+    description: "The Wrangler Config file for the Images API"
+    required: true
   cloudflare_api_token:
     description: "The Cloudflare API token"
     required: true
@@ -36,6 +39,7 @@ runs:
                
         echo "COKI_SITE_URL=https://develop.open.coki.ac" >> $GITHUB_ENV
         echo "COKI_API_URL=https://develop.api.coki.ac" >> $GITHUB_ENV
+        echo "COKI_IMAGES_URL=https://develop.images.open.coki.ac" >> $GITHUB_ENV
       shell: bash
 
     - name: Configure staging environment
@@ -47,6 +51,7 @@ runs:
 
         echo "COKI_SITE_URL=https://staging.open.coki.ac" >> $GITHUB_ENV
         echo "COKI_API_URL=https://staging.api.coki.ac" >> $GITHUB_ENV
+        echo "COKI_IMAGES_URL=https://staging.images.open.coki.ac" >> $GITHUB_ENV
       shell: bash
 
     - name: Configure production environment
@@ -58,6 +63,7 @@ runs:
 
         echo "COKI_SITE_URL=https://open.coki.ac" >> $GITHUB_ENV
         echo "COKI_API_URL=https://api.coki.ac" >> $GITHUB_ENV
+        echo "COKI_IMAGES_URL=https://images.open.coki.ac" >> $GITHUB_ENV
       shell: bash
 
     - name: Download Top Institution pages from Plausible
@@ -69,7 +75,26 @@ runs:
     - name: Save wrangler.toml files
       env:
         WRANGLER_CONFIG_API: ${{ inputs.wrangler_config }}
-      run: echo "${WRANGLER_CONFIG_API}" > ./workers-api/wrangler.toml
+        WRANGLER_CONFIG_IMAGES: ${{ inputs.wrangler_config_images }}
+      run: |
+        echo "${WRANGLER_CONFIG_API}" > ./workers-api/wrangler.toml
+        echo "${WRANGLER_CONFIG_IMAGES}" > ./workers-images/wrangler.toml
+      shell: bash
+
+    - name: Publish Cloudflare Workers Images
+      working-directory: ./workers-images
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+      run: yarn run wrangler deploy -e ${CF_ENVIRONMENT}
+      shell: bash
+
+    - name: Update Cloudflare D1 Database
+      working-directory: ./workers-api
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+      run: |
+        yarn run build # Creates ../data/db.sql
+        yarn run wrangler d1 execute DB --yes --file ../data/db.sql -e ${CF_ENVIRONMENT}
       shell: bash
 
     - name: Publish Cloudflare Workers API

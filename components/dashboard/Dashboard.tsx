@@ -28,10 +28,11 @@ import {
   Tabs,
   Text,
   useDisclosure,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { Entity, EntityStats, QueryParams, QueryResult, Stats } from "../../lib/model";
-import { cokiImageLoader, OADataAPI, OADataLocal } from "../../lib/api";
-import React, { useCallback } from "react";
+import { cokiImageLoader, OADataAPI } from "../../lib/api";
+import React, { useCallback, useEffect } from "react";
 import IndexTable from "../table/IndexTable";
 import Icon from "../common/Icon";
 import FilterForm, { OpenAccess, QueryForm, regions } from "../filter/FilterForm";
@@ -44,14 +45,13 @@ import Head from "../common/Head";
 
 const MAX_TABS_WIDTH = "1100px";
 const MAX_PAGE_SIZE = 18;
-const DEFAULT_N_OUTPUTS = 0;
 
 export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
   const q = {
     // Set page values
     page: queryForm.page.page,
     limit: queryForm.page.limit,
-    orderBy: queryForm.page.orderBy,
+    orderBy: queryForm.page.orderBy.replace("stats.", ""), // Remove stats. as nested fields are not used by the API,
     orderDir: queryForm.page.orderDir,
 
     // Default arrays
@@ -95,7 +95,7 @@ export const makeDefaultValues = (entityStats: EntityStats): QueryForm => {
   const defaults: QueryForm = {
     page: {
       page: 0,
-      limit: 18,
+      limit: MAX_PAGE_SIZE,
       orderBy: "stats.p_outputs_open",
       orderDir: "dsc",
     },
@@ -228,7 +228,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
     resetFormStateCountry,
     onResetQueryFormCountry,
     countryRangeSliderMinMaxValues,
-  ] = useEntityQuery("countries", defaultCountries, stats.country);
+  ] = useEntityQuery("country", defaultCountries, stats.country);
 
   // Institution entity query
   const [
@@ -240,7 +240,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
     resetFormStateInstitution,
     onResetQueryFormInstitution,
     institutionRangeSliderMinMaxValues,
-  ] = useEntityQuery("institutions", defaultInstitutions, stats.institution);
+  ] = useEntityQuery("institution", defaultInstitutions, stats.institution);
 
   // Modal filters
   // TODO: useDisclosure causing index page to render twice: https://github.com/chakra-ui/chakra-ui/issues/5517
@@ -250,6 +250,15 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
     onOpen: onOpenFilterInstitution,
     onClose: onCloseFilterInstitution,
   } = useDisclosure();
+
+  // Close modal filters when md screen size or above
+  const [isMd] = useMediaQuery("(min-width: 1000px)");
+  useEffect(() => {
+    if (isMd) {
+      onCloseFilterCountry();
+      onCloseFilterInstitution();
+    }
+  }, [isMd]);
 
   const title = "COKI Open Access Dashboard";
   const description =
@@ -394,7 +403,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
         </Box>
 
         <Modal variant="filterModal" onClose={onCloseFilterCountry} size="full" isOpen={isOpenFilterCountry}>
-          <ModalContent>
+          <ModalContent display={{ base: "flex", md: "none" }}>
             <ModalBody>
               <FilterForm
                 category="country"
@@ -413,7 +422,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
         </Modal>
 
         <Modal variant="filterModal" onClose={onCloseFilterInstitution} size="full" isOpen={isOpenFilterInstitution}>
-          <ModalContent>
+          <ModalContent display={{ base: "flex", md: "none" }}>
             <ModalBody>
               <FilterForm
                 category="institution"
@@ -435,28 +444,19 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
   );
 };
 
-export function getDashboardStaticProps() {
-  const client = new OADataLocal();
-  const countries = client.getEntities("country").filter((e) => e.stats.n_outputs >= DEFAULT_N_OUTPUTS);
-  const institutions = client.getEntities("institution").filter((e) => e.stats.n_outputs >= DEFAULT_N_OUTPUTS);
+export async function getDashboardStaticProps() {
+  // Fetch data via the API rather than locally to make sure that it is ordered in the same way as filtering API
+  const client = new OADataAPI();
   const stats = client.getStats();
-  const defaultQueryResult = {
-    page: 0,
-    limit: MAX_PAGE_SIZE,
-  };
+  const countryQuery = queryFormToQueryParams(makeDefaultValues(stats.country));
+  const countries = await client.filterEntities("country", countryQuery);
+  const institutionQuery = queryFormToQueryParams(makeDefaultValues(stats.institution));
+  const institutions = await client.filterEntities("institution", institutionQuery);
 
   return {
     props: {
-      defaultCountries: {
-        ...defaultQueryResult,
-        items: countries.slice(0, MAX_PAGE_SIZE),
-        nItems: countries.length,
-      },
-      defaultInstitutions: {
-        ...defaultQueryResult,
-        items: institutions.slice(0, MAX_PAGE_SIZE),
-        nItems: institutions.length,
-      },
+      defaultCountries: countries,
+      defaultInstitutions: institutions,
       stats: stats,
     },
   };

@@ -131,7 +131,7 @@ export default function Open() {
           The good news is that we can all contribute to improving the situation! There are a few options to explore
           depending on your situation.
         </Text>
-        <OrderedList textStyle="p">
+        <OrderedList textStyle="p" spacing="16px">
           <ListItem>
             If you&apos;re an author of previous work, you can go back and upload copies of your previous Closed
             publications to your institution&apos;s library repository or other public repositories to make them Other

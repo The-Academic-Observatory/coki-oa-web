@@ -42,8 +42,6 @@ const Navbar = ({
   navbarHeightMobile,
   ...rest
 }: NavbarProps) => {
-  const cokiLogoWidthMobile = 146;
-  const cokiLogoWidthDesktop = 269;
   const navbarHeightDesktop: number = 136;
   const navbarLrPaddingMobile = 22;
   const navbarLrPaddingDesktop = 40 / 4;
@@ -62,6 +60,12 @@ const Navbar = ({
         data-test="menu"
         aria-label="Menu"
         onClick={() => {
+          // Force scrolling to top as we should be at top of page when drawer is open
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+
           if (!isOpenSidebar) {
             onOpenSidebar();
           } else {
@@ -74,12 +78,14 @@ const Navbar = ({
       />
 
       <Link href="/">
-        <Box minWidth={cokiLogoWidthDesktop} width={cokiLogoWidthDesktop} display={{ base: "none", std: "block" }}>
-          <COKILogo />
+        {/* Safari on iOS can cut the bottom of the logo off if the dimensions are not exact */}
+        <Box display={{ base: "none", std: "block" }}>
+          <COKILogo width="270px" height="50px" />
         </Box>
 
-        <Box minWidth={cokiLogoWidthMobile} width={cokiLogoWidthMobile} display={{ base: "block", std: "none" }}>
-          <COKILogoWhite />
+        {/* Safari on iOS can cut the bottom of the logo off if the dimensions are not exact */}
+        <Box display={{ base: "block", std: "none" }}>
+          <COKILogoWhite width="147px" height="27px" />
         </Box>
       </Link>
 
@@ -93,13 +99,40 @@ const Navbar = ({
         isRound
         color="white"
         onClick={() => {
+          // Force scrolling to top as we should be at top of page when drawer is open
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+
           if (!isOpenSearch) {
             onOpenSearch();
           } else {
             onCloseSearch();
           }
         }}
-        icon={isOpenSearch ? <Icon icon="cross" size={iconSize} /> : <Icon icon="search" size={iconSize} />}
+        icon={
+          <Box position="relative">
+            <Icon
+              icon="search"
+              size={iconSize}
+              position="absolute"
+              top="50%"
+              left="50%"
+              transform="translate(-50%, -50%)"
+              opacity={isOpenSearch ? 0 : 1}
+            />
+            <Icon
+              icon="cross"
+              size={iconSize}
+              position="absolute"
+              top="50%"
+              left="50%"
+              transform="translate(-50%, -50%)"
+              opacity={isOpenSearch ? 1 : 0}
+            />
+          </Box>
+        }
       />
     </Flex>
   );

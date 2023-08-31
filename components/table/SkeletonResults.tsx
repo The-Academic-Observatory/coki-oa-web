@@ -33,7 +33,7 @@ const SkeletonResults = ({ nRows }: SkeletonResultsProps) => {
               {/*Logo & name*/}
               <HStack mr="1%">
                 <SkeletonCircle startColor={color} endColor={color} size="16px" />
-                <Skeleton startColor={color} endColor={color} height="16px" width="100%" />
+                <Skeleton startColor={color} endColor={color} height="16px" flex="1" />
               </HStack>
             </Td>
             <Td role="cell">

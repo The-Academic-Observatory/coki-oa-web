@@ -27,7 +27,7 @@ interface SearchResultProps extends BoxProps {
 
 const SearchResult = ({ entity, onClick, ...rest }: SearchResultProps) => {
   return (
-    <Box key={entity.id} data-test={entity.id}>
+    <Box key={entity.id} data-test={entity.id} {...rest}>
       <Link href={`/${entity.entity_type}/${entity.id}`} onClick={onClick}>
         <HStack my="16px">
           <Image
@@ -37,7 +37,9 @@ const SearchResult = ({ entity, onClick, ...rest }: SearchResultProps) => {
             src={cokiImageLoader(entity.logo_sm)}
             alt={entity.name}
           />
-          <Text textStyle="tableCell">{entity.name}</Text>
+          <Text textStyle="tableCell" flex="1">
+            {entity.name}
+          </Text>
         </HStack>
       </Link>
     </Box>

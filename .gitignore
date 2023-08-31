@@ -63,6 +63,7 @@ data.zip
 # Ignore images files
 /images
 images.zip
+social-cards.zip
 
 public/robots.txt
 public/sitemap*

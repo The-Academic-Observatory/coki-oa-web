@@ -3,14 +3,18 @@ import path from "path";
 //@ts-ignore
 import { fileURLToPath } from "url";
 import { build } from "esbuild";
-import { saveIndexToFile } from "./src/searchIndex.js";
+import { entitiesToSQL, loadEntities, saveSQLToFile } from "./src/database.js";
 
 //@ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-//@ts-ignore
-await saveIndexToFile("../data/index.json", "../data/flexsearchIndex.json");
+const DATA_PATH = "../data";
+
+// Generate the SQL for the Cloudflare D1 database
+const entities = loadEntities(DATA_PATH);
+const sql = entitiesToSQL(entities);
+saveSQLToFile(sql, `${DATA_PATH}/db.sql`);
 
 try {
   //@ts-ignore

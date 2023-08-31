@@ -14,14 +14,15 @@
 //
 // Author: James Diprose
 
-import { BoxProps, Drawer, DrawerBody, DrawerContent, DrawerHeader, Text } from "@chakra-ui/react";
-import React, { memo } from "react";
-import debounce from "lodash/debounce";
-import { OADataAPI } from "../../lib/api";
+import { RemoveScroll } from "react-remove-scroll";
+import { BoxProps, Drawer, DrawerBody, DrawerContent, DrawerHeader, useMediaQuery } from "@chakra-ui/react";
+import React, { memo, useEffect } from "react";
 import { Entity } from "../../lib/model";
-import { searchDebounce, searchLimit } from "./SearchDesktop";
+import { useEntitySearch } from "./SearchDesktop";
 import SearchResult from "./SearchResult";
 import SearchBox from "./SearchBox";
+import SkeletonSearchResult from "./SkeletonSearchResult";
+import SearchTips from "./SearchTips";
 
 interface SearchDrawerProps extends BoxProps {
   isOpen: boolean;
@@ -31,63 +32,71 @@ interface SearchDrawerProps extends BoxProps {
 }
 
 const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: SearchDrawerProps) => {
-  const [isFetching, setIsFetching] = React.useState<boolean>(false);
-  const [searchText, setSearchText] = React.useState<string>("");
-  const [searchResults, setSearchResults] = React.useState<Array<any>>([]);
+  const [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore, queryFinal] =
+    useEntitySearch(() => {});
 
-  // Search for entities
-  const inputOnChange = debounce((value) => {
-    if (value != "") {
-      setIsFetching(true);
-      const client = new OADataAPI();
-      client
-        .searchEntities(value, searchLimit)
-        .then((data) => {
-          //@ts-ignore
-          setSearchResults(data);
-        })
-        .finally(() => {
-          setIsFetching(false);
-        });
-    } else {
-      setSearchResults([]);
+  const [isStd] = useMediaQuery("(min-width: 1310px)");
+
+  const closeAndResetQuery = () => {
+    // - Close search results drawer
+    // - Set search text to empty string
+    onClose();
+    setQuery("");
+  };
+
+  useEffect(() => {
+    if (isStd) {
+      closeAndResetQuery();
     }
-  }, searchDebounce);
+  }, [isStd]);
 
   return (
-    <Drawer size="full" placement="right" onClose={onClose} isOpen={isOpen} preserveScrollBarGap={true}>
-      <DrawerContent top={`${navbarHeightMobile}px !important`} bg="none" boxShadow="none">
-        <DrawerHeader bg="brand.500">
-          <SearchBox
-            inputDataTest="searchInputMobile"
-            value={searchText}
-            onChange={(e) => {
-              const text = e.target.value;
-              setSearchText(text);
-              inputOnChange(text);
-            }}
-          />
-        </DrawerHeader>
-        <DrawerBody bg="white" data-test="searchResultsMobile">
-          {!isFetching && searchText !== "" && searchResults.length === 0 && <Text>No results</Text>}
-          {searchResults.map((entity: Entity) => (
-            <SearchResult
-              key={entity.id}
-              entity={entity}
-              onClick={() => {
-                // On click:
-                // - Close search results
-                // - Reset research results
-                // - Set search text to empty string
-                onClose();
-                setSearchResults([]);
-                setSearchText("");
+    <RemoveScroll enabled={isOpen}>
+      <Drawer
+        autoFocus={true}
+        trapFocus={true}
+        size="full"
+        placement="right"
+        onClose={closeAndResetQuery}
+        isOpen={isOpen}
+        preserveScrollBarGap={true}
+        {...rest}
+      >
+        {/* Set % for height rather than vh otherwise on Safari iOS the address bar overlaps the scrolling content */}
+        <DrawerContent
+          top={`${navbarHeightMobile}px !important`}
+          bg="none"
+          boxShadow="none"
+          height={`calc(100% - ${navbarHeightMobile}px)`}
+          display={{ base: "flex", std: "none" }}
+        >
+          <DrawerHeader bg="brand.500">
+            <SearchBox
+              inputDataTest="searchInputMobile"
+              value={query}
+              onFocus={(e) => {}}
+              onChange={(e) => {
+                searchBoxOnChange(e);
               }}
             />
-          ))}
-        </DrawerBody>
-      </DrawerContent>
-    </Drawer>
+          </DrawerHeader>
+          <DrawerBody bg="white" data-test="searchResultsMobile" pt="2px" pb={0} overflowY="auto">
+            {/* Search results */}
+            {entities.map((entity: Entity) => {
+              return <SearchResult key={entity.id} entity={entity} onClick={closeAndResetQuery} />;
+            })}
+
+            {/* Skeleton search item which loads more results */}
+            {entities.length !== 0 && hasMore && <SkeletonSearchResult lastEntityRef={lastEntityRef} />}
+
+            {/* No results helper information */}
+            {entities.length === 0 && (
+              <SearchTips query={queryFinal} showNoResults={queryFinal.trim() !== "" && entities.length === 0} />
+            )}
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </RemoveScroll>
   );
 };
 
