@@ -68,6 +68,22 @@ export async function getStaticProps({ params }: Params) {
   };
 }
 
+function validateInstitutionIds(institutionIds: string[]): string[] {
+  const client = new OADataLocal();
+  const validIds: string[] = [];
+
+  for (const id of institutionIds) {
+    try {
+      client.getEntity("institution", id);
+      validIds.push(id);
+    } catch (err) {
+      console.warn(`validateInstitutionIds: invalid id: ${id}`);
+    }
+  }
+
+  return validIds;
+}
+
 export async function getStaticPaths() {
   // Use local API as this is only ever called during build
   const client = new OADataLocal();
@@ -79,13 +95,14 @@ export async function getStaticPaths() {
   );
 
   // Pre-render the most viewed institutions
-  let institutionIds = topInstitutions;
+  let institutionIds: string[] = topInstitutions;
   if (process.env.COKI_ENVIRONMENT !== "production") {
     institutionIds = institutionIds.slice(0, MAX_PREVIEW_INSTITUTIONS);
   }
-  const institutionPaths = idsToStaticPaths(institutionIds, "institution");
+  institutionIds = validateInstitutionIds(institutionIds);
 
   // All paths to render
+  const institutionPaths = idsToStaticPaths(institutionIds, "institution");
   const paths = countryPaths.concat(institutionPaths);
 
   return {
