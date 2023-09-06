@@ -25,11 +25,13 @@ jobs:
           yarn run wrangler d1 execute DB --file ../data/data/db.sql --local --config wrangler.local.toml
 
       - name: Run e2e Tests
+        working-directory: ./dashboard
         run: |         
           yarn run test:e2e
 
       - name: Upload Playwright Test Results to Cloud Storage
         if: failure()
+        working-directory: ./dashboard
         run: |
           export FOLDER=playwright_$(date +"%Y-%m-%d_%H:%M:%S")_${GITHUB_RUN_ID}_${GITHUB_RUN_NUMBER}
           mv test-results ${FOLDER}
