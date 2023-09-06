@@ -21,8 +21,8 @@ jobs:
       - name: Load Local D1 Database
         working-directory: ./workers-api
         run: |
-          yarn run build # Creates ../data/db.sql
-          yarn run wrangler d1 execute DB --file ../data/db.sql --local --config wrangler.local.toml
+          yarn run build # Creates ../data/data/db.sql
+          yarn run wrangler d1 execute DB --file ../data/data/db.sql --local --config wrangler.local.toml
 
       - name: Run e2e Tests
         run: |         
