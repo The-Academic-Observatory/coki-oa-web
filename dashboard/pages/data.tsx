@@ -19,12 +19,12 @@ import React from "react";
 import Card from "../components/common/Card";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ScrollTable from "../components/common/ScrollTable";
-import { OADataLocal } from "../lib/api";
+import { OADataAPI } from "../lib/api";
 import { Stats } from "../lib/model";
 import Head from "../components/common/Head";
 
 export async function getStaticProps() {
-  const client = new OADataLocal();
+  const client = new OADataAPI();
   return {
     props: {
       stats: client.getStats(),

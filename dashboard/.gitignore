@@ -1,0 +1,77 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+/public/logos
+/public/data
+/public/twitter
+/public/social-cards
+/workers-api/public
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# Yarn 3 files
+.pnp.*
+.yarn
+.yarnrc.yml
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+
+# webstorm
+.idea
+
+# Only commit yarn.lock
+package-lock.json
+
+# Ignore wrangler.toml
+wrangler.toml
+
+# Ignore data files
+/data
+data.zip
+
+# Ignore images files
+/images
+images.zip
+social-cards.zip
+
+public/robots.txt
+public/sitemap*
+
+test-results
+
+dist
+
+.vscode
+
+licenses.json

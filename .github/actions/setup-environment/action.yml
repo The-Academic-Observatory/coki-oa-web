@@ -63,12 +63,11 @@ runs:
     - name: Install project dependencies
       run: |
         yarn install
-        yarn workspace coki-oa-web-api install
-        yarn workspace coki-oa-images install
       shell: bash
 
     - name: Install Playwright
       if: inputs.playwright == 'true'
+      working-directory: ./dashboard
       run: |
         npx playwright install-deps
         npx playwright install
@@ -85,14 +84,14 @@ runs:
 
     - name: Download and Extract Data
       run: |
-        gsutil cp gs://${{ inputs.bucket_name }}/${{ inputs.dataset_version }}/data.zip data.zip
-        ./data.sh
+        gsutil cp gs://${{ inputs.bucket_name }}/${{ inputs.dataset_version }}/data.zip ./data/data.zip
+        ./bin/data.sh .
       shell: bash
 
     - name: Download and Extract Images
       if: inputs.download_images == 'true'
       run: |
-        gsutil cp gs://${{ inputs.bucket_name }}/${{ inputs.dataset_version }}/images.zip images.zip
-        gsutil cp gs://${{ inputs.bucket_name }}/${{ inputs.dataset_version }}/social-cards.zip social-cards.zip
-        ./images.sh
+        gsutil cp gs://${{ inputs.bucket_name }}/${{ inputs.dataset_version }}/images.zip ./data/images.zip
+        gsutil cp gs://${{ inputs.bucket_name }}/${{ inputs.dataset_version }}/social-cards.zip ./data/social-cards.zip
+        ./bin/images.sh .
       shell: bash

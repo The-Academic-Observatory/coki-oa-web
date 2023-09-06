@@ -18,8 +18,8 @@ import { makeSocialCardUrl } from "../../lib/api";
 import { render } from "../../lib/test-utils";
 import { EntityDetails, makePageDescription } from "./EntityDetails";
 
-import entity from "../../data/country/NZL.json";
-import stats from "../../data/stats.json";
+import entity from "../../../data/data/country/NZL.json";
+import stats from "../../../data/data/stats.json";
 
 import { useRouter } from "next/router";
 

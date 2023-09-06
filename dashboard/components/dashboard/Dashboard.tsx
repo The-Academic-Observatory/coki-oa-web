@@ -152,7 +152,7 @@ const useEntityQuery = (
     // Make filter URL
     const client = new OADataAPI();
     client
-      .filterEntities(entityType, queryParams)
+      .getEntities(entityType, queryParams)
       .then((data) => {
         setEntities(data);
       })
@@ -449,9 +449,9 @@ export async function getDashboardStaticProps() {
   const client = new OADataAPI();
   const stats = client.getStats();
   const countryQuery = queryFormToQueryParams(makeDefaultValues(stats.country));
-  const countries = await client.filterEntities("country", countryQuery);
+  const countries = await client.getEntities("country", countryQuery);
   const institutionQuery = queryFormToQueryParams(makeDefaultValues(stats.institution));
-  const institutions = await client.filterEntities("institution", institutionQuery);
+  const institutions = await client.getEntities("institution", institutionQuery);
 
   return {
     props: {

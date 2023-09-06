@@ -15,7 +15,7 @@
 // Author: James Diprose
 
 import { Entity } from "../../../lib/model";
-import { OADataLocal, idsToStaticPaths } from "../../../lib/api";
+import { OADataAPI, idsToStaticPaths, OADataLocal } from "../../../lib/api";
 import SocialCard from "../../../components/common/SocialCard";
 
 type Props = {
@@ -35,7 +35,7 @@ type Params = {
 
 export async function getStaticProps({ params }: Params) {
   if (process.env.NODE_ENV === "development") {
-    const client = new OADataLocal();
+    const client = new OADataAPI();
     const entity = client.getEntity(params.entityType, params.id);
     return {
       props: {

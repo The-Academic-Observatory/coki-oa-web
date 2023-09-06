@@ -23,13 +23,13 @@ import HowPubTable from "../public/images/how-pub-table.svg";
 import Figure from "../components/common/Figure";
 import ScrollTable from "../components/common/ScrollTable";
 import Breadcrumbs from "../components/common/Breadcrumbs";
-import { OADataLocal } from "../lib/api";
+import { OADataAPI } from "../lib/api";
 import { Stats } from "../lib/model";
 import Link from "../components/common/Link";
 import Head from "../components/common/Head";
 
 export async function getStaticProps() {
-  const client = new OADataLocal();
+  const client = new OADataAPI();
   const stats = client.getStats();
   return {
     props: {

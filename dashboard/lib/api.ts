@@ -22,7 +22,7 @@ import lodashSet from "lodash.set";
 import fs from "fs";
 import { join } from "path";
 import { largestRemainder, sum } from "./utils";
-import statsRaw from "../data/stats.json";
+import statsRaw from "../../data/data/stats.json";
 
 export const API_HOST = process.env.COKI_API_URL || "https://api.coki.ac";
 export const IMAGES_HOST = process.env.COKI_IMAGES_URL || "https://images.open.coki.ac";
@@ -52,6 +52,11 @@ export class OADataAPI {
     return entity;
   }
 
+  async getEntities(entityType: string, filterQuery: QueryParams): Promise<QueryResult> {
+    const url = makeFilterUrl(this.host, entityType, filterQuery);
+    return fetch(url).then((response) => response.json());
+  }
+
   async searchEntities(
     query: string,
     page: number,
@@ -66,22 +71,13 @@ export class OADataAPI {
     }
     return this.api.get(url, options);
   }
-
-  async filterEntities(entityType: string, filterQuery: QueryParams): Promise<QueryResult> {
-    const url = makeFilterUrl(this.host, entityType, filterQuery);
-    return fetch(url).then((response) => response.json());
-  }
 }
 
 export class OADataLocal {
   dataPath: string;
 
-  constructor(dataPath: string = "./data") {
+  constructor(dataPath: string = "../data/data") {
     this.dataPath = dataPath;
-  }
-
-  getStats(): Stats {
-    return statsRaw as unknown as Stats;
   }
 
   getEntity(entityType: string, id: string): Entity {

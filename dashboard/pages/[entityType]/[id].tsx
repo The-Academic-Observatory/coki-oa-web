@@ -15,9 +15,9 @@
 // Author: James Diprose
 
 import { Entity, Stats } from "../../lib/model";
-import { idsToStaticPaths, OADataLocal, OADataAPI } from "../../lib/api";
+import { idsToStaticPaths, OADataAPI, OADataLocal } from "../../lib/api";
 import EntityDetails from "../../components/details/EntityDetails";
-import topInstitutions from "../../data/topInstitutions.json";
+import topInstitutions from "../../../data/topInstitutions.json";
 
 const MAX_PREVIEW_INSTITUTIONS = 100;
 
@@ -85,10 +85,8 @@ function validateInstitutionIds(institutionIds: string[]): string[] {
 }
 
 export async function getStaticPaths() {
-  // Use local API as this is only ever called during build
-  const client = new OADataLocal();
-
   // Pre-render all country pages
+  const client = new OADataLocal();
   const countryPaths = idsToStaticPaths(
     client.getEntities("country").map((e: Entity) => e.id),
     "country",

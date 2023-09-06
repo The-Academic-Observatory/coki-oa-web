@@ -2,6 +2,7 @@
   "name": "social-cards",
   "private": true,
   "type": "module",
+  "description": "The COKI Open Access Dashboard Social Card Generation Script",
   "scripts": {
     "render": "node --loader ts-node/esm social-cards.ts"
   },

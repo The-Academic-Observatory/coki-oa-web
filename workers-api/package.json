@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "coki-oa-web-api",
+  "name": "workers-api",
   "type": "module",
-  "description": "The COKI Open Access Web Cloudflare Worker API",
+  "description": "The COKI Open Access Dashboard Cloudflare Workers API",
   "author": "Curtin University <coki@curtin.edu.au>",
   "license": "Apache-2.0",
   "main": "./dist/index.mjs",
