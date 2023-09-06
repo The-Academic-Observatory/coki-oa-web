@@ -5,10 +5,6 @@ inputs:
   bucket_name:
     description: "The COKI OA Web Google Cloud Storage bucket name"
     required: true
-  wrangler:
-    description: "Whether to install Wrangler or not"
-    default: "false"
-    required: false
   vercel:
     description: "Whether to install Vercel CLI or not"
     default: "false"

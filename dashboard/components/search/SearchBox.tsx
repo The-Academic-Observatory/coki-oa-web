@@ -23,16 +23,17 @@ interface SearchBoxProps {
   onFocus: (e: any) => void;
   onChange: (e: any) => void;
   inputDataTest: string;
+  autoFocus: boolean;
 }
 
-const SearchBox = ({ value, onFocus, onChange, inputDataTest }: SearchBoxProps) => {
+const SearchBox = ({ value, onFocus, onChange, inputDataTest, autoFocus }: SearchBoxProps) => {
   return (
     <InputGroup borderColor="grey.900" bg="white" rounded={50} w={{ base: "full", std: 388 }}>
       <InputLeftElement pointerEvents="none">
         <SearchIcon color="gray.900" />
       </InputLeftElement>
       <Input
-        autoFocus
+        autoFocus={autoFocus}
         data-test={inputDataTest}
         value={value}
         variant="outline"

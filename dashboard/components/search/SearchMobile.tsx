@@ -78,6 +78,7 @@ const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: 
               onChange={(e) => {
                 searchBoxOnChange(e);
               }}
+              autoFocus={true}
             />
           </DrawerHeader>
           <DrawerBody bg="white" data-test="searchResultsMobile" pt="2px" pb={0} overflowY="auto">

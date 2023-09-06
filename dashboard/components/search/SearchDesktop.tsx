@@ -157,6 +157,7 @@ const SearchDesktop = ({ ...rest }) => {
                   }
                   searchBoxOnChange(e);
                 }}
+                autoFocus={false}
               />
             </div>
           </PopoverAnchor>
