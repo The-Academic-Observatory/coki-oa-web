@@ -7,6 +7,7 @@ test("Should search for Curtin", async ({ page, isMobile }) => {
 
   if (isMobile) {
     // On mobile: click search box and enter into searchInputMobile
+    await page.waitForSelector("button[data-test='search']");
     await page.locator("button[data-test='search']").click();
     await page.fill("input[data-test='searchInputMobile']", "Curtin");
     await page.locator("div[data-test='searchResultsMobile'] > div:first-of-type > a").click();

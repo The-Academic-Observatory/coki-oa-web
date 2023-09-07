@@ -11,8 +11,7 @@
     "build": "node --loader ts-node/esm build.ts",
     "test": "yarn run build && NODE_OPTIONS=--experimental-vm-modules npx vitest run",
     "format": "prettier --write '**/*.{js,css,json,md}'",
-    "types:check": "tsc && tsc -p tsconfig.json",
-    "licenses": "license-checker-rseidelsohn --customPath ../customFormat.json  --clarificationsFile ../clarifications.json --production --direct --json > licenses.json"
+    "types:check": "tsc && tsc -p tsconfig.json"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.11.0",
@@ -36,8 +35,8 @@
     "wrangler": "^3.6.0"
   },
   "dependencies": {
-    "@json2csv/plainjs": "^6.1.2",
-    "@json2csv/transforms": "^6.1.2",
+    "@json2csv/plainjs": "6.1.3",
+    "@json2csv/transforms": "6.1.3",
     "fold-to-ascii": "^5.0.1",
     "itty-router": "^2.6.6",
     "jszip": "3.10.1",

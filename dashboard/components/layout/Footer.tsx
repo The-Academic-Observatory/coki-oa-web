@@ -135,7 +135,10 @@ const FooterLinks = ({ links, ...rest }: FooterLinksProps) => {
           {l.name}
         </Link>
       ))}
-      <Link href="/licenses/">Licenses</Link>)
+      <Link data-test="licenses" href="/licenses/">
+        Licenses
+      </Link>
+      )
     </Stack>
   );
 };

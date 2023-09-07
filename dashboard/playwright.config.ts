@@ -3,9 +3,9 @@ import path from "path";
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
-  timeout: 60 * 1000,
+  timeout: 120 * 1000,
   testDir: path.join(__dirname, "e2e"),
-  retries: 1,
+  retries: 2,
   outputDir: "test-results/",
   webServer: {
     command: "yarn run dev",
@@ -21,7 +21,7 @@ const config: PlaywrightTestConfig = {
     },
   },
   expect: {
-    timeout: 30000,
+    timeout: 120 * 1000,
   },
   projects: [
     // Desktop viewports

@@ -19,15 +19,50 @@ import React from "react";
 import Card from "../components/common/Card";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import Head from "../components/common/Head";
-import webAppLicensesJson from "../licenses.json";
-import apiLicensesJson from "../workers-api/licenses.json";
+import licensesDashboardJSON from "../../data/licenses-dashboard.json";
+import licensesWorkersApiJSON from "../../data/licenses-workers-api.json";
+import licensesWorkersImagesJSON from "../../data/licenses-workers-images.json";
 
 export type LicensesPageProps = {
-  webAppLicenses: Array<License>;
-  apiLicenses: Array<License>;
+  licensesDashboard: Array<License>;
+  licensesWorkersApi: Array<License>;
+  licensesWorkersImages: Array<License>;
 };
 
-export default function Licenses({ webAppLicenses, apiLicenses }: LicensesPageProps) {
+interface LicenseListProps {
+  licenses: License[];
+}
+
+const LicenseList: React.FC<LicenseListProps> = ({ licenses }) => {
+  return (
+    <>
+      {licenses.map((license: License) => (
+        <Box key={license.packageName}>
+          <Text as="p" textStyle="p" fontWeight={500} pb="6px" fontSize="20px" lineHeight="22px">
+            {license.packageName}
+          </Text>
+          <Text as="p" textStyle="p" pb="6px" fontSize="20px" lineHeight="22px">
+            License: {license.licenses}
+          </Text>
+          <Text as="p" textStyle="p" pb="6px" fontSize="20px" lineHeight="22px">
+            Copyright: {license.copyright}
+          </Text>
+          <Text as="p" textStyle="p" pb="6px" fontSize="20px" lineHeight="22px">
+            Repository:{" "}
+            <a href={license.repository} target="_blank" rel="noreferrer">
+              {license.repository}
+            </a>
+          </Text>
+          <Text as="p" textStyle="p" fontSize="16px" lineHeight="18px">
+            {license.licenseText}
+          </Text>
+        </Box>
+      ))}
+    </>
+  );
+};
+
+export default function Licenses({ licensesDashboard, licensesWorkersApi, licensesWorkersImages }: LicensesPageProps) {
   const title = "COKI: Open Source Licenses";
   const description = "COKI Open Access Dashboard Open Source Third Party License Notices.";
 
@@ -56,58 +91,22 @@ export default function Licenses({ webAppLicenses, apiLicenses }: LicensesPagePr
         </Text>
 
         <Text as="h3" textStyle="h2">
-          COKI Open Access Dashboard
+          Dashboard
         </Text>
 
-        {webAppLicenses.map((license: License) => (
-          <Box key={license.packageName}>
-            <Text as="p" textStyle="p" fontWeight={500} pb="6px" fontSize="20px" lineHeight="22px">
-              {license.packageName}
-            </Text>
-            <Text as="p" textStyle="p" pb="6px" fontSize="20px" lineHeight="22px">
-              License: {license.licenses}
-            </Text>
-            <Text as="p" textStyle="p" pb="6px" fontSize="20px" lineHeight="22px">
-              Copyright: {license.copyright}
-            </Text>
-            <Text as="p" textStyle="p" pb="6px" fontSize="20px" lineHeight="22px">
-              Repository:{" "}
-              <a href={license.repository} target="_blank" rel="noreferrer">
-                {license.repository}
-              </a>
-            </Text>
-            <Text as="p" textStyle="p" fontSize="16px" lineHeight="18px">
-              {license.licenseText}
-            </Text>
-          </Box>
-        ))}
+        <LicenseList licenses={licensesDashboard} />
 
         <Text as="h3" textStyle="h2">
-          COKI Open Access REST API
+          Data REST API
         </Text>
 
-        {apiLicenses.map((license: License) => (
-          <Box key={license.packageName}>
-            <Text as="p" textStyle="p" fontWeight={500} pb="6px" fontSize="20px" lineHeight="22px">
-              {license.packageName}
-            </Text>
-            <Text as="p" textStyle="p" pb="6px" fontSize="20px" lineHeight="22px">
-              License: {license.licenses}
-            </Text>
-            <Text as="p" textStyle="p" pb="6px" fontSize="20px" lineHeight="22px">
-              Copyright: {license.copyright}
-            </Text>
-            <Text as="p" textStyle="p" pb="6px" fontSize="20px" lineHeight="22px">
-              Repository:{" "}
-              <a href={license.repository} target="_blank" rel="noreferrer">
-                {license.repository}
-              </a>
-            </Text>
-            <Text as="p" textStyle="p" fontSize="16px" lineHeight="18px">
-              {license.licenseText}
-            </Text>
-          </Box>
-        ))}
+        <LicenseList licenses={licensesWorkersApi} />
+
+        <Text as="h3" textStyle="h2">
+          Images REST API
+        </Text>
+
+        <LicenseList licenses={licensesWorkersImages} />
       </Card>
     </Box>
   );
@@ -149,15 +148,11 @@ const getLicenseInfo = (licensesData: LicensesData) => {
 };
 
 export async function getStaticProps() {
-  const webAppLicensesData = webAppLicensesJson as LicensesData;
-  const apiLicensesData = apiLicensesJson as LicensesData;
-  const webAppLicenses = getLicenseInfo(webAppLicensesData);
-  const apiLicenses = getLicenseInfo(apiLicensesData);
-
   return {
     props: {
-      webAppLicenses: webAppLicenses,
-      apiLicenses: apiLicenses,
+      licensesDashboard: getLicenseInfo(licensesDashboardJSON as LicensesData),
+      licensesWorkersApi: getLicenseInfo(licensesWorkersApiJSON as LicensesData),
+      licensesWorkersImages: getLicenseInfo(licensesWorkersImagesJSON as LicensesData),
     },
   };
 }
