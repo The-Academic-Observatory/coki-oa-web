@@ -17,7 +17,7 @@
 import { Entity, Stats } from "../../lib/model";
 import { idsToStaticPaths, OADataAPI, OADataLocal } from "../../lib/api";
 import EntityDetails from "../../components/details/EntityDetails";
-import topInstitutions from "../../../data/topInstitutions.json";
+import topInstitutions from "../../../data/data/topInstitutions.json";
 
 const MAX_PREVIEW_INSTITUTIONS = 100;
 

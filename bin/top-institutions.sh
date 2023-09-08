@@ -6,7 +6,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 ROOT_DIR="$1"
-DATA_DIR="${ROOT_DIR}/data"
+DATA_DIR="${ROOT_DIR}/data/data"
 
 input_path="${DATA_DIR}/topInstitutionsTmp.json"
 output_path="${DATA_DIR}/topInstitutions.json"
