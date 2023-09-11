@@ -32,32 +32,31 @@ Apache Airflow workflow. This workflow needs to be run first to produce the data
 website. Normally the following steps are performed automatically by the workflow when the website is built and 
 deployed, however, during development this needs to be done manually.
 
-From the Google Cloud Storage bucket, download the `v8/data.zip` file, saving it in the root of the project.
+From the Google Cloud Storage bucket, download the `v10/data.zip` file, saving it in the `./data` folder of the project.
 
-Run the `data.sh` script, which will extract the data files and copy them to the right places 
+Run the `./bin/data.sh .` script, which will extract the data files and copy them to the right places 
 (this will also run on Windows).
 
 ## 2. Web App Development
 See below for instructions specific to running the web application.
 
 ### Install dependencies
-Install coki-oa-web and coki-oa-web-api:
+Install dependencies:
 ```bash
 yarn install
-yarn workspace coki-oa-web-api install
-yarn workspace coki-oa-images install
 ```
 
 ### Running Development Server
 To load the local database:
 ```bash
 cd workers-api
-yarn build # Creates ../data/db.sql
-wrangler d1 execute DB --file ../data/db.sql --local --config wrangler.local.toml
+yarn build # Creates ../data/data/db.sql
+wrangler d1 execute DB --file ../data/data/db.sql --local --config wrangler.local.toml
 ```
 
 Run the development server:
 ```bash
+cd ../dashboard
 yarn dev
 ```
 
@@ -92,6 +91,8 @@ export COKI_API_URL=https://develop.api.coki.ac
 Make sure that `COKI_API_URL` is pointing to a running version of the API, as it will be used during the build process.
 
 #### Deploy Preview
+Make sure that you are in the `dashboard` directory.
+
 Pull preview project config:
 ```bash
 vercel pull --environment=preview

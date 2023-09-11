@@ -69,7 +69,7 @@ runs:
     - name: Download Top Institution pages from Plausible
       env:
         PLAUSIBLE_API_TOKEN: ${{ inputs.plausible_api_token }}
-      run: ./top-institutions.sh
+      run: ./bin/top-institutions.sh .
       shell: bash
 
     - name: Save wrangler.toml files
@@ -92,9 +92,10 @@ runs:
       working-directory: ./workers-api
       env:
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+        WRANGLER_LOG: error # yarn run wrangler d1 prints out too much information so only log errors
       run: |
-        yarn run build # Creates ../data/db.sql
-        yarn run wrangler d1 execute DB --yes --file ../data/db.sql -e ${CF_ENVIRONMENT}
+        yarn run build # Creates ../data/data/db.sql
+        yarn run wrangler d1 execute DB --yes --file ../data/data/db.sql -e ${CF_ENVIRONMENT}
       shell: bash
 
     - name: Publish Cloudflare Workers API
@@ -105,6 +106,7 @@ runs:
       shell: bash
 
     - name: Pull Vercel Environment Information
+      working-directory: ./dashboard
       env:
         VERCEL_ORG_ID: ${{ inputs.vercel_org_id }}
         VERCEL_PROJECT_ID: ${{ inputs.vercel_project_id }}
@@ -112,6 +114,7 @@ runs:
       shell: bash
 
     - name: Build Project Artifacts
+      working-directory: ./dashboard
       env:
         VERCEL_ORG_ID: ${{ inputs.vercel_org_id }}
         VERCEL_PROJECT_ID: ${{ inputs.vercel_project_id }}
@@ -119,6 +122,7 @@ runs:
       shell: bash
 
     - name: Deploy Project Artifacts to Vercel
+      working-directory: ./dashboard
       env:
         VERCEL_ORG_ID: ${{ inputs.vercel_org_id }}
         VERCEL_PROJECT_ID: ${{ inputs.vercel_project_id }}

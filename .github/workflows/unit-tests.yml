@@ -18,4 +18,5 @@ jobs:
           gcp_credentials: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Run Unit Tests
+        working-directory: ./dashboard
         run: yarn run test:jest

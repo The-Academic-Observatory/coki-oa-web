@@ -1,13 +1,13 @@
 {
   "private": true,
-  "name": "coki-oa-images",
+  "name": "workers-images",
   "version": "0.1.0",
-  "description": "The COKI Open Access Images Cloudflare Worker",
+  "description": "The COKI Open Access Dashboard Cloudflare Workers Images API",
   "main": "index.js",
   "author": "Curtin University <coki@curtin.edu.au>",
   "license": "Apache 2.0",
   "dependencies": {
-    "@cloudflare/kv-asset-handler": "^0.2.0"
+    "@cloudflare/kv-asset-handler": "0.3.0"
   },
   "devDependencies": {
     "wrangler": "^3.6.0"
