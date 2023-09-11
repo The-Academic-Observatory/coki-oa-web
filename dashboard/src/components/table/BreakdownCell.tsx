@@ -14,10 +14,10 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
-import { Link } from "@/components/common";
 import { BreakdownSparkline } from "@/components/charts";
+import { Link } from "@/components/common";
 import { EntityProps, makeHref } from "@/components/table";
+import React, { memo } from "react";
 
 function BreakdownCell({ entity }: EntityProps) {
   const href = makeHref(entity.entity_type, entity.id);

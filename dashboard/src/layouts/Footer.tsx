@@ -14,11 +14,11 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
-import { Box, Flex, FlexProps, Stack, StackProps, Text, VStack } from "@chakra-ui/react";
-import { Link, Icon } from "@/components/common";
+import { Icon, Link } from "@/components/common";
 import { LinkProps } from "@/layouts";
+import { Box, Flex, FlexProps, Stack, StackProps, Text, VStack } from "@chakra-ui/react";
 import CurtinLogo from "@root/public/logo-curtin.svg";
+import React, { memo } from "react";
 
 const curtinLogoWidthDesktop = 245;
 const curtinLogoWidthMobile = 210;

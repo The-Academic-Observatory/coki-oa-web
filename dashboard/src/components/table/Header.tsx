@@ -14,10 +14,10 @@
 //
 // Author: James Diprose
 
+import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
+import { Grid, GridItem, HStack, Text } from "@chakra-ui/react";
 import React, { memo } from "react";
 import { ColumnInstance } from "react-table";
-import { Grid, GridItem, HStack, Text } from "@chakra-ui/react";
-import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 
 interface ColumnProps {
   column: ColumnInstance;

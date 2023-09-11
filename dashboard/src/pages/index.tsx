@@ -14,9 +14,9 @@
 //
 // Author: James Diprose
 
-import React from "react";
 import { Dashboard, getDashboardStaticProps } from "@/components/dashboard";
 import { QueryResult, Stats } from "@/lib/model";
+import React from "react";
 
 export type DashboardPageProps = {
   defaultCountries: QueryResult;

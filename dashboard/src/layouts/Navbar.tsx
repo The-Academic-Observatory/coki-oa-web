@@ -14,12 +14,12 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
-import { Box, Flex, FlexProps, IconButton } from "@chakra-ui/react";
-import { Link, Icon } from "@/components/common";
+import { Icon, Link } from "@/components/common";
 import { SearchDesktop } from "@/components/search";
-import COKILogo from "@root/public/logo.svg";
+import { Box, Flex, FlexProps, IconButton } from "@chakra-ui/react";
 import COKILogoWhite from "@root/public/logo-white.svg";
+import COKILogo from "@root/public/logo.svg";
+import React, { memo } from "react";
 
 interface NavbarProps extends FlexProps {
   isOpenSidebar: boolean;

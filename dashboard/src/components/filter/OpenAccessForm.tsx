@@ -14,10 +14,10 @@
 //
 // Author: Aniek Roelofs, James Diprose
 
-import React, { memo, useCallback } from "react";
-import { Box, Divider, Text, VStack } from "@chakra-ui/react";
 import { HistogramRangeSlider, OpenAccess } from "@/components/filter";
 import { EntityHistograms } from "@/lib/model";
+import { Box, Divider, Text, VStack } from "@chakra-ui/react";
+import React, { memo, useCallback } from "react";
 
 export interface OpenAccessFormProps {
   rangeSliderMinMaxValues: OpenAccess;

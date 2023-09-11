@@ -14,12 +14,12 @@
 //
 // Author: James Diprose
 
-import React from "react";
+import { Breadcrumbs, Card, Figure, Head, ScrollTable } from "@/components/common";
 import { Box, ListItem, OrderedList, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
-import { Figure, ScrollTable, Breadcrumbs, Head, Card } from "@/components/common";
-import OAStats from "@root/public/images/oa-stats.svg";
-import OAOverview from "@root/public/images/oa-overview.svg";
 import OAFlowchart from "@root/public/images/oa-flowchart.svg";
+import OAOverview from "@root/public/images/oa-overview.svg";
+import OAStats from "@root/public/images/oa-stats.svg";
+import React from "react";
 
 export default function Open() {
   const title = "COKI: Open Access";

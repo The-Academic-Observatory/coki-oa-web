@@ -14,7 +14,8 @@
 //
 // Author: Aniek Roelofs, James Diprose
 
-import React, { memo, useCallback, useEffect } from "react";
+import { QueryForm } from "@/components/filter";
+import { toReadableNumber } from "@/lib/utils";
 import {
   Flex,
   RangeSlider,
@@ -25,8 +26,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { getIn, useFormikContext } from "formik";
-import { QueryForm } from "@/components/filter";
-import { toReadableNumber } from "@/lib/utils";
+import React, { memo, useCallback, useEffect } from "react";
 
 export interface FilterRangeSliderProps {
   leftKey: string;

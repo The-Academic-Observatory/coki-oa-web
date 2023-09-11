@@ -14,12 +14,12 @@
 //
 // Author: James Diprose
 
-import React, { ReactNode, useEffect } from "react";
-import { Box, Drawer, DrawerContent, Flex, useDisclosure, useMediaQuery } from "@chakra-ui/react";
-import { RemoveScroll } from "react-remove-scroll";
-import { SidebarContent, Navbar, Footer } from "@/layouts";
 import { SearchMobile } from "@/components/search";
+import { Footer, Navbar, SidebarContent } from "@/layouts";
+import { Box, Drawer, DrawerContent, Flex, useDisclosure, useMediaQuery } from "@chakra-ui/react";
 import COKIBackground from "@root/public/coki-background.svg";
+import React, { ReactNode, useEffect } from "react";
+import { RemoveScroll } from "react-remove-scroll";
 
 export interface LinkProps {
   name: string;

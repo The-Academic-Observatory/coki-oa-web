@@ -14,8 +14,8 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
 import { EntityProps } from "@/components/table";
+import React, { memo } from "react";
 
 function NumberCell({ value }: EntityProps) {
   return <span>{value.toLocaleString()}</span>;

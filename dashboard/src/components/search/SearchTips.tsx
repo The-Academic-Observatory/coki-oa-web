@@ -14,8 +14,8 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
 import { Box, BoxProps, ListItem, Text, UnorderedList } from "@chakra-ui/react";
+import React, { memo } from "react";
 
 interface SearchTipsProps extends BoxProps {
   query: string;

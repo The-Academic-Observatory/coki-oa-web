@@ -14,13 +14,13 @@
 //
 // Author: James Diprose
 
+import { SearchBox, SearchResult, SearchTips, SkeletonSearchResult } from "@/components/search";
+import { OADataAPI } from "@/lib/api";
+import { Entity } from "@/lib/model";
+import { Box, Popover, PopoverAnchor, PopoverBody, PopoverContent, useOutsideClick } from "@chakra-ui/react";
+import debounce from "lodash/debounce";
 import React, { LegacyRef, memo, useCallback, useEffect, useRef } from "react";
 import { RemoveScroll } from "react-remove-scroll";
-import { Box, Popover, PopoverAnchor, PopoverBody, PopoverContent, useOutsideClick } from "@chakra-ui/react";
-import { Entity } from "@/lib/model";
-import { OADataAPI } from "@/lib/api";
-import debounce from "lodash/debounce";
-import { SearchBox, SearchResult, SearchTips, SkeletonSearchResult } from "@/components/search";
 
 export const useEntitySearch = (
   onDataLoaded: any = null,

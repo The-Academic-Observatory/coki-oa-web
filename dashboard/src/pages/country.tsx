@@ -14,8 +14,8 @@
 //
 // Author: James Diprose
 
-import React from "react";
 import { Dashboard, getDashboardStaticProps } from "@/components/dashboard";
+import React from "react";
 import { DashboardPageProps } from "./index";
 
 const CountryIndexPage = ({ defaultCountries, defaultInstitutions, stats }: DashboardPageProps) => {

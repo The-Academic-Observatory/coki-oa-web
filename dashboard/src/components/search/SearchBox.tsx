@@ -14,9 +14,9 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import React, { memo } from "react";
 
 interface SearchBoxProps {
   value: string;

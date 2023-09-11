@@ -14,9 +14,9 @@
 //
 // Author: James Diprose
 
-import { Entity } from "@/lib/model";
-import { OADataAPI, idsToStaticPaths, OADataLocal } from "@/lib/api";
 import { SocialCard } from "@/components/common";
+import { idsToStaticPaths, OADataAPI, OADataLocal } from "@/lib/api";
+import { Entity } from "@/lib/model";
 
 type Props = {
   entity: Entity;

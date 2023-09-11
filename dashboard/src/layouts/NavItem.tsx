@@ -14,10 +14,10 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
+import { Icon, Link } from "@/components/common";
 import { Box, BoxProps, Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { Link, Icon } from "@/components/common";
+import React, { memo } from "react";
 import styles from "./Layout.module.css";
 
 interface NavItemProps extends BoxProps {

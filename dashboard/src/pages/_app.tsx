@@ -14,15 +14,15 @@
 //
 // Author: James Diprose
 
+import { Fonts } from "@/components/common";
+import { Layout } from "@/layouts";
+import "@/styles/globals.css";
+import "@/theme/styles.css";
+import { ChakraProvider } from "@chakra-ui/react";
+import type { AppProps } from "next/app";
+import Script from "next/script";
 import React from "react";
 import theme from "../theme";
-import "@/theme/styles.css";
-import "@/styles/globals.css";
-import type { AppProps } from "next/app";
-import { ChakraProvider } from "@chakra-ui/react";
-import { Layout } from "@/layouts";
-import { Fonts } from "@/components/common";
-import Script from "next/script";
 
 function OpenAccessWebApp({ Component, pageProps }: AppProps) {
   return (

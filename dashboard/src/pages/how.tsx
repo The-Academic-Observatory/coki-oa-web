@@ -14,14 +14,14 @@
 //
 // Author: James Diprose
 
-import React from "react";
-import { Box, ListItem, OrderedList, Table, Tbody, Td, Text, Th, Thead, Tr, UnorderedList } from "@chakra-ui/react";
-import { Figure, ScrollTable, Breadcrumbs, Card, Link, Head } from "@/components/common";
+import { Breadcrumbs, Card, Figure, Head, Link, ScrollTable } from "@/components/common";
 import { OADataAPI } from "@/lib/api";
 import { Stats } from "@/lib/model";
-import HowOverview from "@root/public/images/how-overview.svg";
+import { Box, ListItem, OrderedList, Table, Tbody, Td, Text, Th, Thead, Tr, UnorderedList } from "@chakra-ui/react";
 import HowDatasets from "@root/public/images/how-datasets.svg";
+import HowOverview from "@root/public/images/how-overview.svg";
 import HowPubTable from "@root/public/images/how-pub-table.svg";
+import React from "react";
 
 export async function getStaticProps() {
   const client = new OADataAPI();

@@ -14,8 +14,8 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
 import { Button, Flex, Text, VStack } from "@chakra-ui/react";
+import React, { memo } from "react";
 
 interface NoResultsProps {
   onResetQueryForm: () => void;

@@ -14,11 +14,11 @@
 //
 // Author: James Diprose
 
+import { SearchBox, SearchResult, SearchTips, SkeletonSearchResult, useEntitySearch } from "@/components/search";
+import { Entity } from "@/lib/model";
+import { BoxProps, Drawer, DrawerBody, DrawerContent, DrawerHeader, useMediaQuery } from "@chakra-ui/react";
 import React, { memo, useEffect } from "react";
 import { RemoveScroll } from "react-remove-scroll";
-import { BoxProps, Drawer, DrawerBody, DrawerContent, DrawerHeader, useMediaQuery } from "@chakra-ui/react";
-import { Entity } from "@/lib/model";
-import { SearchBox, SearchResult, SearchTips, SkeletonSearchResult, useEntitySearch } from "@/components/search";
 
 interface SearchDrawerProps extends BoxProps {
   isOpen: boolean;

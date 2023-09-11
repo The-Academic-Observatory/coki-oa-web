@@ -14,11 +14,11 @@
 //
 // Author: Aniek Roelofs, James Diprose
 
-import React, { memo } from "react";
-import { Box, VStack } from "@chakra-ui/react";
 import { HistogramChart } from "@/components/charts";
 import { FilterRangeSlider } from "@/components/filter";
 import { Histogram } from "@/lib/model";
+import { Box, VStack } from "@chakra-ui/react";
+import React, { memo } from "react";
 
 export interface HistogramRangeSliderProps {
   leftKey: string;

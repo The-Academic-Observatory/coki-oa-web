@@ -14,11 +14,11 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
-import { Box, BoxProps, HStack, Image, Text } from "@chakra-ui/react";
-import { Entity } from "@/lib/model";
 import { Link } from "@/components/common";
 import { cokiImageLoader } from "@/lib/api";
+import { Entity } from "@/lib/model";
+import { Box, BoxProps, HStack, Image, Text } from "@chakra-ui/react";
+import React, { memo } from "react";
 
 interface SearchResultProps extends BoxProps {
   entity: Entity;

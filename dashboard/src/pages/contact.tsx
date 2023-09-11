@@ -14,9 +14,9 @@
 //
 // Author: James Diprose
 
-import React from "react";
+import { Breadcrumbs, Card, Head, Icon } from "@/components/common";
 import { Box, Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
-import { Card, Icon, Breadcrumbs, Head } from "@/components/common";
+import React from "react";
 import { FiGithub } from "react-icons/fi";
 
 export default function Contact() {

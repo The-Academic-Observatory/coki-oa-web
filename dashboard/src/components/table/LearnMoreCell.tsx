@@ -14,11 +14,11 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
 import { Link } from "@/components/common";
-import { Button, Text } from "@chakra-ui/react";
-import { ChevronRightIcon } from "@chakra-ui/icons";
 import { EntityProps, makeHref } from "@/components/table";
+import { ChevronRightIcon } from "@chakra-ui/icons";
+import { Button, Text } from "@chakra-ui/react";
+import React, { memo } from "react";
 
 function LearnMoreCell({ entity }: EntityProps) {
   const href = makeHref(entity.entity_type, entity.id);

@@ -14,8 +14,8 @@
 //
 // Author: James Diprose
 
-import React, { LegacyRef, memo } from "react";
 import { Box, BoxProps, HStack, Skeleton, SkeletonCircle } from "@chakra-ui/react";
+import React, { LegacyRef, memo } from "react";
 
 interface SkeletonSearchResultProps extends BoxProps {
   lastEntityRef: LegacyRef<HTMLDivElement>;

@@ -14,15 +14,15 @@
 //
 // Author: Aniek Roelofs, James Diprose, Alex Massen-Hane
 
-import React, { memo, useCallback } from "react";
-import { Accordion, Box, Button, HStack, IconButton, Text, useBreakpointValue } from "@chakra-ui/react";
-import { Form, FormikProvider, useFormik } from "formik";
 import { CheckboxTree, Icon } from "@/components/common";
-import { EntityStats } from "@/lib/model";
-import { OpenAccessForm, InstitutionTypeForm, FilterAccordionItem } from "@/components/filter";
-import { CloseIcon } from "@chakra-ui/icons";
+import { FilterAccordionItem, InstitutionTypeForm, OpenAccessForm } from "@/components/filter";
 import { useEffectAfterRender } from "@/lib/hooks";
+import { EntityStats } from "@/lib/model";
+import { CloseIcon } from "@chakra-ui/icons";
+import { Accordion, Box, Button, HStack, IconButton, Text } from "@chakra-ui/react";
+import { Form, FormikProvider, useFormik } from "formik";
 import lodashIsEqual from "lodash.isequal";
+import React, { memo, useCallback } from "react";
 
 const filterMaxWidth = 300;
 

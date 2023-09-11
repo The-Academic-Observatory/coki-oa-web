@@ -14,9 +14,9 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
+import { LinkProps, NavItem } from "@/layouts";
 import { Box, BoxProps } from "@chakra-ui/react";
-import { NavItem, LinkProps } from "@/layouts";
+import React, { memo } from "react";
 
 interface SidebarProps extends BoxProps {
   links: Array<LinkProps>;

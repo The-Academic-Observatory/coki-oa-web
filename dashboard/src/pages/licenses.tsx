@@ -14,12 +14,12 @@
 //
 // Author: James Diprose
 
-import React from "react";
+import { Breadcrumbs, Card, Head } from "@/components/common";
 import { Box, Text } from "@chakra-ui/react";
-import { Breadcrumbs, Head, Card } from "@/components/common";
 import licensesDashboardJSON from "@data/licenses-dashboard.json";
 import licensesWorkersApiJSON from "@data/licenses-workers-api.json";
 import licensesWorkersImagesJSON from "@data/licenses-workers-images.json";
+import React from "react";
 
 export type LicensesPageProps = {
   licensesDashboard: Array<License>;

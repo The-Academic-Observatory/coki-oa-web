@@ -14,10 +14,7 @@
 //
 // Author: James Diprose, Aniek Roelofs
 
-import React, { memo } from "react";
-import { Box, BoxProps, Flex, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
-import { Cell, Row, usePagination, useSortBy, useTable } from "react-table";
-import { Entity, QueryResult } from "@/lib/model";
+import { QueryForm } from "@/components/filter";
 import {
   BreakdownCell,
   EntityCell,
@@ -29,8 +26,11 @@ import {
   Pagination,
   SkeletonResults,
 } from "@/components/table";
-import { QueryForm } from "@/components/filter";
 import { useEffectAfterRender } from "@/lib/hooks";
+import { Entity, QueryResult } from "@/lib/model";
+import { Box, BoxProps, Flex, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
+import React, { memo } from "react";
+import { Cell, Row, usePagination, useSortBy, useTable } from "react-table";
 
 export function makeHref(category: string, id: string) {
   return `/${category}/${id}`;

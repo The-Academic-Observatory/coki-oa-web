@@ -14,12 +14,12 @@
 //
 // Author: James Diprose
 
-import React from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
 import { Breadcrumbs, Card, Head } from "@/components/common";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import ArcadiaLogo from "@root/public/logo-arcadia.svg";
 import CurtinLogo from "@root/public/logo-curtin.svg";
 import MellonLogo from "@root/public/logo-mellon.svg";
-import ArcadiaLogo from "@root/public/logo-arcadia.svg";
+import React from "react";
 
 export default function About() {
   const title = "COKI: About";

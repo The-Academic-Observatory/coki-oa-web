@@ -14,8 +14,8 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
 import { HStack, Skeleton, SkeletonCircle, Td, Tr } from "@chakra-ui/react";
+import React, { memo } from "react";
 
 interface SkeletonResultsProps {
   nRows: number;

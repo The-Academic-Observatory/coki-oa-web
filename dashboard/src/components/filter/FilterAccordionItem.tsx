@@ -14,9 +14,9 @@
 //
 // Author: Aniek Roelofs
 
-import React, { ReactNode } from "react";
-import { AccordionButton, AccordionItem, AccordionPanel, Text } from "@chakra-ui/react";
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
+import { AccordionButton, AccordionItem, AccordionPanel, Text } from "@chakra-ui/react";
+import React, { ReactNode } from "react";
 
 interface FilterAccordionItemProps {
   children: ReactNode;

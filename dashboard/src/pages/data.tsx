@@ -14,11 +14,11 @@
 //
 // Author: James Diprose
 
-import React from "react";
-import { Box, ListItem, Table, Tbody, Td, Text, Th, Thead, Tr, UnorderedList } from "@chakra-ui/react";
-import { ScrollTable, Breadcrumbs, Card, Head } from "@/components/common";
+import { Breadcrumbs, Card, Head, ScrollTable } from "@/components/common";
 import { OADataAPI } from "@/lib/api";
 import { Stats } from "@/lib/model";
+import { Box, ListItem, Table, Tbody, Td, Text, Th, Thead, Tr, UnorderedList } from "@chakra-ui/react";
+import React from "react";
 
 export async function getStaticProps() {
   const client = new OADataAPI();

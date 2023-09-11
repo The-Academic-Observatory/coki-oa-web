@@ -14,8 +14,8 @@
 //
 // Author: Aniek Roelofs, James Diprose
 
-import React, { memo, useEffect, useState } from "react";
 import { Box, Flex, FlexProps, IconButton } from "@chakra-ui/react";
+import React, { memo, useEffect, useState } from "react";
 import {
   HiOutlineChevronDoubleLeft,
   HiOutlineChevronDoubleRight,

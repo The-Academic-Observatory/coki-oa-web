@@ -14,9 +14,9 @@
 //
 // Author: Aniek Roelofs, James Diprose
 
-import React, { memo, ReactElement } from "react";
 import { Checkbox, Stack, StackDivider } from "@chakra-ui/react";
 import { Field, useField } from "formik";
+import React, { memo, ReactElement } from "react";
 
 export const institutionTypes = [
   "Archive",

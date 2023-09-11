@@ -14,11 +14,11 @@
 //
 // Author: James Diprose
 
-import React, { memo } from "react";
 import { Link } from "@/components/common";
-import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import { EntityProps, makeHref } from "@/components/table";
 import { cokiImageLoader } from "@/lib/api";
+import { Box, HStack, Image, Text } from "@chakra-ui/react";
+import React, { memo } from "react";
 
 function EntityCell({ entity }: EntityProps) {
   const href = makeHref(entity.entity_type, entity.id);
