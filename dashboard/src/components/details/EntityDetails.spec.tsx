@@ -23,6 +23,11 @@ import stats from "@data/data/stats.json";
 
 import { useRouter } from "next/router";
 
+// Mock d3 to stop export error
+jest.mock("d3", () => {
+  return {};
+});
+
 // Mock next/router
 jest.mock("next/router", () => ({
   useRouter: jest.fn(),
