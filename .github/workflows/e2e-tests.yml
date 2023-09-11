@@ -20,6 +20,8 @@ jobs:
 
       - name: Load Local D1 Database
         working-directory: ./workers-api
+        env:
+          WRANGLER_LOG: error # yarn run wrangler d1 prints out too much information so only log errors
         run: |
           yarn run build # Creates ../data/data/db.sql
           yarn run wrangler d1 execute DB --file ../data/data/db.sql --local --config wrangler.local.toml

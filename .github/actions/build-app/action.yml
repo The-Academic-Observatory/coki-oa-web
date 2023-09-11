@@ -92,6 +92,7 @@ runs:
       working-directory: ./workers-api
       env:
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+        WRANGLER_LOG: error # yarn run wrangler d1 prints out too much information so only log errors
       run: |
         yarn run build # Creates ../data/data/db.sql
         yarn run wrangler d1 execute DB --yes --file ../data/data/db.sql -e ${CF_ENVIRONMENT}
