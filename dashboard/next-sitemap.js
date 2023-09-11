@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
-const topInstitutions = require("./data/topInstitutions.json");
-const institutions = require("./data/institution.json");
+const topInstitutions = require("../data/data/topInstitutions.json");
+const institutions = require("../data/data/institution.json");
 
 // On non production deployments block all robots
 let policies = [

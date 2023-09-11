@@ -8,8 +8,7 @@ import { entitiesToSQL, loadEntities, saveSQLToFile } from "./src/database.js";
 //@ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-const DATA_PATH = "../data/data";
+const DATA_PATH = path.resolve(__dirname, "..", "data", "data");
 
 // Generate the SQL for the Cloudflare D1 database
 const entities = loadEntities(DATA_PATH);

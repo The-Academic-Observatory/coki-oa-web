@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const path = require("path");
 const { nanoid } = require("nanoid");
 const webpack = require("webpack");
 
@@ -20,6 +21,19 @@ module.exports = {
       use: ["@svgr/webpack"],
     });
 
+    // Root alias for @svgr/webpack imports from the dashboard folder
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "@root": path.resolve(__dirname),
+    };
+
+    // Data alias for importing data files in the root of the monorepo
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "@data": path.resolve(__dirname, "..", "data"),
+    };
+
+    // Add new BUILD_ID each time we build
     config.plugins.push(
       new webpack.DefinePlugin({
         BUILD_ID: '"' + nanoid() + '"',
