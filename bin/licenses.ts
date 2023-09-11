@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { execSync } from "child_process";
+import { execSync, exec } from "child_process";
 import Dict = NodeJS.Dict;
 
 interface License {
@@ -21,20 +21,29 @@ function loadJSON(filePath: string) {
   return JSON.parse(fileContent);
 }
 
-function runYarnWhy(root: string, packageName: string) {
-  const output = execSync(`yarn why ${packageName} --json`, {
-    cwd: root,
-  }).toString();
-  const lines = output.split("\n").filter((line) => line.trim() !== ""); // remove empty lines
-  return lines.map((line) => JSON.parse(line));
+function runYarnWhy(root: string, packageName: string): Promise<any[]> {
+  return new Promise((resolve, reject) => {
+    exec(
+      `yarn why ${packageName} --json`,
+      { cwd: root },
+      (error, stdout, stderr) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        const output = stdout.toString();
+        const lines = output.split("\n").filter((line) => line.trim() !== ""); // remove empty lines
+        resolve(lines.map((line) => JSON.parse(line)));
+      },
+    );
+  });
 }
-
-function findPackageVersion(
+async function findPackageVersion(
   root: string,
   workspaceName: string,
   packageName: string,
-): string | null {
-  const data = runYarnWhy(root, packageName);
+): Promise<[string, string | null]> {
+  const data = await runYarnWhy(root, packageName);
 
   // Find the entry for the specific workspace
   const workspaceEntry = data.find((entry) =>
@@ -42,7 +51,7 @@ function findPackageVersion(
   );
 
   if (!workspaceEntry) {
-    return null;
+    return [packageName, null];
   }
 
   // Look for the package within the workspace's children
@@ -52,35 +61,46 @@ function findPackageVersion(
       // @ts-ignore
       const versionMatch = child.locator.match(/(?:@npm:|#npm:)([^#]+)$/);
       if (versionMatch && versionMatch[1]) {
-        return versionMatch[1]; // This will return only the version, e.g. "0.3.0"
+        return [packageName, versionMatch[1]]; // This will return only the version, e.g. "0.3.0"
       }
     }
   }
 
-  return null; // Package was not found within the workspace's children.
+  return [packageName, null]; // Package was not found within the workspace's children.
 }
 
-function getProductionPackages(
+async function getProductionPackages(
   root: string,
   licenses: Dict<License>,
   workspaceName: string,
   packageNames: string[],
-) {
+): Promise<Dict<License>> {
   const prod: Dict<License> = {};
-  for (const packageName of packageNames) {
-    const version = findPackageVersion(root, workspaceName, packageName);
+
+  // Use Promise.all to wait for all promises to complete
+  const packageVersions = await Promise.all(
+    packageNames.map((packageName) =>
+      findPackageVersion(root, workspaceName, packageName),
+    ),
+  );
+
+  for (const [packageName, version] of packageVersions) {
     if (version === null) {
       throw Error(
         `getProductionPackages: could not find a version for ${packageName} in workspace ${workspaceName}`,
       );
     }
+
     const key = `${packageName}@${version}`;
     console.log(`${workspaceName}: ${key}`);
+
     if (licenses[key] == null) {
       throw Error(`getProductionPackages: ${key} not found in licenses index`);
     }
+
     prod[key] = licenses[key];
   }
+
   return prod;
 }
 
@@ -89,7 +109,33 @@ function getPackagesFromPackageJSON(filePath: string): string[] {
   return Object.keys(packageJson.dependencies);
 }
 
-function makeLicenses(root: string) {
+// This async function represents the logic inside the loop
+async function processWorkspace(
+  root: string,
+  licenses: Dict<License>,
+  workspaceName: string,
+) {
+  console.log(`Building licenses for workspace: ${workspaceName}`);
+
+  const packageNames = getPackagesFromPackageJSON(
+    path.join(root, workspaceName, "package.json"),
+  );
+  const data = await getProductionPackages(
+    root,
+    licenses,
+    workspaceName,
+    packageNames,
+  );
+
+  // Save output
+  const outputPath = path.join(root, "data", `licenses-${workspaceName}.json`);
+  const jsonString = JSON.stringify(data, null, 4);
+  fs.writeFileSync(outputPath, jsonString, "utf-8");
+
+  console.log(`Saving license information to: ${outputPath}`);
+}
+
+async function makeLicenses(root: string) {
   console.log("Making licenses");
 
   // Run license-checker program
@@ -106,36 +152,17 @@ function makeLicenses(root: string) {
 
   // Build licenses for all workspaces
   const workspaces = ["dashboard", "workers-api", "workers-images"];
-  for (const workspaceName of workspaces) {
-    console.log(`Building licenses for workspace: ${workspaceName}`);
-
-    const packageNames = getPackagesFromPackageJSON(
-      path.join(root, workspaceName, "package.json"),
-    );
-    const data = getProductionPackages(
-      root,
-      licenses,
-      workspaceName,
-      packageNames,
-    );
-
-    // Save output
-    const outputPath = path.join(
-      root,
-      "data",
-      `licenses-${workspaceName}.json`,
-    );
-    const jsonString = JSON.stringify(data, null, 4);
-    fs.writeFileSync(outputPath, jsonString, "utf-8");
-
-    console.log(`Saving license information to: ${outputPath}`);
-  }
+  await Promise.all(
+    workspaces.map((workspaceName) =>
+      processWorkspace(root, licenses, workspaceName),
+    ),
+  );
 }
 
 if (process.argv.length > 2) {
   const root = path.resolve(process.argv[2]);
   console.log(`Running in directory: ${root}`);
-  makeLicenses(root);
+  makeLicenses(root).then();
 } else {
   console.log("Please provide the path to the root of the project.");
 }
