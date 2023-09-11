@@ -2688,21 +2688,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cloudflare/kv-asset-handler@npm:0.3.0":
+  version: 0.3.0
+  resolution: "@cloudflare/kv-asset-handler@npm:0.3.0"
+  dependencies:
+    mime: ^3.0.0
+  checksum: 6d3754096728d082765a7eb08f50e7cebcadee9224896beaee0e998ee43d919aa2e1447c69fb0934ed9df7acc3f8125992653af07522546bb3217086e249f0fb
+  languageName: node
+  linkType: hard
+
 "@cloudflare/kv-asset-handler@npm:^0.2.0":
   version: 0.2.0
   resolution: "@cloudflare/kv-asset-handler@npm:0.2.0"
   dependencies:
     mime: ^3.0.0
   checksum: bc6a02a9c80be6de90e46454ef4de09301e68726eaa4835de0e30216e50fffcc5612274a17dfb455916cf3418f0cb25fefd2b561a9d2282f4cc10d40527f0acb
-  languageName: node
-  linkType: hard
-
-"@cloudflare/kv-asset-handler@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "@cloudflare/kv-asset-handler@npm:0.3.0"
-  dependencies:
-    mime: ^3.0.0
-  checksum: 6d3754096728d082765a7eb08f50e7cebcadee9224896beaee0e998ee43d919aa2e1447c69fb0934ed9df7acc3f8125992653af07522546bb3217086e249f0fb
   languageName: node
   linkType: hard
 
@@ -18591,7 +18591,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "workers-images@workspace:workers-images"
   dependencies:
-    "@cloudflare/kv-asset-handler": ^0.3.0
+    "@cloudflare/kv-asset-handler": 0.3.0
     wrangler: ^3.6.0
   languageName: unknown
   linkType: soft

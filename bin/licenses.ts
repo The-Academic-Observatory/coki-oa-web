@@ -21,28 +21,77 @@ function loadJSON(filePath: string) {
   return JSON.parse(fileContent);
 }
 
-function getProductionDependencies(
-  licenses: Dict<License>,
-  dependencyNames: string[],
-) {
-  const prod: Dict<License> = {};
-  for (const name of dependencyNames) {
-    for (let [key, value] of Object.entries(licenses)) {
-      if (value != null && name === value.name) {
-        prod[key] = value;
-        break;
+function runYarnWhy(root: string, packageName: string) {
+  const output = execSync(`yarn why ${packageName} --json`, {
+    cwd: root,
+  }).toString();
+  const lines = output.split("\n").filter((line) => line.trim() !== ""); // remove empty lines
+  return lines.map((line) => JSON.parse(line));
+}
+
+function findPackageVersion(
+  root: string,
+  workspaceName: string,
+  packageName: string,
+): string | null {
+  const data = runYarnWhy(root, packageName);
+
+  // Find the entry for the specific workspace
+  const workspaceEntry = data.find((entry) =>
+    entry.value.startsWith(workspaceName + "@workspace:"),
+  );
+
+  if (!workspaceEntry) {
+    return null;
+  }
+
+  // Look for the package within the workspace's children
+  for (const [key, child] of Object.entries(workspaceEntry.children)) {
+    if (key.startsWith(packageName + "@")) {
+      // Extract version from the locator
+      // @ts-ignore
+      const versionMatch = child.locator.match(/(?:@npm:|#npm:)([^#]+)$/);
+      if (versionMatch && versionMatch[1]) {
+        return versionMatch[1]; // This will return only the version, e.g. "0.3.0"
       }
     }
+  }
+
+  return null; // Package was not found within the workspace's children.
+}
+
+function getProductionPackages(
+  root: string,
+  licenses: Dict<License>,
+  workspaceName: string,
+  packageNames: string[],
+) {
+  const prod: Dict<License> = {};
+  for (const packageName of packageNames) {
+    const version = findPackageVersion(root, workspaceName, packageName);
+    if (version === null) {
+      throw Error(
+        `getProductionPackages: could not find a version for ${packageName} in workspace ${workspaceName}`,
+      );
+    }
+    const key = `${packageName}@${version}`;
+    console.log(`${workspaceName}: ${key}`);
+    if (licenses[key] == null) {
+      throw Error(`getProductionPackages: ${key} not found in licenses index`);
+    }
+    prod[key] = licenses[key];
   }
   return prod;
 }
 
-function getDependenciesFromPackageJson(filePath: string): string[] {
+function getPackagesFromPackageJSON(filePath: string): string[] {
   const packageJson = loadJSON(filePath);
   return Object.keys(packageJson.dependencies);
 }
 
 function makeLicenses(root: string) {
+  console.log("Making licenses");
+
   // Run license-checker program
   execSync(
     "license-checker-rseidelsohn --customPath ./bin/customFormat.json --clarificationsFile ./bin/clarifications.json --json > ./data/licenses.json",
@@ -57,19 +106,29 @@ function makeLicenses(root: string) {
 
   // Build licenses for all workspaces
   const workspaces = ["dashboard", "workers-api", "workers-images"];
-  for (const name of workspaces) {
-    const deps = getDependenciesFromPackageJson(
-      path.join(root, name, "package.json"),
+  for (const workspaceName of workspaces) {
+    console.log(`Building licenses for workspace: ${workspaceName}`);
+
+    const packageNames = getPackagesFromPackageJSON(
+      path.join(root, workspaceName, "package.json"),
     );
-    const data = getProductionDependencies(licenses, deps);
+    const data = getProductionPackages(
+      root,
+      licenses,
+      workspaceName,
+      packageNames,
+    );
 
     // Save output
-    const jsonString = JSON.stringify(data, null, 4);
-    fs.writeFileSync(
-      path.join(root, "data", `licenses-${name}.json`),
-      jsonString,
-      "utf-8",
+    const outputPath = path.join(
+      root,
+      "data",
+      `licenses-${workspaceName}.json`,
     );
+    const jsonString = JSON.stringify(data, null, 4);
+    fs.writeFileSync(outputPath, jsonString, "utf-8");
+
+    console.log(`Saving license information to: ${outputPath}`);
   }
 }
 
