@@ -135,25 +135,52 @@ async function processWorkspace(
   console.log(`Saving license information to: ${outputPath}`);
 }
 
+function runLicenseChecker(rootPath: string, workspacePath: string) {
+  return new Promise((resolve, reject) => {
+    exec(
+      `license-checker-rseidelsohn --customPath ${rootPath}/bin/customFormat.json --clarificationsFile ${rootPath}/bin/clarifications.json --json`,
+      {
+        cwd: workspacePath,
+        maxBuffer: 100 * 1024 * 1024, // Set maxBuffer to 100 MB
+      },
+      (error, stdout, stderr) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(JSON.parse(stdout));
+        }
+      },
+    );
+  });
+}
+
 async function makeLicenses(root: string) {
   console.log("Making licenses");
 
   // Run license-checker program
-  execSync(
-    "license-checker-rseidelsohn --customPath ./bin/customFormat.json --clarificationsFile ./bin/clarifications.json --json > ./data/licenses.json",
-    {
-      cwd: root,
-      stdio: "inherit",
-    },
+  const workspacePaths = [
+    root,
+    path.resolve(root, "dashboard"),
+    path.resolve(root, "workers-api"),
+    path.resolve(root, "workers-images"),
+  ];
+  const results = await Promise.all(
+    workspacePaths.map((workspacePath) =>
+      runLicenseChecker(root, workspacePath),
+    ),
+  );
+  const licenses = Object.assign({}, ...results);
+
+  // Save file which can be inspected
+  fs.writeFileSync(
+    path.resolve(root, "data", "licenses.json"),
+    JSON.stringify(licenses, null, 2),
   );
 
-  // Load licenses and names of production dependencies
-  const licenses = loadJSON(path.join(root, "data", "licenses.json"));
-
   // Build licenses for all workspaces
-  const workspaces = ["dashboard", "workers-api", "workers-images"];
+  const workspacesNames = ["dashboard", "workers-api", "workers-images"];
   await Promise.all(
-    workspaces.map((workspaceName) =>
+    workspacesNames.map((workspaceName) =>
       processWorkspace(root, licenses, workspaceName),
     ),
   );
