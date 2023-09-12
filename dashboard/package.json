@@ -73,6 +73,9 @@
     "uuid": "^9.0.0",
     "vercel": "^28.8.0"
   },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  },
   "browser": {
     "fs": false
   }
