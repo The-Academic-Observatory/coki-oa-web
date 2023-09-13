@@ -5,7 +5,7 @@ const webpack = require("webpack");
 
 module.exports = {
   reactStrictMode: true,
-  trailingSlash: false,
+  trailingSlash: true,
   swcMinify: true,
   optimizeFonts: false,
   env: {

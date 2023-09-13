@@ -232,11 +232,11 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
     setTabIndex(index);
     setDashboardText(descriptions[index]);
 
-    // If on the /country/ or /institution/ page then update the URL
-    const historyState = window.history.state;
-    if (historyState.as === "/country/" || historyState.as === "/institution/") {
-      window.history.replaceState(historyState, "", `/${category}/`);
-    }
+    // // If on the /country/ or /institution/ page then update the URL
+    // const historyState = window.history.state;
+    // if (historyState.as === "/country/" || historyState.as === "/institution/") {
+    //   window.history.replaceState(historyState, "", `/${category}/`);
+    // }
   };
 
   // Country entity query

@@ -15,6 +15,7 @@
 // Author: James Diprose
 
 import { Dashboard, getDashboardStaticProps } from "@/components/dashboard";
+import { OADataAPI } from "@/lib/api";
 import React from "react";
 import { DashboardPageProps } from "./index";
 
@@ -32,7 +33,21 @@ const CountryIndexPage = ({ defaultCountries, defaultInstitutions, stats }: Dash
 };
 
 export async function getStaticProps() {
-  return getDashboardStaticProps();
+  const client = new OADataAPI();
+  const stats = client.getStats();
+  return {
+    props: {
+      defaultCountries: {
+        items: [],
+        nItems: 0,
+      },
+      defaultInstitutions: {
+        items: [],
+        nItems: 0,
+      },
+      stats: stats,
+    },
+  };
 }
 
 export default CountryIndexPage;
