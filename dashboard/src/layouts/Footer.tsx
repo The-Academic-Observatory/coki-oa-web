@@ -35,7 +35,7 @@ const Footer = ({ links, sidebarWidth, ...rest }: FooterProps) => {
       {/*Left side of the footer that makes the sidebar look like part of the footer*/}
       <Box w={sidebarWidth} minWidth={sidebarWidth} bg="grey.400" display={{ base: "none", std: "block" }}>
         <Flex alignItems="center" justifyContent="center" h="full">
-          <a href="components/layout/Footer" target="_blank" rel="noreferrer">
+          <a href="https://www.curtin.edu.au/" target="_blank" rel="noreferrer">
             <Box minWidth={curtinLogoWidthDesktop} width={curtinLogoWidthDesktop}>
               <CurtinLogo />
             </Box>
@@ -69,7 +69,7 @@ const Footer = ({ links, sidebarWidth, ...rest }: FooterProps) => {
         >
           <FooterCredits />
           <Box mb={{ base: "24px", sm: 0 }}>
-            <a href="components/layout/Footer" target="_blank" rel="noreferrer">
+            <a href="https://www.curtin.edu.au/" target="_blank" rel="noreferrer">
               <Box minWidth={curtinLogoWidthMobile} width={curtinLogoWidthMobile}>
                 <CurtinLogo />
               </Box>
