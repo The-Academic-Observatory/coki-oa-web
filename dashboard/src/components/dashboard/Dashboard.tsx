@@ -17,7 +17,7 @@
 import { Breadcrumbs, Head, Icon, PageLoader, TextCollapse } from "@/components/common";
 import { FilterForm, institutionTypes, OpenAccess, QueryForm, regions } from "@/components/filter";
 import { IndexTable } from "@/components/table";
-import { cokiImageLoader, OADataAPI } from "@/lib/api";
+import { cokiImageLoader, makeFilterParams, OADataAPI } from "@/lib/api";
 import { useEffectAfterRender } from "@/lib/hooks";
 import { Entity, EntityStats, QueryParams, QueryResult, Stats } from "@/lib/model";
 import {
@@ -36,13 +36,22 @@ import {
   useDisclosure,
   useMediaQuery,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React, { useCallback, useEffect } from "react";
 
 const MAX_TABS_WIDTH = "1100px";
-const MAX_PAGE_SIZE = 18;
+const DEFAULT_PAGE_VALUES = {
+  page: 0,
+  limit: 18, // TODO: make sure this value is used in workers-api
+  orderBy: "stats.p_outputs_open",
+  orderDir: "dsc",
+};
 
-export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
-  const q = {
+export const queryFormToQueryParams = (
+  queryForm: QueryForm,
+  removeDefaultValues: QueryParams | null = null,
+): QueryParams => {
+  const q: QueryParams = {
     // Set page values
     page: queryForm.page.page,
     limit: queryForm.page.limit,
@@ -72,39 +81,36 @@ export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
     return queryForm.institutionType[key];
   });
 
+  // Remove default values
+  if (removeDefaultValues != null) {
+    for (const key of Object.keys(q)) {
+      if (removeDefaultValues[key] === q[key]) {
+        delete q[key];
+      }
+    }
+  }
+
   return q;
 };
 
-export const makeRangeSliderMinMaxValues = (entityStats: EntityStats): OpenAccess => {
+function makeDefaultOpenAccessValues(entityStats: EntityStats): OpenAccess {
   return {
     minPOutputsOpen: entityStats.min.p_outputs_open,
     maxPOutputsOpen: entityStats.max.p_outputs_open,
-    minNOutputs: entityStats.min.n_outputs,
+    minNOutputs: entityStats.min.n_outputs, //Replace with DEFAULT_N_OUTPUTS
     maxNOutputs: entityStats.max.n_outputs,
     minNOutputsOpen: entityStats.min.n_outputs_open,
     maxNOutputsOpen: entityStats.max.n_outputs_open,
   };
-};
+}
 
 export const makeDefaultValues = (entityStats: EntityStats): QueryForm => {
   const defaults: QueryForm = {
-    page: {
-      page: 0,
-      limit: MAX_PAGE_SIZE,
-      orderBy: "stats.p_outputs_open",
-      orderDir: "dsc",
-    },
+    page: DEFAULT_PAGE_VALUES,
     region: {},
     subregion: {},
     institutionType: {},
-    openAccess: {
-      minPOutputsOpen: entityStats.min.p_outputs_open,
-      maxPOutputsOpen: entityStats.max.p_outputs_open,
-      minNOutputs: entityStats.min.n_outputs, //Replace with DEFAULT_N_OUTPUTS,
-      maxNOutputs: entityStats.max.n_outputs,
-      minNOutputsOpen: entityStats.min.n_outputs_open,
-      maxNOutputsOpen: entityStats.max.n_outputs_open,
-    },
+    openAccess: makeDefaultOpenAccessValues(entityStats),
   };
 
   // Default region and subregion values
@@ -128,8 +134,9 @@ const useEntityQuery = (
   initialState: QueryResult,
   entityStats: EntityStats,
 ): [QueryResult, QueryForm, (q: QueryForm) => void, QueryForm, boolean, number, () => void, OpenAccess] => {
+  const router = useRouter();
   const defaultQueryForm = React.useMemo(() => makeDefaultValues(entityStats), [entityStats]);
-  const rangeSliderMinMaxValues = React.useMemo(() => makeRangeSliderMinMaxValues(entityStats), [entityStats]);
+  const rangeSliderMinMaxValues = React.useMemo(() => makeDefaultOpenAccessValues(entityStats), [entityStats]);
   const [entities, setEntities] = React.useState<QueryResult>(initialState);
   const [queryForm, setQueryForm] = React.useState<QueryForm>(defaultQueryForm);
   const [resetFormState, setResetFormState] = React.useState(0);
@@ -142,7 +149,23 @@ const useEntityQuery = (
     setLoading(true);
 
     // QueryForm to QueryParams
-    const queryParams = queryFormToQueryParams(queryForm);
+    const removeDefaultValues = {
+      ...DEFAULT_PAGE_VALUES,
+      subregions: [],
+      institutionTypes: [],
+      ...makeDefaultOpenAccessValues(entityStats),
+    };
+    removeDefaultValues.orderBy = "p_outputs_open";
+    const queryParams = queryFormToQueryParams(queryForm, removeDefaultValues);
+
+    // Update URL
+    const urlParams = makeFilterParams(entityType, queryParams);
+    let url = entityType;
+    if (urlParams.size) {
+      url += `?${urlParams.toString()}`;
+    }
+    console.log(`New query params: ${url}`);
+    router.push(url, undefined, { shallow: true }).then();
 
     // Make filter URL
     const client = new OADataAPI();
@@ -176,6 +199,9 @@ export type DashboardProps = {
 };
 
 const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, stats }: DashboardProps) => {
+  const router = useRouter();
+  console.log(`Query params: ${JSON.stringify(router.query)}`);
+
   // Descriptions
   const descriptions = [
     {

@@ -173,6 +173,13 @@ export function makeFilterUrl(host: string, entityType: string, filterQuery: Que
 
   // Make base URL
   const url = new URL(`${host}/${endpoint}`);
+  const params = makeFilterParams(entityType, filterQuery);
+  params.append("build", BUILD_ID);
+  url.search = params.toString();
+  return url.toString();
+}
+
+export function makeFilterParams(entityType: string, filterQuery: QueryParams): URLSearchParams {
   const params = new URLSearchParams();
 
   // Convert filterQuery into URL query parameters
@@ -185,7 +192,8 @@ export function makeFilterUrl(host: string, entityType: string, filterQuery: Que
     // Get the value of the key
     const property = filterQuery[key as keyof typeof filterQuery];
 
-    if (property === undefined || property === null) {
+    if (property == null) {
+      // Undefined or null
       return;
     }
     if (Array.isArray(property) && property.length == 0) {
@@ -202,9 +210,7 @@ export function makeFilterUrl(host: string, entityType: string, filterQuery: Que
     }
   });
 
-  params.append("build", BUILD_ID);
-  url.search = params.toString();
-  return url.toString();
+  return params;
 }
 
 export function makeDownloadDataUrl(host: string, entityType: string, id: string): string {

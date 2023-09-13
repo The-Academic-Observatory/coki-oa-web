@@ -147,7 +147,11 @@ export interface QueryResult {
   maxPOutputsOpen: number;
 }
 
-export interface QueryParams {
+export interface Dict {
+  [key: string]: any;
+}
+
+export interface QueryParams extends Dict {
   page?: number;
   limit?: number;
   orderBy?: string;
@@ -160,8 +164,4 @@ export interface QueryParams {
   maxNOutputsOpen?: number;
   minPOutputsOpen?: number;
   maxPOutputsOpen?: number;
-}
-
-export interface Dict {
-  [key: string]: any;
 }

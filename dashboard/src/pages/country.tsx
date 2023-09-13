@@ -18,6 +18,8 @@ import { Dashboard, getDashboardStaticProps } from "@/components/dashboard";
 import React from "react";
 import { DashboardPageProps } from "./index";
 
+// TODO: skeleton results for this page
+
 const CountryIndexPage = ({ defaultCountries, defaultInstitutions, stats }: DashboardPageProps) => {
   return (
     <Dashboard
