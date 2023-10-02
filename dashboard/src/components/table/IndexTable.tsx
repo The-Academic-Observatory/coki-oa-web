@@ -162,14 +162,14 @@ const IndexTable = ({
     usePagination,
   );
 
-  const getTableOrderState = () => {
+  const getTableOrderState = React.useCallback(() => {
     // Get orderBy and orderDir parameters
     const columnSortBy = sortBy[0];
     const orderBy = columns.find((column) => column.id === columnSortBy.id).accessor;
     const orderDir = columnSortBy.desc ? "dsc" : "asc";
 
     return [orderBy, orderDir];
-  };
+  }, [columns, sortBy]);
 
   // Callback when sorting parameters changed by user
   useEffectAfterRender(() => {
