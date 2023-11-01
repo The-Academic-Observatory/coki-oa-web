@@ -89,6 +89,7 @@ export interface SearchRequest extends Request {
     acronym: string;
     page: string;
     limit: string;
+    category: string;
   };
 }
 

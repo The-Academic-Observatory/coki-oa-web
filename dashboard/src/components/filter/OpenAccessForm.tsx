@@ -81,7 +81,6 @@ const OpenAccessForm = ({ rangeSliderMinMaxValues, histograms }: OpenAccessFormP
           inverseTransform={inverseTransform}
         />
       </Box>
-      )
     </VStack>
   );
 };

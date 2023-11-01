@@ -282,16 +282,21 @@ export function rowsToEntities(rows: Array<Dict>): Array<Entity> {
 function makeTemplateParams(n: number) {
   return Array(n).fill("?").join(",");
 }
-
-const SEARCH_QUERY = `SELECT entity.*, weighted_rank, subset.total_rows
-FROM entity
-INNER JOIN (SELECT entity.id, entity_fts5.rank * entity.search_weight * entity.search_country_region_weight * entity.search_inst_country_weight as weighted_rank, COUNT(*) OVER() AS total_rows
-FROM entity 
-JOIN entity_fts5 ON entity.id = entity_fts5.rowid
-WHERE entity_fts5 MATCH ?
-ORDER BY weighted_rank
-LIMIT ? OFFSET ?
-) AS subset ON subset.id = entity.id`;
+function SEARCH_QUERY(category?: string): string {
+  var categoryEntityType: string = "";
+  if (category) {
+    categoryEntityType = `AND entity.entity_type = '${category}'`;
+  }
+  return `SELECT entity.*, weighted_rank, subset.total_rows
+  FROM entity
+  INNER JOIN (SELECT entity.id, entity_fts5.rank * entity.search_weight * entity.search_country_region_weight * entity.search_inst_country_weight as weighted_rank, COUNT(*) OVER() AS total_rows
+  FROM entity
+  JOIN entity_fts5 ON entity.id = entity_fts5.rowid
+  WHERE entity_fts5 MATCH ? ${categoryEntityType}
+  ORDER BY weighted_rank
+  LIMIT ? OFFSET ?
+  ) AS subset ON subset.id = entity.id`;
+}
 
 function ftsEscape(text: string) {
   return text.replace(/"/g, '""');
@@ -303,6 +308,7 @@ export async function searchEntities(
   acronym: boolean,
   page: number,
   limit: number,
+  category?: string,
 ): Promise<QueryResult> {
   let nItems = 0;
   let entities: Array<Entity> = [];
@@ -321,8 +327,9 @@ export async function searchEntities(
 
     // Calculate offset
     const offset = page * limit;
-    const { results } = await db.prepare(SEARCH_QUERY).bind(value, limit, offset).all();
 
+    // Pass category and countryCode to the search query as necessary
+    const { results } = await db.prepare(SEARCH_QUERY(category)).bind(value, limit, offset).all();
     // Parse results
     if (results?.length) {
       // @ts-ignore

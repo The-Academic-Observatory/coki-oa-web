@@ -152,6 +152,7 @@ export interface QueryParams {
   limit?: number;
   orderBy?: string;
   orderDir?: string;
+  countries?: Array<string>;
   subregions?: Array<string>;
   institutionTypes?: Array<string>;
   minNOutputs?: number;

@@ -71,9 +71,10 @@ export class OADataAPI {
     page: number,
     limit: number,
     controller: AbortController | null = null,
+    category?: string,
   ): Promise<AxiosResponse<QueryResult>> {
     const acronym = query.length >= 2 && query === query.toUpperCase();
-    const url = makeSearchUrl(this.host, query, page, limit, acronym);
+    const url = makeSearchUrl(this.host, query, page, limit, acronym, category);
     const options: AxiosRequestConfig = {};
     if (controller != null) {
       options.signal = controller.signal;
@@ -159,12 +160,22 @@ export function makeEntityUrl(host: string, entityType: string, id: string): str
   return url.toString();
 }
 
-export function makeSearchUrl(host: string, text: string, page: number, limit: number, acronym: boolean): string {
+export function makeSearchUrl(
+  host: string,
+  text: string,
+  page: number,
+  limit: number,
+  acronym: boolean,
+  category?: string,
+): string {
   const url = new URL(`${host}/search/${encodeURIComponent(text)}`);
   const params = new URLSearchParams();
   params.append("acronym", acronym.toString());
   params.append("page", page.toString());
   params.append("limit", limit.toString());
+  if (category) {
+    params.append("category", category);
+  }
   params.append("build", BUILD_ID);
   url.search = params.toString();
   return url.toString();

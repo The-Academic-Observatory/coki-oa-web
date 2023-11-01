@@ -22,7 +22,18 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { Accordion, Box, Button, HStack, IconButton, Text } from "@chakra-ui/react";
 import { Form, FormikProvider, useFormik } from "formik";
 import lodashIsEqual from "lodash.isequal";
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useState, createContext } from "react";
+import IndividualFilterSearchAsync from "./IndividualFilterSearch";
+
+interface SelectOption {
+  value: string;
+  label: string;
+  image: string;
+  countryCode?: string;
+}
+
+// export var ButtonPressed = createContext(false);
+// export var selectedOptions = createContext([]);
 
 const filterMaxWidth = 300;
 
@@ -52,7 +63,6 @@ export let checkboxTree = [
     ],
   },
   {
-    level: 1,
     type: "region",
     text: "Americas",
     children: [
@@ -156,6 +166,8 @@ export interface OpenAccess {
 
 export interface QueryForm {
   page: PageForm;
+  ids: { [key: string]: boolean };
+  countries: { [key: string]: boolean };
   region: { [key: string]: boolean };
   subregion: { [key: string]: boolean };
   institutionType: { [key: string]: boolean };
@@ -206,6 +218,8 @@ const FilterForm = ({
     },
     [onClose, setQueryForm],
   );
+
+  const [isSearchPanelOpen, SetSearchPanelOpen] = useState<boolean>(false);
 
   // TODO: somehow causing FilterForm to re-render 3 times on any change
   const formik = useFormik<QueryForm>({
@@ -279,6 +293,7 @@ const FilterForm = ({
             />
           </HStack>
 
+          {/* Only reset the form if it is dirty/used. */}
           <Accordion defaultIndex={[0]} allowMultiple variant="filterForm">
             <FilterAccordionItem name="Region" isDirty={isRegionDirty}>
               <CheckboxTree checkboxTree={checkboxTree} />
@@ -289,9 +304,52 @@ const FilterForm = ({
             </FilterAccordionItem>
 
             {category === "institution" ? (
-              <FilterAccordionItem name="Institution Type" isDirty={isInstitutionTypeDirty}>
-                <InstitutionTypeForm />
-              </FilterAccordionItem>
+              <>
+                <FilterAccordionItem name="Institution Type" isDirty={isInstitutionTypeDirty}>
+                  <InstitutionTypeForm />
+                </FilterAccordionItem>
+
+                <FilterAccordionItem
+                  name={`Country`}
+                  data-test={`${platform}-${category}-select-institution`}
+                  onClick={() => {
+                    console.log(isSearchPanelOpen);
+                    if (!isSearchPanelOpen) {
+                      // Reset the form when this panel is opened.
+                      if (isDirty()) {
+                        onReset();
+                      }
+                    }
+                    SetSearchPanelOpen(!isSearchPanelOpen);
+                  }}
+                  disabled={!isDirty()}
+                >
+                  <IndividualFilterSearchAsync
+                    category={"country"}
+                    filterByCountryCode={true}
+                    data-test={`${platform}-${category}-select-country`}
+                  />
+                </FilterAccordionItem>
+
+                {/* TODO: Make above panels collapse when clicking this panel and reset the form to default */}
+                <FilterAccordionItem
+                  name={`Individual ${category}`}
+                  data-test={`${platform}-${category}-select-country`}
+                  onClick={() => {
+                    console.log(isSearchPanelOpen);
+                    if (!isSearchPanelOpen) {
+                      // Reset the form when this panel is opened.
+                      if (isDirty()) {
+                        onReset();
+                      }
+                    }
+                    SetSearchPanelOpen(!isSearchPanelOpen);
+                  }}
+                  disabled={!isDirty()}
+                >
+                  <IndividualFilterSearchAsync category={category} />
+                </FilterAccordionItem>
+              </>
             ) : (
               ""
             )}

@@ -50,6 +50,8 @@ export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
     orderDir: queryForm.page.orderDir,
 
     // Default arrays
+    ids: new Array<string>(), // For individual country and institution filtering
+    countries: new Array<string>(), // For filtering institutions by country code
     subregions: new Array<string>(),
     institutionTypes: new Array<string>(),
 
@@ -71,6 +73,20 @@ export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
   q.institutionTypes = Object.keys(queryForm.institutionType).filter((key) => {
     return queryForm.institutionType[key];
   });
+
+  if (queryForm.ids) {
+    // Set individual entites
+    q.ids = Object.keys(queryForm.ids).filter((key) => {
+      return queryForm.ids[key];
+    });
+  }
+
+  if (queryForm.countries) {
+    // Set country codes
+    q.countries = Object.keys(queryForm.countries).filter((key) => {
+      return queryForm.countries[key];
+    });
+  }
 
   return q;
 };
@@ -94,6 +110,8 @@ export const makeFormValues = (entityStats: EntityStats, minNOutputs?: number): 
       orderBy: "stats.p_outputs_open",
       orderDir: "dsc",
     },
+    ids: {},
+    countries: {},
     region: {},
     subregion: {},
     institutionType: {},

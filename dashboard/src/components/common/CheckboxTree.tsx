@@ -223,7 +223,7 @@ const ChildCheckbox = ({ child }: ChildCheckboxProps) => {
 };
 
 // To set children as checked if parent branch is checked and run down the tree of values and mark them as checked.
-const setCheckboxValues = function (
+export const setCheckboxValues = function (
   checkbox: Parent | Child,
   value: boolean,
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,

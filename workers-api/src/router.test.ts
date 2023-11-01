@@ -198,6 +198,24 @@ describe("countries API endpoint", () => {
     });
   });
 
+  // TODO: Flesh out this test
+  test("filter institutions by individual countries", async () => {
+    let entities = await fetchPages(
+      host,
+      "institutions",
+      new URLSearchParams({
+        countries: "NZL,AUS",
+      }),
+    );
+    assertEntityProperties(entities);
+
+    // Assert that we only have institutions from NZL and AUS
+    expect(entities.length).toBe(20); // TODO - make sure this stays the same.
+    entities.forEach((entity) => {
+      expect(entity).toMatchObject({ country_code: expect.stringMatching(/NZL|AUS/) });
+    });
+  });
+
   test("regions filter", async () => {
     const entities = await fetchPages(
       host,

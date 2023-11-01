@@ -145,9 +145,10 @@ export const searchHandler = async (req: SearchRequest, env: Bindings, ctx: Exec
   let page = parseInt(req.query.page) || 0;
   let limit = parseInt(req.query.limit) || MAX_LIMIT;
   limit = Math.max(Math.min(limit, MAX_LIMIT), MIN_LIMIT);
+  let category: string | undefined = req.query.category;
 
   // Convert returned ids to objects
-  const results = await searchEntities(getDatabaseBinding(env), text, acronym, page, limit);
+  const results = await searchEntities(getDatabaseBinding(env), text, acronym, page, limit, category);
 
   // Convert to JSON, returning results
   const json = JSON.stringify(results);
