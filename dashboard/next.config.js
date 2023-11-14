@@ -55,6 +55,14 @@ module.exports = {
   async rewrites() {
     return [
       {
+        source: "/",
+        destination: "/dashboard/country/",
+      },
+      {
+        source: "/institution/",
+        destination: "/dashboard/institution/",
+      },
+      {
         source: "/js/script.js",
         destination: "https://plausible.io/js/script.js",
       },

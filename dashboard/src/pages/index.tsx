@@ -15,28 +15,33 @@
 // Author: James Diprose
 
 import { Dashboard, getDashboardStaticProps } from "@/components/dashboard";
-import { QueryResult, Stats } from "@/lib/model";
+import { idsToStaticPaths, OADataLocal } from "@/lib/api";
+import { Entity, QueryResult, Stats } from "@/lib/model";
+import topInstitutions from "@data/data/topInstitutions.json";
 import React from "react";
 
-export type DashboardPageProps = {
-  defaultCountries: QueryResult;
-  defaultInstitutions: QueryResult;
-  stats: Stats;
-};
+// export type DashboardPageProps = {
+//   defaultCountries: QueryResult;
+//   defaultInstitutions: QueryResult;
+//   stats: Stats;
+// };
+// { defaultCountries, defaultInstitutions, stats }: DashboardPageProps
 
-const CountryIndexPage = ({ defaultCountries, defaultInstitutions, stats }: DashboardPageProps) => {
+const IndexPage = () => {
   return (
-    <Dashboard
-      defaultEntityType="country"
-      defaultCountries={defaultCountries}
-      defaultInstitutions={defaultInstitutions}
-      stats={stats}
-    />
+    <h1>Hello</h1>
+    // <Dashboard
+    //   defaultEntityType="country"
+    //   defaultCountries={defaultCountries}
+    //   defaultInstitutions={defaultInstitutions}
+    //   stats={stats}
+    // />
   );
 };
 
 export async function getStaticProps() {
-  return getDashboardStaticProps();
+  return {};
+  // return getDashboardStaticProps();
 }
 
-export default CountryIndexPage;
+export default IndexPage;

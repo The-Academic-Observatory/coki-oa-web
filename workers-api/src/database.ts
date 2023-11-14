@@ -24,11 +24,11 @@ import FoldToASCII from "fold-to-ascii";
 const VALID_ENTITY_TYPES = new Set(["country", "institution"]);
 const VALID_ORDER_BY = new Set([
   "name",
-  "n_outputs",
-  "n_outputs_open",
-  "p_outputs_open",
-  "n_outputs_black",
-  "p_outputs_black",
+  "stats.n_outputs",
+  "stats.n_outputs_open",
+  "stats.p_outputs_open",
+  "stats.n_outputs_black",
+  "stats.p_outputs_black",
 ]);
 const PROPERTIES_TO_DELETE = [
   "entity_id",
@@ -169,8 +169,12 @@ export function entitiesToSQL(entities: Array<Entity>) {
   entities.forEach((entity) => {
     const entity_id = entity.id;
     const name = escapeSingleQuotes(cleanName(entity.name));
-    const name_ascii_folded = escapeSingleQuotes(FoldToASCII.foldMaintaining(cleanName(entity.name))).toLowerCase();
-    const acronyms = entity.acronyms?.map((v) => v.replaceAll("'", "''"))?.join(" ");
+    const name_ascii_folded = escapeSingleQuotes(
+      FoldToASCII.foldMaintaining(cleanName(entity.name)),
+    ).toLowerCase();
+    const acronyms = entity.acronyms
+      ?.map((v) => v.replaceAll("'", "''"))
+      ?.join(" ");
     const country_code = entity.country_code;
     const country_name = entity.country_name;
     const institution_type = entity.institution_type;
@@ -187,10 +191,14 @@ export function entitiesToSQL(entities: Array<Entity>) {
       search_weight = 2.0;
 
       // When searching by region, make countries with more publications appear first
-      search_country_region_weight = 1 + entity.stats.n_outputs / countryRegionMaxOutputs[entity.region];
+      search_country_region_weight =
+        1 + entity.stats.n_outputs / countryRegionMaxOutputs[entity.region];
     } else if (entity.entity_type === "institution") {
       // When searching by country, make institutions with more publications appear first
-      search_inst_country_weight = 1 + entity.stats.n_outputs / instCountryMaxOutputs[entity.country_code as string];
+      search_inst_country_weight =
+        1 +
+        entity.stats.n_outputs /
+          instCountryMaxOutputs[entity.country_code as string];
     }
 
     // Careful with the ordering of these!
@@ -225,7 +233,10 @@ export function entitiesToSQL(entities: Array<Entity>) {
     // Insert into entity_fts5
     // Remove country name for countries that already have that exact name in their title
     let fts_country_name: string | null | undefined = country_name;
-    if (country_name != null && name.toLowerCase().includes(country_name.toLowerCase())) {
+    if (
+      country_name != null &&
+      name.toLowerCase().includes(country_name.toLowerCase())
+    ) {
       fts_country_name = null;
     }
     // Don't include subregion as sometimes these have country names which make the search unintuitive,
@@ -257,7 +268,8 @@ export function rowsToEntities(rows: Array<Dict>): Array<Entity> {
       p_outputs_open: row["p_outputs_open"],
       p_outputs_publisher_open_only: row["p_outputs_publisher_open_only"],
       p_outputs_both: row["p_outputs_both"],
-      p_outputs_other_platform_open_only: row["p_outputs_other_platform_open_only"],
+      p_outputs_other_platform_open_only:
+        row["p_outputs_other_platform_open_only"],
       p_outputs_closed: row["p_outputs_closed"],
       p_outputs_black: row["p_outputs_black"],
     };
@@ -321,7 +333,10 @@ export async function searchEntities(
 
     // Calculate offset
     const offset = page * limit;
-    const { results } = await db.prepare(SEARCH_QUERY).bind(value, limit, offset).all();
+    const { results } = await db
+      .prepare(SEARCH_QUERY)
+      .bind(value, limit, offset)
+      .all();
 
     // Parse results
     if (results?.length) {
@@ -343,7 +358,11 @@ export async function searchEntities(
   };
 }
 
-export async function filterEntities(entityType: string, db: D1Database, query: Query): Promise<QueryResult> {
+export async function filterEntities(
+  entityType: string,
+  db: D1Database,
+  query: Query,
+): Promise<QueryResult> {
   // Validate parameters that are string substituted without using .bind
   if (!VALID_ENTITY_TYPES.has(entityType)) {
     const msg = `filterEntities: invalid entityType ${entityType}, should be one of ${VALID_ENTITY_TYPES}`;
@@ -390,13 +409,19 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
 
     // Include if regions parameter specified and matches
     if (query.regions.size) {
-      sql.push(`AND entity.region IN (${makeTemplateParams(query.regions.size)})`);
+      sql.push(
+        `AND entity.region IN (${makeTemplateParams(query.regions.size)})`,
+      );
       params.push(...Array.from(query.regions));
     }
 
     // Include if subregions parameter specified and matches
     if (query.subregions.size) {
-      sql.push(`AND entity.subregion IN (${makeTemplateParams(query.subregions.size)})`);
+      sql.push(
+        `AND entity.subregion IN (${makeTemplateParams(
+          query.subregions.size,
+        )})`,
+      );
       params.push(...Array.from(query.subregions));
     }
 
@@ -404,13 +429,21 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
     if (entityType === "institution") {
       // Search for institutions with a specific institution type
       if (query.institutionTypes.size) {
-        sql.push(`AND entity.institution_type IN (${makeTemplateParams(query.institutionTypes.size)})`);
+        sql.push(
+          `AND entity.institution_type IN (${makeTemplateParams(
+            query.institutionTypes.size,
+          )})`,
+        );
         params.push(...Array.from(query.institutionTypes));
       }
 
       // Search for institutions in particular countries
       if (query.countries.size) {
-        sql.push(`AND entity.country_code IN (${makeTemplateParams(query.countries.size)})`);
+        sql.push(
+          `AND entity.country_code IN (${makeTemplateParams(
+            query.countries.size,
+          )})`,
+        );
         params.push(...Array.from(query.countries));
       }
     }
@@ -419,7 +452,7 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
   // Order by
   // TODO: replace with a unicode coalesce algorithm when this is supported in D1
   let orderBy;
-  let orderByCol = query.orderBy;
+  let orderByCol = query.orderBy.replace("stats.", ""); // flatten fields
   if (query.orderBy === "name") {
     orderByCol = "name_ascii_folded";
   }

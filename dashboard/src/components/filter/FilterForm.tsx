@@ -23,11 +23,12 @@ import { Accordion, Box, Button, HStack, IconButton, Text } from "@chakra-ui/rea
 import { Form, FormikProvider, useFormik } from "formik";
 import lodashIsEqual from "lodash.isequal";
 import React, { memo, useCallback } from "react";
+import { Node } from "@/components/common/CheckboxTree";
 
 const filterMaxWidth = 300;
 
 // Old Regions array still needs to be used for Formik and creating the QueryForm.
-export const regions: { [key: string]: Array<string> } = {
+export const REGIONS: { [key: string]: Array<string> } = {
   Africa: ["Northern Africa", "Sub-Saharan Africa"],
   Americas: ["Latin America and the Caribbean", "Northern America"],
   Asia: ["Central Asia", "Eastern Asia", "South-eastern Asia", "Southern Asia", "Western Asia"],
@@ -36,106 +37,31 @@ export const regions: { [key: string]: Array<string> } = {
 };
 
 // New checkboxTree object that holds all the regions and subregions in a tree-like structure.
-export let checkboxTree = [
-  {
-    type: "region",
-    text: "Africa",
-    children: [
-      {
-        type: "subregion",
-        text: "Northern Africa",
-      },
-      {
-        type: "subregion",
-        text: "Sub-Saharan Africa",
-      },
-    ],
-  },
-  {
-    level: 1,
-    type: "region",
-    text: "Americas",
-    children: [
-      {
-        type: "subregion",
-        text: "Latin America and the Caribbean",
-      },
-      {
-        type: "subregion",
-        text: "Northern America",
-      },
-    ],
-  },
-  {
-    type: "region",
-    text: "Asia",
-    children: [
-      {
-        type: "subregion",
-        text: "Central Asia",
-      },
-      {
-        type: "subregion",
-        text: "Eastern Asia",
-      },
-      {
-        type: "subregion",
-        text: "South-eastern Asia",
-      },
-      {
-        type: "subregion",
-        text: "Southern Asia",
-      },
-      {
-        type: "subregion",
-        text: "Western Asia",
-      },
-    ],
-  },
-  {
-    type: "region",
-    text: "Europe",
-    children: [
-      {
-        type: "subregion",
-        text: "Eastern Europe",
-      },
-      {
-        type: "subregion",
-        text: "Northern Europe",
-      },
-      {
-        type: "subregion",
-        text: "Southern Europe",
-      },
-      {
-        type: "subregion",
-        text: "Western Europe",
-      },
-    ],
-  },
-  {
-    type: "region",
-    text: "Oceania",
-    children: [
-      {
-        type: "subregion",
-        text: "Australia and New Zealand",
-      },
-      {
-        type: "subregion",
-        text: "Melanesia",
-      },
-      {
-        type: "subregion",
-        text: "Micronesia",
-      },
-      {
-        type: "subregion",
-        text: "Polynesia",
-      },
-    ],
-  },
+export let NODES = [
+  new Node("region", "Africa", [new Node("subregion", "Northern Africa"), new Node("subregion", "Sub-Saharan Africa")]),
+  new Node("region", "Americas", [
+    new Node("subregion", "Latin America and the Caribbean"),
+    new Node("subregion", "Northern America"),
+  ]),
+  new Node("region", "Asia", [
+    new Node("subregion", "Central Asia"),
+    new Node("subregion", "Eastern Asia"),
+    new Node("subregion", "South-eastern Asia"),
+    new Node("subregion", "Southern Asia"),
+    new Node("subregion", "Western Asia"),
+  ]),
+  new Node("region", "Europe", [
+    new Node("subregion", "Eastern Europe"),
+    new Node("subregion", "Northern Europe"),
+    new Node("subregion", "Southern Europe"),
+    new Node("subregion", "Western Europe"),
+  ]),
+  new Node("region", "Oceania", [
+    new Node("subregion", "Australia and New Zealand"),
+    new Node("subregion", "Melanesia"),
+    new Node("subregion", "Micronesia"),
+    new Node("subregion", "Polynesia"),
+  ]),
 ];
 
 export interface PageForm {
@@ -267,7 +193,7 @@ const FilterForm = ({
 
           <Accordion defaultIndex={[0]} allowMultiple variant="filterForm">
             <FilterAccordionItem name="Region">
-              <CheckboxTree checkboxTree={checkboxTree} />
+              <CheckboxTree nodes={NODES} />
             </FilterAccordionItem>
 
             <FilterAccordionItem name="Open Access">

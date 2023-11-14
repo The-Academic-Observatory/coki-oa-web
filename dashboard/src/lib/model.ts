@@ -152,16 +152,16 @@ export interface Dict {
 }
 
 export interface QueryParams extends Dict {
-  page?: number;
-  limit?: number;
-  orderBy?: string;
-  orderDir?: string;
-  subregions?: Array<string>;
-  institutionTypes?: Array<string>;
-  minNOutputs?: number;
-  maxNOutputs?: number;
-  minNOutputsOpen?: number;
-  maxNOutputsOpen?: number;
-  minPOutputsOpen?: number;
-  maxPOutputsOpen?: number;
+  page: number | null;
+  limit: number | null;
+  orderBy: string | null;
+  orderDir: string | null;
+  subregions: Array<string> | null;
+  institutionTypes: Array<string> | null;
+  minNOutputs: number | null;
+  maxNOutputs: number | null;
+  minNOutputsOpen: number | null;
+  maxNOutputsOpen: number | null;
+  minPOutputsOpen: number | null;
+  maxPOutputsOpen: number | null;
 }

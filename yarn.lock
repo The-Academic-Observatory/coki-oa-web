@@ -5571,6 +5571,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/deep-diff@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@types/deep-diff@npm:1.0.3"
+  checksum: 4454d0d12ab3f75510470c1e3b92e114fe3759442a171847e40c7c6586e58190f9255e7a95754d7a06d06f027714205f72b32780c795d2fc290b396f47011bce
+  languageName: node
+  linkType: hard
+
 "@types/estree-jsx@npm:^0.0.1":
   version: 0.0.1
   resolution: "@types/estree-jsx@npm:0.0.1"
@@ -8408,6 +8415,7 @@ __metadata:
     "@testing-library/jest-dom": ^5.16.4
     "@testing-library/react": ^13.4.0
     "@types/d3": ^7.4.0
+    "@types/deep-diff": ^1.0.3
     "@types/jest": ^28.1.2
     "@types/lodash.get": ^4.4.7
     "@types/lodash.isequal": ^4.5.6
@@ -8423,6 +8431,7 @@ __metadata:
     cross-env: ^7.0.3
     d3: ^7.6.1
     decompress: ^4.2.1
+    deep-diff: ^1.0.2
     deep-equal: ^2.2.1
     eslint: 7
     eslint-config-next: ^13.4.19
@@ -8624,6 +8633,13 @@ __metadata:
     babel-plugin-macros:
       optional: true
   checksum: c3c300a14edf1bdf5a873f9e4b22e839d62490bc5c8d6169c1f15858a1a76733d06a9a56930e963d677a2ceeca4b6b0894cc5ea2f501aa382ca5b92af3413c2a
+  languageName: node
+  linkType: hard
+
+"deep-diff@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "deep-diff@npm:1.0.2"
+  checksum: 9de8b5eedc1957116e1b47e4c3c4e3dbe23cb741abefc5ec8829a12e77958c689ac46888a3c35320f976cf42fb6de2b016e158facdb24d894ab5b5fdabad9b34
   languageName: node
   linkType: hard
 

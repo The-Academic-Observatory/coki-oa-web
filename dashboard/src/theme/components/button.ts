@@ -165,6 +165,41 @@ const Button = {
       p: { base: "12px 12px", sm: "8px 32px" },
     },
 
+    tabInactive: {
+      height: "60px",
+      flex: 1,
+      borderRadius: 0,
+      color: "#b7b7b7",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      fontSize: "16px",
+      bgColor: "#f0f0f0",
+      // _selected: {
+      //   bgColor: "white",
+      //   color: "brand.500",
+      // },
+      _focus: {
+        boxShadow: "none",
+      },
+      _hover: {
+        textDecoration: "none",
+      },
+    },
+
+    tabActive: {
+      height: "60px",
+      flex: 1,
+      borderRadius: 0,
+      color: "brand.500",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      fontSize: "16px",
+      bgColor: "white",
+      _focus: {
+        boxShadow: "none",
+      },
+    },
+
     // Share button
     share: {
       ...solidStyle,

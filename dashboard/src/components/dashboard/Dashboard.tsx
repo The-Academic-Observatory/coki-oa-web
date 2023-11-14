@@ -15,7 +15,7 @@
 // Author: James Diprose, Aniek Roelofs
 
 import { Breadcrumbs, Head, Icon, PageLoader, TextCollapse } from "@/components/common";
-import { FilterForm, institutionTypes, OpenAccess, QueryForm, regions } from "@/components/filter";
+import { FilterForm, institutionTypes, OpenAccess, QueryForm, REGIONS } from "@/components/filter";
 import { IndexTable } from "@/components/table";
 import { cokiImageLoader, OADataAPI } from "@/lib/api";
 import { useEffectAfterRender } from "@/lib/hooks";
@@ -38,95 +38,108 @@ import {
 } from "@chakra-ui/react";
 import { parseAsArrayOf, parseAsFloat, parseAsInteger, parseAsString, useQueryState } from "next-usequerystate";
 import React, { useCallback, useEffect } from "react";
+import { diff, applyChange } from "deep-diff";
+import cloneDeep from "lodash/cloneDeep";
+import lodashSet from "lodash.set";
 
 const MAX_TABS_WIDTH = "1100px";
 
-const queryParamsToQueryForm = (queryParams: QueryParams): QueryForm => {
-  const form: QueryForm = {
-    page: {
-      page: queryParams.page as number,
-      limit: queryParams.limit as number,
-      orderBy: queryParams.orderBy as string,
-      orderDir: queryParams.orderDir as string,
-    },
-    region: {},
-    subregion: {},
-    institutionType: {},
-    openAccess: {
-      minNOutputs: queryParams.minNOutputs as number,
-      maxNOutputs: queryParams.maxNOutputs as number,
-      minNOutputsOpen: queryParams.minNOutputsOpen as number,
-      maxNOutputsOpen: queryParams.maxNOutputsOpen as number,
-      minPOutputsOpen: queryParams.minPOutputsOpen as number,
-      maxPOutputsOpen: queryParams.maxPOutputsOpen as number,
-    },
-  };
+function extractDifferences(lhs: any, rhs: any) {
+  const differences = diff(lhs, rhs);
+  if (!differences) return {};
 
-  // Default region and subregion values
-  Object.keys(regions).map((region) => {
-    form.region[region] = false;
-    for (let subregion of regions[region]) {
-      form.subregion[subregion] = false;
+  const result: any = {};
+  for (const change of differences) {
+    if (change.kind === "N" || change.kind === "E") {
+      applyChange(result, rhs, change);
     }
-  });
+  }
+  return result;
+}
 
-  // Default institutionType values
-  institutionTypes.map((institutionType) => {
-    form.institutionType[institutionType] = false;
-  });
+const setValueIfNotNull = (obj: any, path: string, value: any) => {
+  if (value !== null && value !== undefined) {
+    lodashSet(obj, path, value);
+  }
+};
 
-  // Add any true regions
+const queryParamsToQueryForm = (defaultValues: QueryForm, queryParams: QueryParams): QueryForm => {
+  const form: QueryForm = cloneDeep(defaultValues);
+
+  setValueIfNotNull(form, "page.page", queryParams.page);
+  setValueIfNotNull(form, "page.limit", queryParams.limit);
+  setValueIfNotNull(form, "page.orderBy", queryParams.orderBy);
+  setValueIfNotNull(form, "page.orderDir", queryParams.orderDir);
+  setValueIfNotNull(form, "openAccess.minNOutputs", queryParams.minNOutputs);
+  setValueIfNotNull(form, "openAccess.maxNOutputs", queryParams.maxNOutputs);
+  setValueIfNotNull(form, "openAccess.minNOutputsOpen", queryParams.minNOutputsOpen);
+  setValueIfNotNull(form, "openAccess.maxNOutputsOpen", queryParams.maxNOutputsOpen);
+  setValueIfNotNull(form, "openAccess.minPOutputsOpen", queryParams.minPOutputsOpen);
+  setValueIfNotNull(form, "openAccess.maxPOutputsOpen", queryParams.maxPOutputsOpen);
 
   // Add any true subregions
+  if (queryParams.subregions != null) {
+    for (const subregion of queryParams.subregions) {
+      form.subregion[subregion] = true;
+    }
+  }
 
-  // Add any true institutionTypes
+  // Add institutionTypes
+  if (queryParams.institutionTypes != null) {
+    for (const institutionType of queryParams.institutionTypes) {
+      form.institutionType[institutionType] = true;
+    }
+  }
 
   return form;
 };
 
-export const queryFormToQueryParams = (
-  queryForm: QueryForm,
-  // removeDefaultValues: QueryParams | null = null,
-): QueryParams => {
+export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
   const q: QueryParams = {
-    // Set page values
-    page: queryForm.page.page,
-    limit: queryForm.page.limit,
-    orderBy: queryForm.page.orderBy.replace("stats.", ""), // Remove stats. as nested fields are not used by the API,
-    orderDir: queryForm.page.orderDir,
-
-    // Default arrays
-    subregions: new Array<string>(),
-    institutionTypes: new Array<string>(),
-
-    // Set publication and open access values
-    // TODO: remove rounding
-    minNOutputs: Math.round(queryForm.openAccess.minNOutputs),
-    maxNOutputs: Math.round(queryForm.openAccess.maxNOutputs),
-    minNOutputsOpen: Math.round(queryForm.openAccess.minNOutputsOpen),
-    maxNOutputsOpen: Math.round(queryForm.openAccess.maxNOutputsOpen),
-    minPOutputsOpen: Math.round(queryForm.openAccess.minPOutputsOpen),
-    maxPOutputsOpen: Math.round(queryForm.openAccess.maxPOutputsOpen),
+    page: null,
+    limit: null,
+    orderBy: null,
+    orderDir: null,
+    minNOutputs: null,
+    maxNOutputs: null,
+    minNOutputsOpen: null,
+    maxNOutputsOpen: null,
+    minPOutputsOpen: null,
+    maxPOutputsOpen: null,
+    subregions: null,
+    institutionTypes: null,
   };
 
+  setValueIfNotNull(q, "page", queryForm?.page?.page);
+  setValueIfNotNull(q, "limit", queryForm?.page?.limit);
+  setValueIfNotNull(q, "orderBy", queryForm?.page?.orderBy);
+  setValueIfNotNull(q, "orderDir", queryForm?.page?.orderDir);
+  setValueIfNotNull(q, "minNOutputs", queryForm?.openAccess?.minNOutputs);
+  setValueIfNotNull(q, "maxNOutputs", queryForm?.openAccess?.maxNOutputs);
+  setValueIfNotNull(q, "minNOutputsOpen", queryForm?.openAccess?.minNOutputsOpen);
+  setValueIfNotNull(q, "maxNOutputsOpen", queryForm?.openAccess?.maxNOutputsOpen);
+  setValueIfNotNull(q, "minPOutputsOpen", queryForm?.openAccess?.minPOutputsOpen);
+  setValueIfNotNull(q, "maxPOutputsOpen", queryForm?.openAccess?.maxPOutputsOpen);
+
   // Set subregions keys that are true
-  q.subregions = Object.keys(queryForm.subregion).filter((key) => {
-    return queryForm.subregion[key];
-  });
+  if (queryForm.subregion != null) {
+    const subregions = Object.keys(queryForm.subregion).filter((key) => {
+      return queryForm.subregion[key];
+    });
+    if (subregions.length) {
+      setValueIfNotNull(q, "subregions", subregions);
+    }
+  }
 
   // Set institution types
-  q.institutionTypes = Object.keys(queryForm.institutionType).filter((key) => {
-    return queryForm.institutionType[key];
-  });
-
-  // // Remove default values
-  // if (removeDefaultValues != null) {
-  //   for (const key of Object.keys(q)) {
-  //     if (removeDefaultValues[key] === q[key]) {
-  //       delete q[key];
-  //     }
-  //   }
-  // }
+  if (queryForm.institutionType != null) {
+    const institutionTypes = Object.keys(queryForm.institutionType).filter((key) => {
+      return queryForm.institutionType[key];
+    });
+    if (institutionTypes.length) {
+      setValueIfNotNull(q, "institutionTypes", institutionTypes);
+    }
+  }
 
   return q;
 };
@@ -153,9 +166,9 @@ export const makeDefaultQueryForm = (entityStats: EntityStats): QueryForm => {
   };
 
   // Default region and subregion values
-  Object.keys(regions).map((region) => {
+  Object.keys(REGIONS).map((region) => {
     defaults.region[region] = false;
-    for (let subregion of regions[region]) {
+    for (let subregion of REGIONS[region]) {
       defaults.subregion[subregion] = false;
     }
   });
@@ -192,49 +205,32 @@ const useEntityQuery = (
   () => void,
 ] => {
   // URL query param state
-  const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(defaultQueryForm.page.page));
-  const [limit, setLimit] = useQueryState("limit", parseAsInteger.withDefault(defaultQueryForm.page.limit));
-  const [orderBy, setOrderBy] = useQueryState("orderBy", parseAsString.withDefault(defaultQueryForm.page.orderBy));
-  const [orderDir, setOrderDir] = useQueryState("orderDir", parseAsString.withDefault(defaultQueryForm.page.orderDir));
-  const [subregions, setSubregions] = useQueryState("subregions", parseAsArrayOf(parseAsString, ",").withDefault([]));
-  const [minNOutputs, setMinNOutputs] = useQueryState(
-    "minNOutputs",
-    parseAsInteger.withDefault(defaultQueryForm.openAccess.minNOutputs),
-  );
-  const [maxNOutputs, setMaxNOutputs] = useQueryState(
-    "maxNOutputs",
-    parseAsInteger.withDefault(defaultQueryForm.openAccess.maxNOutputs),
-  );
-  const [minNOutputsOpen, setMinNOutputsOpen] = useQueryState(
-    "minNOutputsOpen",
-    parseAsInteger.withDefault(defaultQueryForm.openAccess.minNOutputsOpen),
-  );
-  const [maxNOutputsOpen, setMaxNOutputsOpen] = useQueryState(
-    "maxNOutputsOpen",
-    parseAsInteger.withDefault(defaultQueryForm.openAccess.maxNOutputsOpen),
-  );
-  const [minPOutputsOpen, setMinPOutputsOpen] = useQueryState(
-    "minPOutputsOpen",
-    parseAsFloat.withDefault(defaultQueryForm.openAccess.minPOutputsOpen),
-  );
-  const [maxPOutputsOpen, setMaxPOutputsOpen] = useQueryState(
-    "maxPOutputsOpen",
-    parseAsFloat.withDefault(defaultQueryForm.openAccess.maxPOutputsOpen),
-  );
+  const [page, setPage] = useQueryState("page", parseAsInteger);
+  const [limit, setLimit] = useQueryState("limit", parseAsInteger);
+  const [orderBy, setOrderBy] = useQueryState("orderBy", parseAsString);
+  const [orderDir, setOrderDir] = useQueryState("orderDir", parseAsString);
+  const [minNOutputs, setMinNOutputs] = useQueryState("minNOutputs", parseAsInteger);
+  const [maxNOutputs, setMaxNOutputs] = useQueryState("maxNOutputs", parseAsInteger);
+  const [minNOutputsOpen, setMinNOutputsOpen] = useQueryState("minNOutputsOpen", parseAsInteger);
+  const [maxNOutputsOpen, setMaxNOutputsOpen] = useQueryState("maxNOutputsOpen", parseAsInteger);
+  const [minPOutputsOpen, setMinPOutputsOpen] = useQueryState("minPOutputsOpen", parseAsFloat);
+  const [maxPOutputsOpen, setMaxPOutputsOpen] = useQueryState("maxPOutputsOpen", parseAsFloat);
+  const [subregions, setSubregions] = useQueryState("subregions", parseAsArrayOf(parseAsString, ","));
+  const [institutionTypes, setInstitutionTypes] = useQueryState("institutionTypes", parseAsArrayOf(parseAsString, ","));
 
   const updateURLState = React.useCallback(
     (queryParams: QueryParams) => {
-      setPage(queryParams.page as number);
-      setLimit(queryParams.limit as number);
-      setOrderBy(queryParams.orderBy as string);
-      setOrderDir(queryParams.orderDir as string);
-      setSubregions(queryParams.subregions as Array<string>);
-      setMinNOutputs(queryParams.minNOutputs as number);
-      setMaxNOutputs(queryParams.maxNOutputs as number);
-      setMinNOutputsOpen(queryParams.minNOutputsOpen as number);
-      setMaxNOutputsOpen(queryParams.maxNOutputsOpen as number);
-      setMinPOutputsOpen(queryParams.minPOutputsOpen as number);
-      setMaxPOutputsOpen(queryParams.maxPOutputsOpen as number);
+      setPage(queryParams.page);
+      setLimit(queryParams.limit);
+      setOrderBy(queryParams.orderBy);
+      setOrderDir(queryParams.orderDir);
+      setSubregions(queryParams.subregions);
+      setMinNOutputs(queryParams.minNOutputs);
+      setMaxNOutputs(queryParams.maxNOutputs);
+      setMinNOutputsOpen(queryParams.minNOutputsOpen);
+      setMaxNOutputsOpen(queryParams.maxNOutputsOpen);
+      setMinPOutputsOpen(queryParams.minPOutputsOpen);
+      setMaxPOutputsOpen(queryParams.maxPOutputsOpen);
     },
     [
       setLimit,
@@ -263,28 +259,27 @@ const useEntityQuery = (
   }, []);
 
   // Update form values when URL params change
-  useEffectAfterRender(() => {
+  useEffect(() => {
     // When we are not loading update query form to trigger data to be fetched
     if (!isLoading) {
-      // TODO: Maybe these should be able to be null or undefined?
+      console.log(`Received query params: ${new Date().toLocaleString("en-NZ")}`);
+
       const queryParams: QueryParams = {
         page: page,
         limit: limit,
         orderBy: orderBy,
         orderDir: orderDir,
-        subregions: subregions,
         minNOutputs: minNOutputs,
         maxNOutputs: maxNOutputs,
         minNOutputsOpen: minNOutputsOpen,
         maxNOutputsOpen: maxNOutputsOpen,
         minPOutputsOpen: minPOutputsOpen,
         maxPOutputsOpen: maxPOutputsOpen,
+        subregions: subregions,
+        institutionTypes: institutionTypes,
       };
-      console.log(`Updated state from URL: ${JSON.stringify(queryParams)}`);
-      // TODO: when translating from QueryParams to QueryForm, ignore null or undefined values
-      // TODO: stats.p_outputs_open
-      // TODO: how to handle default values? use withDefault
-      setQueryForm(queryParamsToQueryForm(queryParams));
+      const queryForm = queryParamsToQueryForm(defaultQueryForm, queryParams);
+      setQueryForm(queryForm);
     }
   }, [
     entityType,
@@ -292,26 +287,35 @@ const useEntityQuery = (
     limit,
     orderBy,
     orderDir,
-    subregions,
     minNOutputs,
     maxNOutputs,
     minNOutputsOpen,
     maxNOutputsOpen,
     minPOutputsOpen,
     maxPOutputsOpen,
+    subregions,
+    institutionTypes,
   ]);
 
-  // Submit search when query params change
+  // Submit search when form values change
   useEffectAfterRender(() => {
     setLoading(true);
 
-    // Update address bar based on form parameters
-    // TODO: convert QueryForm to QueryParams, convert default i.e. unset values to null
-    // TODO: how do we stop an infinite loop?
-    const queryParams = queryFormToQueryParams(queryForm);
+    // We only want the query parameters that the user has changed to be reflected in the address bar. To achieve this
+    // we calculate what query params have changed from defaultQueryForm, then convert these into a QueryParams object.
+    // Any values not changed are set as null, which is what next-usequerystate needs in order for them to not show
+    // up in the address bar. Null values also mean that if the value was set by the user and then changed back to
+    // the default it will be removed from the URL query params.
+    const queryDiff = extractDifferences(defaultQueryForm, queryForm);
+    const queryParams = queryFormToQueryParams(queryDiff);
+    const dt = new Date();
+    console.log(`Submit query params: ${dt.toLocaleString("en-NZ")}`);
+
+    // Update URL state with next-usequerystate
+    // TODO: if queryParams match next-usequerystate values, then don't call updateURLState?
     updateURLState(queryParams);
 
-    // Make filter URL
+    // Fetch data from server
     const client = new OADataAPI();
     client
       .getEntities(entityType, queryParams)
@@ -334,53 +338,9 @@ export type DashboardProps = {
 };
 
 const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, stats }: DashboardProps) => {
-  // Descriptions
-  const descriptions = React.useMemo<Array<any>>(
-    () => [
-      {
-        short: `Open Access by country between ${stats.start_year} and ${stats.end_year}.`,
-        long:
-          "Open Access by country. Showing output counts, number and percentage of accessible outputs published " +
-          `between ${stats.start_year} and ${stats.end_year}. You can sort and filter by region, subregion, number of ` +
-          "publications, and open access levels. You may also search for a specific country in the search bar at the top right.",
-      },
-      {
-        short: `Open Access by institution between ${stats.start_year} and ${stats.end_year}.`,
-        long:
-          "Open Access by institution. Showing output counts, number and percentage of accessible outputs published " +
-          `between ${stats.start_year} to ${stats.end_year}. You can sort and filter by region, subregion, country, institution type, number of ` +
-          "publications or open access levels. You may also search for a specific institution in the search bar at the top right.",
-      },
-    ],
-    [stats.end_year, stats.start_year],
-  );
-
   const categoryToTabIndex: Array<string> = React.useMemo<Array<string>>(() => ["country", "institution"], []);
   const defaultTabIndex = categoryToTabIndex.indexOf(defaultEntityType);
   const [tabIndex, setTabIndex] = React.useState<number>(defaultTabIndex);
-  const defaultDescription = descriptions[defaultTabIndex];
-  const [dashboardText, setDashboardText] = React.useState(defaultDescription);
-
-  // Set tab index and change text based on tab index
-  const handleTabsChange = React.useCallback(
-    (index: number) => {
-      const category = categoryToTabIndex[index];
-      setTabIndex(index);
-      setDashboardText(descriptions[index]);
-
-      // // If on the /country/ or /institution/ page then update the URL
-      // const historyState = window.history.state;
-      // if (historyState.as === "/country/" || historyState.as === "/institution/") {
-      //   window.history.replaceState(historyState, "", `/${category}/`);
-      // }
-    },
-    [categoryToTabIndex, descriptions],
-  );
-  //
-
-  //   // const defaultQueryForm = React.useMemo(() => makeDefaultValues(entityStats), [entityStats]);
-  //   //
-
   // Country entity query
   const defaultQueryFormCountry = React.useMemo(() => makeDefaultQueryForm(stats.country), [stats.country]);
   const countryRangeSliderMinMaxValues = React.useMemo(
@@ -396,23 +356,6 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
     onResetQueryFormCountry,
   ] = useEntityQuery("country", defaultCountries, defaultQueryFormCountry);
 
-  // Institution entity query
-  const defaultQueryFormInstitution = React.useMemo(() => makeDefaultQueryForm(stats.institution), [stats.institution]);
-  const institutionRangeSliderMinMaxValues = React.useMemo(
-    () => makeRangeSliderMinMaxValues(stats.institution),
-    [stats.institution],
-  );
-  const [
-    institutions,
-    queryFormInstitution,
-    setQueryFormInstitution,
-    isLoadingInstitution,
-    resetFormStateInstitution,
-    onResetQueryFormInstitution,
-  ] = useEntityQuery("institution", defaultInstitutions, defaultQueryFormInstitution);
-
-  // const rangeSliderMinMaxValues = React.useMemo(() => makeDefaultOpenAccessValues(entityStats), [entityStats]);
-
   // Modal filters
   // TODO: useDisclosure causing index page to render twice: https://github.com/chakra-ui/chakra-ui/issues/5517
   const { isOpen: isOpenFilterCountry, onOpen: onOpenFilterCountry, onClose: onCloseFilterCountry } = useDisclosure();
@@ -422,34 +365,8 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
     onClose: onCloseFilterInstitution,
   } = useDisclosure();
 
-  // Close modal filters when md screen size or above
-  const [isMd] = useMediaQuery("(min-width: 1000px)");
-  useEffect(() => {
-    if (isMd) {
-      onCloseFilterCountry();
-      onCloseFilterInstitution();
-    }
-  }, [isMd, onCloseFilterCountry, onCloseFilterInstitution]);
-
-  const title = "COKI Open Access Dashboard";
-  const description =
-    "How Open is Academia? See how well your university or country performs at open access publishing.";
-
   return (
     <Box m={{ base: 0, md: "25px 25px 90px", std: "25px 40px 90px" }}>
-      <PageLoader isLoading={isLoadingCountry || isLoadingInstitution} />
-
-      {/* This component contains the Head tag for the page. */}
-      <Head title={title} description={description}>
-        {/* Preload the first page of country and institution logos */}
-        {defaultCountries.items.map((e: Entity) => (
-          <link key={`${e.id}-logo-sm-preload`} rel="preload" href={cokiImageLoader(e.logo_sm)} as="image" />
-        ))}
-        {defaultInstitutions.items.map((e: Entity) => (
-          <link key={`${e.id}-logo-sm-preload`} rel="preload" href={cokiImageLoader(e.logo_sm)} as="image" />
-        ))}
-      </Head>
-
       <Breadcrumbs
         breadcrumbs={[]}
         p={{
@@ -473,25 +390,9 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
           <Text as="h1" textStyle="homeHeader">
             Open Access Dashboard
           </Text>
-          <Text textStyle="p" display={{ base: "none", sm: "none", md: "block" }}>
-            {dashboardText.long}
-          </Text>
-          <TextCollapse
-            display={{ base: "block", sm: "block", md: "none" }}
-            previewText={dashboardText.short}
-            text={dashboardText.long}
-          />
         </Box>
 
-        <Tabs
-          gridArea="table"
-          isFitted
-          variant="dashboard"
-          bg="white"
-          index={tabIndex}
-          onChange={handleTabsChange}
-          overflow="hidden"
-        >
+        <Tabs gridArea="table" isFitted variant="dashboard" bg="white" index={tabIndex} overflow="hidden">
           <TabList>
             <Tab data-test="tab-country">
               <Icon icon="website" size={24} marginRight="6px" />
@@ -533,17 +434,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
                 onResetQueryForm={onResetQueryFormCountry}
               />
             </TabPanel>
-            <TabPanel p={0}>
-              <IndexTable
-                entityTypeName="Institution"
-                queryResult={institutions}
-                queryForm={queryFormInstitution}
-                setQueryForm={setQueryFormInstitution}
-                lastUpdated={stats.last_updated}
-                isLoading={isLoadingInstitution}
-                onResetQueryForm={onResetQueryFormInstitution}
-              />
-            </TabPanel>
+            <TabPanel p={0}></TabPanel>
           </TabPanels>
         </Tabs>
 
@@ -559,57 +450,6 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
             rangeSliderMinMaxValues={countryRangeSliderMinMaxValues}
           />
         </Box>
-
-        <Box gridArea="filter" display={{ base: "none", md: tabIndex === 1 ? "block" : "none" }}>
-          <FilterForm
-            category="institution"
-            platform="desktop"
-            queryForm={queryFormInstitution}
-            setQueryForm={setQueryFormInstitution}
-            defaultQueryForm={defaultQueryFormInstitution}
-            resetFormState={resetFormStateInstitution}
-            entityStats={stats.institution}
-            rangeSliderMinMaxValues={institutionRangeSliderMinMaxValues}
-          />
-        </Box>
-
-        <Modal variant="filterModal" onClose={onCloseFilterCountry} size="full" isOpen={isOpenFilterCountry}>
-          <ModalContent display={{ base: "flex", md: "none" }}>
-            <ModalBody>
-              <FilterForm
-                category="country"
-                platform="mobile"
-                queryForm={queryFormCountry}
-                setQueryForm={setQueryFormCountry}
-                defaultQueryForm={defaultQueryFormCountry}
-                entityStats={stats.country}
-                resetFormState={resetFormStateCountry}
-                onClose={onCloseFilterCountry}
-                rangeSliderMinMaxValues={countryRangeSliderMinMaxValues}
-                title="Country Filters"
-              />
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-
-        <Modal variant="filterModal" onClose={onCloseFilterInstitution} size="full" isOpen={isOpenFilterInstitution}>
-          <ModalContent display={{ base: "flex", md: "none" }}>
-            <ModalBody>
-              <FilterForm
-                category="institution"
-                platform="mobile"
-                queryForm={queryFormInstitution}
-                setQueryForm={setQueryFormInstitution}
-                defaultQueryForm={defaultQueryFormInstitution}
-                entityStats={stats.institution}
-                resetFormState={resetFormStateInstitution}
-                onClose={onCloseFilterInstitution}
-                rangeSliderMinMaxValues={institutionRangeSliderMinMaxValues}
-                title="Institution Filters"
-              />
-            </ModalBody>
-          </ModalContent>
-        </Modal>
       </Grid>
     </Box>
   );
@@ -620,42 +460,13 @@ export async function getDashboardStaticProps() {
   const client = new OADataAPI();
   const stats = client.getStats();
   const countries = await client.getEntities("country", {});
-  const institutions = await client.getEntities("institution", {});
   return {
     props: {
       defaultCountries: countries,
-      defaultInstitutions: institutions,
+      defaultInstitutions: {},
       stats: stats,
     },
   };
 }
 
 export default Dashboard;
-
-// const institutionQuery = queryFormToQueryParams(makeDefaultValues(stats.institution));
-// const countryQuery = queryFormToQueryParams(makeDefaultValues(stats.country));
-
-// // QueryForm to QueryParams
-// const removeDefaultValues = {
-//   ...DEFAULT_PAGE_VALUES,
-//   subregions: [],
-//   institutionTypes: [],
-//   ...makeDefaultOpenAccessValues(entityStats),
-// };
-// removeDefaultValues.orderBy = "p_outputs_open";
-
-// // Update URL
-// const urlParams = makeFilterParams(entityType, queryParams);
-// let url = entityType;
-// if (urlParams.size) {
-//   url += `?${urlParams.toString()}`;
-// }
-// console.log(`New query params: ${url}`);
-// router.push(url, undefined, { shallow: true }).then();
-
-// const DEFAULT_PAGE_VALUES = {
-//   page: 0,
-//   limit: 18, // TODO: make sure this value is used in workers-api
-//   orderBy: "stats.p_outputs_open",
-//   orderDir: "dsc",
-// };
