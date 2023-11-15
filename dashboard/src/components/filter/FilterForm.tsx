@@ -288,7 +288,7 @@ const FilterForm = ({
               Apply
             </Button>
 
-            <Button variant="submit" onClick={onReset} disabled={!isDirty()}>
+            <Button variant="submit" onClick={onReset} isDisabled={!isDirty()}>
               Clear
             </Button>
           </HStack>

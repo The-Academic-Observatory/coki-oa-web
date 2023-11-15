@@ -57,7 +57,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage, ...re
     } else {
       setCanGoBack(true);
     }
-  }, [noOfPages, currentPage]);
+  }, [noOfPages, currentPage, totalRows]);
 
   return (
     <Flex alignItems="center" align="center" justifyContent="space-between" {...rest}>
@@ -66,14 +66,14 @@ const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage, ...re
         variant="pagination"
         icon={<HiOutlineChevronDoubleLeft />}
         onClick={() => goToPage(0)}
-        disabled={!canGoBack}
+        isDisabled={!canGoBack}
       />
       <IconButton
         aria-label="Previous Page"
         variant="pagination"
         icon={<HiOutlineChevronLeft />}
         onClick={onPrevPage}
-        disabled={!canGoBack}
+        isDisabled={!canGoBack}
       />
       {noOfPages > 0 && (
         <Box layerStyle="pageNumber">
@@ -87,14 +87,14 @@ const Pagination = ({ currentPage, setCurrentPage, totalRows, rowsPerPage, ...re
         variant="pagination"
         icon={<HiOutlineChevronRight />}
         onClick={onNextPage}
-        disabled={!canGoNext}
+        isDisabled={!canGoNext}
       />
       <IconButton
         aria-label="Last Page"
         variant="pagination"
         icon={<HiOutlineChevronDoubleRight />}
         onClick={() => goToPage(noOfPages - 1)}
-        disabled={!canGoNext}
+        isDisabled={!canGoNext}
       />
     </Flex>
   );
