@@ -27,7 +27,7 @@ interface FilterAccordionItemProps {
 
 const FilterAccordionItem = ({ children, name, isDirty }: FilterAccordionItemProps) => {
   return (
-    <AccordionItem data-group>
+    <AccordionItem>
       {({ isExpanded }) => (
         <>
           <AccordionButton className="filterAccordionButton">
