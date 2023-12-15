@@ -41,3 +41,12 @@ li a:hover {
     left: 0;
     background: white;
 }
+
+/* Sets correct styling on filter */
+.filterOnWarningIcon {
+    color: #FF671C;
+}
+
+.filterAccordionButton:hover .filterOnWarningIcon {
+    color: white;
+}

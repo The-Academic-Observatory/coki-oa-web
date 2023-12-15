@@ -15,21 +15,33 @@
 // Author: Aniek Roelofs
 
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
-import { AccordionButton, AccordionItem, AccordionPanel, Text } from "@chakra-ui/react";
+import { AccordionButton, AccordionItem, AccordionPanel, Box, Text } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
+import { TbFilterExclamation } from "react-icons/tb";
 
 interface FilterAccordionItemProps {
   children: ReactNode;
   name: string;
+  isDirty: () => boolean;
 }
 
-const FilterAccordionItem = ({ children, name }: FilterAccordionItemProps) => {
+const FilterAccordionItem = ({ children, name, isDirty }: FilterAccordionItemProps) => {
   return (
-    <AccordionItem>
+    <AccordionItem data-group>
       {({ isExpanded }) => (
         <>
-          <AccordionButton>
+          <AccordionButton className="filterAccordionButton">
             <Text flex="1">{name}</Text>
+            {isDirty() && (
+              <Box
+                className="filterOnWarningIcon"
+                pr={{ base: "7px", md: "5px" }}
+                fontSize={{ base: "20px", md: "16px" }}
+              >
+                <TbFilterExclamation />
+              </Box>
+            )}
+
             {isExpanded ? (
               <CloseIcon fontSize={{ base: "14px", md: "10px" }} mx="1px" />
             ) : (
