@@ -12,7 +12,7 @@ test("Should navigate to Country: Indonesia", async ({ page }) => {
   await expect(page.locator("h1")).toContainText("Indonesia");
 });
 
-test("Should navigate to Institution: Science Council of Japan", async ({ page }) => {
+test("Should navigate to Institution: ARC Centre of Excellence for All-sky Astrophysics", async ({ page }) => {
   const route = "/";
   await page.goto(route);
   await expect(page).toHaveURL(route);
@@ -20,9 +20,9 @@ test("Should navigate to Institution: Science Council of Japan", async ({ page }
   // Click Institution tab
   await page.locator("button[data-test='tab-institution']").click();
 
-  // Click OSTI
-  await page.locator("tr[data-test='01pp5tt34'] > td:first-of-type > a").click();
+  // Click 04v9m3h35
+  await page.locator("tr[data-test='04v9m3h35'] > td:first-of-type > a").click();
 
-  await expect(page).toHaveURL("/institution/01pp5tt34/");
-  await expect(page.locator("h1")).toContainText("Science Council of Japan");
+  await expect(page).toHaveURL("/institution/04v9m3h35/");
+  await expect(page.locator("h1")).toContainText("ARC Centre of Excellence for All-sky Astrophysics");
 });
