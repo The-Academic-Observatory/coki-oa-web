@@ -82,9 +82,9 @@ export const makeOpenAccess = (entityStats: EntityStats): OpenAccess => {
     minPOutputsOpen: entityStats.min.p_outputs_open,
     maxPOutputsOpen: entityStats.max.p_outputs_open,
     minNOutputs: entityStats.min.n_outputs,
-    maxNOutputs: findMaxForCompactFormat(entityStats.max.n_outputs),
+    maxNOutputs: entityStats.max.n_outputs,
     minNOutputsOpen: entityStats.min.n_outputs_open,
-    maxNOutputsOpen: findMaxForCompactFormat(entityStats.max.n_outputs_open),
+    maxNOutputsOpen: entityStats.max.n_outputs_open,
   };
 };
 

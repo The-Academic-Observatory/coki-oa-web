@@ -46,7 +46,13 @@ const HistogramRangeSlider = ({
   return (
     <VStack>
       <Box position="relative" width="100%">
-        <HistogramChart position="absolute" histogram={histogram} min={min} max={max} height={height} />
+        <HistogramChart
+          position="absolute"
+          histogram={histogram}
+          min={forwardTransform(min)}
+          max={forwardTransform(max)}
+          height={height}
+        />
         <FilterRangeSlider
           leftKey={leftKey}
           rightKey={rightKey}
