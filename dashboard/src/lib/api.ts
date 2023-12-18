@@ -50,9 +50,12 @@ export class OADataAPI {
     return stats;
   }
 
-  async getEntity(entityType: string, id: string): Promise<Entity> {
+  async getEntity(entityType: string, id: string): Promise<Entity | null> {
     const url = makeEntityUrl(this.host, entityType, id);
     const response = await fetch(url);
+    if (response.status === 404) {
+      return null;
+    }
     const entity = await response.json();
     quantizeEntityPercentages(entity);
     return entity;

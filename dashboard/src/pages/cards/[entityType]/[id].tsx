@@ -37,6 +37,10 @@ export async function getStaticProps({ params }: Params) {
   if (process.env.NODE_ENV === "development") {
     const client = new OADataAPI();
     const entity = client.getEntity(params.entityType, params.id);
+    if (entity === null) {
+      return { notFound: true };
+    }
+
     return {
       props: {
         entity: entity,
