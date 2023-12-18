@@ -15,7 +15,7 @@
 // Author: Aniek Roelofs, James Diprose
 
 import { QueryForm } from "@/components/filter";
-import { toReadableNumber } from "@/lib/utils";
+import { toCompactNumber } from "@/lib/utils";
 import {
   Flex,
   RangeSlider,
@@ -96,11 +96,11 @@ const FilterRangeSlider = ({
       </RangeSlider>
       <Flex pt="24px" alignItems="center" justifyContent="space-between" width="100%">
         <Text fontSize="sm">
-          {toReadableNumber(inverseTransform(value[0]))}
+          {toCompactNumber(inverseTransform(value[0]))}
           {unit}
         </Text>
         <Text fontSize="sm">
-          {toReadableNumber(inverseTransform(value[1]))}
+          {toCompactNumber(inverseTransform(value[1]))}
           {unit}
         </Text>
       </Flex>

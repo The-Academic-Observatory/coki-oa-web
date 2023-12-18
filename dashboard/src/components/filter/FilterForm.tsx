@@ -284,7 +284,7 @@ const FilterForm = ({
               <CheckboxTree checkboxTree={checkboxTree} />
             </FilterAccordionItem>
 
-            <FilterAccordionItem name="Open Access" isDirty={isOpenAccessDirty}>
+            <FilterAccordionItem name="Publications & OA" isDirty={isOpenAccessDirty}>
               <OpenAccessForm rangeSliderMinMaxValues={rangeSliderMinMaxValues} histograms={entityStats.histograms} />
             </FilterAccordionItem>
 

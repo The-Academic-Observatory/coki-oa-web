@@ -17,7 +17,7 @@
 import { DonutSparkline } from "@/components/charts";
 import { EntityCard } from "@/components/details";
 import { Entity } from "@/lib/model";
-import { toReadableNumber } from "@/lib/utils";
+import { toCompactNumber } from "@/lib/utils";
 import { Box, BoxProps, Flex, Grid, StackProps, Text, VStack } from "@chakra-ui/react";
 import React, { memo, ReactElement } from "react";
 import styles from "./EntityDetails.module.css";
@@ -45,7 +45,7 @@ const Stat = ({ statsTitle, value, isPercent, ...rest }: StatsProps) => {
         {statsTitle}
       </Text>
       <Text textStyle="entityStatsValue">
-        {toReadableNumber(value)}
+        {toCompactNumber(value)}
         {percent}
       </Text>
     </VStack>

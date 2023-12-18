@@ -20,6 +20,7 @@ import { IndexTable } from "@/components/table";
 import { cokiImageLoader, OADataAPI } from "@/lib/api";
 import { useEffectAfterRender } from "@/lib/hooks";
 import { Entity, EntityStats, QueryParams, QueryResult, Stats } from "@/lib/model";
+import { findMaxForCompactFormat } from "@/lib/utils";
 import {
   Box,
   Button,
@@ -76,14 +77,14 @@ export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
   return q;
 };
 
-export const makeRangeSliderMinMaxValues = (entityStats: EntityStats): OpenAccess => {
+export const makeOpenAccess = (entityStats: EntityStats): OpenAccess => {
   return {
     minPOutputsOpen: entityStats.min.p_outputs_open,
     maxPOutputsOpen: entityStats.max.p_outputs_open,
     minNOutputs: entityStats.min.n_outputs,
-    maxNOutputs: entityStats.max.n_outputs,
+    maxNOutputs: findMaxForCompactFormat(entityStats.max.n_outputs),
     minNOutputsOpen: entityStats.min.n_outputs_open,
-    maxNOutputsOpen: entityStats.max.n_outputs_open,
+    maxNOutputsOpen: findMaxForCompactFormat(entityStats.max.n_outputs_open),
   };
 };
 
@@ -98,14 +99,7 @@ export const makeFormValues = (entityStats: EntityStats, minNOutputs?: number): 
     region: {},
     subregion: {},
     institutionType: {},
-    openAccess: {
-      minPOutputsOpen: entityStats.min.p_outputs_open,
-      maxPOutputsOpen: entityStats.max.p_outputs_open,
-      minNOutputs: entityStats.min.n_outputs,
-      maxNOutputs: entityStats.max.n_outputs,
-      minNOutputsOpen: entityStats.min.n_outputs_open,
-      maxNOutputsOpen: entityStats.max.n_outputs_open,
-    },
+    openAccess: makeOpenAccess(entityStats),
   };
 
   // Set a different min value
@@ -136,7 +130,7 @@ const useEntityQuery = (
 ): [QueryResult, QueryForm, (q: QueryForm) => void, QueryForm, boolean, number, () => void, OpenAccess] => {
   const startQueryForm = React.useMemo(() => makeFormValues(entityStats, DEFAULT_N_OUTPUTS), [entityStats]);
   const defaultQueryForm = React.useMemo(() => makeFormValues(entityStats), [entityStats]);
-  const rangeSliderMinMaxValues = React.useMemo(() => makeRangeSliderMinMaxValues(entityStats), [entityStats]);
+  const rangeSliderMinMaxValues = React.useMemo(() => makeOpenAccess(entityStats), [entityStats]);
   const [entities, setEntities] = React.useState<QueryResult>(initialState);
   const [queryForm, setQueryForm] = React.useState<QueryForm>(startQueryForm);
   const [resetFormState, setResetFormState] = React.useState(0);

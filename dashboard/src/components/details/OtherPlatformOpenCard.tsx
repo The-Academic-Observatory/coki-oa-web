@@ -16,7 +16,7 @@
 
 import { EntityCard } from "@/components/details";
 import { Entity } from "@/lib/model";
-import { toReadableNumber } from "@/lib/utils";
+import { toCompactNumber } from "@/lib/utils";
 import { Box, BoxProps, Flex, Grid, GridItem, Text, Tooltip } from "@chakra-ui/react";
 import React, { memo } from "react";
 import { FaBriefcaseMedical, FaFirstdraft, FaUniversity, FaUsers } from "react-icons/fa";
@@ -107,7 +107,7 @@ const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) 
                 </Flex>
               </Tooltip>
 
-              <Text textStyle="chartKeyDescription">{toReadableNumber(item.total_outputs)}</Text>
+              <Text textStyle="chartKeyDescription">{toCompactNumber(item.total_outputs)}</Text>
             </Flex>
 
             {/*Use an SVG for the bars rather an HTML progress because it is less of a pain to style across platforms */}

@@ -17,7 +17,7 @@
 import { DonutSparkline } from "@/components/charts";
 import { cokiImageLoader } from "@/lib/api";
 import { Entity } from "@/lib/model";
-import { toReadableNumber } from "@/lib/utils";
+import { toCompactNumber } from "@/lib/utils";
 import { Box, BoxProps, Flex, HStack, Image, StackProps, Text, VStack } from "@chakra-ui/react";
 import COKISmall from "@root/public/logo-small.svg";
 import React, { memo, ReactElement } from "react";
@@ -46,7 +46,7 @@ const Stats = ({ statsTitle, value, isPercent, ...rest }: StatsProps) => {
         {statsTitle}
       </Text>
       <Text textStyle="entityStatsValue" fontSize="56px" lineHeight="56px">
-        {toReadableNumber(value)}
+        {toCompactNumber(value)}
         {percent}
       </Text>
     </VStack>
