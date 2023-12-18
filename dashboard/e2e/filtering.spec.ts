@@ -47,9 +47,9 @@ test("Resolve Australian Astronomical Observatory from the institution filtering
   await page.locator("button[data-test='tab-institution']").click();
 
   // Confirm it can first one in list without any filtering
-  await expect(page.locator("tr[data-test='01pp5tt34']", { hasText: "Science Council of Japan" })).toContainText(
-    "Science Council of Japan",
-  );
+  await expect(
+    page.locator("tr[data-test='04v9m3h35']", { hasText: "ARC Centre of Excellence for All-sky Astrophysics" }),
+  ).toContainText("ARC Centre of Excellence for All-sky Astrophysics");
 
   if (isMobile) {
     // Click the filtering button for mobile.

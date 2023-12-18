@@ -232,9 +232,23 @@ const FilterForm = ({
   useEffectAfterRender(onReset, [resetFormState]);
 
   // Check if form dirty
-  const isDirty = (): boolean => {
+  const isDirty = useCallback((): boolean => {
     return !lodashIsEqual(formik.values, defaultQueryForm);
-  };
+  }, [formik.values, defaultQueryForm]);
+
+  // Check if different sub parts of the form are dirty
+  const isRegionDirty = useCallback((): boolean => {
+    return (
+      !lodashIsEqual(formik.values.region, defaultQueryForm.region) ||
+      !lodashIsEqual(formik.values.subregion, defaultQueryForm.subregion)
+    );
+  }, [formik.values.region, formik.values.subregion, defaultQueryForm.region, defaultQueryForm.subregion]);
+  const isOpenAccessDirty = useCallback((): boolean => {
+    return !lodashIsEqual(formik.values.openAccess, defaultQueryForm.openAccess);
+  }, [formik.values.openAccess, defaultQueryForm.openAccess]);
+  const isInstitutionTypeDirty = useCallback((): boolean => {
+    return !lodashIsEqual(formik.values.institutionType, defaultQueryForm.institutionType);
+  }, [formik.values.institutionType, defaultQueryForm.institutionType]);
 
   return (
     <FormikProvider value={formik}>
@@ -266,16 +280,16 @@ const FilterForm = ({
           </HStack>
 
           <Accordion defaultIndex={[0]} allowMultiple variant="filterForm">
-            <FilterAccordionItem name="Region">
+            <FilterAccordionItem name="Region" isDirty={isRegionDirty}>
               <CheckboxTree checkboxTree={checkboxTree} />
             </FilterAccordionItem>
 
-            <FilterAccordionItem name="Open Access">
+            <FilterAccordionItem name="Publications & OA" isDirty={isOpenAccessDirty}>
               <OpenAccessForm rangeSliderMinMaxValues={rangeSliderMinMaxValues} histograms={entityStats.histograms} />
             </FilterAccordionItem>
 
             {category === "institution" ? (
-              <FilterAccordionItem name="Institution Type">
+              <FilterAccordionItem name="Institution Type" isDirty={isInstitutionTypeDirty}>
                 <InstitutionTypeForm />
               </FilterAccordionItem>
             ) : (

@@ -59,6 +59,10 @@ export async function getStaticProps({ params }: Params) {
   // at build time or run time for ISR (for blocking fallback pages).
   const client = new OADataAPI();
   const entity = await client.getEntity(params.entityType, params.id);
+  if (entity === null) {
+    return { notFound: true };
+  }
+
   const stats = client.getStats();
   return {
     props: {
@@ -74,8 +78,10 @@ function validateInstitutionIds(institutionIds: string[]): string[] {
 
   for (const id of institutionIds) {
     try {
-      client.getEntity("institution", id);
-      validIds.push(id);
+      const entity = client.getEntity("institution", id);
+      if (entity !== null) {
+        validIds.push(id);
+      }
     } catch (err) {
       console.warn(`validateInstitutionIds: invalid id: ${id}`);
     }

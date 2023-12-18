@@ -17,7 +17,7 @@
 import { EntityCard } from "@/components/details";
 import { Pagination } from "@/components/table";
 import { Entity, Repository } from "@/lib/model";
-import { toReadableNumber } from "@/lib/utils";
+import { toCompactNumber } from "@/lib/utils";
 import { ArrowDownIcon, ArrowUpIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -129,7 +129,7 @@ function PlatformTypeCell({ value }: RepositoryProps) {
 }
 
 function NumberCell({ value }: RepositoryProps) {
-  return <span>{toReadableNumber(value)}</span>;
+  return <span>{toCompactNumber(value)}</span>;
 }
 
 interface NoResultsProps {

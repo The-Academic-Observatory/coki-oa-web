@@ -48,7 +48,7 @@ const HistogramChart = ({
       const x = d3
         .scaleLinear()
         // @ts-ignore max could be undefined
-        .domain([d3.min(histogram.bins), d3.max(histogram.bins)])
+        .domain([min, max])
         .range([0, width]);
 
       const y = d3

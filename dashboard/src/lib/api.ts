@@ -21,7 +21,7 @@ import lodashGet from "lodash.get";
 import lodashSet from "lodash.set";
 import fs from "fs";
 import { join } from "path";
-import { largestRemainder, sum } from "@/lib/utils";
+import { findMaxForCompactFormat, largestRemainder, sum } from "@/lib/utils";
 import statsRaw from "@data/data/stats.json";
 
 export const API_HOST = process.env.COKI_API_URL || "https://api.coki.ac";
@@ -41,12 +41,21 @@ export class OADataAPI {
   }
 
   getStats(): Stats {
-    return statsRaw as unknown as Stats;
+    // Pre-process stats
+    const stats = statsRaw as unknown as Stats;
+    stats.country.max.n_outputs = findMaxForCompactFormat(stats.country.max.n_outputs);
+    stats.country.max.n_outputs = findMaxForCompactFormat(stats.country.max.n_outputs_open);
+    stats.institution.max.n_outputs = findMaxForCompactFormat(stats.institution.max.n_outputs);
+    stats.institution.max.n_outputs = findMaxForCompactFormat(stats.institution.max.n_outputs);
+    return stats;
   }
 
-  async getEntity(entityType: string, id: string): Promise<Entity> {
+  async getEntity(entityType: string, id: string): Promise<Entity | null> {
     const url = makeEntityUrl(this.host, entityType, id);
     const response = await fetch(url);
+    if (response.status === 404) {
+      return null;
+    }
     const entity = await response.json();
     quantizeEntityPercentages(entity);
     return entity;

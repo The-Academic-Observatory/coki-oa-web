@@ -18,6 +18,7 @@ import { HistogramRangeSlider, OpenAccess } from "@/components/filter";
 import { EntityHistograms } from "@/lib/model";
 import { Box, Divider, Text, VStack } from "@chakra-ui/react";
 import React, { memo, useCallback } from "react";
+import { toCompactNumber, fromCompactNumber } from "@/lib/utils";
 
 export interface OpenAccessFormProps {
   rangeSliderMinMaxValues: OpenAccess;
@@ -28,16 +29,17 @@ const paddingLr = "24px";
 
 const OpenAccessForm = ({ rangeSliderMinMaxValues, histograms }: OpenAccessFormProps) => {
   const forwardTransform = useCallback((val: number) => {
-    if (val == 0) {
-      return val;
-    }
-    return Math.log10(val);
+    // Convert to log10 distribution
+    return Math.log10(val + 1);
   }, []);
   const inverseTransform = useCallback((val: number) => {
-    if (val == 0) {
-      return val;
-    }
-    return parseInt(`${Math.pow(10, val)}`);
+    // Convert from log10 distribution back to standard distribution
+    // Round to nearest whole number so that we don't get decimal numbers
+    val = Math.round(Math.pow(10, val) - 1); //
+
+    // To ensure that the numbers set in the form match what the user sees on the screen, convert to compact
+    // number representation and back again
+    return fromCompactNumber(toCompactNumber(val));
   }, []);
 
   return (

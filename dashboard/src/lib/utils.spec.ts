@@ -1,16 +1,16 @@
-import { sum, toReadableNumber, largestRemainder } from "./utils";
+import { sum, toCompactNumber, largestRemainder } from "./utils";
 
 test("test toReadableNumber", () => {
-  expect(toReadableNumber(0)).toBe("0");
-  expect(toReadableNumber(9999)).toBe("10K");
-  expect(toReadableNumber(10000)).toBe("10K");
-  expect(toReadableNumber(10499)).toBe("10K");
-  expect(toReadableNumber(10999)).toBe("11K");
-  expect(toReadableNumber(999999)).toBe("1M");
-  expect(toReadableNumber(1000000)).toBe("1M");
-  expect(toReadableNumber(1500000)).toBe("1.5M");
-  expect(toReadableNumber(1999999)).toBe("2M");
-  expect(toReadableNumber(999999999)).toBe("1B");
+  expect(toCompactNumber(0)).toBe("0");
+  expect(toCompactNumber(9999)).toBe("10K");
+  expect(toCompactNumber(10000)).toBe("10K");
+  expect(toCompactNumber(10499)).toBe("10K");
+  expect(toCompactNumber(10999)).toBe("11K");
+  expect(toCompactNumber(999999)).toBe("1M");
+  expect(toCompactNumber(1000000)).toBe("1M");
+  expect(toCompactNumber(1500000)).toBe("1.5M");
+  expect(toCompactNumber(1999999)).toBe("2M");
+  expect(toCompactNumber(999999999)).toBe("1B");
 });
 
 test("test sum", () => {

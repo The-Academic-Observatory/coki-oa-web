@@ -28,7 +28,7 @@ interface EntityHeaderProps extends StackProps {
 const Header = ({ entity, ...rest }: EntityHeaderProps) => {
   const previewText = makeDescription(entity);
   let description = <> {makeDescription(entity)} </>;
-  if (entity.description.text !== "") {
+  if (entity.description.text != null) {
     description = (
       <>
         {entity.description.text}{" "}
