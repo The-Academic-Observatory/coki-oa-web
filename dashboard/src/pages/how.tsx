@@ -266,7 +266,7 @@ export default function How({ stats }: Props) {
         </ScrollTable>
 
         <Text textStyle="p">
-          The calculations for the Other Platform Open categories are described in Table 4 below. We maintain
+          The calculations for the Other Platform Open categories are described in Table 4 below.
         </Text>
 
         <ScrollTable caption="Table 4. Other Platform Open category calculations." mb="32px">
@@ -337,7 +337,7 @@ export default function How({ stats }: Props) {
         <Text textStyle="p">
           To see the SQL script that calculates Open Access status,{" "}
           <a
-            href="https://github.com/The-Academic-Observatory/academic-observatory-workflows/blob/develop/academic_observatory_workflows/database/sql/create_unpaywall.sql.jinja2"
+            href="https://github.com/The-Academic-Observatory/academic-observatory-workflows/blob/main/academic_observatory_workflows/database/sql/create_openaccess.sql.jinja2"
             target="_blank"
             rel="noreferrer"
           >
