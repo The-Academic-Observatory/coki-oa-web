@@ -1,4 +1,4 @@
-import { Entity } from "../lib/model";
+import { Entity } from "../dashboard/src/lib/model";
 import { Cluster } from "puppeteer-cluster";
 import fs from "fs";
 import { exec, spawn } from "child_process";
@@ -10,7 +10,15 @@ export type Task = {
 
 const port = 3000;
 
-export async function makeShareCards(inputPath: string, maxConcurrency: number, cardSelector: string = ".socialCard") {
+function makeImagePath(entityId: string) {
+  return `../workers-images/public/social-cards/${entityId}.jpg`;
+}
+
+export async function makeShareCards(
+  inputPath: string,
+  maxConcurrency: number,
+  cardSelector: string = ".socialCard",
+) {
   const cluster = await Cluster.launch({
     puppeteerOptions: {
       product: "firefox",
@@ -28,7 +36,7 @@ export async function makeShareCards(inputPath: string, maxConcurrency: number, 
 
   await cluster.task(async ({ page, data }) => {
     const url = data.url;
-    const path = `../workers-images/public/social-cards/${data.entity.id}.jpg`;
+    const path = makeImagePath(data.entity.id);
     console.log(`Fetching page: ${url}`);
     await page.goto(url);
     await page.waitForSelector(cardSelector);
@@ -41,7 +49,12 @@ export async function makeShareCards(inputPath: string, maxConcurrency: number, 
   });
 
   //@ts-ignore
-  const entities = JSON.parse(fs.readFileSync(inputPath));
+  let entities: Array<Entity> = JSON.parse(fs.readFileSync(inputPath));
+  console.log(`Total entities: ${entities.length}`);
+  entities = entities.filter(
+    (entity) => !fs.existsSync(makeImagePath(entity.id)),
+  );
+  console.log(`Entities to render: ${entities.length}`);
   for (const entity of entities) {
     const task = {
       url: `http://localhost:${port}/cards/${entity.entity_type}/${entity.id}/`,
@@ -55,10 +68,12 @@ export async function makeShareCards(inputPath: string, maxConcurrency: number, 
 }
 
 // Start next.js server
-const server = spawn("yarn", ["run", "dev"], { cwd: "../" });
+const server = spawn("yarn", ["workspace", "dashboard", "run", "dev"], {
+  cwd: "../",
+});
 
 // Render cards
-await makeShareCards("../data/index.json", 4);
+await makeShareCards("../data/data/index.json", 8);
 
 // Kill yarn
 server.kill();

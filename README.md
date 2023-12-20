@@ -193,18 +193,19 @@ This will be removed when card generation is performed by the workflow or the AP
 To render the cards:
 ```bash
 cd ./social-cards
-PUPPETEER_PRODUCT=firefox yarn install
+npx puppeteer browsers install firefox
+PUPPETEER_PRODUCT=firefox
 yarn render
 ```
 
-The social cards are saved in `public/social-cards`.
+The social cards are saved in `workers-images/public/social-cards`.
 * Make a zip file of the social-cards folder.
 * Upload it to the `coki-oa-web-data` Google Cloud Storage Bucket. The cards will then be
 built into the latest.zip file by the Airflow workflow.
 
 To manually view the social cards, start the local webserver and navigate to the following routes:
-* /country-card/[COUNTRY ID]
-* /institution-card/[ROR ID]
+* /cards/country/[COUNTRY ID]
+* /cards/institution/[ROR ID]
 
 ### Making Icons
 Download the Adobe Illustrator icons-final.ai file.
