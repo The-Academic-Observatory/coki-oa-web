@@ -23,7 +23,7 @@ Open Knowledge Initiative's Open Access Dashboard: [open.coki.ac](https://open.c
 * Linux, Windows or MacOS.
 * NodeJS 16: https://nodejs.org/en/
 * yarn 3: https://yarnpkg.com/getting-started/install
-* libc++1 which is required for Wrangler 3: `sudo apt-get -y install libc++1`
+* libc++1 which is required for Wrangler 3: `sudo apt-get -y install libc++1 unzip`
 * Vercel CLI: `npm install --global vercel`
 
 ### Preparing Data Files
@@ -192,6 +192,7 @@ This will be removed when card generation is performed by the workflow or the AP
 
 To render the cards:
 ```bash
+sudo apt-get install libgtk-3-dev libasound2
 cd ./social-cards
 npx puppeteer browsers install firefox
 PUPPETEER_PRODUCT=firefox

@@ -24,7 +24,7 @@ export async function makeShareCards(
       product: "firefox",
       defaultViewport: { width: 1200, height: 628 },
     },
-    concurrency: Cluster.CONCURRENCY_PAGE,
+    concurrency: Cluster.CONCURRENCY_BROWSER,
     maxConcurrency: maxConcurrency,
   });
 
@@ -45,6 +45,7 @@ export async function makeShareCards(
     if (element !== null) {
       console.log(`Saving screenshot to: ${path}`);
       await element.screenshot({ path: path, quality: 90 });
+      console.log(`Done saving screenshot to: ${path}`);
     }
   });
 
@@ -73,7 +74,7 @@ const server = spawn("yarn", ["workspace", "dashboard", "run", "dev"], {
 });
 
 // Render cards
-await makeShareCards("../data/data/index.json", 8);
+await makeShareCards("../data/data/index.json", 16);
 
 // Kill yarn
 server.kill();
