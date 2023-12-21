@@ -326,6 +326,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
             {/*We use Button rather than Tab, because Tab cannot be selected by default and it's styling wil flash */}
             <Button
               variant={tabIndexToEntity(tabIndex) === "country" ? "tabActive" : "tabInactive"}
+              aria-selected={tabIndexToEntity(tabIndex) === "country"}
               data-test="tab-country"
               onClick={() => {
                 setTabIndex(entityToTabIndex("country"));
@@ -337,6 +338,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
 
             <Button
               variant={tabIndexToEntity(tabIndex) === "institution" ? "tabActive" : "tabInactive"}
+              aria-selected={tabIndexToEntity(tabIndex) === "institution"}
               data-test="tab-institution"
               onClick={() => {
                 setTabIndex(entityToTabIndex("institution"));
