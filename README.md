@@ -23,7 +23,7 @@ Open Knowledge Initiative's Open Access Dashboard: [open.coki.ac](https://open.c
 * Linux, Windows or MacOS.
 * NodeJS 16: https://nodejs.org/en/
 * yarn 3: https://yarnpkg.com/getting-started/install
-* libc++1 which is required for Wrangler 3: `sudo apt-get -y install libc++1`
+* Install system dependencies: `sudo apt-get -y install libc++1 unzip` (libc++1 may be required for Wrangler 3)
 * Vercel CLI: `npm install --global vercel`
 
 ### Preparing Data Files
@@ -192,19 +192,21 @@ This will be removed when card generation is performed by the workflow or the AP
 
 To render the cards:
 ```bash
+sudo apt-get install libgtk-3-dev libasound2
 cd ./social-cards
-PUPPETEER_PRODUCT=firefox yarn install
+npx puppeteer browsers install firefox
+PUPPETEER_PRODUCT=firefox
 yarn render
 ```
 
-The social cards are saved in `public/social-cards`.
+The social cards are saved in `workers-images/public/social-cards`.
 * Make a zip file of the social-cards folder.
 * Upload it to the `coki-oa-web-data` Google Cloud Storage Bucket. The cards will then be
 built into the latest.zip file by the Airflow workflow.
 
 To manually view the social cards, start the local webserver and navigate to the following routes:
-* /country-card/[COUNTRY ID]
-* /institution-card/[ROR ID]
+* /cards/country/[COUNTRY ID]
+* /cards/institution/[ROR ID]
 
 ### Making Icons
 Download the Adobe Illustrator icons-final.ai file.
