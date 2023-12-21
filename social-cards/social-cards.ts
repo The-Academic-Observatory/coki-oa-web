@@ -46,6 +46,13 @@ export async function makeShareCards(
       console.log(`Saving screenshot to: ${path}`);
       await element.screenshot({ path: path, quality: 90 });
       console.log(`Done saving screenshot to: ${path}`);
+
+      // Close page and browser to stop memory leak when using Cluster.CONCURRENCY_BROWSER
+      await page.close();
+      console.log(`Closed page for: ${path}`);
+
+      await page.browser().close();
+      console.log(`Closed browser for: ${path}`);
     }
   });
 
@@ -74,7 +81,7 @@ const server = spawn("yarn", ["workspace", "dashboard", "run", "dev"], {
 });
 
 // Render cards
-await makeShareCards("../data/data/index.json", 16);
+await makeShareCards("../data/data/index.json", 32);
 
 // Kill yarn
 server.kill();
