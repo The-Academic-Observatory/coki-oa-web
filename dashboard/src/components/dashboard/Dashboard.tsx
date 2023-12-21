@@ -20,7 +20,6 @@ import { IndexTable } from "@/components/table";
 import { cokiImageLoader, OADataAPI } from "@/lib/api";
 import { useEffectAfterRender } from "@/lib/hooks";
 import { Entity, EntityStats, QueryParams, QueryResult, Stats } from "@/lib/model";
-import { findMaxForCompactFormat } from "@/lib/utils";
 import {
   Box,
   Button,
@@ -28,7 +27,6 @@ import {
   Modal,
   ModalBody,
   ModalContent,
-  Tab,
   TabList,
   TabPanel,
   TabPanels,
@@ -176,6 +174,14 @@ export type DashboardProps = {
   stats: Stats;
 };
 
+function entityToTabIndex(entityType: string) {
+  return ["country", "institution"].indexOf(entityType);
+}
+
+function tabIndexToEntity(tabIndex: number) {
+  return { 0: "country", 1: "institution" }[tabIndex];
+}
+
 const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, stats }: DashboardProps) => {
   // Descriptions
   const descriptions = [
@@ -195,22 +201,21 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
     },
   ];
 
-  const categoryToTabIndex: Array<string> = ["country", "institution"];
-  const defaultTabIndex = categoryToTabIndex.indexOf(defaultEntityType);
+  const defaultTabIndex = entityToTabIndex(defaultEntityType);
   const [tabIndex, setTabIndex] = React.useState<number>(defaultTabIndex);
   const defaultDescription = descriptions[defaultTabIndex];
   const [dashboardText, setDashboardText] = React.useState(defaultDescription);
 
   // Set tab index and change text based on tab index
   const handleTabsChange = (index: number) => {
-    const category = categoryToTabIndex[index];
+    const entityType = tabIndexToEntity(index);
     setTabIndex(index);
     setDashboardText(descriptions[index]);
 
     // If on the /country/ or /institution/ page then update the URL
     const historyState = window.history.state;
     if (historyState.as === "/country/" || historyState.as === "/institution/") {
-      window.history.replaceState(historyState, "", `/${category}/`);
+      window.history.replaceState(historyState, "", `/${entityType}/`);
     }
   };
 
@@ -318,23 +323,38 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
           overflow="hidden"
         >
           <TabList>
-            <Tab data-test="tab-country">
+            {/*We use Button rather than Tab, because Tab cannot be selected by default and it's styling wil flash */}
+            <Button
+              variant={tabIndexToEntity(tabIndex) === "country" ? "tabActive" : "tabInactive"}
+              data-test="tab-country"
+              onClick={() => {
+                setTabIndex(entityToTabIndex("country"));
+              }}
+            >
               <Icon icon="website" size={24} marginRight="6px" />
               <Text fontSize={{ base: "14px", sm: "16px" }}>Country</Text>
-            </Tab>
-            <Tab data-test="tab-institution">
+            </Button>
+
+            <Button
+              variant={tabIndexToEntity(tabIndex) === "institution" ? "tabActive" : "tabInactive"}
+              data-test="tab-institution"
+              onClick={() => {
+                setTabIndex(entityToTabIndex("institution"));
+              }}
+            >
               <Icon icon="institution" size={24} marginRight="6px" />
               <Text fontSize={{ base: "14px", sm: "16px" }}>Institution</Text>
-            </Tab>
+            </Button>
+
             <Button
               data-test="tab-filter-button"
               variant="filterTab"
               display={{ base: "flex", md: "none" }}
               onClick={() => {
                 // Open filter modal
-                if (tabIndex == 0) {
+                if (tabIndex == entityToTabIndex("country")) {
                   onOpenFilterCountry();
-                } else if (tabIndex == 1) {
+                } else if (tabIndex == entityToTabIndex("institution")) {
                   onOpenFilterInstitution();
                 }
               }}
