@@ -16,8 +16,5 @@ rm -fR "${ROOT_DIR}/workers-images/public"
 mkdir "${ROOT_DIR}/workers-images/public"
 
 # Extract data
-unzip -o "${DATA_DIR}/images.zip" -d "${DATA_DIR}/images"
-unzip -o "${DATA_DIR}/social-cards.zip" -d "${DATA_DIR}/images/social-cards"
-
-## Copy images into workers-api/public
-cp -R "${DATA_DIR}/images/." "${ROOT_DIR}/workers-images/public"
+unzip -o "${DATA_DIR}/images.zip" -d "${ROOT_DIR}/workers-images/public"
+unzip -o "${DATA_DIR}/social-cards.zip" -d "${ROOT_DIR}/workers-images/public/social-cards"
