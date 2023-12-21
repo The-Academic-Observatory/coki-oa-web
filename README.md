@@ -23,7 +23,7 @@ Open Knowledge Initiative's Open Access Dashboard: [open.coki.ac](https://open.c
 * Linux, Windows or MacOS.
 * NodeJS 16: https://nodejs.org/en/
 * yarn 3: https://yarnpkg.com/getting-started/install
-* libc++1 which is required for Wrangler 3: `sudo apt-get -y install libc++1 unzip`
+* Install system dependencies: `sudo apt-get -y install libc++1 unzip` (libc++1 may be required for Wrangler 3)
 * Vercel CLI: `npm install --global vercel`
 
 ### Preparing Data Files
