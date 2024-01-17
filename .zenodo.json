@@ -1,5 +1,7 @@
 {
-  "description": "<p>COKI Open Access Website is the&nbsp;<a href=\"https://nextjs.org/\">Next.js</a>&nbsp;based front end and <a href=\"https://workers.cloudflare.com/\">Cloudflare Workers</a> backend for the Curtin Open Knowledge Initiative&#39;s Open Access Dashboard:&nbsp;<a href=\"https://open.coki.ac/\">open.coki.ac</a>.</p>\n\n<p><strong>Data</strong><br>\nTo download the data, see the&nbsp;<a href=\"https://doi.org/10.5281/zenodo.6399462\">COKI Open Access Dataset</a>.</p>\n\n<p><strong>Contributors</strong><br>\nConceptualization: James P. Diprose, Lucy Montgomery, Cameron Neylon, and Richard Hosking.<br>\nGraphic design: Richard Regoni.<br>\nData curation: James P. Diprose and Richard Hosking.<br>\nFormal analysis: James P. Diprose, Cameron Neylon, and Richard Hosking.<br>\nFunding acquisition: Lucy Montgomery and Cameron Neylon.<br>\nInvestigation: James P. Diprose.<br>\nMethodology: James P. Diprose.<br>\nProject administration: Lucy Montgomery, Cameron Neylon, and Kathryn R. Napier.<br>\nResources: James P. Diprose.<br>\nSoftware: James P. Diprose, Aniek Roelofs and Alex Massen-Hane.<br>\nSupervision: James P. Diprose, Lucy Montgomery, Cameron Neylon, and Kathryn R. Napier.<br>\nVisualization: James P. Diprose, Cameron Neylon and Richard Rigoni.<br>\nWriting - original draft: James P. Diprose, Lucy Montgomery, Cameron Neylon, and Richard Hosking.<br>\nWriting - review &amp; editing: Cameron Neylon, Kathryn R. Napier, Richard Hosking, Katie S. Wilson, and Tuan-Yow Chien.</p>",
+  "description": "<p>COKI Open Access Website is the&nbsp;<a href=\"https://nextjs.org/\">Next.js</a>&nbsp;based front end and <a href=\"https://workers.cloudflare.com/\">Cloudflare Workers</a> backend for the Curtin Open Knowledge Initiative&#39;s Open Access Dashboard:&nbsp;<a href=\"https://open.coki.ac/\">open.coki.ac</a>.</p>\n\n<p><strong>Data</strong><br>\nTo download the data, see the&nbsp;<a href=\"https://doi.org/10.5281/zenodo.6399462\">COKI Open Access Dataset</a>.</p>\n\n<p><strong>Contributors</strong><br>\nConceptualization: James P. Diprose, Lucy Montgomery, Cameron Neylon, and Richard Hosking.<br>\nGraphic design: Richard Regoni.<br>\nData curation: James P. Diprose and Richard Hosking.<br>\nFormal analysis: James P. Diprose, Cameron Neylon, and Richard Hosking.<br>\nFunding acquisition: Lucy Montgomery and Cameron Neylon.<br>\nInvestigation: James P. Diprose.<br>\nMethodology: James P. Diprose and Alex Massen-Hane.<br>\nProject administration: Lucy Montgomery, Cameron Neylon, and Kathryn R. Napier.<br>\nResources: James P. Diprose.<br>\nSoftware: James P. Diprose, Aniek Roelofs and Alex Massen-Hane.<br>\nSupervision: James P. Diprose, Lucy Montgomery, Cameron Neylon, and Kathryn R. Napier.<br>\nVisualization: James P. Diprose, Cameron Neylon and Richard Rigoni.<br>\nWriting - original draft: James P. Diprose, Lucy Montgomery, Cameron Neylon, Richard Hosking, and Alex Massen-Hane.
+  
+  <br>\nWriting - review &amp; editing: Cameron Neylon, Kathryn R. Napier, Richard Hosking, Katie S. Wilson, and Tuan-Yow Chien.</p>",
   "title": "COKI Open Access Website",
   "license": {
     "id": "Apache-2.0"
@@ -20,49 +22,49 @@
     {
       "orcid": "0000-0002-5094-3571",
       "affiliation": "Centre for Culture and Technology, Curtin University",
-      "name": "James P. Diprose"
+      "name": "Diprose, James P"
     },
     {
       "orcid": "0000-0001-8288-5241",
       "affiliation": "Centre for Culture and Technology, Curtin University",
-      "name": "Richard Hosking"
+      "name": "Hosking, Richard "
     },
     {
-      "name": "Richard Rigoni"
+      "name": "Rigoni, Richard"
     },
     {
       "orcid": "0000-0003-0485-3388",
-      "affiliation": "Curtin Institute for Data Science, Curtin University",
-      "name": "Aniek Roelofs"
+      "affiliation": "Centre for Culture and Technology, Curtin University",
+      "name": "Roelofs, Aniek"
     },
     {
       "affiliation": "Curtin Institute for Data Science, Curtin University",
-      "name": "Alex Massen-Hane"
+      "name": "Massen-Hane, Alex"
     },
     {
       "orcid": "0000-0003-1202-7238",
       "affiliation": "Curtin Institute for Data Science, Curtin University",
-      "name": "Kathryn R. Napier"
+      "name": "Napier, Kathryn R"
     },
     {
       "orcid": "0000-0002-6237-7423",
       "affiliation": "Centre for Culture and Technology, Curtin University",
-      "name": "Tuan-Yow Chien"
+      "name": "Chien, Tuan-Yow"
     },
     {
       "orcid": "0000-0001-8705-1027",
       "affiliation": "Centre for Culture and Technology, Curtin University",
-      "name": "Katie S. Wilson"
+      "name": "Wilson, Katie S"
     },
     {
       "orcid": "0000-0001-6551-8140",
       "affiliation": "Centre for Culture and Technology, Curtin University",
-      "name": "Lucy Montgomery"
+      "name": "Montgomery, Lucy"
     },
     {
       "orcid": "0000-0002-0068-716X",
       "affiliation": "Centre for Culture and Technology, Curtin University",
-      "name": "Cameron Neylon"
+      "name": "Neylon, Cameron"
     }
   ]
 }
