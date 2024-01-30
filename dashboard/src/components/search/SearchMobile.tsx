@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ interface SearchDrawerProps extends BoxProps {
 }
 
 const SearchMobile = ({ isOpen, onOpen, onClose, navbarHeightMobile, ...rest }: SearchDrawerProps) => {
-  const [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore, queryFinal] =
+  const { entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore, queryFinal } =
     useEntitySearch(() => {});
 
   const [isStd] = useMediaQuery("(min-width: 1310px)");

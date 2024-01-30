@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -44,7 +44,11 @@ beforeAll(async () => {
   await db.exec(sql);
 });
 
-const fetchPages = async (origin: string, pathname: string, params: URLSearchParams): Promise<Array<Entity>> => {
+const fetchPages = async (
+  origin: string,
+  pathname: string,
+  params: URLSearchParams,
+): Promise<Array<Entity>> => {
   const results: Array<Entity> = [];
   let page = 0;
   while (true) {
@@ -111,12 +115,19 @@ const assertEntityProperties = (entities: Array<Entity>) => {
   });
 };
 
-const fetchAll = async (path: string, otherQueryParams: string = ""): Promise<Array<Entity>> => {
+const fetchAll = async (
+  path: string,
+  otherQueryParams: string = "",
+): Promise<Array<Entity>> => {
   let results: Array<Entity> = [];
   let i = 0;
 
   while (true) {
-    let res = await handleRequest(new Request(`${host}/${path}?page=${i}${otherQueryParams}`), env, ctx);
+    let res = await handleRequest(
+      new Request(`${host}/${path}?page=${i}${otherQueryParams}`),
+      env,
+      ctx,
+    );
 
     if (res.status !== 200) {
       throw new Error(`Request failed with status ${res.status}`);
@@ -150,7 +161,10 @@ describe("404 API endpoints", () => {
 describe("entity API endpoint", () => {
   test("get a country", async () => {
     // Put data into KV namespace for testing
-    await env.__STATIC_CONTENT.put("country/NZL.json", fs.readFileSync("./public/country/NZL.json", "utf-8"));
+    await env.__STATIC_CONTENT.put(
+      "country/NZL.json",
+      fs.readFileSync("./public/country/NZL.json", "utf-8"),
+    );
 
     let res = await handleRequest(new Request(`${host}/country/NZL`), env, ctx);
     let json = await res.json();
@@ -164,7 +178,11 @@ describe("entity API endpoint", () => {
       "institution/030cszc07.json",
       fs.readFileSync("./public/institution/030cszc07.json", "utf-8"),
     );
-    let res = await handleRequest(new Request(`${host}/institution/030cszc07`), env, ctx);
+    let res = await handleRequest(
+      new Request(`${host}/institution/030cszc07`),
+      env,
+      ctx,
+    );
     let json = await res.json();
     expect(res.status).toBe(200);
     expect(json).toMatchObject({ id: "030cszc07" });
@@ -198,24 +216,6 @@ describe("countries API endpoint", () => {
     });
   });
 
-  // TODO: Flesh out this test
-  test("filter institutions by individual countries", async () => {
-    let entities = await fetchPages(
-      host,
-      "institutions",
-      new URLSearchParams({
-        countries: "NZL,AUS",
-      }),
-    );
-    assertEntityProperties(entities);
-
-    // Assert that we only have institutions from NZL and AUS
-    expect(entities.length).toBe(20); // TODO - make sure this stays the same.
-    entities.forEach((entity) => {
-      expect(entity).toMatchObject({ country_code: expect.stringMatching(/NZL|AUS/) });
-    });
-  });
-
   test("regions filter", async () => {
     const entities = await fetchPages(
       host,
@@ -228,11 +228,15 @@ describe("countries API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({
+      descending: true,
+    });
 
     // Assert that we only have entities from Oceania and Americas
     entities.forEach((entity) => {
-      expect(entity).toMatchObject({ region: expect.stringMatching(/Oceania|Americas/) });
+      expect(entity).toMatchObject({
+        region: expect.stringMatching(/Oceania|Americas/),
+      });
     });
   });
 
@@ -248,12 +252,16 @@ describe("countries API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({
+      descending: true,
+    });
 
     // Assert that we only have entities from Southern Asia or Latin America and the Caribbean
     entities.forEach((entity) => {
       expect(entity).toMatchObject({
-        subregion: expect.stringMatching(/Southern Asia|Latin America and the Caribbean/),
+        subregion: expect.stringMatching(
+          /Southern Asia|Latin America and the Caribbean/,
+        ),
       });
     });
   });
@@ -273,7 +281,9 @@ describe("countries API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({
+      descending: true,
+    });
 
     // Check that results are within expected range
     entities.forEach((entity) => {
@@ -297,11 +307,15 @@ describe("countries API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({
+      descending: true,
+    });
 
     // Assert that we only have entities from Oceania and Americas
     entities.forEach((entity) => {
-      expect(entity.stats.p_outputs_open).toBeGreaterThanOrEqual(minPOutputsOpen);
+      expect(entity.stats.p_outputs_open).toBeGreaterThanOrEqual(
+        minPOutputsOpen,
+      );
       expect(entity.stats.p_outputs_open).toBeLessThanOrEqual(maxPOutputsOpen);
     });
   });
@@ -319,7 +333,10 @@ describe("countries API endpoint", () => {
 
     // Check sorted in ascending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.name)).toBeSorted({ descending: false, compare: localeCompare });
+    expect(entities.map((x) => x.name)).toBeSorted({
+      descending: false,
+      compare: localeCompare,
+    });
   });
 
   test("orderBy string, orderDir dsc", async () => {
@@ -335,7 +352,10 @@ describe("countries API endpoint", () => {
 
     // Check sorted in descending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.name)).toBeSorted({ descending: true, compare: localeCompare });
+    expect(entities.map((x) => x.name)).toBeSorted({
+      descending: true,
+      compare: localeCompare,
+    });
   });
 
   test("orderBy numeric, orderDir asc", async () => {
@@ -351,7 +371,9 @@ describe("countries API endpoint", () => {
 
     // Check sorted in ascending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.stats.n_outputs)).toBeSorted({ descending: false });
+    expect(entities.map((x) => x.stats.n_outputs)).toBeSorted({
+      descending: false,
+    });
   });
 
   test("orderBy numeric, orderDir dsc", async () => {
@@ -367,13 +389,19 @@ describe("countries API endpoint", () => {
 
     // Check sorted in descending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.stats.n_outputs)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.n_outputs)).toBeSorted({
+      descending: true,
+    });
   });
 });
 
 describe("institutions API endpoint", () => {
   test("widest filters", async () => {
-    let entities = await fetchPages(host, "institutions", new URLSearchParams({}));
+    let entities = await fetchPages(
+      host,
+      "institutions",
+      new URLSearchParams({}),
+    );
     assertEntityProperties(entities);
     expect(entities.length).toBe(200);
     for (const entity of entities) {
@@ -394,7 +422,9 @@ describe("institutions API endpoint", () => {
     // Assert that we only have 050gfgn67 and 04v9m3h35
     expect(entities.length).toBe(2);
     entities.forEach((entity) => {
-      expect(entity).toMatchObject({ id: expect.stringMatching(/050gfgn67|04v9m3h35/) });
+      expect(entity).toMatchObject({
+        id: expect.stringMatching(/050gfgn67|04v9m3h35/),
+      });
     });
   });
 
@@ -410,11 +440,15 @@ describe("institutions API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({
+      descending: true,
+    });
 
     // Assert that we only have entities from Oceania and Americas
     entities.forEach((entity) => {
-      expect(entity).toMatchObject({ region: expect.stringMatching(/Oceania|Americas/) });
+      expect(entity).toMatchObject({
+        region: expect.stringMatching(/Oceania|Americas/),
+      });
     });
   });
 
@@ -430,12 +464,16 @@ describe("institutions API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({
+      descending: true,
+    });
 
     // Assert that we only have entities from Southern Asia or Latin America and the Caribbean
     entities.forEach((entity) => {
       expect(entity).toMatchObject({
-        subregion: expect.stringMatching(/Southern Asia|Latin America and the Caribbean/),
+        subregion: expect.stringMatching(
+          /Southern Asia|Latin America and the Caribbean/,
+        ),
       });
     });
   });
@@ -455,7 +493,9 @@ describe("institutions API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({
+      descending: true,
+    });
 
     // Check that results are within expected range
     entities.forEach((entity) => {
@@ -479,11 +519,15 @@ describe("institutions API endpoint", () => {
 
     // Assert all results sorted
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.p_outputs_open)).toBeSorted({
+      descending: true,
+    });
 
     // Assert that we only have entities from Oceania and Americas
     entities.forEach((entity) => {
-      expect(entity.stats.p_outputs_open).toBeGreaterThanOrEqual(minPOutputsOpen);
+      expect(entity.stats.p_outputs_open).toBeGreaterThanOrEqual(
+        minPOutputsOpen,
+      );
       expect(entity.stats.p_outputs_open).toBeLessThanOrEqual(maxPOutputsOpen);
     });
   });
@@ -496,11 +540,15 @@ describe("institutions API endpoint", () => {
 
       // Assert all results sorted
       expect(results.length).toBeGreaterThan(0);
-      expect(results.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+      expect(results.map((x) => x.stats.p_outputs_open)).toBeSorted({
+        descending: true,
+      });
 
       // Assert that we only have entities from Oceania and Americas
       results.forEach((entity) => {
-        expect(entity).toMatchObject({ country_name: expect.stringMatching(/Australia|New Zealand/) });
+        expect(entity).toMatchObject({
+          country_name: expect.stringMatching(/Australia|New Zealand/),
+        });
       });
     },
     institutionTestTimeout,
@@ -510,11 +558,16 @@ describe("institutions API endpoint", () => {
     "institution_type filter",
     async () => {
       const endpoint = "institutions";
-      let results = await fetchAll(endpoint, "&institutionTypes=Education,Government");
+      let results = await fetchAll(
+        endpoint,
+        "&institutionTypes=Education,Government",
+      );
 
       // Assert all results sorted
       expect(results.length).toBeGreaterThan(0);
-      expect(results.map((x) => x.stats.p_outputs_open)).toBeSorted({ descending: true });
+      expect(results.map((x) => x.stats.p_outputs_open)).toBeSorted({
+        descending: true,
+      });
 
       // Assert that we only have entities from Oceania and Americas
       results.forEach((entity) => {
@@ -538,7 +591,10 @@ describe("institutions API endpoint", () => {
 
     // Check sorted in ascending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.name)).toBeSorted({ descending: false, compare: localeCompare });
+    expect(entities.map((x) => x.name)).toBeSorted({
+      descending: false,
+      compare: localeCompare,
+    });
   });
 
   test("orderBy string, orderDir dsc", async () => {
@@ -573,7 +629,9 @@ describe("institutions API endpoint", () => {
 
     // Check sorted in ascending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.stats.n_outputs)).toBeSorted({ descending: false });
+    expect(entities.map((x) => x.stats.n_outputs)).toBeSorted({
+      descending: false,
+    });
   });
 
   test("orderBy numeric, orderDir dsc", async () => {
@@ -589,7 +647,9 @@ describe("institutions API endpoint", () => {
 
     // Check sorted in descending order after fetching all pages
     expect(entities.length).toBeGreaterThan(0);
-    expect(entities.map((x) => x.stats.n_outputs)).toBeSorted({ descending: true });
+    expect(entities.map((x) => x.stats.n_outputs)).toBeSorted({
+      descending: true,
+    });
   });
 });
 
@@ -600,7 +660,11 @@ describe("search API endpoint", () => {
   });
 
   test("search country", async () => {
-    const res = await handleRequest(new Request(`${host}/search/australia?limit=1`), env, ctx);
+    const res = await handleRequest(
+      new Request(`${host}/search/australia?limit=1`),
+      env,
+      ctx,
+    );
     const json = await res.json();
     expect(res.status).toBe(200);
     expect(json.items.length).toBe(1);
@@ -633,7 +697,11 @@ describe("search API endpoint", () => {
   });
 
   test("search institution", async () => {
-    const res = await handleRequest(new Request(`${host}/search/astro%203d?limit=1`), env, ctx);
+    const res = await handleRequest(
+      new Request(`${host}/search/astro%203d?limit=1`),
+      env,
+      ctx,
+    );
     const json = await res.json();
     expect(res.status).toBe(200);
     expect(json.items.length).toBe(1);
@@ -669,13 +737,21 @@ describe("search API endpoint", () => {
   });
 
   test("paginate", async () => {
-    const entities = await fetchPages(host, "search/a", new URLSearchParams({ limit: "10" }));
+    const entities = await fetchPages(
+      host,
+      "search/a",
+      new URLSearchParams({ limit: "10" }),
+    );
     expect(entities.length).toBeGreaterThan(20);
     assertEntityProperties(entities);
   });
 
   test("no text", async () => {
-    const res = await handleRequest(new Request(`${host}/search/%20`), env, ctx);
+    const res = await handleRequest(
+      new Request(`${host}/search/%20`),
+      env,
+      ctx,
+    );
     const json = await res.json();
     expect(res.status).toBe(200);
     expect(json).toMatchObject({
@@ -684,7 +760,11 @@ describe("search API endpoint", () => {
   });
 
   test("ascii folding: curacao ascii search returns Curaçao", async () => {
-    const res = await handleRequest(new Request(`${host}/search/curacao?limit=1`), env, ctx);
+    const res = await handleRequest(
+      new Request(`${host}/search/curacao?limit=1`),
+      env,
+      ctx,
+    );
     const json = await res.json();
     expect(res.status).toBe(200);
     expect(json).toMatchObject({
@@ -697,7 +777,11 @@ describe("search API endpoint", () => {
   });
 
   test("ascii folding: curaçao diacritic search returns Curaçao", async () => {
-    const res = await handleRequest(new Request(`${host}/search/curaçao?limit=1`), env, ctx);
+    const res = await handleRequest(
+      new Request(`${host}/search/curaçao?limit=1`),
+      env,
+      ctx,
+    );
     const json = await res.json();
     expect(res.status).toBe(200);
     expect(json).toMatchObject({
@@ -713,13 +797,22 @@ describe("search API endpoint", () => {
 describe("download ZIP API endpoint", () => {
   test("download zip for country", async () => {
     // Get entity from local file
-    const testEntity: Entity = JSON.parse(fs.readFileSync("./public/country/NZL.json", "utf-8"));
+    const testEntity: Entity = JSON.parse(
+      fs.readFileSync("./public/country/NZL.json", "utf-8"),
+    );
 
     // //Put data into KV namespace for testing
-    await env.__STATIC_CONTENT.put("country/NZL.json", fs.readFileSync("./public/country/NZL.json", "utf-8"));
+    await env.__STATIC_CONTENT.put(
+      "country/NZL.json",
+      fs.readFileSync("./public/country/NZL.json", "utf-8"),
+    );
 
     // Make download request
-    let res = await handleRequest(new Request(`${host}/download/country/NZL`), env, ctx);
+    let res = await handleRequest(
+      new Request(`${host}/download/country/NZL`),
+      env,
+      ctx,
+    );
     expect(res.status).toBe(200);
 
     // Decompress response.
@@ -737,7 +830,9 @@ describe("download ZIP API endpoint", () => {
       // Quickly check that the markdown file has the correct information.
       if (file.path.toString().includes("README.md")) {
         expect(file.data.toString().includes(testEntity.name)).toBeTruthy();
-        expect(file.data.toString().includes(testEntity.start_year)).toBeTruthy();
+        expect(
+          file.data.toString().includes(testEntity.start_year),
+        ).toBeTruthy();
         expect(file.data.toString().includes(testEntity.end_year)).toBeTruthy();
       }
     });
@@ -745,7 +840,9 @@ describe("download ZIP API endpoint", () => {
 
   test("download zip for institution", async () => {
     // Get entity from local file
-    const testEntity: Entity = JSON.parse(fs.readFileSync("./public/institution/030cszc07.json", "utf-8"));
+    const testEntity: Entity = JSON.parse(
+      fs.readFileSync("./public/institution/030cszc07.json", "utf-8"),
+    );
 
     // // Put data into KV namespace for testing
     await env.__STATIC_CONTENT.put(
@@ -754,7 +851,11 @@ describe("download ZIP API endpoint", () => {
     );
 
     // Make download request
-    let res = await handleRequest(new Request(`${host}/download/institution/030cszc07`), env, ctx);
+    let res = await handleRequest(
+      new Request(`${host}/download/institution/030cszc07`),
+      env,
+      ctx,
+    );
     expect(res.status).toBe(200);
 
     // Decompress response.
@@ -772,7 +873,9 @@ describe("download ZIP API endpoint", () => {
       // Quickly check that the markdown file has the correct information.
       if (file.path.toString().includes("README.md")) {
         expect(file.data.toString().includes(testEntity.name)).toBeTruthy();
-        expect(file.data.toString().includes(testEntity.start_year)).toBeTruthy();
+        expect(
+          file.data.toString().includes(testEntity.start_year),
+        ).toBeTruthy();
         expect(file.data.toString().includes(testEntity.end_year)).toBeTruthy();
       }
     });
@@ -780,10 +883,17 @@ describe("download ZIP API endpoint", () => {
 
   test("country 404 not found", async () => {
     // Put example country data into KVNamespace.
-    await env.__STATIC_CONTENT.put("country/NZL.json", fs.readFileSync("./public/country/NZL.json", "utf-8"));
+    await env.__STATIC_CONTENT.put(
+      "country/NZL.json",
+      fs.readFileSync("./public/country/NZL.json", "utf-8"),
+    );
 
     // Assert that API returns a 404 for a bad country ID
-    let resCountry = await handleRequest(new Request(`${host}/download/country/ABC`), env, ctx);
+    let resCountry = await handleRequest(
+      new Request(`${host}/download/country/ABC`),
+      env,
+      ctx,
+    );
     expect(resCountry.status).toBe(404);
   });
 
@@ -795,7 +905,11 @@ describe("download ZIP API endpoint", () => {
     );
 
     // Assert that API returns a 404 for a bad institution ID
-    let resInstitution = await handleRequest(new Request(`${host}/download/institution/123abcd45`), env, ctx);
+    let resInstitution = await handleRequest(
+      new Request(`${host}/download/institution/123abcd45`),
+      env,
+      ctx,
+    );
     expect(resInstitution.status).toBe(404);
   });
 });

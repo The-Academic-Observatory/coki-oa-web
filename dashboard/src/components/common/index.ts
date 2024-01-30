@@ -10,3 +10,6 @@ export { default as PageLoader } from "./PageLoader";
 export { default as ScrollTable } from "./ScrollTable";
 export { default as SocialCard } from "./SocialCard";
 export { default as TextCollapse } from "./TextCollapse";
+export { default as BrandBadge } from "./BrandBadge";
+export { default as Autocomplete } from "./Autocomplete";
+export { default as EntityAutocomplete } from "./EntityAutocomplete";

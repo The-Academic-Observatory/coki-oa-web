@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,67 +15,45 @@
 // Author: Aniek Roelofs
 
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
-import { AccordionButton, AccordionItem, AccordionPanel, Box, Text } from "@chakra-ui/react";
-import React, { ReactNode, MouseEventHandler } from "react";
+import { AccordionButton, AccordionItem, AccordionItemProps, AccordionPanel, Box, Text } from "@chakra-ui/react";
+import React, { ReactNode } from "react";
 import { TbFilterExclamation } from "react-icons/tb";
 
-interface FilterAccordionItemProps {
+interface FilterAccordionItemProps extends AccordionItemProps {
   children: ReactNode;
   name: string;
-  forceOpenClose?: boolean;
-  onClick?: MouseEventHandler;
-  disabled?: boolean;
-  isDirty: () => boolean;
+  isDirty: boolean;
+  onClick: () => void;
 }
 
-const FilterAccordionItem = ({ children, name, onClick, forceOpenClose, isDirty }: FilterAccordionItemProps) => {
-  if (forceOpenClose == undefined) {
-    return (
-      <AccordionItem>
-        {({ isExpanded }) => (
-          <>
-            <AccordionButton onClick={onClick} className="filterAccordionButton">
-              <Text flex="1">{name}</Text>
-              {isDirty() && (
-                <Box
-                  className="filterOnWarningIcon"
-                  pr={{ base: "7px", md: "5px" }}
-                  fontSize={{ base: "20px", md: "16px" }}
-                >
-                  <TbFilterExclamation />
-                </Box>
-              )}
+const FilterAccordionItem = ({ children, name, isDirty, onClick, ...rest }: FilterAccordionItemProps) => {
+  return (
+    <AccordionItem {...rest}>
+      {({ isExpanded }) => (
+        <>
+          <AccordionButton className="filterAccordionButton" onClick={onClick}>
+            <Text flex="1">{name}</Text>
+            {isDirty && (
+              <Box
+                className="filterOnWarningIcon"
+                pr={{ base: "7px", md: "5px" }}
+                fontSize={{ base: "20px", md: "16px" }}
+              >
+                <TbFilterExclamation />
+              </Box>
+            )}
 
-              {isExpanded ? (
-                <CloseIcon fontSize={{ base: "14px", md: "10px" }} mx="1px" />
-              ) : (
-                <AddIcon fontSize={{ base: "16px", md: "12px" }} />
-              )}
-            </AccordionButton>
-            <AccordionPanel>{isExpanded ? children : null}</AccordionPanel>
-          </>
-        )}
-      </AccordionItem>
-    );
-  } else {
-    return (
-      <AccordionItem>
-        {({ isExpanded }) => (
-          <>
-            <AccordionButton onClick={onClick}>
-              <Text flex="1">{name}</Text>
-              {isExpanded || forceOpenClose ? (
-                <CloseIcon fontSize={{ base: "14px", md: "10px" }} mx="1px" />
-              ) : (
-                <AddIcon fontSize={{ base: "16px", md: "12px" }} />
-              )}
-            </AccordionButton>
-            <AccordionPanel>{isExpanded || forceOpenClose ? children : null}</AccordionPanel>
-          </>
-        )}
-      </AccordionItem>
-    );
-  }
+            {isExpanded ? (
+              <CloseIcon fontSize={{ base: "14px", md: "10px" }} mx="1px" />
+            ) : (
+              <AddIcon fontSize={{ base: "16px", md: "12px" }} />
+            )}
+          </AccordionButton>
+          <AccordionPanel>{isExpanded ? children : null}</AccordionPanel>
+        </>
+      )}
+    </AccordionItem>
+  );
 };
 
 export default FilterAccordionItem;

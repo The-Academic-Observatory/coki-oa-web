@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -44,9 +44,9 @@ export class OADataAPI {
     // Pre-process stats
     const stats = statsRaw as unknown as Stats;
     stats.country.max.n_outputs = findMaxForCompactFormat(stats.country.max.n_outputs);
-    stats.country.max.n_outputs = findMaxForCompactFormat(stats.country.max.n_outputs_open);
+    stats.country.max.n_outputs_open = findMaxForCompactFormat(stats.country.max.n_outputs_open);
     stats.institution.max.n_outputs = findMaxForCompactFormat(stats.institution.max.n_outputs);
-    stats.institution.max.n_outputs = findMaxForCompactFormat(stats.institution.max.n_outputs);
+    stats.institution.max.n_outputs_open = findMaxForCompactFormat(stats.institution.max.n_outputs_open);
     return stats;
   }
 
@@ -61,20 +61,28 @@ export class OADataAPI {
     return entity;
   }
 
-  async getEntities(entityType: string, filterQuery: QueryParams): Promise<QueryResult> {
+  async getEntities(
+    entityType: string,
+    filterQuery: QueryParams,
+    controller: AbortController | null = null,
+  ): Promise<AxiosResponse<QueryResult>> {
     const url = makeFilterUrl(this.host, entityType, filterQuery);
-    return fetch(url).then((response) => response.json());
+    const options: AxiosRequestConfig = {};
+    if (controller != null) {
+      options.signal = controller.signal;
+    }
+    return this.api.get(url, options);
   }
 
   async searchEntities(
     query: string,
+    entityType: string | null,
     page: number,
     limit: number,
     controller: AbortController | null = null,
-    category?: string,
   ): Promise<AxiosResponse<QueryResult>> {
     const acronym = query.length >= 2 && query === query.toUpperCase();
-    const url = makeSearchUrl(this.host, query, page, limit, acronym, category);
+    const url = makeSearchUrl(this.host, query, entityType, page, limit, acronym);
     const options: AxiosRequestConfig = {};
     if (controller != null) {
       options.signal = controller.signal;
@@ -163,18 +171,18 @@ export function makeEntityUrl(host: string, entityType: string, id: string): str
 export function makeSearchUrl(
   host: string,
   text: string,
+  entityType: string | null,
   page: number,
   limit: number,
   acronym: boolean,
-  category?: string,
 ): string {
   const url = new URL(`${host}/search/${encodeURIComponent(text)}`);
   const params = new URLSearchParams();
   params.append("acronym", acronym.toString());
   params.append("page", page.toString());
   params.append("limit", limit.toString());
-  if (category) {
-    params.append("category", category);
+  if (entityType) {
+    params.append("entityType", entityType);
   }
   params.append("build", BUILD_ID);
   url.search = params.toString();

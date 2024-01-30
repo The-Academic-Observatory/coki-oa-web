@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ const VALID_ORDER_BY = new Set([
   "n_outputs_black",
   "p_outputs_black",
 ]);
+const VALID_ORDER_DIR = new Set(["asc", "dsc"]);
 const PROPERTIES_TO_DELETE = [
   "entity_id",
   "n_outputs",
@@ -77,7 +78,7 @@ CREATE INDEX idx_entity_n_outputs ON entity(n_outputs);
 CREATE INDEX idx_entity_n_outputs_open ON entity(n_outputs_open);
 CREATE INDEX idx_entity_p_outputs_open ON entity(p_outputs_open);
 CREATE INDEX idx_entity_filter ON entity(entity_type, n_outputs, n_outputs_open, p_outputs_open, subregion, institution_type);
-CREATE VIRTUAL TABLE entity_fts5 USING fts5(name, acronyms, region, country_name, content='none', tokenize='porter unicode61 remove_diacritics 1');`;
+CREATE VIRTUAL TABLE entity_fts5 USING fts5(name, acronyms, region, country_name, entity_type, content='none', tokenize='porter unicode61 remove_diacritics 1');`;
 
 /*
 TODO: optimise indexes when adding more entities
@@ -169,8 +170,12 @@ export function entitiesToSQL(entities: Array<Entity>) {
   entities.forEach((entity) => {
     const entity_id = entity.id;
     const name = escapeSingleQuotes(cleanName(entity.name));
-    const name_ascii_folded = escapeSingleQuotes(FoldToASCII.foldMaintaining(cleanName(entity.name))).toLowerCase();
-    const acronyms = entity.acronyms?.map((v) => v.replaceAll("'", "''"))?.join(" ");
+    const name_ascii_folded = escapeSingleQuotes(
+      FoldToASCII.foldMaintaining(cleanName(entity.name)),
+    ).toLowerCase();
+    const acronyms = entity.acronyms
+      ?.map((v) => v.replaceAll("'", "''"))
+      ?.join(" ");
     const country_code = entity.country_code;
     const country_name = entity.country_name;
     const institution_type = entity.institution_type;
@@ -187,10 +192,14 @@ export function entitiesToSQL(entities: Array<Entity>) {
       search_weight = 2.0;
 
       // When searching by region, make countries with more publications appear first
-      search_country_region_weight = 1 + entity.stats.n_outputs / countryRegionMaxOutputs[entity.region];
+      search_country_region_weight =
+        1 + entity.stats.n_outputs / countryRegionMaxOutputs[entity.region];
     } else if (entity.entity_type === "institution") {
       // When searching by country, make institutions with more publications appear first
-      search_inst_country_weight = 1 + entity.stats.n_outputs / instCountryMaxOutputs[entity.country_code as string];
+      search_inst_country_weight =
+        1 +
+        entity.stats.n_outputs /
+          instCountryMaxOutputs[entity.country_code as string];
     }
 
     // Careful with the ordering of these!
@@ -225,13 +234,22 @@ export function entitiesToSQL(entities: Array<Entity>) {
     // Insert into entity_fts5
     // Remove country name for countries that already have that exact name in their title
     let fts_country_name: string | null | undefined = country_name;
-    if (country_name != null && name.toLowerCase().includes(country_name.toLowerCase())) {
+    if (
+      country_name != null &&
+      name.toLowerCase().includes(country_name.toLowerCase())
+    ) {
       fts_country_name = null;
     }
     // Don't include subregion as sometimes these have country names which make the search unintuitive,
-    values = [name, acronyms, entity.region, fts_country_name];
+    values = [
+      name,
+      acronyms,
+      entity.region,
+      fts_country_name,
+      entity.entity_type,
+    ];
     rows.push(
-      `INSERT INTO entity_fts5(rowid, name, acronyms, region, country_name) VALUES(last_insert_rowid(), ${joinWithCommas(
+      `INSERT INTO entity_fts5(rowid, name, acronyms, region, country_name, entity_type) VALUES(last_insert_rowid(), ${joinWithCommas(
         values,
       )});`,
     );
@@ -257,7 +275,8 @@ export function rowsToEntities(rows: Array<Dict>): Array<Entity> {
       p_outputs_open: row["p_outputs_open"],
       p_outputs_publisher_open_only: row["p_outputs_publisher_open_only"],
       p_outputs_both: row["p_outputs_both"],
-      p_outputs_other_platform_open_only: row["p_outputs_other_platform_open_only"],
+      p_outputs_other_platform_open_only:
+        row["p_outputs_other_platform_open_only"],
       p_outputs_closed: row["p_outputs_closed"],
       p_outputs_black: row["p_outputs_black"],
     };
@@ -282,54 +301,116 @@ export function rowsToEntities(rows: Array<Dict>): Array<Entity> {
 function makeTemplateParams(n: number) {
   return Array(n).fill("?").join(",");
 }
-function SEARCH_QUERY(category?: string): string {
-  var categoryEntityType: string = "";
-  if (category) {
-    categoryEntityType = `AND entity.entity_type = '${category}'`;
-  }
-  return `SELECT entity.*, weighted_rank, subset.total_rows
-  FROM entity
-  INNER JOIN (SELECT entity.id, entity_fts5.rank * entity.search_weight * entity.search_country_region_weight * entity.search_inst_country_weight as weighted_rank, COUNT(*) OVER() AS total_rows
-  FROM entity
-  JOIN entity_fts5 ON entity.id = entity_fts5.rowid
-  WHERE entity_fts5 MATCH ? ${categoryEntityType}
-  ORDER BY weighted_rank
-  LIMIT ? OFFSET ?
-  ) AS subset ON subset.id = entity.id`;
-}
 
 function ftsEscape(text: string) {
   return text.replace(/"/g, '""');
 }
 
+function validateParameter(
+  value: any,
+  validValues: Set<any>,
+  parameterName: string,
+  functionName: string,
+) {
+  if (!validValues.has(value)) {
+    const msg = `${functionName}: invalid ${parameterName} ${value}, should be one of ${[
+      ...validValues,
+    ].join(", ")}`;
+    console.error(msg);
+    throw msg;
+  }
+}
+
+function convertOrderDirection(orderDir: string) {
+  switch (orderDir) {
+    case "asc":
+      return "ASC";
+    case "dsc":
+      return "DESC";
+    default:
+      throw new Error(`Invalid order direction: ${orderDir}`);
+  }
+}
+
+function makeFTS5Match(
+  text: string,
+  entityType: string | null,
+  acronym: boolean,
+) {
+  const match = [];
+
+  if (entityType) {
+    match.push(`entity_type: ${entityType}`);
+    match.push("AND");
+  }
+
+  if (acronym) {
+    match.push(`acronyms:"${ftsEscape(text)}"*`);
+  } else {
+    match.push(
+      `-entity_type: ${text
+        .split(" ")
+        .map((v) => `"${ftsEscape(v)}"*`)
+        .join(" ")}`,
+    );
+  }
+
+  return match.join(" ");
+}
+
 export async function searchEntities(
   db: D1Database,
   text: string,
+  entityType: string | null,
   acronym: boolean,
   page: number,
   limit: number,
-  category?: string,
 ): Promise<QueryResult> {
+  validateParameter(
+    entityType,
+    new Set([null, "country", "institution"]),
+    "entityType",
+    "searchEntities",
+  );
+
   let nItems = 0;
   let entities: Array<Entity> = [];
 
   // If empty string then return empty results
   if (text.trim() !== "") {
-    let value = "";
-    if (acronym) {
-      value = `acronyms:"${ftsEscape(text)}"*`;
-    } else {
-      value = `${text
-        .split(" ")
-        .map((v) => `"${ftsEscape(v)}"*`)
-        .join(" ")}`;
-    }
+    // Create query
+    const sql = [
+      `SELECT entity.*, weighted_rank, subset.total_rows`,
+      `FROM entity`,
+      `INNER JOIN (SELECT entity.id, entity_fts5.rank * entity.search_weight * entity.search_country_region_weight * entity.search_inst_country_weight as weighted_rank, COUNT(*) OVER() AS total_rows`,
+      `FROM entity`,
+      `JOIN entity_fts5 ON entity.id = entity_fts5.rowid`,
+    ];
+    const params = [];
 
-    // Calculate offset
+    // FTS5 match
+    sql.push(`WHERE entity_fts5 MATCH ?`);
+    params.push(makeFTS5Match(text, entityType, acronym));
+
+    // Sorting
+    sql.push(`ORDER BY weighted_rank`);
+
+    // Pagination
     const offset = page * limit;
+    sql.push(`LIMIT ? OFFSET ?`);
+    params.push(limit);
+    params.push(offset);
 
-    // Pass category and countryCode to the search query as necessary
-    const { results } = await db.prepare(SEARCH_QUERY(category)).bind(value, limit, offset).all();
+    // End of query
+    sql.push(`) AS subset ON subset.id = entity.id`);
+
+    // Run query
+    const queryString = sql.join("\n");
+    const { results } = await db
+      .prepare(queryString)
+      .bind(...params)
+      .all();
+
     // Parse results
     if (results?.length) {
       // @ts-ignore
@@ -350,18 +431,25 @@ export async function searchEntities(
   };
 }
 
-export async function filterEntities(entityType: string, db: D1Database, query: Query): Promise<QueryResult> {
+export async function filterEntities(
+  entityType: string,
+  db: D1Database,
+  query: Query,
+): Promise<QueryResult> {
   // Validate parameters that are string substituted without using .bind
-  if (!VALID_ENTITY_TYPES.has(entityType)) {
-    const msg = `filterEntities: invalid entityType ${entityType}, should be one of ${VALID_ENTITY_TYPES}`;
-    console.error(msg);
-    throw msg;
-  }
-  if (!VALID_ORDER_BY.has(query.orderBy)) {
-    const msg = `filterEntities: invalid orderBy ${query.orderBy}`;
-    console.error(msg);
-    throw msg;
-  }
+  validateParameter(
+    entityType,
+    VALID_ENTITY_TYPES,
+    "entityType",
+    "filterEntities",
+  );
+  validateParameter(query.orderBy, VALID_ORDER_BY, "orderBy", "filterEntities");
+  validateParameter(
+    query.orderDir,
+    VALID_ORDER_DIR,
+    "orderDir",
+    "filterEntities",
+  );
 
   // Build query
   const sql = [];
@@ -397,13 +485,19 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
 
     // Include if regions parameter specified and matches
     if (query.regions.size) {
-      sql.push(`AND entity.region IN (${makeTemplateParams(query.regions.size)})`);
+      sql.push(
+        `AND entity.region IN (${makeTemplateParams(query.regions.size)})`,
+      );
       params.push(...Array.from(query.regions));
     }
 
     // Include if subregions parameter specified and matches
     if (query.subregions.size) {
-      sql.push(`AND entity.subregion IN (${makeTemplateParams(query.subregions.size)})`);
+      sql.push(
+        `AND entity.subregion IN (${makeTemplateParams(
+          query.subregions.size,
+        )})`,
+      );
       params.push(...Array.from(query.subregions));
     }
 
@@ -411,13 +505,21 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
     if (entityType === "institution") {
       // Search for institutions with a specific institution type
       if (query.institutionTypes.size) {
-        sql.push(`AND entity.institution_type IN (${makeTemplateParams(query.institutionTypes.size)})`);
+        sql.push(
+          `AND entity.institution_type IN (${makeTemplateParams(
+            query.institutionTypes.size,
+          )})`,
+        );
         params.push(...Array.from(query.institutionTypes));
       }
 
       // Search for institutions in particular countries
       if (query.countries.size) {
-        sql.push(`AND entity.country_code IN (${makeTemplateParams(query.countries.size)})`);
+        sql.push(
+          `AND entity.country_code IN (${makeTemplateParams(
+            query.countries.size,
+          )})`,
+        );
         params.push(...Array.from(query.countries));
       }
     }
@@ -425,16 +527,10 @@ export async function filterEntities(entityType: string, db: D1Database, query: 
 
   // Order by
   // TODO: replace with a unicode coalesce algorithm when this is supported in D1
-  let orderBy;
-  let orderByCol = query.orderBy;
-  if (query.orderBy === "name") {
-    orderByCol = "name_ascii_folded";
-  }
-  if (query.orderDir === "asc") {
-    orderBy = `ORDER BY entity.${orderByCol} ASC`;
-  } else {
-    orderBy = `ORDER BY entity.${orderByCol} DESC`;
-  }
+  let orderBy = query.orderBy === "name" ? "name_ascii_folded" : query.orderBy;
+  orderBy = `ORDER BY entity.${orderBy} ${convertOrderDirection(
+    query.orderDir,
+  )}`;
   if (query.orderBy !== "name") {
     orderBy += ", entity.name_ascii_folded ASC";
   }

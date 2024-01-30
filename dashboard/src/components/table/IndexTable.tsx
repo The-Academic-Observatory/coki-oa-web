@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -32,8 +32,8 @@ import { Box, BoxProps, Flex, Table, Tbody, Td, Text, Th, Thead, Tr } from "@cha
 import React, { memo } from "react";
 import { Cell, Row, usePagination, useSortBy, useTable } from "react-table";
 
-export function makeHref(category: string, id: string) {
-  return `/${category}/${id}`;
+export function makeHref(entityType: string, id: string) {
+  return `/${entityType}/${id}`;
 }
 
 export interface EntityProps {
@@ -70,7 +70,7 @@ const IndexTable = ({
         accessor: "name",
         Cell: EntityCell,
         minWidth: 100,
-        maxWidth: 220,
+        maxWidth: 270,
         width: "45%",
       },
       {

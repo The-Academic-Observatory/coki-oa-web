@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,139 +14,20 @@
 //
 // Author: Aniek Roelofs, James Diprose, Alex Massen-Hane
 
-import { CheckboxTree, Icon } from "@/components/common";
+import { CheckboxTree, EntityAutocomplete, Icon } from "@/components/common";
+import { NODES } from "@/components/dashboard/Dashboard";
 import { FilterAccordionItem, InstitutionTypeForm, OpenAccessForm } from "@/components/filter";
 import { useEffectAfterRender } from "@/lib/hooks";
-import { EntityStats } from "@/lib/model";
+import { Dict, EntityStats } from "@/lib/model";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Accordion, Box, Button, HStack, IconButton, Text } from "@chakra-ui/react";
 import { Form, FormikProvider, useFormik } from "formik";
 import lodashIsEqual from "lodash.isequal";
-import React, { memo, useCallback, useState, createContext } from "react";
-import IndividualFilterSearchAsync from "./IndividualFilterSearch";
-
-interface SelectOption {
-  value: string;
-  label: string;
-  image: string;
-  countryCode?: string;
-}
-
-// export var ButtonPressed = createContext(false);
-// export var selectedOptions = createContext([]);
+import lodashOmit from "lodash.omit";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 
 const filterMaxWidth = 300;
-
-// Old Regions array still needs to be used for Formik and creating the QueryForm.
-export const regions: { [key: string]: Array<string> } = {
-  Africa: ["Northern Africa", "Sub-Saharan Africa"],
-  Americas: ["Latin America and the Caribbean", "Northern America"],
-  Asia: ["Central Asia", "Eastern Asia", "South-eastern Asia", "Southern Asia", "Western Asia"],
-  Europe: ["Eastern Europe", "Northern Europe", "Southern Europe", "Western Europe"],
-  Oceania: ["Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"],
-};
-
-// New checkboxTree object that holds all the regions and subregions in a tree-like structure.
-export let checkboxTree = [
-  {
-    type: "region",
-    text: "Africa",
-    children: [
-      {
-        type: "subregion",
-        text: "Northern Africa",
-      },
-      {
-        type: "subregion",
-        text: "Sub-Saharan Africa",
-      },
-    ],
-  },
-  {
-    type: "region",
-    text: "Americas",
-    children: [
-      {
-        type: "subregion",
-        text: "Latin America and the Caribbean",
-      },
-      {
-        type: "subregion",
-        text: "Northern America",
-      },
-    ],
-  },
-  {
-    type: "region",
-    text: "Asia",
-    children: [
-      {
-        type: "subregion",
-        text: "Central Asia",
-      },
-      {
-        type: "subregion",
-        text: "Eastern Asia",
-      },
-      {
-        type: "subregion",
-        text: "South-eastern Asia",
-      },
-      {
-        type: "subregion",
-        text: "Southern Asia",
-      },
-      {
-        type: "subregion",
-        text: "Western Asia",
-      },
-    ],
-  },
-  {
-    type: "region",
-    text: "Europe",
-    children: [
-      {
-        type: "subregion",
-        text: "Eastern Europe",
-      },
-      {
-        type: "subregion",
-        text: "Northern Europe",
-      },
-      {
-        type: "subregion",
-        text: "Southern Europe",
-      },
-      {
-        type: "subregion",
-        text: "Western Europe",
-      },
-    ],
-  },
-  {
-    type: "region",
-    text: "Oceania",
-    children: [
-      {
-        type: "subregion",
-        text: "Australia and New Zealand",
-      },
-      {
-        type: "subregion",
-        text: "Melanesia",
-      },
-      {
-        type: "subregion",
-        text: "Micronesia",
-      },
-      {
-        type: "subregion",
-        text: "Polynesia",
-      },
-    ],
-  },
-];
+const plurals: { [key: string]: string } = { country: "countries", institution: "institutions" };
 
 export interface PageForm {
   page: number;
@@ -164,18 +45,32 @@ export interface OpenAccess {
   maxNOutputsOpen: number;
 }
 
-export interface QueryForm {
+export interface SelectOption {
+  value: string;
+  label: string;
+  image: string;
+}
+
+export interface QueryForm extends Dict {
   page: PageForm;
-  ids: { [key: string]: boolean };
-  countries: { [key: string]: boolean };
-  region: { [key: string]: boolean };
-  subregion: { [key: string]: boolean };
+  ids: Array<SelectOption>;
+  countries: Array<SelectOption>;
+  region: {
+    [key: string]: {
+      value: boolean;
+      subregion: {
+        [key: string]: {
+          value: boolean;
+        };
+      };
+    };
+  };
   institutionType: { [key: string]: boolean };
   openAccess: OpenAccess;
 }
 
 interface FilterFormProps {
-  category: string;
+  entityType: string;
   platform: string;
   queryForm: QueryForm;
   setQueryForm: (q: QueryForm) => void;
@@ -187,8 +82,31 @@ interface FilterFormProps {
   title?: string;
 }
 
+function toggleIndex(accordionItemIndex: number, index: Array<number>) {
+  const i = index.indexOf(accordionItemIndex);
+  if (i < 0) {
+    index.push(accordionItemIndex);
+  } else {
+    delete index[i];
+  }
+}
+
+function removeIndex(accordionItemIndex: number, index: Array<number>) {
+  const i = index.indexOf(accordionItemIndex);
+  if (i >= 0) {
+    delete index[i];
+  }
+}
+
+function makeFilterFormAccordionItemIndex(accordionItemIndex: number, idsIndex: number, index: Array<number>) {
+  let newIndex = [...index];
+  toggleIndex(accordionItemIndex, newIndex);
+  removeIndex(idsIndex, newIndex);
+  return newIndex;
+}
+
 const FilterForm = ({
-  category,
+  entityType,
   platform,
   queryForm,
   setQueryForm,
@@ -219,8 +137,6 @@ const FilterForm = ({
     [onClose, setQueryForm],
   );
 
-  const [isSearchPanelOpen, SetSearchPanelOpen] = useState<boolean>(false);
-
   // TODO: somehow causing FilterForm to re-render 3 times on any change
   const formik = useFormik<QueryForm>({
     enableReinitialize: true, // enabled so that when queryForm is reset externally, or the values change externally, the form updates
@@ -246,27 +162,77 @@ const FilterForm = ({
   useEffectAfterRender(onReset, [resetFormState]);
 
   // Check if form dirty
-  const isDirty = useCallback((): boolean => {
+  const isDirty = useMemo((): boolean => {
     return !lodashIsEqual(formik.values, defaultQueryForm);
   }, [formik.values, defaultQueryForm]);
 
   // Check if different sub parts of the form are dirty
-  const isRegionDirty = useCallback((): boolean => {
-    return (
-      !lodashIsEqual(formik.values.region, defaultQueryForm.region) ||
-      !lodashIsEqual(formik.values.subregion, defaultQueryForm.subregion)
-    );
-  }, [formik.values.region, formik.values.subregion, defaultQueryForm.region, defaultQueryForm.subregion]);
-  const isOpenAccessDirty = useCallback((): boolean => {
+  const isRegionDirty = useMemo((): boolean => {
+    return !lodashIsEqual(formik.values.region, defaultQueryForm.region);
+  }, [formik.values.region, defaultQueryForm.region]);
+  const isOpenAccessDirty = useMemo((): boolean => {
     return !lodashIsEqual(formik.values.openAccess, defaultQueryForm.openAccess);
   }, [formik.values.openAccess, defaultQueryForm.openAccess]);
-  const isInstitutionTypeDirty = useCallback((): boolean => {
+  const isInstitutionTypeDirty = useMemo((): boolean => {
     return !lodashIsEqual(formik.values.institutionType, defaultQueryForm.institutionType);
   }, [formik.values.institutionType, defaultQueryForm.institutionType]);
+  const isCountriesDirty = useMemo((): boolean => {
+    return !lodashIsEqual(formik.values.countries, defaultQueryForm.countries);
+  }, [formik.values.countries, defaultQueryForm.countries]);
+  const isIdsDirty = useMemo((): boolean => {
+    return !lodashIsEqual(formik.values.ids, defaultQueryForm.ids);
+  }, [formik.values.ids, defaultQueryForm.ids]);
+
+  // Reset filters area of form when formik.values.ids are set
+  useEffect(() => {
+    if (formik.values.ids.length > 0) {
+      for (const name of Object.keys(defaultQueryForm)) {
+        if (name !== "ids" && !lodashIsEqual(formik.values[name], defaultQueryForm[name])) {
+          formik.setFieldValue(name, defaultQueryForm[name]);
+        }
+      }
+    }
+  }, [defaultQueryForm, formik.values.ids]); // don't put formik in deps
+
+  // Reset formik.values.ids when filters area of form are set
+  useEffect(() => {
+    const isFiltersFormDirty = !lodashIsEqual(
+      lodashOmit(formik.values, ["ids"]),
+      lodashOmit(defaultQueryForm, ["ids"]),
+    );
+    if (formik.values.ids.length > 0 && isFiltersFormDirty) {
+      formik.setFieldValue("ids", []);
+    }
+  }, [
+    defaultQueryForm,
+    formik.values.region,
+    formik.values.openAccess,
+    formik.values.institutionType,
+    formik.values.countries,
+  ]); // don't put formik in deps
+
+  // Accordion state
+  // As far as I know there is no way to get the index of an AccordionItem, so we have to hard code them
+  const defaultIndex = [0];
+  const [index, setIndex] = useState(defaultIndex);
+  const indexes = {
+    country: {
+      region: 0,
+      openAccess: 1,
+      ids: 2,
+    },
+    institution: {
+      region: 0,
+      countries: 1,
+      openAccess: 2,
+      institutionTypes: 3,
+      ids: 4,
+    },
+  } as { [key: string]: { [key: string]: number } };
 
   return (
     <FormikProvider value={formik}>
-      <Form onSubmit={formik.handleSubmit} data-test={`${platform}-${category}-form`}>
+      <Form onSubmit={formik.handleSubmit} data-test={`${platform}-${entityType}-form`}>
         <Box
           boxShadow={{ base: "none", md: "0px 2px 5px 2px rgba(0,0,0,0.05)" }}
           maxWidth={{ md: `${filterMaxWidth}px` }}
@@ -294,65 +260,98 @@ const FilterForm = ({
           </HStack>
 
           {/* Only reset the form if it is dirty/used. */}
-          <Accordion defaultIndex={[0]} allowMultiple variant="filterForm">
-            <FilterAccordionItem name="Region" isDirty={isRegionDirty}>
-              <CheckboxTree checkboxTree={checkboxTree} />
+          <Accordion defaultIndex={defaultIndex} index={index} allowMultiple variant="filterForm">
+            <FilterAccordionItem
+              name="Region"
+              isDirty={isRegionDirty}
+              onClick={() => {
+                const entityIndexes = indexes[entityType];
+                const newIndex = makeFilterFormAccordionItemIndex(entityIndexes.region, entityIndexes.ids, index);
+                setIndex(newIndex);
+              }}
+            >
+              <CheckboxTree nodes={NODES} />
             </FilterAccordionItem>
 
-            <FilterAccordionItem name="Publications & OA" isDirty={isOpenAccessDirty}>
+            {entityType === "institution" ? (
+              <FilterAccordionItem
+                name="Country"
+                data-test="institution-country-filter-accordion-item"
+                isDirty={isCountriesDirty}
+                onClick={() => {
+                  const entityIndexes = indexes[entityType];
+                  const newIndex = makeFilterFormAccordionItemIndex(entityIndexes.countries, entityIndexes.ids, index);
+                  setIndex(newIndex);
+                }}
+              >
+                <EntityAutocomplete
+                  entityType="country"
+                  formFieldName="countries"
+                  data-test="institution-country-filter-autocomplete"
+                  p="12px"
+                />
+              </FilterAccordionItem>
+            ) : (
+              ""
+            )}
+
+            <FilterAccordionItem
+              name="Publications & OA"
+              isDirty={isOpenAccessDirty}
+              onClick={() => {
+                const entityIndexes = indexes[entityType];
+                const newIndex = makeFilterFormAccordionItemIndex(entityIndexes.openAccess, entityIndexes.ids, index);
+                setIndex(newIndex);
+              }}
+            >
               <OpenAccessForm rangeSliderMinMaxValues={rangeSliderMinMaxValues} histograms={entityStats.histograms} />
             </FilterAccordionItem>
 
-            {category === "institution" ? (
+            {entityType === "institution" ? (
               <>
-                <FilterAccordionItem name="Institution Type" isDirty={isInstitutionTypeDirty}>
+                <FilterAccordionItem
+                  name="Institution Type"
+                  isDirty={isInstitutionTypeDirty}
+                  onClick={() => {
+                    const entityIndexes = indexes[entityType];
+                    const newIndex = makeFilterFormAccordionItemIndex(
+                      entityIndexes.institutionTypes,
+                      entityIndexes.ids,
+                      index,
+                    );
+                    setIndex(newIndex);
+                  }}
+                >
                   <InstitutionTypeForm />
-                </FilterAccordionItem>
-
-                <FilterAccordionItem
-                  name={`Country`}
-                  data-test={`${platform}-${category}-select-institution`}
-                  onClick={() => {
-                    console.log(isSearchPanelOpen);
-                    if (!isSearchPanelOpen) {
-                      // Reset the form when this panel is opened.
-                      if (isDirty()) {
-                        onReset();
-                      }
-                    }
-                    SetSearchPanelOpen(!isSearchPanelOpen);
-                  }}
-                  disabled={!isDirty()}
-                >
-                  <IndividualFilterSearchAsync
-                    category={"country"}
-                    filterByCountryCode={true}
-                    data-test={`${platform}-${category}-select-country`}
-                  />
-                </FilterAccordionItem>
-
-                {/* TODO: Make above panels collapse when clicking this panel and reset the form to default */}
-                <FilterAccordionItem
-                  name={`Individual ${category}`}
-                  data-test={`${platform}-${category}-select-country`}
-                  onClick={() => {
-                    console.log(isSearchPanelOpen);
-                    if (!isSearchPanelOpen) {
-                      // Reset the form when this panel is opened.
-                      if (isDirty()) {
-                        onReset();
-                      }
-                    }
-                    SetSearchPanelOpen(!isSearchPanelOpen);
-                  }}
-                  disabled={!isDirty()}
-                >
-                  <IndividualFilterSearchAsync category={category} />
                 </FilterAccordionItem>
               </>
             ) : (
               ""
             )}
+
+            <FilterAccordionItem
+              name={`Select ${plurals[entityType]}`}
+              data-test={`select-${plurals[entityType]}-accordion-item`}
+              isDirty={isIdsDirty}
+              onClick={() => {
+                const entityIndexes = indexes[entityType];
+                let newIndex = [...index];
+                const i = newIndex.indexOf(entityIndexes.ids);
+                if (i < 0) {
+                  newIndex = [entityIndexes.ids];
+                } else {
+                  delete newIndex[i];
+                }
+                setIndex(newIndex);
+              }}
+            >
+              <EntityAutocomplete
+                entityType={entityType}
+                formFieldName="ids"
+                p="12px"
+                data-test={`select-${plurals[entityType]}-autocomplete`}
+              />
+            </FilterAccordionItem>
           </Accordion>
 
           <HStack justifyContent="space-around" p={{ base: "24px 0px", md: "14px 0px" }} bgColor="white">
@@ -360,7 +359,7 @@ const FilterForm = ({
               Apply
             </Button>
 
-            <Button variant="submit" onClick={onReset} isDisabled={!isDirty()}>
+            <Button variant="submit" onClick={onReset} isDisabled={!isDirty}>
               Clear
             </Button>
           </HStack>

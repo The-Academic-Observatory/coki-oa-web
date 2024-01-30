@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,7 +18,15 @@ import JSZip from "jszip";
 import { Parser } from "@json2csv/plainjs";
 import { flatten } from "@json2csv/transforms";
 import manifestJSON from "__STATIC_CONTENT_MANIFEST";
-import { Entity, EntityRequest, FilesToZipType, FilterQuery, FilterRequest, Query, SearchRequest } from "@/types";
+import {
+  Entity,
+  EntityRequest,
+  FilesToZipType,
+  FilterQuery,
+  FilterRequest,
+  Query,
+  SearchRequest,
+} from "@/types";
 import { filterEntities, searchEntities } from "@/database";
 
 export const HEADERS = {
@@ -30,7 +38,11 @@ const MAX_LIMIT = 100;
 const MIN_OUTPUTS = 0;
 const MIN_OUTPUTS_OPEN = 0;
 
-export const fetchEntityHandler = async (req: EntityRequest, env: Bindings, ctx: ExecutionContext) => {
+export const fetchEntityHandler = async (
+  req: EntityRequest,
+  env: Bindings,
+  ctx: ExecutionContext,
+) => {
   const url = new URL(req.url);
   const entityType = req.params.entityType;
   if (!["country", "institution"].includes(entityType)) {
@@ -63,24 +75,46 @@ export const fetchEntityHandler = async (req: EntityRequest, env: Bindings, ctx:
 
 export const parseQuery = (q: FilterQuery): Query => {
   // Parse query params
-  let ids = q.ids === undefined ? new Set<string>() : new Set<string>(q.ids.split(","));
-  let countries = q.countries === undefined ? new Set<string>() : new Set<string>(q.countries.split(","));
-  let subregions = q.subregions === undefined ? new Set<string>() : new Set<string>(q.subregions.split(","));
-  let regions = q.regions === undefined ? new Set<string>() : new Set<string>(q.regions.split(","));
+  let ids =
+    q.ids === undefined ? new Set<string>() : new Set<string>(q.ids.split(","));
+  let countries =
+    q.countries === undefined
+      ? new Set<string>()
+      : new Set<string>(q.countries.split(","));
+  let subregions =
+    q.subregions === undefined
+      ? new Set<string>()
+      : new Set<string>(q.subregions.split(","));
+  let regions =
+    q.regions === undefined
+      ? new Set<string>()
+      : new Set<string>(q.regions.split(","));
   let institutionTypes =
-    q.institutionTypes === undefined ? new Set<string>() : new Set<string>(q.institutionTypes.split(","));
+    q.institutionTypes === undefined
+      ? new Set<string>()
+      : new Set<string>(q.institutionTypes.split(","));
 
-  let minNOutputs = q.minNOutputs === undefined ? MIN_OUTPUTS : parseInt(q.minNOutputs);
+  let minNOutputs =
+    q.minNOutputs === undefined ? MIN_OUTPUTS : parseInt(q.minNOutputs);
   minNOutputs = Math.max(minNOutputs, MIN_OUTPUTS);
-  let maxNOutputs = q.maxNOutputs === undefined ? Number.MAX_VALUE : parseInt(q.maxNOutputs);
+  let maxNOutputs =
+    q.maxNOutputs === undefined ? Number.MAX_VALUE : parseInt(q.maxNOutputs);
   maxNOutputs = Math.max(maxNOutputs, MIN_OUTPUTS);
-  let minNOutputsOpen = q.minNOutputsOpen === undefined ? MIN_OUTPUTS_OPEN : parseInt(q.minNOutputsOpen);
+  let minNOutputsOpen =
+    q.minNOutputsOpen === undefined
+      ? MIN_OUTPUTS_OPEN
+      : parseInt(q.minNOutputsOpen);
   minNOutputsOpen = Math.max(minNOutputsOpen, MIN_OUTPUTS_OPEN);
-  let maxNOutputsOpen = q.maxNOutputsOpen === undefined ? Number.MAX_VALUE : parseInt(q.maxNOutputsOpen);
+  let maxNOutputsOpen =
+    q.maxNOutputsOpen === undefined
+      ? Number.MAX_VALUE
+      : parseInt(q.maxNOutputsOpen);
   maxNOutputsOpen = Math.max(maxNOutputsOpen, MIN_OUTPUTS_OPEN);
-  let minPOutputsOpen = q.minPOutputsOpen === undefined ? 0 : parseInt(q.minPOutputsOpen);
+  let minPOutputsOpen =
+    q.minPOutputsOpen === undefined ? 0 : parseInt(q.minPOutputsOpen);
   minPOutputsOpen = Math.min(Math.max(minPOutputsOpen, 0), 100);
-  let maxPOutputsOpen = q.maxPOutputsOpen === undefined ? 100 : parseInt(q.maxPOutputsOpen);
+  let maxPOutputsOpen =
+    q.maxPOutputsOpen === undefined ? 100 : parseInt(q.maxPOutputsOpen);
   maxPOutputsOpen = Math.max(Math.min(maxPOutputsOpen, 100), 0);
 
   // Parse page settings
@@ -129,7 +163,11 @@ export const filterEntitiesHandler = async (
   const query = parseQuery(q);
 
   // Fetch data
-  const results = await filterEntities(entityType, getDatabaseBinding(env), query);
+  const results = await filterEntities(
+    entityType,
+    getDatabaseBinding(env),
+    query,
+  );
 
   // Convert to JSON, returning results
   const json = JSON.stringify(results);
@@ -138,17 +176,28 @@ export const filterEntitiesHandler = async (
   });
 };
 
-export const searchHandler = async (req: SearchRequest, env: Bindings, ctx: ExecutionContext) => {
+export const searchHandler = async (
+  req: SearchRequest,
+  env: Bindings,
+  ctx: ExecutionContext,
+) => {
   // Parse parameters and query
   const text = decodeURIComponent(req.params.text);
   const acronym = req.query.acronym === "true";
   let page = parseInt(req.query.page) || 0;
   let limit = parseInt(req.query.limit) || MAX_LIMIT;
   limit = Math.max(Math.min(limit, MAX_LIMIT), MIN_LIMIT);
-  let category: string | undefined = req.query.category;
+  let entityType: string | null = req.query.entityType || null;
 
   // Convert returned ids to objects
-  const results = await searchEntities(getDatabaseBinding(env), text, acronym, page, limit, category);
+  const results = await searchEntities(
+    getDatabaseBinding(env),
+    text,
+    entityType,
+    acronym,
+    page,
+    limit,
+  );
 
   // Convert to JSON, returning results
   const json = JSON.stringify(results);
@@ -157,7 +206,10 @@ export const searchHandler = async (req: SearchRequest, env: Bindings, ctx: Exec
   });
 };
 
-export const downloadDataHandler = async (req: EntityRequest, env: Bindings) => {
+export const downloadDataHandler = async (
+  req: EntityRequest,
+  env: Bindings,
+) => {
   const entityType = req.params.entityType;
   const entityId = req.params.id;
 
@@ -184,7 +236,9 @@ export const downloadDataHandler = async (req: EntityRequest, env: Bindings) => 
     };
 
     // Transform data into CSV files. Need a separate parser for each due to the entity structure.
-    const parserYears = new Parser({ transforms: [flatten({ objects: true })] });
+    const parserYears = new Parser({
+      transforms: [flatten({ objects: true })],
+    });
     const parserRepos = new Parser();
 
     let filesToZip: Array<FilesToZipType> = [
