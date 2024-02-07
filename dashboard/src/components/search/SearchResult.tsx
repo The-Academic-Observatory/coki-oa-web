@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 //
 // Author: James Diprose
 
-import { Link } from "@/components/common";
+import { BrandBadge, Link } from "@/components/common";
 import { cokiImageLoader } from "@/lib/api";
 import { Entity } from "@/lib/model";
 import { Box, BoxProps, HStack, Image, Text } from "@chakra-ui/react";
@@ -27,20 +27,9 @@ interface SearchResultProps extends BoxProps {
 
 const SearchResult = ({ entity, onClick, ...rest }: SearchResultProps) => {
   return (
-    <Box key={entity.id} data-test={entity.id} {...rest}>
+    <Box key={entity.id} textStyle="tableCell" data-test={entity.id} {...rest}>
       <Link href={`/${entity.entity_type}/${entity.id}`} onClick={onClick}>
-        <HStack my="16px">
-          <Image
-            rounded="full"
-            objectFit="cover"
-            boxSize="16px"
-            src={cokiImageLoader(entity.logo_sm)}
-            alt={entity.name}
-          />
-          <Text textStyle="tableCell" flex="1">
-            {entity.name}
-          </Text>
-        </HStack>
+        <BrandBadge name={entity.name} imageSrc={cokiImageLoader(entity.logo_sm)} my="16px" />
       </Link>
     </Box>
   );

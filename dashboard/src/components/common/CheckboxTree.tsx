@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,10 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: Alex Massen-Hane
-
-// Currently only a two-level checkbox tree.
-// Can update it later for more levels when needed
+// Author: Alex Massen-Hane, James Diprose
 
 import { QueryForm } from "@/components/filter";
 import { ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
@@ -29,36 +26,71 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { FastField, Field, useField, useFormikContext } from "formik";
+import { Field, useField, useFormikContext } from "formik";
+import lodashGet from "lodash.get";
 import React, { memo, ReactElement, useCallback, useEffect } from "react";
 
 type CheckboxTreeProps = {
-  checkboxTree: Array<Parent>;
+  nodes: Array<Node>;
 };
 
-type Parent = {
-  type: string;
-  text: string;
-  children: Array<Child>;
-};
+export class Node {
+  parent: Node | null;
+  namespace: string;
+  value: string;
+  children: Array<Node>;
 
-type Child = {
-  type: string;
-  text: string;
-};
+  constructor(namespace: string, value: string, children: Array<Node> = []) {
+    this.parent = null;
+    this.namespace = namespace;
+    this.value = value;
+    this.children = children;
+    for (const child of this.children) {
+      child.parent = this;
+    }
+  }
 
-const CheckboxTree = ({ checkboxTree }: CheckboxTreeProps): ReactElement => {
+  public key(): string {
+    return `${this.path()}.value`;
+  }
+
+  private path(): string {
+    const key = `${this.namespace}.${this.value}`;
+    if (this.parent !== null) {
+      return `${this.parent.path()}.${key}`;
+    }
+    return key;
+  }
+}
+
+const CheckboxTree = ({ nodes }: CheckboxTreeProps): ReactElement => {
   // Keeps accordion state so that it can be controlled
   const [accordionIndex, setAccordionIndex] = React.useState<Array<number>>([]);
+  const { setFieldValue, values } = useFormikContext<QueryForm>();
+
+  // Update parent checked state based on state of children
+  useEffect(() => {
+    for (const node of nodes) {
+      const isParentChecked = lodashGet(values, node.key());
+      const areAllChildrenChecked = node.children.every((child) => lodashGet(values, child.key()));
+
+      // When:
+      // isParentChecked is true and areAllChildrenChecked is false: set isParentChecked to areAllChildrenChecked (false) as now all children are not checked and so parent should be not checked.
+      // isParentChecked is false and areAllChildrenChecked is true: set isParentChecked to areAllChildrenChecked (true) as now all children are checked and so parent should be checked.
+      if (isParentChecked != areAllChildrenChecked) {
+        setFieldValue(node.key(), areAllChildrenChecked);
+      }
+    }
+  }, [nodes, setFieldValue, values]);
 
   return (
     <Accordion p="9px 12px 9px 24px" allowMultiple variant="checkboxTree" index={accordionIndex} reduceMotion={true}>
-      {checkboxTree.map((parent: Parent, i: number) => {
+      {nodes.map((node: Node, accordionItemId: number) => {
         return (
-          <ParentCheckbox
-            key={parent.text}
-            parent={parent}
-            parentIndex={i}
+          <CheckboxTreeItem
+            key={node.key()}
+            node={node}
+            accordionItemId={accordionItemId}
             accordionIndex={accordionIndex}
             setAccordionIndex={setAccordionIndex}
           />
@@ -68,20 +100,20 @@ const CheckboxTree = ({ checkboxTree }: CheckboxTreeProps): ReactElement => {
   );
 };
 
-interface ParentCheckboxProps {
-  parent: Parent;
-  parentIndex: number;
+interface CheckboxTreeItemProps {
+  node: Node;
+  accordionItemId: number;
   accordionIndex: Array<number>;
   setAccordionIndex: (values: Array<number>) => void;
 }
 
-const ParentCheckbox = ({ parent, parentIndex, accordionIndex, setAccordionIndex }: ParentCheckboxProps) => {
-  const { setFieldValue, handleChange, values } = useFormikContext<QueryForm>();
-  const key = `${parent.type}.${parent.text}`;
+const CheckboxTreeItem = memo(({ node, accordionItemId, accordionIndex, setAccordionIndex }: CheckboxTreeItemProps) => {
+  const { setFieldValue, handleChange, values } = useFormikContext();
+  const key = node.key();
   const [field, meta] = useField(key);
   const { value } = meta;
 
-  const onCheckboxChange = useCallback(
+  const onChangeParent = useCallback(
     (e: React.ChangeEvent<any>) => {
       // Handle change in formik
       handleChange(e);
@@ -89,54 +121,58 @@ const ParentCheckbox = ({ parent, parentIndex, accordionIndex, setAccordionIndex
       // Set parent and child values
       const targetValue = e.target.checked;
       setFieldValue(key, targetValue);
-      if ("children" in parent) {
+      if (node.children.length) {
         // Go through all branches below current branch and set it the same value as parent.
-        setCheckboxValues(parent, targetValue, setFieldValue);
+        setChildrenChecked(node, targetValue, setFieldValue);
       }
 
       // Open accordion when checkbox is true and the accordion isn't already open
-      if (targetValue && !accordionIndex.includes(parentIndex)) {
-        setAccordionIndex(accordionIndex.concat([parentIndex]));
+      if (targetValue && !accordionIndex.includes(accordionItemId)) {
+        toggleAccordion(accordionItemId, accordionIndex, setAccordionIndex);
       }
     },
-    [accordionIndex],
+    [handleChange, setFieldValue, node, key, accordionItemId, accordionIndex, setAccordionIndex],
   );
 
-  const isIndeterminate = useIndeterminateChecked(parent, value, setFieldValue, values);
+  const onChangeChild = useCallback(
+    (e: React.ChangeEvent<any>) => {
+      // Handle change in formik
+      handleChange(e);
+      setFieldValue(key, e.target.checked);
+    },
+    [handleChange, setFieldValue, key],
+  );
 
-  return (
-    <AccordionItem key={parent.text}>
-      {({ isExpanded }) => {
-        return (
+  // Calculate if parent is in an indeterminate state
+  const isIndeterminate = calcIsIndeterminate(node, values);
+
+  // Render accordion if there are children
+  if (node.children && node.children.length > 0) {
+    return (
+      <AccordionItem key={key}>
+        {({ isExpanded }) => (
           <>
             <AccordionButton>
               <Field
-                // TODO: Change to FastField when there are more than 10 parent checkboxes.
-                type="checkbox"
-                data-test={parent.text}
-                id={parent.text}
-                component={Checkbox}
                 {...field}
+                id={node.key()}
+                data-test={node.key()}
+                type="checkbox"
+                component={Checkbox}
                 isChecked={value}
+                onChange={onChangeParent}
+                isIndeterminate={isIndeterminate}
                 variant="checkboxTreeParent"
                 colorScheme="checkbox"
-                onChange={onCheckboxChange}
-                isIndeterminate={isIndeterminate}
               />
 
               <Flex
                 onClick={() => {
-                  if (accordionIndex.includes(parentIndex)) {
-                    // Remove parent from accordion index
-                    setAccordionIndex(accordionIndex.filter((i) => i !== parentIndex));
-                  } else {
-                    // Add parent to accordion index
-                    setAccordionIndex(accordionIndex.concat([parentIndex]));
-                  }
+                  toggleAccordion(accordionItemId, accordionIndex, setAccordionIndex);
                 }}
               >
-                <Text textStyle="checkboxTreeParent">{parent.text}</Text>
-                {/* Change Chevron arrow depending if it's expanded or not */}
+                <Text textStyle="checkboxTreeParent">{node.value}</Text>
+                {/* Change Chevron arrow depending on if it's expanded or not */}
                 {isExpanded ? (
                   <ChevronDownIcon fontSize={{ base: "26px", md: "20px" }} mx="1px" />
                 ) : (
@@ -144,98 +180,73 @@ const ParentCheckbox = ({ parent, parentIndex, accordionIndex, setAccordionIndex
                 )}
               </Flex>
             </AccordionButton>
-
-            {/* This is rendered twice because of the hidden/shown version of the accordion panel. */}
-            <AccordionPanel id={`${key}`}>
+            <AccordionPanel>
               <VStack align="left" spacing="8px">
-                {parent.children.map((child: Child) => {
-                  return <ChildCheckbox key={child.text} child={child} />;
-                })}
+                {node.children.map((child) => (
+                  <CheckboxTreeItem
+                    key={child.key()}
+                    node={child}
+                    accordionIndex={accordionIndex}
+                    accordionItemId={accordionItemId}
+                    setAccordionIndex={setAccordionIndex}
+                  />
+                ))}
               </VStack>
             </AccordionPanel>
           </>
-        );
-      }}
-    </AccordionItem>
-  );
-};
-
-// Check if children of this branch are checked, and if so mark this parent checkbox as indeterminate or checked
-const useIndeterminateChecked = function (
-  parent: Parent,
-  isParentAlreadyChecked: boolean,
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-  values: any,
-) {
-  // Get a list of all values from formik for the children
-  let isChecked: boolean[] = [];
-  for (const child of parent.children) {
-    isChecked.push(values[`${parent.children[0].type}`][child.text]);
+        )}
+      </AccordionItem>
+    );
   }
 
-  // The useEffect function fixes a warning about setting values in Formik.
-  // This part marks the parent as checked if all the children are checked.
-  const isParentChecked = isChecked.every((s) => s);
-  useEffect(() => {
-    if (isParentChecked && !isParentAlreadyChecked) {
-      setFieldValue(`${parent.type}.${parent.text}`, true);
-    } else if (!isParentChecked && isParentAlreadyChecked) {
-      setFieldValue(`${parent.type}.${parent.text}`, false);
-    }
-  });
-
-  // Mark this parent as indeterminate if only a few are checked
-  return isChecked.some((s) => s) && !isParentChecked;
-};
-
-interface ChildCheckboxProps {
-  child: Child;
-}
-
-const ChildCheckbox = ({ child }: ChildCheckboxProps) => {
-  const { setFieldValue, handleChange } = useFormikContext<QueryForm>();
-  const [field, meta] = useField(`${child.type}.${child.text}`);
-  const { value } = meta;
-
-  const onChange = useCallback(
-    (e: React.ChangeEvent<any>) => {
-      // Handle change in formik
-      handleChange(e);
-      setFieldValue(`${child.type}.${child.text}`, e.target.checked);
-    },
-    [setFieldValue, child],
-  );
-
+  // Render checkbox directly if there are no children
   return (
-    <FastField
-      type="checkbox"
-      id={child.text}
-      component={Checkbox}
+    <Checkbox
       {...field}
+      id={node.key()}
+      data-test={node.key()}
       isChecked={value}
+      onChange={onChangeChild}
       variant="checkboxTreeChild"
       colorScheme="checkbox"
-      onChange={onChange}
     >
-      {child.text}
-    </FastField>
+      {node.value}
+    </Checkbox>
   );
+});
+CheckboxTreeItem.displayName = "CheckboxTreeItem";
+
+const calcIsIndeterminate = (node: Node, values: any): boolean => {
+  const isAnyChildChecked = node.children.some((child) => lodashGet(values, child.key()));
+  const isParentChecked = lodashGet(values, node.key());
+  return isAnyChildChecked && !isParentChecked;
 };
 
 // To set children as checked if parent branch is checked and run down the tree of values and mark them as checked.
-const setCheckboxValues = function (
-  checkbox: Parent | Child,
+const setChildrenChecked = (
+  node: Node,
   value: boolean,
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-) {
-  if ("children" in checkbox) {
-    for (let child of checkbox.children) {
-      setFieldValue(`${child.type}.${child.text}`, value);
-
-      if ("children" in child) {
-        setCheckboxValues(child, value, setFieldValue);
-      }
+) => {
+  for (const child of node.children) {
+    setFieldValue(child.key(), value);
+    if (child.children.length) {
+      setChildrenChecked(child, value, setFieldValue);
     }
+  }
+};
+
+const toggleAccordion = (
+  accordionItemId: number,
+  accordionIndex: Array<number>,
+  setAccordionIndex: (values: Array<number>) => void,
+) => {
+  if (accordionIndex.includes(accordionItemId)) {
+    // Remove parent from accordion index
+    setAccordionIndex(accordionIndex.filter((i) => i !== accordionItemId));
+  } else {
+    // Add parent to accordion index
+    setAccordionIndex(accordionIndex.concat([accordionItemId]));
   }
 };
 

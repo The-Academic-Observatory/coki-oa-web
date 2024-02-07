@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,24 +15,25 @@
 // Author: Aniek Roelofs
 
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
-import { AccordionButton, AccordionItem, AccordionPanel, Box, Text } from "@chakra-ui/react";
+import { AccordionButton, AccordionItem, AccordionItemProps, AccordionPanel, Box, Text } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
 import { TbFilterExclamation } from "react-icons/tb";
 
-interface FilterAccordionItemProps {
+interface FilterAccordionItemProps extends AccordionItemProps {
   children: ReactNode;
   name: string;
-  isDirty: () => boolean;
+  isDirty: boolean;
+  onClick: () => void;
 }
 
-const FilterAccordionItem = ({ children, name, isDirty }: FilterAccordionItemProps) => {
+const FilterAccordionItem = ({ children, name, isDirty, onClick, ...rest }: FilterAccordionItemProps) => {
   return (
-    <AccordionItem>
+    <AccordionItem {...rest}>
       {({ isExpanded }) => (
         <>
-          <AccordionButton className="filterAccordionButton">
+          <AccordionButton className="filterAccordionButton" onClick={onClick}>
             <Text flex="1">{name}</Text>
-            {isDirty() && (
+            {isDirty && (
               <Box
                 className="filterOnWarningIcon"
                 pr={{ base: "7px", md: "5px" }}

@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
 // Author: James Diprose, Aniek Roelofs
 
 import { Breadcrumbs, Head, Icon, PageLoader, TextCollapse } from "@/components/common";
-import { FilterForm, institutionTypes, OpenAccess, QueryForm, regions } from "@/components/filter";
+import { FilterForm, institutionTypes, OpenAccess, QueryForm } from "@/components/filter";
+import { Node } from "@/components/common/CheckboxTree";
 import { IndexTable } from "@/components/table";
 import { cokiImageLoader, OADataAPI } from "@/lib/api";
 import { useEffectAfterRender } from "@/lib/hooks";
@@ -35,11 +36,40 @@ import {
   useDisclosure,
   useMediaQuery,
 } from "@chakra-ui/react";
+import lodashSet from "lodash.set";
 import React, { useCallback, useEffect } from "react";
 
-const MAX_TABS_WIDTH = "1100px";
+const MAX_TABS_WIDTH = "1150px";
 const MAX_PAGE_SIZE = 18;
-const DEFAULT_N_OUTPUTS = 1000;
+export const DEFAULT_N_OUTPUTS = 1000;
+
+// New checkboxTree object that holds all the regions and subregions in a tree-like structure.
+export let NODES = [
+  new Node("region", "Africa", [new Node("subregion", "Northern Africa"), new Node("subregion", "Sub-Saharan Africa")]),
+  new Node("region", "Americas", [
+    new Node("subregion", "Latin America and the Caribbean"),
+    new Node("subregion", "Northern America"),
+  ]),
+  new Node("region", "Asia", [
+    new Node("subregion", "Central Asia"),
+    new Node("subregion", "Eastern Asia"),
+    new Node("subregion", "South-eastern Asia"),
+    new Node("subregion", "Southern Asia"),
+    new Node("subregion", "Western Asia"),
+  ]),
+  new Node("region", "Europe", [
+    new Node("subregion", "Eastern Europe"),
+    new Node("subregion", "Northern Europe"),
+    new Node("subregion", "Southern Europe"),
+    new Node("subregion", "Western Europe"),
+  ]),
+  new Node("region", "Oceania", [
+    new Node("subregion", "Australia and New Zealand"),
+    new Node("subregion", "Melanesia"),
+    new Node("subregion", "Micronesia"),
+    new Node("subregion", "Polynesia"),
+  ]),
+];
 
 export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
   const q = {
@@ -50,6 +80,8 @@ export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
     orderDir: queryForm.page.orderDir,
 
     // Default arrays
+    ids: queryForm.ids.map((o) => o.value), // For individual country and institution filtering
+    countries: queryForm.countries.map((o) => o.value), // For filtering institutions by country code
     subregions: new Array<string>(),
     institutionTypes: new Array<string>(),
 
@@ -63,9 +95,14 @@ export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
   };
 
   // Set subregions keys that are true
-  q.subregions = Object.keys(queryForm.subregion).filter((key) => {
-    return queryForm.subregion[key];
-  });
+  for (const region of Object.keys(queryForm.region)) {
+    const subregions = queryForm.region[region].subregion;
+    for (const subregion of Object.keys(subregions)) {
+      if (subregions[subregion].value) {
+        q.subregions.push(subregion);
+      }
+    }
+  }
 
   // Set institution types
   q.institutionTypes = Object.keys(queryForm.institutionType).filter((key) => {
@@ -86,16 +123,33 @@ export const makeOpenAccess = (entityStats: EntityStats): OpenAccess => {
   };
 };
 
+const makeDefaultNodeValues = (nodes: Array<Node>) => {
+  let defaults = {};
+
+  for (const node of nodes) {
+    // Set value for this node
+    lodashSet(defaults, node.key(), false);
+
+    // Set values for children
+    for (const child of node.children) {
+      lodashSet(defaults, child.key(), false);
+    }
+  }
+
+  return defaults;
+};
+
 export const makeFormValues = (entityStats: EntityStats, minNOutputs?: number): QueryForm => {
-  const defaults: QueryForm = {
+  let defaults: QueryForm = {
     page: {
       page: 0,
       limit: MAX_PAGE_SIZE,
       orderBy: "stats.p_outputs_open",
       orderDir: "dsc",
     },
+    ids: [],
+    countries: [],
     region: {},
-    subregion: {},
     institutionType: {},
     openAccess: makeOpenAccess(entityStats),
   };
@@ -105,13 +159,8 @@ export const makeFormValues = (entityStats: EntityStats, minNOutputs?: number): 
     defaults.openAccess.minNOutputs = minNOutputs;
   }
 
-  // Default region and subregion values
-  Object.keys(regions).map((region) => {
-    defaults.region[region] = false;
-    for (let subregion of regions[region]) {
-      defaults.subregion[subregion] = false;
-    }
-  });
+  // Set region
+  defaults = { ...defaults, ...makeDefaultNodeValues(NODES) };
 
   // Default institutionType values
   institutionTypes.map((institutionType) => {
@@ -147,8 +196,8 @@ const useEntityQuery = (
     const client = new OADataAPI();
     client
       .getEntities(entityType, queryParams)
-      .then((data) => {
-        setEntities(data);
+      .then((response) => {
+        setEntities(response.data);
       })
       .then(() => {
         setLoading(false);
@@ -396,7 +445,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
 
         <Box gridArea="filter" display={{ base: "none", md: tabIndex === 0 ? "block" : "none" }}>
           <FilterForm
-            category="country"
+            entityType="country"
             platform="desktop"
             queryForm={queryFormCountry}
             setQueryForm={setQueryFormCountry}
@@ -409,7 +458,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
 
         <Box gridArea="filter" display={{ base: "none", md: tabIndex === 1 ? "block" : "none" }}>
           <FilterForm
-            category="institution"
+            entityType="institution"
             platform="desktop"
             queryForm={queryFormInstitution}
             setQueryForm={setQueryFormInstitution}
@@ -424,7 +473,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
           <ModalContent display={{ base: "flex", md: "none" }}>
             <ModalBody>
               <FilterForm
-                category="country"
+                entityType="country"
                 platform="mobile"
                 queryForm={queryFormCountry}
                 setQueryForm={setQueryFormCountry}
@@ -443,7 +492,7 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
           <ModalContent display={{ base: "flex", md: "none" }}>
             <ModalBody>
               <FilterForm
-                category="institution"
+                entityType="institution"
                 platform="mobile"
                 queryForm={queryFormInstitution}
                 setQueryForm={setQueryFormInstitution}
@@ -467,9 +516,9 @@ export async function getDashboardStaticProps() {
   const client = new OADataAPI();
   const stats = client.getStats();
   const countryQuery = queryFormToQueryParams(makeFormValues(stats.country, DEFAULT_N_OUTPUTS));
-  const countries = await client.getEntities("country", countryQuery);
+  const countries = (await client.getEntities("country", countryQuery)).data;
   const institutionQuery = queryFormToQueryParams(makeFormValues(stats.institution, DEFAULT_N_OUTPUTS));
-  const institutions = await client.getEntities("institution", institutionQuery);
+  const institutions = (await client.getEntities("institution", institutionQuery)).data;
 
   return {
     props: {

@@ -20,7 +20,7 @@ test("test makeEntityUrl", () => {
 });
 
 test("test makeSearchUrl", () => {
-  const url = makeSearchUrl(host, "Curtin University", 0, 10, false);
+  const url = makeSearchUrl(host, "Curtin University", null, 0, 10, false);
   expect(url).toEqual(`${host}/search/Curtin%20University?acronym=false&page=0&limit=10&build=${buildId}`);
 });
 

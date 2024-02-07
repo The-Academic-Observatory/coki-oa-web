@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,22 +14,16 @@
 //
 // Author: James Diprose
 
-import { Link } from "@/components/common";
+import { BrandBadge, Link } from "@/components/common";
 import { EntityProps, makeHref } from "@/components/table";
 import { cokiImageLoader } from "@/lib/api";
-import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import React, { memo } from "react";
 
 function EntityCell({ entity }: EntityProps) {
   const href = makeHref(entity.entity_type, entity.id);
   return (
     <Link href={href}>
-      <HStack>
-        <Box width="16px" height="16px" minWidth="16px">
-          <Image rounded="full" objectFit="cover" boxSize="16px" src={cokiImageLoader(entity.logo_sm)} />
-        </Box>
-        <Text>{entity.name}</Text>
-      </HStack>
+      <BrandBadge name={entity.name} imageSrc={cokiImageLoader(entity.logo_sm)} isMultiLine />
     </Link>
   );
 }

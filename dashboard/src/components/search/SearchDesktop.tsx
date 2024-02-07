@@ -1,4 +1,4 @@
-// Copyright 2022 Curtin University
+// Copyright 2022-2024 Curtin University
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,106 +14,11 @@
 //
 // Author: James Diprose
 
-import { SearchBox, SearchResult, SearchTips, SkeletonSearchResult } from "@/components/search";
-import { OADataAPI } from "@/lib/api";
+import { SearchBox, SearchResult, SearchTips, SkeletonSearchResult, useEntitySearch } from "@/components/search";
 import { Entity } from "@/lib/model";
 import { Box, Popover, PopoverAnchor, PopoverBody, PopoverContent, useOutsideClick } from "@chakra-ui/react";
-import debounce from "lodash/debounce";
-import React, { LegacyRef, memo, useCallback, useEffect, useRef } from "react";
+import React, { memo } from "react";
 import { RemoveScroll } from "react-remove-scroll";
-
-export const useEntitySearch = (
-  onDataLoaded: any = null,
-  searchLimit: number = 20,
-  searchDebounce: number = 300,
-): [
-  Array<Entity>,
-  string,
-  (val: string) => void,
-  boolean,
-  (val: boolean) => void,
-  LegacyRef<HTMLDivElement>,
-  (e: any) => void,
-  boolean,
-  string,
-] => {
-  const client = new OADataAPI();
-  const [page, setPage] = React.useState<number>(0);
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [hasMore, setHasMore] = React.useState<boolean>(false);
-  const [query, setQuery] = React.useState<string>("");
-  const [queryFinal, setQueryFinal] = React.useState<string>("");
-  const [entities, setEntities] = React.useState<Array<Entity>>([]);
-  const observer = useRef<IntersectionObserver>();
-  const lastEntityRef = useCallback(
-    (node: any) => {
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setPage((prevPage: number) => {
-            return prevPage + 1;
-          });
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [loading, hasMore],
-  );
-
-  const searchBoxOnChange = (e: any) => {
-    const query = e.target.value;
-    setQuery(query);
-    setPage(0);
-    setHasMore(false);
-  };
-
-  const fetchData = useCallback(
-    debounce((query: string, page: number, abortController: AbortController) => {
-      // When query is an empty string just set no results
-      if (query.trim() === "") {
-        setEntities([]);
-        setQueryFinal(query);
-        return;
-      }
-
-      // Query
-      setLoading(true);
-      client
-        .searchEntities(query, page, searchLimit, abortController)
-        .then((response) => {
-          setEntities((prevEntities) => {
-            // If we are on the first page then just use new items
-            if (page === 0) return response.data.items;
-
-            // If on subsequent pages, then add previous entries and new entries together
-            return [...prevEntities, ...response.data.items];
-          });
-
-          setHasMore(response.data.page + 1 < response.data.nPages);
-          setQueryFinal(query); // Update this value once the query has finished
-          setLoading(false);
-
-          // Callback where behaviour can be customised after data has been loaded
-          if (onDataLoaded != null) {
-            onDataLoaded();
-          }
-        })
-        .catch((e) => {
-          if (abortController.signal.aborted) return;
-        });
-    }, searchDebounce),
-    [],
-  );
-
-  useEffect(() => {
-    const abortController = new AbortController();
-    fetchData(query, page, abortController);
-    return () => abortController.abort();
-  }, [query, page]);
-
-  return [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore, queryFinal];
-};
 
 const SearchDesktop = ({ ...rest }) => {
   // Control search popover behaviour
@@ -130,10 +35,9 @@ const SearchDesktop = ({ ...rest }) => {
   });
 
   // Search query
-  const [entities, query, setQuery, loading, setLoading, lastEntityRef, searchBoxOnChange, hasMore, queryFinal] =
-    useEntitySearch(() => {
-      setPopoverOpen(true);
-    });
+  const { entities, query, setQuery, lastEntityRef, searchBoxOnChange, hasMore, queryFinal } = useEntitySearch(() => {
+    setPopoverOpen(true);
+  });
 
   return (
     <Box {...rest} ref={ref}>
