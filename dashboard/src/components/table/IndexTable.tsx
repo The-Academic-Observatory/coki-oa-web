@@ -243,7 +243,7 @@ const IndexTable = ({
                         maxWidth={cell.column.maxWidth}
                         width={cell.column.width}
                       >
-                        {cell.render("Cell", { entity: row.original })}
+                        {cell.render("Cell", { entity: row.original }) as React.ReactNode}
                       </Td>
                     );
                   })}

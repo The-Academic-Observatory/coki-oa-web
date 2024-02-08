@@ -25,7 +25,7 @@ jobs:
           remove-docker-images: 'true'
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set environment develop
         if: github.event.action == 'data-update/develop'
@@ -53,7 +53,7 @@ jobs:
           echo "COKI_ENVIRONMENT=production" >> $GITHUB_ENV
           echo "REPO_DISPATCH_REF=${{ steps.get_latest_tag.outputs.tag }}" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ env.REPO_DISPATCH_REF }}
 

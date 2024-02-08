@@ -19,7 +19,8 @@
 
 # Yarn 3 files
 .pnp.*
-.yarn
+.yarn/*
+!.yarn/releases/
 .yarnrc.yml
 
 # production

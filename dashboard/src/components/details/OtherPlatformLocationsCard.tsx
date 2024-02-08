@@ -402,7 +402,7 @@ const OtherPlatformLocationsCard = ({ entity, ...rest }: TopOtherPlatformOpenCar
                         maxWidth={cell.column.maxWidth}
                         width={cell.column.width}
                       >
-                        {cell.render("Cell", { repo: row.original, max: maxPubs })}
+                        {cell.render("Cell", { repo: row.original, max: maxPubs }) as React.ReactNode}
                       </Td>
                     );
                   })}
