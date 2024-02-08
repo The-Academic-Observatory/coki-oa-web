@@ -8,17 +8,6 @@ jobs:
   unit-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Free up disk space
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 4096
-          swap-size-mb: 1024
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
-
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -27,8 +16,6 @@ jobs:
         with:
           bucket_name: ${{ secrets.BUCKET_NAME }}
           gcp_credentials: ${{ secrets.GCP_CREDENTIALS }}
-          vercel: true
-          download_images: true
 
       - name: Run Unit Tests
         working-directory: ./dashboard
