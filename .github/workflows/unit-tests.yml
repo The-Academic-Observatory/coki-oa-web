@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Free up disk space
-        if: inputs.download_images == 'true'
         uses: easimon/maximize-build-space@master
         with:
           root-reserve-mb: 512
