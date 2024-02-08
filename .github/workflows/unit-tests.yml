@@ -27,6 +27,8 @@ jobs:
         with:
           bucket_name: ${{ secrets.BUCKET_NAME }}
           gcp_credentials: ${{ secrets.GCP_CREDENTIALS }}
+          vercel: true
+          download_images: true
 
       - name: Run Unit Tests
         working-directory: ./dashboard
