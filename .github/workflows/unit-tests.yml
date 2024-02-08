@@ -8,6 +8,14 @@ jobs:
   unit-test:
     runs-on: ubuntu-latest
     steps:
+      - name: Free up disk space
+        if: inputs.download_images == 'true'
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 512
+          swap-size-mb: 1024
+          remove-dotnet: 'true'
+
       - name: Checkout
         uses: actions/checkout@v3
 
