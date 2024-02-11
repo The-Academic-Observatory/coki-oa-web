@@ -23,15 +23,15 @@ inputs:
   node_version:
     description: "The NodeJS version"
     required: true
-    default: "16.16.0"
+    default: "20.11.0"
   yarn_version:
     description: "The Yarn version"
     required: false
-    default: "3.3.1"
+    default: "4.1.0"
   vercel_version:
     description: "The Vercel CLI version"
     required: false
-    default: "28.11.1"
+    default: "33.4.1"
   download_images:
     description: "Whether to download images or not"
     required: false
@@ -41,7 +41,7 @@ runs:
   using: "composite"
   steps:
     - name: Setup NodeJS
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4.0.2
       with:
         node-version: ${{ inputs.node_version }}
 

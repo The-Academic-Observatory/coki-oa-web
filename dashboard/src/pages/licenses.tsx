@@ -35,7 +35,14 @@ const LicenseList: React.FC<LicenseListProps> = ({ licenses }) => {
   return (
     <>
       {licenses.map((license: License) => (
-        <Box key={license.packageName}>
+        <Box
+          key={license.packageName}
+          sx={{
+            "p, a, span": {
+              wordBreak: "break-all",
+            },
+          }}
+        >
           <Text as="p" textStyle="p" fontWeight={500} pb="6px" fontSize="20px" lineHeight="22px">
             {license.packageName}
           </Text>

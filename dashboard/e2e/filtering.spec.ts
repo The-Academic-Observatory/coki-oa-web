@@ -198,20 +198,15 @@ async function testSelectEntitiesFilter(
   const form = await openFiltersForm(platform, entityType, page, isMobile);
 
   // Open accordion item
-  const plurals = {
-    country: "countries",
-    institution: "institutions",
-  } as { [key: string]: string };
-
-  await form.locator(`div[data-test='${accordionItemDataTest}'] > button`).click();
-
-  // Get autocomplete
+  const accordionItem = form.locator(`div[data-test='${accordionItemDataTest}']`);
   const autocomplete = form.locator(`div[data-test='${autocompleteDataTest}']`);
+
+  // Open accordion, trying multiple times
+  await accordionItem.locator("button").click();
+  await autocomplete.waitFor({ state: "visible" });
 
   // Select entities in autocomplete
   for (const text of textInputs) {
-    await page.waitForTimeout(1000);
-
     // Click autocomplete
     await form.locator(`div[data-test='${autocompleteDataTest}'] > div > div > div:nth-of-type(2)`).click();
 
@@ -219,7 +214,7 @@ async function testSelectEntitiesFilter(
     await page.waitForTimeout(1000);
 
     // Type text
-    await autocomplete.type(text);
+    await autocomplete.locator("input").fill(text);
 
     // Wait for 1 second
     await page.waitForTimeout(1000);
@@ -229,10 +224,10 @@ async function testSelectEntitiesFilter(
 
     // Click
     await firstResult.click();
-  }
 
-  // Wait for 1 second
-  await page.waitForTimeout(1000);
+    // Wait for 1 second
+    await page.waitForTimeout(1000);
+  }
 
   // Locate the "Apply" button
   await form.locator(`button`, { hasText: "Apply" }).click();

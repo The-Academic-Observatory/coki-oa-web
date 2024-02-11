@@ -21,8 +21,8 @@ Open Knowledge Initiative's Open Access Dashboard: [open.coki.ac](https://open.c
 ## 1. Requirements
 ### OS Requirements
 * Linux, Windows or MacOS.
-* NodeJS 16: https://nodejs.org/en/
-* yarn 3: https://yarnpkg.com/getting-started/install
+* NodeJS 20: https://nodejs.org/en/
+* yarn 4: https://yarnpkg.com/getting-started/install
 * Install system dependencies: `sudo apt-get -y install libc++1 unzip` (libc++1 may be required for Wrangler 3)
 * Vercel CLI: `npm install --global vercel`
 

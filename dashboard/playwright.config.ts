@@ -14,8 +14,8 @@ const config: PlaywrightTestConfig = {
     reuseExistingServer: !process.env.CI,
   },
   use: {
-    trace: "retry-with-trace",
-    video: "on-first-retry",
+    trace: "retain-on-failure",
+    video: "retain-on-failure",
     contextOptions: {
       ignoreHTTPSErrors: true,
     },
