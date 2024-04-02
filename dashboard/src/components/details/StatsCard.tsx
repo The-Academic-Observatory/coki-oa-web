@@ -74,7 +74,7 @@ const StatsCard = ({ entity, ...rest }: StatsCardProps) => {
       Total <br /> Citations
     </>
   );
-  const p_open = Math.round(entity.stats.p_outputs_open);
+  const p_open = Math.round(entity.oa_status.open.percent);
   return (
     <Box {...rest}>
       {/*base*/}
@@ -96,15 +96,15 @@ const StatsCard = ({ entity, ...rest }: StatsCardProps) => {
 
         <Grid gap={2} templateColumns="repeat(3, 1fr)">
           <EntityCard>
-            <Stat statsTitle={titleNOutputs} value={entity.stats.n_outputs} />
+            <Stat statsTitle={titleNOutputs} value={entity.n_outputs} />
           </EntityCard>
 
           <EntityCard>
-            <Stat statsTitle={titleNOutputsOpen} value={entity.stats.n_outputs_open} />
+            <Stat statsTitle={titleNOutputsOpen} value={entity.oa_status.open.total} />
           </EntityCard>
 
           <EntityCard>
-            <Stat statsTitle={titleNCitations} value={entity.stats.n_citations} />
+            <Stat statsTitle={titleNCitations} value={entity.n_citations} />
           </EntityCard>
         </Grid>
       </VStack>
@@ -116,9 +116,9 @@ const StatsCard = ({ entity, ...rest }: StatsCardProps) => {
             <DonutSparkline value={p_open} color={"#FF671C"} size={90} showText={false} pr={6} />
             <Stat statsTitle={titleOpenPercent} value={p_open} isPercent />
           </Flex>
-          <Stat statsTitle={titleNOutputs} value={entity.stats.n_outputs} pr={"10px"} />
-          <Stat statsTitle={titleNOutputsOpen} value={entity.stats.n_outputs_open} pr={"10px"} />
-          <Stat statsTitle={titleNCitations} value={entity.stats.n_citations} />
+          <Stat statsTitle={titleNOutputs} value={entity.n_outputs} pr={"10px"} />
+          <Stat statsTitle={titleNOutputsOpen} value={entity.oa_status.open.total} pr={"10px"} />
+          <Stat statsTitle={titleNCitations} value={entity.n_citations} />
         </Flex>
       </EntityCard>
     </Box>

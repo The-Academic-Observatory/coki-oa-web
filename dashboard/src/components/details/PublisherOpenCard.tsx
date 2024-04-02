@@ -26,32 +26,31 @@ interface PublisherOpenCardProps extends BoxProps {
 }
 
 const PublisherOpenCard = ({ entity, ...rest }: PublisherOpenCardProps) => {
-  const stats = entity.stats;
   const data = [
     {
       id: "OA Journal",
       label: "OA Journal",
-      value: stats.p_outputs_oa_journal,
+      value: entity.oa_status.publisher_categories.oa_journal.percent,
       color: "#d5bd40",
       description: "The percentage of publisher open articles that are published in open access journals.",
       backgroundImage: "linear-gradient(-135deg, #fdd500, #b9a436)",
-      total_outputs: stats.n_outputs_oa_journal,
+      total_outputs: entity.oa_status.publisher_categories.oa_journal.total,
     },
     {
       id: "Hybrid",
       label: "Hybrid",
-      value: stats.p_outputs_hybrid,
+      value: entity.oa_status.publisher_categories.hybrid.percent,
       color: "#ffd700",
       description: "The percentage of publisher open articles from subscription publishers, with an open license.",
-      total_outputs: stats.n_outputs_hybrid,
+      total_outputs: entity.oa_status.publisher_categories.hybrid.total,
     },
     {
       id: "No Guarantees",
       label: "No Guarantees",
-      value: stats.p_outputs_no_guarantees,
+      value: entity.oa_status.publisher_categories.no_guarantees.percent,
       color: "#f8eb8f",
       description: "The percentage of publisher open articles from subscription publishers, with no reuse rights.",
-      total_outputs: stats.n_outputs_no_guarantees,
+      total_outputs: entity.oa_status.publisher_categories.no_guarantees.total,
     },
   ];
   return (

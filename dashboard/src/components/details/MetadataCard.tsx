@@ -68,19 +68,6 @@ const MetadataCard = ({ entity, isMobile, ...rest }: MetadataCardProps) => {
             {website}
             <MetadataLink icon="download-csv" name="Download" href="/data/" />
           </Flex>
-
-          <Flex w="full" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
-            {entity.identifiers.map((obj: any) => {
-              return (
-                <Text key={obj.id} textStyle="entityID">
-                  {obj.type}:{" "}
-                  <Text as="span" textStyle="entityBold">
-                    {obj.id}
-                  </Text>
-                </Text>
-              );
-            })}
-          </Flex>
         </VStack>
       </Box>
     );

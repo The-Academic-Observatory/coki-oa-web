@@ -122,7 +122,7 @@ export const parseQuery = (q: FilterQuery): Query => {
   let limit = q.limit === undefined ? MAX_LIMIT : parseInt(q.limit);
   page = Math.max(page, 0);
   limit = Math.max(Math.min(limit, MAX_LIMIT), MIN_LIMIT);
-  let orderBy = q.orderBy || "p_outputs_open";
+  let orderBy = q.orderBy || "oa_status.open.percent";
   let orderDir = q.orderDir || "dsc";
 
   return {

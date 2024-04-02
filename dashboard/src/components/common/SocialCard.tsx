@@ -54,7 +54,7 @@ const Stats = ({ statsTitle, value, isPercent, ...rest }: StatsProps) => {
 };
 
 const SocialCard = ({ entity, ...rest }: ShareCardProps) => {
-  const pOpen = Math.round(entity.stats.p_outputs_open);
+  const pOpen = Math.round(entity.oa_status.open.percent);
   let titleFontSize = -1 * entity.name.length + 70;
   titleFontSize = Math.min(Math.max(titleFontSize, 32), 70);
 
@@ -89,9 +89,9 @@ const SocialCard = ({ entity, ...rest }: ShareCardProps) => {
               </VStack>
             </Flex>
             <Flex pt="12px" w="full" alignItems="center" justifyContent="space-between">
-              <Stats statsTitle={<>Publications</>} value={entity.stats.n_outputs} />
-              <Stats statsTitle={<>Open</>} value={entity.stats.n_outputs_open} />
-              <Stats statsTitle={<>Citations</>} value={entity.stats.n_citations} />
+              <Stats statsTitle={<>Publications</>} value={entity.n_outputs} />
+              <Stats statsTitle={<>Open</>} value={entity.oa_status.open.total} />
+              <Stats statsTitle={<>Citations</>} value={entity.n_citations} />
             </Flex>
           </VStack>
 

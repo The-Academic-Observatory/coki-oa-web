@@ -21,12 +21,12 @@ import React, { memo } from "react";
 
 function BreakdownCell({ entity }: EntityProps) {
   const href = makeHref(entity.entity_type, entity.id);
-  let stats = entity.stats;
+  let oa_status = entity.oa_status;
   let values = [
-    stats.p_outputs_publisher_open_only,
-    stats.p_outputs_both,
-    stats.p_outputs_other_platform_open_only,
-    stats.p_outputs_closed,
+    oa_status.publisher_only.percent,
+    oa_status.both.percent,
+    oa_status.other_platform_only.percent,
+    oa_status.closed.percent,
   ];
   const colors = ["#ffd700", "#4fa9dc", "#9FD27E", "#EBEBEB"];
   return (
