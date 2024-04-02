@@ -27,21 +27,20 @@ interface OtherPlatformOpenCardProps extends BoxProps {
 }
 
 const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) => {
-  const stats = entity.stats;
   const data = [
     {
       id: "Institution",
       label: "Institution",
-      value: stats.p_outputs_institution,
-      total_outputs: stats.n_outputs_institution,
+      value: entity.oa_status.other_platform_categories.institution.percent,
+      total_outputs: entity.oa_status.other_platform_categories.institution.total,
       icon: FaUniversity,
       description: "The percentage of other platform open articles that are available on institutional repositories.",
     },
     {
       id: "Preprint",
       label: "Preprint",
-      value: stats.p_outputs_preprint,
-      total_outputs: stats.n_outputs_preprint,
+      value: entity.oa_status.other_platform_categories.preprint.percent,
+      total_outputs: entity.oa_status.other_platform_categories.preprint.total,
       icon: FaFirstdraft,
       description:
         "The percentage of other platform open articles that are available on preprint repositories, such as arXiv, bioRxiv or medRxiv.",
@@ -49,8 +48,8 @@ const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) 
     {
       id: "Domain",
       label: "Domain",
-      value: stats.p_outputs_domain,
-      total_outputs: stats.n_outputs_domain,
+      value: entity.oa_status.other_platform_categories.domain.percent,
+      total_outputs: entity.oa_status.other_platform_categories.domain.total,
       icon: FaBriefcaseMedical,
       description:
         "The percentage of other platform open articles that are available on domain repositories such as PubMed Central, Europe PMC or Econstor.",
@@ -58,8 +57,8 @@ const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) 
     {
       id: "Public",
       label: "Public",
-      value: stats.p_outputs_public,
-      total_outputs: stats.n_outputs_public,
+      value: entity.oa_status.other_platform_categories.public.percent,
+      total_outputs: entity.oa_status.other_platform_categories.public.total,
       icon: FaUsers,
       description:
         "The percentage of other platform open articles that are available on public repositories, such as Semantic Scholar, Figshare or Zenodo.",
@@ -67,8 +66,8 @@ const OtherPlatformOpenCard = ({ entity, ...rest }: OtherPlatformOpenCardProps) 
     {
       id: "Other Internet",
       label: "Other Internet",
-      value: stats.p_outputs_other_internet,
-      total_outputs: stats.n_outputs_other_internet,
+      value: entity.oa_status.other_platform_categories.other_internet.percent,
+      total_outputs: entity.oa_status.other_platform_categories.other_internet.total,
       icon: TbWorld,
       description:
         "The percentage of other platform open articles that are available on the wider internet, including academic staff pages, blogs and unknown sources.",
