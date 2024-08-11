@@ -139,9 +139,9 @@ async function openFiltersForm(platform: string, entityType: string, page: Page,
   if (entityType == "country") {
     await expect(page.locator("tr[data-test='IDN']", { hasText: "Indonesia" })).toContainText("Indonesia");
   } else if (entityType == "institution") {
-    await expect(page.locator("tr[data-test='04v9m3h35']", { hasText: "ARC Centre of Excellence" })).toContainText(
-      "ARC Centre of Excellence",
-    );
+    await expect(
+      page.locator("tr[data-test='0579h7m09']", { hasText: "Creative Research Enterprises (United States)" }),
+    ).toContainText("Creative Research Enterprises (United States)");
   }
 
   // Click the filtering button for mobile.

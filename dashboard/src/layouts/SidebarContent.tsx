@@ -14,9 +14,11 @@
 //
 // Author: James Diprose
 
+import Link from "@/components/common/Link";
 import { LinkProps, NavItem } from "@/layouts";
-import { Box, BoxProps } from "@chakra-ui/react";
+import { Box, BoxProps, Button } from "@chakra-ui/react";
 import React, { memo } from "react";
+import { FaHeart } from "react-icons/fa";
 
 interface SidebarProps extends BoxProps {
   links: Array<LinkProps>;
@@ -31,6 +33,7 @@ const SidebarContent = ({ links, onClose, navbarHeightMobile, ...rest }: Sidebar
       position={{ base: "absolute", std: "relative" }}
       w="full"
       pt={{ base: 0, std: 90 }}
+      align="center"
       {...rest}
     >
       {links.map((link) => (
@@ -45,6 +48,21 @@ const SidebarContent = ({ links, onClose, navbarHeightMobile, ...rest }: Sidebar
           onClick={() => onClose()}
         />
       ))}
+
+      <Link href="https://give.curtin.edu.au/make-a-gift?fund=582" target="_blank" pointerEvents="auto">
+        <Button
+          mt="3rem"
+          leftIcon={<FaHeart />}
+          colorScheme="brand"
+          width="130px"
+          height="45px"
+          fontSize="1rem"
+          textTransform="uppercase"
+          variant="outline"
+        >
+          Sponsor
+        </Button>
+      </Link>
     </Box>
   );
 };

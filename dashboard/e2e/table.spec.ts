@@ -12,7 +12,7 @@ test("Should navigate to Country: Indonesia", async ({ page }) => {
   await expect(page.locator("h1")).toContainText("Indonesia");
 });
 
-test("Should navigate to Institution: ARC Centre of Excellence for All-sky Astrophysics", async ({ page }) => {
+test("Should navigate to Institution: Creative Research Enterprises (United States)", async ({ page }) => {
   const route = "/";
   await page.goto(route);
   await expect(page).toHaveURL(route);
@@ -20,9 +20,9 @@ test("Should navigate to Institution: ARC Centre of Excellence for All-sky Astro
   // Click Institution tab
   await page.locator("button[data-test='tab-institution']").click();
 
-  // Click 04v9m3h35
-  await page.locator("tr[data-test='04v9m3h35'] > td:first-of-type > a").click();
+  // Click 0579h7m09
+  await page.locator("tr[data-test='0579h7m09'] > td:first-of-type > a").click();
 
-  await expect(page).toHaveURL("/institution/04v9m3h35/");
-  await expect(page.locator("h1")).toContainText("ARC Centre of Excellence for All-sky Astrophysics");
+  await expect(page).toHaveURL("/institution/0579h7m09/");
+  await expect(page.locator("h1")).toContainText("Creative Research Enterprises (United States)");
 });
