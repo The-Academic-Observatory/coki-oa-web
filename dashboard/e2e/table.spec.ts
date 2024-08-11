@@ -20,9 +20,9 @@ test("Should navigate to Institution: Creative Research Enterprises (United Stat
   // Click Institution tab
   await page.locator("button[data-test='tab-institution']").click();
 
-  // Click 04v9m3h35
+  // Click 0579h7m09
   await page.locator("tr[data-test='0579h7m09'] > td:first-of-type > a").click();
 
-  await expect(page).toHaveURL("/institution/04v9m3h35/");
+  await expect(page).toHaveURL("/institution/0579h7m09/");
   await expect(page.locator("h1")).toContainText("Creative Research Enterprises (United States)");
 });
