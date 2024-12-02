@@ -26,13 +26,15 @@ export type Entity = {
   wikipedia_url: string;
   region: string;
   subregion: string;
-  country_name: string;
   country_code: string;
+  country_name: string;
   institution_type: string;
+  acronyms: Array<string>;
   start_year: number;
   end_year: number;
-  stats: PublicationStats;
-  identifiers: Array<Identifier>;
+  n_citations: number;
+  n_outputs: number;
+  oa_status: OAStatus;
   years: Array<Year>;
   repositories: Array<Repository>;
 };
@@ -45,57 +47,47 @@ export type Description = {
 
 export type Repository = {
   id: string;
-  total_outputs: number;
+  display_name: string;
   category: string;
+  ror_ids: Array<string>;
+  country_code: string;
   home_repo: boolean;
-};
-
-export type PublicationStats = {
-  n_citations: number;
   n_outputs: number;
-  n_outputs_open: number;
-  n_outputs_publisher_open: number;
-  n_outputs_publisher_open_only: number;
-  n_outputs_both: number;
-  n_outputs_other_platform_open: number;
-  n_outputs_other_platform_open_only: number;
-  n_outputs_closed: number;
-  n_outputs_oa_journal: number;
-  n_outputs_hybrid: number;
-  n_outputs_no_guarantees: number;
-  n_outputs_preprint: number;
-  n_outputs_domain: number;
-  n_outputs_institution: number;
-  n_outputs_public: number;
-  n_outputs_other_internet: number;
-  n_outputs_black: number;
-  p_outputs_open: number;
-  p_outputs_publisher_open: number;
-  p_outputs_publisher_open_only: number;
-  p_outputs_both: number;
-  p_outputs_other_platform_open: number;
-  p_outputs_other_platform_open_only: number;
-  p_outputs_closed: number;
-  p_outputs_oa_journal: number;
-  p_outputs_hybrid: number;
-  p_outputs_no_guarantees: number;
-  p_outputs_preprint: number;
-  p_outputs_domain: number;
-  p_outputs_institution: number;
-  p_outputs_public: number;
-  p_outputs_other_internet: number;
-  p_outputs_black: number;
 };
 
-export type Identifier = {
-  id: string;
-  type: string;
+export type Metric = {
+  total: number;
+  percent: number;
+};
+
+export type OAStatus = {
+  open: Metric;
+  closed: Metric;
+  publisher: Metric;
+  other_platform: Metric;
+  publisher_only: Metric;
+  both: Metric;
+  other_platform_only: Metric;
+  publisher_categories: {
+    oa_journal: Metric;
+    hybrid: Metric;
+    no_guarantees: Metric;
+  };
+  other_platform_categories: {
+    preprint: Metric;
+    domain: Metric;
+    institution: Metric;
+    public: Metric;
+    other_internet: Metric;
+  };
 };
 
 export type Year = {
-  year: number;
+  publication_year: number;
   date: string;
-  stats: PublicationStats;
+  n_citations: number;
+  n_outputs: number;
+  oa_status: OAStatus;
 };
 
 export type ZenodoVersion = {
@@ -103,11 +95,17 @@ export type ZenodoVersion = {
   download_url: string;
 };
 
+export type SummaryMetrics = {
+  p_outputs_open: number;
+  n_outputs: number;
+  n_outputs_open: number;
+};
+
 export type EntityStats = {
   n_items: number;
-  min: PublicationStats;
-  max: PublicationStats;
-  median: PublicationStats;
+  min: SummaryMetrics;
+  max: SummaryMetrics;
+  median: SummaryMetrics;
   histograms: EntityHistograms;
 };
 

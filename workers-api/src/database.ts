@@ -25,24 +25,21 @@ const VALID_ENTITY_TYPES = new Set(["country", "institution"]);
 const VALID_ORDER_BY = new Set([
   "name",
   "n_outputs",
-  "n_outputs_open",
-  "p_outputs_open",
-  "n_outputs_black",
-  "p_outputs_black",
+  "oa_status.open.total",
+  "oa_status.open.percent",
 ]);
+const ORDER_BY_INDEX = {
+  name: "name_ascii_folded",
+  n_outputs: "n_outputs",
+  "oa_status.open.total": "n_outputs_open",
+  "oa_status.open.percent": "p_outputs_open",
+} as Dict;
 const VALID_ORDER_DIR = new Set(["asc", "dsc"]);
 const PROPERTIES_TO_DELETE = [
   "entity_id",
-  "n_outputs",
   "n_outputs_open",
   "p_outputs_open",
-  "p_outputs_publisher_open_only",
-  "p_outputs_both",
-  "p_outputs_other_platform_open_only",
-  "p_outputs_closed",
   "total_rows",
-  "n_outputs_black",
-  "p_outputs_black",
   "acronyms",
   "search_weight",
   "search_country_region_weight",
@@ -70,7 +67,7 @@ const PROPERTIES_TO_DELETE = [
 // The Miniflare V2 db.exec doesn't parse SQL very well, hence the lack of newlines and comments
 const SCHEMA = `DROP TABLE IF EXISTS entity;
 DROP TABLE IF EXISTS entity_fts5;
-CREATE TABLE entity (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_id TEXT NOT NULL, entity_type TEXT NOT NULL, name TEXT NOT NULL, name_ascii_folded TEXT NOT NULL, acronyms TEXT, logo_sm TEXT NOT NULL, subregion TEXT NOT NULL, region TEXT NOT NULL, country_code INTEGER, country_name TEXT, institution_type TEXT, n_outputs INT NOT NULL, n_outputs_open INT NOT NULL, n_outputs_black INT NOT NULL, p_outputs_open FLOAT NOT NULL, p_outputs_publisher_open_only FLOAT NOT NULL, p_outputs_both FLOAT NOT NULL, p_outputs_other_platform_open_only FLOAT NOT NULL, p_outputs_closed FLOAT NOT NULL, p_outputs_black FLOAT NOT NULL, search_weight FLOAT NOT NULL, search_country_region_weight FLOAT NOT NULL, search_inst_country_weight FLOAT NOT NULL);
+CREATE TABLE entity (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_id TEXT NOT NULL, entity_type TEXT NOT NULL, name TEXT NOT NULL, name_ascii_folded TEXT NOT NULL, acronyms TEXT, logo_sm TEXT NOT NULL, subregion TEXT NOT NULL, region TEXT NOT NULL, country_code INTEGER, country_name TEXT, institution_type TEXT, n_outputs INT NOT NULL, oa_status JSON NOT NULL, search_weight FLOAT NOT NULL, search_country_region_weight FLOAT NOT NULL, search_inst_country_weight FLOAT NOT NULL, n_outputs_open AS (json_extract(oa_status, '$.open.total')) STORED, p_outputs_open AS (json_extract(oa_status, '$.open.percent')) STORED);
 CREATE INDEX idx_entity_entity_type ON entity(entity_type);
 CREATE INDEX idx_entity_name ON entity(name);
 CREATE INDEX idx_entity_name_ascii_folded ON entity(name_ascii_folded);
@@ -146,9 +143,9 @@ export function entitiesToSQL(entities: Array<Entity>) {
     const countryCode = entity.country_code;
     if (countryCode && entity.entity_type === "institution") {
       if (!(countryCode in instCountryMaxOutputs)) {
-        instCountryMaxOutputs[countryCode] = entity.stats.n_outputs;
-      } else if (entity.stats.n_outputs > instCountryMaxOutputs[countryCode]) {
-        instCountryMaxOutputs[countryCode] = entity.stats.n_outputs;
+        instCountryMaxOutputs[countryCode] = entity.n_outputs;
+      } else if (entity.n_outputs > instCountryMaxOutputs[countryCode]) {
+        instCountryMaxOutputs[countryCode] = entity.n_outputs;
       }
     }
   }
@@ -159,9 +156,9 @@ export function entitiesToSQL(entities: Array<Entity>) {
     const region = entity.region;
     if (entity.entity_type === "country") {
       if (!(region in countryRegionMaxOutputs)) {
-        countryRegionMaxOutputs[region] = entity.stats.n_outputs;
-      } else if (entity.stats.n_outputs > countryRegionMaxOutputs[region]) {
-        countryRegionMaxOutputs[region] = entity.stats.n_outputs;
+        countryRegionMaxOutputs[region] = entity.n_outputs;
+      } else if (entity.n_outputs > countryRegionMaxOutputs[region]) {
+        countryRegionMaxOutputs[region] = entity.n_outputs;
       }
     }
   }
@@ -185,7 +182,7 @@ export function entitiesToSQL(entities: Array<Entity>) {
     let search_weight = 1.0;
     let search_country_region_weight = 1.0;
     let search_inst_country_weight = 1.0;
-    entity.stats.n_outputs;
+
     if (entity.entity_type === "country") {
       // Make countries appear higher in results than institutions
       // E.g. when you type "New Zealand", the New Zealand entity should appear first and then institutions from New Zealand
@@ -193,13 +190,12 @@ export function entitiesToSQL(entities: Array<Entity>) {
 
       // When searching by region, make countries with more publications appear first
       search_country_region_weight =
-        1 + entity.stats.n_outputs / countryRegionMaxOutputs[entity.region];
+        1 + entity.n_outputs / countryRegionMaxOutputs[entity.region];
     } else if (entity.entity_type === "institution") {
       // When searching by country, make institutions with more publications appear first
       search_inst_country_weight =
         1 +
-        entity.stats.n_outputs /
-          instCountryMaxOutputs[entity.country_code as string];
+        entity.n_outputs / instCountryMaxOutputs[entity.country_code as string];
     }
 
     // Careful with the ordering of these!
@@ -216,15 +212,8 @@ export function entitiesToSQL(entities: Array<Entity>) {
       country_code,
       country_name,
       institution_type,
-      entity.stats.n_outputs,
-      entity.stats.n_outputs_open,
-      entity.stats.n_outputs_black,
-      entity.stats.p_outputs_open,
-      entity.stats.p_outputs_publisher_open_only,
-      entity.stats.p_outputs_both,
-      entity.stats.p_outputs_other_platform_open_only,
-      entity.stats.p_outputs_closed,
-      entity.stats.p_outputs_black,
+      entity.n_outputs,
+      JSON.stringify(entity.oa_status),
       search_weight,
       search_country_region_weight,
       search_inst_country_weight,
@@ -264,22 +253,9 @@ export function rowsToEntities(rows: Array<Dict>): Array<Entity> {
   for (let i = 0; i < rows.length; i++) {
     let row = rows[i];
 
-    // Set id
+    // Set id and parse oa_status
     row["id"] = row["entity_id"];
-
-    // Nest the stats object
-    row["stats"] = {
-      n_outputs: row["n_outputs"],
-      n_outputs_open: row["n_outputs_open"],
-      n_outputs_black: row["n_outputs_black"],
-      p_outputs_open: row["p_outputs_open"],
-      p_outputs_publisher_open_only: row["p_outputs_publisher_open_only"],
-      p_outputs_both: row["p_outputs_both"],
-      p_outputs_other_platform_open_only:
-        row["p_outputs_other_platform_open_only"],
-      p_outputs_closed: row["p_outputs_closed"],
-      p_outputs_black: row["p_outputs_black"],
-    };
+    row["oa_status"] = JSON.parse(row["oa_status"]);
 
     // Delete unused properties
     const properties = [...PROPERTIES_TO_DELETE]; // Copy array otherwise we end up modifying it
@@ -527,7 +503,7 @@ export async function filterEntities(
 
   // Order by
   // TODO: replace with a unicode coalesce algorithm when this is supported in D1
-  let orderBy = query.orderBy === "name" ? "name_ascii_folded" : query.orderBy;
+  let orderBy = ORDER_BY_INDEX[query.orderBy];
   orderBy = `ORDER BY entity.${orderBy} ${convertOrderDirection(
     query.orderDir,
   )}`;
