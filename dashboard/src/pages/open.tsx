@@ -101,10 +101,10 @@ export default function Open() {
           Why is Open Access important?
         </Text>
         <Text textStyle="p">
-          Out of 42 million journal articles and conference papers published since 2010, 47% are accessible in some form
-          and <b>more than 53% are Closed!</b> This means that academics and institutions that cannot afford to
-          subscribe to expensive Subscription Journals{" "}
-          <b>will struggle to read 53% of papers published in the last 10 years.</b> Not to mention the general public,
+          Out of 66 million journal articles and conference papers published from 2010 to 2024, 50% are accessible in
+          some form and <b>more than 50% are Closed!</b> This means that academics and institutions that cannot afford
+          to subscribe to expensive Subscription Journals{" "}
+          <b>will struggle to read 50% of papers published in the last 15 years.</b> Not to mention the general public,
           businesses, and people in developing nations.
         </Text>
 
