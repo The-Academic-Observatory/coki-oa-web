@@ -27,7 +27,7 @@ test("Institution tab region filter: Americas", async ({ page, isMobile }) => {
   await testRegionFilter(
     "institution",
     "Americas",
-    [{ id: "04b6ahj46", name: "Universidad Independiente" }],
+    [{ id: "01trfvq12", name: "NASA Exoplanet Science Institute" }],
     page,
     isMobile,
   );
@@ -37,7 +37,7 @@ test("Institution tab region filter: Asia", async ({ page, isMobile }) => {
   await testRegionFilter(
     "institution",
     "Asia",
-    [{ id: "00tas1680", name: "North Sumatra Islamic University" }],
+    [{ id: "01pp5tt34", name: "Science Council of Japan" }],
     page,
     isMobile,
   );
