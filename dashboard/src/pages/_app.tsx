@@ -14,7 +14,6 @@
 //
 // Author: James Diprose
 
-import { Fonts } from "@/components/common";
 import { Layout } from "@/layouts";
 import "@/styles/globals.css";
 import "@/theme/styles.css";
@@ -30,7 +29,6 @@ function OpenAccessWebApp({ Component, pageProps }: AppProps) {
       {process.env.COKI_ENVIRONMENT === "production" && (
         <Script data-domain="open.coki.ac" src="/js/script.js" strategy="lazyOnload" />
       )}
-      <Fonts />
       <Layout>
         <Component {...pageProps} />
       </Layout>
