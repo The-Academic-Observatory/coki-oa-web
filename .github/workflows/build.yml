@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set environment develop
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature/')
         run: echo "COKI_ENVIRONMENT=develop" >> $GITHUB_ENV
 
       - name: Set environment staging
@@ -62,3 +62,4 @@ jobs:
           vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
           vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel_token: ${{ secrets.VERCEL_TOKEN }}
+          typekit_id: ${{ secrets.NEXT_PUBLIC_TYPEKIT_ID }}

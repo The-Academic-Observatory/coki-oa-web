@@ -9,6 +9,7 @@ module.exports = {
   swcMinify: true,
   optimizeFonts: false,
   env: {
+    NEXT_PUBLIC_TYPEKIT_ID: process.env.NEXT_PUBLIC_TYPEKIT_ID,
     COKI_ENVIRONMENT: process.env.COKI_ENVIRONMENT,
     COKI_SITE_URL: process.env.COKI_SITE_URL,
     COKI_API_URL: process.env.COKI_API_URL,
