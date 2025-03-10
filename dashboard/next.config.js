@@ -3,19 +3,18 @@ const path = require("path");
 const { nanoid } = require("nanoid");
 const webpack = require("webpack");
 
-// Check that all environment variables are defined
-const envVars = ["NEXT_PUBLIC_TYPEKIT_ID", "COKI_ENVIRONMENT", "COKI_SITE_URL", "COKI_API_URL", "COKI_IMAGES_URL"];
-const missingEnvVars = envVars.filter((varName) => !process.env[varName]);
-if (missingEnvVars.length > 0) {
-  throw new Error(`Missing required environment variables: ${missingEnvVars.join(", ")}`);
-}
-
 module.exports = {
   reactStrictMode: true,
   trailingSlash: true,
   swcMinify: true,
   optimizeFonts: false,
-  env: Object.fromEntries(envVars.map((varName) => [varName, process.env[varName]])),
+  env: {
+    NEXT_PUBLIC_TYPEKIT_ID: process.env.NEXT_PUBLIC_TYPEKIT_ID,
+    COKI_ENVIRONMENT: process.env.COKI_ENVIRONMENT,
+    COKI_SITE_URL: process.env.COKI_SITE_URL,
+    COKI_API_URL: process.env.COKI_API_URL,
+    COKI_IMAGES_URL: process.env.COKI_IMAGES_URL,
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
