@@ -9,7 +9,6 @@ on:
     branches:
       - develop
       - main
-      - feature/typekit-id
 
 jobs:
   build:
