@@ -27,37 +27,57 @@ export interface Entity extends Object {
   country_name?: string;
   institution_type?: string;
   acronyms?: Array<string>;
-  stats: PublicationStats;
+  n_outputs: number;
+  oa_status: OAStatus;
   years: Array<Year>;
   repositories: Array<Repository>;
   start_year: number;
   end_year: number;
 }
 
-export interface PublicationStats extends Object, Dict {
-  n_outputs: number;
-  n_outputs_open: number;
-  n_outputs_black: number;
-  p_outputs_open: number;
-  p_outputs_publisher_open_only: number;
-  p_outputs_both: number;
-  p_outputs_other_platform_open_only: number;
-  p_outputs_closed: number;
-  p_outputs_black: number;
-}
-
-export interface Year {
+export type Year = {
   year: number;
   date: string;
-  stats: PublicationStats;
-}
+  n_citations: number;
+  n_outputs: number;
+  oa_status: OAStatus;
+};
 
-export interface Repository extends Dict {
+export type Repository = {
   id: string;
-  total_outputs: number;
-  entity_type: string;
+  display_name: string;
+  category: string;
+  ror_ids: Array<string>;
+  country_code: string;
   home_repo: boolean;
-}
+  n_outputs: number;
+};
+
+export type Metric = {
+  total: number;
+  percent: number;
+};
+
+export type OAStatus = {
+  open: Metric;
+  closed: Metric;
+  publisher: Metric;
+  other_platform: Metric;
+  both: Metric;
+  other_platform_only: Metric;
+  publisher_categories: {
+    oa_journal: Metric;
+    hybrid: Metric;
+    no_guarantees: Metric;
+  };
+  other_platform_categories: {
+    preprint: Metric;
+    domain: Metric;
+    institution: Metric;
+    public: Metric;
+    other_internet: Metric;
+  };
+};
 
 export type Query = {
   ids: Set<string>;

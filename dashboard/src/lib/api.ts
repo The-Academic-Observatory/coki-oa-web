@@ -134,27 +134,31 @@ export function quantizeGroup(entity: Object, keys: Array<string>) {
 export function quantizeEntityPercentages(entity: Entity) {
   // Make percentage publisher open only, both, other platform open only and closed add to 100
   const oaKeys = [
-    "stats.p_outputs_publisher_open_only",
-    "stats.p_outputs_both",
-    "stats.p_outputs_other_platform_open_only",
-    "stats.p_outputs_closed",
+    "oa_status.publisher_only.percent",
+    "oa_status.both.percent",
+    "oa_status.other_platform_only.percent",
+    "oa_status.closed.percent",
   ];
-  if (entity.stats.n_outputs > 0) {
+  if (entity.n_outputs > 0) {
     quantizeGroup(entity, oaKeys);
   }
 
   // Make percentage oa_journal, hybrid and no_guarantees add to 100
-  const pubKeys = ["stats.p_outputs_oa_journal", "stats.p_outputs_hybrid", "stats.p_outputs_no_guarantees"];
-  if (entity.stats.n_outputs_publisher_open > 0) {
+  const pubKeys = [
+    "oa_status.publisher_categories.oa_journal.percent",
+    "oa_status.publisher_categories.hybrid.percent",
+    "oa_status.publisher_categories.no_guarantees.percent",
+  ];
+  if (entity.oa_status.publisher.total > 0) {
     quantizeGroup(entity, pubKeys);
   }
 
   entity.years.forEach((year) => {
-    if (year.stats.n_outputs > 0) {
+    if (year.n_outputs > 0) {
       quantizeGroup(year, oaKeys);
     }
 
-    if (year.stats.n_outputs_publisher_open > 0) {
+    if (year.oa_status.publisher.total > 0) {
       quantizeGroup(year, pubKeys);
     }
   });

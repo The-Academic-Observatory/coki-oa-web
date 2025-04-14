@@ -76,7 +76,7 @@ const IndexTable = ({
       {
         Header: Header,
         id: "open",
-        accessor: "stats.p_outputs_open",
+        accessor: "oa_status.open.percent",
         Cell: OpenCell,
         minWidth: 70,
         maxWidth: 200,
@@ -86,7 +86,7 @@ const IndexTable = ({
       {
         Header: Header,
         id: "breakdown",
-        accessor: "stats.p_outputs_open",
+        accessor: "oa_status.open.percent",
         Cell: BreakdownCell,
         minWidth: 130,
         maxWidth: 200,
@@ -96,7 +96,7 @@ const IndexTable = ({
       {
         Header: Header,
         id: "totalPublications",
-        accessor: "stats.n_outputs",
+        accessor: "n_outputs",
         Cell: NumberCell,
         isNumeric: true,
         minWidth: 100,
@@ -107,7 +107,7 @@ const IndexTable = ({
       {
         Header: Header,
         id: "openPublications",
-        accessor: "stats.n_outputs_open",
+        accessor: "oa_status.open.total",
         Cell: NumberCell,
         isNumeric: true,
         minWidth: 100,

@@ -76,7 +76,7 @@ export const queryFormToQueryParams = (queryForm: QueryForm): QueryParams => {
     // Set page values
     page: queryForm.page.page,
     limit: queryForm.page.limit,
-    orderBy: queryForm.page.orderBy.replace("stats.", ""), // Remove stats. as nested fields are not used by the API,
+    orderBy: queryForm.page.orderBy,
     orderDir: queryForm.page.orderDir,
 
     // Default arrays
@@ -144,7 +144,7 @@ export const makeFormValues = (entityStats: EntityStats, minNOutputs?: number): 
     page: {
       page: 0,
       limit: MAX_PAGE_SIZE,
-      orderBy: "stats.p_outputs_open",
+      orderBy: "oa_status.open.percent",
       orderDir: "dsc",
     },
     ids: [],

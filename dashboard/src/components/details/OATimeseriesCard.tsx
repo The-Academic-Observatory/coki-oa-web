@@ -38,15 +38,14 @@ const OATimeseriesCard = ({ entity, ...rest }: OATimeseriesCardProps) => {
 
   // Merge real data with zeroed data
   entity.years.forEach((t) => {
-    const year = t.year;
-    const stats = t.stats;
+    const year = t.publication_year;
     const i = year - entity.start_year;
 
     data[i] = {
-      "Publisher Open": stats.p_outputs_publisher_open_only,
-      Both: stats.p_outputs_both,
-      "Other Platform Open": stats.p_outputs_other_platform_open_only,
-      Closed: stats.p_outputs_closed,
+      "Publisher Open": t.oa_status.publisher_only.percent,
+      Both: t.oa_status.both.percent,
+      "Other Platform Open": t.oa_status.other_platform_only.percent,
+      Closed: t.oa_status.closed.percent,
     };
   });
 

@@ -38,18 +38,17 @@ const OAVolumeCard = ({ entity, ...rest }: OAVolumeCardProps) => {
   // Merge real data with zeroed data
   let maxOutputs = 0;
   entity.years.forEach((t) => {
-    const year = t.year;
-    const stats = t.stats;
+    const year = t.publication_year;
     const i = year - entity.start_year;
 
-    if (stats.n_outputs > maxOutputs) {
-      maxOutputs = stats.n_outputs;
+    if (t.n_outputs > maxOutputs) {
+      maxOutputs = t.n_outputs;
     }
 
     data[i] = {
       year: year,
-      Open: stats.n_outputs_open,
-      Closed: stats.n_outputs_closed,
+      Open: t.oa_status.open.total,
+      Closed: t.oa_status.closed.total,
     };
   });
 

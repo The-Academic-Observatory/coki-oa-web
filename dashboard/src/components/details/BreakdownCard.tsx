@@ -25,12 +25,11 @@ interface BreakdownCardProps extends BoxProps {
 }
 
 const BreakdownCard = ({ entity, ...rest }: BreakdownCardProps) => {
-  const stats = entity.stats;
   const values = [
-    stats.p_outputs_publisher_open_only,
-    stats.p_outputs_both,
-    stats.p_outputs_other_platform_open_only,
-    stats.p_outputs_closed,
+    entity.oa_status.publisher_only.percent,
+    entity.oa_status.both.percent,
+    entity.oa_status.other_platform_only.percent,
+    entity.oa_status.closed.percent,
   ];
   const colors = ["#ffd700", "#4fa9dc", "#9FD27E", "#EBEBEB"];
   const labels = ["Publisher Open", "Both", "Other Platform Open", "Closed"];

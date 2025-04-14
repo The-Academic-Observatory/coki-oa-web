@@ -64,7 +64,7 @@ interface ColumnProps {
 const ColumnHeaders: { [id: string]: string } = {
   name: "Name",
   category: "Platform Type",
-  total_outputs: "Publications",
+  n_outputs: "Publications",
 };
 
 function Header({ column }: ColumnProps) {
@@ -91,7 +91,7 @@ function Header({ column }: ColumnProps) {
 }
 
 function RepoCell({ value, repo, max }: RepositoryProps) {
-  const percent = (repo.total_outputs / max) * 100;
+  const percent = (repo.n_outputs / max) * 100;
   return (
     // Creates bars
     <Box
@@ -226,7 +226,7 @@ const OtherPlatformLocationsCard = ({ entity, ...rest }: TopOtherPlatformOpenCar
         Header: Header,
         Cell: RepoCell,
         id: "name",
-        accessor: "id",
+        accessor: "display_name",
         minWidth: "200px",
         width: "60%",
       },
@@ -239,8 +239,8 @@ const OtherPlatformLocationsCard = ({ entity, ...rest }: TopOtherPlatformOpenCar
       },
       {
         Header: Header,
-        id: "total_outputs",
-        accessor: "total_outputs",
+        id: "n_outputs",
+        accessor: "n_outputs",
         isNumeric: true,
         Cell: NumberCell,
         sortDescFirst: true,
@@ -252,7 +252,7 @@ const OtherPlatformLocationsCard = ({ entity, ...rest }: TopOtherPlatformOpenCar
   const [maxPubs, setMaxPubs] = React.useState(0);
   const [platformType, setPlatformType] = React.useState("");
   const [onlyHomeRepos, setOnlyHomeRepos] = React.useState(false);
-  const defaultSortBy = React.useMemo<Array<any>>(() => [{ id: "total_outputs", desc: true }], []);
+  const defaultSortBy = React.useMemo<Array<any>>(() => [{ id: "n_outputs", desc: true }], []);
   const data = React.useMemo(() => {
     let repos = [];
     let max = 0;
@@ -266,8 +266,8 @@ const OtherPlatformLocationsCard = ({ entity, ...rest }: TopOtherPlatformOpenCar
         (!onlyHomeRepos && (platformType === "" || platformType === repo.category));
 
       if (include) {
-        if (repo.total_outputs > max) {
-          max = repo.total_outputs;
+        if (repo.n_outputs > max) {
+          max = repo.n_outputs;
         }
         repos.push(repo);
       }

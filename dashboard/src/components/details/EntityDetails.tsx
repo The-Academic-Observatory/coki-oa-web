@@ -48,14 +48,14 @@ export interface EntityDetailsProps {
 }
 
 export function makePageDescription(
-  entity: Pick<Entity, "stats" | "entity_type" | "name" | "country_name" | "start_year" | "end_year">,
+  entity: Pick<Entity, "oa_status" | "entity_type" | "name" | "country_name" | "start_year" | "end_year">,
   stats: Stats,
 ): string {
-  const pOpen = Math.round(entity.stats.p_outputs_open);
+  const pOpen = Math.round(entity.oa_status.open.percent);
   // When the entity's OA% is over median say Over when under don't add any prefix
   let metaDescription = "Over ";
   const median_p_outputs_open = lodashGet(stats, `${entity.entity_type}.median.p_outputs_open`);
-  if (median_p_outputs_open === undefined || entity.stats.p_outputs_open < median_p_outputs_open) {
+  if (median_p_outputs_open === undefined || entity.oa_status.open.percent < median_p_outputs_open) {
     metaDescription = "";
   }
   metaDescription +=
