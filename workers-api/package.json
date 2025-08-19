@@ -33,7 +33,7 @@
     "tsx": "^4.20.4",
     "typescript": "^5.3.3",
     "vitest": "^0.33.0",
-    "wrangler": "^3.0.0"
+    "wrangler": "3.103.2"
   },
   "dependencies": {
     "@json2csv/plainjs": "7.0.5",
