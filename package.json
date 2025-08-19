@@ -9,5 +9,9 @@
     "workers-images",
     "social-cards"
   ],
-  "packageManager": "yarn@4.1.0"
+  "packageManager": "yarn@4.1.0",
+  "dependencies": {
+    "wrangler": "^4.31.0",
+    "yarn": "^1.22.22"
+  }
 }

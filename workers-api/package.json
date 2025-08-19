@@ -8,10 +8,13 @@
   "main": "./dist/index.mjs",
   "scripts": {
     "dev": "yarn run wrangler dev --config wrangler.local.toml",
-    "build": "node --loader ts-node/esm build.ts",
+    "build": "tsx build.ts",
     "test": "yarn run build && NODE_OPTIONS=--experimental-vm-modules npx vitest run",
     "format": "prettier --write '**/*.{js,css,json,md}'",
     "types:check": "tsc && tsc -p tsconfig.json"
+  },
+  "engines": {
+    "node": "^22.0.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230914.0",
@@ -19,20 +22,18 @@
     "@types/fold-to-ascii": "^5.0.2",
     "@types/lodash.get": "^4.4.9",
     "@types/lodash.set": "^4.3.9",
-    "@types/node": "^20.11.17",
     "@types/tmp": "^0.2.6",
-    "better-sqlite3": "8.0.1",
+    "better-sqlite3": "^12.0.0",
     "decompress": "^4.2.1",
     "deepcopy": "^2.1.0",
     "esbuild": "^0.20.0",
     "license-checker-rseidelsohn": "^4.3.0",
     "prettier": "^3.2.5",
     "tmp": "^0.2.1",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.20.4",
     "typescript": "^5.3.3",
     "vitest": "^0.33.0",
-    "vitest-environment-miniflare": "^2.14.2",
-    "wrangler": "^3.28.0"
+    "wrangler": "^3.0.0"
   },
   "dependencies": {
     "@json2csv/plainjs": "7.0.5",
@@ -41,7 +42,8 @@
     "itty-router": "^2.6.6",
     "jszip": "3.10.1",
     "lodash.get": "^4.4.2",
-    "lodash.set": "^4.3.2"
+    "lodash.set": "^4.3.2",
+    "miniflare": "^4.20250816.0"
   },
   "browser": {
     "fs": false,

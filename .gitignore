@@ -5,6 +5,14 @@
 /public/social-cards
 /workers-api/public
 
+# generated data
+country/*
+institution/*
+country.json
+institution.json
+stats.json
+index.json
+
 # dependencies
 /node_modules
 /.pnp
