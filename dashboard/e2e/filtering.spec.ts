@@ -24,7 +24,7 @@ test("Institution tab region filter: Africa", async ({ page, isMobile }) => {
 });
 
 test("Institution tab region filter: Americas", async ({ page, isMobile }) => {
-  await testRegionFilter("institution", "Americas", [{ id: "01trfvq12", name: "Creative Commons" }], page, isMobile);
+  await testRegionFilter("institution", "Americas", [{ id: "02ed4cj64", name: "Creative Commons" }], page, isMobile);
 });
 
 test("Institution tab region filter: Asia", async ({ page, isMobile }) => {
