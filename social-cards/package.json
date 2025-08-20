@@ -7,7 +7,7 @@
     "render": "node --loader ts-node/esm social-cards.ts"
   },
   "engine": {
-    "node": "^22.0.0"
+    "node": "22.x"
   },
   "devDependencies": {
     "puppeteer": "^21.11.0",

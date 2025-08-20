@@ -14,7 +14,7 @@
     "types:check": "tsc && tsc -p tsconfig.json"
   },
   "engines": {
-    "node": "^22.0.0"
+    "node": "22.x"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230914.0",

@@ -14,7 +14,7 @@
     "licenses": "tsx ../bin/licenses.ts ../"
   },
   "engines": {
-    "node": "^22.0.0"
+    "node": "22.x"
   },
   "dependencies": {
     "@chakra-ui/form-control": "^2.2.0",
@@ -82,7 +82,7 @@
     "tsx": "^4.20.4",
     "typescript": "^5.3.3",
     "uuid": "^9.0.1",
-    "vercel": "^33.4.1"
+    "vercel": "^44.0.0"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"
