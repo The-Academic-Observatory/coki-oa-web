@@ -6,11 +6,13 @@
   "scripts": {
     "render": "node --loader ts-node/esm social-cards.ts"
   },
+  "engine": {
+    "node": "22.x"
+  },
   "devDependencies": {
-    "@types/node": "^20.11.17",
     "puppeteer": "^21.11.0",
     "puppeteer-cluster": "^0.23.0",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.20.4",
     "typescript": "^5.3.3"
   },
   "browser": {

@@ -11,7 +11,10 @@
     "export": "next export",
     "test:e2e": "playwright test",
     "test:jest": "jest",
-    "licenses": "ts-node ../bin/licenses.ts ../"
+    "licenses": "tsx ../bin/licenses.ts ../"
+  },
+  "engines": {
+    "node": "22.x"
   },
   "dependencies": {
     "@chakra-ui/form-control": "^2.2.0",
@@ -53,13 +56,12 @@
     "@playwright/test": "^1.41.2",
     "@svgr/webpack": "^6.5.1",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/react": "^15.0.6",
     "@types/d3": "^7.4.3",
     "@types/jest": "^28.1.8",
     "@types/lodash.get": "^4.4.9",
     "@types/lodash.isequal": "^4.5.8",
     "@types/lodash.set": "^4.3.9",
-    "@types/node": "^20.11.17",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@types/react-table": "^7.7.8",
@@ -77,10 +79,10 @@
     "next-sitemap": "^2.5.28",
     "prettier": "^3.2.5",
     "react-test-renderer": "^18.2.0",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.20.4",
     "typescript": "^5.3.3",
     "uuid": "^9.0.1",
-    "vercel": "^33.4.1"
+    "vercel": "^44.0.0"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"
