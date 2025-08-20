@@ -23,7 +23,7 @@ inputs:
   node_version:
     description: "The NodeJS version"
     required: true
-    default: "20.11.0"
+    default: "22.11.0"
   yarn_version:
     description: "The Yarn version"
     required: false
@@ -91,3 +91,4 @@ runs:
         gsutil cp gs://${{ inputs.bucket_name }}/${{ inputs.dataset_version }}/social-cards.zip ./data/social-cards.zip
         ./bin/images.sh .
       shell: bash
+
