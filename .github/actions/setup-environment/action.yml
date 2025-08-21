@@ -31,7 +31,7 @@ inputs:
   vercel_version:
     description: "The Vercel CLI version"
     required: false
-    default: "33.4.1"
+    default: "44.7.3"
   download_images:
     description: "Whether to download images or not"
     required: false
@@ -91,4 +91,3 @@ runs:
         gsutil cp gs://${{ inputs.bucket_name }}/${{ inputs.dataset_version }}/social-cards.zip ./data/social-cards.zip
         ./bin/images.sh .
       shell: bash
-
