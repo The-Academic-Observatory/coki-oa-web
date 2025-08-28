@@ -26,6 +26,8 @@ import statsRaw from "@data/data/stats.json";
 
 export const API_HOST = process.env.COKI_API_URL || "https://api.coki.ac";
 export const IMAGES_HOST = process.env.COKI_IMAGES_URL || "https://images.open.coki.ac";
+export const LOGOS_HOST = "https://img.logo.dev";
+export const LOGOS_API_TOKEN = process.env.LOGOS_API_TOKEN || "";
 
 export class OADataAPI {
   host: string;
@@ -71,7 +73,8 @@ export class OADataAPI {
     if (controller != null) {
       options.signal = controller.signal;
     }
-    return this.api.get(url, options);
+    const apiReturn = this.api.get(url, options);
+    return apiReturn;
   }
 
   async searchEntities(
@@ -244,6 +247,7 @@ export function makeDownloadDataUrl(host: string, entityType: string, id: string
 }
 
 export function makeSocialCardUrl(entityId: string): string {
+  // FIX: fix URL
   const url = new URL(`${IMAGES_HOST}/social-cards/${entityId}.jpg`);
   const params = new URLSearchParams();
   params.append("build", BUILD_ID);
@@ -251,8 +255,96 @@ export function makeSocialCardUrl(entityId: string): string {
   return url.toString();
 }
 
+export function entityImageLoader(entity: Entity, size: "sm" | "md" | "lg") {
+  if (entity.entity_type == "country") {
+    switch (size) {
+      case "md":
+        return cokiImageLoader(entity.logo_md);
+      case "lg":
+        return cokiImageLoader(entity.logo_lg);
+      default:
+        return cokiImageLoader(entity.logo_sm);
+    }
+  }
+  return logoImageLoader(entity.url, size);
+}
+
 export function cokiImageLoader(src: string) {
   return `${IMAGES_HOST}/${src}`;
+}
+
+/**
+ * Takes a URL string and returns the domain.
+ * @param url The url associated with the institution
+ * @returns The logo url
+ **/
+export function logoImageLoader(url: string, size: "sm" | "md" | "lg"): string {
+  if (url === null) {
+    console.log("null url provided");
+  }
+  let sizePx;
+  switch (size) {
+    case "md":
+      sizePx = "128";
+    case "lg":
+      sizePx = "512";
+    default:
+      sizePx = "32";
+  }
+  let logoUrl;
+  const domainUrl = getDomain(url);
+  if (typeof domainUrl !== "string") {
+    logoUrl = `${IMAGES_HOST}/unknown.svg`;
+  } else {
+    logoUrl = `${LOGOS_HOST}/${getDomain(url)}?token=${LOGOS_API_TOKEN}&size=${sizePx}`;
+  }
+  console.log(logoUrl);
+  return logoUrl;
+}
+
+/**
+ * Takes a URL string and returns the domain.
+ * @param url The URL string to process.
+ * @returns The domain name (e.g., "guc-asic.com") or null if the URL is invalid.
+ */
+// export function getDomain(url: string): string | null {
+//   try {
+//     const parsedUrl = new URL(url);
+//     const hostname = parsedUrl.hostname;
+//     // Remove "www." prefix if it exists
+//     return hostname.startsWith("www.") ? hostname.substring(4) : hostname;
+//   } catch (error) {
+//     // Return null for malformed or invalid URLs
+//     console.error(`Invalid URL provided: ${url}: ${error}`);
+//     return null;
+//   }
+// }
+
+/**
+ * Takes a URL string and returns the domain.
+ * It is idempotent.
+ * @param url The URL string to process.
+ * @returns The domain name (e.g., "guc-asic.com") or null if the URL is invalid.
+ */
+export function getDomain(url: string): string | null {
+  try {
+    let validatedUrl = url;
+    // Check if the URL starts with a protocol
+    if (!url.match(/^[a-z]+:\/\//i)) {
+      // If no protocol is found, prepend 'https://'
+      validatedUrl = `https://${url}`;
+    }
+
+    const parsedUrl = new URL(validatedUrl);
+    const hostname = parsedUrl.hostname;
+
+    // Remove "www." prefix if it exists
+    return hostname.startsWith("www.") ? hostname.substring(4) : hostname;
+  } catch (error) {
+    // Return null for malformed or invalid URLs
+    console.error(`Invalid URL provided: ${url}`);
+    return null;
+  }
 }
 
 export function idsToStaticPaths(ids: Array<string>, entityType?: string) {

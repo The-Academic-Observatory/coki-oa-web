@@ -15,7 +15,7 @@
 // Author: James Diprose
 
 import { BrandBadge, Link } from "@/components/common";
-import { cokiImageLoader } from "@/lib/api";
+import { entityImageLoader } from "@/lib/api";
 import { Entity } from "@/lib/model";
 import { Box, BoxProps, HStack, Image, Text } from "@chakra-ui/react";
 import React, { memo } from "react";
@@ -29,7 +29,7 @@ const SearchResult = ({ entity, onClick, ...rest }: SearchResultProps) => {
   return (
     <Box key={entity.id} textStyle="tableCell" data-test={entity.id} {...rest}>
       <Link href={`/${entity.entity_type}/${entity.id}`} onClick={onClick}>
-        <BrandBadge name={entity.name} imageSrc={cokiImageLoader(entity.logo_sm)} my="16px" />
+        <BrandBadge name={entity.name} imageSrc={entityImageLoader(entity, "sm")} my="16px" />
       </Link>
     </Box>
   );

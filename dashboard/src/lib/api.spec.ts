@@ -1,5 +1,6 @@
 import {
   cokiImageLoader,
+  getDomain,
   makeDownloadDataUrl,
   makeEntityUrl,
   makeFilterUrl,
@@ -76,4 +77,38 @@ test("test makeSocialCardUrl", () => {
 test("test cokiImageLoader", () => {
   const url = cokiImageLoader("path/to/image.jpg");
   expect(url).toEqual(`${IMAGES_HOST}/path/to/image.jpg`);
+});
+
+describe("getDomain", () => {
+  test("should correctly extract the domain from a valid URL", () => {
+    // Test a standard URL with 'www.'
+    let domain = getDomain("http://www.guc-asic.com/en-global");
+    expect(domain).toBe("guc-asic.com");
+
+    // Test a URL without 'www.'
+    domain = getDomain("https://example.com/path/to/page");
+    expect(domain).toBe("example.com");
+
+    // Test a different protocol like FTP
+    domain = getDomain("ftp://ftp.server.org/file.zip");
+    expect(domain).toBe("ftp.server.org");
+
+    // Test a URL with a subdomain
+    domain = getDomain("https://sub.domain.co.uk");
+    expect(domain).toBe("sub.domain.co.uk");
+  });
+
+  test("should return null for invalid or malformed URLs", () => {
+    // Test a completely invalid string
+    let domain = getDomain("this is not a url");
+    expect(domain).toBeNull();
+
+    // Test an empty string
+    domain = getDomain("");
+    expect(domain).toBeNull();
+
+    // Test a URL with no protocol
+    domain = getDomain("www.test.com");
+    expect(domain).toBe("test.com");
+  });
 });

@@ -15,7 +15,7 @@
 // Author: James Diprose
 
 import { DonutSparkline } from "@/components/charts";
-import { cokiImageLoader } from "@/lib/api";
+import { entityImageLoader } from "@/lib/api";
 import { Entity } from "@/lib/model";
 import { toCompactNumber } from "@/lib/utils";
 import { Box, BoxProps, Flex, HStack, Image, StackProps, Text, VStack } from "@chakra-ui/react";
@@ -65,7 +65,7 @@ const SocialCard = ({ entity, ...rest }: ShareCardProps) => {
           rounded="48px"
           objectFit="cover"
           boxSize={{ base: "532px" }}
-          src={cokiImageLoader(entity.logo_lg)}
+          src={entityImageLoader(entity, "lg")}
           alt={entity.name}
           style={{
             filter: "drop-shadow( 0px 0px 12px rgba(0, 0, 0, .3))",

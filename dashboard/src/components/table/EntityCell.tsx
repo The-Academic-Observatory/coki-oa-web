@@ -16,14 +16,14 @@
 
 import { BrandBadge, Link } from "@/components/common";
 import { EntityProps, makeHref } from "@/components/table";
-import { cokiImageLoader } from "@/lib/api";
+import { entityImageLoader } from "@/lib/api";
 import React, { memo } from "react";
 
 function EntityCell({ entity }: EntityProps) {
   const href = makeHref(entity.entity_type, entity.id);
   return (
     <Link href={href}>
-      <BrandBadge name={entity.name} imageSrc={cokiImageLoader(entity.logo_sm)} isMultiLine />
+      <BrandBadge name={entity.name} imageSrc={entityImageLoader(entity, "sm")} isMultiLine />
     </Link>
   );
 }

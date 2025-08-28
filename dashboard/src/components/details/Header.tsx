@@ -16,7 +16,7 @@
 
 import { TextCollapse } from "@/components/common";
 import { makeDescription, SharePopover } from "@/components/details";
-import { cokiImageLoader } from "@/lib/api";
+import { entityImageLoader } from "@/lib/api";
 import { Entity } from "@/lib/model";
 import { Box, Flex, HStack, Image, StackProps, Text, VStack } from "@chakra-ui/react";
 import React, { memo } from "react";
@@ -60,7 +60,7 @@ const Header = ({ entity, ...rest }: EntityHeaderProps) => {
               rounded="full"
               objectFit="cover"
               boxSize={{ base: "60px", md: "100px" }}
-              src={cokiImageLoader(entity.logo_md)}
+              src={entityImageLoader(entity, "md")}
               alt={entity.name}
               style={{
                 filter: "drop-shadow( 0px 0px 10px rgba(0, 0, 0, .2))",

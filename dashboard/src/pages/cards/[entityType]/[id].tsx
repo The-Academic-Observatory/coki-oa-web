@@ -40,6 +40,9 @@ export async function getStaticProps({ params }: Params) {
     if (entity === null) {
       return { notFound: true };
     }
+    if (entity.url === null) {
+      console.log("null url found at getStaticProps");
+    }
 
     return {
       props: {
@@ -63,7 +66,6 @@ export async function getStaticPaths() {
       "institution",
     );
     const paths = countryPaths.concat(institutionPaths);
-
     return {
       paths: paths,
       fallback: false,

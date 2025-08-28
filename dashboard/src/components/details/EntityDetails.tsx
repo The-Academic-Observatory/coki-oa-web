@@ -25,7 +25,7 @@ import {
   PublisherOpenCard,
   SummaryCard,
 } from "@/components/details";
-import { cokiImageLoader, makeSocialCardUrl } from "@/lib/api";
+import { entityImageLoader, makeSocialCardUrl } from "@/lib/api";
 import { Entity, Stats } from "@/lib/model";
 import { Box, Flex, VStack } from "@chakra-ui/react";
 import lodashGet from "lodash.get";
@@ -83,7 +83,7 @@ export const EntityDetails = ({ entity, stats, ...rest }: EntityDetailsProps) =>
         shareImageType="image/jpeg"
       >
         {/* Preload the entity logo */}
-        <link rel="preload" href={cokiImageLoader(entity.logo_md)} as="image" />
+        <link rel="preload" href={entityImageLoader(entity, "md")} as="image" />
       </Head>
 
       <Breadcrumbs

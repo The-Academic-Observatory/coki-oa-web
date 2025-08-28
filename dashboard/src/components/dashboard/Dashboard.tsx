@@ -18,7 +18,7 @@ import { Breadcrumbs, Head, Icon, PageLoader, TextCollapse } from "@/components/
 import { FilterForm, institutionTypes, OpenAccess, QueryForm } from "@/components/filter";
 import { Node } from "@/components/common/CheckboxTree";
 import { IndexTable } from "@/components/table";
-import { cokiImageLoader, OADataAPI } from "@/lib/api";
+import { entityImageLoader, OADataAPI } from "@/lib/api";
 import { useEffectAfterRender } from "@/lib/hooks";
 import { Entity, EntityStats, QueryParams, QueryResult, Stats } from "@/lib/model";
 import {
@@ -322,10 +322,10 @@ const Dashboard = ({ defaultEntityType, defaultCountries, defaultInstitutions, s
       <Head title={title} description={description}>
         {/* Preload the first page of country and institution logos */}
         {defaultCountries.items.map((e: Entity) => (
-          <link key={`${e.id}-logo-sm-preload`} rel="preload" href={cokiImageLoader(e.logo_sm)} as="image" />
+          <link key={`${e.id}-logo-sm-preload`} rel="preload" href={entityImageLoader(e, "sm")} as="image" />
         ))}
         {defaultInstitutions.items.map((e: Entity) => (
-          <link key={`${e.id}-logo-sm-preload`} rel="preload" href={cokiImageLoader(e.logo_sm)} as="image" />
+          <link key={`${e.id}-logo-sm-preload`} rel="preload" href={entityImageLoader(e, "sm")} as="image" />
         ))}
       </Head>
 
@@ -518,6 +518,7 @@ export async function getDashboardStaticProps() {
   const countryQuery = queryFormToQueryParams(makeFormValues(stats.country, DEFAULT_N_OUTPUTS));
   const countries = (await client.getEntities("country", countryQuery)).data;
   const institutionQuery = queryFormToQueryParams(makeFormValues(stats.institution, DEFAULT_N_OUTPUTS));
+  console.log(institutionQuery);
   const institutions = (await client.getEntities("institution", institutionQuery)).data;
 
   return {
