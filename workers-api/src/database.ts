@@ -68,17 +68,17 @@ const PROPERTIES_TO_DELETE = [
 // entity_fts5
 
 // The Miniflare V2 db.exec doesn't parse SQL very well, hence the lack of newlines and comments
-const SCHEMA = `DROP TABLE IF EXISTS entity;
+const ENTITY_SCHEMA = `DROP TABLE IF EXISTS entity;
 DROP TABLE IF EXISTS entity_fts5;
-CREATE TABLE entity (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_id TEXT NOT NULL, entity_type TEXT NOT NULL, name TEXT NOT NULL, name_ascii_folded TEXT NOT NULL, acronyms TEXT, logo_sm TEXT NOT NULL, subregion TEXT NOT NULL, region TEXT NOT NULL, country_code INTEGER, country_name TEXT, institution_type TEXT, n_outputs INT NOT NULL, n_outputs_open INT NOT NULL, n_outputs_black INT NOT NULL, p_outputs_open FLOAT NOT NULL, p_outputs_publisher_open_only FLOAT NOT NULL, p_outputs_both FLOAT NOT NULL, p_outputs_other_platform_open_only FLOAT NOT NULL, p_outputs_closed FLOAT NOT NULL, p_outputs_black FLOAT NOT NULL, search_weight FLOAT NOT NULL, search_country_region_weight FLOAT NOT NULL, search_inst_country_weight FLOAT NOT NULL);
+CREATE TABLE entity (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_id TEXT NOT NULL, entity_type TEXT NOT NULL, name TEXT NOT NULL, name_ascii_folded TEXT NOT NULL, acronyms TEXT, logo_sm TEXT, url TEXT, subregion TEXT NOT NULL, region TEXT NOT NULL, country_code INTEGER, country_name TEXT, institution_type TEXT, n_outputs INT NOT NULL, n_outputs_open INT NOT NULL, n_outputs_black INT NOT NULL, p_outputs_open FLOAT NOT NULL, p_outputs_publisher_open_only FLOAT NOT NULL, p_outputs_both FLOAT NOT NULL, p_outputs_other_platform_open_only FLOAT NOT NULL, p_outputs_closed FLOAT NOT NULL, p_outputs_black FLOAT NOT NULL, search_weight FLOAT NOT NULL, search_country_region_weight FLOAT NOT NULL, search_inst_country_weight FLOAT NOT NULL);
+CREATE VIRTUAL TABLE entity_fts5 USING fts5(name, acronyms, region, country_name, entity_type, content='none', tokenize='porter unicode61 remove_diacritics 1');
 CREATE INDEX idx_entity_entity_type ON entity(entity_type);
 CREATE INDEX idx_entity_name ON entity(name);
 CREATE INDEX idx_entity_name_ascii_folded ON entity(name_ascii_folded);
 CREATE INDEX idx_entity_n_outputs ON entity(n_outputs);
 CREATE INDEX idx_entity_n_outputs_open ON entity(n_outputs_open);
 CREATE INDEX idx_entity_p_outputs_open ON entity(p_outputs_open);
-CREATE INDEX idx_entity_filter ON entity(entity_type, n_outputs, n_outputs_open, p_outputs_open, subregion, institution_type);
-CREATE VIRTUAL TABLE entity_fts5 USING fts5(name, acronyms, region, country_name, entity_type, content='none', tokenize='porter unicode61 remove_diacritics 1');`;
+CREATE INDEX idx_entity_filter ON entity(entity_type, n_outputs, n_outputs_open, p_outputs_open, subregion, institution_type);`;
 
 /*
 TODO: optimise indexes when adding more entities
@@ -138,7 +138,7 @@ function escapeSingleQuotes(text: string): string {
 
 export function entitiesToSQL(entities: Array<Entity>) {
   // Add schema
-  const rows = [SCHEMA];
+  const rows = [ENTITY_SCHEMA];
 
   // Find max outputs for institutions in each country
   const instCountryMaxOutputs: { [key: string]: number } = {};
@@ -211,6 +211,7 @@ export function entitiesToSQL(entities: Array<Entity>) {
       name_ascii_folded,
       acronyms,
       entity.logo_sm,
+      entity.url,
       entity.subregion,
       entity.region,
       country_code,

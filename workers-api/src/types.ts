@@ -16,11 +16,21 @@
 
 import { Request, Obj } from "itty-router";
 
+export interface FetchImageParams {
+  params: {
+    entityId: string;
+  };
+  query: {
+    size?: "sm" | "md" | "lg"; // optional query param
+  };
+}
+
 export interface Entity extends Object {
   id: string;
   name: string;
   entity_type: string;
   logo_sm: string;
+  url: string;
   region: string;
   subregion: string;
   country_code?: string;

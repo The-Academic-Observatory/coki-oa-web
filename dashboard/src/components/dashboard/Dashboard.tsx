@@ -518,7 +518,6 @@ export async function getDashboardStaticProps() {
   const countryQuery = queryFormToQueryParams(makeFormValues(stats.country, DEFAULT_N_OUTPUTS));
   const countries = (await client.getEntities("country", countryQuery)).data;
   const institutionQuery = queryFormToQueryParams(makeFormValues(stats.institution, DEFAULT_N_OUTPUTS));
-  console.log(institutionQuery);
   const institutions = (await client.getEntities("institution", institutionQuery)).data;
 
   return {

@@ -43,7 +43,6 @@ const BrandBadge = ({ name, imageSrc, isMultiLine, ...rest }: BrandBadgeProps) =
       whiteSpace: "nowrap",
     };
   }
-  console.log(`HERE: ${name} || ${imageSrc}`); // TODO: remove
 
   return (
     <HStack {...rest}>

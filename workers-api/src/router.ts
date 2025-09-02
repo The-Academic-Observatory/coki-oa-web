@@ -15,13 +15,21 @@
 // Author: James Diprose
 
 import ittyRouter from "itty-router";
-import { filterEntitiesHandler, downloadDataHandler, fetchEntityHandler, searchHandler, HEADERS } from "@/handlers";
+import {
+  filterEntitiesHandler,
+  downloadDataHandler,
+  fetchEntityHandler,
+  fetchLogoHandler,
+  searchHandler,
+  HEADERS,
+} from "@/handlers";
 const { Router } = ittyRouter;
 
 // Setup API router
 export const router = Router({ base: "/" });
 router
   .get("/search/:text", searchHandler) // Search all countries and institutions with full text search
+  .get("/logos/:entityId", fetchLogoHandler) // Fetch institution image
   .get("/:entityType/:id", fetchEntityHandler) // Get the full details for a single country or institution
   .get("/countries", filterEntitiesHandler.bind(null, "country")) // Filter countries
   .get("/institutions", filterEntitiesHandler.bind(null, "institution")) // Filter institutions
@@ -35,6 +43,10 @@ router
       }),
   );
 
-export async function handleRequest(request: Request, env: Record<string, any>, ctx: ExecutionContext) {
+export async function handleRequest(
+  request: Request,
+  env: Record<string, any>,
+  ctx: ExecutionContext,
+) {
   return router.handle(request, env, ctx);
 }

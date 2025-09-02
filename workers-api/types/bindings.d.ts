@@ -7,4 +7,7 @@ interface Bindings {
 
   // D1 database
   __D1_BETA__DB: D1Database;
+
+  // Logo.dev API token
+  LOGOS_API_TOKEN: string;
 }

@@ -16,14 +16,20 @@
 
 import { handleRequest } from "@/router";
 
-const maxAge = 604800; // cache data for 7 days
-
 export function makeCacheKey(request: Request): Request {
   return new Request(request.url, request);
 }
 
 //@ts-ignore
-export async function fetchData(request: Request, env: Bindings, ctx: ExecutionContext) {
+export async function fetchData(
+  request: Request,
+  env: Bindings,
+  ctx: ExecutionContext,
+) {
+  let maxAge = 604800; // cache data for 7 days
+  if (request.url.includes("/logos/")) {
+    maxAge = 2592000; // 30 days for logos
+  }
   const cache = caches.default;
   const cacheKey = makeCacheKey(request);
   let response = await cache.match(cacheKey);
@@ -36,7 +42,7 @@ export async function fetchData(request: Request, env: Bindings, ctx: ExecutionC
 
     if (response?.status === 200) {
       // If 200 code then cache response, else return error
-      response.headers.append("Cache-Control", `s-maxage=${maxAge}`);
+      response.headers.set("Cache-Control", `s-maxage=${maxAge}`);
       ctx.waitUntil(cache.put(cacheKey, response.clone()));
     }
   }

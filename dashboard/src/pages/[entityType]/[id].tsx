@@ -52,6 +52,7 @@ export async function getStaticProps({ params }: Params) {
   // Validate institution ID
   // ROR ID pattern: https://ror.readme.io/docs/ror-identifier-pattern
   if (params.entityType === "institution" && !/^0[a-hj-km-np-tv-z|0-9]{6}[0-9]{2}$/.test(params.id)) {
+    console.log(`invalid institution ID: ${params.id}`);
     return { notFound: true };
   }
 
@@ -60,6 +61,7 @@ export async function getStaticProps({ params }: Params) {
   const client = new OADataAPI();
   const entity = await client.getEntity(params.entityType, params.id);
   if (entity === null) {
+    console.log(`Entity not found: ${params.id}`);
     return { notFound: true };
   }
 

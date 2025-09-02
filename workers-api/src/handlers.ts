@@ -26,6 +26,7 @@ import {
   FilterRequest,
   Query,
   SearchRequest,
+  FetchImageParams,
 } from "@/types";
 import { filterEntities, searchEntities } from "@/database";
 
@@ -37,6 +38,7 @@ const MIN_LIMIT = 1;
 const MAX_LIMIT = 100;
 const MIN_OUTPUTS = 0;
 const MIN_OUTPUTS_OPEN = 0;
+const LOGOS_HOST = "https://img.logo.dev";
 
 export const fetchEntityHandler = async (
   req: EntityRequest,
@@ -161,6 +163,7 @@ export const filterEntitiesHandler = async (
 ) => {
   const q = req["query"];
   const query = parseQuery(q);
+  console.log(query);
 
   // Fetch data
   const results = await filterEntities(
@@ -205,6 +208,106 @@ export const searchHandler = async (
     headers: HEADERS,
   });
 };
+
+export const fetchLogoHandler = async (
+  { params, query }: FetchImageParams,
+  env: Bindings,
+) => {
+  const { entityId } = params;
+  const size = query.size;
+
+  let sizePx;
+  switch (size) {
+    case "md":
+      sizePx = "128";
+      break;
+    case "lg":
+      sizePx = "512";
+      break;
+    default:
+      sizePx = "32"; // default to small
+  }
+
+  // Fetch entity JSON from KV using fetchEntityHandler
+  const assetPath = `institution/${entityId}.json`;
+  const kvKey = JSON.parse(manifestJSON)[assetPath];
+  const entityDataStream = await env.__STATIC_CONTENT.get(kvKey, {
+    type: "stream",
+  });
+  if (!entityDataStream) {
+    return new Response("Entity not found", { status: 404 });
+  }
+
+  // Parse entity JSON minimally to get the domain
+  const entityJSON = await streamToString(entityDataStream);
+  const entity = JSON.parse(entityJSON);
+  const domain = getDomain(entity.url);
+
+  if (!domain) {
+    return new Response("Domain not found for entity", { status: 404 });
+  }
+
+  // Fetch the image using the domain
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "image/jpeg",
+  };
+
+  const res = await fetch(
+    `${LOGOS_HOST}/${domain}?token=${env.LOGOS_API_TOKEN}&size=${sizePx}`,
+  );
+  if (!res.ok) {
+    throw new Error(`Image fetch failed for domain ${domain}: ${res.status}`);
+  }
+
+  return new Response(res.body, {
+    status: res.status,
+    headers: headers,
+  });
+};
+/** Helper function to convert a ReadableStream to string */
+async function streamToString(stream: ReadableStream<Uint8Array>) {
+  const reader = stream.getReader();
+  let result = "";
+  const decoder = new TextDecoder();
+  let done = false;
+
+  while (!done) {
+    const { value, done: d } = await reader.read();
+    done = d;
+    if (value) result += decoder.decode(value, { stream: true });
+  }
+
+  result += decoder.decode(); // flush
+  return result;
+}
+
+/**
+ * Takes a URL string and returns the domain.
+ * It is idempotent.
+ * @param url The URL string to process.
+ * @returns The domain name (e.g., "guc-asic.com") or null if the URL is invalid.
+ */
+export function getDomain(url: string): string | null {
+  try {
+    let validatedUrl = url;
+    // Check if the URL starts with a protocol
+    if (!url.match(/^[a-z]+:\/\//i)) {
+      // If no protocol is found, prepend 'https://'
+      validatedUrl = `https://${url}`;
+    }
+
+    const parsedUrl = new URL(validatedUrl);
+    const hostname = parsedUrl.hostname;
+
+    // Remove "www." prefix if it exists
+    return hostname.startsWith("www.") ? hostname.substring(4) : hostname;
+  } catch (error) {
+    // Return null for malformed or invalid URLs
+    console.error(`Invalid URL provided: ${url}`);
+    return null;
+  }
+}
 
 export const downloadDataHandler = async (
   req: EntityRequest,
