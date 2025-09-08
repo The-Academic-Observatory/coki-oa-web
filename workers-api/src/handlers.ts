@@ -209,6 +209,7 @@ export const searchHandler = async (
   });
 };
 
+// Fetches a logo from the external LOGO API source
 export const fetchLogoHandler = async (
   { params, query }: FetchImageParams,
   env: Bindings,
@@ -265,6 +266,7 @@ export const fetchLogoHandler = async (
     headers: headers,
   });
 };
+
 /** Helper function to convert a ReadableStream to string */
 async function streamToString(stream: ReadableStream<Uint8Array>) {
   const reader = stream.getReader();
