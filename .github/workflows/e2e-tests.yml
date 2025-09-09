@@ -26,7 +26,7 @@ jobs:
           yarn run build # Creates ../data/data/db.sql
           # NOTE: revert this line if wrangler ever gets fixed.
           # yarn run wrangler d1 execute DB --file ../data/data/db.sql --local --config wrangler.local.toml
-          ./bin/load_entities.sh ..
+          ../bin/load_entities.sh ..
 
       - name: Run e2e Tests
         working-directory: ./dashboard
