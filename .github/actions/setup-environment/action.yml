@@ -40,6 +40,13 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Free Disk Space (Ubuntu)
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /opt/ghc
+      shell: bash
+
     - name: Setup NodeJS
       uses: actions/setup-node@v4.0.2
       with:
@@ -60,6 +67,8 @@ runs:
       run: |
         yarn install
       shell: bash
+      env:
+        PUPPETEER_SKIP_DOWNLOAD: "true"
 
     - name: Install Playwright
       if: inputs.playwright == 'true'
