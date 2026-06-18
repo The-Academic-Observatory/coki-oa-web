@@ -144,7 +144,7 @@ const FooterLinks = ({ links, ...rest }: FooterLinksProps) => {
 const FooterCredits = ({ ...rest }: StackProps) => {
   return (
     <VStack align="left" textStyle="footerLink2" color={{ base: "grey.900", std: "grey.100" }} {...rest}>
-      <Link href="https://clearbit.com/">Company Logos by Clearbit</Link>
+      <Link href="https://logo.dev/">Logos provided by Logo.dev</Link>
     </VStack>
   );
 };
