@@ -5,7 +5,7 @@ name: "Build and Deploy"
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
     branches:
       - develop
       - main
@@ -14,16 +14,18 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - name: Free up disk space
+      - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 4096
-          swap-size-mb: 1024
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
+          root-reserve-mb: 8192
+          swap-size-mb: 512
+          remove-dotnet: "true"
+          remove-android: "true"
+          remove-haskell: "true"
+          remove-codeql: "true"
+          remove-docker-images: "true"
+          remove-large-packages: "true"
+          remove-swift: "true"
 
       - name: Checkout
         uses: actions/checkout@v4
