@@ -60,6 +60,8 @@ runs:
       run: |
         yarn install
       shell: bash
+      env:
+        PUPPETEER_SKIP_DOWNLOAD: "true"
 
     - name: Install Playwright
       if: inputs.playwright == 'true'
