@@ -31,7 +31,7 @@ inputs:
   vercel_version:
     description: "The Vercel CLI version"
     required: false
-    default: "44.7.3"
+    default: "54.14.5"
   download_images:
     description: "Whether to download images or not"
     required: false
