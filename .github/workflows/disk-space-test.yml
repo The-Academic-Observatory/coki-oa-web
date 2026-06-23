@@ -1,0 +1,42 @@
+name: Disk Space Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check disk space BEFORE cleanup
+        run: df -h /
+
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: false
+
+      - name: Check disk space AFTER cleanup
+        run: df -h /
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run setup environment
+        uses: ./.github/actions/setup-environment
+        with:
+          bucket_name: ${{ secrets.BUCKET_NAME }}
+          gcp_credentials: ${{ secrets.GCP_CREDENTIALS }}
+          vercel: true
+          download_images: true
+          node_version: 22.11.0
+          yarn_version: 4.1.0
+          vercel_version: 44.7.3
+
+      - name: Check disk space AFTER setup
+        run: df -h /
